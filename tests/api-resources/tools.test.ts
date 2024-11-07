@@ -7,7 +7,7 @@ const client = new Letta({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://
 
 describe('resource tools', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.tools.create({ source_code: 'source_code' });
+    const responsePromise = client.tools.create({ source_code: 'source_code', source_type: 'source_type' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,11 +20,11 @@ describe('resource tools', () => {
   test('create: required and optional params', async () => {
     const response = await client.tools.create({
       source_code: 'source_code',
+      source_type: 'source_type',
       description: 'description',
       json_schema: {},
       module: 'module',
       name: 'name',
-      source_type: 'source_type',
       tags: ['string', 'string', 'string'],
       user_id: 'user_id',
     });
@@ -110,6 +110,13 @@ describe('resource tools', () => {
     await expect(client.tools.delete('tool_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Letta.NotFoundError,
     );
+  });
+
+  test('delete: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.tools.delete('tool_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   test('addBaseTools', async () => {

@@ -23,7 +23,7 @@ Methods:
 - <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">retrieve</a>(toolId, { ...params }) -> Tool</code>
 - <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">update</a>(toolId, { ...params }) -> Tool</code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/resources/tools.ts">list</a>({ ...params }) -> ToolListResponse</code>
-- <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolId) -> unknown</code>
+- <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolId, { ...params }) -> unknown</code>
 - <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/resources/tools.ts">addBaseTools</a>({ ...params }) -> ToolAddBaseToolsResponse</code>
 - <code title="get /v1/tools/name/{tool_name}">client.tools.<a href="./src/resources/tools.ts">retrieveByName</a>(toolName, { ...params }) -> string</code>
 
@@ -235,37 +235,14 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/admin-users/admin-users.ts">User</a></code>
-- <code><a href="./src/resources/admin-users/admin-users.ts">AdminUserListResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/admin/users/">client.adminUsers.<a href="./src/resources/admin-users/admin-users.ts">create</a>({ ...params }) -> User</code>
-- <code title="put /v1/admin/users/">client.adminUsers.<a href="./src/resources/admin-users/admin-users.ts">update</a>({ ...params }) -> User</code>
-- <code title="get /v1/admin/users/">client.adminUsers.<a href="./src/resources/admin-users/admin-users.ts">list</a>({ ...params }) -> AdminUserListResponse</code>
-- <code title="delete /v1/admin/users/">client.adminUsers.<a href="./src/resources/admin-users/admin-users.ts">delete</a>({ ...params }) -> User</code>
 
 ## Keys
 
 Types:
 
 - <code><a href="./src/resources/admin-users/keys.ts">APIKey</a></code>
-- <code><a href="./src/resources/admin-users/keys.ts">KeyListResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/admin/users/keys">client.adminUsers.keys.<a href="./src/resources/admin-users/keys.ts">create</a>({ ...params }) -> APIKey</code>
-- <code title="get /v1/admin/users/keys">client.adminUsers.keys.<a href="./src/resources/admin-users/keys.ts">list</a>({ ...params }) -> KeyListResponse</code>
-- <code title="delete /v1/admin/users/keys">client.adminUsers.keys.<a href="./src/resources/admin-users/keys.ts">delete</a>({ ...params }) -> APIKey</code>
 
 # AdminOrgs
-
-Types:
-
-- <code><a href="./src/resources/admin-orgs.ts">AdminOrgListResponse</a></code>
-
-Methods:
-
-- <code title="get /v1/admin/orgs/">client.adminOrgs.<a href="./src/resources/admin-orgs.ts">list</a>({ ...params }) -> AdminOrgListResponse</code>
 
 # AdminOrganizations
 
@@ -273,17 +250,8 @@ Types:
 
 - <code><a href="./src/resources/admin-organizations.ts">Organization</a></code>
 
-Methods:
-
-- <code title="post /v1/admin/orgs/">client.adminOrganizations.<a href="./src/resources/admin-organizations.ts">create</a>({ ...params }) -> Organization</code>
-- <code title="delete /v1/admin/orgs/">client.adminOrganizations.<a href="./src/resources/admin-organizations.ts">delete</a>({ ...params }) -> Organization</code>
-
 # Auth
 
 Types:
 
 - <code><a href="./src/resources/auth.ts">AuthResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/auth">client.auth.<a href="./src/resources/auth.ts">authenticate</a>({ ...params }) -> AuthResponse</code>

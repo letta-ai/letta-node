@@ -29,7 +29,7 @@ describe('resource files', () => {
     await expect(
       client.sources.files.list(
         'source_id',
-        { cursor: 'cursor', limit: 0 },
+        { cursor: 'cursor', limit: 0, user_id: 'user_id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
