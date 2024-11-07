@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as Shared from '../shared';
+import * as SourcesSourcesAPI from '../sources/sources';
 
 export class Sources extends APIResource {
   /**
@@ -13,7 +13,7 @@ export class Sources extends APIResource {
   }
 }
 
-export type SourceListResponse = Array<Shared.Source>;
+export type SourceListResponse = Array<SourcesSourcesAPI.Source>;
 
 export declare namespace Sources {
   export { type SourceListResponse as SourceListResponse };

@@ -26,7 +26,8 @@ The full API of this library can be found in [api.md](api.md).
 import Letta from 'letta';
 
 const client = new Letta({
-  environment: 'environment_1', // or 'production' | 'environment_2' | 'environment_3'; defaults to 'production'
+  bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
+  environment: 'environment_1', // defaults to 'production'
 });
 
 async function main() {
@@ -47,7 +48,8 @@ This library includes TypeScript definitions for all request params and response
 import Letta from 'letta';
 
 const client = new Letta({
-  environment: 'environment_1', // or 'production' | 'environment_2' | 'environment_3'; defaults to 'production'
+  bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
+  environment: 'environment_1', // defaults to 'production'
 });
 
 async function main() {

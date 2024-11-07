@@ -3,7 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as Shared from '../shared';
+import * as PassagesAPI from '../sources/passages';
 
 export class Archival extends APIResource {
   /**
@@ -74,9 +74,9 @@ export class Archival extends APIResource {
   }
 }
 
-export type ArchivalCreateResponse = Array<Shared.Passage>;
+export type ArchivalCreateResponse = Array<PassagesAPI.Passage>;
 
-export type ArchivalListResponse = Array<Shared.Passage>;
+export type ArchivalListResponse = Array<PassagesAPI.Passage>;
 
 export type ArchivalDeleteResponse = unknown;
 

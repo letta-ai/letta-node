@@ -6,9 +6,9 @@ import * as Core from '../../core';
 import * as ModelsAPI from '../models';
 import * as Shared from '../shared';
 import * as FilesAPI from './files';
-import { FileListParams, FileListResponse, Filemetadata, Files } from './files';
+import { FileDeleteParams, FileListParams, FileListResponse, FileMetadata, Files } from './files';
 import * as PassagesAPI from './passages';
-import { PassageListParams, PassageListResponse, Passages } from './passages';
+import { Passage, PassageListParams, PassageListResponse, Passages } from './passages';
 
 export class Sources extends APIResource {
   passages: PassagesAPI.Passages = new PassagesAPI.Passages(this._client);
@@ -17,7 +17,7 @@ export class Sources extends APIResource {
   /**
    * Create a new data source.
    */
-  create(params: SourceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Source> {
+  create(params: SourceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Source> {
     const { user_id, ...body } = params;
     return this._client.post('/v1/sources/', {
       body,
@@ -27,26 +27,30 @@ export class Sources extends APIResource {
   }
 
   /**
-   * Get all sources
+   * Get a source by name
    */
   retrieve(
-    sourceId: string,
+    sourceName: string,
     params?: SourceRetrieveParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Source>;
-  retrieve(sourceId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Source>;
+  ): Core.APIPromise<string>;
+  retrieve(sourceName: string, options?: Core.RequestOptions): Core.APIPromise<string>;
   retrieve(
-    sourceId: string,
+    sourceName: string,
     params: SourceRetrieveParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Source> {
+  ): Core.APIPromise<string> {
     if (isRequestOptions(params)) {
-      return this.retrieve(sourceId, {}, params);
+      return this.retrieve(sourceName, {}, params);
     }
     const { user_id } = params;
-    return this._client.get(`/v1/sources/${sourceId}`, {
+    return this._client.get(`/v1/sources/name/${sourceName}`, {
       ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+      headers: {
+        Accept: 'application/json',
+        ...(user_id != null ? { user_id: user_id } : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -57,7 +61,7 @@ export class Sources extends APIResource {
     sourceId: string,
     params: SourceUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Source> {
+  ): Core.APIPromise<Source> {
     const { user_id, ...body } = params;
     return this._client.patch(`/v1/sources/${sourceId}`, {
       body,
@@ -90,28 +94,22 @@ export class Sources extends APIResource {
    */
   delete(
     sourceId: string,
-    fileId: string,
     params?: SourceDeleteParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<void>;
-  delete(sourceId: string, fileId: string, options?: Core.RequestOptions): Core.APIPromise<void>;
+  ): Core.APIPromise<unknown>;
+  delete(sourceId: string, options?: Core.RequestOptions): Core.APIPromise<unknown>;
   delete(
     sourceId: string,
-    fileId: string,
     params: SourceDeleteParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
+  ): Core.APIPromise<unknown> {
     if (isRequestOptions(params)) {
-      return this.delete(sourceId, fileId, {}, params);
+      return this.delete(sourceId, {}, params);
     }
     const { user_id } = params;
-    return this._client.delete(`/v1/sources/${sourceId}/${fileId}`, {
+    return this._client.delete(`/v1/sources/${sourceId}`, {
       ...options,
-      headers: {
-        Accept: '*/*',
-        ...(user_id != null ? { user_id: user_id } : undefined),
-        ...options?.headers,
-      },
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
     });
   }
 
@@ -122,7 +120,7 @@ export class Sources extends APIResource {
     sourceId: string,
     params: SourceAttachParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Source> {
+  ): Core.APIPromise<Source> {
     const { agent_id, user_id } = params;
     return this._client.post(`/v1/sources/${sourceId}/attach`, {
       query: { agent_id },
@@ -138,40 +136,12 @@ export class Sources extends APIResource {
     sourceId: string,
     params: SourceDetachParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Source> {
+  ): Core.APIPromise<Source> {
     const { agent_id, user_id } = params;
     return this._client.post(`/v1/sources/${sourceId}/detach`, {
       query: { agent_id },
       ...options,
       headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
-  }
-
-  /**
-   * Get a source by name
-   */
-  retrieveByName(
-    sourceName: string,
-    params?: SourceRetrieveByNameParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<string>;
-  retrieveByName(sourceName: string, options?: Core.RequestOptions): Core.APIPromise<string>;
-  retrieveByName(
-    sourceName: string,
-    params: SourceRetrieveByNameParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<string> {
-    if (isRequestOptions(params)) {
-      return this.retrieveByName(sourceName, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.get(`/v1/sources/name/${sourceName}`, {
-      ...options,
-      headers: {
-        Accept: 'application/json',
-        ...(user_id != null ? { user_id: user_id } : undefined),
-        ...options?.headers,
-      },
     });
   }
 
@@ -195,9 +165,57 @@ export class Sources extends APIResource {
   }
 }
 
-export type SourceListResponse = Array<Shared.Source>;
+/**
+ * Representation of a source, which is a collection of files and passages.
+ *
+ * Parameters: id (str): The ID of the source name (str): The name of the source.
+ * embedding*config (EmbeddingConfig): The embedding configuration used by the
+ * source. created_at (datetime): The creation date of the source. user_id (str):
+ * The ID of the user that created the source. metadata* (dict): Metadata
+ * associated with the source. description (str): The description of the source.
+ */
+export interface Source {
+  /**
+   * The embedding configuration used by the source.
+   */
+  embedding_config: ModelsAPI.EmbeddingConfig;
 
-export type SourceRetrieveByNameResponse = string;
+  /**
+   * The name of the source.
+   */
+  name: string;
+
+  /**
+   * The ID of the user that created the source.
+   */
+  user_id: string;
+
+  /**
+   * The human-friendly ID of the Source
+   */
+  id?: string;
+
+  /**
+   * The creation date of the source.
+   */
+  created_at?: string;
+
+  /**
+   * The description of the source.
+   */
+  description?: string | null;
+
+  /**
+   * Metadata associated with the source.
+   */
+  metadata_?: unknown | null;
+}
+
+export type SourceRetrieveResponse = string;
+
+export type SourceListResponse = Array<Source>;
+
+export type SourceDeleteResponse = unknown;
 
 export interface SourceCreateParams {
   /**
@@ -223,7 +241,7 @@ export interface SourceCreateParams {
    * azure_version (str): The Azure version for the model (Azure only).
    * azure_deployment (str): The Azure deployment for the model (Azure only).
    */
-  embedding_config?: ModelsAPI.Embeddingconfig | null;
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
    * Body param: Metadata associated with the source.
@@ -264,7 +282,7 @@ export interface SourceUpdateParams {
    * azure_version (str): The Azure version for the model (Azure only).
    * azure_deployment (str): The Azure deployment for the model (Azure only).
    */
-  embedding_config?: ModelsAPI.Embeddingconfig | null;
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
    * Body param: Metadata associated with the source.
@@ -314,10 +332,6 @@ export interface SourceDetachParams {
   user_id?: string;
 }
 
-export interface SourceRetrieveByNameParams {
-  user_id?: string;
-}
-
 export interface SourceUploadParams {
   /**
    * Body param:
@@ -335,8 +349,10 @@ Sources.Files = Files;
 
 export declare namespace Sources {
   export {
+    type Source as Source,
+    type SourceRetrieveResponse as SourceRetrieveResponse,
     type SourceListResponse as SourceListResponse,
-    type SourceRetrieveByNameResponse as SourceRetrieveByNameResponse,
+    type SourceDeleteResponse as SourceDeleteResponse,
     type SourceCreateParams as SourceCreateParams,
     type SourceRetrieveParams as SourceRetrieveParams,
     type SourceUpdateParams as SourceUpdateParams,
@@ -344,20 +360,21 @@ export declare namespace Sources {
     type SourceDeleteParams as SourceDeleteParams,
     type SourceAttachParams as SourceAttachParams,
     type SourceDetachParams as SourceDetachParams,
-    type SourceRetrieveByNameParams as SourceRetrieveByNameParams,
     type SourceUploadParams as SourceUploadParams,
   };
 
   export {
     Passages as Passages,
+    type Passage as Passage,
     type PassageListResponse as PassageListResponse,
     type PassageListParams as PassageListParams,
   };
 
   export {
     Files as Files,
-    type Filemetadata as Filemetadata,
+    type FileMetadata as FileMetadata,
     type FileListResponse as FileListResponse,
     type FileListParams as FileListParams,
+    type FileDeleteParams as FileDeleteParams,
   };
 }

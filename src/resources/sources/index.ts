@@ -1,11 +1,19 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Files, type Filemetadata, type FileListResponse, type FileListParams } from './files';
-export { Passages, type PassageListResponse, type PassageListParams } from './passages';
+export {
+  Files,
+  type FileMetadata,
+  type FileListResponse,
+  type FileListParams,
+  type FileDeleteParams,
+} from './files';
+export { Passages, type Passage, type PassageListResponse, type PassageListParams } from './passages';
 export {
   Sources,
+  type Source,
+  type SourceRetrieveResponse,
   type SourceListResponse,
-  type SourceRetrieveByNameResponse,
+  type SourceDeleteResponse,
   type SourceCreateParams,
   type SourceRetrieveParams,
   type SourceUpdateParams,
@@ -13,6 +21,5 @@ export {
   type SourceDeleteParams,
   type SourceAttachParams,
   type SourceDetachParams,
-  type SourceRetrieveByNameParams,
   type SourceUploadParams,
 } from './sources';

@@ -3,8 +3,8 @@
 export { Archival } from './archival';
 export {
   Memory,
-  type Archivalmemorysummary,
-  type Recallmemorysummary,
+  type ArchivalMemorySummary,
+  type RecallMemorySummary,
   type MemoryUpdateParams,
 } from './memory';
 export { Messages, type MessageRetrieveResponse } from './messages';

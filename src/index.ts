@@ -5,9 +5,6 @@ import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { AdminOrganizations, Organization } from './resources/admin-organizations';
-import { AdminOrgs } from './resources/admin-orgs';
-import { Auth, AuthResponse } from './resources/auth';
 import {
   Block,
   BlockCreateParams,
@@ -19,13 +16,14 @@ import {
 import { Health } from './resources/health';
 import { JobActiveParams, JobActiveResponse, JobListParams, JobListResponse, Jobs } from './resources/jobs';
 import {
-  Embeddingconfig,
-  Llmconfig,
+  EmbeddingConfig,
+  LlmConfig,
   ModelEmbeddingResponse,
   ModelListResponse,
   Models,
 } from './resources/models';
 import {
+  Tool,
   ToolAddBaseToolsParams,
   ToolAddBaseToolsResponse,
   ToolCreateParams,
@@ -39,50 +37,54 @@ import {
   ToolUpdateParams,
   Tools,
 } from './resources/tools';
-import { AdminUsers, User } from './resources/admin-users/admin-users';
 import {
   AgentCreateParams,
   AgentDeleteParams,
   AgentDeleteResponse,
   AgentListParams,
   AgentListResponse,
+  AgentMigrateParams,
+  AgentMigrateResponse,
   AgentRetrieveParams,
+  AgentState,
   AgentUpdateParams,
   Agents,
-  Agentstate,
+  Memory,
 } from './resources/agents/agents';
 import {
+  Source,
   SourceAttachParams,
   SourceCreateParams,
   SourceDeleteParams,
+  SourceDeleteResponse,
   SourceDetachParams,
   SourceListParams,
   SourceListResponse,
-  SourceRetrieveByNameParams,
-  SourceRetrieveByNameResponse,
   SourceRetrieveParams,
+  SourceRetrieveResponse,
   SourceUpdateParams,
   SourceUploadParams,
   Sources,
 } from './resources/sources/sources';
 
 const environments = {
-  production: 'http://letta.localhost',
+  production: 'https://app.letta.com',
   environment_1: 'http://localhost:8283',
-  environment_2: 'http://localhost:8083',
-  environment_3: 'http://localhost:3000',
 };
 type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
+   * The bearer token used for authentication
+   */
+  bearerToken?: string | undefined;
+
+  /**
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `production` corresponds to `http://letta.localhost`
+   * - `production` corresponds to `https://app.letta.com`
    * - `environment_1` corresponds to `http://localhost:8283`
-   * - `environment_2` corresponds to `http://localhost:8083`
-   * - `environment_3` corresponds to `http://localhost:3000`
    */
   environment?: Environment;
 
@@ -147,13 +149,16 @@ export interface ClientOptions {
  * API Client for interfacing with the Letta API.
  */
 export class Letta extends Core.APIClient {
+  bearerToken: string;
+
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Letta API.
    *
+   * @param {string | undefined} [opts.bearerToken=process.env['BEARER_TOKEN'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? http://letta.localhost] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? https://app.letta.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -161,8 +166,19 @@ export class Letta extends Core.APIClient {
    * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({ baseURL = Core.readEnv('LETTA_BASE_URL'), ...opts }: ClientOptions = {}) {
+  constructor({
+    baseURL = Core.readEnv('LETTA_BASE_URL'),
+    bearerToken = Core.readEnv('BEARER_TOKEN'),
+    ...opts
+  }: ClientOptions = {}) {
+    if (bearerToken === undefined) {
+      throw new Errors.LettaError(
+        "The BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the Letta client with an bearerToken option, like new Letta({ bearerToken: 'My Bearer Token' }).",
+      );
+    }
+
     const options: ClientOptions = {
+      bearerToken,
       ...opts,
       baseURL,
       environment: opts.environment ?? 'production',
@@ -183,6 +199,8 @@ export class Letta extends Core.APIClient {
     });
 
     this._options = options;
+
+    this.bearerToken = bearerToken;
   }
 
   tools: API.Tools = new API.Tools(this);
@@ -192,10 +210,6 @@ export class Letta extends Core.APIClient {
   blocks: API.Blocks = new API.Blocks(this);
   jobs: API.Jobs = new API.Jobs(this);
   health: API.Health = new API.Health(this);
-  adminUsers: API.AdminUsers = new API.AdminUsers(this);
-  adminOrgs: API.AdminOrgs = new API.AdminOrgs(this);
-  adminOrganizations: API.AdminOrganizations = new API.AdminOrganizations(this);
-  auth: API.Auth = new API.Auth(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -206,6 +220,10 @@ export class Letta extends Core.APIClient {
       ...super.defaultHeaders(opts),
       ...this._options.defaultHeaders,
     };
+  }
+
+  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
+    return { Authorization: `Bearer ${this.bearerToken}` };
   }
 
   static Letta = this;
@@ -254,16 +272,13 @@ Letta.Agents = Agents;
 Letta.Models = Models;
 Letta.Blocks = Blocks;
 Letta.Jobs = Jobs;
-Letta.AdminUsers = AdminUsers;
-Letta.AdminOrgs = AdminOrgs;
-Letta.AdminOrganizations = AdminOrganizations;
-Letta.Auth = Auth;
 
 export declare namespace Letta {
   export type RequestOptions = Core.RequestOptions;
 
   export {
     Tools as Tools,
+    type Tool as Tool,
     type ToolListResponse as ToolListResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type ToolAddBaseToolsResponse as ToolAddBaseToolsResponse,
@@ -279,8 +294,10 @@ export declare namespace Letta {
 
   export {
     Sources as Sources,
+    type Source as Source,
+    type SourceRetrieveResponse as SourceRetrieveResponse,
     type SourceListResponse as SourceListResponse,
-    type SourceRetrieveByNameResponse as SourceRetrieveByNameResponse,
+    type SourceDeleteResponse as SourceDeleteResponse,
     type SourceCreateParams as SourceCreateParams,
     type SourceRetrieveParams as SourceRetrieveParams,
     type SourceUpdateParams as SourceUpdateParams,
@@ -288,26 +305,28 @@ export declare namespace Letta {
     type SourceDeleteParams as SourceDeleteParams,
     type SourceAttachParams as SourceAttachParams,
     type SourceDetachParams as SourceDetachParams,
-    type SourceRetrieveByNameParams as SourceRetrieveByNameParams,
     type SourceUploadParams as SourceUploadParams,
   };
 
   export {
     Agents as Agents,
-    type Agentstate as Agentstate,
+    type AgentState as AgentState,
+    type Memory as Memory,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
+    type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
+    type AgentMigrateParams as AgentMigrateParams,
   };
 
   export {
     Models as Models,
-    type Embeddingconfig as Embeddingconfig,
-    type Llmconfig as Llmconfig,
+    type EmbeddingConfig as EmbeddingConfig,
+    type LlmConfig as LlmConfig,
     type ModelListResponse as ModelListResponse,
     type ModelEmbeddingResponse as ModelEmbeddingResponse,
   };
@@ -331,19 +350,7 @@ export declare namespace Letta {
 
   export { type Health as Health };
 
-  export { AdminUsers as AdminUsers, type User as User };
-
-  export { AdminOrgs as AdminOrgs };
-
-  export { AdminOrganizations as AdminOrganizations, type Organization as Organization };
-
-  export { Auth as Auth, type AuthResponse as AuthResponse };
-
   export type Job = API.Job;
-  export type Memory = API.Memory;
-  export type Passage = API.Passage;
-  export type Source = API.Source;
-  export type Tool = API.Tool;
 }
 
 export default Letta;

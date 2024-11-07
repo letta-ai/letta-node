@@ -8,7 +8,7 @@ export class Recall extends APIResource {
   /**
    * Retrieve the summary of the recall memory of a specific agent.
    */
-  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<MemoryAPI.Recallmemorysummary> {
+  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<MemoryAPI.RecallMemorySummary> {
     return this._client.get(`/v1/agents/${agentId}/memory/recall`, options);
   }
 }

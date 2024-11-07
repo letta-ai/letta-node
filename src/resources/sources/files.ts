@@ -29,12 +29,42 @@ export class Files extends APIResource {
       headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
     });
   }
+
+  /**
+   * Delete a data source.
+   */
+  delete(
+    sourceId: string,
+    fileId: string,
+    params?: FileDeleteParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void>;
+  delete(sourceId: string, fileId: string, options?: Core.RequestOptions): Core.APIPromise<void>;
+  delete(
+    sourceId: string,
+    fileId: string,
+    params: FileDeleteParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    if (isRequestOptions(params)) {
+      return this.delete(sourceId, fileId, {}, params);
+    }
+    const { user_id } = params;
+    return this._client.delete(`/v1/sources/${sourceId}/${fileId}`, {
+      ...options,
+      headers: {
+        Accept: '*/*',
+        ...(user_id != null ? { user_id: user_id } : undefined),
+        ...options?.headers,
+      },
+    });
+  }
 }
 
 /**
  * Representation of a single FileMetadata
  */
-export interface Filemetadata {
+export interface FileMetadata {
   /**
    * The unique identifier of the source associated with the document.
    */
@@ -87,7 +117,7 @@ export interface Filemetadata {
   [k: string]: unknown;
 }
 
-export type FileListResponse = Array<Filemetadata>;
+export type FileListResponse = Array<FileMetadata>;
 
 export interface FileListParams {
   /**
@@ -106,10 +136,15 @@ export interface FileListParams {
   user_id?: string;
 }
 
+export interface FileDeleteParams {
+  user_id?: string;
+}
+
 export declare namespace Files {
   export {
-    type Filemetadata as Filemetadata,
+    type FileMetadata as FileMetadata,
     type FileListResponse as FileListResponse,
     type FileListParams as FileListParams,
+    type FileDeleteParams as FileDeleteParams,
   };
 }

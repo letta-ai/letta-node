@@ -3,7 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as Shared from '../shared';
+import * as ToolsAPI from '../tools';
 import * as AgentsAPI from './agents';
 
 export class Tools extends APIResource {
@@ -39,14 +39,14 @@ export class Tools extends APIResource {
     toolId: string,
     params?: ToolAddParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.Agentstate>;
-  add(agentId: string, toolId: string, options?: Core.RequestOptions): Core.APIPromise<AgentsAPI.Agentstate>;
+  ): Core.APIPromise<AgentsAPI.AgentState>;
+  add(agentId: string, toolId: string, options?: Core.RequestOptions): Core.APIPromise<AgentsAPI.AgentState>;
   add(
     agentId: string,
     toolId: string,
     params: ToolAddParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.Agentstate> {
+  ): Core.APIPromise<AgentsAPI.AgentState> {
     if (isRequestOptions(params)) {
       return this.add(agentId, toolId, {}, params);
     }
@@ -65,18 +65,18 @@ export class Tools extends APIResource {
     toolId: string,
     params?: ToolRemoveParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.Agentstate>;
+  ): Core.APIPromise<AgentsAPI.AgentState>;
   remove(
     agentId: string,
     toolId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.Agentstate>;
+  ): Core.APIPromise<AgentsAPI.AgentState>;
   remove(
     agentId: string,
     toolId: string,
     params: ToolRemoveParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.Agentstate> {
+  ): Core.APIPromise<AgentsAPI.AgentState> {
     if (isRequestOptions(params)) {
       return this.remove(agentId, toolId, {}, params);
     }
@@ -88,7 +88,7 @@ export class Tools extends APIResource {
   }
 }
 
-export type ToolListResponse = Array<Shared.Tool>;
+export type ToolListResponse = Array<ToolsAPI.Tool>;
 
 export interface ToolListParams {
   user_id?: string;

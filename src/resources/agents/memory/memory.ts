@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../../resource';
 import * as Core from '../../../core';
-import * as Shared from '../../shared';
+import * as AgentsAPI from '../agents';
 import * as ArchivalAPI from './archival';
 import { Archival } from './archival';
 import * as MessagesAPI from './messages';
@@ -19,7 +19,7 @@ export class Memory extends APIResource {
    * Retrieve the memory state of a specific agent. This endpoint fetches the current
    * memory state of the agent identified by the user ID and agent ID.
    */
-  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Memory> {
+  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<AgentsAPI.Memory> {
     return this._client.get(`/v1/agents/${agentId}/memory`, options);
   }
 
@@ -32,7 +32,7 @@ export class Memory extends APIResource {
     agentId: string,
     params: MemoryUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Memory> {
+  ): Core.APIPromise<AgentsAPI.Memory> {
     const { body, user_id } = params;
     return this._client.patch(`/v1/agents/${agentId}/memory`, {
       body: body,
@@ -42,14 +42,14 @@ export class Memory extends APIResource {
   }
 }
 
-export interface Archivalmemorysummary {
+export interface ArchivalMemorySummary {
   /**
    * Number of rows in archival memory
    */
   size: number;
 }
 
-export interface Recallmemorysummary {
+export interface RecallMemorySummary {
   /**
    * Number of rows in recall memory
    */
@@ -74,8 +74,8 @@ Memory.Archival = Archival;
 
 export declare namespace Memory {
   export {
-    type Archivalmemorysummary as Archivalmemorysummary,
-    type Recallmemorysummary as Recallmemorysummary,
+    type ArchivalMemorySummary as ArchivalMemorySummary,
+    type RecallMemorySummary as RecallMemorySummary,
     type MemoryUpdateParams as MemoryUpdateParams,
   };
 
