@@ -3,8 +3,8 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as BlocksAPI from '../blocks';
 import * as ModelsAPI from '../models';
-import * as Shared from '../shared';
 import * as ArchivalAPI from './archival';
 import {
   Archival,
@@ -16,23 +16,34 @@ import {
   ArchivalListResponse,
 } from './archival';
 import * as ContextAPI from './context';
-import { Context, ContextRetrieveParams, Contextwindowoverview } from './context';
+import { Context, ContextRetrieveParams, ContextWindowOverview } from './context';
 import * as MessagesAPI from './messages';
 import {
-  MessageProcessParams,
-  MessageProcessResponse,
+  MessageCreateParams,
+  MessageCreateResponse,
   MessageRetrieveParams,
   MessageRetrieveResponse,
   MessageUpdateParams,
-  Messageoutput,
+  MessageUpdateResponse,
   Messages,
 } from './messages';
 import * as SourcesAPI from './sources';
 import { SourceListResponse, Sources } from './sources';
 import * as ToolsAPI from './tools';
 import { ToolAddParams, ToolListParams, ToolListResponse, ToolRemoveParams, Tools } from './tools';
+import * as VersionTemplateAPI from './version-template';
+import {
+  VersionTemplate,
+  VersionTemplateCreateParams,
+  VersionTemplateCreateResponse,
+} from './version-template';
 import * as MemoryAPI from './memory/memory';
-import { Archivalmemorysummary, Memory, MemoryUpdateParams, Recallmemorysummary } from './memory/memory';
+import {
+  ArchivalMemorySummary,
+  Memory as MemoryAPIMemory,
+  MemoryUpdateParams,
+  RecallMemorySummary,
+} from './memory/memory';
 
 export class Agents extends APIResource {
   context: ContextAPI.Context = new ContextAPI.Context(this._client);
@@ -41,11 +52,12 @@ export class Agents extends APIResource {
   memory: MemoryAPI.Memory = new MemoryAPI.Memory(this._client);
   archival: ArchivalAPI.Archival = new ArchivalAPI.Archival(this._client);
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
+  versionTemplate: VersionTemplateAPI.VersionTemplate = new VersionTemplateAPI.VersionTemplate(this._client);
 
   /**
    * Create a new agent with the specified configuration.
    */
-  create(params: AgentCreateParams, options?: Core.RequestOptions): Core.APIPromise<Agentstate> {
+  create(params: AgentCreateParams, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
     const { body_user_id, header_user_id, ...body } = params;
     return this._client.post('/v1/agents/', {
       body: { user_id: body_user_id, ...body },
@@ -61,13 +73,13 @@ export class Agents extends APIResource {
     agentId: string,
     params?: AgentRetrieveParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Agentstate>;
-  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<Agentstate>;
+  ): Core.APIPromise<AgentState>;
+  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState>;
   retrieve(
     agentId: string,
     params: AgentRetrieveParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Agentstate> {
+  ): Core.APIPromise<AgentState> {
     if (isRequestOptions(params)) {
       return this.retrieve(agentId, {}, params);
     }
@@ -85,7 +97,7 @@ export class Agents extends APIResource {
     agentId: string,
     params: AgentUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Agentstate> {
+  ): Core.APIPromise<AgentState> {
     const { body_user_id, header_user_id, ...body } = params;
     return this._client.patch(`/v1/agents/${agentId}`, {
       body: { user_id: body_user_id, ...body },
@@ -137,6 +149,17 @@ export class Agents extends APIResource {
       headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
     });
   }
+
+  /**
+   * Migrate an agent to a new versioned agent template
+   */
+  migrate(
+    agentId: string,
+    body: AgentMigrateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AgentMigrateResponse> {
+    return this._client.post(`/v1/agents/${agentId}/migrate`, { body, ...options });
+  }
 }
 
 /**
@@ -154,7 +177,7 @@ export class Agents extends APIResource {
  * embedding_config (EmbeddingConfig): The embedding configuration used by the
  * agent.
  */
-export interface Agentstate {
+export interface AgentState {
   /**
    * The type of agent.
    */
@@ -163,12 +186,12 @@ export interface Agentstate {
   /**
    * The embedding configuration used by the agent.
    */
-  embedding_config: ModelsAPI.Embeddingconfig;
+  embedding_config: ModelsAPI.EmbeddingConfig;
 
   /**
    * The LLM configuration used by the agent.
    */
-  llm_config: ModelsAPI.Llmconfig;
+  llm_config: ModelsAPI.LlmConfig;
 
   /**
    * The name of the agent.
@@ -207,7 +230,7 @@ export interface Agentstate {
    * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
    * memory block.
    */
-  memory?: Shared.Memory;
+  memory?: Memory;
 
   /**
    * The ids of the messages in the agent's in-context memory.
@@ -222,7 +245,7 @@ export interface Agentstate {
   /**
    * The list of tool rules.
    */
-  tool_rules?: Array<Agentstate.ToolRule> | null;
+  tool_rules?: Array<AgentState.ToolRule> | null;
 
   /**
    * The user id of the agent.
@@ -230,7 +253,7 @@ export interface Agentstate {
   user_id?: string | null;
 }
 
-export namespace Agentstate {
+export namespace AgentState {
   export interface ToolRule {
     /**
      * The name of the tool. Must exist in the database for the user's organization.
@@ -239,9 +262,32 @@ export namespace Agentstate {
   }
 }
 
-export type AgentListResponse = Array<Agentstate>;
+/**
+ * Represents the in-context memory of the agent. This includes both the `Block`
+ * objects (labelled by sections), as well as tools to edit the blocks.
+ *
+ * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
+ * memory block.
+ */
+export interface Memory {
+  /**
+   * Mapping from memory block section to memory block.
+   */
+  memory?: Record<string, BlocksAPI.Block>;
+
+  /**
+   * Jinja2 template for compiling memory blocks into a prompt string
+   */
+  prompt_template?: string;
+}
+
+export type AgentListResponse = Array<AgentState>;
 
 export type AgentDeleteResponse = unknown;
+
+export interface AgentMigrateResponse {
+  success: true;
+}
 
 export interface AgentCreateParams {
   /**
@@ -267,7 +313,7 @@ export interface AgentCreateParams {
    * azure_version (str): The Azure version for the model (Azure only).
    * azure_deployment (str): The Azure deployment for the model (Azure only).
    */
-  embedding_config?: ModelsAPI.Embeddingconfig | null;
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
    * Body param: The initial set of messages to put in the agent's in-context memory.
@@ -289,7 +335,7 @@ export interface AgentCreateParams {
    * True. This helps with function calling performance and also the generation of
    * inner thoughts.
    */
-  llm_config?: ModelsAPI.Llmconfig | null;
+  llm_config?: ModelsAPI.LlmConfig | null;
 
   /**
    * Body param: Represents the in-context memory of the agent. This includes both
@@ -298,7 +344,7 @@ export interface AgentCreateParams {
    * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
    * memory block.
    */
-  memory?: Shared.Memory | null;
+  memory?: Memory | null;
 
   /**
    * Body param: The ids of the messages in the agent's in-context memory.
@@ -475,7 +521,7 @@ export interface AgentUpdateParams {
    * azure_version (str): The Azure version for the model (Azure only).
    * azure_deployment (str): The Azure deployment for the model (Azure only).
    */
-  embedding_config?: ModelsAPI.Embeddingconfig | null;
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
    * Body param: Configuration for a Language Model (LLM) model. This object
@@ -492,7 +538,7 @@ export interface AgentUpdateParams {
    * True. This helps with function calling performance and also the generation of
    * inner thoughts.
    */
-  llm_config?: ModelsAPI.Llmconfig | null;
+  llm_config?: ModelsAPI.LlmConfig | null;
 
   /**
    * Body param: Represents the in-context memory of the agent. This includes both
@@ -501,7 +547,7 @@ export interface AgentUpdateParams {
    * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
    * memory block.
    */
-  memory?: Shared.Memory | null;
+  memory?: Memory | null;
 
   /**
    * Body param: The ids of the messages in the agent's in-context memory.
@@ -547,28 +593,44 @@ export interface AgentDeleteParams {
   user_id?: string;
 }
 
+export interface AgentMigrateParams {
+  preserve_core_memories: boolean;
+
+  to_template: string;
+
+  /**
+   * If you chose to not preserve core memories, you should provide the new variables
+   * for the core memories
+   */
+  variables?: Record<string, string>;
+}
+
 Agents.Context = Context;
 Agents.Tools = Tools;
 Agents.Sources = Sources;
-Agents.Memory = Memory;
+Agents.Memory = MemoryAPIMemory;
 Agents.Archival = Archival;
 Agents.Messages = Messages;
+Agents.VersionTemplate = VersionTemplate;
 
 export declare namespace Agents {
   export {
-    type Agentstate as Agentstate,
+    type AgentState as AgentState,
+    type Memory as Memory,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
+    type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
+    type AgentMigrateParams as AgentMigrateParams,
   };
 
   export {
     Context as Context,
-    type Contextwindowoverview as Contextwindowoverview,
+    type ContextWindowOverview as ContextWindowOverview,
     type ContextRetrieveParams as ContextRetrieveParams,
   };
 
@@ -583,9 +645,9 @@ export declare namespace Agents {
   export { Sources as Sources, type SourceListResponse as SourceListResponse };
 
   export {
-    Memory as Memory,
-    type Archivalmemorysummary as Archivalmemorysummary,
-    type Recallmemorysummary as Recallmemorysummary,
+    MemoryAPIMemory as Memory,
+    type ArchivalMemorySummary as ArchivalMemorySummary,
+    type RecallMemorySummary as RecallMemorySummary,
     type MemoryUpdateParams as MemoryUpdateParams,
   };
 
@@ -601,11 +663,17 @@ export declare namespace Agents {
 
   export {
     Messages as Messages,
-    type Messageoutput as Messageoutput,
+    type MessageCreateResponse as MessageCreateResponse,
     type MessageRetrieveResponse as MessageRetrieveResponse,
-    type MessageProcessResponse as MessageProcessResponse,
+    type MessageUpdateResponse as MessageUpdateResponse,
+    type MessageCreateParams as MessageCreateParams,
     type MessageRetrieveParams as MessageRetrieveParams,
     type MessageUpdateParams as MessageUpdateParams,
-    type MessageProcessParams as MessageProcessParams,
+  };
+
+  export {
+    VersionTemplate as VersionTemplate,
+    type VersionTemplateCreateResponse as VersionTemplateCreateResponse,
+    type VersionTemplateCreateParams as VersionTemplateCreateParams,
   };
 }

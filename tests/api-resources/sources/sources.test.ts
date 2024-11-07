@@ -3,7 +3,10 @@
 import Letta, { toFile } from 'letta';
 import { Response } from 'node-fetch';
 
-const client = new Letta({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
+const client = new Letta({
+  bearerToken: 'My Bearer Token',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource sources', () => {
   test('create: only required params', async () => {
@@ -37,7 +40,7 @@ describe('resource sources', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = client.sources.retrieve('source_id');
+    const responsePromise = client.sources.retrieve('source_name');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -49,15 +52,15 @@ describe('resource sources', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.sources.retrieve('source_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Letta.NotFoundError,
-    );
+    await expect(
+      client.sources.retrieve('source_name', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.sources.retrieve('source_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+      client.sources.retrieve('source_name', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
@@ -118,7 +121,7 @@ describe('resource sources', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = client.sources.delete('source_id', 'file_id');
+    const responsePromise = client.sources.delete('source_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -130,20 +133,15 @@ describe('resource sources', () => {
 
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.sources.delete('source_id', 'file_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
+    await expect(client.sources.delete('source_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Letta.NotFoundError,
+    );
   });
 
   test('delete: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.sources.delete(
-        'source_id',
-        'file_id',
-        { user_id: 'user_id' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.sources.delete('source_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
@@ -175,35 +173,6 @@ describe('resource sources', () => {
 
   test('detach: required and optional params', async () => {
     const response = await client.sources.detach('source_id', { agent_id: 'agent_id', user_id: 'user_id' });
-  });
-
-  test('retrieveByName', async () => {
-    const responsePromise = client.sources.retrieveByName('source_name');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('retrieveByName: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.sources.retrieveByName('source_name', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  test('retrieveByName: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.sources.retrieveByName(
-        'source_name',
-        { user_id: 'user_id' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   test('upload: only required params', async () => {

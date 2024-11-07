@@ -3,7 +3,10 @@
 import Letta from 'letta';
 import { Response } from 'node-fetch';
 
-const client = new Letta({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
+const client = new Letta({
+  bearerToken: 'My Bearer Token',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource agents', () => {
   test('create', async () => {
@@ -149,5 +152,27 @@ describe('resource agents', () => {
     await expect(
       client.agents.delete('agent_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  test('migrate: only required params', async () => {
+    const responsePromise = client.agents.migrate('agent_id', {
+      preserve_core_memories: true,
+      to_template: 'to_template',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('migrate: required and optional params', async () => {
+    const response = await client.agents.migrate('agent_id', {
+      preserve_core_memories: true,
+      to_template: 'to_template',
+      variables: { foo: 'string' },
+    });
   });
 });

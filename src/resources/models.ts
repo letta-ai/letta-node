@@ -32,7 +32,7 @@ export class Models extends APIResource {
  * azure_version (str): The Azure version for the model (Azure only).
  * azure_deployment (str): The Azure deployment for the model (Azure only).
  */
-export interface Embeddingconfig {
+export interface EmbeddingConfig {
   /**
    * The dimension of the embedding.
    */
@@ -89,7 +89,7 @@ export interface Embeddingconfig {
  * True. This helps with function calling performance and also the generation of
  * inner thoughts.
  */
-export interface Llmconfig {
+export interface LlmConfig {
   /**
    * The context window size for the model.
    */
@@ -139,14 +139,14 @@ export interface Llmconfig {
   put_inner_thoughts_in_kwargs?: boolean | null;
 }
 
-export type ModelListResponse = Array<Llmconfig>;
+export type ModelListResponse = Array<LlmConfig>;
 
-export type ModelEmbeddingResponse = Array<Embeddingconfig>;
+export type ModelEmbeddingResponse = Array<EmbeddingConfig>;
 
 export declare namespace Models {
   export {
-    type Embeddingconfig as Embeddingconfig,
-    type Llmconfig as Llmconfig,
+    type EmbeddingConfig as EmbeddingConfig,
+    type LlmConfig as LlmConfig,
     type ModelListResponse as ModelListResponse,
     type ModelEmbeddingResponse as ModelEmbeddingResponse,
   };

@@ -6,6 +6,24 @@ import * as Core from '../../core';
 
 export class Messages extends APIResource {
   /**
+   * Process a user message and return the agent's response. This endpoint accepts a
+   * message from a user and processes it through the agent. It can optionally stream
+   * the response if 'stream_steps' or 'stream_tokens' is set to True.
+   */
+  create(
+    agentId: string,
+    params: MessageCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<unknown> {
+    const { user_id, ...body } = params;
+    return this._client.post(`/v1/agents/${agentId}/messages`, {
+      body,
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
+  }
+
+  /**
    * Retrieve message history for an agent.
    */
   retrieve(
@@ -38,128 +56,15 @@ export class Messages extends APIResource {
     messageId: string,
     body: MessageUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Messageoutput> {
+  ): Core.APIPromise<MessageUpdateResponse> {
     return this._client.patch(`/v1/agents/${agentId}/messages/${messageId}`, { body, ...options });
   }
-
-  /**
-   * Process a user message and return the agent's response. This endpoint accepts a
-   * message from a user and processes it through the agent. It can optionally stream
-   * the response if 'stream_steps' or 'stream_tokens' is set to True.
-   */
-  process(
-    agentId: string,
-    params: MessageProcessParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<unknown> {
-    const { user_id, ...body } = params;
-    return this._client.post(`/v1/agents/${agentId}/messages`, {
-      body,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
-  }
 }
 
-/**
- * Letta's internal representation of a message. Includes methods to convert
- * to/from LLM provider formats.
- *
- * Attributes: id (str): The unique identifier of the message. role (MessageRole):
- * The role of the participant. text (str): The text of the message. user_id (str):
- * The unique identifier of the user. agent_id (str): The unique identifier of the
- * agent. model (str): The model used to make the function call. name (str): The
- * name of the participant. created_at (datetime): The time the message was
- * created. tool_calls (List[ToolCall]): The list of tool calls requested.
- * tool_call_id (str): The id of the tool call.
- */
-export interface Messageoutput {
-  /**
-   * The role of the participant.
-   */
-  role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
-
-  /**
-   * The human-friendly ID of the Message
-   */
-  id?: string;
-
-  /**
-   * The unique identifier of the agent.
-   */
-  agent_id?: string | null;
-
-  /**
-   * The time the message was created.
-   */
-  created_at?: string;
-
-  /**
-   * The model used to make the function call.
-   */
-  model?: string | null;
-
-  /**
-   * The name of the participant.
-   */
-  name?: string | null;
-
-  /**
-   * The text of the message.
-   */
-  text?: string | null;
-
-  /**
-   * The id of the tool call.
-   */
-  tool_call_id?: string | null;
-
-  /**
-   * The list of tool calls requested.
-   */
-  tool_calls?: Array<Messageoutput.ToolCall> | null;
-
-  /**
-   * The unique identifier of the user.
-   */
-  user_id?: string | null;
-}
-
-export namespace Messageoutput {
-  export interface ToolCall {
-    /**
-     * The ID of the tool call
-     */
-    id: string;
-
-    /**
-     * The arguments and name for the function
-     */
-    function: ToolCall.Function;
-
-    type?: string;
-  }
-
-  export namespace ToolCall {
-    /**
-     * The arguments and name for the function
-     */
-    export interface Function {
-      /**
-       * The arguments to pass to the function (JSON dump)
-       */
-      arguments: string;
-
-      /**
-       * The name of the function to call
-       */
-      name: string;
-    }
-  }
-}
+export type MessageCreateResponse = unknown;
 
 export type MessageRetrieveResponse =
-  | Array<Messageoutput>
+  | Array<MessageRetrieveResponse.UnionMember0>
   | Array<
       | MessageRetrieveResponse.SystemMessageOutput
       | MessageRetrieveResponse.UserMessageOutput
@@ -170,6 +75,103 @@ export type MessageRetrieveResponse =
     >;
 
 export namespace MessageRetrieveResponse {
+  /**
+   * Letta's internal representation of a message. Includes methods to convert
+   * to/from LLM provider formats.
+   *
+   * Attributes: id (str): The unique identifier of the message. role (MessageRole):
+   * The role of the participant. text (str): The text of the message. user_id (str):
+   * The unique identifier of the user. agent_id (str): The unique identifier of the
+   * agent. model (str): The model used to make the function call. name (str): The
+   * name of the participant. created_at (datetime): The time the message was
+   * created. tool_calls (List[ToolCall]): The list of tool calls requested.
+   * tool_call_id (str): The id of the tool call.
+   */
+  export interface UnionMember0 {
+    /**
+     * The role of the participant.
+     */
+    role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
+
+    /**
+     * The human-friendly ID of the Message
+     */
+    id?: string;
+
+    /**
+     * The unique identifier of the agent.
+     */
+    agent_id?: string | null;
+
+    /**
+     * The time the message was created.
+     */
+    created_at?: string;
+
+    /**
+     * The model used to make the function call.
+     */
+    model?: string | null;
+
+    /**
+     * The name of the participant.
+     */
+    name?: string | null;
+
+    /**
+     * The text of the message.
+     */
+    text?: string | null;
+
+    /**
+     * The id of the tool call.
+     */
+    tool_call_id?: string | null;
+
+    /**
+     * The list of tool calls requested.
+     */
+    tool_calls?: Array<UnionMember0.ToolCall> | null;
+
+    /**
+     * The unique identifier of the user.
+     */
+    user_id?: string | null;
+  }
+
+  export namespace UnionMember0 {
+    export interface ToolCall {
+      /**
+       * The ID of the tool call
+       */
+      id: string;
+
+      /**
+       * The arguments and name for the function
+       */
+      function: ToolCall.Function;
+
+      type?: string;
+    }
+
+    export namespace ToolCall {
+      /**
+       * The arguments and name for the function
+       */
+      export interface Function {
+        /**
+         * The arguments to pass to the function (JSON dump)
+         */
+        arguments: string;
+
+        /**
+         * The name of the function to call
+         */
+        name: string;
+      }
+    }
+  }
+
   /**
    * A message generated by the system. Never streamed back on a response, only used
    * for cursor pagination.
@@ -294,65 +296,48 @@ export namespace MessageRetrieveResponse {
   }
 }
 
-export type MessageProcessResponse = unknown;
-
-export interface MessageRetrieveParams {
+/**
+ * Letta's internal representation of a message. Includes methods to convert
+ * to/from LLM provider formats.
+ *
+ * Attributes: id (str): The unique identifier of the message. role (MessageRole):
+ * The role of the participant. text (str): The text of the message. user_id (str):
+ * The unique identifier of the user. agent_id (str): The unique identifier of the
+ * agent. model (str): The model used to make the function call. name (str): The
+ * name of the participant. created_at (datetime): The time the message was
+ * created. tool_calls (List[ToolCall]): The list of tool calls requested.
+ * tool_call_id (str): The id of the tool call.
+ */
+export interface MessageUpdateResponse {
   /**
-   * Query param: [Only applicable if use_assistant_message is True] The name of the
-   * message argument in the designated message tool.
+   * The role of the participant.
    */
-  assistant_message_function_kwarg?: string;
-
-  /**
-   * Query param: [Only applicable if use_assistant_message is True] The name of the
-   * designated message tool.
-   */
-  assistant_message_function_name?: string;
-
-  /**
-   * Query param: Message before which to retrieve the returned messages.
-   */
-  before?: string | null;
+  role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
 
   /**
-   * Query param: Maximum number of messages to retrieve.
+   * The human-friendly ID of the Message
    */
-  limit?: number;
+  id?: string;
 
   /**
-   * Query param: If true, returns Message objects. If false, return LettaMessage
-   * objects.
+   * The unique identifier of the agent.
    */
-  msg_object?: boolean;
+  agent_id?: string | null;
 
   /**
-   * Query param: [Only applicable if msg_object is False] If true, returns
-   * AssistantMessage objects when the agent calls a designated message tool. If
-   * false, return FunctionCallMessage objects for all tool calls.
+   * The time the message was created.
    */
-  use_assistant_message?: boolean;
+  created_at?: string;
 
   /**
-   * Header param:
+   * The model used to make the function call.
    */
-  user_id?: string;
-}
-
-export interface MessageUpdateParams {
-  /**
-   * The id of the message.
-   */
-  id: string;
+  model?: string | null;
 
   /**
    * The name of the participant.
    */
   name?: string | null;
-
-  /**
-   * The role of the participant.
-   */
-  role?: 'assistant' | 'user' | 'tool' | 'function' | 'system' | null;
 
   /**
    * The text of the message.
@@ -367,10 +352,15 @@ export interface MessageUpdateParams {
   /**
    * The list of tool calls requested.
    */
-  tool_calls?: Array<MessageUpdateParams.ToolCall> | null;
+  tool_calls?: Array<MessageUpdateResponse.ToolCall> | null;
+
+  /**
+   * The unique identifier of the user.
+   */
+  user_id?: string | null;
 }
 
-export namespace MessageUpdateParams {
+export namespace MessageUpdateResponse {
   export interface ToolCall {
     /**
      * The ID of the tool call
@@ -403,11 +393,11 @@ export namespace MessageUpdateParams {
   }
 }
 
-export interface MessageProcessParams {
+export interface MessageCreateParams {
   /**
    * Body param: The messages to be sent to the agent.
    */
-  messages: Array<MessageProcessParams.UnionMember0> | Array<MessageProcessParams.UnionMember1>;
+  messages: Array<MessageCreateParams.UnionMember0> | Array<MessageCreateParams.UnionMember1>;
 
   /**
    * Body param: [Only applicable if use_assistant_message is True] The name of the
@@ -457,7 +447,7 @@ export interface MessageProcessParams {
   user_id?: string;
 }
 
-export namespace MessageProcessParams {
+export namespace MessageCreateParams {
   /**
    * Request to create a message
    */
@@ -576,13 +566,120 @@ export namespace MessageProcessParams {
   }
 }
 
+export interface MessageRetrieveParams {
+  /**
+   * Query param: [Only applicable if use_assistant_message is True] The name of the
+   * message argument in the designated message tool.
+   */
+  assistant_message_function_kwarg?: string;
+
+  /**
+   * Query param: [Only applicable if use_assistant_message is True] The name of the
+   * designated message tool.
+   */
+  assistant_message_function_name?: string;
+
+  /**
+   * Query param: Message before which to retrieve the returned messages.
+   */
+  before?: string | null;
+
+  /**
+   * Query param: Maximum number of messages to retrieve.
+   */
+  limit?: number;
+
+  /**
+   * Query param: If true, returns Message objects. If false, return LettaMessage
+   * objects.
+   */
+  msg_object?: boolean;
+
+  /**
+   * Query param: [Only applicable if msg_object is False] If true, returns
+   * AssistantMessage objects when the agent calls a designated message tool. If
+   * false, return FunctionCallMessage objects for all tool calls.
+   */
+  use_assistant_message?: boolean;
+
+  /**
+   * Header param:
+   */
+  user_id?: string;
+}
+
+export interface MessageUpdateParams {
+  /**
+   * The id of the message.
+   */
+  id: string;
+
+  /**
+   * The name of the participant.
+   */
+  name?: string | null;
+
+  /**
+   * The role of the participant.
+   */
+  role?: 'assistant' | 'user' | 'tool' | 'function' | 'system' | null;
+
+  /**
+   * The text of the message.
+   */
+  text?: string | null;
+
+  /**
+   * The id of the tool call.
+   */
+  tool_call_id?: string | null;
+
+  /**
+   * The list of tool calls requested.
+   */
+  tool_calls?: Array<MessageUpdateParams.ToolCall> | null;
+}
+
+export namespace MessageUpdateParams {
+  export interface ToolCall {
+    /**
+     * The ID of the tool call
+     */
+    id: string;
+
+    /**
+     * The arguments and name for the function
+     */
+    function: ToolCall.Function;
+
+    type?: string;
+  }
+
+  export namespace ToolCall {
+    /**
+     * The arguments and name for the function
+     */
+    export interface Function {
+      /**
+       * The arguments to pass to the function (JSON dump)
+       */
+      arguments: string;
+
+      /**
+       * The name of the function to call
+       */
+      name: string;
+    }
+  }
+}
+
 export declare namespace Messages {
   export {
-    type Messageoutput as Messageoutput,
+    type MessageCreateResponse as MessageCreateResponse,
     type MessageRetrieveResponse as MessageRetrieveResponse,
-    type MessageProcessResponse as MessageProcessResponse,
+    type MessageUpdateResponse as MessageUpdateResponse,
+    type MessageCreateParams as MessageCreateParams,
     type MessageRetrieveParams as MessageRetrieveParams,
     type MessageUpdateParams as MessageUpdateParams,
-    type MessageProcessParams as MessageProcessParams,
   };
 }

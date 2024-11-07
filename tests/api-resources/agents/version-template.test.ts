@@ -8,9 +8,9 @@ const client = new Letta({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource archival', () => {
-  test('retrieve', async () => {
-    const responsePromise = client.agents.memory.archival.retrieve('agent_id');
+describe('resource versionTemplate', () => {
+  test('create', async () => {
+    const responsePromise = client.agents.versionTemplate.create('agent_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,10 +20,21 @@ describe('resource archival', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: request options instead of params are passed correctly', async () => {
+  test('create: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.agents.memory.archival.retrieve('agent_id', { path: '/_stainless_unknown_path' }),
+      client.agents.versionTemplate.create('agent_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  test('create: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.agents.versionTemplate.create(
+        'agent_id',
+        { returnAgentId: true, migrate_deployed_agents: true },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 });
