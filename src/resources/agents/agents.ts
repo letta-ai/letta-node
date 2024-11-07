@@ -107,9 +107,8 @@ export class Agents extends APIResource {
     if (isRequestOptions(params)) {
       return this.list({}, params);
     }
-    const { user_id, ...query } = params;
+    const { user_id } = params;
     return this._client.get('/v1/agents/', {
-      query,
       ...options,
       headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
     });
@@ -221,11 +220,6 @@ export interface Agentstate {
   metadata_?: unknown | null;
 
   /**
-   * The tags associated with the agent.
-   */
-  tags?: Array<string> | null;
-
-  /**
    * The list of tool rules.
    */
   tool_rules?: Array<Agentstate.ToolRule> | null;
@@ -291,7 +285,7 @@ export interface AgentCreateParams {
    * additional text around the input/output of the model. This is useful for
    * text-to-text completions, such as the Completions API in OpenAI. context_window
    * (int): The context window size for the model. put_inner_thoughts_in_kwargs
-   * (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+   * (bool): Puts 'inner_thoughts' as a kwarg in the function call if this is set to
    * True. This helps with function calling performance and also the generation of
    * inner thoughts.
    */
@@ -325,11 +319,6 @@ export interface AgentCreateParams {
    * Body param: The system prompt used by the agent.
    */
   system?: string | null;
-
-  /**
-   * Body param: The tags associated with the agent.
-   */
-  tags?: Array<string> | null;
 
   /**
    * Body param: The tool rules governing the agent.
@@ -499,7 +488,7 @@ export interface AgentUpdateParams {
    * additional text around the input/output of the model. This is useful for
    * text-to-text completions, such as the Completions API in OpenAI. context_window
    * (int): The context window size for the model. put_inner_thoughts_in_kwargs
-   * (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+   * (bool): Puts 'inner_thoughts' as a kwarg in the function call if this is set to
    * True. This helps with function calling performance and also the generation of
    * inner thoughts.
    */
@@ -535,11 +524,6 @@ export interface AgentUpdateParams {
   system?: string | null;
 
   /**
-   * Body param: The tags associated with the agent.
-   */
-  tags?: Array<string> | null;
-
-  /**
    * Body param: The tools used by the agent.
    */
   tools?: Array<string> | null;
@@ -556,19 +540,6 @@ export interface AgentUpdateParams {
 }
 
 export interface AgentListParams {
-  /**
-   * Query param: Name of the agent
-   */
-  name?: string | null;
-
-  /**
-   * Query param: List of tags to filter agents by
-   */
-  tags?: Array<string> | null;
-
-  /**
-   * Header param:
-   */
   user_id?: string;
 }
 

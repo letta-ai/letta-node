@@ -32,7 +32,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Add tools to an existing agent
+   * Add tools to an exsiting agent
    */
   add(
     agentId: string,
@@ -58,7 +58,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Add tools to an existing agent
+   * Add tools to an exsiting agent
    */
   remove(
     agentId: string,

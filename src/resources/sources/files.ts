@@ -10,19 +10,24 @@ export class Files extends APIResource {
    */
   list(
     sourceId: string,
-    query?: FileListParams,
+    params?: FileListParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<FileListResponse>;
   list(sourceId: string, options?: Core.RequestOptions): Core.APIPromise<FileListResponse>;
   list(
     sourceId: string,
-    query: FileListParams | Core.RequestOptions = {},
+    params: FileListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<FileListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list(sourceId, {}, query);
+    if (isRequestOptions(params)) {
+      return this.list(sourceId, {}, params);
     }
-    return this._client.get(`/v1/sources/${sourceId}/files`, { query, ...options });
+    const { user_id, ...query } = params;
+    return this._client.get(`/v1/sources/${sourceId}/files`, {
+      query,
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
   }
 }
 
@@ -86,14 +91,19 @@ export type FileListResponse = Array<Filemetadata>;
 
 export interface FileListParams {
   /**
-   * Pagination cursor to fetch the next set of results
+   * Query param: Pagination cursor to fetch the next set of results
    */
   cursor?: string | null;
 
   /**
-   * Number of files to return
+   * Query param: Number of files to return
    */
   limit?: number;
+
+  /**
+   * Header param:
+   */
+  user_id?: string;
 }
 
 export declare namespace Files {

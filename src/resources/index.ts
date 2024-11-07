@@ -1,22 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export {
-  AdminOrganizations,
-  type Organization,
-  type AdminOrganizationCreateParams,
-  type AdminOrganizationDeleteParams,
-} from './admin-organizations';
-export { AdminOrgs, type AdminOrgListResponse, type AdminOrgListParams } from './admin-orgs';
-export {
-  AdminUsers,
-  type User,
-  type AdminUserListResponse,
-  type AdminUserCreateParams,
-  type AdminUserUpdateParams,
-  type AdminUserListParams,
-  type AdminUserDeleteParams,
-} from './admin-users/admin-users';
+export { AdminOrganizations, type Organization } from './admin-organizations';
+export { AdminOrgs } from './admin-orgs';
+export { AdminUsers, type User } from './admin-users/admin-users';
 export {
   Agents,
   type Agentstate,
@@ -28,7 +15,7 @@ export {
   type AgentListParams,
   type AgentDeleteParams,
 } from './agents/agents';
-export { Auth, type AuthResponse, type AuthAuthenticateParams } from './auth';
+export { Auth, type AuthResponse } from './auth';
 export {
   Blocks,
   type Block,
@@ -75,6 +62,7 @@ export {
   type ToolRetrieveParams,
   type ToolUpdateParams,
   type ToolListParams,
+  type ToolDeleteParams,
   type ToolAddBaseToolsParams,
   type ToolRetrieveByNameParams,
 } from './tools';

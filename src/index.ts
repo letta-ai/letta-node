@@ -1,19 +1,13 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { type Agent } from './_shims/index';
-import * as qs from './internal/qs';
 import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import {
-  AdminOrganizationCreateParams,
-  AdminOrganizationDeleteParams,
-  AdminOrganizations,
-  Organization,
-} from './resources/admin-organizations';
-import { AdminOrgListParams, AdminOrgListResponse, AdminOrgs } from './resources/admin-orgs';
-import { Auth, AuthAuthenticateParams, AuthResponse } from './resources/auth';
+import { AdminOrganizations, Organization } from './resources/admin-organizations';
+import { AdminOrgs } from './resources/admin-orgs';
+import { Auth, AuthResponse } from './resources/auth';
 import {
   Block,
   BlockCreateParams,
@@ -35,6 +29,7 @@ import {
   ToolAddBaseToolsParams,
   ToolAddBaseToolsResponse,
   ToolCreateParams,
+  ToolDeleteParams,
   ToolDeleteResponse,
   ToolListParams,
   ToolListResponse,
@@ -44,15 +39,7 @@ import {
   ToolUpdateParams,
   Tools,
 } from './resources/tools';
-import {
-  AdminUserCreateParams,
-  AdminUserDeleteParams,
-  AdminUserListParams,
-  AdminUserListResponse,
-  AdminUserUpdateParams,
-  AdminUsers,
-  User,
-} from './resources/admin-users/admin-users';
+import { AdminUsers, User } from './resources/admin-users/admin-users';
 import {
   AgentCreateParams,
   AgentDeleteParams,
@@ -221,10 +208,6 @@ export class Letta extends Core.APIClient {
     };
   }
 
-  protected override stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
-  }
-
   static Letta = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
@@ -289,6 +272,7 @@ export declare namespace Letta {
     type ToolRetrieveParams as ToolRetrieveParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
+    type ToolDeleteParams as ToolDeleteParams,
     type ToolAddBaseToolsParams as ToolAddBaseToolsParams,
     type ToolRetrieveByNameParams as ToolRetrieveByNameParams,
   };
@@ -347,34 +331,13 @@ export declare namespace Letta {
 
   export { type Health as Health };
 
-  export {
-    AdminUsers as AdminUsers,
-    type User as User,
-    type AdminUserListResponse as AdminUserListResponse,
-    type AdminUserCreateParams as AdminUserCreateParams,
-    type AdminUserUpdateParams as AdminUserUpdateParams,
-    type AdminUserListParams as AdminUserListParams,
-    type AdminUserDeleteParams as AdminUserDeleteParams,
-  };
+  export { AdminUsers as AdminUsers, type User as User };
 
-  export {
-    AdminOrgs as AdminOrgs,
-    type AdminOrgListResponse as AdminOrgListResponse,
-    type AdminOrgListParams as AdminOrgListParams,
-  };
+  export { AdminOrgs as AdminOrgs };
 
-  export {
-    AdminOrganizations as AdminOrganizations,
-    type Organization as Organization,
-    type AdminOrganizationCreateParams as AdminOrganizationCreateParams,
-    type AdminOrganizationDeleteParams as AdminOrganizationDeleteParams,
-  };
+  export { AdminOrganizations as AdminOrganizations, type Organization as Organization };
 
-  export {
-    Auth as Auth,
-    type AuthResponse as AuthResponse,
-    type AuthAuthenticateParams as AuthAuthenticateParams,
-  };
+  export { Auth as Auth, type AuthResponse as AuthResponse };
 
   export type Job = API.Job;
   export type Memory = API.Memory;
