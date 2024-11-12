@@ -72,7 +72,6 @@ const environments = {
   environment_1: 'http://localhost:8283',
 };
 type Environment = keyof typeof environments;
-
 export interface ClientOptions {
   /**
    * The bearer token used for authentication
@@ -247,32 +246,12 @@ export class Letta extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export {
-  LettaError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} from './error';
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
 Letta.Tools = Tools;
 Letta.Sources = Sources;
 Letta.Agents = Agents;
 Letta.Models = Models;
 Letta.Blocks = Blocks;
 Letta.Jobs = Jobs;
-
 export declare namespace Letta {
   export type RequestOptions = Core.RequestOptions;
 
@@ -352,5 +331,22 @@ export declare namespace Letta {
 
   export type Job = API.Job;
 }
+
+export { toFile, fileFromPath } from 'letta/uploads';
+export {
+  LettaError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  AuthenticationError,
+  InternalServerError,
+  PermissionDeniedError,
+  UnprocessableEntityError,
+} from 'letta/error';
 
 export default Letta;
