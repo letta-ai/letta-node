@@ -4,8 +4,8 @@
 /**
  * Types will get added to this namespace when you import one of the following:
  *
- *   import 'letta-client/shims/node'
- *   import 'letta-client/shims/web'
+ *   import 'letta_client/shims/node'
+ *   import 'letta_client/shims/web'
  *
  * Importing more than one will cause type and runtime errors.
  */

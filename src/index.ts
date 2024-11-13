@@ -327,7 +327,7 @@ export declare namespace Letta {
   export type Job = API.Job;
 }
 
-export { toFile, fileFromPath } from 'letta-client/uploads';
+export { toFile, fileFromPath } from 'letta_client/uploads';
 export {
   LettaError,
   APIError,
@@ -342,6 +342,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from 'letta-client/error';
+} from 'letta_client/error';
 
 export default Letta;
