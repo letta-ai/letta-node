@@ -1,5 +1,5 @@
-import { createResponseHeaders } from 'letta-client/core';
-import { Headers } from 'letta-client/_shims/index';
+import { createResponseHeaders } from 'letta_client/core';
+import { Headers } from 'letta_client/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters

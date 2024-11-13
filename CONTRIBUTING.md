@@ -55,12 +55,12 @@ $ cd letta-node
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link letta-client
+$ yarn link letta_client
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global letta-client
+$ pnpm link -—global letta_client
 ```
 
 ## Running tests
