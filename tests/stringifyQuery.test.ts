@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Letta } from 'letta';
+import { Letta } from 'letta-client';
 
 const { stringifyQuery } = Letta.prototype as any;
 
@@ -18,12 +18,6 @@ describe(stringifyQuery, () => {
   ]) {
     it(`${JSON.stringify(input)} -> ${expected}`, () => {
       expect(stringifyQuery(input)).toEqual(expected);
-    });
-  }
-
-  for (const value of [[], {}, new Date()]) {
-    it(`${JSON.stringify(value)} -> <error>`, () => {
-      expect(() => stringifyQuery({ value })).toThrow(`Cannot stringify type ${typeof value}`);
     });
   }
 });
