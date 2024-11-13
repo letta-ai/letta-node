@@ -64,7 +64,7 @@ export class Messages extends APIResource {
 export type MessageCreateResponse = unknown;
 
 export type MessageRetrieveResponse =
-  | Array<MessageRetrieveResponse.UnionMember0>
+  | Array<MessageRetrieveResponse.MessageListResponse>
   | Array<
       | MessageRetrieveResponse.SystemMessageOutput
       | MessageRetrieveResponse.UserMessageOutput
@@ -87,7 +87,7 @@ export namespace MessageRetrieveResponse {
    * created. tool_calls (List[ToolCall]): The list of tool calls requested.
    * tool_call_id (str): The id of the tool call.
    */
-  export interface UnionMember0 {
+  export interface MessageListResponse {
     /**
      * The role of the participant.
      */
@@ -131,7 +131,7 @@ export namespace MessageRetrieveResponse {
     /**
      * The list of tool calls requested.
      */
-    tool_calls?: Array<UnionMember0.ToolCall> | null;
+    tool_calls?: Array<MessageListResponse.ToolCall> | null;
 
     /**
      * The unique identifier of the user.
@@ -139,7 +139,7 @@ export namespace MessageRetrieveResponse {
     user_id?: string | null;
   }
 
-  export namespace UnionMember0 {
+  export namespace MessageListResponse {
     export interface ToolCall {
       /**
        * The ID of the tool call
