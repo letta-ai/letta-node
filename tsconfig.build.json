@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "letta/*": ["dist/src/*"],
-      "letta": ["dist/src/index.ts"],
+      "letta-client/*": ["dist/src/*"],
+      "letta-client": ["dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,

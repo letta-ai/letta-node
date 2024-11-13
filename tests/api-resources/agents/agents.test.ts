@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Letta from 'letta';
+import Letta from 'letta-client';
 import { Response } from 'node-fetch';
 
 const client = new Letta({
@@ -87,8 +87,8 @@ describe('resource agents', () => {
             label: 'label',
             limit: 0,
             metadata_: {},
+            name: 'name',
             template: true,
-            template_name: 'template_name',
             user_id: 'user_id',
           },
         },
@@ -98,6 +98,7 @@ describe('resource agents', () => {
       metadata_: {},
       name: 'name',
       system: 'system',
+      tags: ['string', 'string', 'string'],
       tools: ['string', 'string', 'string'],
       body_user_id: 'user_id',
       header_user_id: 'user_id',
@@ -125,7 +126,10 @@ describe('resource agents', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.agents.list({ user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+      client.agents.list(
+        { name: 'name', tags: ['string', 'string', 'string'], user_id: 'user_id' },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
@@ -152,27 +156,5 @@ describe('resource agents', () => {
     await expect(
       client.agents.delete('agent_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  test('migrate: only required params', async () => {
-    const responsePromise = client.agents.migrate('agent_id', {
-      preserve_core_memories: true,
-      to_template: 'to_template',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('migrate: required and optional params', async () => {
-    const response = await client.agents.migrate('agent_id', {
-      preserve_core_memories: true,
-      to_template: 'to_template',
-      variables: { foo: 'string' },
-    });
   });
 });

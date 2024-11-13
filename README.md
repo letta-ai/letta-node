@@ -1,6 +1,6 @@
 # Letta Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/letta.svg)](https://npmjs.org/package/letta) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/letta)
+[![NPM version](https://img.shields.io/npm/v/letta-client.svg)](https://npmjs.org/package/letta-client) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/letta-client)
 
 This library provides convenient access to the Letta REST API from server-side TypeScript or JavaScript.
 
@@ -15,7 +15,7 @@ npm install git+ssh://git@github.com:stainless-sdks/letta-node.git
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install letta`
+> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install letta-client`
 
 ## Usage
 
@@ -23,15 +23,15 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Letta from 'letta';
+import Letta from 'letta-client';
 
 const client = new Letta({
-  bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
   environment: 'environment_1', // defaults to 'production'
+  bearerToken: 'My Bearer Token',
 });
 
 async function main() {
-  const tool = await client.tools.create({ source_code: 'source_code', source_type: 'source_type' });
+  const tool = await client.tools.create({ source_code: 'source_code' });
 
   console.log(tool.id);
 }
@@ -45,15 +45,15 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Letta from 'letta';
+import Letta from 'letta-client';
 
 const client = new Letta({
-  bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
   environment: 'environment_1', // defaults to 'production'
+  bearerToken: 'My Bearer Token',
 });
 
 async function main() {
-  const params: Letta.ToolCreateParams = { source_code: 'source_code', source_type: 'source_type' };
+  const params: Letta.ToolCreateParams = { source_code: 'source_code' };
   const tool: Letta.Tool = await client.tools.create(params);
 }
 
@@ -71,17 +71,15 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const tool = await client.tools
-    .create({ source_code: 'source_code', source_type: 'source_type' })
-    .catch(async (err) => {
-      if (err instanceof Letta.APIError) {
-        console.log(err.status); // 400
-        console.log(err.name); // BadRequestError
-        console.log(err.headers); // {server: 'nginx', ...}
-      } else {
-        throw err;
-      }
-    });
+  const tool = await client.tools.create({ source_code: 'source_code' }).catch(async (err) => {
+    if (err instanceof Letta.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 }
 
 main();
@@ -113,10 +111,11 @@ You can use the `maxRetries` option to configure or disable this:
 // Configure the default for all requests:
 const client = new Letta({
   maxRetries: 0, // default is 2
+  bearerToken: 'My Bearer Token',
 });
 
 // Or, configure per-request:
-await client.tools.create({ source_code: 'source_code', source_type: 'source_type' }, {
+await client.tools.create({ source_code: 'source_code' }, {
   maxRetries: 5,
 });
 ```
@@ -130,10 +129,11 @@ Requests time out after 1 minute by default. You can configure this with a `time
 // Configure the default for all requests:
 const client = new Letta({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
+  bearerToken: 'My Bearer Token',
 });
 
 // Override per-request:
-await client.tools.create({ source_code: 'source_code', source_type: 'source_type' }, {
+await client.tools.create({ source_code: 'source_code' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -154,14 +154,12 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Letta();
 
-const response = await client.tools
-  .create({ source_code: 'source_code', source_type: 'source_type' })
-  .asResponse();
+const response = await client.tools.create({ source_code: 'source_code' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: tool, response: raw } = await client.tools
-  .create({ source_code: 'source_code', source_type: 'source_type' })
+  .create({ source_code: 'source_code' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(tool.id);
@@ -222,11 +220,11 @@ add the following import before your first import `from "Letta"`:
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import 'letta/shims/web';
-import Letta from 'letta';
+import 'letta-client/shims/web';
+import Letta from 'letta-client';
 ```
 
-To do the inverse, add `import "letta/shims/node"` (which does import polyfills).
+To do the inverse, add `import "letta-client/shims/node"` (which does import polyfills).
 This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/letta-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
@@ -236,7 +234,7 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import Letta from 'letta';
+import Letta from 'letta-client';
 
 const client = new Letta({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
@@ -265,11 +263,12 @@ import { HttpsProxyAgent } from 'https-proxy-agent';
 // Configure the default for all requests:
 const client = new Letta({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
+  bearerToken: 'My Bearer Token',
 });
 
 // Override per-request:
 await client.tools.create(
-  { source_code: 'source_code', source_type: 'source_type' },
+  { source_code: 'source_code' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },

@@ -42,11 +42,13 @@ export let isFsReadStream: Shims['isFsReadStream'] | undefined = undefined;
 export function setShims(shims: Shims, options: { auto: boolean } = { auto: false }) {
   if (auto) {
     throw new Error(
-      `you must \`import 'letta/shims/${shims.kind}'\` before importing anything else from letta`,
+      `you must \`import 'letta-client/shims/${shims.kind}'\` before importing anything else from letta-client`,
     );
   }
   if (kind) {
-    throw new Error(`can't \`import 'letta/shims/${shims.kind}'\` after \`import 'letta/shims/${kind}'\``);
+    throw new Error(
+      `can't \`import 'letta-client/shims/${shims.kind}'\` after \`import 'letta-client/shims/${kind}'\``,
+    );
   }
   auto = options.auto;
   kind = shims.kind;

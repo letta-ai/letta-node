@@ -64,15 +64,15 @@ export class Blocks extends APIResource {
  * editable. `Block` objects contained in the `Memory` object, which is able to
  * edit the Block values.
  *
- * Parameters: name (str): The name of the block. value (str): The value of the
- * block. This is the string that is represented in the context window. limit
- * (int): The character limit of the block. template (bool): Whether the block is a
- * template (e.g. saved human/persona options). Non-template blocks are not stored
- * in the database and are ephemeral, while templated blocks are stored in the
- * database. label (str): The label of the block (e.g. 'human', 'persona'). This
- * defines a category for the block. description (str): Description of the block.
- * metadata\_ (Dict): Metadata of the block. user_id (str): The unique identifier
- * of the user associated with the block.
+ * Parameters: label (str): The label of the block (e.g. 'human', 'persona'). This
+ * defines a category for the block. value (str): The value of the block. This is
+ * the string that is represented in the context window. limit (int): The character
+ * limit of the block. template*name (str): The name of the block template (if it
+ * is a template). template (bool): Whether the block is a template (e.g. saved
+ * human/persona options). Non-template blocks are not stored in the database and
+ * are ephemeral, while templated blocks are stored in the database. description
+ * (str): Description of the block. metadata* (Dict): Metadata of the block.
+ * user_id (str): The unique identifier of the user associated with the block.
  */
 export interface Block {
   /**
@@ -106,14 +106,14 @@ export interface Block {
   metadata_?: unknown | null;
 
   /**
+   * Name of the block if it is a template.
+   */
+  name?: string | null;
+
+  /**
    * Whether the block is a template (e.g. saved human/persona options).
    */
   template?: boolean;
-
-  /**
-   * Name of the block if it is a template.
-   */
-  template_name?: string | null;
 
   /**
    * The unique identifier of the user associated with the block.
@@ -145,14 +145,14 @@ export interface BlockCreateParams {
   metadata_?: unknown | null;
 
   /**
+   * Body param: Name of the block if it is a template.
+   */
+  name?: string | null;
+
+  /**
    * Body param:
    */
   template?: boolean;
-
-  /**
-   * Body param: Name of the block if it is a template.
-   */
-  template_name?: string | null;
 
   /**
    * Body param: The unique identifier of the user associated with the block.
@@ -197,14 +197,14 @@ export interface BlockUpdateParams {
   metadata_?: unknown | null;
 
   /**
+   * Name of the block if it is a template.
+   */
+  name?: string | null;
+
+  /**
    * Whether the block is a template (e.g. saved human/persona options).
    */
   template?: boolean;
-
-  /**
-   * Name of the block if it is a template.
-   */
-  template_name?: string | null;
 
   /**
    * The unique identifier of the user associated with the block.

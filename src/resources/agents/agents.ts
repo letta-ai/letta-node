@@ -32,11 +32,7 @@ import { SourceListResponse, Sources } from './sources';
 import * as ToolsAPI from './tools';
 import { ToolAddParams, ToolListParams, ToolListResponse, ToolRemoveParams, Tools } from './tools';
 import * as VersionTemplateAPI from './version-template';
-import {
-  VersionTemplate,
-  VersionTemplateCreateParams,
-  VersionTemplateCreateResponse,
-} from './version-template';
+import { VersionTemplate } from './version-template';
 import * as MemoryAPI from './memory/memory';
 import {
   ArchivalMemorySummary,
@@ -119,8 +115,9 @@ export class Agents extends APIResource {
     if (isRequestOptions(params)) {
       return this.list({}, params);
     }
-    const { user_id } = params;
+    const { user_id, ...query } = params;
     return this._client.get('/v1/agents/', {
+      query,
       ...options,
       headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
     });
@@ -148,17 +145,6 @@ export class Agents extends APIResource {
       ...options,
       headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
     });
-  }
-
-  /**
-   * Migrate an agent to a new versioned agent template
-   */
-  migrate(
-    agentId: string,
-    body: AgentMigrateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentMigrateResponse> {
-    return this._client.post(`/v1/agents/${agentId}/migrate`, { body, ...options });
   }
 }
 
@@ -243,6 +229,11 @@ export interface AgentState {
   metadata_?: unknown | null;
 
   /**
+   * The tags associated with the agent.
+   */
+  tags?: Array<string> | null;
+
+  /**
    * The list of tool rules.
    */
   tool_rules?: Array<AgentState.ToolRule> | null;
@@ -284,10 +275,6 @@ export interface Memory {
 export type AgentListResponse = Array<AgentState>;
 
 export type AgentDeleteResponse = unknown;
-
-export interface AgentMigrateResponse {
-  success: true;
-}
 
 export interface AgentCreateParams {
   /**
@@ -331,7 +318,7 @@ export interface AgentCreateParams {
    * additional text around the input/output of the model. This is useful for
    * text-to-text completions, such as the Completions API in OpenAI. context_window
    * (int): The context window size for the model. put_inner_thoughts_in_kwargs
-   * (bool): Puts 'inner_thoughts' as a kwarg in the function call if this is set to
+   * (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
    * True. This helps with function calling performance and also the generation of
    * inner thoughts.
    */
@@ -365,6 +352,11 @@ export interface AgentCreateParams {
    * Body param: The system prompt used by the agent.
    */
   system?: string | null;
+
+  /**
+   * Body param: The tags associated with the agent.
+   */
+  tags?: Array<string> | null;
 
   /**
    * Body param: The tool rules governing the agent.
@@ -534,7 +526,7 @@ export interface AgentUpdateParams {
    * additional text around the input/output of the model. This is useful for
    * text-to-text completions, such as the Completions API in OpenAI. context_window
    * (int): The context window size for the model. put_inner_thoughts_in_kwargs
-   * (bool): Puts 'inner_thoughts' as a kwarg in the function call if this is set to
+   * (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
    * True. This helps with function calling performance and also the generation of
    * inner thoughts.
    */
@@ -570,6 +562,11 @@ export interface AgentUpdateParams {
   system?: string | null;
 
   /**
+   * Body param: The tags associated with the agent.
+   */
+  tags?: Array<string> | null;
+
+  /**
    * Body param: The tools used by the agent.
    */
   tools?: Array<string> | null;
@@ -586,23 +583,24 @@ export interface AgentUpdateParams {
 }
 
 export interface AgentListParams {
+  /**
+   * Query param: Name of the agent
+   */
+  name?: string | null;
+
+  /**
+   * Query param: List of tags to filter agents by
+   */
+  tags?: Array<string> | null;
+
+  /**
+   * Header param:
+   */
   user_id?: string;
 }
 
 export interface AgentDeleteParams {
   user_id?: string;
-}
-
-export interface AgentMigrateParams {
-  preserve_core_memories: boolean;
-
-  to_template: string;
-
-  /**
-   * If you chose to not preserve core memories, you should provide the new variables
-   * for the core memories
-   */
-  variables?: Record<string, string>;
 }
 
 Agents.Context = Context;
@@ -619,13 +617,11 @@ export declare namespace Agents {
     type Memory as Memory,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
-    type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
-    type AgentMigrateParams as AgentMigrateParams,
   };
 
   export {
@@ -671,9 +667,5 @@ export declare namespace Agents {
     type MessageUpdateParams as MessageUpdateParams,
   };
 
-  export {
-    VersionTemplate as VersionTemplate,
-    type VersionTemplateCreateResponse as VersionTemplateCreateResponse,
-    type VersionTemplateCreateParams as VersionTemplateCreateParams,
-  };
+  export { VersionTemplate as VersionTemplate };
 }

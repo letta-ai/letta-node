@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { type Agent } from './_shims/index';
+import * as qs from './internal/qs';
 import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
@@ -27,7 +28,6 @@ import {
   ToolAddBaseToolsParams,
   ToolAddBaseToolsResponse,
   ToolCreateParams,
-  ToolDeleteParams,
   ToolDeleteResponse,
   ToolListParams,
   ToolListResponse,
@@ -43,8 +43,6 @@ import {
   AgentDeleteResponse,
   AgentListParams,
   AgentListResponse,
-  AgentMigrateParams,
-  AgentMigrateResponse,
   AgentRetrieveParams,
   AgentState,
   AgentUpdateParams,
@@ -221,8 +219,8 @@ export class Letta extends Core.APIClient {
     };
   }
 
-  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-    return { Authorization: `Bearer ${this.bearerToken}` };
+  protected override stringifyQuery(query: Record<string, unknown>): string {
+    return qs.stringify(query, { arrayFormat: 'comma' });
   }
 
   static Letta = this;
@@ -266,7 +264,6 @@ export declare namespace Letta {
     type ToolRetrieveParams as ToolRetrieveParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolDeleteParams as ToolDeleteParams,
     type ToolAddBaseToolsParams as ToolAddBaseToolsParams,
     type ToolRetrieveByNameParams as ToolRetrieveByNameParams,
   };
@@ -293,13 +290,11 @@ export declare namespace Letta {
     type Memory as Memory,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
-    type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
-    type AgentMigrateParams as AgentMigrateParams,
   };
 
   export {
@@ -332,7 +327,7 @@ export declare namespace Letta {
   export type Job = API.Job;
 }
 
-export { toFile, fileFromPath } from 'letta/uploads';
+export { toFile, fileFromPath } from 'letta-client/uploads';
 export {
   LettaError,
   APIError,
@@ -347,6 +342,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from 'letta/error';
+} from 'letta-client/error';
 
 export default Letta;

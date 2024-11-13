@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Letta from 'letta';
+import Letta from 'letta-client';
 import { Response } from 'node-fetch';
 
 const client = new Letta({
@@ -26,8 +26,8 @@ describe('resource blocks', () => {
       description: 'description',
       limit: 0,
       metadata_: {},
+      name: 'name',
       template: true,
-      template_name: 'template_name',
       body_user_id: 'user_id',
       value: 'value',
       header_user_id: 'user_id',
@@ -70,8 +70,8 @@ describe('resource blocks', () => {
       label: 'label',
       limit: 0,
       metadata_: {},
+      name: 'name',
       template: true,
-      template_name: 'template_name',
       user_id: 'user_id',
       value: 'value',
     });

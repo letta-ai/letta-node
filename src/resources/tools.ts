@@ -72,21 +72,8 @@ export class Tools extends APIResource {
   /**
    * Delete a tool by name
    */
-  delete(toolId: string, params?: ToolDeleteParams, options?: Core.RequestOptions): Core.APIPromise<unknown>;
-  delete(toolId: string, options?: Core.RequestOptions): Core.APIPromise<unknown>;
-  delete(
-    toolId: string,
-    params: ToolDeleteParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<unknown> {
-    if (isRequestOptions(params)) {
-      return this.delete(toolId, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.delete(`/v1/tools/${toolId}`, {
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+  delete(toolId: string, options?: Core.RequestOptions): Core.APIPromise<unknown> {
+    return this._client.delete(`/v1/tools/${toolId}`, options);
   }
 
   /**
@@ -219,11 +206,6 @@ export interface ToolCreateParams {
   source_code: string;
 
   /**
-   * Body param: The source type of the function.
-   */
-  source_type: string;
-
-  /**
    * Body param: The description of the tool.
    */
   description?: string | null;
@@ -244,6 +226,11 @@ export interface ToolCreateParams {
    * provided).
    */
   name?: string | null;
+
+  /**
+   * Body param: The source type of the function.
+   */
+  source_type?: string;
 
   /**
    * Body param: Metadata tags.
@@ -320,10 +307,6 @@ export interface ToolListParams {
   user_id?: string;
 }
 
-export interface ToolDeleteParams {
-  user_id?: string;
-}
-
 export interface ToolAddBaseToolsParams {
   user_id?: string;
 }
@@ -343,7 +326,6 @@ export declare namespace Tools {
     type ToolRetrieveParams as ToolRetrieveParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolDeleteParams as ToolDeleteParams,
     type ToolAddBaseToolsParams as ToolAddBaseToolsParams,
     type ToolRetrieveByNameParams as ToolRetrieveByNameParams,
   };

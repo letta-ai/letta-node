@@ -7,13 +7,11 @@ export {
   type Memory,
   type AgentListResponse,
   type AgentDeleteResponse,
-  type AgentMigrateResponse,
   type AgentCreateParams,
   type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
   type AgentDeleteParams,
-  type AgentMigrateParams,
 } from './agents/agents';
 export {
   Blocks,
@@ -63,7 +61,6 @@ export {
   type ToolRetrieveParams,
   type ToolUpdateParams,
   type ToolListParams,
-  type ToolDeleteParams,
   type ToolAddBaseToolsParams,
   type ToolRetrieveByNameParams,
 } from './tools';
