@@ -72,11 +72,6 @@ const environments = {
 type Environment = keyof typeof environments;
 export interface ClientOptions {
   /**
-   * The bearer token used for authentication
-   */
-  bearerToken?: string | undefined;
-
-  /**
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
@@ -146,14 +141,11 @@ export interface ClientOptions {
  * API Client for interfacing with the Letta API.
  */
 export class Letta extends Core.APIClient {
-  bearerToken: string;
-
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Letta API.
    *
-   * @param {string | undefined} [opts.bearerToken=process.env['BEARER_TOKEN'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? https://app.letta.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -163,19 +155,8 @@ export class Letta extends Core.APIClient {
    * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({
-    baseURL = Core.readEnv('LETTA_BASE_URL'),
-    bearerToken = Core.readEnv('BEARER_TOKEN'),
-    ...opts
-  }: ClientOptions = {}) {
-    if (bearerToken === undefined) {
-      throw new Errors.LettaError(
-        "The BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the Letta client with an bearerToken option, like new Letta({ bearerToken: 'My Bearer Token' }).",
-      );
-    }
-
+  constructor({ baseURL = Core.readEnv('LETTA_BASE_URL'), ...opts }: ClientOptions = {}) {
     const options: ClientOptions = {
-      bearerToken,
       ...opts,
       baseURL,
       environment: opts.environment ?? 'production',
@@ -196,8 +177,6 @@ export class Letta extends Core.APIClient {
     });
 
     this._options = options;
-
-    this.bearerToken = bearerToken;
   }
 
   tools: API.Tools = new API.Tools(this);
