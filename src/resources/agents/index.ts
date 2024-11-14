@@ -45,4 +45,3 @@ export {
   type ToolAddParams,
   type ToolRemoveParams,
 } from './tools';
-export { VersionTemplate } from './version-template';
