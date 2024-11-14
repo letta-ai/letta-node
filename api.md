@@ -178,8 +178,6 @@ Methods:
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">retrieve</a>(agentId, { ...params }) -> MessageRetrieveResponse</code>
 - <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/resources/agents/messages.ts">update</a>(agentId, messageId, { ...params }) -> MessageUpdateResponse</code>
 
-## VersionTemplate
-
 # Models
 
 Types:

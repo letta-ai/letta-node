@@ -31,8 +31,6 @@ import * as SourcesAPI from './sources';
 import { SourceListResponse, Sources } from './sources';
 import * as ToolsAPI from './tools';
 import { ToolAddParams, ToolListParams, ToolListResponse, ToolRemoveParams, Tools } from './tools';
-import * as VersionTemplateAPI from './version-template';
-import { VersionTemplate } from './version-template';
 import * as MemoryAPI from './memory/memory';
 import {
   ArchivalMemorySummary,
@@ -48,7 +46,6 @@ export class Agents extends APIResource {
   memory: MemoryAPI.Memory = new MemoryAPI.Memory(this._client);
   archival: ArchivalAPI.Archival = new ArchivalAPI.Archival(this._client);
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
-  versionTemplate: VersionTemplateAPI.VersionTemplate = new VersionTemplateAPI.VersionTemplate(this._client);
 
   /**
    * Create a new agent with the specified configuration.
@@ -609,7 +606,6 @@ Agents.Sources = Sources;
 Agents.Memory = MemoryAPIMemory;
 Agents.Archival = Archival;
 Agents.Messages = Messages;
-Agents.VersionTemplate = VersionTemplate;
 
 export declare namespace Agents {
   export {
@@ -666,6 +662,4 @@ export declare namespace Agents {
     type MessageRetrieveParams as MessageRetrieveParams,
     type MessageUpdateParams as MessageUpdateParams,
   };
-
-  export { VersionTemplate as VersionTemplate };
 }
