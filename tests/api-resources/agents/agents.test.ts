@@ -91,12 +91,12 @@ describe('resource agents', () => {
         },
         prompt_template: 'prompt_template',
       },
-      message_ids: ['string', 'string', 'string'],
+      message_ids: ['string'],
       metadata_: {},
       name: 'name',
       system: 'system',
-      tags: ['string', 'string', 'string'],
-      tools: ['string', 'string', 'string'],
+      tags: ['string'],
+      tools: ['string'],
       body_user_id: 'user_id',
       header_user_id: 'user_id',
     });
@@ -124,7 +124,7 @@ describe('resource agents', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.agents.list(
-        { name: 'name', tags: ['string', 'string', 'string'], user_id: 'user_id' },
+        { name: 'name', tags: ['string'], user_id: 'user_id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

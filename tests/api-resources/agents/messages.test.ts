@@ -8,11 +8,7 @@ const client = new Letta({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://
 describe('resource messages', () => {
   test('create: only required params', async () => {
     const responsePromise = client.agents.messages.create('agent_id', {
-      messages: [
-        { role: 'user', text: 'text' },
-        { role: 'user', text: 'text' },
-        { role: 'user', text: 'text' },
-      ],
+      messages: [{ role: 'user', text: 'text' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -25,11 +21,7 @@ describe('resource messages', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.agents.messages.create('agent_id', {
-      messages: [
-        { role: 'user', text: 'text', name: 'name' },
-        { role: 'user', text: 'text', name: 'name' },
-        { role: 'user', text: 'text', name: 'name' },
-      ],
+      messages: [{ role: 'user', text: 'text', name: 'name' }],
       assistant_message_function_kwarg: 'assistant_message_function_kwarg',
       assistant_message_function_name: 'assistant_message_function_name',
       return_message_object: true,
@@ -96,11 +88,7 @@ describe('resource messages', () => {
       role: 'assistant',
       text: 'text',
       tool_call_id: 'tool_call_id',
-      tool_calls: [
-        { id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'type' },
-        { id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'type' },
-        { id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'type' },
-      ],
+      tool_calls: [{ id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'type' }],
     });
   });
 });
