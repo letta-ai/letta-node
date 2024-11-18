@@ -25,7 +25,7 @@ describe('resource tools', () => {
       module: 'module',
       name: 'name',
       source_type: 'source_type',
-      tags: ['string', 'string', 'string'],
+      tags: ['string'],
       user_id: 'user_id',
     });
   });
