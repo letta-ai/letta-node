@@ -29,7 +29,6 @@ describe('resource blocks', () => {
       limit: 0,
       metadata_: {},
       name: 'name',
-      user_id: 'user_id',
     });
   });
 
@@ -49,13 +48,6 @@ describe('resource blocks', () => {
     await expect(client.blocks.retrieve('block_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Letta.NotFoundError,
     );
-  });
-
-  test('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.blocks.retrieve('block_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   test('update', async () => {
@@ -91,7 +83,7 @@ describe('resource blocks', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.blocks.list(
-        { label: 'label', name: 'name', templates_only: true, user_id: 'user_id' },
+        { label: 'label', name: 'name', templates_only: true },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
@@ -113,12 +105,5 @@ describe('resource blocks', () => {
     await expect(client.blocks.delete('block_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Letta.NotFoundError,
     );
-  });
-
-  test('delete: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.blocks.delete('block_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 });

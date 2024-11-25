@@ -28,7 +28,7 @@ describe('resource memory', () => {
   });
 
   test('update: only required params', async () => {
-    const responsePromise = client.agents.memory.update('agent_id', { body: {} });
+    const responsePromise = client.agents.memory.update('agent_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -39,6 +39,6 @@ describe('resource memory', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.agents.memory.update('agent_id', { body: {}, user_id: 'user_id' });
+    const response = await client.agents.memory.update('agent_id', {});
   });
 });

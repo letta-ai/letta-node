@@ -10,33 +10,23 @@ export class Label extends APIResource {
    */
   update(
     agentId: string,
-    params: LabelUpdateParams,
+    body: LabelUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AgentsAPI.Memory> {
-    const { user_id, ...body } = params;
-    return this._client.patch(`/v1/agents/${agentId}/memory/label`, {
-      body,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+    return this._client.patch(`/v1/agents/${agentId}/memory/label`, { body, ...options });
   }
 }
 
 export interface LabelUpdateParams {
   /**
-   * Body param: Current label of the block.
+   * Current label of the block.
    */
   current_label: string;
 
   /**
-   * Body param: New label of the block.
+   * New label of the block.
    */
   new_label: string;
-
-  /**
-   * Header param:
-   */
-  user_id?: string;
 }
 
 export declare namespace Label {

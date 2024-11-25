@@ -29,7 +29,6 @@ describe('resource block', () => {
       limit: 0,
       metadata_: {},
       name: 'name',
-      user_id: 'user_id',
     });
   });
 
@@ -48,18 +47,6 @@ describe('resource block', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.agents.memory.block.delete('agent_id', 'block_label', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  test('delete: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.agents.memory.block.delete(
-        'agent_id',
-        'block_label',
-        { user_id: 'user_id' },
-        { path: '/_stainless_unknown_path' },
-      ),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 });

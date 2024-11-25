@@ -11,15 +11,10 @@ export class Archival extends APIResource {
    */
   create(
     agentId: string,
-    params: ArchivalCreateParams,
+    body: ArchivalCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ArchivalCreateResponse> {
-    const { user_id, ...body } = params;
-    return this._client.post(`/v1/agents/${agentId}/archival`, {
-      body,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+    return this._client.post(`/v1/agents/${agentId}/archival`, { body, ...options });
   }
 
   /**
@@ -27,50 +22,26 @@ export class Archival extends APIResource {
    */
   retrieve(
     agentId: string,
-    params?: ArchivalRetrieveParams,
+    query?: ArchivalRetrieveParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ArchivalRetrieveResponse>;
   retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<ArchivalRetrieveResponse>;
   retrieve(
     agentId: string,
-    params: ArchivalRetrieveParams | Core.RequestOptions = {},
+    query: ArchivalRetrieveParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<ArchivalRetrieveResponse> {
-    if (isRequestOptions(params)) {
-      return this.retrieve(agentId, {}, params);
+    if (isRequestOptions(query)) {
+      return this.retrieve(agentId, {}, query);
     }
-    const { user_id, ...query } = params;
-    return this._client.get(`/v1/agents/${agentId}/archival`, {
-      query,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+    return this._client.get(`/v1/agents/${agentId}/archival`, { query, ...options });
   }
 
   /**
    * Delete a memory from an agent's archival memory store.
    */
-  delete(
-    agentId: string,
-    memoryId: string,
-    params?: ArchivalDeleteParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<unknown>;
-  delete(agentId: string, memoryId: string, options?: Core.RequestOptions): Core.APIPromise<unknown>;
-  delete(
-    agentId: string,
-    memoryId: string,
-    params: ArchivalDeleteParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<unknown> {
-    if (isRequestOptions(params)) {
-      return this.delete(agentId, memoryId, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.delete(`/v1/agents/${agentId}/archival/${memoryId}`, {
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+  delete(agentId: string, memoryId: string, options?: Core.RequestOptions): Core.APIPromise<unknown> {
+    return this._client.delete(`/v1/agents/${agentId}/archival/${memoryId}`, options);
   }
 }
 
@@ -82,40 +53,26 @@ export type ArchivalDeleteResponse = unknown;
 
 export interface ArchivalCreateParams {
   /**
-   * Body param: Text to write to archival memory.
+   * Text to write to archival memory.
    */
   text: string;
-
-  /**
-   * Header param:
-   */
-  user_id?: string;
 }
 
 export interface ArchivalRetrieveParams {
   /**
-   * Query param: Unique ID of the memory to start the query range at.
+   * Unique ID of the memory to start the query range at.
    */
   after?: number | null;
 
   /**
-   * Query param: Unique ID of the memory to end the query range at.
+   * Unique ID of the memory to end the query range at.
    */
   before?: number | null;
 
   /**
-   * Query param: How many results to include in the response.
+   * How many results to include in the response.
    */
   limit?: number | null;
-
-  /**
-   * Header param:
-   */
-  user_id?: string;
-}
-
-export interface ArchivalDeleteParams {
-  user_id?: string;
 }
 
 export declare namespace Archival {
@@ -125,6 +82,5 @@ export declare namespace Archival {
     type ArchivalDeleteResponse as ArchivalDeleteResponse,
     type ArchivalCreateParams as ArchivalCreateParams,
     type ArchivalRetrieveParams as ArchivalRetrieveParams,
-    type ArchivalDeleteParams as ArchivalDeleteParams,
   };
 }

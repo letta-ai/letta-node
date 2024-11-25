@@ -13,15 +13,10 @@ export class Messages extends APIResource {
    */
   create(
     agentId: string,
-    params: MessageCreateParams,
+    body: MessageCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageCreateResponse> {
-    const { user_id, ...body } = params;
-    return this._client.post(`/v1/agents/${agentId}/messages`, {
-      body,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+    return this._client.post(`/v1/agents/${agentId}/messages`, { body, ...options });
   }
 
   /**
@@ -41,24 +36,19 @@ export class Messages extends APIResource {
    */
   list(
     agentId: string,
-    params?: MessageListParams,
+    query?: MessageListParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageListResponse>;
   list(agentId: string, options?: Core.RequestOptions): Core.APIPromise<MessageListResponse>;
   list(
     agentId: string,
-    params: MessageListParams | Core.RequestOptions = {},
+    query: MessageListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageListResponse> {
-    if (isRequestOptions(params)) {
-      return this.list(agentId, {}, params);
+    if (isRequestOptions(query)) {
+      return this.list(agentId, {}, query);
     }
-    const { user_id, ...query } = params;
-    return this._client.get(`/v1/agents/${agentId}/messages`, {
-      query,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+    return this._client.get(`/v1/agents/${agentId}/messages`, { query, ...options });
   }
 }
 
@@ -596,56 +586,51 @@ export namespace MessageListResponse {
 
 export interface MessageCreateParams {
   /**
-   * Body param: The messages to be sent to the agent.
+   * The messages to be sent to the agent.
    */
   messages: Array<MessageCreateParams.UnionMember0> | Array<MessageCreateParams.UnionMember1>;
 
   /**
-   * Body param: [Only applicable if use_assistant_message is True] The name of the
-   * message argument in the designated message tool.
+   * [Only applicable if use_assistant_message is True] The name of the message
+   * argument in the designated message tool.
    */
   assistant_message_function_kwarg?: string;
 
   /**
-   * Body param: [Only applicable if use_assistant_message is True] The name of the
-   * designated message tool.
+   * [Only applicable if use_assistant_message is True] The name of the designated
+   * message tool.
    */
   assistant_message_function_name?: string;
 
   /**
-   * Body param: Set True to return the raw Message object. Set False to return the
-   * Message in the format of the Letta API.
+   * Set True to return the raw Message object. Set False to return the Message in
+   * the format of the Letta API.
    */
   return_message_object?: boolean;
 
   /**
-   * Body param: Whether to asynchronously send the messages to the agent.
+   * Whether to asynchronously send the messages to the agent.
    */
   run_async?: boolean;
 
   /**
-   * Body param: Flag to determine if the response should be streamed. Set to True
-   * for streaming agent steps.
+   * Flag to determine if the response should be streamed. Set to True for streaming
+   * agent steps.
    */
   stream_steps?: boolean;
 
   /**
-   * Body param: Flag to determine if individual tokens should be streamed. Set to
-   * True for token streaming (requires stream_steps = True).
+   * Flag to determine if individual tokens should be streamed. Set to True for token
+   * streaming (requires stream_steps = True).
    */
   stream_tokens?: boolean;
 
   /**
-   * Body param: [Only applicable if return_message_object is False] If true, returns
+   * [Only applicable if return_message_object is False] If true, returns
    * AssistantMessage objects when the agent calls a designated message tool. If
    * false, return FunctionCallMessage objects for all tool calls.
    */
   use_assistant_message?: boolean;
-
-  /**
-   * Header param:
-   */
-  user_id?: string;
 }
 
 export namespace MessageCreateParams {
@@ -834,44 +819,38 @@ export namespace MessageUpdateParams {
 
 export interface MessageListParams {
   /**
-   * Query param: [Only applicable if use_assistant_message is True] The name of the
-   * message argument in the designated message tool.
+   * [Only applicable if use_assistant_message is True] The name of the message
+   * argument in the designated message tool.
    */
   assistant_message_function_kwarg?: string;
 
   /**
-   * Query param: [Only applicable if use_assistant_message is True] The name of the
-   * designated message tool.
+   * [Only applicable if use_assistant_message is True] The name of the designated
+   * message tool.
    */
   assistant_message_function_name?: string;
 
   /**
-   * Query param: Message before which to retrieve the returned messages.
+   * Message before which to retrieve the returned messages.
    */
   before?: string | null;
 
   /**
-   * Query param: Maximum number of messages to retrieve.
+   * Maximum number of messages to retrieve.
    */
   limit?: number;
 
   /**
-   * Query param: If true, returns Message objects. If false, return LettaMessage
-   * objects.
+   * If true, returns Message objects. If false, return LettaMessage objects.
    */
   msg_object?: boolean;
 
   /**
-   * Query param: [Only applicable if msg_object is False] If true, returns
-   * AssistantMessage objects when the agent calls a designated message tool. If
-   * false, return FunctionCallMessage objects for all tool calls.
+   * [Only applicable if msg_object is False] If true, returns AssistantMessage
+   * objects when the agent calls a designated message tool. If false, return
+   * FunctionCallMessage objects for all tool calls.
    */
   use_assistant_message?: boolean;
-
-  /**
-   * Header param:
-   */
-  user_id?: string;
 }
 
 export declare namespace Messages {
