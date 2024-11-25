@@ -3,6 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as MemoryMessagesAPI from './memory/messages';
 
 export class Messages extends APIResource {
   /**
@@ -31,7 +32,7 @@ export class Messages extends APIResource {
     messageId: string,
     body: MessageUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<MessageUpdateResponse> {
+  ): Core.APIPromise<MemoryMessagesAPI.Messageoutput> {
     return this._client.patch(`/v1/agents/${agentId}/messages/${messageId}`, { body, ...options });
   }
 
@@ -457,105 +458,8 @@ export namespace MessageCreateResponse {
   }
 }
 
-/**
- * Letta's internal representation of a message. Includes methods to convert
- * to/from LLM provider formats.
- *
- * Attributes: id (str): The unique identifier of the message. role (MessageRole):
- * The role of the participant. text (str): The text of the message. user_id (str):
- * The unique identifier of the user. agent_id (str): The unique identifier of the
- * agent. model (str): The model used to make the function call. name (str): The
- * name of the participant. created_at (datetime): The time the message was
- * created. tool_calls (List[ToolCall]): The list of tool calls requested.
- * tool_call_id (str): The id of the tool call.
- */
-export interface MessageUpdateResponse {
-  /**
-   * The role of the participant.
-   */
-  role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
-
-  /**
-   * The human-friendly ID of the Message
-   */
-  id?: string;
-
-  /**
-   * The unique identifier of the agent.
-   */
-  agent_id?: string | null;
-
-  /**
-   * The time the message was created.
-   */
-  created_at?: string;
-
-  /**
-   * The model used to make the function call.
-   */
-  model?: string | null;
-
-  /**
-   * The name of the participant.
-   */
-  name?: string | null;
-
-  /**
-   * The text of the message.
-   */
-  text?: string | null;
-
-  /**
-   * The id of the tool call.
-   */
-  tool_call_id?: string | null;
-
-  /**
-   * The list of tool calls requested.
-   */
-  tool_calls?: Array<MessageUpdateResponse.ToolCall> | null;
-
-  /**
-   * The unique identifier of the user.
-   */
-  user_id?: string | null;
-}
-
-export namespace MessageUpdateResponse {
-  export interface ToolCall {
-    /**
-     * The ID of the tool call
-     */
-    id: string;
-
-    /**
-     * The arguments and name for the function
-     */
-    function: ToolCall.Function;
-
-    type?: string;
-  }
-
-  export namespace ToolCall {
-    /**
-     * The arguments and name for the function
-     */
-    export interface Function {
-      /**
-       * The arguments to pass to the function (JSON dump)
-       */
-      arguments: string;
-
-      /**
-       * The name of the function to call
-       */
-      name: string;
-    }
-  }
-}
-
 export type MessageListResponse =
-  | Array<MessageListResponse.UnionMember0>
+  | Array<MemoryMessagesAPI.Messageoutput>
   | Array<
       | MessageListResponse.SystemMessageOutput
       | MessageListResponse.UserMessageOutput
@@ -566,103 +470,6 @@ export type MessageListResponse =
     >;
 
 export namespace MessageListResponse {
-  /**
-   * Letta's internal representation of a message. Includes methods to convert
-   * to/from LLM provider formats.
-   *
-   * Attributes: id (str): The unique identifier of the message. role (MessageRole):
-   * The role of the participant. text (str): The text of the message. user_id (str):
-   * The unique identifier of the user. agent_id (str): The unique identifier of the
-   * agent. model (str): The model used to make the function call. name (str): The
-   * name of the participant. created_at (datetime): The time the message was
-   * created. tool_calls (List[ToolCall]): The list of tool calls requested.
-   * tool_call_id (str): The id of the tool call.
-   */
-  export interface UnionMember0 {
-    /**
-     * The role of the participant.
-     */
-    role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
-
-    /**
-     * The human-friendly ID of the Message
-     */
-    id?: string;
-
-    /**
-     * The unique identifier of the agent.
-     */
-    agent_id?: string | null;
-
-    /**
-     * The time the message was created.
-     */
-    created_at?: string;
-
-    /**
-     * The model used to make the function call.
-     */
-    model?: string | null;
-
-    /**
-     * The name of the participant.
-     */
-    name?: string | null;
-
-    /**
-     * The text of the message.
-     */
-    text?: string | null;
-
-    /**
-     * The id of the tool call.
-     */
-    tool_call_id?: string | null;
-
-    /**
-     * The list of tool calls requested.
-     */
-    tool_calls?: Array<UnionMember0.ToolCall> | null;
-
-    /**
-     * The unique identifier of the user.
-     */
-    user_id?: string | null;
-  }
-
-  export namespace UnionMember0 {
-    export interface ToolCall {
-      /**
-       * The ID of the tool call
-       */
-      id: string;
-
-      /**
-       * The arguments and name for the function
-       */
-      function: ToolCall.Function;
-
-      type?: string;
-    }
-
-    export namespace ToolCall {
-      /**
-       * The arguments and name for the function
-       */
-      export interface Function {
-        /**
-         * The arguments to pass to the function (JSON dump)
-         */
-        arguments: string;
-
-        /**
-         * The name of the function to call
-         */
-        name: string;
-      }
-    }
-  }
-
   /**
    * A message generated by the system. Never streamed back on a response, only used
    * for cursor pagination.
@@ -1070,7 +877,6 @@ export interface MessageListParams {
 export declare namespace Messages {
   export {
     type MessageCreateResponse as MessageCreateResponse,
-    type MessageUpdateResponse as MessageUpdateResponse,
     type MessageListResponse as MessageListResponse,
     type MessageCreateParams as MessageCreateParams,
     type MessageUpdateParams as MessageUpdateParams,

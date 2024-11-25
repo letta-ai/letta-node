@@ -7,6 +7,31 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
+  BlockCreateParams,
+  BlockDeleteParams,
+  BlockListParams,
+  BlockListResponse,
+  BlockRetrieveParams,
+  BlockUpdateParams,
+  Blocks,
+} from './resources/blocks';
+import { Health } from './resources/health';
+import {
+  Tool,
+  ToolAddBaseToolsParams,
+  ToolAddBaseToolsResponse,
+  ToolCreateParams,
+  ToolDeleteResponse,
+  ToolListParams,
+  ToolListResponse,
+  ToolRetrieveParams,
+  ToolUpdateParams,
+  Tools,
+} from './resources/tools';
+import { ToolsName, ToolsNameRetrieveParams, ToolsNameRetrieveResponse } from './resources/tools-name';
+import {
+  AgentAddToolParams,
+  AgentContextParams,
   AgentCreateParams,
   AgentDeleteParams,
   AgentDeleteResponse,
@@ -14,11 +39,36 @@ import {
   AgentListResponse,
   AgentMigrateParams,
   AgentMigrateResponse,
+  AgentRemoveToolParams,
   AgentRetrieveParams,
   AgentState,
   AgentUpdateParams,
+  AgentVersionTemplateParams,
+  AgentVersionTemplateResponse,
   Agents,
+  Agentstate,
+  Archivalmemorysummary,
+  Contextwindowoverview,
+  Memory,
+  Recallmemorysummary,
 } from './resources/agents/agents';
+import { JobListParams, JobListResponse, Jobs } from './resources/jobs/jobs';
+import { Embeddingconfig, Llmconfig, ModelListResponse, Models } from './resources/models/models';
+import {
+  Source,
+  SourceAttachParams,
+  SourceCreateParams,
+  SourceDeleteParams,
+  SourceDeleteResponse,
+  SourceDetachParams,
+  SourceListParams,
+  SourceListResponse,
+  SourceRetrieveParams,
+  SourceRetrieveResponse,
+  SourceUpdateParams,
+  SourceUploadParams,
+  Sources,
+} from './resources/sources/sources';
 
 const environments = {
   production: 'https://app.letta.com',
@@ -156,6 +206,13 @@ export class Letta extends Core.APIClient {
   }
 
   agents: API.Agents = new API.Agents(this);
+  tools: API.Tools = new API.Tools(this);
+  toolsName: API.ToolsName = new API.ToolsName(this);
+  sources: API.Sources = new API.Sources(this);
+  models: API.Models = new API.Models(this);
+  blocks: API.Blocks = new API.Blocks(this);
+  jobs: API.Jobs = new API.Jobs(this);
+  health: API.Health = new API.Health(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -198,22 +255,95 @@ export class Letta extends Core.APIClient {
 }
 
 Letta.Agents = Agents;
+Letta.Tools = Tools;
+Letta.ToolsName = ToolsName;
+Letta.Sources = Sources;
+Letta.Models = Models;
+Letta.Blocks = Blocks;
+Letta.Jobs = Jobs;
 export declare namespace Letta {
   export type RequestOptions = Core.RequestOptions;
 
   export {
     Agents as Agents,
+    type Agentstate as Agentstate,
     type AgentState as AgentState,
+    type Archivalmemorysummary as Archivalmemorysummary,
+    type Contextwindowoverview as Contextwindowoverview,
+    type Memory as Memory,
+    type Recallmemorysummary as Recallmemorysummary,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentMigrateResponse as AgentMigrateResponse,
+    type AgentVersionTemplateResponse as AgentVersionTemplateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
+    type AgentAddToolParams as AgentAddToolParams,
+    type AgentContextParams as AgentContextParams,
     type AgentMigrateParams as AgentMigrateParams,
+    type AgentRemoveToolParams as AgentRemoveToolParams,
+    type AgentVersionTemplateParams as AgentVersionTemplateParams,
   };
+
+  export {
+    Tools as Tools,
+    type Tool as Tool,
+    type ToolListResponse as ToolListResponse,
+    type ToolDeleteResponse as ToolDeleteResponse,
+    type ToolAddBaseToolsResponse as ToolAddBaseToolsResponse,
+    type ToolCreateParams as ToolCreateParams,
+    type ToolRetrieveParams as ToolRetrieveParams,
+    type ToolUpdateParams as ToolUpdateParams,
+    type ToolListParams as ToolListParams,
+    type ToolAddBaseToolsParams as ToolAddBaseToolsParams,
+  };
+
+  export {
+    ToolsName as ToolsName,
+    type ToolsNameRetrieveResponse as ToolsNameRetrieveResponse,
+    type ToolsNameRetrieveParams as ToolsNameRetrieveParams,
+  };
+
+  export {
+    Sources as Sources,
+    type Source as Source,
+    type SourceRetrieveResponse as SourceRetrieveResponse,
+    type SourceListResponse as SourceListResponse,
+    type SourceDeleteResponse as SourceDeleteResponse,
+    type SourceCreateParams as SourceCreateParams,
+    type SourceRetrieveParams as SourceRetrieveParams,
+    type SourceUpdateParams as SourceUpdateParams,
+    type SourceListParams as SourceListParams,
+    type SourceDeleteParams as SourceDeleteParams,
+    type SourceAttachParams as SourceAttachParams,
+    type SourceDetachParams as SourceDetachParams,
+    type SourceUploadParams as SourceUploadParams,
+  };
+
+  export {
+    Models as Models,
+    type Embeddingconfig as Embeddingconfig,
+    type Llmconfig as Llmconfig,
+    type ModelListResponse as ModelListResponse,
+  };
+
+  export {
+    Blocks as Blocks,
+    type Block as Block,
+    type BlockListResponse as BlockListResponse,
+    type BlockCreateParams as BlockCreateParams,
+    type BlockRetrieveParams as BlockRetrieveParams,
+    type BlockUpdateParams as BlockUpdateParams,
+    type BlockListParams as BlockListParams,
+    type BlockDeleteParams as BlockDeleteParams,
+  };
+
+  export { Jobs as Jobs, type JobListResponse as JobListResponse, type JobListParams as JobListParams };
+
+  export { type Health as Health };
 
   export type Block = API.Block;
   export type Job = API.Job;
