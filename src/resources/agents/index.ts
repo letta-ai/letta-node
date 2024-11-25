@@ -13,14 +13,9 @@ export {
   type AgentMigrateResponse,
   type AgentVersionTemplateResponse,
   type AgentCreateParams,
-  type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
-  type AgentDeleteParams,
-  type AgentAddToolParams,
-  type AgentContextParams,
   type AgentMigrateParams,
-  type AgentRemoveToolParams,
   type AgentVersionTemplateParams,
 } from './agents';
 export {
@@ -30,7 +25,6 @@ export {
   type ArchivalDeleteResponse,
   type ArchivalCreateParams,
   type ArchivalRetrieveParams,
-  type ArchivalDeleteParams,
 } from './archival';
 export { Memory, type MemoryUpdateParams } from './memory/index';
 export {
@@ -42,4 +36,4 @@ export {
   type MessageListParams,
 } from './messages';
 export { Sources, type SourceRetrieveResponse } from './sources';
-export { Tools, type ToolRetrieveResponse, type ToolRetrieveParams } from './tools';
+export { Tools, type ToolRetrieveResponse } from './tools';

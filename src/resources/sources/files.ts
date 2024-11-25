@@ -10,53 +10,28 @@ export class Files extends APIResource {
    */
   list(
     sourceId: string,
-    params?: FileListParams,
+    query?: FileListParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<FileListResponse>;
   list(sourceId: string, options?: Core.RequestOptions): Core.APIPromise<FileListResponse>;
   list(
     sourceId: string,
-    params: FileListParams | Core.RequestOptions = {},
+    query: FileListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<FileListResponse> {
-    if (isRequestOptions(params)) {
-      return this.list(sourceId, {}, params);
+    if (isRequestOptions(query)) {
+      return this.list(sourceId, {}, query);
     }
-    const { user_id, ...query } = params;
-    return this._client.get(`/v1/sources/${sourceId}/files`, {
-      query,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+    return this._client.get(`/v1/sources/${sourceId}/files`, { query, ...options });
   }
 
   /**
    * Delete a data source.
    */
-  delete(
-    sourceId: string,
-    fileId: string,
-    params?: FileDeleteParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void>;
-  delete(sourceId: string, fileId: string, options?: Core.RequestOptions): Core.APIPromise<void>;
-  delete(
-    sourceId: string,
-    fileId: string,
-    params: FileDeleteParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    if (isRequestOptions(params)) {
-      return this.delete(sourceId, fileId, {}, params);
-    }
-    const { user_id } = params;
+  delete(sourceId: string, fileId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.delete(`/v1/sources/${sourceId}/${fileId}`, {
       ...options,
-      headers: {
-        Accept: '*/*',
-        ...(user_id != null ? { user_id: user_id } : undefined),
-        ...options?.headers,
-      },
+      headers: { Accept: '*/*', ...options?.headers },
     });
   }
 }
@@ -130,23 +105,14 @@ export type FileListResponse = Array<Filemetadata>;
 
 export interface FileListParams {
   /**
-   * Query param: Pagination cursor to fetch the next set of results
+   * Pagination cursor to fetch the next set of results
    */
   cursor?: string | null;
 
   /**
-   * Query param: Number of files to return
+   * Number of files to return
    */
   limit?: number;
-
-  /**
-   * Header param:
-   */
-  user_id?: string;
-}
-
-export interface FileDeleteParams {
-  user_id?: string;
 }
 
 export declare namespace Files {
@@ -154,6 +120,5 @@ export declare namespace Files {
     type Filemetadata as Filemetadata,
     type FileListResponse as FileListResponse,
     type FileListParams as FileListParams,
-    type FileDeleteParams as FileDeleteParams,
   };
 }

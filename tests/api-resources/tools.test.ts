@@ -29,7 +29,6 @@ describe('resource tools', () => {
       name: 'name',
       source_type: 'source_type',
       tags: ['string'],
-      user_id: 'user_id',
     });
   });
 
@@ -49,13 +48,6 @@ describe('resource tools', () => {
     await expect(client.tools.retrieve('tool_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Letta.NotFoundError,
     );
-  });
-
-  test('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.tools.retrieve('tool_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   test('update', async () => {
@@ -90,10 +82,7 @@ describe('resource tools', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.tools.list(
-        { cursor: 'cursor', limit: 0, user_id: 'user_id' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.tools.list({ cursor: 'cursor', limit: 0 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
@@ -131,12 +120,5 @@ describe('resource tools', () => {
     await expect(client.tools.addBaseTools({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Letta.NotFoundError,
     );
-  });
-
-  test('addBaseTools: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.tools.addBaseTools({ user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 });

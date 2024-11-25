@@ -21,7 +21,7 @@ describe('resource archival', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.agents.archival.create('agent_id', { text: 'text', user_id: 'user_id' });
+    const response = await client.agents.archival.create('agent_id', { text: 'text' });
   });
 
   test('retrieve', async () => {
@@ -47,7 +47,7 @@ describe('resource archival', () => {
     await expect(
       client.agents.archival.retrieve(
         'agent_id',
-        { after: 0, before: 0, limit: 0, user_id: 'user_id' },
+        { after: 0, before: 0, limit: 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
@@ -68,18 +68,6 @@ describe('resource archival', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.agents.archival.delete('agent_id', 'memory_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  test('delete: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.agents.archival.delete(
-        'agent_id',
-        'memory_id',
-        { user_id: 'user_id' },
-        { path: '/_stainless_unknown_path' },
-      ),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 });

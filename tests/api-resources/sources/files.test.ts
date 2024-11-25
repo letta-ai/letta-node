@@ -32,7 +32,7 @@ describe('resource files', () => {
     await expect(
       client.sources.files.list(
         'source_id',
-        { cursor: 'cursor', limit: 0, user_id: 'user_id' },
+        { cursor: 'cursor', limit: 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
@@ -53,18 +53,6 @@ describe('resource files', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.sources.files.delete('source_id', 'file_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  test('delete: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.sources.files.delete(
-        'source_id',
-        'file_id',
-        { user_id: 'user_id' },
-        { path: '/_stainless_unknown_path' },
-      ),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 });

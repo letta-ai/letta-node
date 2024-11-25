@@ -9,7 +9,6 @@ import {
   Archival,
   ArchivalCreateParams,
   ArchivalCreateResponse,
-  ArchivalDeleteParams,
   ArchivalDeleteResponse,
   ArchivalRetrieveParams,
   ArchivalRetrieveResponse,
@@ -26,7 +25,7 @@ import {
 import * as SourcesAPI from './sources';
 import { SourceRetrieveResponse, Sources } from './sources';
 import * as ToolsAPI from './tools';
-import { ToolRetrieveParams, ToolRetrieveResponse, Tools } from './tools';
+import { ToolRetrieveResponse, Tools } from './tools';
 import * as ModelsAPI from '../models/models';
 import * as MemoryAPI from './memory/memory';
 import { Memory as MemoryAPIMemory, MemoryUpdateParams } from './memory/memory';
@@ -42,37 +41,15 @@ export class Agents extends APIResource {
   /**
    * Create a new agent with the specified configuration.
    */
-  create(params: AgentCreateParams, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
-    const { body_user_id, header_user_id, ...body } = params;
-    return this._client.post('/v1/agents/', {
-      body: { user_id: body_user_id, ...body },
-      ...options,
-      headers: { ...(header_user_id != null ? { user_id: header_user_id } : undefined), ...options?.headers },
-    });
+  create(body: AgentCreateParams, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
+    return this._client.post('/v1/agents/', { body, ...options });
   }
 
   /**
    * Get the state of the agent.
    */
-  retrieve(
-    agentId: string,
-    params?: AgentRetrieveParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentState>;
-  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState>;
-  retrieve(
-    agentId: string,
-    params: AgentRetrieveParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentState> {
-    if (isRequestOptions(params)) {
-      return this.retrieve(agentId, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.get(`/v1/agents/${agentId}`, {
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
+    return this._client.get(`/v1/agents/${agentId}`, options);
   }
 
   /**
@@ -80,110 +57,47 @@ export class Agents extends APIResource {
    */
   update(
     agentId: string,
-    params: AgentUpdateParams,
+    body: AgentUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AgentState> {
-    const { body_user_id, header_user_id, ...body } = params;
-    return this._client.patch(`/v1/agents/${agentId}`, {
-      body: { user_id: body_user_id, ...body },
-      ...options,
-      headers: { ...(header_user_id != null ? { user_id: header_user_id } : undefined), ...options?.headers },
-    });
+    return this._client.patch(`/v1/agents/${agentId}`, { body, ...options });
   }
 
   /**
    * List all agents associated with a given user. This endpoint retrieves a list of
    * all agents and their configurations associated with the specified user ID.
    */
-  list(params?: AgentListParams, options?: Core.RequestOptions): Core.APIPromise<AgentListResponse>;
+  list(query?: AgentListParams, options?: Core.RequestOptions): Core.APIPromise<AgentListResponse>;
   list(options?: Core.RequestOptions): Core.APIPromise<AgentListResponse>;
   list(
-    params: AgentListParams | Core.RequestOptions = {},
+    query: AgentListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<AgentListResponse> {
-    if (isRequestOptions(params)) {
-      return this.list({}, params);
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
     }
-    const { user_id, ...query } = params;
-    return this._client.get('/v1/agents/', {
-      query,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+    return this._client.get('/v1/agents/', { query, ...options });
   }
 
   /**
    * Delete an agent.
    */
-  delete(
-    agentId: string,
-    params?: AgentDeleteParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<unknown>;
-  delete(agentId: string, options?: Core.RequestOptions): Core.APIPromise<unknown>;
-  delete(
-    agentId: string,
-    params: AgentDeleteParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<unknown> {
-    if (isRequestOptions(params)) {
-      return this.delete(agentId, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.delete(`/v1/agents/${agentId}`, {
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+  delete(agentId: string, options?: Core.RequestOptions): Core.APIPromise<unknown> {
+    return this._client.delete(`/v1/agents/${agentId}`, options);
   }
 
   /**
    * Add tools to an existing agent
    */
-  addTool(
-    agentId: string,
-    toolId: string,
-    params?: AgentAddToolParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentState>;
-  addTool(agentId: string, toolId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState>;
-  addTool(
-    agentId: string,
-    toolId: string,
-    params: AgentAddToolParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentState> {
-    if (isRequestOptions(params)) {
-      return this.addTool(agentId, toolId, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.patch(`/v1/agents/${agentId}/add-tool/${toolId}`, {
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+  addTool(agentId: string, toolId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
+    return this._client.patch(`/v1/agents/${agentId}/add-tool/${toolId}`, options);
   }
 
   /**
    * Retrieve the context window of a specific agent.
    */
-  context(
-    agentId: string,
-    params?: AgentContextParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Contextwindowoverview>;
-  context(agentId: string, options?: Core.RequestOptions): Core.APIPromise<Contextwindowoverview>;
-  context(
-    agentId: string,
-    params: AgentContextParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Contextwindowoverview> {
-    if (isRequestOptions(params)) {
-      return this.context(agentId, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.get(`/v1/agents/${agentId}/context`, {
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+  context(agentId: string, options?: Core.RequestOptions): Core.APIPromise<Contextwindowoverview> {
+    return this._client.get(`/v1/agents/${agentId}/context`, options);
   }
 
   /**
@@ -200,27 +114,8 @@ export class Agents extends APIResource {
   /**
    * Add tools to an existing agent
    */
-  removeTool(
-    agentId: string,
-    toolId: string,
-    params?: AgentRemoveToolParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentState>;
-  removeTool(agentId: string, toolId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState>;
-  removeTool(
-    agentId: string,
-    toolId: string,
-    params: AgentRemoveToolParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentState> {
-    if (isRequestOptions(params)) {
-      return this.removeTool(agentId, toolId, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.patch(`/v1/agents/${agentId}/remove-tool/${toolId}`, {
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+  removeTool(agentId: string, toolId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
+    return this._client.patch(`/v1/agents/${agentId}/remove-tool/${toolId}`, options);
   }
 
   /**
@@ -615,19 +510,19 @@ export interface AgentVersionTemplateResponse {
 
 export interface AgentCreateParams {
   /**
-   * Body param: Enum to represent the type of agent.
+   * Enum to represent the type of agent.
    */
   agent_type?: 'memgpt_agent' | 'split_thread_agent' | 'o1_agent' | null;
 
   /**
-   * Body param: The description of the agent.
+   * The description of the agent.
    */
   description?: string | null;
 
   /**
-   * Body param: Embedding model configuration. This object specifies all the
-   * information necessary to access an embedding model to usage with Letta, except
-   * for secret keys.
+   * Embedding model configuration. This object specifies all the information
+   * necessary to access an embedding model to usage with Letta, except for secret
+   * keys.
    *
    * Attributes: embedding_endpoint_type (str): The endpoint type for the model.
    * embedding_endpoint (str): The endpoint for the model. embedding_model (str): The
@@ -640,14 +535,14 @@ export interface AgentCreateParams {
   embedding_config?: ModelsAPI.Embeddingconfig | null;
 
   /**
-   * Body param: The initial set of messages to put in the agent's in-context memory.
+   * The initial set of messages to put in the agent's in-context memory.
    */
   initial_message_sequence?: Array<AgentCreateParams.InitialMessageSequence> | null;
 
   /**
-   * Body param: Configuration for a Language Model (LLM) model. This object
-   * specifies all the information necessary to access an LLM model to usage with
-   * Letta, except for secret keys.
+   * Configuration for a Language Model (LLM) model. This object specifies all the
+   * information necessary to access an LLM model to usage with Letta, except for
+   * secret keys.
    *
    * Attributes: model (str): The name of the LLM model. model_endpoint_type (str):
    * The endpoint type for the model. model_endpoint (str): The endpoint for the
@@ -662,8 +557,8 @@ export interface AgentCreateParams {
   llm_config?: ModelsAPI.Llmconfig | null;
 
   /**
-   * Body param: Represents the in-context memory of the agent. This includes both
-   * the `Block` objects (labelled by sections), as well as tools to edit the blocks.
+   * Represents the in-context memory of the agent. This includes both the `Block`
+   * objects (labelled by sections), as well as tools to edit the blocks.
    *
    * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
    * memory block.
@@ -671,49 +566,44 @@ export interface AgentCreateParams {
   memory?: Memory | null;
 
   /**
-   * Body param: The ids of the messages in the agent's in-context memory.
+   * The ids of the messages in the agent's in-context memory.
    */
   message_ids?: Array<string> | null;
 
   /**
-   * Body param: The metadata of the agent.
+   * The metadata of the agent.
    */
   metadata_?: unknown | null;
 
   /**
-   * Body param: The name of the agent.
+   * The name of the agent.
    */
   name?: string | null;
 
   /**
-   * Body param: The system prompt used by the agent.
+   * The system prompt used by the agent.
    */
   system?: string | null;
 
   /**
-   * Body param: The tags associated with the agent.
+   * The tags associated with the agent.
    */
   tags?: Array<string> | null;
 
   /**
-   * Body param: The tool rules governing the agent.
+   * The tool rules governing the agent.
    */
   tool_rules?: Array<AgentCreateParams.ToolRule> | null;
 
   /**
-   * Body param: The tools used by the agent.
+   * The tools used by the agent.
    */
   tools?: Array<string> | null;
 
   /**
-   * Body param: The user id of the agent.
+   * The user id of the agent.
    */
-  body_user_id?: string | null;
-
-  /**
-   * Header param:
-   */
-  header_user_id?: string;
+  user_id?: string | null;
 }
 
 export namespace AgentCreateParams {
@@ -822,25 +712,21 @@ export namespace AgentCreateParams {
   }
 }
 
-export interface AgentRetrieveParams {
-  user_id?: string;
-}
-
 export interface AgentUpdateParams {
   /**
-   * Body param: The id of the agent.
+   * The id of the agent.
    */
   id: string;
 
   /**
-   * Body param: The description of the agent.
+   * The description of the agent.
    */
   description?: string | null;
 
   /**
-   * Body param: Embedding model configuration. This object specifies all the
-   * information necessary to access an embedding model to usage with Letta, except
-   * for secret keys.
+   * Embedding model configuration. This object specifies all the information
+   * necessary to access an embedding model to usage with Letta, except for secret
+   * keys.
    *
    * Attributes: embedding_endpoint_type (str): The endpoint type for the model.
    * embedding_endpoint (str): The endpoint for the model. embedding_model (str): The
@@ -853,9 +739,9 @@ export interface AgentUpdateParams {
   embedding_config?: ModelsAPI.Embeddingconfig | null;
 
   /**
-   * Body param: Configuration for a Language Model (LLM) model. This object
-   * specifies all the information necessary to access an LLM model to usage with
-   * Letta, except for secret keys.
+   * Configuration for a Language Model (LLM) model. This object specifies all the
+   * information necessary to access an LLM model to usage with Letta, except for
+   * secret keys.
    *
    * Attributes: model (str): The name of the LLM model. model_endpoint_type (str):
    * The endpoint type for the model. model_endpoint (str): The endpoint for the
@@ -870,8 +756,8 @@ export interface AgentUpdateParams {
   llm_config?: ModelsAPI.Llmconfig | null;
 
   /**
-   * Body param: Represents the in-context memory of the agent. This includes both
-   * the `Block` objects (labelled by sections), as well as tools to edit the blocks.
+   * Represents the in-context memory of the agent. This includes both the `Block`
+   * objects (labelled by sections), as well as tools to edit the blocks.
    *
    * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
    * memory block.
@@ -879,73 +765,51 @@ export interface AgentUpdateParams {
   memory?: Memory | null;
 
   /**
-   * Body param: The ids of the messages in the agent's in-context memory.
+   * The ids of the messages in the agent's in-context memory.
    */
   message_ids?: Array<string> | null;
 
   /**
-   * Body param: The metadata of the agent.
+   * The metadata of the agent.
    */
   metadata_?: unknown | null;
 
   /**
-   * Body param: The name of the agent.
+   * The name of the agent.
    */
   name?: string | null;
 
   /**
-   * Body param: The system prompt used by the agent.
+   * The system prompt used by the agent.
    */
   system?: string | null;
 
   /**
-   * Body param: The tags associated with the agent.
+   * The tags associated with the agent.
    */
   tags?: Array<string> | null;
 
   /**
-   * Body param: The tools used by the agent.
+   * The tools used by the agent.
    */
   tools?: Array<string> | null;
 
   /**
-   * Body param: The user id of the agent.
+   * The user id of the agent.
    */
-  body_user_id?: string | null;
-
-  /**
-   * Header param:
-   */
-  header_user_id?: string;
+  user_id?: string | null;
 }
 
 export interface AgentListParams {
   /**
-   * Query param: Name of the agent
+   * Name of the agent
    */
   name?: string | null;
 
   /**
-   * Query param: List of tags to filter agents by
+   * List of tags to filter agents by
    */
   tags?: Array<string> | null;
-
-  /**
-   * Header param:
-   */
-  user_id?: string;
-}
-
-export interface AgentDeleteParams {
-  user_id?: string;
-}
-
-export interface AgentAddToolParams {
-  user_id?: string;
-}
-
-export interface AgentContextParams {
-  user_id?: string;
 }
 
 export interface AgentMigrateParams {
@@ -958,10 +822,6 @@ export interface AgentMigrateParams {
    * for the core memories
    */
   variables?: Record<string, string>;
-}
-
-export interface AgentRemoveToolParams {
-  user_id?: string;
 }
 
 export interface AgentVersionTemplateParams {
@@ -995,14 +855,9 @@ export declare namespace Agents {
     type AgentMigrateResponse as AgentMigrateResponse,
     type AgentVersionTemplateResponse as AgentVersionTemplateResponse,
     type AgentCreateParams as AgentCreateParams,
-    type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
-    type AgentDeleteParams as AgentDeleteParams,
-    type AgentAddToolParams as AgentAddToolParams,
-    type AgentContextParams as AgentContextParams,
     type AgentMigrateParams as AgentMigrateParams,
-    type AgentRemoveToolParams as AgentRemoveToolParams,
     type AgentVersionTemplateParams as AgentVersionTemplateParams,
   };
 
@@ -1015,11 +870,7 @@ export declare namespace Agents {
     type MessageListParams as MessageListParams,
   };
 
-  export {
-    Tools as Tools,
-    type ToolRetrieveResponse as ToolRetrieveResponse,
-    type ToolRetrieveParams as ToolRetrieveParams,
-  };
+  export { Tools as Tools, type ToolRetrieveResponse as ToolRetrieveResponse };
 
   export { Sources as Sources, type SourceRetrieveResponse as SourceRetrieveResponse };
 
@@ -1032,6 +883,5 @@ export declare namespace Agents {
     type ArchivalDeleteResponse as ArchivalDeleteResponse,
     type ArchivalCreateParams as ArchivalCreateParams,
     type ArchivalRetrieveParams as ArchivalRetrieveParams,
-    type ArchivalDeleteParams as ArchivalDeleteParams,
   };
 }

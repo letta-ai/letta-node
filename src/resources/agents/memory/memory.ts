@@ -6,7 +6,7 @@ import * as AgentsAPI from '../agents';
 import * as ArchivalAPI from './archival';
 import { Archival } from './archival';
 import * as BlockAPI from './block';
-import { Block, BlockCreateParams, BlockDeleteParams } from './block';
+import { Block, BlockCreateParams } from './block';
 import * as LabelAPI from './label';
 import { Label, LabelUpdateParams } from './label';
 import * as LimitAPI from './limit';
@@ -42,29 +42,14 @@ export class Memory extends APIResource {
    */
   update(
     agentId: string,
-    params: MemoryUpdateParams,
+    body: MemoryUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AgentsAPI.Memory> {
-    const { body, user_id } = params;
-    return this._client.patch(`/v1/agents/${agentId}/memory`, {
-      body: body,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+    return this._client.patch(`/v1/agents/${agentId}/memory`, { body, ...options });
   }
 }
 
-export interface MemoryUpdateParams {
-  /**
-   * Body param:
-   */
-  body: unknown;
-
-  /**
-   * Header param:
-   */
-  user_id?: string;
-}
+export type MemoryUpdateParams = unknown;
 
 Memory.Messages = Messages;
 Memory.Label = Label;
@@ -84,11 +69,7 @@ export declare namespace Memory {
 
   export { Label as Label, type LabelUpdateParams as LabelUpdateParams };
 
-  export {
-    Block as Block,
-    type BlockCreateParams as BlockCreateParams,
-    type BlockDeleteParams as BlockDeleteParams,
-  };
+  export { Block as Block, type BlockCreateParams as BlockCreateParams };
 
   export { Limit as Limit, type LimitUpdateParams as LimitUpdateParams };
 

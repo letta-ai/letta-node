@@ -21,10 +21,6 @@ describe('resource limit', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.agents.memory.limit.update('agent_id', {
-      label: 'label',
-      limit: 0,
-      user_id: 'user_id',
-    });
+    const response = await client.agents.memory.limit.update('agent_id', { label: 'label', limit: 0 });
   });
 });

@@ -27,7 +27,6 @@ describe('resource label', () => {
     const response = await client.agents.memory.label.update('agent_id', {
       current_label: 'current_label',
       new_label: 'new_label',
-      user_id: 'user_id',
     });
   });
 });

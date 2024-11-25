@@ -32,7 +32,6 @@ describe('resource messages', () => {
       stream_steps: true,
       stream_tokens: true,
       use_assistant_message: true,
-      user_id: 'user_id',
     });
   });
 
@@ -88,7 +87,6 @@ describe('resource messages', () => {
           limit: 0,
           msg_object: true,
           use_assistant_message: true,
-          user_id: 'user_id',
         },
         { path: '/_stainless_unknown_path' },
       ),

@@ -10,33 +10,23 @@ export class Limit extends APIResource {
    */
   update(
     agentId: string,
-    params: LimitUpdateParams,
+    body: LimitUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AgentsAPI.Memory> {
-    const { user_id, ...body } = params;
-    return this._client.patch(`/v1/agents/${agentId}/memory/limit`, {
-      body,
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
+    return this._client.patch(`/v1/agents/${agentId}/memory/limit`, { body, ...options });
   }
 }
 
 export interface LimitUpdateParams {
   /**
-   * Body param: Label of the block.
+   * Label of the block.
    */
   label: string;
 
   /**
-   * Body param: New limit of the block.
+   * New limit of the block.
    */
   limit: number;
-
-  /**
-   * Header param:
-   */
-  user_id?: string;
 }
 
 export declare namespace Limit {

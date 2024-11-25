@@ -8,39 +8,30 @@ import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
   BlockCreateParams,
-  BlockDeleteParams,
   BlockListParams,
   BlockListResponse,
-  BlockRetrieveParams,
   BlockUpdateParams,
   Blocks,
 } from './resources/blocks';
 import { Health } from './resources/health';
 import {
   Tool,
-  ToolAddBaseToolsParams,
   ToolAddBaseToolsResponse,
   ToolCreateParams,
   ToolDeleteResponse,
   ToolListParams,
   ToolListResponse,
-  ToolRetrieveParams,
   ToolUpdateParams,
   Tools,
 } from './resources/tools';
-import { ToolsName, ToolsNameRetrieveParams, ToolsNameRetrieveResponse } from './resources/tools-name';
+import { ToolsName, ToolsNameRetrieveResponse } from './resources/tools-name';
 import {
-  AgentAddToolParams,
-  AgentContextParams,
   AgentCreateParams,
-  AgentDeleteParams,
   AgentDeleteResponse,
   AgentListParams,
   AgentListResponse,
   AgentMigrateParams,
   AgentMigrateResponse,
-  AgentRemoveToolParams,
-  AgentRetrieveParams,
   AgentState,
   AgentUpdateParams,
   AgentVersionTemplateParams,
@@ -58,13 +49,9 @@ import {
   Source,
   SourceAttachParams,
   SourceCreateParams,
-  SourceDeleteParams,
   SourceDeleteResponse,
   SourceDetachParams,
-  SourceListParams,
   SourceListResponse,
-  SourceRetrieveParams,
-  SourceRetrieveResponse,
   SourceUpdateParams,
   SourceUploadParams,
   Sources,
@@ -277,14 +264,9 @@ export declare namespace Letta {
     type AgentMigrateResponse as AgentMigrateResponse,
     type AgentVersionTemplateResponse as AgentVersionTemplateResponse,
     type AgentCreateParams as AgentCreateParams,
-    type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
-    type AgentDeleteParams as AgentDeleteParams,
-    type AgentAddToolParams as AgentAddToolParams,
-    type AgentContextParams as AgentContextParams,
     type AgentMigrateParams as AgentMigrateParams,
-    type AgentRemoveToolParams as AgentRemoveToolParams,
     type AgentVersionTemplateParams as AgentVersionTemplateParams,
   };
 
@@ -295,29 +277,19 @@ export declare namespace Letta {
     type ToolDeleteResponse as ToolDeleteResponse,
     type ToolAddBaseToolsResponse as ToolAddBaseToolsResponse,
     type ToolCreateParams as ToolCreateParams,
-    type ToolRetrieveParams as ToolRetrieveParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolAddBaseToolsParams as ToolAddBaseToolsParams,
   };
 
-  export {
-    ToolsName as ToolsName,
-    type ToolsNameRetrieveResponse as ToolsNameRetrieveResponse,
-    type ToolsNameRetrieveParams as ToolsNameRetrieveParams,
-  };
+  export { ToolsName as ToolsName, type ToolsNameRetrieveResponse as ToolsNameRetrieveResponse };
 
   export {
     Sources as Sources,
     type Source as Source,
-    type SourceRetrieveResponse as SourceRetrieveResponse,
     type SourceListResponse as SourceListResponse,
     type SourceDeleteResponse as SourceDeleteResponse,
     type SourceCreateParams as SourceCreateParams,
-    type SourceRetrieveParams as SourceRetrieveParams,
     type SourceUpdateParams as SourceUpdateParams,
-    type SourceListParams as SourceListParams,
-    type SourceDeleteParams as SourceDeleteParams,
     type SourceAttachParams as SourceAttachParams,
     type SourceDetachParams as SourceDetachParams,
     type SourceUploadParams as SourceUploadParams,
@@ -335,10 +307,8 @@ export declare namespace Letta {
     type Block as Block,
     type BlockListResponse as BlockListResponse,
     type BlockCreateParams as BlockCreateParams,
-    type BlockRetrieveParams as BlockRetrieveParams,
     type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
-    type BlockDeleteParams as BlockDeleteParams,
   };
 
   export { Jobs as Jobs, type JobListResponse as JobListResponse, type JobListParams as JobListParams };

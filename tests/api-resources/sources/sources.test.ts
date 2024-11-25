@@ -35,12 +35,11 @@ describe('resource sources', () => {
         embedding_endpoint: 'embedding_endpoint',
       },
       metadata_: {},
-      user_id: 'user_id',
     });
   });
 
   test('retrieve', async () => {
-    const responsePromise = client.sources.retrieve('source_name');
+    const responsePromise = client.sources.retrieve('source_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,16 +51,9 @@ describe('resource sources', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.sources.retrieve('source_name', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  test('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.sources.retrieve('source_name', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
+    await expect(client.sources.retrieve('source_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Letta.NotFoundError,
+    );
   });
 
   test('update', async () => {
@@ -93,13 +85,6 @@ describe('resource sources', () => {
     );
   });
 
-  test('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.sources.list({ user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
   test('delete', async () => {
     const responsePromise = client.sources.delete('source_id');
     const rawResponse = await responsePromise.asResponse();
@@ -118,13 +103,6 @@ describe('resource sources', () => {
     );
   });
 
-  test('delete: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.sources.delete('source_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
   test('attach: only required params', async () => {
     const responsePromise = client.sources.attach('source_id', { agent_id: 'agent_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -137,7 +115,7 @@ describe('resource sources', () => {
   });
 
   test('attach: required and optional params', async () => {
-    const response = await client.sources.attach('source_id', { agent_id: 'agent_id', user_id: 'user_id' });
+    const response = await client.sources.attach('source_id', { agent_id: 'agent_id' });
   });
 
   test('detach: only required params', async () => {
@@ -152,7 +130,7 @@ describe('resource sources', () => {
   });
 
   test('detach: required and optional params', async () => {
-    const response = await client.sources.detach('source_id', { agent_id: 'agent_id', user_id: 'user_id' });
+    const response = await client.sources.detach('source_id', { agent_id: 'agent_id' });
   });
 
   test('upload: only required params', async () => {
@@ -171,7 +149,6 @@ describe('resource sources', () => {
   test('upload: required and optional params', async () => {
     const response = await client.sources.upload('source_id', {
       file: await toFile(Buffer.from('# my file contents'), 'README.md'),
-      user_id: 'user_id',
     });
   });
 });
