@@ -31,9 +31,9 @@ const client = new Letta({
 });
 
 async function main() {
-  const tool = await client.tools.create({ source_code: 'source_code' });
+  const agentState = await client.agents.create();
 
-  console.log(tool.id);
+  console.log(agentState.id);
 }
 
 main();
@@ -53,8 +53,7 @@ const client = new Letta({
 });
 
 async function main() {
-  const params: Letta.ToolCreateParams = { source_code: 'source_code' };
-  const tool: Letta.Tool = await client.tools.create(params);
+  const agentState: Letta.AgentState = await client.agents.create();
 }
 
 main();
@@ -71,7 +70,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const tool = await client.tools.create({ source_code: 'source_code' }).catch(async (err) => {
+  const agentState = await client.agents.create().catch(async (err) => {
     if (err instanceof Letta.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -114,7 +113,7 @@ const client = new Letta({
 });
 
 // Or, configure per-request:
-await client.tools.create({ source_code: 'source_code' }, {
+await client.agents.create({
   maxRetries: 5,
 });
 ```
@@ -131,7 +130,7 @@ const client = new Letta({
 });
 
 // Override per-request:
-await client.tools.create({ source_code: 'source_code' }, {
+await client.agents.create({
   timeout: 5 * 1000,
 });
 ```
@@ -152,15 +151,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Letta();
 
-const response = await client.tools.create({ source_code: 'source_code' }).asResponse();
+const response = await client.agents.create().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: tool, response: raw } = await client.tools
-  .create({ source_code: 'source_code' })
-  .withResponse();
+const { data: agentState, response: raw } = await client.agents.create().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(tool.id);
+console.log(agentState.id);
 ```
 
 ### Making custom/undocumented requests
@@ -264,12 +261,9 @@ const client = new Letta({
 });
 
 // Override per-request:
-await client.tools.create(
-  { source_code: 'source_code' },
-  {
-    httpAgent: new http.Agent({ keepAlive: false }),
-  },
-);
+await client.agents.create({
+  httpAgent: new http.Agent({ keepAlive: false }),
+});
 ```
 
 ## Semantic versioning
