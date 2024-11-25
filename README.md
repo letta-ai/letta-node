@@ -31,9 +31,7 @@ const client = new Letta({
 });
 
 async function main() {
-  const agentState = await client.agents.create();
-
-  console.log(agentState.id);
+  const agentStates = await client.agents.list();
 }
 
 main();
@@ -53,7 +51,7 @@ const client = new Letta({
 });
 
 async function main() {
-  const agentState: Letta.AgentState = await client.agents.create();
+  const agentStates: Letta.AgentListResponse = await client.agents.list();
 }
 
 main();
@@ -70,7 +68,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const agentState = await client.agents.create().catch(async (err) => {
+  const agentStates = await client.agents.list().catch(async (err) => {
     if (err instanceof Letta.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -113,7 +111,7 @@ const client = new Letta({
 });
 
 // Or, configure per-request:
-await client.agents.create({
+await client.agents.list({
   maxRetries: 5,
 });
 ```
@@ -130,7 +128,7 @@ const client = new Letta({
 });
 
 // Override per-request:
-await client.agents.create({
+await client.agents.list({
   timeout: 5 * 1000,
 });
 ```
@@ -151,13 +149,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Letta();
 
-const response = await client.agents.create().asResponse();
+const response = await client.agents.list().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: agentState, response: raw } = await client.agents.create().withResponse();
+const { data: agentStates, response: raw } = await client.agents.list().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(agentState.id);
+console.log(agentStates);
 ```
 
 ### Making custom/undocumented requests
@@ -261,7 +259,7 @@ const client = new Letta({
 });
 
 // Override per-request:
-await client.agents.create({
+await client.agents.list({
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```
