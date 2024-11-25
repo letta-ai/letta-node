@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../../resource';
 import * as Core from '../../../core';
-import * as MemoryAPI from './memory';
+import * as AgentsAPI from '../agents';
 
 export class Limit extends APIResource {
   /**
@@ -12,7 +12,7 @@ export class Limit extends APIResource {
     agentId: string,
     params: LimitUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<MemoryAPI.Memory> {
+  ): Core.APIPromise<AgentsAPI.Memory> {
     const { user_id, ...body } = params;
     return this._client.patch(`/v1/agents/${agentId}/memory/limit`, {
       body,

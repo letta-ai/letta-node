@@ -2,6 +2,7 @@
 
 Types:
 
+- <code><a href="./src/resources/shared.ts">Block</a></code>
 - <code><a href="./src/resources/shared.ts">Job</a></code>
 
 # Tools
@@ -28,10 +29,11 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/sources/sources.ts">FileMetadata</a></code>
+- <code><a href="./src/resources/sources/sources.ts">Passage</a></code>
 - <code><a href="./src/resources/sources/sources.ts">Source</a></code>
 - <code><a href="./src/resources/sources/sources.ts">SourceRetrieveResponse</a></code>
 - <code><a href="./src/resources/sources/sources.ts">SourceListResponse</a></code>
-- <code><a href="./src/resources/sources/sources.ts">SourceDeleteResponse</a></code>
 
 Methods:
 
@@ -39,7 +41,7 @@ Methods:
 - <code title="get /v1/sources/name/{source_name}">client.sources.<a href="./src/resources/sources/sources.ts">retrieve</a>(sourceName, { ...params }) -> string</code>
 - <code title="patch /v1/sources/{source_id}">client.sources.<a href="./src/resources/sources/sources.ts">update</a>(sourceId, { ...params }) -> Source</code>
 - <code title="get /v1/sources/">client.sources.<a href="./src/resources/sources/sources.ts">list</a>({ ...params }) -> SourceListResponse</code>
-- <code title="delete /v1/sources/{source_id}">client.sources.<a href="./src/resources/sources/sources.ts">delete</a>(sourceId, { ...params }) -> unknown</code>
+- <code title="delete /v1/sources/{source_id}/{file_id}">client.sources.<a href="./src/resources/sources/sources.ts">delete</a>(sourceId, fileId, { ...params }) -> void</code>
 - <code title="post /v1/sources/{source_id}/attach">client.sources.<a href="./src/resources/sources/sources.ts">attach</a>(sourceId, { ...params }) -> Source</code>
 - <code title="post /v1/sources/{source_id}/detach">client.sources.<a href="./src/resources/sources/sources.ts">detach</a>(sourceId, { ...params }) -> Source</code>
 - <code title="post /v1/sources/{source_id}/upload">client.sources.<a href="./src/resources/sources/sources.ts">upload</a>(sourceId, { ...params }) -> Job</code>
@@ -48,7 +50,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/sources/passages.ts">Passage</a></code>
 - <code><a href="./src/resources/sources/passages.ts">PassageListResponse</a></code>
 
 Methods:
@@ -59,20 +60,21 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/sources/files.ts">FileMetadata</a></code>
 - <code><a href="./src/resources/sources/files.ts">FileListResponse</a></code>
 
 Methods:
 
 - <code title="get /v1/sources/{source_id}/files">client.sources.files.<a href="./src/resources/sources/files.ts">list</a>(sourceId, { ...params }) -> FileListResponse</code>
-- <code title="delete /v1/sources/{source_id}/{file_id}">client.sources.files.<a href="./src/resources/sources/files.ts">delete</a>(sourceId, fileId, { ...params }) -> void</code>
 
 # Agents
 
 Types:
 
 - <code><a href="./src/resources/agents/agents.ts">AgentState</a></code>
+- <code><a href="./src/resources/agents/agents.ts">ArchivalMemorySummary</a></code>
+- <code><a href="./src/resources/agents/agents.ts">LettaResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">Memory</a></code>
+- <code><a href="./src/resources/agents/agents.ts">RecallMemorySummary</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentListResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentDeleteResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentMigrateResponse</a></code>
@@ -84,7 +86,9 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">update</a>(agentId, { ...params }) -> AgentState</code>
 - <code title="get /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">list</a>({ ...params }) -> AgentListResponse</code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentId, { ...params }) -> unknown</code>
+- <code title="patch /v1/agents/{agent_id}/add-tool/{tool_id}">client.agents.<a href="./src/resources/agents/agents.ts">addTool</a>(agentId, toolId, { ...params }) -> AgentState</code>
 - <code title="post /v1/agents/{agent_id}/migrate">client.agents.<a href="./src/resources/agents/agents.ts">migrate</a>(agentId, { ...params }) -> AgentMigrateResponse</code>
+- <code title="patch /v1/agents/{agent_id}/remove-tool/{tool_id}">client.agents.<a href="./src/resources/agents/agents.ts">removeTool</a>(agentId, toolId, { ...params }) -> AgentState</code>
 
 ## Context
 
@@ -100,31 +104,23 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/agents/tools.ts">ToolListResponse</a></code>
+- <code><a href="./src/resources/agents/tools.ts">ToolRetrieveResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/resources/agents/tools.ts">list</a>(agentId, { ...params }) -> ToolListResponse</code>
-- <code title="patch /v1/agents/{agent_id}/add-tool/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">add</a>(agentId, toolId, { ...params }) -> AgentState</code>
-- <code title="patch /v1/agents/{agent_id}/remove-tool/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">remove</a>(agentId, toolId, { ...params }) -> AgentState</code>
+- <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/resources/agents/tools.ts">retrieve</a>(agentId, { ...params }) -> ToolRetrieveResponse</code>
 
 ## Sources
 
 Types:
 
-- <code><a href="./src/resources/agents/sources.ts">SourceListResponse</a></code>
+- <code><a href="./src/resources/agents/sources.ts">SourceRetrieveResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/sources">client.agents.sources.<a href="./src/resources/agents/sources.ts">list</a>(agentId) -> SourceListResponse</code>
+- <code title="get /v1/agents/{agent_id}/sources">client.agents.sources.<a href="./src/resources/agents/sources.ts">retrieve</a>(agentId) -> SourceRetrieveResponse</code>
 
 ## Memory
-
-Types:
-
-- <code><a href="./src/resources/agents/memory/memory.ts">ArchivalMemorySummary</a></code>
-- <code><a href="./src/resources/agents/memory/memory.ts">Memory</a></code>
-- <code><a href="./src/resources/agents/memory/memory.ts">RecallMemorySummary</a></code>
 
 Methods:
 
@@ -135,23 +131,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/agents/memory/messages.ts">MessageOutput</a></code>
 - <code><a href="./src/resources/agents/memory/messages.ts">MessageRetrieveResponse</a></code>
 
 Methods:
 
 - <code title="get /v1/agents/{agent_id}/memory/messages">client.agents.memory.messages.<a href="./src/resources/agents/memory/messages.ts">retrieve</a>(agentId) -> MessageRetrieveResponse</code>
-
-### Recall
-
-Methods:
-
-- <code title="get /v1/agents/{agent_id}/memory/recall">client.agents.memory.recall.<a href="./src/resources/agents/memory/recall.ts">retrieve</a>(agentId) -> RecallMemorySummary</code>
-
-### Archival
-
-Methods:
-
-- <code title="get /v1/agents/{agent_id}/memory/archival">client.agents.memory.archival.<a href="./src/resources/agents/memory/archival.ts">retrieve</a>(agentId) -> ArchivalMemorySummary</code>
 
 ### Label
 
@@ -172,6 +157,18 @@ Methods:
 
 - <code title="patch /v1/agents/{agent_id}/memory/limit">client.agents.memory.limit.<a href="./src/resources/agents/memory/limit.ts">update</a>(agentId, { ...params }) -> Memory</code>
 
+### Recall
+
+Methods:
+
+- <code title="get /v1/agents/{agent_id}/memory/recall">client.agents.memory.recall.<a href="./src/resources/agents/memory/recall.ts">retrieve</a>(agentId) -> RecallMemorySummary</code>
+
+### Archival
+
+Methods:
+
+- <code title="get /v1/agents/{agent_id}/memory/archival">client.agents.memory.archival.<a href="./src/resources/agents/memory/archival.ts">retrieve</a>(agentId) -> ArchivalMemorySummary</code>
+
 ## Archival
 
 Types:
@@ -190,15 +187,13 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/agents/messages.ts">MessageCreateResponse</a></code>
-- <code><a href="./src/resources/agents/messages.ts">MessageRetrieveResponse</a></code>
-- <code><a href="./src/resources/agents/messages.ts">MessageUpdateResponse</a></code>
+- <code><a href="./src/resources/agents/messages.ts">MessageListResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">create</a>(agentId, { ...params }) -> MessageCreateResponse</code>
-- <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">retrieve</a>(agentId, { ...params }) -> MessageRetrieveResponse</code>
-- <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/resources/agents/messages.ts">update</a>(agentId, messageId, { ...params }) -> MessageUpdateResponse</code>
+- <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/resources/agents/messages.ts">update</a>(agentId, messageId, { ...params }) -> MessageOutput</code>
+- <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">list</a>(agentId, { ...params }) -> MessageListResponse</code>
+- <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">process</a>(agentId, { ...params }) -> LettaResponse</code>
 
 ## VersionTemplate
 
@@ -214,21 +209,28 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/models.ts">EmbeddingConfig</a></code>
-- <code><a href="./src/resources/models.ts">LlmConfig</a></code>
-- <code><a href="./src/resources/models.ts">ModelListResponse</a></code>
-- <code><a href="./src/resources/models.ts">ModelEmbeddingResponse</a></code>
+- <code><a href="./src/resources/models/models.ts">EmbeddingConfig</a></code>
+- <code><a href="./src/resources/models/models.ts">LlmConfig</a></code>
+- <code><a href="./src/resources/models/models.ts">ModelListResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/models/">client.models.<a href="./src/resources/models.ts">list</a>() -> ModelListResponse</code>
-- <code title="get /v1/models/embedding">client.models.<a href="./src/resources/models.ts">embedding</a>() -> ModelEmbeddingResponse</code>
+- <code title="get /v1/models/">client.models.<a href="./src/resources/models/models.ts">list</a>() -> ModelListResponse</code>
+
+## Embedding
+
+Types:
+
+- <code><a href="./src/resources/models/embedding.ts">EmbeddingRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/models/embedding">client.models.embedding.<a href="./src/resources/models/embedding.ts">retrieve</a>() -> EmbeddingRetrieveResponse</code>
 
 # Blocks
 
 Types:
 
-- <code><a href="./src/resources/blocks.ts">Block</a></code>
 - <code><a href="./src/resources/blocks.ts">BlockListResponse</a></code>
 
 Methods:
@@ -243,15 +245,23 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/jobs.ts">JobListResponse</a></code>
-- <code><a href="./src/resources/jobs.ts">JobActiveResponse</a></code>
+- <code><a href="./src/resources/jobs/jobs.ts">JobListResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/jobs/{job_id}">client.jobs.<a href="./src/resources/jobs.ts">retrieve</a>(jobId) -> Job</code>
-- <code title="get /v1/jobs/">client.jobs.<a href="./src/resources/jobs.ts">list</a>({ ...params }) -> JobListResponse</code>
-- <code title="delete /v1/jobs/{job_id}">client.jobs.<a href="./src/resources/jobs.ts">delete</a>(jobId) -> Job</code>
-- <code title="get /v1/jobs/active">client.jobs.<a href="./src/resources/jobs.ts">active</a>({ ...params }) -> JobActiveResponse</code>
+- <code title="get /v1/jobs/{job_id}">client.jobs.<a href="./src/resources/jobs/jobs.ts">retrieve</a>(jobId) -> Job</code>
+- <code title="get /v1/jobs/">client.jobs.<a href="./src/resources/jobs/jobs.ts">list</a>({ ...params }) -> JobListResponse</code>
+- <code title="delete /v1/jobs/{job_id}">client.jobs.<a href="./src/resources/jobs/jobs.ts">delete</a>(jobId) -> Job</code>
+
+## Active
+
+Types:
+
+- <code><a href="./src/resources/jobs/active.ts">ActiveListResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/jobs/active">client.jobs.active.<a href="./src/resources/jobs/active.ts">list</a>({ ...params }) -> ActiveListResponse</code>
 
 # Health
 

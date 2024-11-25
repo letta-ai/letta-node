@@ -1,5 +1,5 @@
 {
-  "name": "letta_client",
+  "name": "@letta/client",
   "version": "0.0.1-alpha.0",
   "description": "The official TypeScript library for the Letta API",
   "author": "Letta <dev-feedback@letta.com>",
@@ -59,8 +59,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "letta_client": ".",
-    "letta_client/*": "./src/*"
+    "@letta/client": ".",
+    "@letta/client/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {

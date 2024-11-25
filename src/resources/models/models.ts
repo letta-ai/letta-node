@@ -1,21 +1,18 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import * as Core from '../core';
+import { APIResource } from '../../resource';
+import * as Core from '../../core';
+import * as EmbeddingAPI from './embedding';
+import { Embedding, EmbeddingRetrieveResponse } from './embedding';
 
 export class Models extends APIResource {
+  embedding: EmbeddingAPI.Embedding = new EmbeddingAPI.Embedding(this._client);
+
   /**
    * List Llm Backends
    */
   list(options?: Core.RequestOptions): Core.APIPromise<ModelListResponse> {
     return this._client.get('/v1/models/', options);
-  }
-
-  /**
-   * List Embedding Backends
-   */
-  embedding(options?: Core.RequestOptions): Core.APIPromise<ModelEmbeddingResponse> {
-    return this._client.get('/v1/models/embedding', options);
   }
 }
 
@@ -142,13 +139,14 @@ export interface LlmConfig {
 
 export type ModelListResponse = Array<LlmConfig>;
 
-export type ModelEmbeddingResponse = Array<EmbeddingConfig>;
+Models.Embedding = Embedding;
 
 export declare namespace Models {
   export {
     type EmbeddingConfig as EmbeddingConfig,
     type LlmConfig as LlmConfig,
     type ModelListResponse as ModelListResponse,
-    type ModelEmbeddingResponse as ModelEmbeddingResponse,
   };
+
+  export { Embedding as Embedding, type EmbeddingRetrieveResponse as EmbeddingRetrieveResponse };
 }

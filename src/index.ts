@@ -7,7 +7,6 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
-  Block,
   BlockCreateParams,
   BlockDeleteParams,
   BlockListParams,
@@ -17,14 +16,6 @@ import {
   Blocks,
 } from './resources/blocks';
 import { Health } from './resources/health';
-import { JobActiveParams, JobActiveResponse, JobListParams, JobListResponse, Jobs } from './resources/jobs';
-import {
-  EmbeddingConfig,
-  LlmConfig,
-  ModelEmbeddingResponse,
-  ModelListResponse,
-  Models,
-} from './resources/models';
 import {
   Tool,
   ToolAddBaseToolsParams,
@@ -40,6 +31,7 @@ import {
   Tools,
 } from './resources/tools';
 import {
+  AgentAddToolParams,
   AgentCreateParams,
   AgentDeleteParams,
   AgentDeleteResponse,
@@ -47,18 +39,25 @@ import {
   AgentListResponse,
   AgentMigrateParams,
   AgentMigrateResponse,
+  AgentRemoveToolParams,
   AgentRetrieveParams,
   AgentState,
   AgentUpdateParams,
   Agents,
+  ArchivalMemorySummary,
+  LettaResponse,
   Memory,
+  RecallMemorySummary,
 } from './resources/agents/agents';
+import { JobListParams, JobListResponse, Jobs } from './resources/jobs/jobs';
+import { EmbeddingConfig, LlmConfig, ModelListResponse, Models } from './resources/models/models';
 import {
+  FileMetadata,
+  Passage,
   Source,
   SourceAttachParams,
   SourceCreateParams,
   SourceDeleteParams,
-  SourceDeleteResponse,
   SourceDetachParams,
   SourceListParams,
   SourceListResponse,
@@ -75,6 +74,11 @@ const environments = {
 };
 type Environment = keyof typeof environments;
 export interface ClientOptions {
+  /**
+   * Bearer token required for authentication
+   */
+  bearerToken?: string | undefined;
+
   /**
    * Specifies the environment to use for the API.
    *
@@ -145,11 +149,14 @@ export interface ClientOptions {
  * API Client for interfacing with the Letta API.
  */
 export class Letta extends Core.APIClient {
+  bearerToken: string;
+
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Letta API.
    *
+   * @param {string | undefined} [opts.bearerToken=process.env['BEARER_TOKEN'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? https://app.letta.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -159,8 +166,19 @@ export class Letta extends Core.APIClient {
    * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({ baseURL = Core.readEnv('LETTA_BASE_URL'), ...opts }: ClientOptions = {}) {
+  constructor({
+    baseURL = Core.readEnv('LETTA_BASE_URL'),
+    bearerToken = Core.readEnv('BEARER_TOKEN'),
+    ...opts
+  }: ClientOptions = {}) {
+    if (bearerToken === undefined) {
+      throw new Errors.LettaError(
+        "The BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the Letta client with an bearerToken option, like new Letta({ bearerToken: 'My Bearer Token' }).",
+      );
+    }
+
     const options: ClientOptions = {
+      bearerToken,
       ...opts,
       baseURL,
       environment: opts.environment ?? 'production',
@@ -181,6 +199,8 @@ export class Letta extends Core.APIClient {
     });
 
     this._options = options;
+
+    this.bearerToken = bearerToken;
   }
 
   tools: API.Tools = new API.Tools(this);
@@ -200,6 +220,10 @@ export class Letta extends Core.APIClient {
       ...super.defaultHeaders(opts),
       ...this._options.defaultHeaders,
     };
+  }
+
+  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
+    return { Authorization: `Bearer ${this.bearerToken}` };
   }
 
   protected override stringifyQuery(query: Record<string, unknown>): string {
@@ -253,10 +277,11 @@ export declare namespace Letta {
 
   export {
     Sources as Sources,
+    type FileMetadata as FileMetadata,
+    type Passage as Passage,
     type Source as Source,
     type SourceRetrieveResponse as SourceRetrieveResponse,
     type SourceListResponse as SourceListResponse,
-    type SourceDeleteResponse as SourceDeleteResponse,
     type SourceCreateParams as SourceCreateParams,
     type SourceRetrieveParams as SourceRetrieveParams,
     type SourceUpdateParams as SourceUpdateParams,
@@ -270,7 +295,10 @@ export declare namespace Letta {
   export {
     Agents as Agents,
     type AgentState as AgentState,
+    type ArchivalMemorySummary as ArchivalMemorySummary,
+    type LettaResponse as LettaResponse,
     type Memory as Memory,
+    type RecallMemorySummary as RecallMemorySummary,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentMigrateResponse as AgentMigrateResponse,
@@ -279,7 +307,9 @@ export declare namespace Letta {
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
+    type AgentAddToolParams as AgentAddToolParams,
     type AgentMigrateParams as AgentMigrateParams,
+    type AgentRemoveToolParams as AgentRemoveToolParams,
   };
 
   export {
@@ -287,12 +317,10 @@ export declare namespace Letta {
     type EmbeddingConfig as EmbeddingConfig,
     type LlmConfig as LlmConfig,
     type ModelListResponse as ModelListResponse,
-    type ModelEmbeddingResponse as ModelEmbeddingResponse,
   };
 
   export {
     Blocks as Blocks,
-    type Block as Block,
     type BlockListResponse as BlockListResponse,
     type BlockCreateParams as BlockCreateParams,
     type BlockRetrieveParams as BlockRetrieveParams,
@@ -301,16 +329,11 @@ export declare namespace Letta {
     type BlockDeleteParams as BlockDeleteParams,
   };
 
-  export {
-    Jobs as Jobs,
-    type JobListResponse as JobListResponse,
-    type JobActiveResponse as JobActiveResponse,
-    type JobListParams as JobListParams,
-    type JobActiveParams as JobActiveParams,
-  };
+  export { Jobs as Jobs, type JobListResponse as JobListResponse, type JobListParams as JobListParams };
 
   export { type Health as Health };
 
+  export type Block = API.Block;
   export type Job = API.Job;
 }
 

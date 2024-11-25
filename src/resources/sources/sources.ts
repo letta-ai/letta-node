@@ -3,12 +3,12 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as ModelsAPI from '../models';
 import * as Shared from '../shared';
+import * as ModelsAPI from '../models/models';
 import * as FilesAPI from './files';
-import { FileDeleteParams, FileListParams, FileListResponse, FileMetadata, Files } from './files';
+import { FileListParams, FileListResponse, Files } from './files';
 import * as PassagesAPI from './passages';
-import { Passage, PassageListParams, PassageListResponse, Passages } from './passages';
+import { PassageListParams, PassageListResponse, Passages } from './passages';
 
 export class Sources extends APIResource {
   passages: PassagesAPI.Passages = new PassagesAPI.Passages(this._client);
@@ -94,22 +94,28 @@ export class Sources extends APIResource {
    */
   delete(
     sourceId: string,
+    fileId: string,
     params?: SourceDeleteParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<unknown>;
-  delete(sourceId: string, options?: Core.RequestOptions): Core.APIPromise<unknown>;
+  ): Core.APIPromise<void>;
+  delete(sourceId: string, fileId: string, options?: Core.RequestOptions): Core.APIPromise<void>;
   delete(
     sourceId: string,
+    fileId: string,
     params: SourceDeleteParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<unknown> {
+  ): Core.APIPromise<void> {
     if (isRequestOptions(params)) {
-      return this.delete(sourceId, {}, params);
+      return this.delete(sourceId, fileId, {}, params);
     }
     const { user_id } = params;
-    return this._client.delete(`/v1/sources/${sourceId}`, {
+    return this._client.delete(`/v1/sources/${sourceId}/${fileId}`, {
       ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+      headers: {
+        Accept: '*/*',
+        ...(user_id != null ? { user_id: user_id } : undefined),
+        ...options?.headers,
+      },
     });
   }
 
@@ -163,6 +169,144 @@ export class Sources extends APIResource {
       }),
     );
   }
+}
+
+/**
+ * Representation of a single FileMetadata
+ */
+export interface FileMetadata {
+  /**
+   * The unique identifier of the source associated with the document.
+   */
+  source_id: string;
+
+  /**
+   * The human-friendly ID of the File
+   */
+  id?: string;
+
+  /**
+   * The creation date of the file.
+   */
+  created_at?: string | null;
+
+  /**
+   * The creation date of the file.
+   */
+  file_creation_date?: string | null;
+
+  /**
+   * The last modified date of the file.
+   */
+  file_last_modified_date?: string | null;
+
+  /**
+   * The name of the file.
+   */
+  file_name?: string | null;
+
+  /**
+   * The path to the file.
+   */
+  file_path?: string | null;
+
+  /**
+   * The size of the file in bytes.
+   */
+  file_size?: number | null;
+
+  /**
+   * The type of the file (MIME type).
+   */
+  file_type?: string | null;
+
+  /**
+   * Whether this file is deleted or not.
+   */
+  is_deleted?: boolean;
+
+  /**
+   * The unique identifier of the organization associated with the document.
+   */
+  organization_id?: string | null;
+
+  /**
+   * The update date of the file.
+   */
+  updated_at?: string | null;
+}
+
+/**
+ * Representation of a passage, which is stored in archival memory.
+ *
+ * Parameters: text (str): The text of the passage. embedding (List[float]): The
+ * embedding of the passage. embedding_config (EmbeddingConfig): The embedding
+ * configuration used by the passage. created_at (datetime): The creation date of
+ * the passage. user_id (str): The unique identifier of the user associated with
+ * the passage. agent_id (str): The unique identifier of the agent associated with
+ * the passage. source_id (str): The data source of the passage. file_id (str): The
+ * unique identifier of the file associated with the passage.
+ */
+export interface Passage {
+  /**
+   * The embedding of the passage.
+   */
+  embedding: Array<number> | null;
+
+  /**
+   * Embedding model configuration. This object specifies all the information
+   * necessary to access an embedding model to usage with Letta, except for secret
+   * keys.
+   *
+   * Attributes: embedding_endpoint_type (str): The endpoint type for the model.
+   * embedding_endpoint (str): The endpoint for the model. embedding_model (str): The
+   * model for the embedding. embedding_dim (int): The dimension of the embedding.
+   * embedding_chunk_size (int): The chunk size of the embedding. azure_endpoint
+   * (:obj:`str`, optional): The Azure endpoint for the model (Azure only).
+   * azure_version (str): The Azure version for the model (Azure only).
+   * azure_deployment (str): The Azure deployment for the model (Azure only).
+   */
+  embedding_config: ModelsAPI.EmbeddingConfig | null;
+
+  /**
+   * The text of the passage.
+   */
+  text: string;
+
+  /**
+   * The human-friendly ID of the Passage
+   */
+  id?: string;
+
+  /**
+   * The unique identifier of the agent associated with the passage.
+   */
+  agent_id?: string | null;
+
+  /**
+   * The creation date of the passage.
+   */
+  created_at?: string;
+
+  /**
+   * The unique identifier of the file associated with the passage.
+   */
+  file_id?: string | null;
+
+  /**
+   * The metadata of the passage.
+   */
+  metadata_?: unknown | null;
+
+  /**
+   * The data source of the passage.
+   */
+  source_id?: string | null;
+
+  /**
+   * The unique identifier of the user associated with the passage.
+   */
+  user_id?: string | null;
 }
 
 /**
@@ -229,8 +373,6 @@ export interface Source {
 export type SourceRetrieveResponse = string;
 
 export type SourceListResponse = Array<Source>;
-
-export type SourceDeleteResponse = unknown;
 
 export interface SourceCreateParams {
   /**
@@ -359,10 +501,11 @@ Sources.Files = Files;
 
 export declare namespace Sources {
   export {
+    type FileMetadata as FileMetadata,
+    type Passage as Passage,
     type Source as Source,
     type SourceRetrieveResponse as SourceRetrieveResponse,
     type SourceListResponse as SourceListResponse,
-    type SourceDeleteResponse as SourceDeleteResponse,
     type SourceCreateParams as SourceCreateParams,
     type SourceRetrieveParams as SourceRetrieveParams,
     type SourceUpdateParams as SourceUpdateParams,
@@ -375,16 +518,9 @@ export declare namespace Sources {
 
   export {
     Passages as Passages,
-    type Passage as Passage,
     type PassageListResponse as PassageListResponse,
     type PassageListParams as PassageListParams,
   };
 
-  export {
-    Files as Files,
-    type FileMetadata as FileMetadata,
-    type FileListResponse as FileListResponse,
-    type FileListParams as FileListParams,
-    type FileDeleteParams as FileDeleteParams,
-  };
+  export { Files as Files, type FileListResponse as FileListResponse, type FileListParams as FileListParams };
 }

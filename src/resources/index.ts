@@ -4,7 +4,10 @@ export * from './shared';
 export {
   Agents,
   type AgentState,
+  type ArchivalMemorySummary,
+  type LettaResponse,
   type Memory,
+  type RecallMemorySummary,
   type AgentListResponse,
   type AgentDeleteResponse,
   type AgentMigrateResponse,
@@ -13,11 +16,12 @@ export {
   type AgentUpdateParams,
   type AgentListParams,
   type AgentDeleteParams,
+  type AgentAddToolParams,
   type AgentMigrateParams,
+  type AgentRemoveToolParams,
 } from './agents/agents';
 export {
   Blocks,
-  type Block,
   type BlockListResponse,
   type BlockCreateParams,
   type BlockRetrieveParams,
@@ -25,26 +29,15 @@ export {
   type BlockListParams,
   type BlockDeleteParams,
 } from './blocks';
-export {
-  Jobs,
-  type JobListResponse,
-  type JobActiveResponse,
-  type JobListParams,
-  type JobActiveParams,
-} from './jobs';
-export {
-  Models,
-  type EmbeddingConfig,
-  type LlmConfig,
-  type ModelListResponse,
-  type ModelEmbeddingResponse,
-} from './models';
+export { Jobs, type JobListResponse, type JobListParams } from './jobs/jobs';
+export { Models, type EmbeddingConfig, type LlmConfig, type ModelListResponse } from './models/models';
 export {
   Sources,
+  type FileMetadata,
+  type Passage,
   type Source,
   type SourceRetrieveResponse,
   type SourceListResponse,
-  type SourceDeleteResponse,
   type SourceCreateParams,
   type SourceRetrieveParams,
   type SourceUpdateParams,

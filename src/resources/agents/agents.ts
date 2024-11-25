@@ -3,8 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as BlocksAPI from '../blocks';
-import * as ModelsAPI from '../models';
+import * as Shared from '../shared';
 import * as ArchivalAPI from './archival';
 import {
   Archival,
@@ -19,38 +18,31 @@ import * as ContextAPI from './context';
 import { Context, ContextRetrieveParams, ContextWindowOverview } from './context';
 import * as MessagesAPI from './messages';
 import {
-  MessageCreateParams,
-  MessageCreateResponse,
-  MessageRetrieveParams,
-  MessageRetrieveResponse,
+  MessageListParams,
+  MessageListResponse,
+  MessageProcessParams,
   MessageUpdateParams,
-  MessageUpdateResponse,
   Messages,
 } from './messages';
 import * as SourcesAPI from './sources';
-import { SourceListResponse, Sources } from './sources';
+import { SourceRetrieveResponse, Sources } from './sources';
 import * as ToolsAPI from './tools';
-import { ToolAddParams, ToolListParams, ToolListResponse, ToolRemoveParams, Tools } from './tools';
+import { ToolRetrieveParams, ToolRetrieveResponse, Tools } from './tools';
 import * as VersionTemplateAPI from './version-template';
 import {
   VersionTemplate,
   VersionTemplateCreateParams,
   VersionTemplateCreateResponse,
 } from './version-template';
+import * as ModelsAPI from '../models/models';
 import * as MemoryAPI from './memory/memory';
-import {
-  ArchivalMemorySummary,
-  Memory as MemoryAPIMemory,
-  MemoryResource,
-  MemoryUpdateParams,
-  RecallMemorySummary,
-} from './memory/memory';
+import { Memory as MemoryAPIMemory, MemoryUpdateParams } from './memory/memory';
 
 export class Agents extends APIResource {
   context: ContextAPI.Context = new ContextAPI.Context(this._client);
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
   sources: SourcesAPI.Sources = new SourcesAPI.Sources(this._client);
-  memory: MemoryAPI.MemoryResource = new MemoryAPI.MemoryResource(this._client);
+  memory: MemoryAPI.Memory = new MemoryAPI.Memory(this._client);
   archival: ArchivalAPI.Archival = new ArchivalAPI.Archival(this._client);
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
   versionTemplate: VersionTemplateAPI.VersionTemplate = new VersionTemplateAPI.VersionTemplate(this._client);
@@ -153,6 +145,32 @@ export class Agents extends APIResource {
   }
 
   /**
+   * Add tools to an existing agent
+   */
+  addTool(
+    agentId: string,
+    toolId: string,
+    params?: AgentAddToolParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AgentState>;
+  addTool(agentId: string, toolId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState>;
+  addTool(
+    agentId: string,
+    toolId: string,
+    params: AgentAddToolParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AgentState> {
+    if (isRequestOptions(params)) {
+      return this.addTool(agentId, toolId, {}, params);
+    }
+    const { user_id } = params;
+    return this._client.patch(`/v1/agents/${agentId}/add-tool/${toolId}`, {
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
+  }
+
+  /**
    * Migrate an agent to a new versioned agent template
    */
   migrate(
@@ -161,6 +179,32 @@ export class Agents extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<AgentMigrateResponse> {
     return this._client.post(`/v1/agents/${agentId}/migrate`, { body, ...options });
+  }
+
+  /**
+   * Add tools to an existing agent
+   */
+  removeTool(
+    agentId: string,
+    toolId: string,
+    params?: AgentRemoveToolParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AgentState>;
+  removeTool(agentId: string, toolId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState>;
+  removeTool(
+    agentId: string,
+    toolId: string,
+    params: AgentRemoveToolParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AgentState> {
+    if (isRequestOptions(params)) {
+      return this.removeTool(agentId, toolId, {}, params);
+    }
+    const { user_id } = params;
+    return this._client.patch(`/v1/agents/${agentId}/remove-tool/${toolId}`, {
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
   }
 }
 
@@ -232,7 +276,7 @@ export interface AgentState {
    * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
    * memory block.
    */
-  memory?: MemoryAPI.Memory;
+  memory?: Memory;
 
   /**
    * The ids of the messages in the agent's in-context memory.
@@ -269,6 +313,409 @@ export namespace AgentState {
   }
 }
 
+export interface ArchivalMemorySummary {
+  /**
+   * Number of rows in archival memory
+   */
+  size: number;
+}
+
+export interface LettaResponse {
+  AssistantMessage?: LettaResponse.AssistantMessage;
+
+  FunctionCall?: LettaResponse.FunctionCall;
+
+  FunctionCallDelta?: LettaResponse.FunctionCallDelta;
+
+  /**
+   * A message representing a request to call a function (generated by the LLM to
+   * trigger function execution).
+   *
+   * Attributes: function_call (Union[FunctionCall, FunctionCallDelta]): The function
+   * call id (str): The ID of the message date (datetime): The date the message was
+   * created in ISO format
+   */
+  FunctionCallMessage?: LettaResponse.FunctionCallMessage;
+
+  /**
+   * A message representing the return value of a function call (generated by Letta
+   * executing the requested function).
+   *
+   * Attributes: function_return (str): The return value of the function status
+   * (Literal["success", "error"]): The status of the function call id (str): The ID
+   * of the message date (datetime): The date the message was created in ISO format
+   * function_call_id (str): A unique identifier for the function call that generated
+   * this message
+   */
+  FunctionReturn?: LettaResponse.FunctionReturn;
+
+  /**
+   * Representation of an agent's internal monologue.
+   *
+   * Attributes: internal_monologue (str): The internal monologue of the agent id
+   * (str): The ID of the message date (datetime): The date the message was created
+   * in ISO format
+   */
+  InternalMonologue?: LettaResponse.InternalMonologue;
+
+  /**
+   * Usage statistics for the agent interaction.
+   *
+   * Attributes: completion_tokens (int): The number of tokens generated by the
+   * agent. prompt_tokens (int): The number of tokens in the prompt. total_tokens
+   * (int): The total number of tokens processed by the agent. step_count (int): The
+   * number of steps taken by the agent.
+   */
+  LettaUsageStatistics?: LettaResponse.LettaUsageStatistics;
+
+  /**
+   * Letta's internal representation of a message. Includes methods to convert
+   * to/from LLM provider formats.
+   *
+   * Attributes: id (str): The unique identifier of the message. role (MessageRole):
+   * The role of the participant. text (str): The text of the message. user_id (str):
+   * The unique identifier of the user. agent_id (str): The unique identifier of the
+   * agent. model (str): The model used to make the function call. name (str): The
+   * name of the participant. created_at (datetime): The time the message was
+   * created. tool_calls (List[ToolCall]): The list of tool calls requested.
+   * tool_call_id (str): The id of the tool call.
+   */
+  Message?: LettaResponse.Message;
+
+  MessageRole?: 'assistant' | 'user' | 'tool' | 'function' | 'system';
+
+  /**
+   * A message generated by the system. Never streamed back on a response, only used
+   * for cursor pagination.
+   *
+   * Attributes: message (str): The message sent by the system id (str): The ID of
+   * the message date (datetime): The date the message was created in ISO format
+   */
+  SystemMessage?: LettaResponse.SystemMessage;
+
+  ToolCall?: LettaResponse.ToolCall;
+
+  ToolCallFunction?: LettaResponse.ToolCallFunction;
+
+  /**
+   * A message sent by the user. Never streamed back on a response, only used for
+   * cursor pagination.
+   *
+   * Attributes: message (str): The message sent by the user id (str): The ID of the
+   * message date (datetime): The date the message was created in ISO format
+   */
+  UserMessage?: LettaResponse.UserMessage;
+}
+
+export namespace LettaResponse {
+  export interface AssistantMessage {
+    id: string;
+
+    assistant_message: string;
+
+    date: string;
+
+    message_type?: 'assistant_message';
+  }
+
+  export interface FunctionCall {
+    arguments: string;
+
+    function_call_id: string;
+
+    name: string;
+  }
+
+  export interface FunctionCallDelta {
+    arguments: string | null;
+
+    function_call_id: string | null;
+
+    name: string | null;
+  }
+
+  /**
+   * A message representing a request to call a function (generated by the LLM to
+   * trigger function execution).
+   *
+   * Attributes: function_call (Union[FunctionCall, FunctionCallDelta]): The function
+   * call id (str): The ID of the message date (datetime): The date the message was
+   * created in ISO format
+   */
+  export interface FunctionCallMessage {
+    id: string;
+
+    date: string;
+
+    function_call: FunctionCallMessage.FunctionCall | FunctionCallMessage.FunctionCallDelta;
+
+    message_type?: 'function_call';
+  }
+
+  export namespace FunctionCallMessage {
+    export interface FunctionCall {
+      arguments: string;
+
+      function_call_id: string;
+
+      name: string;
+    }
+
+    export interface FunctionCallDelta {
+      arguments: string | null;
+
+      function_call_id: string | null;
+
+      name: string | null;
+    }
+  }
+
+  /**
+   * A message representing the return value of a function call (generated by Letta
+   * executing the requested function).
+   *
+   * Attributes: function_return (str): The return value of the function status
+   * (Literal["success", "error"]): The status of the function call id (str): The ID
+   * of the message date (datetime): The date the message was created in ISO format
+   * function_call_id (str): A unique identifier for the function call that generated
+   * this message
+   */
+  export interface FunctionReturn {
+    id: string;
+
+    date: string;
+
+    function_call_id: string;
+
+    function_return: string;
+
+    status: 'success' | 'error';
+
+    message_type?: 'function_return';
+  }
+
+  /**
+   * Representation of an agent's internal monologue.
+   *
+   * Attributes: internal_monologue (str): The internal monologue of the agent id
+   * (str): The ID of the message date (datetime): The date the message was created
+   * in ISO format
+   */
+  export interface InternalMonologue {
+    id: string;
+
+    date: string;
+
+    internal_monologue: string;
+
+    message_type?: 'internal_monologue';
+  }
+
+  /**
+   * Usage statistics for the agent interaction.
+   *
+   * Attributes: completion_tokens (int): The number of tokens generated by the
+   * agent. prompt_tokens (int): The number of tokens in the prompt. total_tokens
+   * (int): The total number of tokens processed by the agent. step_count (int): The
+   * number of steps taken by the agent.
+   */
+  export interface LettaUsageStatistics {
+    /**
+     * The number of tokens generated by the agent.
+     */
+    completion_tokens?: number;
+
+    /**
+     * The number of tokens in the prompt.
+     */
+    prompt_tokens?: number;
+
+    /**
+     * The number of steps taken by the agent.
+     */
+    step_count?: number;
+
+    /**
+     * The total number of tokens processed by the agent.
+     */
+    total_tokens?: number;
+  }
+
+  /**
+   * Letta's internal representation of a message. Includes methods to convert
+   * to/from LLM provider formats.
+   *
+   * Attributes: id (str): The unique identifier of the message. role (MessageRole):
+   * The role of the participant. text (str): The text of the message. user_id (str):
+   * The unique identifier of the user. agent_id (str): The unique identifier of the
+   * agent. model (str): The model used to make the function call. name (str): The
+   * name of the participant. created_at (datetime): The time the message was
+   * created. tool_calls (List[ToolCall]): The list of tool calls requested.
+   * tool_call_id (str): The id of the tool call.
+   */
+  export interface Message {
+    /**
+     * The role of the participant.
+     */
+    role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
+
+    /**
+     * The human-friendly ID of the Message
+     */
+    id?: string;
+
+    /**
+     * The unique identifier of the agent.
+     */
+    agent_id?: string | null;
+
+    /**
+     * The time the message was created.
+     */
+    created_at?: string;
+
+    /**
+     * The model used to make the function call.
+     */
+    model?: string | null;
+
+    /**
+     * The name of the participant.
+     */
+    name?: string | null;
+
+    /**
+     * The text of the message.
+     */
+    text?: string | null;
+
+    /**
+     * The id of the tool call.
+     */
+    tool_call_id?: string | null;
+
+    /**
+     * The list of tool calls requested.
+     */
+    tool_calls?: Array<Message.ToolCall> | null;
+
+    /**
+     * The unique identifier of the user.
+     */
+    user_id?: string | null;
+  }
+
+  export namespace Message {
+    export interface ToolCall {
+      /**
+       * The ID of the tool call
+       */
+      id: string;
+
+      /**
+       * The arguments and name for the function
+       */
+      function: ToolCall.Function;
+
+      type?: string;
+    }
+
+    export namespace ToolCall {
+      /**
+       * The arguments and name for the function
+       */
+      export interface Function {
+        /**
+         * The arguments to pass to the function (JSON dump)
+         */
+        arguments: string;
+
+        /**
+         * The name of the function to call
+         */
+        name: string;
+      }
+    }
+  }
+
+  /**
+   * A message generated by the system. Never streamed back on a response, only used
+   * for cursor pagination.
+   *
+   * Attributes: message (str): The message sent by the system id (str): The ID of
+   * the message date (datetime): The date the message was created in ISO format
+   */
+  export interface SystemMessage {
+    id: string;
+
+    date: string;
+
+    message: string;
+
+    message_type?: 'system_message';
+  }
+
+  export interface ToolCall {
+    /**
+     * The ID of the tool call
+     */
+    id: string;
+
+    /**
+     * The arguments and name for the function
+     */
+    function: ToolCall.Function;
+
+    type?: string;
+  }
+
+  export namespace ToolCall {
+    /**
+     * The arguments and name for the function
+     */
+    export interface Function {
+      /**
+       * The arguments to pass to the function (JSON dump)
+       */
+      arguments: string;
+
+      /**
+       * The name of the function to call
+       */
+      name: string;
+    }
+  }
+
+  export interface ToolCallFunction {
+    /**
+     * The arguments to pass to the function (JSON dump)
+     */
+    arguments: string;
+
+    /**
+     * The name of the function to call
+     */
+    name: string;
+  }
+
+  /**
+   * A message sent by the user. Never streamed back on a response, only used for
+   * cursor pagination.
+   *
+   * Attributes: message (str): The message sent by the user id (str): The ID of the
+   * message date (datetime): The date the message was created in ISO format
+   */
+  export interface UserMessage {
+    id: string;
+
+    date: string;
+
+    message: string;
+
+    message_type?: 'user_message';
+  }
+}
+
 /**
  * Represents the in-context memory of the agent. This includes both the `Block`
  * objects (labelled by sections), as well as tools to edit the blocks.
@@ -280,12 +727,19 @@ export interface Memory {
   /**
    * Mapping from memory block section to memory block.
    */
-  memory?: Record<string, BlocksAPI.Block>;
+  memory?: Record<string, Shared.Block>;
 
   /**
    * Jinja2 template for compiling memory blocks into a prompt string
    */
   prompt_template?: string;
+}
+
+export interface RecallMemorySummary {
+  /**
+   * Number of rows in recall memory
+   */
+  size: number;
 }
 
 export type AgentListResponse = Array<AgentState>;
@@ -351,7 +805,7 @@ export interface AgentCreateParams {
    * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
    * memory block.
    */
-  memory?: MemoryAPI.Memory | null;
+  memory?: Memory | null;
 
   /**
    * Body param: The ids of the messages in the agent's in-context memory.
@@ -559,7 +1013,7 @@ export interface AgentUpdateParams {
    * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
    * memory block.
    */
-  memory?: MemoryAPI.Memory | null;
+  memory?: Memory | null;
 
   /**
    * Body param: The ids of the messages in the agent's in-context memory.
@@ -623,6 +1077,10 @@ export interface AgentDeleteParams {
   user_id?: string;
 }
 
+export interface AgentAddToolParams {
+  user_id?: string;
+}
+
 export interface AgentMigrateParams {
   preserve_core_memories: boolean;
 
@@ -635,10 +1093,14 @@ export interface AgentMigrateParams {
   variables?: Record<string, string>;
 }
 
+export interface AgentRemoveToolParams {
+  user_id?: string;
+}
+
 Agents.Context = Context;
 Agents.Tools = Tools;
 Agents.Sources = Sources;
-Agents.MemoryResource = MemoryResource;
+Agents.Memory = MemoryAPIMemory;
 Agents.Archival = Archival;
 Agents.Messages = Messages;
 Agents.VersionTemplate = VersionTemplate;
@@ -646,7 +1108,10 @@ Agents.VersionTemplate = VersionTemplate;
 export declare namespace Agents {
   export {
     type AgentState as AgentState,
+    type ArchivalMemorySummary as ArchivalMemorySummary,
+    type LettaResponse as LettaResponse,
     type Memory as Memory,
+    type RecallMemorySummary as RecallMemorySummary,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentMigrateResponse as AgentMigrateResponse,
@@ -655,7 +1120,9 @@ export declare namespace Agents {
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
+    type AgentAddToolParams as AgentAddToolParams,
     type AgentMigrateParams as AgentMigrateParams,
+    type AgentRemoveToolParams as AgentRemoveToolParams,
   };
 
   export {
@@ -666,21 +1133,13 @@ export declare namespace Agents {
 
   export {
     Tools as Tools,
-    type ToolListResponse as ToolListResponse,
-    type ToolListParams as ToolListParams,
-    type ToolAddParams as ToolAddParams,
-    type ToolRemoveParams as ToolRemoveParams,
+    type ToolRetrieveResponse as ToolRetrieveResponse,
+    type ToolRetrieveParams as ToolRetrieveParams,
   };
 
-  export { Sources as Sources, type SourceListResponse as SourceListResponse };
+  export { Sources as Sources, type SourceRetrieveResponse as SourceRetrieveResponse };
 
-  export {
-    MemoryResource as MemoryResource,
-    type ArchivalMemorySummary as ArchivalMemorySummary,
-    type MemoryAPIMemory as Memory,
-    type RecallMemorySummary as RecallMemorySummary,
-    type MemoryUpdateParams as MemoryUpdateParams,
-  };
+  export { MemoryAPIMemory as Memory, type MemoryUpdateParams as MemoryUpdateParams };
 
   export {
     Archival as Archival,
@@ -694,12 +1153,10 @@ export declare namespace Agents {
 
   export {
     Messages as Messages,
-    type MessageCreateResponse as MessageCreateResponse,
-    type MessageRetrieveResponse as MessageRetrieveResponse,
-    type MessageUpdateResponse as MessageUpdateResponse,
-    type MessageCreateParams as MessageCreateParams,
-    type MessageRetrieveParams as MessageRetrieveParams,
+    type MessageListResponse as MessageListResponse,
     type MessageUpdateParams as MessageUpdateParams,
+    type MessageListParams as MessageListParams,
+    type MessageProcessParams as MessageProcessParams,
   };
 
   export {
