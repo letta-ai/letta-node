@@ -61,8 +61,8 @@ describe('resource sources', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  test('update', async () => {
-    const responsePromise = client.sources.update('source_id', {});
+  test('update: only required params', async () => {
+    const responsePromise = client.sources.update('source_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -70,6 +70,26 @@ describe('resource sources', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('update: required and optional params', async () => {
+    const response = await client.sources.update('source_id', {
+      id: 'id',
+      description: 'description',
+      embedding_config: {
+        embedding_dim: 0,
+        embedding_endpoint_type: 'embedding_endpoint_type',
+        embedding_model: 'embedding_model',
+        azure_deployment: 'azure_deployment',
+        azure_endpoint: 'azure_endpoint',
+        azure_version: 'azure_version',
+        embedding_chunk_size: 0,
+        embedding_endpoint: 'embedding_endpoint',
+      },
+      metadata_: {},
+      name: 'name',
+      user_id: 'user_id',
+    });
   });
 
   test('list', async () => {

@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { type Agent } from './_shims/index';
-import * as qs from './internal/qs';
 import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
@@ -24,17 +23,17 @@ import {
   Models,
 } from './resources/models';
 import {
-  Tool,
-  ToolAddBaseToolsParams,
-  ToolAddBaseToolsResponse,
   ToolCreateParams,
+  ToolCreateResponse,
+  ToolDeleteParams,
   ToolDeleteResponse,
   ToolListParams,
   ToolListResponse,
   ToolRetrieveByNameParams,
   ToolRetrieveByNameResponse,
-  ToolRetrieveParams,
+  ToolRetrieveResponse,
   ToolUpdateParams,
+  ToolUpdateResponse,
   Tools,
 } from './resources/tools';
 import {
@@ -43,6 +42,8 @@ import {
   AgentDeleteResponse,
   AgentListParams,
   AgentListResponse,
+  AgentMigrateParams,
+  AgentMigrateResponse,
   AgentRetrieveParams,
   AgentState,
   AgentUpdateParams,
@@ -198,10 +199,6 @@ export class Letta extends Core.APIClient {
     };
   }
 
-  protected override stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
-  }
-
   static Letta = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
@@ -234,16 +231,16 @@ export declare namespace Letta {
 
   export {
     Tools as Tools,
-    type Tool as Tool,
+    type ToolCreateResponse as ToolCreateResponse,
+    type ToolRetrieveResponse as ToolRetrieveResponse,
+    type ToolUpdateResponse as ToolUpdateResponse,
     type ToolListResponse as ToolListResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolAddBaseToolsResponse as ToolAddBaseToolsResponse,
     type ToolRetrieveByNameResponse as ToolRetrieveByNameResponse,
     type ToolCreateParams as ToolCreateParams,
-    type ToolRetrieveParams as ToolRetrieveParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolAddBaseToolsParams as ToolAddBaseToolsParams,
+    type ToolDeleteParams as ToolDeleteParams,
     type ToolRetrieveByNameParams as ToolRetrieveByNameParams,
   };
 
@@ -269,11 +266,13 @@ export declare namespace Letta {
     type Memory as Memory,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
+    type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
+    type AgentMigrateParams as AgentMigrateParams,
   };
 
   export {

@@ -71,14 +71,19 @@ export interface FileMetadata {
   source_id: string;
 
   /**
+   * The unique identifier of the user associated with the document.
+   */
+  user_id: string;
+
+  /**
    * The human-friendly ID of the File
    */
   id?: string;
 
   /**
-   * The creation date of the file.
+   * The creation date of this file metadata object.
    */
-  created_at?: string | null;
+  created_at?: string;
 
   /**
    * The creation date of the file.
@@ -109,21 +114,7 @@ export interface FileMetadata {
    * The type of the file (MIME type).
    */
   file_type?: string | null;
-
-  /**
-   * Whether this file is deleted or not.
-   */
-  is_deleted?: boolean;
-
-  /**
-   * The unique identifier of the organization associated with the document.
-   */
-  organization_id?: string | null;
-
-  /**
-   * The update date of the file.
-   */
-  updated_at?: string | null;
+  [k: string]: unknown;
 }
 
 export type FileListResponse = Array<FileMetadata>;

@@ -30,7 +30,13 @@ import {
 import * as SourcesAPI from './sources';
 import { SourceListResponse, Sources } from './sources';
 import * as ToolsAPI from './tools';
-import { ToolAddParams, ToolListParams, ToolListResponse, ToolRemoveParams, Tools } from './tools';
+import { ToolAddParams, ToolRemoveParams, Tools } from './tools';
+import * as VersionTemplateAPI from './version-template';
+import {
+  VersionTemplate,
+  VersionTemplateCreateParams,
+  VersionTemplateCreateResponse,
+} from './version-template';
 import * as MemoryAPI from './memory/memory';
 import {
   ArchivalMemorySummary,
@@ -46,6 +52,7 @@ export class Agents extends APIResource {
   memory: MemoryAPI.Memory = new MemoryAPI.Memory(this._client);
   archival: ArchivalAPI.Archival = new ArchivalAPI.Archival(this._client);
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
+  versionTemplate: VersionTemplateAPI.VersionTemplate = new VersionTemplateAPI.VersionTemplate(this._client);
 
   /**
    * Create a new agent with the specified configuration.
@@ -112,9 +119,8 @@ export class Agents extends APIResource {
     if (isRequestOptions(params)) {
       return this.list({}, params);
     }
-    const { user_id, ...query } = params;
+    const { user_id } = params;
     return this._client.get('/v1/agents/', {
-      query,
       ...options,
       headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
     });
@@ -143,6 +149,17 @@ export class Agents extends APIResource {
       headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
     });
   }
+
+  /**
+   * Migrate an agent to a new versioned agent template
+   */
+  migrate(
+    agentId: string,
+    body: AgentMigrateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AgentMigrateResponse> {
+    return this._client.post(`/v1/agents/${agentId}/migrate`, { body, ...options });
+  }
 }
 
 /**
@@ -164,7 +181,7 @@ export interface AgentState {
   /**
    * The type of agent.
    */
-  agent_type: 'memgpt_agent' | 'split_thread_agent' | 'o1_agent';
+  agent_type: 'memgpt_agent' | 'split_thread_agent';
 
   /**
    * The embedding configuration used by the agent.
@@ -207,11 +224,7 @@ export interface AgentState {
   description?: string | null;
 
   /**
-   * Represents the in-context memory of the agent. This includes both the `Block`
-   * objects (labelled by sections), as well as tools to edit the blocks.
-   *
-   * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-   * memory block.
+   * The in-context memory of the agent.
    */
   memory?: Memory;
 
@@ -226,28 +239,9 @@ export interface AgentState {
   metadata_?: unknown | null;
 
   /**
-   * The tags associated with the agent.
-   */
-  tags?: Array<string> | null;
-
-  /**
-   * The list of tool rules.
-   */
-  tool_rules?: Array<AgentState.ToolRule> | null;
-
-  /**
    * The user id of the agent.
    */
   user_id?: string | null;
-}
-
-export namespace AgentState {
-  export interface ToolRule {
-    /**
-     * The name of the tool. Must exist in the database for the user's organization.
-     */
-    tool_name: string;
-  }
 }
 
 /**
@@ -273,11 +267,15 @@ export type AgentListResponse = Array<AgentState>;
 
 export type AgentDeleteResponse = unknown;
 
+export interface AgentMigrateResponse {
+  success: true;
+}
+
 export interface AgentCreateParams {
   /**
    * Body param: Enum to represent the type of agent.
    */
-  agent_type?: 'memgpt_agent' | 'split_thread_agent' | 'o1_agent' | null;
+  agent_type?: 'memgpt_agent' | 'split_thread_agent' | null;
 
   /**
    * Body param: The description of the agent.
@@ -300,11 +298,6 @@ export interface AgentCreateParams {
   embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
-   * Body param: The initial set of messages to put in the agent's in-context memory.
-   */
-  initial_message_sequence?: Array<AgentCreateParams.InitialMessageSequence> | null;
-
-  /**
    * Body param: Configuration for a Language Model (LLM) model. This object
    * specifies all the information necessary to access an LLM model to usage with
    * Letta, except for secret keys.
@@ -314,10 +307,7 @@ export interface AgentCreateParams {
    * model. model_wrapper (str): The wrapper for the model. This is used to wrap
    * additional text around the input/output of the model. This is useful for
    * text-to-text completions, such as the Completions API in OpenAI. context_window
-   * (int): The context window size for the model. put_inner_thoughts_in_kwargs
-   * (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
-   * True. This helps with function calling performance and also the generation of
-   * inner thoughts.
+   * (int): The context window size for the model.
    */
   llm_config?: ModelsAPI.LlmConfig | null;
 
@@ -351,16 +341,6 @@ export interface AgentCreateParams {
   system?: string | null;
 
   /**
-   * Body param: The tags associated with the agent.
-   */
-  tags?: Array<string> | null;
-
-  /**
-   * Body param: The tool rules governing the agent.
-   */
-  tool_rules?: Array<AgentCreateParams.ToolRule> | null;
-
-  /**
    * Body param: The tools used by the agent.
    */
   tools?: Array<string> | null;
@@ -374,112 +354,6 @@ export interface AgentCreateParams {
    * Header param:
    */
   header_user_id?: string;
-}
-
-export namespace AgentCreateParams {
-  /**
-   * Letta's internal representation of a message. Includes methods to convert
-   * to/from LLM provider formats.
-   *
-   * Attributes: id (str): The unique identifier of the message. role (MessageRole):
-   * The role of the participant. text (str): The text of the message. user_id (str):
-   * The unique identifier of the user. agent_id (str): The unique identifier of the
-   * agent. model (str): The model used to make the function call. name (str): The
-   * name of the participant. created_at (datetime): The time the message was
-   * created. tool_calls (List[ToolCall]): The list of tool calls requested.
-   * tool_call_id (str): The id of the tool call.
-   */
-  export interface InitialMessageSequence {
-    /**
-     * The role of the participant.
-     */
-    role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
-
-    /**
-     * The human-friendly ID of the Message
-     */
-    id?: string;
-
-    /**
-     * The unique identifier of the agent.
-     */
-    agent_id?: string | null;
-
-    /**
-     * The time the message was created.
-     */
-    created_at?: string;
-
-    /**
-     * The model used to make the function call.
-     */
-    model?: string | null;
-
-    /**
-     * The name of the participant.
-     */
-    name?: string | null;
-
-    /**
-     * The text of the message.
-     */
-    text?: string | null;
-
-    /**
-     * The id of the tool call.
-     */
-    tool_call_id?: string | null;
-
-    /**
-     * The list of tool calls requested.
-     */
-    tool_calls?: Array<InitialMessageSequence.ToolCall> | null;
-
-    /**
-     * The unique identifier of the user.
-     */
-    user_id?: string | null;
-  }
-
-  export namespace InitialMessageSequence {
-    export interface ToolCall {
-      /**
-       * The ID of the tool call
-       */
-      id: string;
-
-      /**
-       * The arguments and name for the function
-       */
-      function: ToolCall.Function;
-
-      type?: string;
-    }
-
-    export namespace ToolCall {
-      /**
-       * The arguments and name for the function
-       */
-      export interface Function {
-        /**
-         * The arguments to pass to the function (JSON dump)
-         */
-        arguments: string;
-
-        /**
-         * The name of the function to call
-         */
-        name: string;
-      }
-    }
-  }
-
-  export interface ToolRule {
-    /**
-     * The name of the tool. Must exist in the database for the user's organization.
-     */
-    tool_name: string;
-  }
 }
 
 export interface AgentRetrieveParams {
@@ -522,10 +396,7 @@ export interface AgentUpdateParams {
    * model. model_wrapper (str): The wrapper for the model. This is used to wrap
    * additional text around the input/output of the model. This is useful for
    * text-to-text completions, such as the Completions API in OpenAI. context_window
-   * (int): The context window size for the model. put_inner_thoughts_in_kwargs
-   * (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
-   * True. This helps with function calling performance and also the generation of
-   * inner thoughts.
+   * (int): The context window size for the model.
    */
   llm_config?: ModelsAPI.LlmConfig | null;
 
@@ -559,11 +430,6 @@ export interface AgentUpdateParams {
   system?: string | null;
 
   /**
-   * Body param: The tags associated with the agent.
-   */
-  tags?: Array<string> | null;
-
-  /**
    * Body param: The tools used by the agent.
    */
   tools?: Array<string> | null;
@@ -580,24 +446,23 @@ export interface AgentUpdateParams {
 }
 
 export interface AgentListParams {
-  /**
-   * Query param: Name of the agent
-   */
-  name?: string | null;
-
-  /**
-   * Query param: List of tags to filter agents by
-   */
-  tags?: Array<string> | null;
-
-  /**
-   * Header param:
-   */
   user_id?: string;
 }
 
 export interface AgentDeleteParams {
   user_id?: string;
+}
+
+export interface AgentMigrateParams {
+  preserve_core_memories: boolean;
+
+  to_template: string;
+
+  /**
+   * If you chose to not preserve core memories, you should provide the new variables
+   * for the core memories
+   */
+  variables?: Record<string, string>;
 }
 
 Agents.Context = Context;
@@ -606,6 +471,7 @@ Agents.Sources = Sources;
 Agents.Memory = MemoryAPIMemory;
 Agents.Archival = Archival;
 Agents.Messages = Messages;
+Agents.VersionTemplate = VersionTemplate;
 
 export declare namespace Agents {
   export {
@@ -613,11 +479,13 @@ export declare namespace Agents {
     type Memory as Memory,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
+    type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
+    type AgentMigrateParams as AgentMigrateParams,
   };
 
   export {
@@ -626,13 +494,7 @@ export declare namespace Agents {
     type ContextRetrieveParams as ContextRetrieveParams,
   };
 
-  export {
-    Tools as Tools,
-    type ToolListResponse as ToolListResponse,
-    type ToolListParams as ToolListParams,
-    type ToolAddParams as ToolAddParams,
-    type ToolRemoveParams as ToolRemoveParams,
-  };
+  export { Tools as Tools, type ToolAddParams as ToolAddParams, type ToolRemoveParams as ToolRemoveParams };
 
   export { Sources as Sources, type SourceListResponse as SourceListResponse };
 
@@ -661,5 +523,11 @@ export declare namespace Agents {
     type MessageCreateParams as MessageCreateParams,
     type MessageRetrieveParams as MessageRetrieveParams,
     type MessageUpdateParams as MessageUpdateParams,
+  };
+
+  export {
+    VersionTemplate as VersionTemplate,
+    type VersionTemplateCreateResponse as VersionTemplateCreateResponse,
+    type VersionTemplateCreateParams as VersionTemplateCreateParams,
   };
 }

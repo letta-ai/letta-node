@@ -8,20 +8,20 @@ Types:
 
 Types:
 
-- <code><a href="./src/resources/tools.ts">Tool</a></code>
+- <code><a href="./src/resources/tools.ts">ToolCreateResponse</a></code>
+- <code><a href="./src/resources/tools.ts">ToolRetrieveResponse</a></code>
+- <code><a href="./src/resources/tools.ts">ToolUpdateResponse</a></code>
 - <code><a href="./src/resources/tools.ts">ToolListResponse</a></code>
 - <code><a href="./src/resources/tools.ts">ToolDeleteResponse</a></code>
-- <code><a href="./src/resources/tools.ts">ToolAddBaseToolsResponse</a></code>
 - <code><a href="./src/resources/tools.ts">ToolRetrieveByNameResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/tools/">client.tools.<a href="./src/resources/tools.ts">create</a>({ ...params }) -> Tool</code>
-- <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">retrieve</a>(toolId, { ...params }) -> Tool</code>
-- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">update</a>(toolId, { ...params }) -> Tool</code>
+- <code title="post /v1/tools/">client.tools.<a href="./src/resources/tools.ts">create</a>({ ...params }) -> ToolCreateResponse</code>
+- <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">retrieve</a>(toolId) -> ToolRetrieveResponse</code>
+- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">update</a>(toolId, { ...params }) -> ToolUpdateResponse</code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/resources/tools.ts">list</a>({ ...params }) -> ToolListResponse</code>
-- <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolId) -> unknown</code>
-- <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/resources/tools.ts">addBaseTools</a>({ ...params }) -> ToolAddBaseToolsResponse</code>
+- <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolId, { ...params }) -> unknown</code>
 - <code title="get /v1/tools/name/{tool_name}">client.tools.<a href="./src/resources/tools.ts">retrieveByName</a>(toolName, { ...params }) -> string</code>
 
 # Sources
@@ -75,6 +75,7 @@ Types:
 - <code><a href="./src/resources/agents/agents.ts">Memory</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentListResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentDeleteResponse</a></code>
+- <code><a href="./src/resources/agents/agents.ts">AgentMigrateResponse</a></code>
 
 Methods:
 
@@ -83,6 +84,7 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">update</a>(agentId, { ...params }) -> AgentState</code>
 - <code title="get /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">list</a>({ ...params }) -> AgentListResponse</code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentId, { ...params }) -> unknown</code>
+- <code title="post /v1/agents/{agent_id}/migrate">client.agents.<a href="./src/resources/agents/agents.ts">migrate</a>(agentId, { ...params }) -> AgentMigrateResponse</code>
 
 ## Context
 
@@ -96,13 +98,8 @@ Methods:
 
 ## Tools
 
-Types:
-
-- <code><a href="./src/resources/agents/tools.ts">ToolListResponse</a></code>
-
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/resources/agents/tools.ts">list</a>(agentId, { ...params }) -> ToolListResponse</code>
 - <code title="patch /v1/agents/{agent_id}/add-tool/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">add</a>(agentId, toolId, { ...params }) -> AgentState</code>
 - <code title="patch /v1/agents/{agent_id}/remove-tool/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">remove</a>(agentId, toolId, { ...params }) -> AgentState</code>
 
@@ -177,6 +174,16 @@ Methods:
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">create</a>(agentId, { ...params }) -> MessageCreateResponse</code>
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">retrieve</a>(agentId, { ...params }) -> MessageRetrieveResponse</code>
 - <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/resources/agents/messages.ts">update</a>(agentId, messageId, { ...params }) -> MessageUpdateResponse</code>
+
+## VersionTemplate
+
+Types:
+
+- <code><a href="./src/resources/agents/version-template.ts">VersionTemplateCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/agents/{agent_id}/version-template">client.agents.versionTemplate.<a href="./src/resources/agents/version-template.ts">create</a>(agentId, { ...params }) -> VersionTemplateCreateResponse</code>
 
 # Models
 

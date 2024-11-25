@@ -84,10 +84,7 @@ export interface EmbeddingConfig {
  * model. model_wrapper (str): The wrapper for the model. This is used to wrap
  * additional text around the input/output of the model. This is useful for
  * text-to-text completions, such as the Completions API in OpenAI. context_window
- * (int): The context window size for the model. put_inner_thoughts_in_kwargs
- * (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
- * True. This helps with function calling performance and also the generation of
- * inner thoughts.
+ * (int): The context window size for the model.
  */
 export interface LlmConfig {
   /**
@@ -130,13 +127,6 @@ export interface LlmConfig {
    * The wrapper for the model.
    */
   model_wrapper?: string | null;
-
-  /**
-   * Puts 'inner_thoughts' as a kwarg in the function call if this is set to True.
-   * This helps with function calling performance and also the generation of inner
-   * thoughts.
-   */
-  put_inner_thoughts_in_kwargs?: boolean | null;
 }
 
 export type ModelListResponse = Array<LlmConfig>;

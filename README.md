@@ -52,7 +52,7 @@ const client = new Letta({
 
 async function main() {
   const params: Letta.ToolCreateParams = { source_code: 'source_code' };
-  const tool: Letta.Tool = await client.tools.create(params);
+  const tool: Letta.ToolCreateResponse = await client.tools.create(params);
 }
 
 main();
