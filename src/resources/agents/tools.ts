@@ -3,11 +3,36 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as ToolsAPI from '../tools';
 import * as AgentsAPI from './agents';
 
 export class Tools extends APIResource {
   /**
-   * Add tools to an exsiting agent
+   * Get tools from an existing agent
+   */
+  list(
+    agentId: string,
+    params?: ToolListParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ToolListResponse>;
+  list(agentId: string, options?: Core.RequestOptions): Core.APIPromise<ToolListResponse>;
+  list(
+    agentId: string,
+    params: ToolListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ToolListResponse> {
+    if (isRequestOptions(params)) {
+      return this.list(agentId, {}, params);
+    }
+    const { user_id } = params;
+    return this._client.get(`/v1/agents/${agentId}/tools`, {
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
+  }
+
+  /**
+   * Add tools to an existing agent
    */
   add(
     agentId: string,
@@ -33,7 +58,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Add tools to an exsiting agent
+   * Add tools to an existing agent
    */
   remove(
     agentId: string,
@@ -63,6 +88,12 @@ export class Tools extends APIResource {
   }
 }
 
+export type ToolListResponse = Array<ToolsAPI.Tool>;
+
+export interface ToolListParams {
+  user_id?: string;
+}
+
 export interface ToolAddParams {
   user_id?: string;
 }
@@ -72,5 +103,10 @@ export interface ToolRemoveParams {
 }
 
 export declare namespace Tools {
-  export { type ToolAddParams as ToolAddParams, type ToolRemoveParams as ToolRemoveParams };
+  export {
+    type ToolListResponse as ToolListResponse,
+    type ToolListParams as ToolListParams,
+    type ToolAddParams as ToolAddParams,
+    type ToolRemoveParams as ToolRemoveParams,
+  };
 }

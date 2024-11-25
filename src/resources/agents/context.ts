@@ -50,6 +50,11 @@ export interface ContextWindowOverview {
   core_memory: string;
 
   /**
+   * The content of the functions definitions.
+   */
+  functions_definitions: Array<ContextWindowOverview.FunctionsDefinition> | null;
+
+  /**
    * The messages in the context window.
    */
   messages: Array<ContextWindowOverview.Message>;
@@ -81,6 +86,11 @@ export interface ContextWindowOverview {
   num_tokens_external_memory_summary: number;
 
   /**
+   * The number of tokens in the functions definitions.
+   */
+  num_tokens_functions_definitions: number;
+
+  /**
    * The number of tokens in the messages list.
    */
   num_tokens_messages: number;
@@ -107,6 +117,22 @@ export interface ContextWindowOverview {
 }
 
 export namespace ContextWindowOverview {
+  export interface FunctionsDefinition {
+    function: FunctionsDefinition.Function;
+
+    type?: 'function';
+  }
+
+  export namespace FunctionsDefinition {
+    export interface Function {
+      name: string;
+
+      description?: string | null;
+
+      parameters?: unknown | null;
+    }
+  }
+
   /**
    * Letta's internal representation of a message. Includes methods to convert
    * to/from LLM provider formats.

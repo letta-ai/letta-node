@@ -20,8 +20,10 @@ export {
   type Block,
   type BlockListResponse,
   type BlockCreateParams,
+  type BlockRetrieveParams,
   type BlockUpdateParams,
   type BlockListParams,
+  type BlockDeleteParams,
 } from './blocks';
 export {
   Jobs,
@@ -54,16 +56,16 @@ export {
 } from './sources/sources';
 export {
   Tools,
-  type ToolCreateResponse,
-  type ToolRetrieveResponse,
-  type ToolUpdateResponse,
+  type Tool,
   type ToolListResponse,
   type ToolDeleteResponse,
+  type ToolAddBaseToolsResponse,
   type ToolRetrieveByNameResponse,
   type ToolCreateParams,
+  type ToolRetrieveParams,
   type ToolUpdateParams,
   type ToolListParams,
-  type ToolDeleteParams,
+  type ToolAddBaseToolsParams,
   type ToolRetrieveByNameParams,
 } from './tools';
 export { type Health } from './health';

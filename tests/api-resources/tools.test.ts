@@ -20,17 +20,13 @@ describe('resource tools', () => {
   test('create: required and optional params', async () => {
     const response = await client.tools.create({
       source_code: 'source_code',
-      update: true,
-      id: 'id',
       description: 'description',
       json_schema: {},
       module: 'module',
       name: 'name',
       source_type: 'source_type',
       tags: ['string'],
-      terminal: true,
-      body_user_id: 'user_id',
-      header_user_id: 'user_id',
+      user_id: 'user_id',
     });
   });
 
@@ -52,8 +48,15 @@ describe('resource tools', () => {
     );
   });
 
-  test('update: only required params', async () => {
-    const responsePromise = client.tools.update('tool_id', { id: 'id' });
+  test('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.tools.retrieve('tool_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  test('update', async () => {
+    const responsePromise = client.tools.update('tool_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -61,22 +64,6 @@ describe('resource tools', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: required and optional params', async () => {
-    const response = await client.tools.update('tool_id', {
-      id: 'id',
-      description: 'description',
-      json_schema: {},
-      module: 'module',
-      name: 'name',
-      source_code: 'source_code',
-      source_type: 'source_type',
-      tags: ['string'],
-      terminal: true,
-      body_user_id: 'user_id',
-      header_user_id: 'user_id',
-    });
   });
 
   test('list', async () => {
@@ -100,7 +87,10 @@ describe('resource tools', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.tools.list({ user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+      client.tools.list(
+        { cursor: 'cursor', limit: 0, user_id: 'user_id' },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
@@ -122,10 +112,28 @@ describe('resource tools', () => {
     );
   });
 
-  test('delete: request options and params are passed correctly', async () => {
+  test('addBaseTools', async () => {
+    const responsePromise = client.tools.addBaseTools();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('addBaseTools: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.tools.addBaseTools({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Letta.NotFoundError,
+    );
+  });
+
+  test('addBaseTools: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.tools.delete('tool_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+      client.tools.addBaseTools({ user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 

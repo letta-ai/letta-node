@@ -25,8 +25,9 @@ export {
 } from './archival';
 export { Context, type ContextWindowOverview, type ContextRetrieveParams } from './context';
 export {
-  Memory,
+  MemoryResource,
   type ArchivalMemorySummary,
+  type Memory,
   type RecallMemorySummary,
   type MemoryUpdateParams,
 } from './memory/index';
@@ -40,7 +41,13 @@ export {
   type MessageUpdateParams,
 } from './messages';
 export { Sources, type SourceListResponse } from './sources';
-export { Tools, type ToolAddParams, type ToolRemoveParams } from './tools';
+export {
+  Tools,
+  type ToolListResponse,
+  type ToolListParams,
+  type ToolAddParams,
+  type ToolRemoveParams,
+} from './tools';
 export {
   VersionTemplate,
   type VersionTemplateCreateResponse,

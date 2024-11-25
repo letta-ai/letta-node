@@ -7,7 +7,7 @@ const client = new Letta({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://
 
 describe('resource blocks', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.blocks.create({ label: 'label' });
+    const responsePromise = client.blocks.create({ label: 'label', value: 'value' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,14 +20,13 @@ describe('resource blocks', () => {
   test('create: required and optional params', async () => {
     const response = await client.blocks.create({
       label: 'label',
+      value: 'value',
       description: 'description',
+      is_template: true,
       limit: 0,
       metadata_: {},
       name: 'name',
-      template: true,
-      body_user_id: 'user_id',
-      value: 'value',
-      header_user_id: 'user_id',
+      user_id: 'user_id',
     });
   });
 
@@ -49,8 +48,15 @@ describe('resource blocks', () => {
     );
   });
 
-  test('update: only required params', async () => {
-    const responsePromise = client.blocks.update('block_id', { id: 'id' });
+  test('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.blocks.retrieve('block_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  test('update', async () => {
+    const responsePromise = client.blocks.update('block_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -58,20 +64,6 @@ describe('resource blocks', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: required and optional params', async () => {
-    const response = await client.blocks.update('block_id', {
-      id: 'id',
-      description: 'description',
-      label: 'label',
-      limit: 0,
-      metadata_: {},
-      name: 'name',
-      template: true,
-      user_id: 'user_id',
-      value: 'value',
-    });
   });
 
   test('list', async () => {
@@ -118,5 +110,12 @@ describe('resource blocks', () => {
     await expect(client.blocks.delete('block_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Letta.NotFoundError,
     );
+  });
+
+  test('delete: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.blocks.delete('block_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 });
