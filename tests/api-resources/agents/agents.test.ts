@@ -73,19 +73,22 @@ describe('resource agents', () => {
         model_endpoint_type: 'openai',
         model_endpoint: 'model_endpoint',
         model_wrapper: 'model_wrapper',
+        put_inner_thoughts_in_kwargs: true,
       },
       memory: {
         memory: {
           foo: {
             value: 'value',
             id: 'id',
+            created_by_id: 'created_by_id',
             description: 'description',
+            is_template: true,
             label: 'label',
+            last_updated_by_id: 'last_updated_by_id',
             limit: 0,
             metadata_: {},
             name: 'name',
-            template: true,
-            user_id: 'user_id',
+            organization_id: 'organization_id',
           },
         },
         prompt_template: 'prompt_template',
@@ -94,6 +97,7 @@ describe('resource agents', () => {
       metadata_: {},
       name: 'name',
       system: 'system',
+      tags: ['string'],
       tools: ['string'],
       body_user_id: 'user_id',
       header_user_id: 'user_id',
@@ -121,7 +125,10 @@ describe('resource agents', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.agents.list({ user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+      client.agents.list(
+        { name: 'name', tags: ['string'], user_id: 'user_id' },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 

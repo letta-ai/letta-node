@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { type Agent } from './_shims/index';
+import * as qs from './internal/qs';
 import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
@@ -8,8 +9,10 @@ import * as API from './resources/index';
 import {
   Block,
   BlockCreateParams,
+  BlockDeleteParams,
   BlockListParams,
   BlockListResponse,
+  BlockRetrieveParams,
   BlockUpdateParams,
   Blocks,
 } from './resources/blocks';
@@ -23,17 +26,17 @@ import {
   Models,
 } from './resources/models';
 import {
+  Tool,
+  ToolAddBaseToolsParams,
+  ToolAddBaseToolsResponse,
   ToolCreateParams,
-  ToolCreateResponse,
-  ToolDeleteParams,
   ToolDeleteResponse,
   ToolListParams,
   ToolListResponse,
   ToolRetrieveByNameParams,
   ToolRetrieveByNameResponse,
-  ToolRetrieveResponse,
+  ToolRetrieveParams,
   ToolUpdateParams,
-  ToolUpdateResponse,
   Tools,
 } from './resources/tools';
 import {
@@ -199,6 +202,10 @@ export class Letta extends Core.APIClient {
     };
   }
 
+  protected override stringifyQuery(query: Record<string, unknown>): string {
+    return qs.stringify(query, { arrayFormat: 'comma' });
+  }
+
   static Letta = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
@@ -231,16 +238,16 @@ export declare namespace Letta {
 
   export {
     Tools as Tools,
-    type ToolCreateResponse as ToolCreateResponse,
-    type ToolRetrieveResponse as ToolRetrieveResponse,
-    type ToolUpdateResponse as ToolUpdateResponse,
+    type Tool as Tool,
     type ToolListResponse as ToolListResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
+    type ToolAddBaseToolsResponse as ToolAddBaseToolsResponse,
     type ToolRetrieveByNameResponse as ToolRetrieveByNameResponse,
     type ToolCreateParams as ToolCreateParams,
+    type ToolRetrieveParams as ToolRetrieveParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolDeleteParams as ToolDeleteParams,
+    type ToolAddBaseToolsParams as ToolAddBaseToolsParams,
     type ToolRetrieveByNameParams as ToolRetrieveByNameParams,
   };
 
@@ -288,8 +295,10 @@ export declare namespace Letta {
     type Block as Block,
     type BlockListResponse as BlockListResponse,
     type BlockCreateParams as BlockCreateParams,
+    type BlockRetrieveParams as BlockRetrieveParams,
     type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
+    type BlockDeleteParams as BlockDeleteParams,
   };
 
   export {

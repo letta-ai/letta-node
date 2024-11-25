@@ -8,20 +8,20 @@ Types:
 
 Types:
 
-- <code><a href="./src/resources/tools.ts">ToolCreateResponse</a></code>
-- <code><a href="./src/resources/tools.ts">ToolRetrieveResponse</a></code>
-- <code><a href="./src/resources/tools.ts">ToolUpdateResponse</a></code>
+- <code><a href="./src/resources/tools.ts">Tool</a></code>
 - <code><a href="./src/resources/tools.ts">ToolListResponse</a></code>
 - <code><a href="./src/resources/tools.ts">ToolDeleteResponse</a></code>
+- <code><a href="./src/resources/tools.ts">ToolAddBaseToolsResponse</a></code>
 - <code><a href="./src/resources/tools.ts">ToolRetrieveByNameResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/tools/">client.tools.<a href="./src/resources/tools.ts">create</a>({ ...params }) -> ToolCreateResponse</code>
-- <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">retrieve</a>(toolId) -> ToolRetrieveResponse</code>
-- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">update</a>(toolId, { ...params }) -> ToolUpdateResponse</code>
+- <code title="post /v1/tools/">client.tools.<a href="./src/resources/tools.ts">create</a>({ ...params }) -> Tool</code>
+- <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">retrieve</a>(toolId, { ...params }) -> Tool</code>
+- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">update</a>(toolId, { ...params }) -> Tool</code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/resources/tools.ts">list</a>({ ...params }) -> ToolListResponse</code>
-- <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolId, { ...params }) -> unknown</code>
+- <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolId) -> unknown</code>
+- <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/resources/tools.ts">addBaseTools</a>({ ...params }) -> ToolAddBaseToolsResponse</code>
 - <code title="get /v1/tools/name/{tool_name}">client.tools.<a href="./src/resources/tools.ts">retrieveByName</a>(toolName, { ...params }) -> string</code>
 
 # Sources
@@ -98,8 +98,13 @@ Methods:
 
 ## Tools
 
+Types:
+
+- <code><a href="./src/resources/agents/tools.ts">ToolListResponse</a></code>
+
 Methods:
 
+- <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/resources/agents/tools.ts">list</a>(agentId, { ...params }) -> ToolListResponse</code>
 - <code title="patch /v1/agents/{agent_id}/add-tool/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">add</a>(agentId, toolId, { ...params }) -> AgentState</code>
 - <code title="patch /v1/agents/{agent_id}/remove-tool/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">remove</a>(agentId, toolId, { ...params }) -> AgentState</code>
 
@@ -118,6 +123,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/agents/memory/memory.ts">ArchivalMemorySummary</a></code>
+- <code><a href="./src/resources/agents/memory/memory.ts">Memory</a></code>
 - <code><a href="./src/resources/agents/memory/memory.ts">RecallMemorySummary</a></code>
 
 Methods:
@@ -146,6 +152,25 @@ Methods:
 Methods:
 
 - <code title="get /v1/agents/{agent_id}/memory/archival">client.agents.memory.archival.<a href="./src/resources/agents/memory/archival.ts">retrieve</a>(agentId) -> ArchivalMemorySummary</code>
+
+### Label
+
+Methods:
+
+- <code title="patch /v1/agents/{agent_id}/memory/label">client.agents.memory.label.<a href="./src/resources/agents/memory/label.ts">update</a>(agentId, { ...params }) -> Memory</code>
+
+### Block
+
+Methods:
+
+- <code title="post /v1/agents/{agent_id}/memory/block">client.agents.memory.block.<a href="./src/resources/agents/memory/block.ts">create</a>(agentId, { ...params }) -> Memory</code>
+- <code title="delete /v1/agents/{agent_id}/memory/block/{block_label}">client.agents.memory.block.<a href="./src/resources/agents/memory/block.ts">delete</a>(agentId, blockLabel, { ...params }) -> Memory</code>
+
+### Limit
+
+Methods:
+
+- <code title="patch /v1/agents/{agent_id}/memory/limit">client.agents.memory.limit.<a href="./src/resources/agents/memory/limit.ts">update</a>(agentId, { ...params }) -> Memory</code>
 
 ## Archival
 
@@ -209,10 +234,10 @@ Types:
 Methods:
 
 - <code title="post /v1/blocks/">client.blocks.<a href="./src/resources/blocks.ts">create</a>({ ...params }) -> Block</code>
-- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks.ts">retrieve</a>(blockId) -> Block</code>
+- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks.ts">retrieve</a>(blockId, { ...params }) -> Block</code>
 - <code title="patch /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks.ts">update</a>(blockId, { ...params }) -> Block</code>
 - <code title="get /v1/blocks/">client.blocks.<a href="./src/resources/blocks.ts">list</a>({ ...params }) -> BlockListResponse</code>
-- <code title="delete /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks.ts">delete</a>(blockId) -> Block</code>
+- <code title="delete /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks.ts">delete</a>(blockId, { ...params }) -> Block</code>
 
 # Jobs
 
