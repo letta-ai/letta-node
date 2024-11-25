@@ -4,10 +4,6 @@ export * from './shared';
 export {
   Agents,
   type AgentState,
-  type ArchivalMemorySummary,
-  type LettaResponse,
-  type Memory,
-  type RecallMemorySummary,
   type AgentListResponse,
   type AgentDeleteResponse,
   type AgentMigrateResponse,
@@ -16,21 +12,8 @@ export {
   type AgentUpdateParams,
   type AgentListParams,
   type AgentDeleteParams,
-  type AgentAddToolParams,
   type AgentMigrateParams,
-  type AgentRemoveToolParams,
 } from './agents/agents';
-export {
-  Blocks,
-  type BlockListResponse,
-  type BlockCreateParams,
-  type BlockRetrieveParams,
-  type BlockUpdateParams,
-  type BlockListParams,
-  type BlockDeleteParams,
-} from './blocks';
-export { Jobs, type JobListResponse, type JobListParams } from './jobs/jobs';
-export { Models, type EmbeddingConfig, type LlmConfig, type ModelListResponse } from './models/models';
 export {
   Sources,
   type FileMetadata,
@@ -61,4 +44,3 @@ export {
   type ToolAddBaseToolsParams,
   type ToolRetrieveByNameParams,
 } from './tools';
-export { type Health } from './health';
