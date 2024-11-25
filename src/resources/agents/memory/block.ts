@@ -3,7 +3,7 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as MemoryAPI from './memory';
+import * as AgentsAPI from '../agents';
 
 export class Block extends APIResource {
   /**
@@ -13,7 +13,7 @@ export class Block extends APIResource {
     agentId: string,
     params: BlockCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<MemoryAPI.Memory> {
+  ): Core.APIPromise<AgentsAPI.Memory> {
     const { user_id, ...body } = params;
     return this._client.post(`/v1/agents/${agentId}/memory/block`, {
       body,
@@ -31,18 +31,18 @@ export class Block extends APIResource {
     blockLabel: string,
     params?: BlockDeleteParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<MemoryAPI.Memory>;
+  ): Core.APIPromise<AgentsAPI.Memory>;
   delete(
     agentId: string,
     blockLabel: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<MemoryAPI.Memory>;
+  ): Core.APIPromise<AgentsAPI.Memory>;
   delete(
     agentId: string,
     blockLabel: string,
     params: BlockDeleteParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<MemoryAPI.Memory> {
+  ): Core.APIPromise<AgentsAPI.Memory> {
     if (isRequestOptions(params)) {
       return this.delete(agentId, blockLabel, {}, params);
     }

@@ -12,107 +12,105 @@ export class Messages extends APIResource {
   }
 }
 
-export type MessageRetrieveResponse = Array<MessageRetrieveResponse.MessageRetrieveResponseItem>;
-
-export namespace MessageRetrieveResponse {
+/**
+ * Letta's internal representation of a message. Includes methods to convert
+ * to/from LLM provider formats.
+ *
+ * Attributes: id (str): The unique identifier of the message. role (MessageRole):
+ * The role of the participant. text (str): The text of the message. user_id (str):
+ * The unique identifier of the user. agent_id (str): The unique identifier of the
+ * agent. model (str): The model used to make the function call. name (str): The
+ * name of the participant. created_at (datetime): The time the message was
+ * created. tool_calls (List[ToolCall]): The list of tool calls requested.
+ * tool_call_id (str): The id of the tool call.
+ */
+export interface MessageOutput {
   /**
-   * Letta's internal representation of a message. Includes methods to convert
-   * to/from LLM provider formats.
-   *
-   * Attributes: id (str): The unique identifier of the message. role (MessageRole):
-   * The role of the participant. text (str): The text of the message. user_id (str):
-   * The unique identifier of the user. agent_id (str): The unique identifier of the
-   * agent. model (str): The model used to make the function call. name (str): The
-   * name of the participant. created_at (datetime): The time the message was
-   * created. tool_calls (List[ToolCall]): The list of tool calls requested.
-   * tool_call_id (str): The id of the tool call.
+   * The role of the participant.
    */
-  export interface MessageRetrieveResponseItem {
+  role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
+
+  /**
+   * The human-friendly ID of the Message
+   */
+  id?: string;
+
+  /**
+   * The unique identifier of the agent.
+   */
+  agent_id?: string | null;
+
+  /**
+   * The time the message was created.
+   */
+  created_at?: string;
+
+  /**
+   * The model used to make the function call.
+   */
+  model?: string | null;
+
+  /**
+   * The name of the participant.
+   */
+  name?: string | null;
+
+  /**
+   * The text of the message.
+   */
+  text?: string | null;
+
+  /**
+   * The id of the tool call.
+   */
+  tool_call_id?: string | null;
+
+  /**
+   * The list of tool calls requested.
+   */
+  tool_calls?: Array<MessageOutput.ToolCall> | null;
+
+  /**
+   * The unique identifier of the user.
+   */
+  user_id?: string | null;
+}
+
+export namespace MessageOutput {
+  export interface ToolCall {
     /**
-     * The role of the participant.
+     * The ID of the tool call
      */
-    role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
+    id: string;
 
     /**
-     * The human-friendly ID of the Message
+     * The arguments and name for the function
      */
-    id?: string;
+    function: ToolCall.Function;
 
-    /**
-     * The unique identifier of the agent.
-     */
-    agent_id?: string | null;
-
-    /**
-     * The time the message was created.
-     */
-    created_at?: string;
-
-    /**
-     * The model used to make the function call.
-     */
-    model?: string | null;
-
-    /**
-     * The name of the participant.
-     */
-    name?: string | null;
-
-    /**
-     * The text of the message.
-     */
-    text?: string | null;
-
-    /**
-     * The id of the tool call.
-     */
-    tool_call_id?: string | null;
-
-    /**
-     * The list of tool calls requested.
-     */
-    tool_calls?: Array<MessageRetrieveResponseItem.ToolCall> | null;
-
-    /**
-     * The unique identifier of the user.
-     */
-    user_id?: string | null;
+    type?: string;
   }
 
-  export namespace MessageRetrieveResponseItem {
-    export interface ToolCall {
+  export namespace ToolCall {
+    /**
+     * The arguments and name for the function
+     */
+    export interface Function {
       /**
-       * The ID of the tool call
+       * The arguments to pass to the function (JSON dump)
        */
-      id: string;
+      arguments: string;
 
       /**
-       * The arguments and name for the function
+       * The name of the function to call
        */
-      function: ToolCall.Function;
-
-      type?: string;
-    }
-
-    export namespace ToolCall {
-      /**
-       * The arguments and name for the function
-       */
-      export interface Function {
-        /**
-         * The arguments to pass to the function (JSON dump)
-         */
-        arguments: string;
-
-        /**
-         * The name of the function to call
-         */
-        name: string;
-      }
+      name: string;
     }
   }
 }
 
+export type MessageRetrieveResponse = Array<MessageOutput>;
+
 export declare namespace Messages {
-  export { type MessageRetrieveResponse as MessageRetrieveResponse };
+  export { type MessageOutput as MessageOutput, type MessageRetrieveResponse as MessageRetrieveResponse };
 }

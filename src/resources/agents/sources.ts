@@ -8,13 +8,13 @@ export class Sources extends APIResource {
   /**
    * Get the sources associated with an agent.
    */
-  list(agentId: string, options?: Core.RequestOptions): Core.APIPromise<SourceListResponse> {
+  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<SourceRetrieveResponse> {
     return this._client.get(`/v1/agents/${agentId}/sources`, options);
   }
 }
 
-export type SourceListResponse = Array<SourcesSourcesAPI.Source>;
+export type SourceRetrieveResponse = Array<SourcesSourcesAPI.Source>;
 
 export declare namespace Sources {
-  export { type SourceListResponse as SourceListResponse };
+  export { type SourceRetrieveResponse as SourceRetrieveResponse };
 }

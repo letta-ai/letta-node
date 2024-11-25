@@ -1,7 +1,7 @@
 import iconv from 'iconv-lite';
-import { stringify } from 'letta_client/internal/qs';
-import { encode } from 'letta_client/internal/qs/utils';
-import { StringifyOptions } from 'letta_client/internal/qs/types';
+import { stringify } from '@letta/client/internal/qs';
+import { encode } from '@letta/client/internal/qs/utils';
+import { StringifyOptions } from '@letta/client/internal/qs/types';
 import { empty_test_cases } from './empty-keys-cases';
 import assert from 'assert';
 

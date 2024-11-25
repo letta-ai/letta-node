@@ -4,25 +4,24 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as ToolsAPI from '../tools';
-import * as AgentsAPI from './agents';
 
 export class Tools extends APIResource {
   /**
    * Get tools from an existing agent
    */
-  list(
+  retrieve(
     agentId: string,
-    params?: ToolListParams,
+    params?: ToolRetrieveParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ToolListResponse>;
-  list(agentId: string, options?: Core.RequestOptions): Core.APIPromise<ToolListResponse>;
-  list(
+  ): Core.APIPromise<ToolRetrieveResponse>;
+  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<ToolRetrieveResponse>;
+  retrieve(
     agentId: string,
-    params: ToolListParams | Core.RequestOptions = {},
+    params: ToolRetrieveParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ToolListResponse> {
+  ): Core.APIPromise<ToolRetrieveResponse> {
     if (isRequestOptions(params)) {
-      return this.list(agentId, {}, params);
+      return this.retrieve(agentId, {}, params);
     }
     const { user_id } = params;
     return this._client.get(`/v1/agents/${agentId}/tools`, {
@@ -30,83 +29,14 @@ export class Tools extends APIResource {
       headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
     });
   }
-
-  /**
-   * Add tools to an existing agent
-   */
-  add(
-    agentId: string,
-    toolId: string,
-    params?: ToolAddParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.AgentState>;
-  add(agentId: string, toolId: string, options?: Core.RequestOptions): Core.APIPromise<AgentsAPI.AgentState>;
-  add(
-    agentId: string,
-    toolId: string,
-    params: ToolAddParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.AgentState> {
-    if (isRequestOptions(params)) {
-      return this.add(agentId, toolId, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.patch(`/v1/agents/${agentId}/add-tool/${toolId}`, {
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
-  }
-
-  /**
-   * Add tools to an existing agent
-   */
-  remove(
-    agentId: string,
-    toolId: string,
-    params?: ToolRemoveParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.AgentState>;
-  remove(
-    agentId: string,
-    toolId: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.AgentState>;
-  remove(
-    agentId: string,
-    toolId: string,
-    params: ToolRemoveParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentsAPI.AgentState> {
-    if (isRequestOptions(params)) {
-      return this.remove(agentId, toolId, {}, params);
-    }
-    const { user_id } = params;
-    return this._client.patch(`/v1/agents/${agentId}/remove-tool/${toolId}`, {
-      ...options,
-      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
-    });
-  }
 }
 
-export type ToolListResponse = Array<ToolsAPI.Tool>;
+export type ToolRetrieveResponse = Array<ToolsAPI.Tool>;
 
-export interface ToolListParams {
-  user_id?: string;
-}
-
-export interface ToolAddParams {
-  user_id?: string;
-}
-
-export interface ToolRemoveParams {
+export interface ToolRetrieveParams {
   user_id?: string;
 }
 
 export declare namespace Tools {
-  export {
-    type ToolListResponse as ToolListResponse,
-    type ToolListParams as ToolListParams,
-    type ToolAddParams as ToolAddParams,
-    type ToolRemoveParams as ToolRemoveParams,
-  };
+  export { type ToolRetrieveResponse as ToolRetrieveResponse, type ToolRetrieveParams as ToolRetrieveParams };
 }

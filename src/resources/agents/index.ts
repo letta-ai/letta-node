@@ -3,7 +3,10 @@
 export {
   Agents,
   type AgentState,
+  type ArchivalMemorySummary,
+  type LettaResponse,
   type Memory,
+  type RecallMemorySummary,
   type AgentListResponse,
   type AgentDeleteResponse,
   type AgentMigrateResponse,
@@ -12,7 +15,9 @@ export {
   type AgentUpdateParams,
   type AgentListParams,
   type AgentDeleteParams,
+  type AgentAddToolParams,
   type AgentMigrateParams,
+  type AgentRemoveToolParams,
 } from './agents';
 export {
   Archival,
@@ -24,30 +29,16 @@ export {
   type ArchivalDeleteParams,
 } from './archival';
 export { Context, type ContextWindowOverview, type ContextRetrieveParams } from './context';
-export {
-  MemoryResource,
-  type ArchivalMemorySummary,
-  type Memory,
-  type RecallMemorySummary,
-  type MemoryUpdateParams,
-} from './memory/index';
+export { Memory, type MemoryUpdateParams } from './memory/index';
 export {
   Messages,
-  type MessageCreateResponse,
-  type MessageRetrieveResponse,
-  type MessageUpdateResponse,
-  type MessageCreateParams,
-  type MessageRetrieveParams,
+  type MessageListResponse,
   type MessageUpdateParams,
+  type MessageListParams,
+  type MessageProcessParams,
 } from './messages';
-export { Sources, type SourceListResponse } from './sources';
-export {
-  Tools,
-  type ToolListResponse,
-  type ToolListParams,
-  type ToolAddParams,
-  type ToolRemoveParams,
-} from './tools';
+export { Sources, type SourceRetrieveResponse } from './sources';
+export { Tools, type ToolRetrieveResponse, type ToolRetrieveParams } from './tools';
 export {
   VersionTemplate,
   type VersionTemplateCreateResponse,
