@@ -7,20 +7,6 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
-  Tool,
-  ToolAddBaseToolsParams,
-  ToolAddBaseToolsResponse,
-  ToolCreateParams,
-  ToolDeleteResponse,
-  ToolListParams,
-  ToolListResponse,
-  ToolRetrieveByNameParams,
-  ToolRetrieveByNameResponse,
-  ToolRetrieveParams,
-  ToolUpdateParams,
-  Tools,
-} from './resources/tools';
-import {
   AgentCreateParams,
   AgentDeleteParams,
   AgentDeleteResponse,
@@ -33,22 +19,6 @@ import {
   AgentUpdateParams,
   Agents,
 } from './resources/agents/agents';
-import {
-  FileMetadata,
-  Passage,
-  Source,
-  SourceAttachParams,
-  SourceCreateParams,
-  SourceDeleteParams,
-  SourceDetachParams,
-  SourceListParams,
-  SourceListResponse,
-  SourceRetrieveParams,
-  SourceRetrieveResponse,
-  SourceUpdateParams,
-  SourceUploadParams,
-  Sources,
-} from './resources/sources/sources';
 
 const environments = {
   production: 'https://app.letta.com',
@@ -185,8 +155,6 @@ export class Letta extends Core.APIClient {
     this.bearerToken = bearerToken;
   }
 
-  tools: API.Tools = new API.Tools(this);
-  sources: API.Sources = new API.Sources(this);
   agents: API.Agents = new API.Agents(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
@@ -229,43 +197,9 @@ export class Letta extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-Letta.Tools = Tools;
-Letta.Sources = Sources;
 Letta.Agents = Agents;
 export declare namespace Letta {
   export type RequestOptions = Core.RequestOptions;
-
-  export {
-    Tools as Tools,
-    type Tool as Tool,
-    type ToolListResponse as ToolListResponse,
-    type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolAddBaseToolsResponse as ToolAddBaseToolsResponse,
-    type ToolRetrieveByNameResponse as ToolRetrieveByNameResponse,
-    type ToolCreateParams as ToolCreateParams,
-    type ToolRetrieveParams as ToolRetrieveParams,
-    type ToolUpdateParams as ToolUpdateParams,
-    type ToolListParams as ToolListParams,
-    type ToolAddBaseToolsParams as ToolAddBaseToolsParams,
-    type ToolRetrieveByNameParams as ToolRetrieveByNameParams,
-  };
-
-  export {
-    Sources as Sources,
-    type FileMetadata as FileMetadata,
-    type Passage as Passage,
-    type Source as Source,
-    type SourceRetrieveResponse as SourceRetrieveResponse,
-    type SourceListResponse as SourceListResponse,
-    type SourceCreateParams as SourceCreateParams,
-    type SourceRetrieveParams as SourceRetrieveParams,
-    type SourceUpdateParams as SourceUpdateParams,
-    type SourceListParams as SourceListParams,
-    type SourceDeleteParams as SourceDeleteParams,
-    type SourceAttachParams as SourceAttachParams,
-    type SourceDetachParams as SourceDetachParams,
-    type SourceUploadParams as SourceUploadParams,
-  };
 
   export {
     Agents as Agents,
