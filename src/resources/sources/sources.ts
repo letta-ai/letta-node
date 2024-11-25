@@ -4,7 +4,6 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as Shared from '../shared';
-import * as ModelsAPI from '../models/models';
 import * as FilesAPI from './files';
 import { FileListParams, FileListResponse, Files } from './files';
 import * as PassagesAPI from './passages';
@@ -266,7 +265,7 @@ export interface Passage {
    * azure_version (str): The Azure version for the model (Azure only).
    * azure_deployment (str): The Azure deployment for the model (Azure only).
    */
-  embedding_config: ModelsAPI.EmbeddingConfig | null;
+  embedding_config: Passage.EmbeddingConfig | null;
 
   /**
    * The text of the passage.
@@ -309,6 +308,63 @@ export interface Passage {
   user_id?: string | null;
 }
 
+export namespace Passage {
+  /**
+   * Embedding model configuration. This object specifies all the information
+   * necessary to access an embedding model to usage with Letta, except for secret
+   * keys.
+   *
+   * Attributes: embedding_endpoint_type (str): The endpoint type for the model.
+   * embedding_endpoint (str): The endpoint for the model. embedding_model (str): The
+   * model for the embedding. embedding_dim (int): The dimension of the embedding.
+   * embedding_chunk_size (int): The chunk size of the embedding. azure_endpoint
+   * (:obj:`str`, optional): The Azure endpoint for the model (Azure only).
+   * azure_version (str): The Azure version for the model (Azure only).
+   * azure_deployment (str): The Azure deployment for the model (Azure only).
+   */
+  export interface EmbeddingConfig {
+    /**
+     * The dimension of the embedding.
+     */
+    embedding_dim: number;
+
+    /**
+     * The endpoint type for the model.
+     */
+    embedding_endpoint_type: string;
+
+    /**
+     * The model for the embedding.
+     */
+    embedding_model: string;
+
+    /**
+     * The Azure deployment for the model.
+     */
+    azure_deployment?: string | null;
+
+    /**
+     * The Azure endpoint for the model.
+     */
+    azure_endpoint?: string | null;
+
+    /**
+     * The Azure version for the model.
+     */
+    azure_version?: string | null;
+
+    /**
+     * The chunk size of the embedding.
+     */
+    embedding_chunk_size?: number | null;
+
+    /**
+     * The endpoint for the model (`None` if local).
+     */
+    embedding_endpoint?: string | null;
+  }
+}
+
 /**
  * Representation of a source, which is a collection of files and passages.
  *
@@ -322,7 +378,7 @@ export interface Source {
   /**
    * The embedding configuration used by the source.
    */
-  embedding_config: ModelsAPI.EmbeddingConfig;
+  embedding_config: Source.EmbeddingConfig;
 
   /**
    * The name of the source.
@@ -370,6 +426,53 @@ export interface Source {
   updated_at?: string | null;
 }
 
+export namespace Source {
+  /**
+   * The embedding configuration used by the source.
+   */
+  export interface EmbeddingConfig {
+    /**
+     * The dimension of the embedding.
+     */
+    embedding_dim: number;
+
+    /**
+     * The endpoint type for the model.
+     */
+    embedding_endpoint_type: string;
+
+    /**
+     * The model for the embedding.
+     */
+    embedding_model: string;
+
+    /**
+     * The Azure deployment for the model.
+     */
+    azure_deployment?: string | null;
+
+    /**
+     * The Azure endpoint for the model.
+     */
+    azure_endpoint?: string | null;
+
+    /**
+     * The Azure version for the model.
+     */
+    azure_version?: string | null;
+
+    /**
+     * The chunk size of the embedding.
+     */
+    embedding_chunk_size?: number | null;
+
+    /**
+     * The endpoint for the model (`None` if local).
+     */
+    embedding_endpoint?: string | null;
+  }
+}
+
 export type SourceRetrieveResponse = string;
 
 export type SourceListResponse = Array<Source>;
@@ -398,7 +501,7 @@ export interface SourceCreateParams {
    * azure_version (str): The Azure version for the model (Azure only).
    * azure_deployment (str): The Azure deployment for the model (Azure only).
    */
-  embedding_config?: ModelsAPI.EmbeddingConfig | null;
+  embedding_config?: SourceCreateParams.EmbeddingConfig | null;
 
   /**
    * Body param: Metadata associated with the source.
@@ -409,6 +512,63 @@ export interface SourceCreateParams {
    * Header param:
    */
   user_id?: string;
+}
+
+export namespace SourceCreateParams {
+  /**
+   * Embedding model configuration. This object specifies all the information
+   * necessary to access an embedding model to usage with Letta, except for secret
+   * keys.
+   *
+   * Attributes: embedding_endpoint_type (str): The endpoint type for the model.
+   * embedding_endpoint (str): The endpoint for the model. embedding_model (str): The
+   * model for the embedding. embedding_dim (int): The dimension of the embedding.
+   * embedding_chunk_size (int): The chunk size of the embedding. azure_endpoint
+   * (:obj:`str`, optional): The Azure endpoint for the model (Azure only).
+   * azure_version (str): The Azure version for the model (Azure only).
+   * azure_deployment (str): The Azure deployment for the model (Azure only).
+   */
+  export interface EmbeddingConfig {
+    /**
+     * The dimension of the embedding.
+     */
+    embedding_dim: number;
+
+    /**
+     * The endpoint type for the model.
+     */
+    embedding_endpoint_type: string;
+
+    /**
+     * The model for the embedding.
+     */
+    embedding_model: string;
+
+    /**
+     * The Azure deployment for the model.
+     */
+    azure_deployment?: string | null;
+
+    /**
+     * The Azure endpoint for the model.
+     */
+    azure_endpoint?: string | null;
+
+    /**
+     * The Azure version for the model.
+     */
+    azure_version?: string | null;
+
+    /**
+     * The chunk size of the embedding.
+     */
+    embedding_chunk_size?: number | null;
+
+    /**
+     * The endpoint for the model (`None` if local).
+     */
+    embedding_endpoint?: string | null;
+  }
 }
 
 export interface SourceRetrieveParams {
@@ -434,7 +594,7 @@ export interface SourceUpdateParams {
    * azure_version (str): The Azure version for the model (Azure only).
    * azure_deployment (str): The Azure deployment for the model (Azure only).
    */
-  embedding_config?: ModelsAPI.EmbeddingConfig | null;
+  embedding_config?: SourceUpdateParams.EmbeddingConfig | null;
 
   /**
    * Body param: Metadata associated with the source.
@@ -450,6 +610,63 @@ export interface SourceUpdateParams {
    * Header param:
    */
   user_id?: string;
+}
+
+export namespace SourceUpdateParams {
+  /**
+   * Embedding model configuration. This object specifies all the information
+   * necessary to access an embedding model to usage with Letta, except for secret
+   * keys.
+   *
+   * Attributes: embedding_endpoint_type (str): The endpoint type for the model.
+   * embedding_endpoint (str): The endpoint for the model. embedding_model (str): The
+   * model for the embedding. embedding_dim (int): The dimension of the embedding.
+   * embedding_chunk_size (int): The chunk size of the embedding. azure_endpoint
+   * (:obj:`str`, optional): The Azure endpoint for the model (Azure only).
+   * azure_version (str): The Azure version for the model (Azure only).
+   * azure_deployment (str): The Azure deployment for the model (Azure only).
+   */
+  export interface EmbeddingConfig {
+    /**
+     * The dimension of the embedding.
+     */
+    embedding_dim: number;
+
+    /**
+     * The endpoint type for the model.
+     */
+    embedding_endpoint_type: string;
+
+    /**
+     * The model for the embedding.
+     */
+    embedding_model: string;
+
+    /**
+     * The Azure deployment for the model.
+     */
+    azure_deployment?: string | null;
+
+    /**
+     * The Azure endpoint for the model.
+     */
+    azure_endpoint?: string | null;
+
+    /**
+     * The Azure version for the model.
+     */
+    azure_version?: string | null;
+
+    /**
+     * The chunk size of the embedding.
+     */
+    embedding_chunk_size?: number | null;
+
+    /**
+     * The endpoint for the model (`None` if local).
+     */
+    embedding_endpoint?: string | null;
+  }
 }
 
 export interface SourceListParams {

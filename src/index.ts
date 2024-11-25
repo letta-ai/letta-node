@@ -7,16 +7,6 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
-  BlockCreateParams,
-  BlockDeleteParams,
-  BlockListParams,
-  BlockListResponse,
-  BlockRetrieveParams,
-  BlockUpdateParams,
-  Blocks,
-} from './resources/blocks';
-import { Health } from './resources/health';
-import {
   Tool,
   ToolAddBaseToolsParams,
   ToolAddBaseToolsResponse,
@@ -31,7 +21,6 @@ import {
   Tools,
 } from './resources/tools';
 import {
-  AgentAddToolParams,
   AgentCreateParams,
   AgentDeleteParams,
   AgentDeleteResponse,
@@ -39,18 +28,11 @@ import {
   AgentListResponse,
   AgentMigrateParams,
   AgentMigrateResponse,
-  AgentRemoveToolParams,
   AgentRetrieveParams,
   AgentState,
   AgentUpdateParams,
   Agents,
-  ArchivalMemorySummary,
-  LettaResponse,
-  Memory,
-  RecallMemorySummary,
 } from './resources/agents/agents';
-import { JobListParams, JobListResponse, Jobs } from './resources/jobs/jobs';
-import { EmbeddingConfig, LlmConfig, ModelListResponse, Models } from './resources/models/models';
 import {
   FileMetadata,
   Passage,
@@ -206,10 +188,6 @@ export class Letta extends Core.APIClient {
   tools: API.Tools = new API.Tools(this);
   sources: API.Sources = new API.Sources(this);
   agents: API.Agents = new API.Agents(this);
-  models: API.Models = new API.Models(this);
-  blocks: API.Blocks = new API.Blocks(this);
-  jobs: API.Jobs = new API.Jobs(this);
-  health: API.Health = new API.Health(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -254,9 +232,6 @@ export class Letta extends Core.APIClient {
 Letta.Tools = Tools;
 Letta.Sources = Sources;
 Letta.Agents = Agents;
-Letta.Models = Models;
-Letta.Blocks = Blocks;
-Letta.Jobs = Jobs;
 export declare namespace Letta {
   export type RequestOptions = Core.RequestOptions;
 
@@ -295,10 +270,6 @@ export declare namespace Letta {
   export {
     Agents as Agents,
     type AgentState as AgentState,
-    type ArchivalMemorySummary as ArchivalMemorySummary,
-    type LettaResponse as LettaResponse,
-    type Memory as Memory,
-    type RecallMemorySummary as RecallMemorySummary,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentMigrateResponse as AgentMigrateResponse,
@@ -307,31 +278,8 @@ export declare namespace Letta {
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentDeleteParams as AgentDeleteParams,
-    type AgentAddToolParams as AgentAddToolParams,
     type AgentMigrateParams as AgentMigrateParams,
-    type AgentRemoveToolParams as AgentRemoveToolParams,
   };
-
-  export {
-    Models as Models,
-    type EmbeddingConfig as EmbeddingConfig,
-    type LlmConfig as LlmConfig,
-    type ModelListResponse as ModelListResponse,
-  };
-
-  export {
-    Blocks as Blocks,
-    type BlockListResponse as BlockListResponse,
-    type BlockCreateParams as BlockCreateParams,
-    type BlockRetrieveParams as BlockRetrieveParams,
-    type BlockUpdateParams as BlockUpdateParams,
-    type BlockListParams as BlockListParams,
-    type BlockDeleteParams as BlockDeleteParams,
-  };
-
-  export { Jobs as Jobs, type JobListResponse as JobListResponse, type JobListParams as JobListParams };
-
-  export { type Health as Health };
 
   export type Block = API.Block;
   export type Job = API.Job;

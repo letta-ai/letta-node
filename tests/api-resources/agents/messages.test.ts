@@ -9,6 +9,33 @@ const client = new Letta({
 });
 
 describe('resource messages', () => {
+  test('create: only required params', async () => {
+    const responsePromise = client.agents.messages.create('agent_id', {
+      messages: [{ role: 'user', text: 'text' }],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('create: required and optional params', async () => {
+    const response = await client.agents.messages.create('agent_id', {
+      messages: [{ role: 'user', text: 'text', name: 'name' }],
+      assistant_message_function_kwarg: 'assistant_message_function_kwarg',
+      assistant_message_function_name: 'assistant_message_function_name',
+      return_message_object: true,
+      run_async: true,
+      stream_steps: true,
+      stream_tokens: true,
+      use_assistant_message: true,
+      user_id: 'user_id',
+    });
+  });
+
   test('update: only required params', async () => {
     const responsePromise = client.agents.messages.update('agent_id', 'message_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -66,32 +93,5 @@ describe('resource messages', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  test('process: only required params', async () => {
-    const responsePromise = client.agents.messages.process('agent_id', {
-      messages: [{ role: 'user', text: 'text' }],
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('process: required and optional params', async () => {
-    const response = await client.agents.messages.process('agent_id', {
-      messages: [{ role: 'user', text: 'text', name: 'name' }],
-      assistant_message_function_kwarg: 'assistant_message_function_kwarg',
-      assistant_message_function_name: 'assistant_message_function_name',
-      return_message_object: true,
-      run_async: true,
-      stream_steps: true,
-      stream_tokens: true,
-      use_assistant_message: true,
-      user_id: 'user_id',
-    });
   });
 });
