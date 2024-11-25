@@ -6,11 +6,13 @@ export {
   type Memory,
   type AgentListResponse,
   type AgentDeleteResponse,
+  type AgentMigrateResponse,
   type AgentCreateParams,
   type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
   type AgentDeleteParams,
+  type AgentMigrateParams,
 } from './agents';
 export {
   Archival,
@@ -38,10 +40,9 @@ export {
   type MessageUpdateParams,
 } from './messages';
 export { Sources, type SourceListResponse } from './sources';
+export { Tools, type ToolAddParams, type ToolRemoveParams } from './tools';
 export {
-  Tools,
-  type ToolListResponse,
-  type ToolListParams,
-  type ToolAddParams,
-  type ToolRemoveParams,
-} from './tools';
+  VersionTemplate,
+  type VersionTemplateCreateResponse,
+  type VersionTemplateCreateParams,
+} from './version-template';

@@ -170,9 +170,9 @@ export class Sources extends APIResource {
  *
  * Parameters: id (str): The ID of the source name (str): The name of the source.
  * embedding*config (EmbeddingConfig): The embedding configuration used by the
- * source. user_id (str): The ID of the user that created the source. metadata*
- * (dict): Metadata associated with the source. description (str): The description
- * of the source.
+ * source. created_at (datetime): The creation date of the source. user_id (str):
+ * The ID of the user that created the source. metadata* (dict): Metadata
+ * associated with the source. description (str): The description of the source.
  */
 export interface Source {
   /**
@@ -186,19 +186,19 @@ export interface Source {
   name: string;
 
   /**
+   * The ID of the user that created the source.
+   */
+  user_id: string;
+
+  /**
    * The human-friendly ID of the Source
    */
   id?: string;
 
   /**
-   * The timestamp when the source was created.
+   * The creation date of the source.
    */
-  created_at?: string | null;
-
-  /**
-   * The id of the user that made this Tool.
-   */
-  created_by_id?: string | null;
+  created_at?: string;
 
   /**
    * The description of the source.
@@ -206,24 +206,9 @@ export interface Source {
   description?: string | null;
 
   /**
-   * The id of the user that made this Tool.
-   */
-  last_updated_by_id?: string | null;
-
-  /**
    * Metadata associated with the source.
    */
   metadata_?: unknown | null;
-
-  /**
-   * The ID of the organization that created the source.
-   */
-  organization_id?: string | null;
-
-  /**
-   * The timestamp when the source was last updated.
-   */
-  updated_at?: string | null;
 }
 
 export type SourceRetrieveResponse = string;
@@ -274,6 +259,11 @@ export interface SourceRetrieveParams {
 }
 
 export interface SourceUpdateParams {
+  /**
+   * Body param: The ID of the source.
+   */
+  id: string;
+
   /**
    * Body param: The description of the source.
    */
