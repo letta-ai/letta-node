@@ -27,7 +27,7 @@ import Letta from '@letta/client';
 
 const client = new Letta({
   bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
-  environment: 'environment_1', // defaults to 'production'
+  environment: 'local', // defaults to 'production'
 });
 
 async function main() {
@@ -47,7 +47,7 @@ import Letta from '@letta/client';
 
 const client = new Letta({
   bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
-  environment: 'environment_1', // defaults to 'production'
+  environment: 'local', // defaults to 'production'
 });
 
 async function main() {
