@@ -7,25 +7,6 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
-  BlockCreateParams,
-  BlockListParams,
-  BlockListResponse,
-  BlockUpdateParams,
-  Blocks,
-} from './resources/blocks';
-import { Health } from './resources/health';
-import {
-  Tool,
-  ToolAddBaseToolsResponse,
-  ToolCreateParams,
-  ToolDeleteResponse,
-  ToolListParams,
-  ToolListResponse,
-  ToolUpdateParams,
-  Tools,
-} from './resources/tools';
-import { ToolsName, ToolsNameRetrieveResponse } from './resources/tools-name';
-import {
   AgentCreateParams,
   AgentDeleteResponse,
   AgentListParams,
@@ -34,32 +15,12 @@ import {
   AgentMigrateResponse,
   AgentState,
   AgentUpdateParams,
-  AgentVersionTemplateParams,
-  AgentVersionTemplateResponse,
   Agents,
-  Agentstate,
-  Archivalmemorysummary,
-  Contextwindowoverview,
-  Memory,
-  Recallmemorysummary,
 } from './resources/agents/agents';
-import { JobListParams, JobListResponse, Jobs } from './resources/jobs/jobs';
-import { Embeddingconfig, Llmconfig, ModelListResponse, Models } from './resources/models/models';
-import {
-  Source,
-  SourceAttachParams,
-  SourceCreateParams,
-  SourceDeleteResponse,
-  SourceDetachParams,
-  SourceListResponse,
-  SourceUpdateParams,
-  SourceUploadParams,
-  Sources,
-} from './resources/sources/sources';
 
 const environments = {
   production: 'https://app.letta.com',
-  environment_1: 'http://localhost:8283',
+  local: 'http://localhost:8283',
 };
 type Environment = keyof typeof environments;
 export interface ClientOptions {
@@ -73,7 +34,7 @@ export interface ClientOptions {
    *
    * Each environment maps to a different base URL:
    * - `production` corresponds to `https://app.letta.com`
-   * - `environment_1` corresponds to `http://localhost:8283`
+   * - `local` corresponds to `http://localhost:8283`
    */
   environment?: Environment;
 
@@ -193,13 +154,6 @@ export class Letta extends Core.APIClient {
   }
 
   agents: API.Agents = new API.Agents(this);
-  tools: API.Tools = new API.Tools(this);
-  toolsName: API.ToolsName = new API.ToolsName(this);
-  sources: API.Sources = new API.Sources(this);
-  models: API.Models = new API.Models(this);
-  blocks: API.Blocks = new API.Blocks(this);
-  jobs: API.Jobs = new API.Jobs(this);
-  health: API.Health = new API.Health(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -242,81 +196,20 @@ export class Letta extends Core.APIClient {
 }
 
 Letta.Agents = Agents;
-Letta.Tools = Tools;
-Letta.ToolsName = ToolsName;
-Letta.Sources = Sources;
-Letta.Models = Models;
-Letta.Blocks = Blocks;
-Letta.Jobs = Jobs;
 export declare namespace Letta {
   export type RequestOptions = Core.RequestOptions;
 
   export {
     Agents as Agents,
-    type Agentstate as Agentstate,
     type AgentState as AgentState,
-    type Archivalmemorysummary as Archivalmemorysummary,
-    type Contextwindowoverview as Contextwindowoverview,
-    type Memory as Memory,
-    type Recallmemorysummary as Recallmemorysummary,
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentMigrateResponse as AgentMigrateResponse,
-    type AgentVersionTemplateResponse as AgentVersionTemplateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentMigrateParams as AgentMigrateParams,
-    type AgentVersionTemplateParams as AgentVersionTemplateParams,
   };
-
-  export {
-    Tools as Tools,
-    type Tool as Tool,
-    type ToolListResponse as ToolListResponse,
-    type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolAddBaseToolsResponse as ToolAddBaseToolsResponse,
-    type ToolCreateParams as ToolCreateParams,
-    type ToolUpdateParams as ToolUpdateParams,
-    type ToolListParams as ToolListParams,
-  };
-
-  export { ToolsName as ToolsName, type ToolsNameRetrieveResponse as ToolsNameRetrieveResponse };
-
-  export {
-    Sources as Sources,
-    type Source as Source,
-    type SourceListResponse as SourceListResponse,
-    type SourceDeleteResponse as SourceDeleteResponse,
-    type SourceCreateParams as SourceCreateParams,
-    type SourceUpdateParams as SourceUpdateParams,
-    type SourceAttachParams as SourceAttachParams,
-    type SourceDetachParams as SourceDetachParams,
-    type SourceUploadParams as SourceUploadParams,
-  };
-
-  export {
-    Models as Models,
-    type Embeddingconfig as Embeddingconfig,
-    type Llmconfig as Llmconfig,
-    type ModelListResponse as ModelListResponse,
-  };
-
-  export {
-    Blocks as Blocks,
-    type Block as Block,
-    type BlockListResponse as BlockListResponse,
-    type BlockCreateParams as BlockCreateParams,
-    type BlockUpdateParams as BlockUpdateParams,
-    type BlockListParams as BlockListParams,
-  };
-
-  export { Jobs as Jobs, type JobListResponse as JobListResponse, type JobListParams as JobListParams };
-
-  export { type Health as Health };
-
-  export type Block = API.Block;
-  export type Job = API.Job;
 }
 
 export { toFile, fileFromPath } from './uploads';
