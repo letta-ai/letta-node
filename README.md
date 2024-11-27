@@ -1,6 +1,6 @@
 # Letta Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/@letta/client.svg)](https://npmjs.org/package/@letta/client) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@letta/client)
+[![NPM version](https://img.shields.io/npm/v/@letta-ai/letta.svg)](https://npmjs.org/package/@letta-ai/letta) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@letta-ai/letta)
 
 This library provides convenient access to the Letta REST API from server-side TypeScript or JavaScript.
 
@@ -15,7 +15,7 @@ npm install git+ssh://git@github.com:stainless-sdks/letta-node.git
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install @letta/client`
+> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install @letta-ai/letta`
 
 ## Usage
 
@@ -23,7 +23,7 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Letta from '@letta/client';
+import Letta from '@letta-ai/letta';
 
 const client = new Letta({
   bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
@@ -43,7 +43,7 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Letta from '@letta/client';
+import Letta from '@letta-ai/letta';
 
 const client = new Letta({
   bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
@@ -213,11 +213,11 @@ add the following import before your first import `from "Letta"`:
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import '@letta/client/shims/web';
-import Letta from '@letta/client';
+import '@letta-ai/letta/shims/web';
+import Letta from '@letta-ai/letta';
 ```
 
-To do the inverse, add `import "@letta/client/shims/node"` (which does import polyfills).
+To do the inverse, add `import "@letta-ai/letta/shims/node"` (which does import polyfills).
 This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/letta-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
@@ -227,7 +227,7 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import Letta from '@letta/client';
+import Letta from '@letta-ai/letta';
 
 const client = new Letta({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
