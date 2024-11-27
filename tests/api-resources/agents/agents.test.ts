@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Letta from '@letta-ai/letta';
+import Letta from '@letta/client';
 import { Response } from 'node-fetch';
 
 const client = new Letta({
@@ -75,7 +75,7 @@ describe('resource agents', () => {
         memory: {
           foo: {
             value: 'value',
-            id: 'id',
+            id: 'block-123e4567-e89b-12d3-a456-426614174000',
             created_by_id: 'created_by_id',
             description: 'description',
             is_template: true,

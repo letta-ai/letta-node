@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from '@letta-ai/letta/core';
-import { Blob } from '@letta-ai/letta/_shims/index';
-import { toFile } from '@letta-ai/letta';
+import { multipartFormRequestOptions, createForm } from '@letta/client/core';
+import { Blob } from '@letta/client/_shims/index';
+import { toFile } from '@letta/client';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {
