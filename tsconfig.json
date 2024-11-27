@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "@letta/client/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "@letta/client/*": ["src/*"],
-      "@letta/client": ["src/index.ts"]
+      "@letta-ai/letta/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "@letta-ai/letta/*": ["src/*"],
+      "@letta-ai/letta": ["src/index.ts"]
     },
     "noEmit": true,
 
