@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Letta } from '@letta-ai/letta';
+import { Letta } from '@letta/client';
 
 const { stringifyQuery } = Letta.prototype as any;
 

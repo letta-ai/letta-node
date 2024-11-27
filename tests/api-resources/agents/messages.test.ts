@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Letta from '@letta-ai/letta';
+import Letta from '@letta/client';
 import { Response } from 'node-fetch';
 
 const client = new Letta({
@@ -25,13 +25,8 @@ describe('resource messages', () => {
   test('create: required and optional params', async () => {
     const response = await client.agents.messages.create('agent_id', {
       messages: [{ role: 'user', text: 'text', name: 'name' }],
-      assistant_message_function_kwarg: 'assistant_message_function_kwarg',
-      assistant_message_function_name: 'assistant_message_function_name',
-      return_message_object: true,
-      run_async: true,
-      stream_steps: true,
-      stream_tokens: true,
-      use_assistant_message: true,
+      assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
+      assistant_message_tool_name: 'assistant_message_tool_name',
     });
   });
 
@@ -81,12 +76,11 @@ describe('resource messages', () => {
       client.agents.messages.list(
         'agent_id',
         {
-          assistant_message_function_kwarg: 'assistant_message_function_kwarg',
-          assistant_message_function_name: 'assistant_message_function_name',
+          assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
+          assistant_message_tool_name: 'assistant_message_tool_name',
           before: 'before',
           limit: 0,
           msg_object: true,
-          use_assistant_message: true,
         },
         { path: '/_stainless_unknown_path' },
       ),
