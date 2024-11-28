@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2024-11-28)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **internal:** make git install file structure match npm ([#10](https://github.com/letta-ai/letta-node/issues/10)) ([f72639d](https://github.com/letta-ai/letta-node/commit/f72639d571d659c559daa2ef160c917680676be5))
+
 ## 0.1.0-alpha.2 (2024-11-28)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
