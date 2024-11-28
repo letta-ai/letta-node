@@ -7,9 +7,9 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^@letta/letta$': '<rootDir>/src/index.ts',
-    '^@letta/letta/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
-    '^@letta/letta/(.*)$': '<rootDir>/src/$1',
+    '^@letta-ai/letta$': '<rootDir>/src/index.ts',
+    '^@letta-ai/letta/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
+    '^@letta-ai/letta/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Letta from '@letta/letta';
-import { APIUserAbortError } from '@letta/letta';
-import { Headers } from '@letta/letta/core';
+import Letta from '@letta-ai/letta';
+import { APIUserAbortError } from '@letta-ai/letta';
+import { Headers } from '@letta-ai/letta/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
 
 describe('instantiate client', () => {
