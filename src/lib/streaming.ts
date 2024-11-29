@@ -34,7 +34,9 @@ export function isFunctionCall(message: MessageResponse): message is MessageCrea
   return false;
 }
 
-export function isFunctionCallDelta(message: MessageResponse): message is MessageCreateResponse.FunctionCallDelta {
+export function isFunctionCallDelta(
+  message: MessageResponse,
+): message is MessageCreateResponse.FunctionCallDelta {
   if (hasMessageType(message)) {
     return message.message_type === 'function_call_delta';
   }
@@ -60,7 +62,9 @@ export function isFunctionReturn(message: MessageResponse): message is MessageCr
   return false;
 }
 
-export function isInternalMonologue(message: MessageResponse): message is MessageCreateResponse.InternalMonologue {
+export function isInternalMonologue(
+  message: MessageResponse,
+): message is MessageCreateResponse.InternalMonologue {
   if (hasMessageType(message)) {
     return message.message_type === 'internal_monologue';
   }
