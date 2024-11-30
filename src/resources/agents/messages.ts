@@ -3,6 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import { streamMessages, StreamResponse } from '@letta-ai/letta/lib/streaming';
 
 export class Messages extends APIResource {
   /**
@@ -15,6 +16,19 @@ export class Messages extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageCreateResponse> {
     return this._client.post(`/v1/agents/${agentId}/messages`, { body, ...options });
+  }
+
+  /**
+   * Stream messages from an agent
+   */
+  stream(agentId: string, body: MessageCreateParams, options?: Core.RequestOptions): StreamResponse {
+    return streamMessages({
+      payload: body,
+      baseUrl: this._client.baseURL,
+      agentId,
+      headers: this._client.bearerToken ? { Authorization: `Bearer ${this._client.bearerToken}` } : {},
+      requestOptions: options,
+    });
   }
 
   /**
