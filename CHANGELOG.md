@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2024-11-30)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* Add streaming code ([#13](https://github.com/letta-ai/letta-node/issues/13)) ([04b8863](https://github.com/letta-ai/letta-node/commit/04b8863d693d858a47cbfb5bedc761f920f5e0c7))
+* chore(deps): bump cross-spawn from 7.0.3 to 7.0.6 ([#14](https://github.com/letta-ai/letta-node/issues/14)) ([eed2506](https://github.com/letta-ai/letta-node/commit/eed2506b010f6c60fad83347c2565fa09bac530e))
+
 ## 0.1.0-alpha.3 (2024-11-28)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
