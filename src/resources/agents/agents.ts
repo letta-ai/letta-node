@@ -109,9 +109,19 @@ export interface AgentState {
   llm_config: AgentState.LlmConfig;
 
   /**
+   * The in-context memory of the agent.
+   */
+  memory: AgentState.Memory;
+
+  /**
    * The name of the agent.
    */
   name: string;
+
+  /**
+   * The sources used by the agent.
+   */
+  sources: Array<AgentState.Source>;
 
   /**
    * The system prompt used by the agent.
@@ -119,9 +129,19 @@ export interface AgentState {
   system: string;
 
   /**
+   * The tags associated with the agent.
+   */
+  tags: Array<string>;
+
+  /**
    * The tools used by the agent.
    */
-  tools: Array<string>;
+  tool_names: Array<string>;
+
+  /**
+   * The tools used by the agent.
+   */
+  tools: Array<AgentState.Tool>;
 
   /**
    * The human-friendly ID of the Agent
@@ -139,15 +159,6 @@ export interface AgentState {
   description?: string | null;
 
   /**
-   * Represents the in-context memory of the agent. This includes both the `Block`
-   * objects (labelled by sections), as well as tools to edit the blocks.
-   *
-   * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-   * memory block.
-   */
-  memory?: AgentState.Memory;
-
-  /**
    * The ids of the messages in the agent's in-context memory.
    */
   message_ids?: Array<string> | null;
@@ -158,14 +169,9 @@ export interface AgentState {
   metadata_?: unknown | null;
 
   /**
-   * The tags associated with the agent.
-   */
-  tags?: Array<string> | null;
-
-  /**
    * The list of tool rules.
    */
-  tool_rules?: Array<AgentState.ToolRule> | null;
+  tool_rules?: Array<AgentState.ChildToolRule | AgentState.InitToolRule | AgentState.TerminalToolRule> | null;
 
   /**
    * The user id of the agent.
@@ -274,17 +280,13 @@ export namespace AgentState {
   }
 
   /**
-   * Represents the in-context memory of the agent. This includes both the `Block`
-   * objects (labelled by sections), as well as tools to edit the blocks.
-   *
-   * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-   * memory block.
+   * The in-context memory of the agent.
    */
   export interface Memory {
     /**
-     * Mapping from memory block section to memory block.
+     * Memory blocks contained in the agent's in-context memory
      */
-    memory?: Record<string, Memory.Memory>;
+    blocks: Array<Memory.Block>;
 
     /**
      * Jinja2 template for compiling memory blocks into a prompt string
@@ -310,7 +312,7 @@ export namespace AgentState {
      * Metadata of the block. user_id (str): The unique identifier of the user
      * associated with the block.
      */
-    export interface Memory {
+    export interface Block {
       /**
        * Value of the block.
        */
@@ -368,11 +370,227 @@ export namespace AgentState {
     }
   }
 
-  export interface ToolRule {
+  /**
+   * Representation of a source, which is a collection of files and passages.
+   *
+   * Parameters: id (str): The ID of the source name (str): The name of the source.
+   * embedding*config (EmbeddingConfig): The embedding configuration used by the
+   * source. user_id (str): The ID of the user that created the source. metadata*
+   * (dict): Metadata associated with the source. description (str): The description
+   * of the source.
+   */
+  export interface Source {
+    /**
+     * The embedding configuration used by the source.
+     */
+    embedding_config: Source.EmbeddingConfig;
+
+    /**
+     * The name of the source.
+     */
+    name: string;
+
+    /**
+     * The human-friendly ID of the Source
+     */
+    id?: string;
+
+    /**
+     * The timestamp when the source was created.
+     */
+    created_at?: string | null;
+
+    /**
+     * The id of the user that made this Tool.
+     */
+    created_by_id?: string | null;
+
+    /**
+     * The description of the source.
+     */
+    description?: string | null;
+
+    /**
+     * The id of the user that made this Tool.
+     */
+    last_updated_by_id?: string | null;
+
+    /**
+     * Metadata associated with the source.
+     */
+    metadata_?: unknown | null;
+
+    /**
+     * The ID of the organization that created the source.
+     */
+    organization_id?: string | null;
+
+    /**
+     * The timestamp when the source was last updated.
+     */
+    updated_at?: string | null;
+  }
+
+  export namespace Source {
+    /**
+     * The embedding configuration used by the source.
+     */
+    export interface EmbeddingConfig {
+      /**
+       * The dimension of the embedding.
+       */
+      embedding_dim: number;
+
+      /**
+       * The endpoint type for the model.
+       */
+      embedding_endpoint_type: string;
+
+      /**
+       * The model for the embedding.
+       */
+      embedding_model: string;
+
+      /**
+       * The Azure deployment for the model.
+       */
+      azure_deployment?: string | null;
+
+      /**
+       * The Azure endpoint for the model.
+       */
+      azure_endpoint?: string | null;
+
+      /**
+       * The Azure version for the model.
+       */
+      azure_version?: string | null;
+
+      /**
+       * The chunk size of the embedding.
+       */
+      embedding_chunk_size?: number | null;
+
+      /**
+       * The endpoint for the model (`None` if local).
+       */
+      embedding_endpoint?: string | null;
+    }
+  }
+
+  /**
+   * Representation of a tool, which is a function that can be called by the agent.
+   *
+   * Parameters: id (str): The unique identifier of the tool. name (str): The name of
+   * the function. tags (List[str]): Metadata tags. source_code (str): The source
+   * code of the function. json_schema (Dict): The JSON schema of the function.
+   */
+  export interface Tool {
+    /**
+     * The source code of the function.
+     */
+    source_code: string;
+
+    /**
+     * The human-friendly ID of the Tool
+     */
+    id?: string;
+
+    /**
+     * The id of the user that made this Tool.
+     */
+    created_by_id?: string | null;
+
+    /**
+     * The description of the tool.
+     */
+    description?: string | null;
+
+    /**
+     * The JSON schema of the function.
+     */
+    json_schema?: unknown | null;
+
+    /**
+     * The id of the user that made this Tool.
+     */
+    last_updated_by_id?: string | null;
+
+    /**
+     * The module of the function.
+     */
+    module?: string | null;
+
+    /**
+     * The name of the function.
+     */
+    name?: string | null;
+
+    /**
+     * The unique identifier of the organization associated with the tool.
+     */
+    organization_id?: string | null;
+
+    /**
+     * The type of the source code.
+     */
+    source_type?: string | null;
+
+    /**
+     * Metadata tags.
+     */
+    tags?: Array<string>;
+  }
+
+  /**
+   * A ToolRule represents a tool that can be invoked by the agent.
+   */
+  export interface ChildToolRule {
+    /**
+     * The children tools that can be invoked.
+     */
+    children: Array<string>;
+
     /**
      * The name of the tool. Must exist in the database for the user's organization.
      */
     tool_name: string;
+
+    /**
+     * Type of tool rule.
+     */
+    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+  }
+
+  /**
+   * Represents the initial tool rule configuration.
+   */
+  export interface InitToolRule {
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * Type of tool rule.
+     */
+    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+  }
+
+  /**
+   * Represents a terminal tool rule configuration where if this tool gets called, it
+   * must end the agent loop.
+   */
+  export interface TerminalToolRule {
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * Type of tool rule.
+     */
+    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
   }
 }
 
@@ -385,6 +603,11 @@ export interface AgentMigrateResponse {
 }
 
 export interface AgentCreateParams {
+  /**
+   * The blocks to create in the agent's in-context memory.
+   */
+  memory_blocks: Array<AgentCreateParams.MemoryBlock>;
+
   /**
    * Enum to represent the type of agent.
    */
@@ -433,15 +656,6 @@ export interface AgentCreateParams {
   llm_config?: AgentCreateParams.LlmConfig | null;
 
   /**
-   * Represents the in-context memory of the agent. This includes both the `Block`
-   * objects (labelled by sections), as well as tools to edit the blocks.
-   *
-   * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-   * memory block.
-   */
-  memory?: AgentCreateParams.Memory | null;
-
-  /**
    * The ids of the messages in the agent's in-context memory.
    */
   message_ids?: Array<string> | null;
@@ -469,7 +683,9 @@ export interface AgentCreateParams {
   /**
    * The tool rules governing the agent.
    */
-  tool_rules?: Array<AgentCreateParams.ToolRule> | null;
+  tool_rules?: Array<
+    AgentCreateParams.ChildToolRule | AgentCreateParams.InitToolRule | AgentCreateParams.TerminalToolRule
+  > | null;
 
   /**
    * The tools used by the agent.
@@ -483,6 +699,43 @@ export interface AgentCreateParams {
 }
 
 export namespace AgentCreateParams {
+  /**
+   * Create a block
+   */
+  export interface MemoryBlock {
+    /**
+     * Label of the block.
+     */
+    label: string;
+
+    /**
+     * Value of the block.
+     */
+    value: string;
+
+    /**
+     * Description of the block.
+     */
+    description?: string | null;
+
+    is_template?: boolean;
+
+    /**
+     * Character limit of the block.
+     */
+    limit?: number;
+
+    /**
+     * Metadata of the block.
+     */
+    metadata_?: unknown | null;
+
+    /**
+     * Name of the block if it is a template.
+     */
+    name?: string | null;
+  }
+
   /**
    * Embedding model configuration. This object specifies all the information
    * necessary to access an embedding model to usage with Letta, except for secret
@@ -702,105 +955,54 @@ export namespace AgentCreateParams {
   }
 
   /**
-   * Represents the in-context memory of the agent. This includes both the `Block`
-   * objects (labelled by sections), as well as tools to edit the blocks.
-   *
-   * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-   * memory block.
+   * A ToolRule represents a tool that can be invoked by the agent.
    */
-  export interface Memory {
+  export interface ChildToolRule {
     /**
-     * Mapping from memory block section to memory block.
+     * The children tools that can be invoked.
      */
-    memory?: Record<string, Memory.Memory>;
+    children: Array<string>;
 
-    /**
-     * Jinja2 template for compiling memory blocks into a prompt string
-     */
-    prompt_template?: string;
-  }
-
-  export namespace Memory {
-    /**
-     * A Block represents a reserved section of the LLM's context window which is
-     * editable. `Block` objects contained in the `Memory` object, which is able to
-     * edit the Block values.
-     *
-     * Parameters: label (str): The label of the block (e.g. 'human', 'persona'). This
-     * defines a category for the block. value (str): The value of the block. This is
-     * the string that is represented in the context window. limit (int): The character
-     * limit of the block. is*template (bool): Whether the block is a template (e.g.
-     * saved human/persona options). Non-template blocks are not stored in the database
-     * and are ephemeral, while templated blocks are stored in the database. label
-     * (str): The label of the block (e.g. 'human', 'persona'). This defines a category
-     * for the block. template_name (str): The name of the block template (if it is a
-     * template). description (str): Description of the block. metadata* (Dict):
-     * Metadata of the block. user_id (str): The unique identifier of the user
-     * associated with the block.
-     */
-    export interface Memory {
-      /**
-       * Value of the block.
-       */
-      value: string;
-
-      /**
-       * The human-friendly ID of the Block
-       */
-      id?: string;
-
-      /**
-       * The id of the user that made this Block.
-       */
-      created_by_id?: string | null;
-
-      /**
-       * Description of the block.
-       */
-      description?: string | null;
-
-      /**
-       * Whether the block is a template (e.g. saved human/persona options).
-       */
-      is_template?: boolean;
-
-      /**
-       * Label of the block (e.g. 'human', 'persona') in the context window.
-       */
-      label?: string | null;
-
-      /**
-       * The id of the user that last updated this Block.
-       */
-      last_updated_by_id?: string | null;
-
-      /**
-       * Character limit of the block.
-       */
-      limit?: number;
-
-      /**
-       * Metadata of the block.
-       */
-      metadata_?: unknown | null;
-
-      /**
-       * Name of the block if it is a template.
-       */
-      name?: string | null;
-
-      /**
-       * The unique identifier of the organization associated with the block.
-       */
-      organization_id?: string | null;
-    }
-  }
-
-  export interface ToolRule {
     /**
      * The name of the tool. Must exist in the database for the user's organization.
      */
     tool_name: string;
+
+    /**
+     * Type of tool rule.
+     */
+    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+  }
+
+  /**
+   * Represents the initial tool rule configuration.
+   */
+  export interface InitToolRule {
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * Type of tool rule.
+     */
+    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+  }
+
+  /**
+   * Represents a terminal tool rule configuration where if this tool gets called, it
+   * must end the agent loop.
+   */
+  export interface TerminalToolRule {
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * Type of tool rule.
+     */
+    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
   }
 }
 
@@ -848,15 +1050,6 @@ export interface AgentUpdateParams {
   llm_config?: AgentUpdateParams.LlmConfig | null;
 
   /**
-   * Represents the in-context memory of the agent. This includes both the `Block`
-   * objects (labelled by sections), as well as tools to edit the blocks.
-   *
-   * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-   * memory block.
-   */
-  memory?: AgentUpdateParams.Memory | null;
-
-  /**
    * The ids of the messages in the agent's in-context memory.
    */
   message_ids?: Array<string> | null;
@@ -884,7 +1077,7 @@ export interface AgentUpdateParams {
   /**
    * The tools used by the agent.
    */
-  tools?: Array<string> | null;
+  tool_names?: Array<string> | null;
 
   /**
    * The user id of the agent.
@@ -1012,101 +1205,6 @@ export namespace AgentUpdateParams {
      * thoughts.
      */
     put_inner_thoughts_in_kwargs?: boolean | null;
-  }
-
-  /**
-   * Represents the in-context memory of the agent. This includes both the `Block`
-   * objects (labelled by sections), as well as tools to edit the blocks.
-   *
-   * Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-   * memory block.
-   */
-  export interface Memory {
-    /**
-     * Mapping from memory block section to memory block.
-     */
-    memory?: Record<string, Memory.Memory>;
-
-    /**
-     * Jinja2 template for compiling memory blocks into a prompt string
-     */
-    prompt_template?: string;
-  }
-
-  export namespace Memory {
-    /**
-     * A Block represents a reserved section of the LLM's context window which is
-     * editable. `Block` objects contained in the `Memory` object, which is able to
-     * edit the Block values.
-     *
-     * Parameters: label (str): The label of the block (e.g. 'human', 'persona'). This
-     * defines a category for the block. value (str): The value of the block. This is
-     * the string that is represented in the context window. limit (int): The character
-     * limit of the block. is*template (bool): Whether the block is a template (e.g.
-     * saved human/persona options). Non-template blocks are not stored in the database
-     * and are ephemeral, while templated blocks are stored in the database. label
-     * (str): The label of the block (e.g. 'human', 'persona'). This defines a category
-     * for the block. template_name (str): The name of the block template (if it is a
-     * template). description (str): Description of the block. metadata* (Dict):
-     * Metadata of the block. user_id (str): The unique identifier of the user
-     * associated with the block.
-     */
-    export interface Memory {
-      /**
-       * Value of the block.
-       */
-      value: string;
-
-      /**
-       * The human-friendly ID of the Block
-       */
-      id?: string;
-
-      /**
-       * The id of the user that made this Block.
-       */
-      created_by_id?: string | null;
-
-      /**
-       * Description of the block.
-       */
-      description?: string | null;
-
-      /**
-       * Whether the block is a template (e.g. saved human/persona options).
-       */
-      is_template?: boolean;
-
-      /**
-       * Label of the block (e.g. 'human', 'persona') in the context window.
-       */
-      label?: string | null;
-
-      /**
-       * The id of the user that last updated this Block.
-       */
-      last_updated_by_id?: string | null;
-
-      /**
-       * Character limit of the block.
-       */
-      limit?: number;
-
-      /**
-       * Metadata of the block.
-       */
-      metadata_?: unknown | null;
-
-      /**
-       * Name of the block if it is a template.
-       */
-      name?: string | null;
-
-      /**
-       * The unique identifier of the organization associated with the block.
-       */
-      organization_id?: string | null;
-    }
   }
 }
 
