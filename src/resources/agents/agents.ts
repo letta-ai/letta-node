@@ -20,15 +20,37 @@ export class Agents extends APIResource {
   /**
    * Create a new agent with the specified configuration.
    */
-  create(body: AgentCreateParams, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
-    return this._client.post('/v1/agents/', { body, ...options });
+  create(params: AgentCreateParams, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
+    const { body_user_id, header_user_id, ...body } = params;
+    return this._client.post('/v1/agents/', {
+      body: { user_id: body_user_id, ...body },
+      ...options,
+      headers: { ...(header_user_id != null ? { user_id: header_user_id } : undefined), ...options?.headers },
+    });
   }
 
   /**
    * Get the state of the agent.
    */
-  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
-    return this._client.get(`/v1/agents/${agentId}`, options);
+  retrieve(
+    agentId: string,
+    params?: AgentRetrieveParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AgentState>;
+  retrieve(agentId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState>;
+  retrieve(
+    agentId: string,
+    params: AgentRetrieveParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AgentState> {
+    if (isRequestOptions(params)) {
+      return this.retrieve(agentId, {}, params);
+    }
+    const { user_id } = params;
+    return this._client.get(`/v1/agents/${agentId}`, {
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
   }
 
   /**
@@ -36,44 +58,60 @@ export class Agents extends APIResource {
    */
   update(
     agentId: string,
-    body: AgentUpdateParams,
+    params: AgentUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AgentState> {
-    return this._client.patch(`/v1/agents/${agentId}`, { body, ...options });
+    const { body_user_id, header_user_id, ...body } = params;
+    return this._client.patch(`/v1/agents/${agentId}`, {
+      body: { user_id: body_user_id, ...body },
+      ...options,
+      headers: { ...(header_user_id != null ? { user_id: header_user_id } : undefined), ...options?.headers },
+    });
   }
 
   /**
    * List all agents associated with a given user. This endpoint retrieves a list of
    * all agents and their configurations associated with the specified user ID.
    */
-  list(query?: AgentListParams, options?: Core.RequestOptions): Core.APIPromise<AgentListResponse>;
+  list(params?: AgentListParams, options?: Core.RequestOptions): Core.APIPromise<AgentListResponse>;
   list(options?: Core.RequestOptions): Core.APIPromise<AgentListResponse>;
   list(
-    query: AgentListParams | Core.RequestOptions = {},
+    params: AgentListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<AgentListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
+    if (isRequestOptions(params)) {
+      return this.list({}, params);
     }
-    return this._client.get('/v1/agents/', { query, ...options });
+    const { user_id, ...query } = params;
+    return this._client.get('/v1/agents/', {
+      query,
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
   }
 
   /**
    * Delete an agent.
    */
-  delete(agentId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
-    return this._client.delete(`/v1/agents/${agentId}`, options);
-  }
-
-  /**
-   * Migrate an agent to a new versioned agent template
-   */
-  migrate(
+  delete(
     agentId: string,
-    body: AgentMigrateParams,
+    params?: AgentDeleteParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AgentMigrateResponse> {
-    return this._client.post(`/v1/agents/${agentId}/migrate`, { body, ...options });
+  ): Core.APIPromise<AgentState>;
+  delete(agentId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState>;
+  delete(
+    agentId: string,
+    params: AgentDeleteParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AgentState> {
+    if (isRequestOptions(params)) {
+      return this.delete(agentId, {}, params);
+    }
+    const { user_id } = params;
+    return this._client.delete(`/v1/agents/${agentId}`, {
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
   }
 }
 
@@ -601,18 +639,14 @@ export namespace AgentState {
 
 export type AgentListResponse = Array<AgentState>;
 
-export interface AgentMigrateResponse {
-  success: true;
-}
-
 export interface AgentCreateParams {
   /**
-   * The blocks to create in the agent's in-context memory.
+   * Body param: The blocks to create in the agent's in-context memory.
    */
   memory_blocks: Array<AgentCreateParams.MemoryBlock>;
 
   /**
-   * The type of agent.
+   * Body param: The type of agent.
    */
   agent_type?:
     | 'memgpt_agent'
@@ -622,14 +656,14 @@ export interface AgentCreateParams {
     | 'chat_only_agent';
 
   /**
-   * The description of the agent.
+   * Body param: The description of the agent.
    */
   description?: string | null;
 
   /**
-   * Embedding model configuration. This object specifies all the information
-   * necessary to access an embedding model to usage with Letta, except for secret
-   * keys.
+   * Body param: Embedding model configuration. This object specifies all the
+   * information necessary to access an embedding model to usage with Letta, except
+   * for secret keys.
    *
    * Attributes: embedding_endpoint_type (str): The endpoint type for the model.
    * embedding_endpoint (str): The endpoint for the model. embedding_model (str): The
@@ -642,14 +676,14 @@ export interface AgentCreateParams {
   embedding_config?: AgentCreateParams.EmbeddingConfig | null;
 
   /**
-   * The initial set of messages to put in the agent's in-context memory.
+   * Body param: The initial set of messages to put in the agent's in-context memory.
    */
   initial_message_sequence?: Array<AgentCreateParams.InitialMessageSequence> | null;
 
   /**
-   * Configuration for a Language Model (LLM) model. This object specifies all the
-   * information necessary to access an LLM model to usage with Letta, except for
-   * secret keys.
+   * Body param: Configuration for a Language Model (LLM) model. This object
+   * specifies all the information necessary to access an LLM model to usage with
+   * Letta, except for secret keys.
    *
    * Attributes: model (str): The name of the LLM model. model_endpoint_type (str):
    * The endpoint type for the model. model_endpoint (str): The endpoint for the
@@ -664,43 +698,51 @@ export interface AgentCreateParams {
   llm_config?: AgentCreateParams.LlmConfig | null;
 
   /**
-   * The ids of the messages in the agent's in-context memory.
+   * Body param: The ids of the messages in the agent's in-context memory.
    */
   message_ids?: Array<string> | null;
 
   /**
-   * The metadata of the agent.
+   * Body param: The metadata of the agent.
    */
   metadata_?: unknown | null;
 
   /**
-   * The name of the agent.
+   * Body param: The name of the agent.
    */
   name?: string | null;
 
   /**
-   * The system prompt used by the agent.
+   * Body param: The system prompt used by the agent.
    */
   system?: string | null;
 
   /**
-   * The tags associated with the agent.
+   * Body param: The tags associated with the agent.
    */
   tags?: Array<string> | null;
 
   /**
-   * The tool rules governing the agent.
+   * Body param: The tool rules governing the agent.
    */
   tool_rules?: Array<
     AgentCreateParams.ChildToolRule | AgentCreateParams.InitToolRule | AgentCreateParams.TerminalToolRule
   > | null;
 
   /**
-   * The tools used by the agent.
+   * Body param: The tools used by the agent.
    */
   tools?: Array<string>;
 
-  user_id?: string | null;
+  /**
+   * Body param:
+   */
+  body_user_id?: string | null;
+
+  /**
+   * Header param:
+   */
+  header_user_id?: string;
 }
 
 export namespace AgentCreateParams {
@@ -811,29 +853,9 @@ export namespace AgentCreateParams {
     text: string;
 
     /**
-     * The timestamp when the object was created.
-     */
-    created_at?: string | null;
-
-    /**
-     * The id of the user that made this object.
-     */
-    created_by_id?: string | null;
-
-    /**
-     * The id of the user that made this object.
-     */
-    last_updated_by_id?: string | null;
-
-    /**
      * The name of the participant.
      */
     name?: string | null;
-
-    /**
-     * The timestamp when the object was last updated.
-     */
-    updated_at?: string | null;
   }
 
   /**
@@ -954,21 +976,25 @@ export namespace AgentCreateParams {
   }
 }
 
+export interface AgentRetrieveParams {
+  user_id?: string;
+}
+
 export interface AgentUpdateParams {
   /**
-   * The id of the agent.
+   * Body param: The id of the agent.
    */
   id: string;
 
   /**
-   * The description of the agent.
+   * Body param: The description of the agent.
    */
   description?: string | null;
 
   /**
-   * Embedding model configuration. This object specifies all the information
-   * necessary to access an embedding model to usage with Letta, except for secret
-   * keys.
+   * Body param: Embedding model configuration. This object specifies all the
+   * information necessary to access an embedding model to usage with Letta, except
+   * for secret keys.
    *
    * Attributes: embedding_endpoint_type (str): The endpoint type for the model.
    * embedding_endpoint (str): The endpoint for the model. embedding_model (str): The
@@ -981,9 +1007,9 @@ export interface AgentUpdateParams {
   embedding_config?: AgentUpdateParams.EmbeddingConfig | null;
 
   /**
-   * Configuration for a Language Model (LLM) model. This object specifies all the
-   * information necessary to access an LLM model to usage with Letta, except for
-   * secret keys.
+   * Body param: Configuration for a Language Model (LLM) model. This object
+   * specifies all the information necessary to access an LLM model to usage with
+   * Letta, except for secret keys.
    *
    * Attributes: model (str): The name of the LLM model. model_endpoint_type (str):
    * The endpoint type for the model. model_endpoint (str): The endpoint for the
@@ -998,39 +1024,44 @@ export interface AgentUpdateParams {
   llm_config?: AgentUpdateParams.LlmConfig | null;
 
   /**
-   * The ids of the messages in the agent's in-context memory.
+   * Body param: The ids of the messages in the agent's in-context memory.
    */
   message_ids?: Array<string> | null;
 
   /**
-   * The metadata of the agent.
+   * Body param: The metadata of the agent.
    */
   metadata_?: unknown | null;
 
   /**
-   * The name of the agent.
+   * Body param: The name of the agent.
    */
   name?: string | null;
 
   /**
-   * The system prompt used by the agent.
+   * Body param: The system prompt used by the agent.
    */
   system?: string | null;
 
   /**
-   * The tags associated with the agent.
+   * Body param: The tags associated with the agent.
    */
   tags?: Array<string> | null;
 
   /**
-   * The tools used by the agent.
+   * Body param: The tools used by the agent.
    */
   tool_names?: Array<string> | null;
 
   /**
-   * The user id of the agent.
+   * Body param: The user id of the agent.
    */
-  user_id?: string | null;
+  body_user_id?: string | null;
+
+  /**
+   * Header param:
+   */
+  header_user_id?: string;
 }
 
 export namespace AgentUpdateParams {
@@ -1158,26 +1189,23 @@ export namespace AgentUpdateParams {
 
 export interface AgentListParams {
   /**
-   * Name of the agent
+   * Query param: Name of the agent
    */
   name?: string | null;
 
   /**
-   * List of tags to filter agents by
+   * Query param: List of tags to filter agents by
    */
   tags?: Array<string> | null;
-}
-
-export interface AgentMigrateParams {
-  preserve_core_memories: boolean;
-
-  to_template: string;
 
   /**
-   * If you chose to not preserve core memories, you should provide the new variables
-   * for the core memories
+   * Header param:
    */
-  variables?: Record<string, string>;
+  user_id?: string;
+}
+
+export interface AgentDeleteParams {
+  user_id?: string;
 }
 
 Agents.Messages = Messages;
@@ -1186,11 +1214,11 @@ export declare namespace Agents {
   export {
     type AgentState as AgentState,
     type AgentListResponse as AgentListResponse,
-    type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
+    type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
-    type AgentMigrateParams as AgentMigrateParams,
+    type AgentDeleteParams as AgentDeleteParams,
   };
 
   export {
