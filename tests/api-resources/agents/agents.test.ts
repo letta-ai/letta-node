@@ -47,16 +47,13 @@ describe('resource agents', () => {
       },
       initial_message_sequence: [
         {
-          role: 'assistant',
-          id: 'message-123e4567-e89b-12d3-a456-426614174000',
-          agent_id: 'agent_id',
-          created_at: '2019-12-27T18:11:19.117Z',
-          model: 'model',
-          name: 'name',
+          role: 'user',
           text: 'text',
-          tool_call_id: 'tool_call_id',
-          tool_calls: [{ id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'type' }],
-          user_id: 'user_id',
+          created_at: '2019-12-27T18:11:19.117Z',
+          created_by_id: 'created_by_id',
+          last_updated_by_id: 'last_updated_by_id',
+          name: 'name',
+          updated_at: '2019-12-27T18:11:19.117Z',
         },
       ],
       llm_config: {

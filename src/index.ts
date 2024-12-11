@@ -8,7 +8,6 @@ import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
   AgentCreateParams,
-  AgentDeleteResponse,
   AgentListParams,
   AgentListResponse,
   AgentMigrateParams,
@@ -203,7 +202,6 @@ export declare namespace Letta {
     Agents as Agents,
     type AgentState as AgentState,
     type AgentListResponse as AgentListResponse,
-    type AgentDeleteResponse as AgentDeleteResponse,
     type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentUpdateParams as AgentUpdateParams,
