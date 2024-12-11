@@ -11,10 +11,15 @@ export class Messages extends APIResource {
    */
   create(
     agentId: string,
-    body: MessageCreateParams,
+    params: MessageCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageCreateResponse> {
-    return this._client.post(`/v1/agents/${agentId}/messages`, { body, ...options });
+    const { user_id, ...body } = params;
+    return this._client.post(`/v1/agents/${agentId}/messages`, {
+      body,
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
   }
 
   /**
@@ -34,19 +39,24 @@ export class Messages extends APIResource {
    */
   list(
     agentId: string,
-    query?: MessageListParams,
+    params?: MessageListParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageListResponse>;
   list(agentId: string, options?: Core.RequestOptions): Core.APIPromise<MessageListResponse>;
   list(
     agentId: string,
-    query: MessageListParams | Core.RequestOptions = {},
+    params: MessageListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<MessageListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list(agentId, {}, query);
+    if (isRequestOptions(params)) {
+      return this.list(agentId, {}, params);
     }
-    return this._client.get(`/v1/agents/${agentId}/messages`, { query, ...options });
+    const { user_id, ...query } = params;
+    return this._client.get(`/v1/agents/${agentId}/messages`, {
+      query,
+      ...options,
+      headers: { ...(user_id != null ? { user_id: user_id } : undefined), ...options?.headers },
+    });
   }
 }
 
@@ -662,19 +672,24 @@ export namespace MessageListResponse {
 
 export interface MessageCreateParams {
   /**
-   * The messages to be sent to the agent.
+   * Body param: The messages to be sent to the agent.
    */
   messages: Array<MessageCreateParams.Message>;
 
   /**
-   * The name of the message argument in the designated message tool.
+   * Body param: The name of the message argument in the designated message tool.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * Body param: The name of the designated message tool.
    */
   assistant_message_tool_name?: string;
+
+  /**
+   * Header param:
+   */
+  user_id?: string;
 }
 
 export namespace MessageCreateParams {
@@ -693,48 +708,13 @@ export namespace MessageCreateParams {
     text: string;
 
     /**
-     * The timestamp when the object was created.
-     */
-    created_at?: string | null;
-
-    /**
-     * The id of the user that made this object.
-     */
-    created_by_id?: string | null;
-
-    /**
-     * The id of the user that made this object.
-     */
-    last_updated_by_id?: string | null;
-
-    /**
      * The name of the participant.
      */
     name?: string | null;
-
-    /**
-     * The timestamp when the object was last updated.
-     */
-    updated_at?: string | null;
   }
 }
 
 export interface MessageUpdateParams {
-  /**
-   * The timestamp when the object was created.
-   */
-  created_at?: string | null;
-
-  /**
-   * The id of the user that made this object.
-   */
-  created_by_id?: string | null;
-
-  /**
-   * The id of the user that made this object.
-   */
-  last_updated_by_id?: string | null;
-
   /**
    * The name of the participant.
    */
@@ -759,11 +739,6 @@ export interface MessageUpdateParams {
    * The list of tool calls requested.
    */
   tool_calls?: Array<MessageUpdateParams.ToolCall> | null;
-
-  /**
-   * The timestamp when the object was last updated.
-   */
-  updated_at?: string | null;
 }
 
 export namespace MessageUpdateParams {
@@ -801,29 +776,35 @@ export namespace MessageUpdateParams {
 
 export interface MessageListParams {
   /**
-   * The name of the message argument in the designated message tool.
+   * Query param: The name of the message argument in the designated message tool.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * Query param: The name of the designated message tool.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * Message before which to retrieve the returned messages.
+   * Query param: Message before which to retrieve the returned messages.
    */
   before?: string | null;
 
   /**
-   * Maximum number of messages to retrieve.
+   * Query param: Maximum number of messages to retrieve.
    */
   limit?: number;
 
   /**
-   * If true, returns Message objects. If false, return LettaMessage objects.
+   * Query param: If true, returns Message objects. If false, return LettaMessage
+   * objects.
    */
   msg_object?: boolean;
+
+  /**
+   * Header param:
+   */
+  user_id?: string;
 }
 
 export declare namespace Messages {

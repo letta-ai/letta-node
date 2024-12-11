@@ -24,19 +24,10 @@ describe('resource messages', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.agents.messages.create('agent_id', {
-      messages: [
-        {
-          role: 'user',
-          text: 'text',
-          created_at: '2019-12-27T18:11:19.117Z',
-          created_by_id: 'created_by_id',
-          last_updated_by_id: 'last_updated_by_id',
-          name: 'name',
-          updated_at: '2019-12-27T18:11:19.117Z',
-        },
-      ],
+      messages: [{ role: 'user', text: 'text', name: 'name' }],
       assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
       assistant_message_tool_name: 'assistant_message_tool_name',
+      user_id: 'user_id',
     });
   });
 
@@ -80,6 +71,7 @@ describe('resource messages', () => {
           before: 'before',
           limit: 0,
           msg_object: true,
+          user_id: 'user_id',
         },
         { path: '/_stainless_unknown_path' },
       ),
