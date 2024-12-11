@@ -61,7 +61,7 @@ export class Agents extends APIResource {
   /**
    * Delete an agent.
    */
-  delete(agentId: string, options?: Core.RequestOptions): Core.APIPromise<unknown> {
+  delete(agentId: string, options?: Core.RequestOptions): Core.APIPromise<AgentState> {
     return this._client.delete(`/v1/agents/${agentId}`, options);
   }
 
@@ -96,7 +96,7 @@ export interface AgentState {
   /**
    * The type of agent.
    */
-  agent_type: 'memgpt_agent' | 'split_thread_agent' | 'o1_agent';
+  agent_type: 'memgpt_agent' | 'split_thread_agent' | 'o1_agent' | 'offline_memory_agent' | 'chat_only_agent';
 
   /**
    * The embedding configuration used by the agent.
@@ -532,6 +532,11 @@ export namespace AgentState {
     organization_id?: string | null;
 
     /**
+     * The maximum number of characters in the response.
+     */
+    return_char_limit?: number;
+
+    /**
      * The type of the source code.
      */
     source_type?: string | null;
@@ -596,8 +601,6 @@ export namespace AgentState {
 
 export type AgentListResponse = Array<AgentState>;
 
-export type AgentDeleteResponse = unknown;
-
 export interface AgentMigrateResponse {
   success: true;
 }
@@ -609,9 +612,14 @@ export interface AgentCreateParams {
   memory_blocks: Array<AgentCreateParams.MemoryBlock>;
 
   /**
-   * Enum to represent the type of agent.
+   * The type of agent.
    */
-  agent_type?: 'memgpt_agent' | 'split_thread_agent' | 'o1_agent' | null;
+  agent_type?:
+    | 'memgpt_agent'
+    | 'split_thread_agent'
+    | 'o1_agent'
+    | 'offline_memory_agent'
+    | 'chat_only_agent';
 
   /**
    * The description of the agent.
@@ -690,11 +698,8 @@ export interface AgentCreateParams {
   /**
    * The tools used by the agent.
    */
-  tools?: Array<string> | null;
+  tools?: Array<string>;
 
-  /**
-   * The user id of the agent.
-   */
   user_id?: string | null;
 }
 
@@ -792,42 +797,33 @@ export namespace AgentCreateParams {
   }
 
   /**
-   * Letta's internal representation of a message. Includes methods to convert
-   * to/from LLM provider formats.
-   *
-   * Attributes: id (str): The unique identifier of the message. role (MessageRole):
-   * The role of the participant. text (str): The text of the message. user_id (str):
-   * The unique identifier of the user. agent_id (str): The unique identifier of the
-   * agent. model (str): The model used to make the function call. name (str): The
-   * name of the participant. created_at (datetime): The time the message was
-   * created. tool_calls (List[ToolCall]): The list of tool calls requested.
-   * tool_call_id (str): The id of the tool call.
+   * Request to create a message
    */
   export interface InitialMessageSequence {
     /**
      * The role of the participant.
      */
-    role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
+    role: 'user' | 'system';
 
     /**
-     * The human-friendly ID of the Message
+     * The text of the message.
      */
-    id?: string;
+    text: string;
 
     /**
-     * The unique identifier of the agent.
+     * The timestamp when the object was created.
      */
-    agent_id?: string | null;
+    created_at?: string | null;
 
     /**
-     * The time the message was created.
+     * The id of the user that made this object.
      */
-    created_at?: string;
+    created_by_id?: string | null;
 
     /**
-     * The model used to make the function call.
+     * The id of the user that made this object.
      */
-    model?: string | null;
+    last_updated_by_id?: string | null;
 
     /**
      * The name of the participant.
@@ -835,57 +831,9 @@ export namespace AgentCreateParams {
     name?: string | null;
 
     /**
-     * The text of the message.
+     * The timestamp when the object was last updated.
      */
-    text?: string | null;
-
-    /**
-     * The id of the tool call.
-     */
-    tool_call_id?: string | null;
-
-    /**
-     * The list of tool calls requested.
-     */
-    tool_calls?: Array<InitialMessageSequence.ToolCall> | null;
-
-    /**
-     * The unique identifier of the user.
-     */
-    user_id?: string | null;
-  }
-
-  export namespace InitialMessageSequence {
-    export interface ToolCall {
-      /**
-       * The ID of the tool call
-       */
-      id: string;
-
-      /**
-       * The arguments and name for the function
-       */
-      function: ToolCall.Function;
-
-      type?: string;
-    }
-
-    export namespace ToolCall {
-      /**
-       * The arguments and name for the function
-       */
-      export interface Function {
-        /**
-         * The arguments to pass to the function (JSON dump)
-         */
-        arguments: string;
-
-        /**
-         * The name of the function to call
-         */
-        name: string;
-      }
-    }
+    updated_at?: string | null;
   }
 
   /**
@@ -1238,7 +1186,6 @@ export declare namespace Agents {
   export {
     type AgentState as AgentState,
     type AgentListResponse as AgentListResponse,
-    type AgentDeleteResponse as AgentDeleteResponse,
     type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentUpdateParams as AgentUpdateParams,
