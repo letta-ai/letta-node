@@ -8,11 +8,10 @@ import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
   AgentCreateParams,
-  AgentDeleteResponse,
+  AgentDeleteParams,
   AgentListParams,
   AgentListResponse,
-  AgentMigrateParams,
-  AgentMigrateResponse,
+  AgentRetrieveParams,
   AgentState,
   AgentUpdateParams,
   Agents,
@@ -166,10 +165,6 @@ export class Letta extends Core.APIClient {
     };
   }
 
-  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-    return { Authorization: `Bearer ${this.bearerToken}` };
-  }
-
   protected override stringifyQuery(query: Record<string, unknown>): string {
     return qs.stringify(query, { arrayFormat: 'comma' });
   }
@@ -203,12 +198,11 @@ export declare namespace Letta {
     Agents as Agents,
     type AgentState as AgentState,
     type AgentListResponse as AgentListResponse,
-    type AgentDeleteResponse as AgentDeleteResponse,
-    type AgentMigrateResponse as AgentMigrateResponse,
     type AgentCreateParams as AgentCreateParams,
+    type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
-    type AgentMigrateParams as AgentMigrateParams,
+    type AgentDeleteParams as AgentDeleteParams,
   };
 }
 

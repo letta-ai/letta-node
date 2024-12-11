@@ -9,8 +9,8 @@ const client = new Letta({
 });
 
 describe('resource agents', () => {
-  test('create', async () => {
-    const responsePromise = client.agents.create({});
+  test('create: only required params', async () => {
+    const responsePromise = client.agents.create({ memory_blocks: [{ label: 'label', value: 'value' }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,6 +18,52 @@ describe('resource agents', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('create: required and optional params', async () => {
+    const response = await client.agents.create({
+      memory_blocks: [
+        {
+          label: 'label',
+          value: 'value',
+          description: 'description',
+          is_template: true,
+          limit: 0,
+          metadata_: {},
+          name: 'name',
+        },
+      ],
+      agent_type: 'memgpt_agent',
+      description: 'description',
+      embedding_config: {
+        embedding_dim: 0,
+        embedding_endpoint_type: 'embedding_endpoint_type',
+        embedding_model: 'embedding_model',
+        azure_deployment: 'azure_deployment',
+        azure_endpoint: 'azure_endpoint',
+        azure_version: 'azure_version',
+        embedding_chunk_size: 0,
+        embedding_endpoint: 'embedding_endpoint',
+      },
+      initial_message_sequence: [{ role: 'user', text: 'text', name: 'name' }],
+      llm_config: {
+        context_window: 0,
+        model: 'model',
+        model_endpoint_type: 'openai',
+        model_endpoint: 'model_endpoint',
+        model_wrapper: 'model_wrapper',
+        put_inner_thoughts_in_kwargs: true,
+      },
+      message_ids: ['string'],
+      metadata_: {},
+      name: 'name',
+      system: 'system',
+      tags: ['string'],
+      tool_rules: [{ children: ['string'], tool_name: 'tool_name', type: 'InitToolRule' }],
+      tools: ['string'],
+      body_user_id: 'user_id',
+      header_user_id: 'user_id',
+    });
   });
 
   test('retrieve', async () => {
@@ -36,6 +82,13 @@ describe('resource agents', () => {
     await expect(client.agents.retrieve('agent_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Letta.NotFoundError,
     );
+  });
+
+  test('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.agents.retrieve('agent_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   test('update: only required params', async () => {
@@ -71,31 +124,14 @@ describe('resource agents', () => {
         model_wrapper: 'model_wrapper',
         put_inner_thoughts_in_kwargs: true,
       },
-      memory: {
-        memory: {
-          foo: {
-            value: 'value',
-            id: 'block-123e4567-e89b-12d3-a456-426614174000',
-            created_by_id: 'created_by_id',
-            description: 'description',
-            is_template: true,
-            label: 'label',
-            last_updated_by_id: 'last_updated_by_id',
-            limit: 0,
-            metadata_: {},
-            name: 'name',
-            organization_id: 'organization_id',
-          },
-        },
-        prompt_template: 'prompt_template',
-      },
       message_ids: ['string'],
       metadata_: {},
       name: 'name',
       system: 'system',
       tags: ['string'],
-      tools: ['string'],
-      user_id: 'user_id',
+      tool_names: ['string'],
+      body_user_id: 'user_id',
+      header_user_id: 'user_id',
     });
   });
 
@@ -120,7 +156,10 @@ describe('resource agents', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.agents.list({ name: 'name', tags: ['string'] }, { path: '/_stainless_unknown_path' }),
+      client.agents.list(
+        { name: 'name', tags: ['string'], user_id: 'user_id' },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
@@ -142,25 +181,10 @@ describe('resource agents', () => {
     );
   });
 
-  test('migrate: only required params', async () => {
-    const responsePromise = client.agents.migrate('agent_id', {
-      preserve_core_memories: true,
-      to_template: 'to_template',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('migrate: required and optional params', async () => {
-    const response = await client.agents.migrate('agent_id', {
-      preserve_core_memories: true,
-      to_template: 'to_template',
-      variables: { foo: 'string' },
-    });
+  test('delete: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.agents.delete('agent_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 });

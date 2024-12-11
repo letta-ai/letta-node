@@ -27,11 +27,12 @@ describe('resource messages', () => {
       messages: [{ role: 'user', text: 'text', name: 'name' }],
       assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
       assistant_message_tool_name: 'assistant_message_tool_name',
+      user_id: 'user_id',
     });
   });
 
-  test('update: only required params', async () => {
-    const responsePromise = client.agents.messages.update('agent_id', 'message_id', { id: 'id' });
+  test('update', async () => {
+    const responsePromise = client.agents.messages.update('agent_id', 'message_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -39,17 +40,6 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: required and optional params', async () => {
-    const response = await client.agents.messages.update('agent_id', 'message_id', {
-      id: 'id',
-      name: 'name',
-      role: 'assistant',
-      text: 'text',
-      tool_call_id: 'tool_call_id',
-      tool_calls: [{ id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'type' }],
-    });
   });
 
   test('list', async () => {
@@ -81,6 +71,7 @@ describe('resource messages', () => {
           before: 'before',
           limit: 0,
           msg_object: true,
+          user_id: 'user_id',
         },
         { path: '/_stainless_unknown_path' },
       ),
