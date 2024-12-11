@@ -89,7 +89,9 @@ export interface MessageCreateResponse {
    * (Literal["success", "error"]): The status of the function call id (str): The ID
    * of the message date (datetime): The date the message was created in ISO format
    * function_call_id (str): A unique identifier for the function call that generated
-   * this message
+   * this message stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs)
+   * from the function invocation stderr (Optional[List(str)]): Captured stderr from
+   * the function invocation
    */
   FunctionReturn?: MessageCreateResponse.FunctionReturn;
 
@@ -202,7 +204,9 @@ export namespace MessageCreateResponse {
    * (Literal["success", "error"]): The status of the function call id (str): The ID
    * of the message date (datetime): The date the message was created in ISO format
    * function_call_id (str): A unique identifier for the function call that generated
-   * this message
+   * this message stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs)
+   * from the function invocation stderr (Optional[List(str)]): Captured stderr from
+   * the function invocation
    */
   export interface FunctionReturn {
     id: string;
@@ -216,6 +220,10 @@ export namespace MessageCreateResponse {
     status: 'success' | 'error';
 
     message_type?: 'function_return';
+
+    stderr?: Array<string> | null;
+
+    stdout?: Array<string> | null;
   }
 
   /**
@@ -329,9 +337,19 @@ export interface MessageUpdateResponse {
   agent_id?: string | null;
 
   /**
-   * The time the message was created.
+   * The timestamp when the object was created.
    */
   created_at?: string;
+
+  /**
+   * The id of the user that made this object.
+   */
+  created_by_id?: string | null;
+
+  /**
+   * The id of the user that made this object.
+   */
+  last_updated_by_id?: string | null;
 
   /**
    * The model used to make the function call.
@@ -342,6 +360,11 @@ export interface MessageUpdateResponse {
    * The name of the participant.
    */
   name?: string | null;
+
+  /**
+   * The unique identifier of the organization.
+   */
+  organization_id?: string | null;
 
   /**
    * The text of the message.
@@ -359,9 +382,9 @@ export interface MessageUpdateResponse {
   tool_calls?: Array<MessageUpdateResponse.ToolCall> | null;
 
   /**
-   * The unique identifier of the user.
+   * The timestamp when the object was last updated.
    */
-  user_id?: string | null;
+  updated_at?: string | null;
 }
 
 export namespace MessageUpdateResponse {
@@ -438,9 +461,19 @@ export namespace MessageListResponse {
     agent_id?: string | null;
 
     /**
-     * The time the message was created.
+     * The timestamp when the object was created.
      */
     created_at?: string;
+
+    /**
+     * The id of the user that made this object.
+     */
+    created_by_id?: string | null;
+
+    /**
+     * The id of the user that made this object.
+     */
+    last_updated_by_id?: string | null;
 
     /**
      * The model used to make the function call.
@@ -451,6 +484,11 @@ export namespace MessageListResponse {
      * The name of the participant.
      */
     name?: string | null;
+
+    /**
+     * The unique identifier of the organization.
+     */
+    organization_id?: string | null;
 
     /**
      * The text of the message.
@@ -468,9 +506,9 @@ export namespace MessageListResponse {
     tool_calls?: Array<UnionMember0.ToolCall> | null;
 
     /**
-     * The unique identifier of the user.
+     * The timestamp when the object was last updated.
      */
-    user_id?: string | null;
+    updated_at?: string | null;
   }
 
   export namespace UnionMember0 {
@@ -603,7 +641,9 @@ export namespace MessageListResponse {
    * (Literal["success", "error"]): The status of the function call id (str): The ID
    * of the message date (datetime): The date the message was created in ISO format
    * function_call_id (str): A unique identifier for the function call that generated
-   * this message
+   * this message stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs)
+   * from the function invocation stderr (Optional[List(str)]): Captured stderr from
+   * the function invocation
    */
   export interface FunctionReturn {
     id: string;
@@ -617,6 +657,10 @@ export namespace MessageListResponse {
     status: 'success' | 'error';
 
     message_type?: 'function_return';
+
+    stderr?: Array<string> | null;
+
+    stdout?: Array<string> | null;
   }
 
   export interface AssistantMessageOutput {
@@ -634,7 +678,7 @@ export interface MessageCreateParams {
   /**
    * The messages to be sent to the agent.
    */
-  messages: Array<MessageCreateParams.UnionMember0> | Array<MessageCreateParams.UnionMember1>;
+  messages: Array<MessageCreateParams.Message>;
 
   /**
    * The name of the message argument in the designated message tool.
@@ -651,7 +695,7 @@ export namespace MessageCreateParams {
   /**
    * Request to create a message
    */
-  export interface UnionMember0 {
+  export interface Message {
     /**
      * The role of the participant.
      */
@@ -663,48 +707,19 @@ export namespace MessageCreateParams {
     text: string;
 
     /**
-     * The name of the participant.
+     * The timestamp when the object was created.
      */
-    name?: string | null;
-  }
-
-  /**
-   * Letta's internal representation of a message. Includes methods to convert
-   * to/from LLM provider formats.
-   *
-   * Attributes: id (str): The unique identifier of the message. role (MessageRole):
-   * The role of the participant. text (str): The text of the message. user_id (str):
-   * The unique identifier of the user. agent_id (str): The unique identifier of the
-   * agent. model (str): The model used to make the function call. name (str): The
-   * name of the participant. created_at (datetime): The time the message was
-   * created. tool_calls (List[ToolCall]): The list of tool calls requested.
-   * tool_call_id (str): The id of the tool call.
-   */
-  export interface UnionMember1 {
-    /**
-     * The role of the participant.
-     */
-    role: 'assistant' | 'user' | 'tool' | 'function' | 'system';
+    created_at?: string | null;
 
     /**
-     * The human-friendly ID of the Message
+     * The id of the user that made this object.
      */
-    id?: string;
+    created_by_id?: string | null;
 
     /**
-     * The unique identifier of the agent.
+     * The id of the user that made this object.
      */
-    agent_id?: string | null;
-
-    /**
-     * The time the message was created.
-     */
-    created_at?: string;
-
-    /**
-     * The model used to make the function call.
-     */
-    model?: string | null;
+    last_updated_by_id?: string | null;
 
     /**
      * The name of the participant.
@@ -712,65 +727,27 @@ export namespace MessageCreateParams {
     name?: string | null;
 
     /**
-     * The text of the message.
+     * The timestamp when the object was last updated.
      */
-    text?: string | null;
-
-    /**
-     * The id of the tool call.
-     */
-    tool_call_id?: string | null;
-
-    /**
-     * The list of tool calls requested.
-     */
-    tool_calls?: Array<UnionMember1.ToolCall> | null;
-
-    /**
-     * The unique identifier of the user.
-     */
-    user_id?: string | null;
-  }
-
-  export namespace UnionMember1 {
-    export interface ToolCall {
-      /**
-       * The ID of the tool call
-       */
-      id: string;
-
-      /**
-       * The arguments and name for the function
-       */
-      function: ToolCall.Function;
-
-      type?: string;
-    }
-
-    export namespace ToolCall {
-      /**
-       * The arguments and name for the function
-       */
-      export interface Function {
-        /**
-         * The arguments to pass to the function (JSON dump)
-         */
-        arguments: string;
-
-        /**
-         * The name of the function to call
-         */
-        name: string;
-      }
-    }
+    updated_at?: string | null;
   }
 }
 
 export interface MessageUpdateParams {
   /**
-   * The id of the message.
+   * The timestamp when the object was created.
    */
-  id: string;
+  created_at?: string | null;
+
+  /**
+   * The id of the user that made this object.
+   */
+  created_by_id?: string | null;
+
+  /**
+   * The id of the user that made this object.
+   */
+  last_updated_by_id?: string | null;
 
   /**
    * The name of the participant.
@@ -796,6 +773,11 @@ export interface MessageUpdateParams {
    * The list of tool calls requested.
    */
   tool_calls?: Array<MessageUpdateParams.ToolCall> | null;
+
+  /**
+   * The timestamp when the object was last updated.
+   */
+  updated_at?: string | null;
 }
 
 export namespace MessageUpdateParams {

@@ -4,7 +4,6 @@ export {
   Agents,
   type AgentState,
   type AgentListResponse,
-  type AgentDeleteResponse,
   type AgentMigrateResponse,
   type AgentCreateParams,
   type AgentUpdateParams,

@@ -24,14 +24,24 @@ describe('resource messages', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.agents.messages.create('agent_id', {
-      messages: [{ role: 'user', text: 'text', name: 'name' }],
+      messages: [
+        {
+          role: 'user',
+          text: 'text',
+          created_at: '2019-12-27T18:11:19.117Z',
+          created_by_id: 'created_by_id',
+          last_updated_by_id: 'last_updated_by_id',
+          name: 'name',
+          updated_at: '2019-12-27T18:11:19.117Z',
+        },
+      ],
       assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
       assistant_message_tool_name: 'assistant_message_tool_name',
     });
   });
 
-  test('update: only required params', async () => {
-    const responsePromise = client.agents.messages.update('agent_id', 'message_id', { id: 'id' });
+  test('update', async () => {
+    const responsePromise = client.agents.messages.update('agent_id', 'message_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -39,17 +49,6 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: required and optional params', async () => {
-    const response = await client.agents.messages.update('agent_id', 'message_id', {
-      id: 'id',
-      name: 'name',
-      role: 'assistant',
-      text: 'text',
-      tool_call_id: 'tool_call_id',
-      tool_calls: [{ id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'type' }],
-    });
   });
 
   test('list', async () => {
