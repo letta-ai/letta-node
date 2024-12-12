@@ -61,8 +61,7 @@ describe('resource agents', () => {
       tags: ['string'],
       tool_rules: [{ children: ['string'], tool_name: 'tool_name', type: 'InitToolRule' }],
       tools: ['string'],
-      body_user_id: 'user_id',
-      header_user_id: 'user_id',
+      user_id: 'user_id',
     });
   });
 
@@ -82,13 +81,6 @@ describe('resource agents', () => {
     await expect(client.agents.retrieve('agent_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Letta.NotFoundError,
     );
-  });
-
-  test('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.agents.retrieve('agent_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   test('update: only required params', async () => {
@@ -130,8 +122,7 @@ describe('resource agents', () => {
       system: 'system',
       tags: ['string'],
       tool_names: ['string'],
-      body_user_id: 'user_id',
-      header_user_id: 'user_id',
+      user_id: 'user_id',
     });
   });
 
@@ -156,10 +147,7 @@ describe('resource agents', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.agents.list(
-        { name: 'name', tags: ['string'], user_id: 'user_id' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.agents.list({ name: 'name', tags: ['string'] }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
@@ -181,10 +169,25 @@ describe('resource agents', () => {
     );
   });
 
-  test('delete: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.agents.delete('agent_id', { user_id: 'user_id' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Letta.NotFoundError);
+  test('migrate: only required params', async () => {
+    const responsePromise = client.agents.migrate('agent_id', {
+      preserve_core_memories: true,
+      to_template: 'to_template',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('migrate: required and optional params', async () => {
+    const response = await client.agents.migrate('agent_id', {
+      preserve_core_memories: true,
+      to_template: 'to_template',
+      variables: { foo: 'string' },
+    });
   });
 });
