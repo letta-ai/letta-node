@@ -4,11 +4,11 @@ export {
   Agents,
   type AgentState,
   type AgentListResponse,
+  type AgentMigrateResponse,
   type AgentCreateParams,
-  type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
-  type AgentDeleteParams,
+  type AgentMigrateParams,
 } from './agents';
 export {
   Messages,
