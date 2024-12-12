@@ -27,7 +27,6 @@ describe('resource messages', () => {
       messages: [{ role: 'user', text: 'text', name: 'name' }],
       assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
       assistant_message_tool_name: 'assistant_message_tool_name',
-      user_id: 'user_id',
     });
   });
 
@@ -71,7 +70,6 @@ describe('resource messages', () => {
           before: 'before',
           limit: 0,
           msg_object: true,
-          user_id: 'user_id',
         },
         { path: '/_stainless_unknown_path' },
       ),
