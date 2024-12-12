@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2024-12-12)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Features
+
+* **api:** api update ([#17](https://github.com/letta-ai/letta-node/issues/17)) ([f4a90b5](https://github.com/letta-ai/letta-node/commit/f4a90b592a9a4679b37fb678edd109ca3d722412))
+* **api:** api update ([#20](https://github.com/letta-ai/letta-node/issues/20)) ([0093719](https://github.com/letta-ai/letta-node/commit/00937193526ebf501a358c3b88c0d7bb700e2d78))
+* **api:** api update ([#21](https://github.com/letta-ai/letta-node/issues/21)) ([4ad723e](https://github.com/letta-ai/letta-node/commit/4ad723ed8e0f635b3c79ed4854676104420ab2fe))
+* **api:** api update ([#24](https://github.com/letta-ai/letta-node/issues/24)) ([d4d2a02](https://github.com/letta-ai/letta-node/commit/d4d2a0224bcb42a1028d46b6c4279b62e41ff8ae))
+
+
+### Chores
+
+* **internal:** codegen related update ([#22](https://github.com/letta-ai/letta-node/issues/22)) ([f9f2e5b](https://github.com/letta-ai/letta-node/commit/f9f2e5b0e9ed42866e7300b1f7910b6556025967))
+* **internal:** remove unnecessary getRequestClient function ([#19](https://github.com/letta-ai/letta-node/issues/19)) ([086a29e](https://github.com/letta-ai/letta-node/commit/086a29efaee5e4eca7847de7115c6bf3d563fd24))
+* **internal:** update isAbsoluteURL ([#23](https://github.com/letta-ai/letta-node/issues/23)) ([6f83810](https://github.com/letta-ai/letta-node/commit/6f83810c85afda9c9cd0f4babe39d36405229469))
+
 ## 0.1.0-alpha.4 (2024-11-30)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
