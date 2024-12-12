@@ -23,8 +23,8 @@ The full API of this library can be found in [api.md](api.md).
 import Letta from '@letta-ai/letta';
 
 const client = new Letta({
+  bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
   environment: 'local', // defaults to 'production'
-  bearerToken: 'My Bearer Token',
 });
 
 async function main() {
@@ -43,8 +43,8 @@ This library includes TypeScript definitions for all request params and response
 import Letta from '@letta-ai/letta';
 
 const client = new Letta({
+  bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
   environment: 'local', // defaults to 'production'
-  bearerToken: 'My Bearer Token',
 });
 
 async function main() {
@@ -105,7 +105,6 @@ You can use the `maxRetries` option to configure or disable this:
 // Configure the default for all requests:
 const client = new Letta({
   maxRetries: 0, // default is 2
-  bearerToken: 'My Bearer Token',
 });
 
 // Or, configure per-request:
@@ -123,7 +122,6 @@ Requests time out after 1 minute by default. You can configure this with a `time
 // Configure the default for all requests:
 const client = new Letta({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
-  bearerToken: 'My Bearer Token',
 });
 
 // Override per-request:
@@ -255,7 +253,6 @@ import { HttpsProxyAgent } from 'https-proxy-agent';
 // Configure the default for all requests:
 const client = new Letta({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
-  bearerToken: 'My Bearer Token',
 });
 
 // Override per-request:
