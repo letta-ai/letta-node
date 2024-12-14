@@ -48,7 +48,8 @@ export class Sources {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/${encodeURIComponent(sourceId)}`
                     ),
                     method: "GET",
@@ -122,7 +123,8 @@ export class Sources {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/${encodeURIComponent(sourceId)}`
                     ),
                     method: "DELETE",
@@ -201,7 +203,8 @@ export class Sources {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/${encodeURIComponent(sourceId)}`
                     ),
                     method: "PATCH",
@@ -276,7 +279,8 @@ export class Sources {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/name/${encodeURIComponent(sourceName)}`
                     ),
                     method: "GET",
@@ -349,7 +353,8 @@ export class Sources {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/sources/"
                     ),
                     method: "GET",
@@ -423,7 +428,8 @@ export class Sources {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/sources/"
                     ),
                     method: "POST",
@@ -506,7 +512,8 @@ export class Sources {
                 _queryParams["agent_id"] = agentId;
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/${encodeURIComponent(sourceId)}/attach`
                     ),
                     method: "POST",
@@ -591,7 +598,8 @@ export class Sources {
                 _queryParams["agent_id"] = agentId;
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/${encodeURIComponent(sourceId)}/detach`
                     ),
                     method: "POST",
@@ -674,7 +682,8 @@ export class Sources {
                 const _maybeEncodedRequest = await _request.getRequest();
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/${encodeURIComponent(sourceId)}/upload`
                     ),
                     method: "POST",
@@ -750,7 +759,8 @@ export class Sources {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/${encodeURIComponent(sourceId)}/passages`
                     ),
                     method: "GET",
@@ -837,7 +847,8 @@ export class Sources {
                 }
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/${encodeURIComponent(sourceId)}/files`
                     ),
                     method: "GET",
@@ -917,7 +928,8 @@ export class Sources {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/sources/${encodeURIComponent(sourceId)}/${encodeURIComponent(fileId)}`
                     ),
                     method: "DELETE",

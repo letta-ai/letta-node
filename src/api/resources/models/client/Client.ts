@@ -41,7 +41,8 @@ export class Models {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/models/"
                     ),
                     method: "GET",
@@ -103,7 +104,8 @@ export class Models {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/models/embedding"
                     ),
                     method: "GET",

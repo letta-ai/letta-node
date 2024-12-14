@@ -41,7 +41,8 @@ export class Health {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/health/"
                     ),
                     method: "GET",

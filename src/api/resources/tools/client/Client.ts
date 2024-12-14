@@ -46,7 +46,8 @@ export class Tools {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/tools/${encodeURIComponent(toolId)}`
                     ),
                     method: "GET",
@@ -118,7 +119,8 @@ export class Tools {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/tools/${encodeURIComponent(toolId)}`
                     ),
                     method: "DELETE",
@@ -195,7 +197,8 @@ export class Tools {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/tools/${encodeURIComponent(toolId)}`
                     ),
                     method: "PATCH",
@@ -268,7 +271,8 @@ export class Tools {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/tools/name/${encodeURIComponent(toolName)}`
                     ),
                     method: "GET",
@@ -353,7 +357,8 @@ export class Tools {
                 }
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/tools/"
                     ),
                     method: "GET",
@@ -431,7 +436,8 @@ export class Tools {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/tools/"
                     ),
                     method: "POST",
@@ -509,7 +515,8 @@ export class Tools {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/tools/"
                     ),
                     method: "PUT",
@@ -581,7 +588,8 @@ export class Tools {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/tools/add-base-tools"
                     ),
                     method: "POST",

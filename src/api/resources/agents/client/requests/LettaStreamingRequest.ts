@@ -4,15 +4,6 @@
 
 import * as Letta from "../../../../index";
 
-/**
- * @example
- *     {
- *         messages: [{
- *                 role: "user",
- *                 text: "text"
- *             }]
- *     }
- */
 export interface LettaStreamingRequest {
     /** The messages to be sent to the agent. */
     messages: Letta.LettaStreamingRequestMessages;

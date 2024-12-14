@@ -7,6 +7,7 @@ import * as core from "../../../../core";
 import * as Letta from "../../../index";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
+import * as stream from "stream";
 
 export declare namespace Agents {
     interface Options {
@@ -62,7 +63,8 @@ export class Agents {
                 }
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/agents/"
                     ),
                     method: "GET",
@@ -138,7 +140,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         "v1/agents/"
                     ),
                     method: "POST",
@@ -214,7 +217,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/context`
                     ),
                     method: "GET",
@@ -288,7 +292,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/sources`
                     ),
                     method: "GET",
@@ -362,7 +367,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}`
                     ),
                     method: "DELETE",
@@ -443,7 +449,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}`
                     ),
                     method: "PATCH",
@@ -521,7 +528,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/tools`
                     ),
                     method: "GET",
@@ -600,7 +608,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/add-tool/${encodeURIComponent(toolId)}`
                     ),
                     method: "PATCH",
@@ -679,7 +688,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/remove-tool/${encodeURIComponent(toolId)}`
                     ),
                     method: "PATCH",
@@ -756,7 +766,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/memory/messages`
                     ),
                     method: "GET",
@@ -831,7 +842,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/memory`
                     ),
                     method: "GET",
@@ -915,7 +927,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/memory`
                     ),
                     method: "PATCH",
@@ -998,7 +1011,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/memory/label`
                     ),
                     method: "PATCH",
@@ -1081,7 +1095,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/memory/block`
                     ),
                     method: "POST",
@@ -1161,7 +1176,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`
                     ),
                     method: "DELETE",
@@ -1243,7 +1259,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/memory/limit`
                     ),
                     method: "PATCH",
@@ -1321,7 +1338,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/memory/recall`
                     ),
                     method: "GET",
@@ -1398,7 +1416,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/memory/archival`
                     ),
                     method: "GET",
@@ -1488,7 +1507,8 @@ export class Agents {
                 }
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/archival`
                     ),
                     method: "GET",
@@ -1570,7 +1590,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/archival`
                     ),
                     method: "POST",
@@ -1650,7 +1671,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/archival/${encodeURIComponent(memoryId)}`
                     ),
                     method: "DELETE",
@@ -1752,7 +1774,8 @@ export class Agents {
                 }
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/messages`
                     ),
                     method: "GET",
@@ -1838,7 +1861,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/messages`
                     ),
                     method: "POST",
@@ -1922,7 +1946,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/messages/${encodeURIComponent(messageId)}`
                     ),
                     method: "PATCH",
@@ -1985,31 +2010,18 @@ export class Agents {
      * Process a user message and return the agent's response.
      * This endpoint accepts a message from a user and processes it through the agent.
      * It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
-     *
-     * @param {string} agentId
-     * @param {Letta.LettaStreamingRequest} request
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.agents.createMessageStream("agent_id", {
-     *         messages: [{
-     *                 role: "user",
-     *                 text: "text"
-     *             }]
-     *     })
      */
-    public createMessageStream(
+    public streamMessage(
         agentId: string,
         request: Letta.LettaStreamingRequest,
         requestOptions?: Agents.RequestOptions
-    ): core.APIPromise<void> {
+    ): core.APIPromise<core.Stream<unknown>> {
         return core.APIPromise.from(
             (async () => {
-                const _response = await (this._options.fetcher ?? core.fetcher)({
+                const _response = await (this._options.fetcher ?? core.fetcher)<stream.Readable>({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/messages/stream`
                     ),
                     method: "POST",
@@ -2026,6 +2038,7 @@ export class Agents {
                     contentType: "application/json",
                     requestType: "json",
                     body: request,
+                    responseType: "sse",
                     timeoutMs:
                         requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                     maxRetries: requestOptions?.maxRetries,
@@ -2034,7 +2047,17 @@ export class Agents {
                 if (_response.ok) {
                     return {
                         ok: _response.ok,
-                        body: undefined,
+                        body: new core.Stream({
+                            stream: _response.body,
+                            parse: async (data) => {
+                                return data;
+                            },
+                            signal: requestOptions?.abortSignal,
+                            eventShape: {
+                                type: "sse",
+                                streamTerminator: "[DONE]",
+                            },
+                        }),
                         headers: _response.headers,
                     };
                 }
@@ -2095,7 +2118,8 @@ export class Agents {
                 }
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/version-template`
                     ),
                     method: "POST",
@@ -2183,7 +2207,8 @@ export class Agents {
             (async () => {
                 const _response = await (this._options.fetcher ?? core.fetcher)({
                     url: urlJoin(
-                        (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.Default,
+                        (await core.Supplier.get(this._options.environment)) ??
+                            environments.LettaEnvironment.LettaHosted,
                         `v1/agents/${encodeURIComponent(agentId)}/migrate`
                     ),
                     method: "POST",
