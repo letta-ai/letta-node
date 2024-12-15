@@ -1,6 +1,6 @@
 {
     "name": "letta",
-    "version": "0.5.3",
+    "version": "0.6.0-beta0",
     "private": false,
     "repository": "https://github.com/fern-demo/letta-typescript-sdk",
     "main": "./index.js",
