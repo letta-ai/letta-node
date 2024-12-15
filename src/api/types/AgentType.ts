@@ -6,7 +6,6 @@
  * Enum to represent the type of agent.
  */
 export type AgentType = "memgpt_agent" | "split_thread_agent" | "o1_agent";
-
 export const AgentType = {
     MemgptAgent: "memgpt_agent",
     SplitThreadAgent: "split_thread_agent",

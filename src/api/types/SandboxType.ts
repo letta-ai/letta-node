@@ -3,7 +3,6 @@
  */
 
 export type SandboxType = "e2b" | "local";
-
 export const SandboxType = {
     E2B: "e2b",
     Local: "local",

@@ -6,7 +6,6 @@
  * Status of the job.
  */
 export type JobStatus = "created" | "running" | "completed" | "failed" | "pending";
-
 export const JobStatus = {
     Created: "created",
     Running: "running",

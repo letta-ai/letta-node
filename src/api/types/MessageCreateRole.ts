@@ -6,7 +6,6 @@
  * The role of the participant.
  */
 export type MessageCreateRole = "user" | "system";
-
 export const MessageCreateRole = {
     User: "user",
     System: "system",

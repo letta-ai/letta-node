@@ -12,28 +12,28 @@ export type AgentsListMessagesResponseItem =
     | Letta.AgentsListMessagesResponseItem.FunctionReturn
     | Letta.AgentsListMessagesResponseItem.AssistantMessage;
 
-export declare namespace AgentsListMessagesResponseItem {
-    interface SystemMessage extends Letta.SystemMessageOutput {
+export namespace AgentsListMessagesResponseItem {
+    export interface SystemMessage extends Letta.SystemMessageOutput {
         message_type: "system_message";
     }
 
-    interface UserMessage extends Letta.UserMessageOutput {
+    export interface UserMessage extends Letta.UserMessageOutput {
         message_type: "user_message";
     }
 
-    interface InternalMonologue extends Letta.InternalMonologue {
+    export interface InternalMonologue extends Letta.InternalMonologue {
         message_type: "internal_monologue";
     }
 
-    interface FunctionCall extends Letta.FunctionCallMessage {
+    export interface FunctionCall extends Letta.FunctionCallMessage {
         message_type: "function_call";
     }
 
-    interface FunctionReturn extends Letta.FunctionReturn {
+    export interface FunctionReturn extends Letta.FunctionReturn {
         message_type: "function_return";
     }
 
-    interface AssistantMessage extends Letta.AssistantMessageOutput {
+    export interface AssistantMessage extends Letta.AssistantMessageOutput {
         message_type: "assistant_message";
     }
 }

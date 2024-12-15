@@ -3,7 +3,6 @@
  */
 
 export type MessageRole = "assistant" | "user" | "tool" | "function" | "system";
-
 export const MessageRole = {
     Assistant: "assistant",
     User: "user",

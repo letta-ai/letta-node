@@ -32,45 +32,39 @@ export declare namespace LettaClient {
 }
 
 export class LettaClient {
-    constructor(protected readonly _options: LettaClient.Options) {}
-
     protected _tools: Tools | undefined;
+    protected _sources: Sources | undefined;
+    protected _agents: Agents | undefined;
+    protected _models: Models | undefined;
+    protected _blocks: Blocks | undefined;
+    protected _jobs: Jobs | undefined;
+    protected _health: Health | undefined;
+
+    constructor(protected readonly _options: LettaClient.Options) {}
 
     public get tools(): Tools {
         return (this._tools ??= new Tools(this._options));
     }
 
-    protected _sources: Sources | undefined;
-
     public get sources(): Sources {
         return (this._sources ??= new Sources(this._options));
     }
-
-    protected _agents: Agents | undefined;
 
     public get agents(): Agents {
         return (this._agents ??= new Agents(this._options));
     }
 
-    protected _models: Models | undefined;
-
     public get models(): Models {
         return (this._models ??= new Models(this._options));
     }
-
-    protected _blocks: Blocks | undefined;
 
     public get blocks(): Blocks {
         return (this._blocks ??= new Blocks(this._options));
     }
 
-    protected _jobs: Jobs | undefined;
-
     public get jobs(): Jobs {
         return (this._jobs ??= new Jobs(this._options));
     }
-
-    protected _health: Health | undefined;
 
     public get health(): Health {
         return (this._health ??= new Health(this._options));

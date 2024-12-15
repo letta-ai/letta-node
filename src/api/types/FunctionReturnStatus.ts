@@ -3,7 +3,6 @@
  */
 
 export type FunctionReturnStatus = "success" | "error";
-
 export const FunctionReturnStatus = {
     Success: "success",
     Error: "error",

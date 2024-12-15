@@ -3,7 +3,6 @@
  */
 
 export type LettaResponseFunctionReturnStatus = "success" | "error";
-
 export const LettaResponseFunctionReturnStatus = {
     Success: "success",
     Error: "error",

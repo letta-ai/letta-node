@@ -23,7 +23,6 @@ export type LlmConfigModelEndpointType =
     | "hugging-face"
     | "mistral"
     | "together";
-
 export const LlmConfigModelEndpointType = {
     Openai: "openai",
     Anthropic: "anthropic",

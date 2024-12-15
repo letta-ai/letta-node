@@ -5,7 +5,6 @@
 export type NotFoundErrorBodyMessage =
     | "Agent provided is a template or not found, you can only migrate deployed agents"
     | "Template version provided does not exist";
-
 export const NotFoundErrorBodyMessage = {
     AgentProvidedIsATemplateOrNotFoundYouCanOnlyMigrateDeployedAgents:
         "Agent provided is a template or not found, you can only migrate deployed agents",
