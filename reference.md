@@ -2978,6 +2978,89 @@ await client.agents.updateMessage("agent_id", "message_id", {
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">streamMessage</a>(agentId, { ...params }) -> core.Stream<Letta.LettaStreamingResponse></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Process a user message and return the agent's response.
+This endpoint accepts a message from a user and processes it through the agent.
+It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.agents.streamMessage("agent_id", {
+    messages: [
+        {
+            role: "user",
+            text: "text",
+        },
+    ],
+});
+for await (const item of response) {
+    console.log(item);
+}
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.LettaStreamingRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">versionTemplate</a>(agentId, { ...params }) -> Letta.AgentsVersionTemplateResponse</code></summary>
 <dl>
 <dd>
