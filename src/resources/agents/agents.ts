@@ -94,6 +94,11 @@ export class Agents extends APIResource {
  */
 export interface AgentState {
   /**
+   * The id of the agent. Assigned by the database.
+   */
+  id: string;
+
+  /**
    * The type of agent.
    */
   agent_type: 'memgpt_agent' | 'split_thread_agent' | 'o1_agent' | 'offline_memory_agent' | 'chat_only_agent';
@@ -136,27 +141,27 @@ export interface AgentState {
   /**
    * The tools used by the agent.
    */
-  tool_names: Array<string>;
-
-  /**
-   * The tools used by the agent.
-   */
   tools: Array<AgentState.Tool>;
 
   /**
-   * The human-friendly ID of the Agent
+   * The timestamp when the object was created.
    */
-  id?: string;
+  created_at?: string | null;
 
   /**
-   * The datetime the agent was created.
+   * The id of the user that made this object.
    */
-  created_at?: string;
+  created_by_id?: string | null;
 
   /**
    * The description of the agent.
    */
   description?: string | null;
+
+  /**
+   * The id of the user that made this object.
+   */
+  last_updated_by_id?: string | null;
 
   /**
    * The ids of the messages in the agent's in-context memory.
@@ -169,14 +174,19 @@ export interface AgentState {
   metadata_?: unknown | null;
 
   /**
+   * The unique identifier of the organization associated with the agent.
+   */
+  organization_id?: string | null;
+
+  /**
    * The list of tool rules.
    */
   tool_rules?: Array<AgentState.ChildToolRule | AgentState.InitToolRule | AgentState.TerminalToolRule> | null;
 
   /**
-   * The user id of the agent.
+   * The timestamp when the object was last updated.
    */
-  user_id?: string | null;
+  updated_at?: string | null;
 }
 
 export namespace AgentState {
@@ -192,7 +202,24 @@ export namespace AgentState {
     /**
      * The endpoint type for the model.
      */
-    embedding_endpoint_type: string;
+    embedding_endpoint_type:
+      | 'openai'
+      | 'anthropic'
+      | 'cohere'
+      | 'google_ai'
+      | 'azure'
+      | 'groq'
+      | 'ollama'
+      | 'webui'
+      | 'webui-legacy'
+      | 'lmstudio'
+      | 'lmstudio-legacy'
+      | 'llamacpp'
+      | 'koboldcpp'
+      | 'vllm'
+      | 'hugging-face'
+      | 'mistral'
+      | 'together';
 
     /**
      * The model for the embedding.
@@ -444,7 +471,24 @@ export namespace AgentState {
       /**
        * The endpoint type for the model.
        */
-      embedding_endpoint_type: string;
+      embedding_endpoint_type:
+        | 'openai'
+        | 'anthropic'
+        | 'cohere'
+        | 'google_ai'
+        | 'azure'
+        | 'groq'
+        | 'ollama'
+        | 'webui'
+        | 'webui-legacy'
+        | 'lmstudio'
+        | 'lmstudio-legacy'
+        | 'llamacpp'
+        | 'koboldcpp'
+        | 'vllm'
+        | 'hugging-face'
+        | 'mistral'
+        | 'together';
 
       /**
        * The model for the embedding.
@@ -622,9 +666,30 @@ export interface AgentCreateParams {
     | 'chat_only_agent';
 
   /**
+   * The ids of the blocks used by the agent.
+   */
+  block_ids?: Array<string> | null;
+
+  /**
+   * The context window limit used by the agent.
+   */
+  context_window_limit?: number | null;
+
+  /**
    * The description of the agent.
    */
   description?: string | null;
+
+  /**
+   * The embedding configuration handle used by the agent, specified in the format
+   * provider/model-name.
+   */
+  embedding?: string | null;
+
+  /**
+   * The embedding chunk size used by the agent.
+   */
+  embedding_chunk_size?: number | null;
 
   /**
    * Embedding model configuration. This object specifies all the information
@@ -642,9 +707,20 @@ export interface AgentCreateParams {
   embedding_config?: AgentCreateParams.EmbeddingConfig | null;
 
   /**
+   * The LLM configuration used by the agent.
+   */
+  include_base_tools?: boolean;
+
+  /**
    * The initial set of messages to put in the agent's in-context memory.
    */
   initial_message_sequence?: Array<AgentCreateParams.InitialMessageSequence> | null;
+
+  /**
+   * The LLM configuration handle used by the agent, specified in the format
+   * provider/model-name, as an alternative to specifying llm_config.
+   */
+  llm?: string | null;
 
   /**
    * Configuration for a Language Model (LLM) model. This object specifies all the
@@ -664,11 +740,6 @@ export interface AgentCreateParams {
   llm_config?: AgentCreateParams.LlmConfig | null;
 
   /**
-   * The ids of the messages in the agent's in-context memory.
-   */
-  message_ids?: Array<string> | null;
-
-  /**
    * The metadata of the agent.
    */
   metadata_?: unknown | null;
@@ -676,7 +747,12 @@ export interface AgentCreateParams {
   /**
    * The name of the agent.
    */
-  name?: string | null;
+  name?: string;
+
+  /**
+   * The ids of the sources used by the agent.
+   */
+  source_ids?: Array<string> | null;
 
   /**
    * The system prompt used by the agent.
@@ -689,6 +765,11 @@ export interface AgentCreateParams {
   tags?: Array<string> | null;
 
   /**
+   * The ids of the tools used by the agent.
+   */
+  tool_ids?: Array<string> | null;
+
+  /**
    * The tool rules governing the agent.
    */
   tool_rules?: Array<
@@ -698,7 +779,7 @@ export interface AgentCreateParams {
   /**
    * The tools used by the agent.
    */
-  tools?: Array<string>;
+  tools?: Array<string> | null;
 
   user_id?: string | null;
 }
@@ -763,7 +844,24 @@ export namespace AgentCreateParams {
     /**
      * The endpoint type for the model.
      */
-    embedding_endpoint_type: string;
+    embedding_endpoint_type:
+      | 'openai'
+      | 'anthropic'
+      | 'cohere'
+      | 'google_ai'
+      | 'azure'
+      | 'groq'
+      | 'ollama'
+      | 'webui'
+      | 'webui-legacy'
+      | 'lmstudio'
+      | 'lmstudio-legacy'
+      | 'llamacpp'
+      | 'koboldcpp'
+      | 'vllm'
+      | 'hugging-face'
+      | 'mistral'
+      | 'together';
 
     /**
      * The model for the embedding.
@@ -936,9 +1034,9 @@ export namespace AgentCreateParams {
 
 export interface AgentUpdateParams {
   /**
-   * The id of the agent.
+   * The ids of the blocks used by the agent.
    */
-  id: string;
+  block_ids?: Array<string> | null;
 
   /**
    * The description of the agent.
@@ -993,6 +1091,11 @@ export interface AgentUpdateParams {
   name?: string | null;
 
   /**
+   * The ids of the sources used by the agent.
+   */
+  source_ids?: Array<string> | null;
+
+  /**
    * The system prompt used by the agent.
    */
   system?: string | null;
@@ -1003,14 +1106,16 @@ export interface AgentUpdateParams {
   tags?: Array<string> | null;
 
   /**
-   * The tools used by the agent.
+   * The ids of the tools used by the agent.
    */
-  tool_names?: Array<string> | null;
+  tool_ids?: Array<string> | null;
 
   /**
-   * The user id of the agent.
+   * The tool rules governing the agent.
    */
-  user_id?: string | null;
+  tool_rules?: Array<
+    AgentUpdateParams.ChildToolRule | AgentUpdateParams.InitToolRule | AgentUpdateParams.TerminalToolRule
+  > | null;
 }
 
 export namespace AgentUpdateParams {
@@ -1036,7 +1141,24 @@ export namespace AgentUpdateParams {
     /**
      * The endpoint type for the model.
      */
-    embedding_endpoint_type: string;
+    embedding_endpoint_type:
+      | 'openai'
+      | 'anthropic'
+      | 'cohere'
+      | 'google_ai'
+      | 'azure'
+      | 'groq'
+      | 'ollama'
+      | 'webui'
+      | 'webui-legacy'
+      | 'lmstudio'
+      | 'lmstudio-legacy'
+      | 'llamacpp'
+      | 'koboldcpp'
+      | 'vllm'
+      | 'hugging-face'
+      | 'mistral'
+      | 'together';
 
     /**
      * The model for the embedding.
@@ -1134,9 +1256,66 @@ export namespace AgentUpdateParams {
      */
     put_inner_thoughts_in_kwargs?: boolean | null;
   }
+
+  /**
+   * A ToolRule represents a tool that can be invoked by the agent.
+   */
+  export interface ChildToolRule {
+    /**
+     * The children tools that can be invoked.
+     */
+    children: Array<string>;
+
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * Type of tool rule.
+     */
+    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+  }
+
+  /**
+   * Represents the initial tool rule configuration.
+   */
+  export interface InitToolRule {
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * Type of tool rule.
+     */
+    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+  }
+
+  /**
+   * Represents a terminal tool rule configuration where if this tool gets called, it
+   * must end the agent loop.
+   */
+  export interface TerminalToolRule {
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * Type of tool rule.
+     */
+    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+  }
 }
 
 export interface AgentListParams {
+  /**
+   * If True, only returns agents that match ALL given tags. Otherwise, return agents
+   * that have ANY of the passed in tags.
+   */
+  match_all_tags?: boolean;
+
   /**
    * Name of the agent
    */
