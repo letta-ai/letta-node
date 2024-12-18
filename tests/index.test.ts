@@ -196,7 +196,7 @@ describe('instantiate client', () => {
     expect(client.bearerToken).toBe('My Bearer Token');
   });
 
-  test('with overriden environment variable arguments', () => {
+  test('with overridden environment variable arguments', () => {
     // set options via env var
     process.env['BEARER_TOKEN'] = 'another My Bearer Token';
     const client = new Letta({ bearerToken: 'My Bearer Token' });
