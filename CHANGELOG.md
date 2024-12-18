@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2024-12-18)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Features
+
+* **api:** api update ([#26](https://github.com/letta-ai/letta-node/issues/26)) ([3a49ff5](https://github.com/letta-ai/letta-node/commit/3a49ff599ad1e6d13911deede4072b5d85b1f0eb))
+
+
+### Chores
+
+* **internal:** fix some typos ([#28](https://github.com/letta-ai/letta-node/issues/28)) ([8bf6e15](https://github.com/letta-ai/letta-node/commit/8bf6e154e172d094735f7d17b2f73be72abb1513))
+
 ## 0.1.0-alpha.5 (2024-12-12)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
