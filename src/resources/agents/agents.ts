@@ -181,7 +181,12 @@ export interface AgentState {
   /**
    * The list of tool rules.
    */
-  tool_rules?: Array<AgentState.ChildToolRule | AgentState.InitToolRule | AgentState.TerminalToolRule> | null;
+  tool_rules?: Array<
+    | AgentState.ChildToolRule
+    | AgentState.InitToolRule
+    | AgentState.TerminalToolRule
+    | AgentState.ConditionalToolRule
+  > | null;
 
   /**
    * The timestamp when the object was last updated.
@@ -608,7 +613,13 @@ export namespace AgentState {
     /**
      * Type of tool rule.
      */
-    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
   }
 
   /**
@@ -623,7 +634,13 @@ export namespace AgentState {
     /**
      * Type of tool rule.
      */
-    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
   }
 
   /**
@@ -639,7 +656,49 @@ export namespace AgentState {
     /**
      * Type of tool rule.
      */
-    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
+  }
+
+  /**
+   * A ToolRule that conditionally maps to different child tools based on the output.
+   */
+  export interface ConditionalToolRule {
+    /**
+     * The output case to check for mapping
+     */
+    child_output_mapping: Record<string, string>;
+
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * The default child tool to be called. If None, any tool can be called.
+     */
+    default_child?: string | null;
+
+    /**
+     * Whether to throw an error when output doesn't match any case
+     */
+    require_output_mapping?: boolean;
+
+    /**
+     * Type of tool rule.
+     */
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
   }
 }
 
@@ -773,7 +832,10 @@ export interface AgentCreateParams {
    * The tool rules governing the agent.
    */
   tool_rules?: Array<
-    AgentCreateParams.ChildToolRule | AgentCreateParams.InitToolRule | AgentCreateParams.TerminalToolRule
+    | AgentCreateParams.ChildToolRule
+    | AgentCreateParams.InitToolRule
+    | AgentCreateParams.TerminalToolRule
+    | AgentCreateParams.ConditionalToolRule
   > | null;
 
   /**
@@ -997,7 +1059,13 @@ export namespace AgentCreateParams {
     /**
      * Type of tool rule.
      */
-    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
   }
 
   /**
@@ -1012,7 +1080,13 @@ export namespace AgentCreateParams {
     /**
      * Type of tool rule.
      */
-    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
   }
 
   /**
@@ -1028,7 +1102,49 @@ export namespace AgentCreateParams {
     /**
      * Type of tool rule.
      */
-    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
+  }
+
+  /**
+   * A ToolRule that conditionally maps to different child tools based on the output.
+   */
+  export interface ConditionalToolRule {
+    /**
+     * The output case to check for mapping
+     */
+    child_output_mapping: Record<string, string>;
+
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * The default child tool to be called. If None, any tool can be called.
+     */
+    default_child?: string | null;
+
+    /**
+     * Whether to throw an error when output doesn't match any case
+     */
+    require_output_mapping?: boolean;
+
+    /**
+     * Type of tool rule.
+     */
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
   }
 }
 
@@ -1114,7 +1230,10 @@ export interface AgentUpdateParams {
    * The tool rules governing the agent.
    */
   tool_rules?: Array<
-    AgentUpdateParams.ChildToolRule | AgentUpdateParams.InitToolRule | AgentUpdateParams.TerminalToolRule
+    | AgentUpdateParams.ChildToolRule
+    | AgentUpdateParams.InitToolRule
+    | AgentUpdateParams.TerminalToolRule
+    | AgentUpdateParams.ConditionalToolRule
   > | null;
 }
 
@@ -1274,7 +1393,13 @@ export namespace AgentUpdateParams {
     /**
      * Type of tool rule.
      */
-    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
   }
 
   /**
@@ -1289,7 +1414,13 @@ export namespace AgentUpdateParams {
     /**
      * Type of tool rule.
      */
-    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
   }
 
   /**
@@ -1305,7 +1436,49 @@ export namespace AgentUpdateParams {
     /**
      * Type of tool rule.
      */
-    type?: 'InitToolRule' | 'TerminalToolRule' | 'continue_loop' | 'ToolRule' | 'require_parent_tools';
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
+  }
+
+  /**
+   * A ToolRule that conditionally maps to different child tools based on the output.
+   */
+  export interface ConditionalToolRule {
+    /**
+     * The output case to check for mapping
+     */
+    child_output_mapping: Record<string, string>;
+
+    /**
+     * The name of the tool. Must exist in the database for the user's organization.
+     */
+    tool_name: string;
+
+    /**
+     * The default child tool to be called. If None, any tool can be called.
+     */
+    default_child?: string | null;
+
+    /**
+     * Whether to throw an error when output doesn't match any case
+     */
+    require_output_mapping?: boolean;
+
+    /**
+     * Type of tool rule.
+     */
+    type?:
+      | 'InitToolRule'
+      | 'TerminalToolRule'
+      | 'continue_loop'
+      | 'conditional'
+      | 'ToolRule'
+      | 'require_parent_tools';
   }
 }
 
