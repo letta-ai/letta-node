@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2024-12-21)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Features
+
+* **api:** api update ([#2](https://github.com/letta-ai/letta-node/issues/2)) ([e4ae306](https://github.com/letta-ai/letta-node/commit/e4ae3061d1fa8778312fb39e79ce5f44b29c93c9))
+* **api:** api update ([#26](https://github.com/letta-ai/letta-node/issues/26)) ([3a49ff5](https://github.com/letta-ai/letta-node/commit/3a49ff599ad1e6d13911deede4072b5d85b1f0eb))
+* **api:** api update ([#29](https://github.com/letta-ai/letta-node/issues/29)) ([2dac9f7](https://github.com/letta-ai/letta-node/commit/2dac9f7d56698a16448ad177558687c4283652d3))
+* **api:** api update ([#3](https://github.com/letta-ai/letta-node/issues/3)) ([8e145b8](https://github.com/letta-ai/letta-node/commit/8e145b8428c9e26750c5f02e60f09b94fe02dbf6))
+* **api:** api update ([#30](https://github.com/letta-ai/letta-node/issues/30)) ([11b34ce](https://github.com/letta-ai/letta-node/commit/11b34ce4a4dfabd732e997110efa8dc3b92bb7bb))
+
+
+### Bug Fixes
+
+* **client:** normalize method ([#8](https://github.com/letta-ai/letta-node/issues/8)) ([fb7153d](https://github.com/letta-ai/letta-node/commit/fb7153d39fdf35a3614b7e07e9e193aa68aebc1e))
+
+
+### Chores
+
+* **internal:** codegen related update ([#4](https://github.com/letta-ai/letta-node/issues/4)) ([fe9a5f0](https://github.com/letta-ai/letta-node/commit/fe9a5f0c18e26380d1e6c86a2f50576bce39f9f9))
+* **internal:** codegen related update ([#5](https://github.com/letta-ai/letta-node/issues/5)) ([7c0591c](https://github.com/letta-ai/letta-node/commit/7c0591c13572f33677a42f707df66791cdd4963a))
+* **internal:** codegen related update ([#6](https://github.com/letta-ai/letta-node/issues/6)) ([e8a5709](https://github.com/letta-ai/letta-node/commit/e8a57090b03dff6f74b416c022b5009bd1a95399))
+* **internal:** codegen related update ([#7](https://github.com/letta-ai/letta-node/issues/7)) ([11e9930](https://github.com/letta-ai/letta-node/commit/11e9930988ab30229177df206bab34b30e8192cd))
+* **internal:** fix some typos ([#28](https://github.com/letta-ai/letta-node/issues/28)) ([8bf6e15](https://github.com/letta-ai/letta-node/commit/8bf6e154e172d094735f7d17b2f73be72abb1513))
+
 ## 0.1.0-alpha.5 (2024-12-12)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/letta-ai/letta-node/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
