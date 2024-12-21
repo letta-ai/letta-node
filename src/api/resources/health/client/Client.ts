@@ -46,9 +46,9 @@ export class Health {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "letta",
-                "X-Fern-SDK-Version": "0.1.0-alpha0",
-                "User-Agent": "letta/0.1.0-alpha0",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.0-alpha1",
+                "User-Agent": "@letta-ai/letta-client/0.1.0-alpha1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
