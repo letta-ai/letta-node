@@ -255,6 +255,11 @@ export namespace AgentState {
      * The endpoint for the model (`None` if local).
      */
     embedding_endpoint?: string | null;
+
+    /**
+     * The handle for this config, in the format provider/model-name.
+     */
+    handle?: string | null;
   }
 
   /**
@@ -292,6 +297,11 @@ export namespace AgentState {
       | 'hugging-face'
       | 'mistral'
       | 'together';
+
+    /**
+     * The handle for this config, in the format provider/model-name.
+     */
+    handle?: string | null;
 
     /**
      * The endpoint for the model.
@@ -524,6 +534,11 @@ export namespace AgentState {
        * The endpoint for the model (`None` if local).
        */
       embedding_endpoint?: string | null;
+
+      /**
+       * The handle for this config, in the format provider/model-name.
+       */
+      handle?: string | null;
     }
   }
 
@@ -954,6 +969,11 @@ export namespace AgentCreateParams {
      * The endpoint for the model (`None` if local).
      */
     embedding_endpoint?: string | null;
+
+    /**
+     * The handle for this config, in the format provider/model-name.
+     */
+    handle?: string | null;
   }
 
   /**
@@ -1023,6 +1043,11 @@ export namespace AgentCreateParams {
       | 'hugging-face'
       | 'mistral'
       | 'together';
+
+    /**
+     * The handle for this config, in the format provider/model-name.
+     */
+    handle?: string | null;
 
     /**
      * The endpoint for the model.
@@ -1308,6 +1333,11 @@ export namespace AgentUpdateParams {
      * The endpoint for the model (`None` if local).
      */
     embedding_endpoint?: string | null;
+
+    /**
+     * The handle for this config, in the format provider/model-name.
+     */
+    handle?: string | null;
   }
 
   /**
@@ -1357,6 +1387,11 @@ export namespace AgentUpdateParams {
       | 'hugging-face'
       | 'mistral'
       | 'together';
+
+    /**
+     * The handle for this config, in the format provider/model-name.
+     */
+    handle?: string | null;
 
     /**
      * The endpoint for the model.
