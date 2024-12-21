@@ -1,60 +1,19 @@
-# Letta Node API Library
+# Letta TypeScript Library
 
-[![NPM version](https://img.shields.io/npm/v/@letta-ai/letta.svg)](https://npmjs.org/package/@letta-ai/letta) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@letta-ai/letta)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fletta-ai%2Fletta-node)
+[![npm shield](https://img.shields.io/npm/v/letta)](https://www.npmjs.com/package/letta)
 
-This library provides convenient access to the Letta REST API from server-side TypeScript or JavaScript.
-
-The REST API documentation can be found on [docs.letta.com](https://docs.letta.com). The full API of this library can be found in [api.md](api.md).
-
-It is generated with [Stainless](https://www.stainlessapi.com/).
+The Letta TypeScript library provides convenient access to the Letta API from TypeScript.
 
 ## Installation
 
 ```sh
-npm install @letta-ai/letta
+npm i -s letta
 ```
 
-## Usage
+## Reference
 
-The full API of this library can be found in [api.md](api.md).
-
-<!-- prettier-ignore -->
-```js
-import Letta from '@letta-ai/letta';
-
-const client = new Letta({
-  bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
-  environment: 'local', // defaults to 'production'
-});
-
-async function main() {
-  const agentStates = await client.agents.list();
-}
-
-main();
-```
-
-### Request & Response types
-
-This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
-
-<!-- prettier-ignore -->
-```ts
-import Letta from '@letta-ai/letta';
-
-const client = new Letta({
-  bearerToken: process.env['BEARER_TOKEN'], // This is the default and can be omitted
-  environment: 'local', // defaults to 'production'
-});
-
-async function main() {
-  const agentStates: Letta.AgentListResponse = await client.agents.list();
-}
-
-main();
-```
-
-Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
+A full reference for this library is available [here](./reference.md).
 
 ## Handling errors
 
@@ -166,9 +125,9 @@ To make requests to undocumented endpoints, you can use `client.get`, `client.po
 Options on the client, such as retries, will be respected when making these requests.
 
 ```ts
-await client.post('/some/path', {
-  body: { some_prop: 'foo' },
-  query: { some_query_arg: 'bar' },
+await client.post("/some/path", {
+    body: { some_prop: "foo" },
+    query: { some_query_arg: "bar" },
 });
 ```
 
@@ -180,10 +139,10 @@ send will be sent as-is.
 
 ```ts
 client.foo.create({
-  foo: 'my_param',
-  bar: 12,
-  // @ts-expect-error baz is not yet public
-  baz: 'undocumented option',
+    foo: "my_param",
+    bar: 12,
+    // @ts-expect-error baz is not yet public
+    baz: "undocumented option",
 });
 ```
 
@@ -210,8 +169,8 @@ add the following import before your first import `from "Letta"`:
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import '@letta-ai/letta/shims/web';
-import Letta from '@letta-ai/letta';
+import "@letta-ai/letta/shims/web";
+import Letta from "@letta-ai/letta";
 ```
 
 To do the inverse, add `import "@letta-ai/letta/shims/node"` (which does import polyfills).
@@ -223,16 +182,16 @@ You may also provide a custom `fetch` function when instantiating the client,
 which can be used to inspect or alter the `Request` or `Response` before/after each request:
 
 ```ts
-import { fetch } from 'undici'; // as one example
-import Letta from '@letta-ai/letta';
+import { fetch } from "undici"; // as one example
+import Letta from "@letta-ai/letta";
 
 const client = new Letta({
-  fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
-    console.log('About to make a request', url, init);
-    const response = await fetch(url, init);
-    console.log('Got response', response);
-    return response;
-  },
+    fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
+        console.log("About to make a request", url, init);
+        const response = await fetch(url, init);
+        console.log("Got response", response);
+        return response;
+    },
 });
 ```
 
@@ -279,19 +238,152 @@ TypeScript >= 4.5 is supported.
 
 The following runtimes are supported:
 
-- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
-- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher.
-- Bun 1.0 or later.
-- Cloudflare Workers.
-- Vercel Edge Runtime.
-- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
-- Nitro v2.6 or greater.
+-   Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
+-   Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+-   Deno v1.28.0 or higher.
+-   Bun 1.0 or later.
+-   Cloudflare Workers.
+-   Vercel Edge Runtime.
+-   Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+-   Nitro v2.6 or greater.
 
 Note that React Native is not supported at this time.
 
 If you are interested in other runtime environments, please open or upvote an issue on GitHub.
 
+## Usage
+
+Instantiate and use the client with the following:
+
+```typescript
+import { LettaClient } from "letta";
+
+const client = new LettaClient({ token: "YOUR_TOKEN" });
+await client.tools.create({
+    source_code: "source_code",
+});
+```
+
+## Request And Response Types
+
+The SDK exports all request and response types as TypeScript interfaces. Simply import them with the
+following namespace:
+
+```typescript
+import { Letta } from "letta";
+
+const request: Letta.ToolUpdate = {
+    ...
+};
+```
+
+## Exception Handling
+
+When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error
+will be thrown.
+
+```typescript
+import { LettaError } from "letta";
+
+try {
+    await client.tools.create(...);
+} catch (err) {
+    if (err instanceof LettaError) {
+        console.log(err.statusCode);
+        console.log(err.message);
+        console.log(err.body);
+    }
+}
+```
+
+## Advanced
+
+### Additional Headers
+
+If you would like to send additional headers as part of the request, use the `headers` request option.
+
+```typescript
+const response = await client.tools.create(..., {
+    headers: {
+        'X-Custom-Header': 'custom value'
+    }
+});
+```
+
+### Retries
+
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retriable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2).
+
+A request is deemed retriable when any of the following HTTP status codes is returned:
+
+-   [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+-   [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+-   [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+
+Use the `maxRetries` request option to configure this behavior.
+
+```typescript
+const response = await client.tools.create(..., {
+    maxRetries: 0 // override maxRetries at the request level
+});
+```
+
+### Timeouts
+
+The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
+
+```typescript
+const response = await client.tools.create(..., {
+    timeoutInSeconds: 30 // override timeout to 30s
+});
+```
+
+### Aborting Requests
+
+The SDK allows users to abort requests at any point by passing in an abort signal.
+
+```typescript
+const controller = new AbortController();
+const response = await client.tools.create(..., {
+    abortSignal: controller.signal
+});
+controller.abort(); // aborts the request
+```
+
+### Runtime Compatibility
+
+The SDK defaults to `node-fetch` but will use the global fetch client if present. The SDK works in the following
+runtimes:
+
+-   Node.js 18+
+-   Vercel
+-   Cloudflare Workers
+-   Deno v1.25+
+-   Bun 1.0+
+-   React Native
+
+### Customizing Fetch Client
+
+The SDK provides a way for your to customize the underlying HTTP client / Fetch function. If you're running in an
+unsupported environment, this provides a way for you to break glass and ensure the SDK works.
+
+```typescript
+import { LettaClient } from "letta";
+
+const client = new LettaClient({
+    ...
+    fetcher: // provide your implementation here
+});
+```
+
 ## Contributing
 
-See [the contributing documentation](./CONTRIBUTING.md).
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
+
+On the other hand, contributions to the README are always very welcome!
