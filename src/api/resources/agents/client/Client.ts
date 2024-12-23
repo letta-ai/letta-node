@@ -123,8 +123,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -197,8 +197,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -263,8 +263,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -328,8 +328,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -398,8 +398,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -469,8 +469,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -543,8 +543,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -611,8 +611,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -689,8 +689,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -736,6 +736,68 @@ export class Agents {
     }
 
     /**
+     * Search deployed agents
+     *
+     * @param {Letta.AgentsSearchDeployedAgentsRequest} request
+     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.agents.searchdeployedagents()
+     */
+    public async searchdeployedagents(
+        request: Letta.AgentsSearchDeployedAgentsRequest = {},
+        requestOptions?: Agents.RequestOptions
+    ): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                "v1/agents/search"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/agents/search.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
      * Creates a versioned version of an agent
      *
      * @param {string} agentId - The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
@@ -752,11 +814,11 @@ export class Agents {
         agentId: string,
         request: Letta.AgentsCreateVersionRequest = {},
         requestOptions?: Agents.RequestOptions
-    ): Promise<Letta.AgentsCreateVersionResponse> {
-        const { returnAgentId, ..._body } = request;
+    ): Promise<void> {
+        const { returnAgentState, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (returnAgentId != null) {
-            _queryParams["returnAgentId"] = returnAgentId.toString();
+        if (returnAgentState != null) {
+            _queryParams["returnAgentState"] = returnAgentState.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -769,8 +831,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -784,7 +846,7 @@ export class Agents {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.AgentsCreateVersionResponse;
+            return;
         }
 
         if (_response.error.reason === "status-code") {
@@ -850,8 +912,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.0",
-                "User-Agent": "@letta-ai/letta-client/0.1.0",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -891,6 +953,82 @@ export class Agents {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/agents/{agent_id}/migrate.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Create a template from an agent
+     *
+     * @param {string} agentId
+     * @param {Letta.AgentsCreateTemplateFromAgentRequest} request
+     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.NotFoundError}
+     * @throws {@link Letta.InternalServerError}
+     *
+     * @example
+     *     await client.agents.createtemplatefromagent("agent_id")
+     */
+    public async createtemplatefromagent(
+        agentId: string,
+        request: Letta.AgentsCreateTemplateFromAgentRequest = {},
+        requestOptions?: Agents.RequestOptions
+    ): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                `v1/agents/${encodeURIComponent(agentId)}/template`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.1",
+                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Letta.NotFoundError(_response.error.body as unknown);
+                case 500:
+                    throw new Letta.InternalServerError(_response.error.body as unknown);
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/template."
+                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

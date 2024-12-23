@@ -4,9 +4,6 @@
 
 import * as Letta from "../../../../../index";
 
-/**
- * Server-Sent Events stream
- */
 export type LettaStreamingResponse =
     | Letta.SystemMessageOutput
     | Letta.UserMessageOutput

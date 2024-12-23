@@ -54,5 +54,7 @@ export interface CreateAgentRequest {
     context_window_limit?: number;
     /** The embedding chunk size used by the agent. */
     embedding_chunk_size?: number;
+    /** The template id used to configure the agent */
+    from_template?: string;
     user_id?: string;
 }

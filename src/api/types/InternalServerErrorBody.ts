@@ -3,5 +3,5 @@
  */
 
 export interface InternalServerErrorBody {
-    message: "Migration failed";
+    message: "Failed to create agent template";
 }
