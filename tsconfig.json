@@ -2,16 +2,23 @@
     "compilerOptions": {
         "extendedDiagnostics": true,
         "strict": true,
-        "target": "ES6",
-        "module": "CommonJS",
+        "target": "es2018",
+        "module": "commonjs",
         "moduleResolution": "node",
         "esModuleInterop": true,
         "skipLibCheck": true,
         "declaration": true,
         "outDir": "dist",
-        "rootDir": "src",
-        "baseUrl": "src"
+        "rootDir": ".",
+        "baseUrl": ".",
+        "paths": {
+            "environments": ["src/environments"],
+            "api": ["src/api"],
+            "api/*": ["src/api/*"]
+        },
+        "forceConsistentCasingInFileNames": true,
+        "types": ["jest", "node"]
     },
-    "include": ["src"],
-    "exclude": []
+    "include": ["tests/**/*", "src/**/*"],
+    "exclude": ["node_modules"]
 }
