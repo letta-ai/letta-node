@@ -57,7 +57,7 @@ export class Sources {
     public async get(sourceId: string, requestOptions?: Sources.RequestOptions): Promise<Letta.Source> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/sources/${encodeURIComponent(sourceId)}`
             ),
             method: "GET",
@@ -65,8 +65,8 @@ export class Sources {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -122,7 +122,7 @@ export class Sources {
     public async delete(sourceId: string, requestOptions?: Sources.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/sources/${encodeURIComponent(sourceId)}`
             ),
             method: "DELETE",
@@ -130,8 +130,8 @@ export class Sources {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -192,7 +192,7 @@ export class Sources {
     ): Promise<Letta.Source> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/sources/${encodeURIComponent(sourceId)}`
             ),
             method: "PATCH",
@@ -200,8 +200,8 @@ export class Sources {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -258,7 +258,7 @@ export class Sources {
     public async getByName(sourceName: string, requestOptions?: Sources.RequestOptions): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/sources/name/${encodeURIComponent(sourceName)}`
             ),
             method: "GET",
@@ -266,8 +266,8 @@ export class Sources {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -322,7 +322,7 @@ export class Sources {
     public async list(requestOptions?: Sources.RequestOptions): Promise<Letta.Source[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 "v1/sources/"
             ),
             method: "GET",
@@ -330,8 +330,8 @@ export class Sources {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -389,7 +389,7 @@ export class Sources {
     public async create(request: Letta.SourceCreate, requestOptions?: Sources.RequestOptions): Promise<Letta.Source> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 "v1/sources/"
             ),
             method: "POST",
@@ -397,8 +397,8 @@ export class Sources {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -465,7 +465,7 @@ export class Sources {
         _queryParams["agent_id"] = agentId;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/sources/${encodeURIComponent(sourceId)}/attach`
             ),
             method: "POST",
@@ -473,8 +473,8 @@ export class Sources {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -543,7 +543,7 @@ export class Sources {
         _queryParams["agent_id"] = agentId;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/sources/${encodeURIComponent(sourceId)}/detach`
             ),
             method: "POST",
@@ -551,8 +551,8 @@ export class Sources {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

@@ -115,7 +115,7 @@ export class Agents {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 "v1/agents/"
             ),
             method: "GET",
@@ -123,8 +123,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -189,7 +189,7 @@ export class Agents {
     ): Promise<Letta.AgentState> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 "v1/agents/"
             ),
             method: "POST",
@@ -197,8 +197,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -255,7 +255,7 @@ export class Agents {
     public async get(agentId: string, requestOptions?: Agents.RequestOptions): Promise<Letta.AgentState> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}`
             ),
             method: "GET",
@@ -263,8 +263,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -317,10 +317,10 @@ export class Agents {
      * @example
      *     await client.agents.delete("agent_id")
      */
-    public async delete(agentId: string, requestOptions?: Agents.RequestOptions): Promise<Letta.AgentState> {
+    public async delete(agentId: string, requestOptions?: Agents.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}`
             ),
             method: "DELETE",
@@ -328,8 +328,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -341,7 +341,7 @@ export class Agents {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.AgentState;
+            return _response.body;
         }
 
         if (_response.error.reason === "status-code") {
@@ -390,7 +390,7 @@ export class Agents {
     ): Promise<Letta.AgentState> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}`
             ),
             method: "PATCH",
@@ -398,8 +398,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -461,7 +461,7 @@ export class Agents {
     ): Promise<Letta.Block> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`
             ),
             method: "GET",
@@ -469,8 +469,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -535,7 +535,7 @@ export class Agents {
     ): Promise<Letta.Block> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`
             ),
             method: "PATCH",
@@ -543,8 +543,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -603,7 +603,7 @@ export class Agents {
     public async getAgentMemoryBlocks(agentId: string, requestOptions?: Agents.RequestOptions): Promise<Letta.Block[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/memory/block`
             ),
             method: "GET",
@@ -611,8 +611,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -681,7 +681,7 @@ export class Agents {
     ): Promise<Letta.Job> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/messages/async`
             ),
             method: "POST",
@@ -689,8 +689,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -750,7 +750,7 @@ export class Agents {
     ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 "v1/agents/search"
             ),
             method: "POST",
@@ -758,8 +758,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -823,7 +823,7 @@ export class Agents {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/version-template`
             ),
             method: "POST",
@@ -831,8 +831,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -904,7 +904,7 @@ export class Agents {
     ): Promise<Letta.AgentsMigrateResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/migrate`
             ),
             method: "POST",
@@ -912,8 +912,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -980,7 +980,7 @@ export class Agents {
     ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/template`
             ),
             method: "POST",
@@ -988,8 +988,8 @@ export class Agents {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1028,6 +1028,76 @@ export class Agents {
             case "timeout":
                 throw new errors.LettaTimeoutError(
                     "Timeout exceeded when calling POST /v1/agents/{agent_id}/template."
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Get the variables associated with an agent
+     *
+     * @param {string} agentId
+     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.NotFoundError}
+     *
+     * @example
+     *     await client.agents.getagentvariables("agent_id")
+     */
+    public async getagentvariables(
+        agentId: string,
+        requestOptions?: Agents.RequestOptions
+    ): Promise<Letta.AgentsGetAgentVariablesResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/variables`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return _response.body as Letta.AgentsGetAgentVariablesResponse;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Letta.NotFoundError(_response.error.body as unknown);
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/variables."
                 );
             case "unknown":
                 throw new errors.LettaError({

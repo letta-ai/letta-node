@@ -9,3 +9,4 @@ export * from "./AgentsSearchDeployedAgentsRequestSearchItemDirection";
 export * from "./AgentsSearchDeployedAgentsRequestSearchItem";
 export * from "./AgentsSearchDeployedAgentsRequestCombinator";
 export * from "./AgentsMigrateResponse";
+export * from "./AgentsGetAgentVariablesResponse";
