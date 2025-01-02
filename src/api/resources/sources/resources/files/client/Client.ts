@@ -54,7 +54,7 @@ export class Files {
         const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/sources/${encodeURIComponent(sourceId)}/upload`
             ),
             method: "POST",
@@ -62,8 +62,8 @@ export class Files {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ..._maybeEncodedRequest.headers,
@@ -138,7 +138,7 @@ export class Files {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/sources/${encodeURIComponent(sourceId)}/files`
             ),
             method: "GET",
@@ -146,8 +146,8 @@ export class Files {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -205,7 +205,7 @@ export class Files {
     public async delete(sourceId: string, fileId: string, requestOptions?: Files.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/sources/${encodeURIComponent(sourceId)}/${encodeURIComponent(fileId)}`
             ),
             method: "DELETE",
@@ -213,8 +213,8 @@ export class Files {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

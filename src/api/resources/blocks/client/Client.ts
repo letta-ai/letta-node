@@ -59,7 +59,7 @@ export class Blocks {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 "v1/blocks/"
             ),
             method: "GET",
@@ -67,8 +67,8 @@ export class Blocks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -126,7 +126,7 @@ export class Blocks {
     public async create(request: Letta.CreateBlock, requestOptions?: Blocks.RequestOptions): Promise<Letta.Block> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 "v1/blocks/"
             ),
             method: "POST",
@@ -134,8 +134,8 @@ export class Blocks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -190,7 +190,7 @@ export class Blocks {
     public async get(blockId: string, requestOptions?: Blocks.RequestOptions): Promise<Letta.Block> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/blocks/${encodeURIComponent(blockId)}`
             ),
             method: "GET",
@@ -198,8 +198,8 @@ export class Blocks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -253,7 +253,7 @@ export class Blocks {
     public async delete(blockId: string, requestOptions?: Blocks.RequestOptions): Promise<Letta.Block> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/blocks/${encodeURIComponent(blockId)}`
             ),
             method: "DELETE",
@@ -261,8 +261,8 @@ export class Blocks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -321,7 +321,7 @@ export class Blocks {
     ): Promise<Letta.Block> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/blocks/${encodeURIComponent(blockId)}`
             ),
             method: "PATCH",
@@ -329,8 +329,8 @@ export class Blocks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -397,7 +397,7 @@ export class Blocks {
         _queryParams["agent_id"] = agentId;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/blocks/${encodeURIComponent(blockId)}/attach`
             ),
             method: "PATCH",
@@ -405,8 +405,8 @@ export class Blocks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -473,7 +473,7 @@ export class Blocks {
         _queryParams["agent_id"] = agentId;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/blocks/${encodeURIComponent(blockId)}/detach`
             ),
             method: "PATCH",
@@ -481,8 +481,8 @@ export class Blocks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

@@ -44,7 +44,7 @@ export class Tools {
     public async list(agentId: string, requestOptions?: Tools.RequestOptions): Promise<Letta.LettaSchemasToolTool[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/tools`
             ),
             method: "GET",
@@ -52,8 +52,8 @@ export class Tools {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -114,7 +114,7 @@ export class Tools {
     ): Promise<Letta.AgentState> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/add-tool/${encodeURIComponent(toolId)}`
             ),
             method: "PATCH",
@@ -122,8 +122,8 @@ export class Tools {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -186,7 +186,7 @@ export class Tools {
     ): Promise<Letta.AgentState> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaHosted,
+                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/remove-tool/${encodeURIComponent(toolId)}`
             ),
             method: "PATCH",
@@ -194,8 +194,8 @@ export class Tools {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.1",
-                "User-Agent": "@letta-ai/letta-client/0.1.1",
+                "X-Fern-SDK-Version": "0.1.2",
+                "User-Agent": "@letta-ai/letta-client/0.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

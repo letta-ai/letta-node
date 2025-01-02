@@ -3,8 +3,8 @@
  */
 
 export const LettaEnvironment = {
-    LettaHosted: "https://app.letta.com",
+    LettaCloud: "https://app.letta.com",
     SelfHosted: "http://localhost:8283",
 } as const;
 
-export type LettaEnvironment = typeof LettaEnvironment.LettaHosted | typeof LettaEnvironment.SelfHosted;
+export type LettaEnvironment = typeof LettaEnvironment.LettaCloud | typeof LettaEnvironment.SelfHosted;

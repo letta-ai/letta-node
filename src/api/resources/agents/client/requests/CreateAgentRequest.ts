@@ -56,5 +56,7 @@ export interface CreateAgentRequest {
     embedding_chunk_size?: number;
     /** The template id used to configure the agent */
     from_template?: string;
+    /** The project id that the agent will be associated with. */
+    project_id?: string;
     user_id?: string;
 }
