@@ -28,8 +28,6 @@ jobs:
 
       - name: Compile
         run: yarn && yarn test    
-        env:
-          LETTA_API_KEY: ${{ secrets.LETTA_API_KEY }}
 
   publish:
     needs: [ compile, test ]
