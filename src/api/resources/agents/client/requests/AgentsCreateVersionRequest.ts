@@ -8,5 +8,5 @@
  */
 export interface AgentsCreateVersionRequest {
     returnAgentState?: boolean;
-    migrate_deployed_agents?: boolean;
+    migrateDeployedAgents?: boolean;
 }

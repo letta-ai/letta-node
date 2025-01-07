@@ -6,21 +6,21 @@
  * Representation of a user.
  *
  * Parameters:
- * id (str): The unique identifier of the user.
- * name (str): The name of the user.
- * created_at (datetime): The creation date of the user.
+ *     id (str): The unique identifier of the user.
+ *     name (str): The name of the user.
+ *     created_at (datetime): The creation date of the user.
  */
 export interface User {
     /** The human-friendly ID of the User */
     id?: string;
     /** The organization id of the user */
-    organization_id?: string;
+    organizationId?: string;
     /** The name of the user. */
     name: string;
     /** The creation date of the user. */
-    created_at?: string;
+    createdAt?: Date;
     /** The update date of the user. */
-    updated_at?: string;
+    updatedAt?: Date;
     /** Whether this user is deleted or not. */
-    is_deleted?: boolean;
+    isDeleted?: boolean;
 }

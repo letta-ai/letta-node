@@ -8,5 +8,5 @@ export interface MessageContentLogProb {
     token: string;
     logprob: number;
     bytes?: number[];
-    top_logprobs?: Letta.LogProbToken[];
+    topLogprobs?: Letta.LogProbToken[];
 }

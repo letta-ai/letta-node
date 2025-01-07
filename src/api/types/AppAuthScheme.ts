@@ -8,14 +8,14 @@ import * as Letta from "../index";
  * App authenticatio scheme.
  */
 export interface AppAuthScheme {
-    scheme_name: string;
-    auth_mode: Letta.AppAuthSchemeAuthMode;
+    schemeName: string;
+    authMode: Letta.AppAuthSchemeAuthMode;
     fields: Letta.AuthSchemeField[];
     proxy?: Record<string, unknown>;
-    authorization_url?: string;
-    token_url?: string;
-    default_scopes?: unknown[];
-    token_response_metadata?: unknown[];
-    client_id?: string;
-    client_secret?: string;
+    authorizationUrl?: string;
+    tokenUrl?: string;
+    defaultScopes?: unknown[];
+    tokenResponseMetadata?: unknown[];
+    clientId?: string;
+    clientSecret?: string;
 }

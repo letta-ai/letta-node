@@ -8,32 +8,32 @@ import * as Letta from "../index";
  * Embedding model configuration. This object specifies all the information necessary to access an embedding model to usage with Letta, except for secret keys.
  *
  * Attributes:
- * embedding_endpoint_type (str): The endpoint type for the model.
- * embedding_endpoint (str): The endpoint for the model.
- * embedding_model (str): The model for the embedding.
- * embedding_dim (int): The dimension of the embedding.
- * embedding_chunk_size (int): The chunk size of the embedding.
- * azure_endpoint (:obj:`str`, optional): The Azure endpoint for the model (Azure only).
- * azure_version (str): The Azure version for the model (Azure only).
- * azure_deployment (str): The Azure deployment for the model (Azure only).
+ *     embedding_endpoint_type (str): The endpoint type for the model.
+ *     embedding_endpoint (str): The endpoint for the model.
+ *     embedding_model (str): The model for the embedding.
+ *     embedding_dim (int): The dimension of the embedding.
+ *     embedding_chunk_size (int): The chunk size of the embedding.
+ *     azure_endpoint (:obj:`str`, optional): The Azure endpoint for the model (Azure only).
+ *     azure_version (str): The Azure version for the model (Azure only).
+ *     azure_deployment (str): The Azure deployment for the model (Azure only).
  */
 export interface EmbeddingConfig {
     /** The endpoint type for the model. */
-    embedding_endpoint_type: Letta.EmbeddingConfigEmbeddingEndpointType;
+    embeddingEndpointType: Letta.EmbeddingConfigEmbeddingEndpointType;
     /** The endpoint for the model (`None` if local). */
-    embedding_endpoint?: string;
+    embeddingEndpoint?: string;
     /** The model for the embedding. */
-    embedding_model: string;
+    embeddingModel: string;
     /** The dimension of the embedding. */
-    embedding_dim: number;
+    embeddingDim: number;
     /** The chunk size of the embedding. */
-    embedding_chunk_size?: number;
+    embeddingChunkSize?: number;
     /** The handle for this config, in the format provider/model-name. */
     handle?: string;
     /** The Azure endpoint for the model. */
-    azure_endpoint?: string;
+    azureEndpoint?: string;
     /** The Azure version for the model. */
-    azure_version?: string;
+    azureVersion?: string;
     /** The Azure deployment for the model. */
-    azure_deployment?: string;
+    azureDeployment?: string;
 }

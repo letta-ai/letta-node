@@ -354,7 +354,7 @@ Create a new tool
 
 ```typescript
 await client.tools.create({
-    source_code: "source_code",
+    sourceCode: "source_code",
 });
 ```
 
@@ -419,7 +419,7 @@ Create or update a tool
 
 ```typescript
 await client.tools.upsert({
-    source_code: "source_code",
+    sourceCode: "source_code",
 });
 ```
 
@@ -539,7 +539,7 @@ Attempt to build a tool from source, then run it on the provided arguments
 
 ```typescript
 await client.tools.runToolFromSource({
-    source_code: "source_code",
+    sourceCode: "source_code",
     args: "args",
 });
 ```
@@ -1168,7 +1168,7 @@ Attach a data source to an existing agent.
 
 ```typescript
 await client.sources.attach("source_id", {
-    agent_id: "agent_id",
+    agentId: "agent_id",
 });
 ```
 
@@ -1241,7 +1241,7 @@ Detach a data source from an existing agent.
 
 ```typescript
 await client.sources.detach("source_id", {
-    agent_id: "agent_id",
+    agentId: "agent_id",
 });
 ```
 
@@ -1380,7 +1380,7 @@ Create a new agent with the specified configuration.
 
 ```typescript
 await client.agents.create({
-    memory_blocks: [
+    memoryBlocks: [
         {
             value: "value",
             label: "label",
@@ -2073,8 +2073,8 @@ Migrate an agent to a new versioned agent template
 
 ```typescript
 await client.agents.migrate("agent_id", {
-    to_template: "to_template",
-    preserve_core_memories: true,
+    toTemplate: "to_template",
+    preserveCoreMemories: true,
 });
 ```
 
@@ -2616,7 +2616,7 @@ Link a memory block to an agent.
 
 ```typescript
 await client.blocks.linkAgentMemoryBlock("block_id", {
-    agent_id: "agent_id",
+    agentId: "agent_id",
 });
 ```
 
@@ -2689,7 +2689,7 @@ Unlink a memory block from an agent
 
 ```typescript
 await client.blocks.unlinkAgentMemoryBlock("block_id", {
-    agent_id: "agent_id",
+    agentId: "agent_id",
 });
 ```
 
@@ -4129,6 +4129,89 @@ await client.agents.messages.update("agent_id", "message_id");
 <dd>
 
 **request:** `Letta.agents.MessageUpdate`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">stream</a>(agentId, { ...params }) -> core.Stream<Letta.LettaStreamingResponse></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Process a user message and return the agent's response.
+This endpoint accepts a message from a user and processes it through the agent.
+It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.agents.messages.stream("agent_id", {
+    messages: [
+        {
+            role: "user",
+            text: "text",
+        },
+    ],
+});
+for await (const item of response) {
+    console.log(item);
+}
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.LettaStreamingRequest`
 
 </dd>
 </dl>

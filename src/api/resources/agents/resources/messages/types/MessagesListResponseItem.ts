@@ -5,9 +5,35 @@
 import * as Letta from "../../../../../index";
 
 export type MessagesListResponseItem =
-    | Letta.SystemMessageOutput
-    | Letta.UserMessageOutput
-    | Letta.ReasoningMessage
-    | Letta.ToolCallMessage
-    | Letta.ToolReturnMessage
-    | Letta.AssistantMessageOutput;
+    | Letta.agents.MessagesListResponseItem.SystemMessage
+    | Letta.agents.MessagesListResponseItem.UserMessage
+    | Letta.agents.MessagesListResponseItem.ReasoningMessage
+    | Letta.agents.MessagesListResponseItem.ToolCallMessage
+    | Letta.agents.MessagesListResponseItem.ToolReturnMessage
+    | Letta.agents.MessagesListResponseItem.AssistantMessage;
+
+export namespace MessagesListResponseItem {
+    export interface SystemMessage extends Letta.SystemMessageOutput {
+        messageType: "system_message";
+    }
+
+    export interface UserMessage extends Letta.UserMessageOutput {
+        messageType: "user_message";
+    }
+
+    export interface ReasoningMessage extends Letta.ReasoningMessage {
+        messageType: "reasoning_message";
+    }
+
+    export interface ToolCallMessage extends Letta.ToolCallMessage {
+        messageType: "tool_call_message";
+    }
+
+    export interface ToolReturnMessage extends Letta.ToolReturnMessage {
+        messageType: "tool_return_message";
+    }
+
+    export interface AssistantMessage extends Letta.AssistantMessageOutput {
+        messageType: "assistant_message";
+    }
+}

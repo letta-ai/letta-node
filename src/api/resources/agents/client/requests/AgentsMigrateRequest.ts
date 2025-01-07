@@ -5,13 +5,13 @@
 /**
  * @example
  *     {
- *         to_template: "to_template",
- *         preserve_core_memories: true
+ *         toTemplate: "to_template",
+ *         preserveCoreMemories: true
  *     }
  */
 export interface AgentsMigrateRequest {
-    to_template: string;
+    toTemplate: string;
     /** If you chose to not preserve core memories, you should provide the new variables for the core memories */
     variables?: Record<string, string>;
-    preserve_core_memories: boolean;
+    preserveCoreMemories: boolean;
 }

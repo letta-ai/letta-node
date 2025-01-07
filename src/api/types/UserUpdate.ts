@@ -8,5 +8,5 @@ export interface UserUpdate {
     /** The new name of the user. */
     name?: string;
     /** The new organization id of the user. */
-    organization_id?: string;
+    organizationId?: string;
 }

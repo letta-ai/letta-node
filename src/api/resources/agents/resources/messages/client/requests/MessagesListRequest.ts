@@ -18,13 +18,13 @@ export interface MessagesListRequest {
     /**
      * If true, returns Message objects. If false, return LettaMessage objects.
      */
-    msg_object?: boolean;
+    msgObject?: boolean;
     /**
      * The name of the designated message tool.
      */
-    assistant_message_tool_name?: string;
+    assistantMessageToolName?: string;
     /**
      * The name of the message argument in the designated message tool.
      */
-    assistant_message_tool_kwarg?: string;
+    assistantMessageToolKwarg?: string;
 }

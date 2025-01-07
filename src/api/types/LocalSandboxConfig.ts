@@ -4,9 +4,9 @@
 
 export interface LocalSandboxConfig {
     /** Directory for the sandbox environment. */
-    sandbox_dir: string;
+    sandboxDir: string;
     /** Whether or not to use the venv, or run directly in the same run loop. */
-    use_venv?: boolean;
+    useVenv?: boolean;
     /** The name for the venv in the sandbox directory. We first search for an existing venv with this name, otherwise, we make it from the requirements.txt. */
-    venv_name?: string;
+    venvName?: string;
 }

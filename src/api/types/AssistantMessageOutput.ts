@@ -4,7 +4,6 @@
 
 export interface AssistantMessageOutput {
     id: string;
-    date: string;
-    message_type: "assistant_message";
-    assistant_message: string;
+    date: Date;
+    assistantMessage: string;
 }

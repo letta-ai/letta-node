@@ -12,11 +12,11 @@ export interface CreateBlock {
     limit?: number;
     /** Name of the block if it is a template. */
     name?: string;
-    is_template?: boolean;
+    isTemplate?: boolean;
     /** Label of the block. */
     label: string;
     /** Description of the block. */
     description?: string;
     /** Metadata of the block. */
-    metadata_?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
 }

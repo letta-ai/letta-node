@@ -14,9 +14,9 @@ export interface CreateAssistantRequest {
     /** The tools used by the assistant. */
     tools?: string[];
     /** List of file IDs associated with the assistant. */
-    file_ids?: string[];
+    fileIds?: string[];
     /** Metadata associated with the assistant. */
     metadata?: Record<string, unknown>;
     /** The model to use for the assistant. */
-    embedding_model?: string;
+    embeddingModel?: string;
 }

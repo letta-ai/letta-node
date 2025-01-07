@@ -7,7 +7,7 @@ import * as Letta from "../../../../index";
 /**
  * @example
  *     {
- *         memory_blocks: [{
+ *         memoryBlocks: [{
  *                 value: "value",
  *                 label: "label"
  *             }]
@@ -17,46 +17,48 @@ export interface CreateAgentRequest {
     /** The name of the agent. */
     name?: string;
     /** The blocks to create in the agent's in-context memory. */
-    memory_blocks: Letta.CreateBlock[];
+    memoryBlocks: Letta.CreateBlock[];
     /** The tools used by the agent. */
     tools?: string[];
     /** The ids of the tools used by the agent. */
-    tool_ids?: string[];
+    toolIds?: string[];
     /** The ids of the sources used by the agent. */
-    source_ids?: string[];
+    sourceIds?: string[];
     /** The ids of the blocks used by the agent. */
-    block_ids?: string[];
+    blockIds?: string[];
     /** The tool rules governing the agent. */
-    tool_rules?: Letta.CreateAgentRequestToolRulesItem[];
+    toolRules?: Letta.CreateAgentRequestToolRulesItem[];
     /** The tags associated with the agent. */
     tags?: string[];
     /** The system prompt used by the agent. */
     system?: string;
     /** The type of agent. */
-    agent_type?: Letta.AgentType;
+    agentType?: Letta.AgentType;
     /** The LLM configuration used by the agent. */
-    llm_config?: Letta.LlmConfig;
+    llmConfig?: Letta.LlmConfig;
     /** The embedding configuration used by the agent. */
-    embedding_config?: Letta.EmbeddingConfig;
+    embeddingConfig?: Letta.EmbeddingConfig;
     /** The initial set of messages to put in the agent's in-context memory. */
-    initial_message_sequence?: Letta.MessageCreate[];
+    initialMessageSequence?: Letta.MessageCreate[];
     /** The LLM configuration used by the agent. */
-    include_base_tools?: boolean;
+    includeBaseTools?: boolean;
     /** The description of the agent. */
     description?: string;
     /** The metadata of the agent. */
-    metadata_?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
     /** The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config. */
     llm?: string;
     /** The embedding configuration handle used by the agent, specified in the format provider/model-name. */
     embedding?: string;
     /** The context window limit used by the agent. */
-    context_window_limit?: number;
+    contextWindowLimit?: number;
     /** The embedding chunk size used by the agent. */
-    embedding_chunk_size?: number;
+    embeddingChunkSize?: number;
     /** The template id used to configure the agent */
-    from_template?: string;
+    fromTemplate?: string;
     /** The project id that the agent will be associated with. */
-    project_id?: string;
-    user_id?: string;
+    projectId?: string;
+    /** The environment variables for tool execution specific to this agent. */
+    toolExecEnvironmentVariables?: Record<string, string | undefined>;
+    userId?: string;
 }

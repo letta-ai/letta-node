@@ -9,7 +9,7 @@ import * as Letta from "../index";
  */
 export interface ChildToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
-    tool_name: string;
+    toolName: string;
     type?: Letta.ToolRuleType;
     /** The children tools that can be invoked. */
     children: string[];

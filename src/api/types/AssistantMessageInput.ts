@@ -8,5 +8,5 @@ export interface AssistantMessageInput {
     content?: string;
     role?: string;
     name?: string;
-    tool_calls?: Letta.LettaSchemasOpenaiChatCompletionRequestToolCall[];
+    toolCalls?: Letta.LettaSchemasOpenaiChatCompletionRequestToolCall[];
 }

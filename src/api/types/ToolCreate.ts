@@ -12,11 +12,11 @@ export interface ToolCreate {
     /** The source code of the function. */
     module?: string;
     /** The source code of the function. */
-    source_code: string;
+    sourceCode: string;
     /** The source type of the function. */
-    source_type?: string;
+    sourceType?: string;
     /** The JSON schema of the function (auto-generated from source_code if not provided) */
-    json_schema?: Record<string, unknown>;
+    jsonSchema?: Record<string, unknown>;
     /** The maximum number of characters in the response. */
-    return_char_limit?: number;
+    returnCharLimit?: number;
 }

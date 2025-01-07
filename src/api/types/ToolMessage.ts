@@ -5,5 +5,5 @@
 export interface ToolMessage {
     content: string;
     role?: string;
-    tool_call_id: string;
+    toolCallId: string;
 }

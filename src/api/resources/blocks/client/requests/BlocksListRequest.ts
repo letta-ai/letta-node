@@ -14,7 +14,7 @@ export interface BlocksListRequest {
     /**
      * Whether to include only templates
      */
-    templates_only?: boolean;
+    templatesOnly?: boolean;
     /**
      * Name of the block
      */

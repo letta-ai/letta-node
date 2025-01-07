@@ -7,5 +7,5 @@
  *     {}
  */
 export interface AgentsCreateTemplateFromAgentRequest {
-    project_id?: string;
+    projectId?: string;
 }

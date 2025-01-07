@@ -9,25 +9,25 @@ export interface FileMetadata {
     /** The human-friendly ID of the File */
     id?: string;
     /** The unique identifier of the organization associated with the document. */
-    organization_id?: string;
+    organizationId?: string;
     /** The unique identifier of the source associated with the document. */
-    source_id: string;
+    sourceId: string;
     /** The name of the file. */
-    file_name?: string;
+    fileName?: string;
     /** The path to the file. */
-    file_path?: string;
+    filePath?: string;
     /** The type of the file (MIME type). */
-    file_type?: string;
+    fileType?: string;
     /** The size of the file in bytes. */
-    file_size?: number;
+    fileSize?: number;
     /** The creation date of the file. */
-    file_creation_date?: string;
+    fileCreationDate?: string;
     /** The last modified date of the file. */
-    file_last_modified_date?: string;
+    fileLastModifiedDate?: string;
     /** The creation date of the file. */
-    created_at?: string;
+    createdAt?: Date;
     /** The update date of the file. */
-    updated_at?: string;
+    updatedAt?: Date;
     /** Whether this file is deleted or not. */
-    is_deleted?: boolean;
+    isDeleted?: boolean;
 }

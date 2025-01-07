@@ -14,7 +14,7 @@ export interface OpenAiAssistant {
     /** The description of the assistant. */
     description?: string;
     /** The unix timestamp of when the assistant was created. */
-    created_at: number;
+    createdAt: number;
     /** The model used by the assistant. */
     model: string;
     /** The instructions for the assistant. */
@@ -22,7 +22,7 @@ export interface OpenAiAssistant {
     /** The tools used by the assistant. */
     tools?: string[];
     /** List of file IDs associated with the assistant. */
-    file_ids?: string[];
+    fileIds?: string[];
     /** Metadata associated with the assistant. */
     metadata?: Record<string, unknown>;
 }

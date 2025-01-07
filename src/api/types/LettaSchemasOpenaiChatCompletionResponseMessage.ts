@@ -6,7 +6,7 @@ import * as Letta from "../index";
 
 export interface LettaSchemasOpenaiChatCompletionResponseMessage {
     content?: string;
-    tool_calls?: Letta.LettaSchemasOpenaiChatCompletionResponseToolCall[];
+    toolCalls?: Letta.LettaSchemasOpenaiChatCompletionResponseToolCall[];
     role: string;
-    function_call?: Letta.FunctionCallOutput;
+    functionCall?: Letta.FunctionCallOutput;
 }

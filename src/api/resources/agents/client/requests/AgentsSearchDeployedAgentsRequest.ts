@@ -10,7 +10,7 @@ import * as Letta from "../../../../index";
  */
 export interface AgentsSearchDeployedAgentsRequest {
     search?: Letta.AgentsSearchDeployedAgentsRequestSearchItem[];
-    project_id?: string;
+    projectId?: string;
     combinator?: Letta.AgentsSearchDeployedAgentsRequestCombinator;
     limit?: number;
     offset?: number;

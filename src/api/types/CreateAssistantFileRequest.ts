@@ -4,5 +4,5 @@
 
 export interface CreateAssistantFileRequest {
     /** The unique identifier of the file. */
-    file_id: string;
+    fileId: string;
 }

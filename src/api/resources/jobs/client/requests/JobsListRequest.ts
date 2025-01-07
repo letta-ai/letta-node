@@ -10,5 +10,5 @@ export interface JobsListRequest {
     /**
      * Only list jobs associated with the source.
      */
-    source_id?: string;
+    sourceId?: string;
 }

@@ -8,29 +8,29 @@ import * as Letta from "../index";
  * Representation of offline jobs, used for tracking status of data loading tasks (involving parsing and embedding files).
  *
  * Parameters:
- * id (str): The unique identifier of the job.
- * status (JobStatus): The status of the job.
- * created_at (datetime): The unix timestamp of when the job was created.
- * completed_at (datetime): The unix timestamp of when the job was completed.
- * user_id (str): The unique identifier of the user associated with the.
+ *     id (str): The unique identifier of the job.
+ *     status (JobStatus): The status of the job.
+ *     created_at (datetime): The unix timestamp of when the job was created.
+ *     completed_at (datetime): The unix timestamp of when the job was completed.
+ *     user_id (str): The unique identifier of the user associated with the.
  */
 export interface Job {
     /** The id of the user that made this object. */
-    created_by_id?: string;
+    createdById?: string;
     /** The id of the user that made this object. */
-    last_updated_by_id?: string;
+    lastUpdatedById?: string;
     /** The timestamp when the object was created. */
-    created_at?: string;
+    createdAt?: Date;
     /** The timestamp when the object was last updated. */
-    updated_at?: string;
+    updatedAt?: Date;
     /** The status of the job. */
     status?: Letta.JobStatus;
     /** The unix timestamp of when the job was completed. */
-    completed_at?: string;
+    completedAt?: Date;
     /** The metadata of the job. */
-    metadata_?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
     /** The human-friendly ID of the Job */
     id?: string;
     /** The unique identifier of the user associated with the job. */
-    user_id?: string;
+    userId?: string;
 }

@@ -11,5 +11,5 @@ export interface Memory {
     /** Memory blocks contained in the agent's in-context memory */
     blocks: Letta.Block[];
     /** Jinja2 template for compiling memory blocks into a prompt string */
-    prompt_template?: string;
+    promptTemplate?: string;
 }

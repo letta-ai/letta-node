@@ -5,7 +5,7 @@
 import * as Letta from "../index";
 
 export interface Choice {
-    finish_reason: string;
+    finishReason: string;
     index: number;
     message: Letta.LettaSchemasOpenaiChatCompletionResponseMessage;
     logprobs?: Record<string, Letta.MessageContentLogProb[] | undefined>;

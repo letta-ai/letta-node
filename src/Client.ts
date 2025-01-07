@@ -15,7 +15,7 @@ import { Health } from "./api/resources/health/client/Client";
 export declare namespace LettaClient {
     interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -40,7 +40,7 @@ export class LettaClient {
     protected _jobs: Jobs | undefined;
     protected _health: Health | undefined;
 
-    constructor(protected readonly _options: LettaClient.Options) {}
+    constructor(protected readonly _options: LettaClient.Options = {}) {}
 
     public get tools(): Tools {
         return (this._tools ??= new Tools(this._options));

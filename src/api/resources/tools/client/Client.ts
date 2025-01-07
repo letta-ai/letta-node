@@ -6,12 +6,13 @@ import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Letta from "../../../index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Tools {
     interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -28,7 +29,7 @@ export declare namespace Tools {
 }
 
 export class Tools {
-    constructor(protected readonly _options: Tools.Options) {}
+    constructor(protected readonly _options: Tools.Options = {}) {}
 
     /**
      * Get a tool by ID
@@ -49,13 +50,13 @@ export class Tools {
             ),
             method: "GET",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
@@ -65,13 +66,27 @@ export class Tools {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.LettaSchemasToolTool;
+            return serializers.LettaSchemasToolTool.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -114,13 +129,13 @@ export class Tools {
             ),
             method: "DELETE",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
@@ -136,7 +151,15 @@ export class Tools {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -184,30 +207,44 @@ export class Tools {
             ),
             method: "PATCH",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: request,
+            body: serializers.ToolUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.LettaSchemasToolTool;
+            return serializers.LettaSchemasToolTool.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -250,13 +287,13 @@ export class Tools {
             ),
             method: "GET",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
@@ -266,13 +303,27 @@ export class Tools {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as string;
+            return serializers.tools.getByName.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -328,13 +379,13 @@ export class Tools {
             ),
             method: "GET",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
@@ -345,13 +396,27 @@ export class Tools {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.LettaSchemasToolTool[];
+            return serializers.tools.list.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -385,7 +450,7 @@ export class Tools {
      *
      * @example
      *     await client.tools.create({
-     *         source_code: "source_code"
+     *         sourceCode: "source_code"
      *     })
      */
     public async create(
@@ -399,30 +464,44 @@ export class Tools {
             ),
             method: "POST",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: request,
+            body: serializers.ToolCreate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.LettaSchemasToolTool;
+            return serializers.LettaSchemasToolTool.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -456,7 +535,7 @@ export class Tools {
      *
      * @example
      *     await client.tools.upsert({
-     *         source_code: "source_code"
+     *         sourceCode: "source_code"
      *     })
      */
     public async upsert(
@@ -470,30 +549,44 @@ export class Tools {
             ),
             method: "PUT",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: request,
+            body: serializers.ToolCreate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.LettaSchemasToolTool;
+            return serializers.LettaSchemasToolTool.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -535,13 +628,13 @@ export class Tools {
             ),
             method: "POST",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
@@ -551,13 +644,27 @@ export class Tools {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.LettaSchemasToolTool[];
+            return serializers.tools.addBaseTool.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -591,7 +698,7 @@ export class Tools {
      *
      * @example
      *     await client.tools.runToolFromSource({
-     *         source_code: "source_code",
+     *         sourceCode: "source_code",
      *         args: "args"
      *     })
      */
@@ -606,30 +713,44 @@ export class Tools {
             ),
             method: "POST",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: request,
+            body: serializers.ToolRunFromSource.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.ToolReturnMessage;
+            return serializers.ToolReturnMessage.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -671,13 +792,13 @@ export class Tools {
             ),
             method: "GET",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
@@ -687,13 +808,27 @@ export class Tools {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.AppModel[];
+            return serializers.tools.listComposioApps.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -739,13 +874,13 @@ export class Tools {
             ),
             method: "GET",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
@@ -755,13 +890,27 @@ export class Tools {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.ActionModel[];
+            return serializers.tools.listComposioActionsByApp.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -809,13 +958,13 @@ export class Tools {
             ),
             method: "POST",
             headers: {
-                Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.2",
-                "User-Agent": "@letta-ai/letta-client/0.1.2",
+                "X-Fern-SDK-Version": "0.1.3",
+                "User-Agent": "@letta-ai/letta-client/0.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
@@ -825,13 +974,27 @@ export class Tools {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body as Letta.LettaSchemasToolTool;
+            return serializers.LettaSchemasToolTool.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 422:
-                    throw new Letta.UnprocessableEntityError(_response.error.body as Letta.HttpValidationError);
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.LettaError({
                         statusCode: _response.error.statusCode,
@@ -857,7 +1020,8 @@ export class Tools {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getCustomAuthorizationHeaders() {
+        const tokenValue = await core.Supplier.get(this._options.token);
+        return { Authorization: `Bearer ${tokenValue}` };
     }
 }

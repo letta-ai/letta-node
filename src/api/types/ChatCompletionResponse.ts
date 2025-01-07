@@ -10,9 +10,9 @@ import * as Letta from "../index";
 export interface ChatCompletionResponse {
     id: string;
     choices: Letta.Choice[];
-    created: string;
+    created: Date;
     model?: string;
-    system_fingerprint?: string;
+    systemFingerprint?: string;
     object?: "chat.completion";
     usage: Letta.UsageStatistics;
 }

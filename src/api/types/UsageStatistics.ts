@@ -3,7 +3,7 @@
  */
 
 export interface UsageStatistics {
-    completion_tokens?: number;
-    prompt_tokens?: number;
-    total_tokens?: number;
+    completionTokens?: number;
+    promptTokens?: number;
+    totalTokens?: number;
 }

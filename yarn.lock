@@ -656,9 +656,9 @@
     form-data "^4.0.0"
 
 "@types/node@*":
-  version "22.10.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.10.4.tgz#da36bebcc4b124f3d62bfde1cd1dafd7763949c1"
-  integrity sha512-99l6wv4HEzBQhvaU/UGoeBoCK61SCROQaCCGyQSgX2tEQ3rKkNZ2S7CEWnS/4s1LV+8ODdK21UeyR1fHP2mXug==
+  version "22.10.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.10.5.tgz#95af89a3fb74a2bb41ef9927f206e6472026e48b"
+  integrity sha512-F8Q+SeGimwOo86fiovQh8qiXfFEh2/ocYv7tU5pJ3EXMSSxk1Joj5wefpFK2fHTf/N6HKGSxIDBT9f3gCxXPkQ==
   dependencies:
     undici-types "~6.20.0"
 
@@ -1304,9 +1304,9 @@ dunder-proto@^1.0.1:
     gopd "^1.2.0"
 
 electron-to-chromium@^1.5.73:
-  version "1.5.76"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.76.tgz#db20295c5061b68f07c8ea4dfcbd701485d94a3d"
-  integrity sha512-CjVQyG7n7Sr+eBXE86HIulnL5N8xZY1sgmOPGuq/F0Rr0FJq63lg0kEtOIDfZBk44FnDLf6FUJ+dsJcuiUDdDQ==
+  version "1.5.77"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.77.tgz#b9e7aa2d833084aac5253d36fc85f99d7cf8ce98"
+  integrity sha512-AnJSrt5JpRVgY6dgd5yccguLc5A7oMSF0Kt3fcW+Hp5WTuFbl5upeSFZbMZYy2o7jhmIhU8Ekrd82GhyXUqUUg==
 
 emittery@^0.13.1:
   version "0.13.1"
@@ -1468,9 +1468,9 @@ fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0, fast-json-sta
   integrity sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
 
 fast-uri@^3.0.1:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.3.tgz#892a1c91802d5d7860de728f18608a0573142241"
-  integrity sha512-aLrHthzCjH5He4Z2H9YZ+v6Ujb9ocRuW6ZzkJQOrTxleEijANq4v1TsaPaVG1PZcuurEzrLcWRyYBYXD5cEiaw==
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.5.tgz#19f5f9691d0dab9b85861a7bb5d98fca961da9cd"
+  integrity sha512-5JnBCWpFlMo0a3ciDy/JckMzzv1U9coZrIhedq+HXxxUfDTAiS0LA8OKVao4G9BxmCVck/jtA5r3KAtRWEyD8Q==
 
 fb-watchman@^2.0.0:
   version "2.0.2"
@@ -2168,11 +2168,6 @@ jest@29.7.0:
     "@jest/types" "^29.6.3"
     import-local "^3.0.2"
     jest-cli "^29.7.0"
-
-js-base64@3.7.2:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.2.tgz#816d11d81a8aff241603d19ce5761e13e41d7745"
-  integrity sha512-NnRs6dsyqUXejqk/yv2aiXlAvOs56sLkX6nUdeaNezI5LFFLlsZjOThmwnrcwh5ZZRwZlCMnVAY3CvhIhoVEKQ==
 
 js-tokens@^4.0.0:
   version "4.0.0"

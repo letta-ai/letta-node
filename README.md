@@ -24,7 +24,7 @@ import { LettaClient } from "@letta-ai/letta-client";
 
 const client = new LettaClient({ token: "YOUR_TOKEN" });
 await client.tools.create({
-    source_code: "source_code",
+    sourceCode: "source_code",
 });
 ```
 

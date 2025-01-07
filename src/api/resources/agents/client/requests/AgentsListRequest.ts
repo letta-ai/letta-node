@@ -18,5 +18,13 @@ export interface AgentsListRequest {
     /**
      * If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
      */
-    match_all_tags?: boolean;
+    matchAllTags?: boolean;
+    /**
+     * Cursor for pagination
+     */
+    cursor?: number;
+    /**
+     * Limit for pagination
+     */
+    limit?: number;
 }

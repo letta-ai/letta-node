@@ -8,36 +8,36 @@ import * as Letta from "../index";
  * Representation of a passage, which is stored in archival memory.
  *
  * Parameters:
- * text (str): The text of the passage.
- * embedding (List[float]): The embedding of the passage.
- * embedding_config (EmbeddingConfig): The embedding configuration used by the passage.
- * created_at (datetime): The creation date of the passage.
- * user_id (str): The unique identifier of the user associated with the passage.
- * agent_id (str): The unique identifier of the agent associated with the passage.
- * source_id (str): The data source of the passage.
- * file_id (str): The unique identifier of the file associated with the passage.
+ *     text (str): The text of the passage.
+ *     embedding (List[float]): The embedding of the passage.
+ *     embedding_config (EmbeddingConfig): The embedding configuration used by the passage.
+ *     created_at (datetime): The creation date of the passage.
+ *     user_id (str): The unique identifier of the user associated with the passage.
+ *     agent_id (str): The unique identifier of the agent associated with the passage.
+ *     source_id (str): The data source of the passage.
+ *     file_id (str): The unique identifier of the file associated with the passage.
  */
 export interface Passage {
     /** The id of the user that made this object. */
-    created_by_id?: string;
+    createdById?: string;
     /** The id of the user that made this object. */
-    last_updated_by_id?: string;
+    lastUpdatedById?: string;
     /** The creation date of the passage. */
-    created_at?: string;
+    createdAt?: Date;
     /** The timestamp when the object was last updated. */
-    updated_at?: string;
+    updatedAt?: Date;
     /** Whether this passage is deleted or not. */
-    is_deleted?: boolean;
+    isDeleted?: boolean;
     /** The unique identifier of the user associated with the passage. */
-    organization_id?: string;
+    organizationId?: string;
     /** The unique identifier of the agent associated with the passage. */
-    agent_id?: string;
+    agentId?: string;
     /** The data source of the passage. */
-    source_id?: string;
+    sourceId?: string;
     /** The unique identifier of the file associated with the passage. */
-    file_id?: string;
+    fileId?: string;
     /** The metadata of the passage. */
-    metadata_?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
     /** The human-friendly ID of the Passage */
     id?: string;
     /** The text of the passage. */
@@ -45,5 +45,5 @@ export interface Passage {
     /** The embedding of the passage. */
     embedding?: number[];
     /** The embedding configuration used by the passage. */
-    embedding_config?: Letta.EmbeddingConfig;
+    embeddingConfig?: Letta.EmbeddingConfig;
 }

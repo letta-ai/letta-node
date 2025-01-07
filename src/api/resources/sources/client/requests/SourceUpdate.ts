@@ -14,7 +14,7 @@ export interface SourceUpdate {
     /** The description of the source. */
     description?: string;
     /** Metadata associated with the source. */
-    metadata_?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
     /** The embedding configuration used by the source. */
-    embedding_config?: Letta.EmbeddingConfig;
+    embeddingConfig?: Letta.EmbeddingConfig;
 }

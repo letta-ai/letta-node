@@ -8,12 +8,12 @@ import * as Letta from "../index";
  * Representation of a source, which is a collection of files and passages.
  *
  * Parameters:
- * id (str): The ID of the source
- * name (str): The name of the source.
- * embedding*config (EmbeddingConfig): The embedding configuration used by the source.
- * user_id (str): The ID of the user that created the source.
- * metadata* (dict): Metadata associated with the source.
- * description (str): The description of the source.
+ *     id (str): The ID of the source
+ *     name (str): The name of the source.
+ *     embedding_config (EmbeddingConfig): The embedding configuration used by the source.
+ *     user_id (str): The ID of the user that created the source.
+ *     metadata_ (dict): Metadata associated with the source.
+ *     description (str): The description of the source.
  */
 export interface Source {
     /** The human-friendly ID of the Source */
@@ -23,17 +23,17 @@ export interface Source {
     /** The description of the source. */
     description?: string;
     /** The embedding configuration used by the source. */
-    embedding_config: Letta.EmbeddingConfig;
+    embeddingConfig: Letta.EmbeddingConfig;
     /** The ID of the organization that created the source. */
-    organization_id?: string;
+    organizationId?: string;
     /** Metadata associated with the source. */
-    metadata_?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
     /** The id of the user that made this Tool. */
-    created_by_id?: string;
+    createdById?: string;
     /** The id of the user that made this Tool. */
-    last_updated_by_id?: string;
+    lastUpdatedById?: string;
     /** The timestamp when the source was created. */
-    created_at?: string;
+    createdAt?: Date;
     /** The timestamp when the source was last updated. */
-    updated_at?: string;
+    updatedAt?: Date;
 }

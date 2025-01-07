@@ -7,7 +7,7 @@ export interface AssistantFile {
     id: string;
     object?: string;
     /** The unix timestamp of when the file was created. */
-    created_at: number;
+    createdAt: number;
     /** The unique identifier of the assistant. */
-    assistant_id: string;
+    assistantId: string;
 }

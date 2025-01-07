@@ -9,6 +9,6 @@ import * as Letta from "../index";
  */
 export interface InitToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
-    tool_name: string;
+    toolName: string;
     type?: Letta.ToolRuleType;
 }

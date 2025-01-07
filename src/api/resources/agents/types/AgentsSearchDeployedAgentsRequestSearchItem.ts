@@ -5,6 +5,20 @@
 import * as Letta from "../../../index";
 
 export type AgentsSearchDeployedAgentsRequestSearchItem =
-    | Letta.AgentsSearchDeployedAgentsRequestSearchItemZero
-    | Letta.AgentsSearchDeployedAgentsRequestSearchItemOperator
-    | Letta.AgentsSearchDeployedAgentsRequestSearchItemDirection;
+    | Letta.AgentsSearchDeployedAgentsRequestSearchItem.Version
+    | Letta.AgentsSearchDeployedAgentsRequestSearchItem.Name
+    | Letta.AgentsSearchDeployedAgentsRequestSearchItem.OrderBy;
+
+export namespace AgentsSearchDeployedAgentsRequestSearchItem {
+    export interface Version extends Letta.AgentsSearchDeployedAgentsRequestSearchItemVersion {
+        field: "version";
+    }
+
+    export interface Name extends Letta.AgentsSearchDeployedAgentsRequestSearchItemName {
+        field: "name";
+    }
+
+    export interface OrderBy extends Letta.AgentsSearchDeployedAgentsRequestSearchItemOrderBy {
+        field: "order_by";
+    }
+}

@@ -6,15 +6,15 @@
  * A Block represents a reserved section of the LLM's context window which is editable. `Block` objects contained in the `Memory` object, which is able to edit the Block values.
  *
  * Parameters:
- * label (str): The label of the block (e.g. 'human', 'persona'). This defines a category for the block.
- * value (str): The value of the block. This is the string that is represented in the context window.
- * limit (int): The character limit of the block.
- * is*template (bool): Whether the block is a template (e.g. saved human/persona options). Non-template blocks are not stored in the database and are ephemeral, while templated blocks are stored in the database.
- * label (str): The label of the block (e.g. 'human', 'persona'). This defines a category for the block.
- * template_name (str): The name of the block template (if it is a template).
- * description (str): Description of the block.
- * metadata* (Dict): Metadata of the block.
- * user_id (str): The unique identifier of the user associated with the block.
+ *     label (str): The label of the block (e.g. 'human', 'persona'). This defines a category for the block.
+ *     value (str): The value of the block. This is the string that is represented in the context window.
+ *     limit (int): The character limit of the block.
+ *     is_template (bool): Whether the block is a template (e.g. saved human/persona options). Non-template blocks are not stored in the database and are ephemeral, while templated blocks are stored in the database.
+ *     label (str): The label of the block (e.g. 'human', 'persona'). This defines a category for the block.
+ *     template_name (str): The name of the block template (if it is a template).
+ *     description (str): Description of the block.
+ *     metadata_ (Dict): Metadata of the block.
+ *     user_id (str): The unique identifier of the user associated with the block.
  */
 export interface Block {
     /** Value of the block. */
@@ -24,19 +24,19 @@ export interface Block {
     /** Name of the block if it is a template. */
     name?: string;
     /** Whether the block is a template (e.g. saved human/persona options). */
-    is_template?: boolean;
+    isTemplate?: boolean;
     /** Label of the block (e.g. 'human', 'persona') in the context window. */
     label?: string;
     /** Description of the block. */
     description?: string;
     /** Metadata of the block. */
-    metadata_?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
     /** The human-friendly ID of the Block */
     id?: string;
     /** The unique identifier of the organization associated with the block. */
-    organization_id?: string;
+    organizationId?: string;
     /** The id of the user that made this Block. */
-    created_by_id?: string;
+    createdById?: string;
     /** The id of the user that last updated this Block. */
-    last_updated_by_id?: string;
+    lastUpdatedById?: string;
 }

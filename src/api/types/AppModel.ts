@@ -19,9 +19,9 @@ export interface AppModel {
     group?: string;
     status?: string;
     enabled?: boolean;
-    no_auth?: boolean;
-    auth_schemes?: Letta.AppAuthScheme[];
+    noAuth?: boolean;
+    authSchemes?: Letta.AppAuthScheme[];
     testConnectors?: Record<string, unknown>[];
-    documentation_doc_text?: string;
-    configuration_docs_text?: string;
+    documentationDocText?: string;
+    configurationDocsText?: string;
 }

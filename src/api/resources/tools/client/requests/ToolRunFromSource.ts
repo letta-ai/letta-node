@@ -5,17 +5,17 @@
 /**
  * @example
  *     {
- *         source_code: "source_code",
+ *         sourceCode: "source_code",
  *         args: "args"
  *     }
  */
 export interface ToolRunFromSource {
     /** The source code of the function. */
-    source_code: string;
+    sourceCode: string;
     /** The arguments to pass to the tool (as stringified JSON). */
     args: string;
     /** The name of the tool to run. */
     name?: string;
     /** The type of the source code. */
-    source_type?: string;
+    sourceType?: string;
 }

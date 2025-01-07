@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         agent_id: "agent_id"
+ *         agentId: "agent_id"
  *     }
  */
 export interface LinkAgentMemoryBlockRequest {
     /**
      * The unique identifier of the agent to attach the source to.
      */
-    agent_id: string;
+    agentId: string;
 }

@@ -12,25 +12,27 @@ export interface UpdateAgent {
     /** The name of the agent. */
     name?: string;
     /** The ids of the tools used by the agent. */
-    tool_ids?: string[];
+    toolIds?: string[];
     /** The ids of the sources used by the agent. */
-    source_ids?: string[];
+    sourceIds?: string[];
     /** The ids of the blocks used by the agent. */
-    block_ids?: string[];
+    blockIds?: string[];
     /** The tags associated with the agent. */
     tags?: string[];
     /** The system prompt used by the agent. */
     system?: string;
     /** The tool rules governing the agent. */
-    tool_rules?: Letta.UpdateAgentToolRulesItem[];
+    toolRules?: Letta.UpdateAgentToolRulesItem[];
     /** The LLM configuration used by the agent. */
-    llm_config?: Letta.LlmConfig;
+    llmConfig?: Letta.LlmConfig;
     /** The embedding configuration used by the agent. */
-    embedding_config?: Letta.EmbeddingConfig;
+    embeddingConfig?: Letta.EmbeddingConfig;
     /** The ids of the messages in the agent's in-context memory. */
-    message_ids?: string[];
+    messageIds?: string[];
     /** The description of the agent. */
     description?: string;
     /** The metadata of the agent. */
-    metadata_?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
+    /** The environment variables for tool execution specific to this agent. */
+    toolExecEnvironmentVariables?: Record<string, string | undefined>;
 }

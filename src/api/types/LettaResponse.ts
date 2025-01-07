@@ -9,12 +9,12 @@ import * as Letta from "../index";
  * The type of the returned messages can be either `Message` or `LettaMessage`, depending on what was specified in the request.
  *
  * Attributes:
- * messages (List[Union[Message, LettaMessage]]): The messages returned by the agent.
- * usage (LettaUsageStatistics): The usage statistics
+ *     messages (List[Union[Message, LettaMessage]]): The messages returned by the agent.
+ *     usage (LettaUsageStatistics): The usage statistics
  */
 export interface LettaResponse {
     /** The messages returned by the agent. */
-    messages: unknown[];
+    messages: Letta.LettaResponseMessagesItem[];
     /** The usage statistics of the agent. */
     usage: Letta.LettaUsageStatistics;
 }

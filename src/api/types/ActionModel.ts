@@ -9,7 +9,7 @@ import * as Letta from "../index";
  */
 export interface ActionModel {
     name: string;
-    display_name?: string;
+    displayName?: string;
     parameters: Letta.ActionParametersModel;
     response: Letta.ActionResponseModel;
     appName: string;

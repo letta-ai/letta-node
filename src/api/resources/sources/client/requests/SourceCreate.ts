@@ -14,9 +14,9 @@ export interface SourceCreate {
     /** The name of the source. */
     name: string;
     /** The embedding configuration used by the source. */
-    embedding_config?: Letta.EmbeddingConfig;
+    embeddingConfig?: Letta.EmbeddingConfig;
     /** The description of the source. */
     description?: string;
     /** Metadata associated with the source. */
-    metadata_?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
 }

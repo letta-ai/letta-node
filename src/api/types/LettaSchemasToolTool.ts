@@ -6,11 +6,11 @@
  * Representation of a tool, which is a function that can be called by the agent.
  *
  * Parameters:
- * id (str): The unique identifier of the tool.
- * name (str): The name of the function.
- * tags (List[str]): Metadata tags.
- * source_code (str): The source code of the function.
- * json_schema (Dict): The JSON schema of the function.
+ *     id (str): The unique identifier of the tool.
+ *     name (str): The name of the function.
+ *     tags (List[str]): Metadata tags.
+ *     source_code (str): The source code of the function.
+ *     json_schema (Dict): The JSON schema of the function.
  */
 export interface LettaSchemasToolTool {
     /** The human-friendly ID of the Tool */
@@ -18,23 +18,23 @@ export interface LettaSchemasToolTool {
     /** The description of the tool. */
     description?: string;
     /** The type of the source code. */
-    source_type?: string;
+    sourceType?: string;
     /** The module of the function. */
     module?: string;
     /** The unique identifier of the organization associated with the tool. */
-    organization_id?: string;
+    organizationId?: string;
     /** The name of the function. */
     name?: string;
     /** Metadata tags. */
     tags?: string[];
     /** The source code of the function. */
-    source_code: string;
+    sourceCode: string;
     /** The JSON schema of the function. */
-    json_schema?: Record<string, unknown>;
+    jsonSchema?: Record<string, unknown>;
     /** The maximum number of characters in the response. */
-    return_char_limit?: number;
+    returnCharLimit?: number;
     /** The id of the user that made this Tool. */
-    created_by_id?: string;
+    createdById?: string;
     /** The id of the user that made this Tool. */
-    last_updated_by_id?: string;
+    lastUpdatedById?: string;
 }

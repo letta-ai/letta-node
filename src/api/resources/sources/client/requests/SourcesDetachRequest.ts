@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         agent_id: "agent_id"
+ *         agentId: "agent_id"
  *     }
  */
 export interface SourcesDetachRequest {
     /**
      * The unique identifier of the agent to detach the source from.
      */
-    agent_id: string;
+    agentId: string;
 }
