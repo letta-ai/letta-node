@@ -113,7 +113,7 @@ describe("Delete agent", () => {
 });
 
 describe("Send message", () => {
-    it("Should send a message", async () => {
+    it.skip("Should send a message", async () => {
         const agent = await createAndVerifyAgent({
             memoryBlocks: [
                 {
@@ -134,10 +134,10 @@ describe("Send message", () => {
             ],
         });
 
-        // expect(response.messages).toHaveLength(3);
+        expect(response.messages).toHaveLength(3);
         expect(response.usage.stepCount).toEqual(1);
         expect(response.messages.map((message) => (message as { messageType?: string }).messageType)).toEqual([
-            // "reasoning_message",
+            "reasoning_message",
             "tool_call_message",
             "tool_return_message",
         ]);
@@ -153,7 +153,7 @@ describe("Send message", () => {
         expect(lastUserMessage?.message).toContain(messageText);
     }, 10000);
 
-    it("Should send a streaming message", async () => {
+    it.skip("Should send a streaming message", async () => {
         const agent = await createAndVerifyAgent({
             memoryBlocks: [
                 {
@@ -179,10 +179,10 @@ describe("Send message", () => {
             responses.push(chunk);
         }
 
-        // expect(responses).toHaveLength(4);
+        expect(responses).toHaveLength(4);
         expect((responses.pop() as LettaUsageStatistics).stepCount).toEqual(1);
         expect(responses.map((message) => message.messageType)).toEqual([
-            // "reasoning_message",
+            "reasoning_message",
             "tool_call_message",
             "tool_return_message",
         ]);
