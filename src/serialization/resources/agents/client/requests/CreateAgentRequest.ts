@@ -54,7 +54,9 @@ export const CreateAgentRequest: core.serialization.Schema<
         "tool_exec_environment_variables",
         core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional()
     ),
-    userId: core.serialization.property("user_id", core.serialization.string().optional()),
+    variables: core.serialization
+        .record(core.serialization.string(), core.serialization.string().optional())
+        .optional(),
 });
 
 export declare namespace CreateAgentRequest {
@@ -82,6 +84,6 @@ export declare namespace CreateAgentRequest {
         from_template?: string | null;
         project_id?: string | null;
         tool_exec_environment_variables?: Record<string, string | null | undefined> | null;
-        user_id?: string | null;
+        variables?: Record<string, string | null | undefined> | null;
     }
 }

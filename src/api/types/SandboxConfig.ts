@@ -17,8 +17,6 @@ export interface SandboxConfig {
     id?: string;
     /** The type of sandbox. */
     type?: Letta.SandboxType;
-    /** The unique identifier of the organization associated with the sandbox. */
-    organizationId?: string;
     /** The JSON sandbox settings data. */
     config?: Record<string, unknown>;
 }

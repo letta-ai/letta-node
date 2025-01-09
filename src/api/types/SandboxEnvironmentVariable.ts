@@ -19,8 +19,6 @@ export interface SandboxEnvironmentVariable {
     value: string;
     /** An optional description of the environment variable. */
     description?: string;
-    /** The ID of the organization this environment variable belongs to. */
-    organizationId?: string;
     /** The ID of the sandbox config this environment variable belongs to. */
     sandboxConfigId: string;
 }

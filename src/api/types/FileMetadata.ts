@@ -8,8 +8,6 @@
 export interface FileMetadata {
     /** The human-friendly ID of the File */
     id?: string;
-    /** The unique identifier of the organization associated with the document. */
-    organizationId?: string;
     /** The unique identifier of the source associated with the document. */
     sourceId: string;
     /** The name of the file. */

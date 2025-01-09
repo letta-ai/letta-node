@@ -12,6 +12,7 @@ export const LettaStreamingRequest: core.serialization.Schema<
     Letta.agents.LettaStreamingRequest
 > = core.serialization.object({
     messages: core.serialization.list(MessageCreate),
+    useAssistantMessage: core.serialization.property("use_assistant_message", core.serialization.boolean().optional()),
     assistantMessageToolName: core.serialization.property(
         "assistant_message_tool_name",
         core.serialization.string().optional()
@@ -26,6 +27,7 @@ export const LettaStreamingRequest: core.serialization.Schema<
 export declare namespace LettaStreamingRequest {
     interface Raw {
         messages: MessageCreate.Raw[];
+        use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;
         assistant_message_tool_kwarg?: string | null;
         stream_tokens?: boolean | null;

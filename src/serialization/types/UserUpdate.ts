@@ -10,13 +10,11 @@ export const UserUpdate: core.serialization.ObjectSchema<serializers.UserUpdate.
     core.serialization.object({
         id: core.serialization.string(),
         name: core.serialization.string().optional(),
-        organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
     });
 
 export declare namespace UserUpdate {
     interface Raw {
         id: string;
         name?: string | null;
-        organization_id?: string | null;
     }
 }

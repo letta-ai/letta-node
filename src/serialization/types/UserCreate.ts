@@ -9,12 +9,10 @@ import * as core from "../../core";
 export const UserCreate: core.serialization.ObjectSchema<serializers.UserCreate.Raw, Letta.UserCreate> =
     core.serialization.object({
         name: core.serialization.string(),
-        organizationId: core.serialization.property("organization_id", core.serialization.string()),
     });
 
 export declare namespace UserCreate {
     interface Raw {
         name: string;
-        organization_id: string;
     }
 }

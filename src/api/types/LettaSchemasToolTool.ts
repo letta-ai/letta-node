@@ -21,8 +21,6 @@ export interface LettaSchemasToolTool {
     sourceType?: string;
     /** The module of the function. */
     module?: string;
-    /** The unique identifier of the organization associated with the tool. */
-    organizationId?: string;
     /** The name of the function. */
     name?: string;
     /** Metadata tags. */

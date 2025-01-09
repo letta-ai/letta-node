@@ -28,8 +28,6 @@ export interface Passage {
     updatedAt?: Date;
     /** Whether this passage is deleted or not. */
     isDeleted?: boolean;
-    /** The unique identifier of the user associated with the passage. */
-    organizationId?: string;
     /** The unique identifier of the agent associated with the passage. */
     agentId?: string;
     /** The data source of the passage. */

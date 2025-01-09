@@ -34,7 +34,6 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         agentType: core.serialization.property("agent_type", AgentType),
         llmConfig: core.serialization.property("llm_config", LlmConfig),
         embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
-        organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
         description: core.serialization.string().optional(),
         metadata: core.serialization.property(
             "metadata_",
@@ -46,7 +45,7 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         tags: core.serialization.list(core.serialization.string()),
         toolExecEnvironmentVariables: core.serialization.property(
             "tool_exec_environment_variables",
-            core.serialization.list(AgentEnvironmentVariable)
+            core.serialization.list(AgentEnvironmentVariable).optional()
         ),
     });
 
@@ -64,13 +63,12 @@ export declare namespace AgentState {
         agent_type: AgentType.Raw;
         llm_config: LlmConfig.Raw;
         embedding_config: EmbeddingConfig.Raw;
-        organization_id?: string | null;
         description?: string | null;
         metadata_?: Record<string, unknown> | null;
         memory: Memory.Raw;
         tools: LettaSchemasToolTool.Raw[];
         sources: Source.Raw[];
         tags: string[];
-        tool_exec_environment_variables: AgentEnvironmentVariable.Raw[];
+        tool_exec_environment_variables?: AgentEnvironmentVariable.Raw[] | null;
     }
 }

@@ -18,7 +18,6 @@ export const AgentEnvironmentVariable: core.serialization.ObjectSchema<
     key: core.serialization.string(),
     value: core.serialization.string(),
     description: core.serialization.string().optional(),
-    organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
     agentId: core.serialization.property("agent_id", core.serialization.string()),
 });
 
@@ -32,7 +31,6 @@ export declare namespace AgentEnvironmentVariable {
         key: string;
         value: string;
         description?: string | null;
-        organization_id?: string | null;
         agent_id: string;
     }
 }

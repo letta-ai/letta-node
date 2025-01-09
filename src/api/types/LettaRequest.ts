@@ -7,6 +7,8 @@ import * as Letta from "../index";
 export interface LettaRequest {
     /** The messages to be sent to the agent. */
     messages: Letta.MessageCreate[];
+    /** Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects. */
+    useAssistantMessage?: boolean;
     /** The name of the designated message tool. */
     assistantMessageToolName?: string;
     /** The name of the message argument in the designated message tool. */

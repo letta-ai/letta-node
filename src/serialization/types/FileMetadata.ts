@@ -9,7 +9,6 @@ import * as core from "../../core";
 export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetadata.Raw, Letta.FileMetadata> =
     core.serialization.object({
         id: core.serialization.string().optional(),
-        organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
         sourceId: core.serialization.property("source_id", core.serialization.string()),
         fileName: core.serialization.property("file_name", core.serialization.string().optional()),
         filePath: core.serialization.property("file_path", core.serialization.string().optional()),
@@ -28,7 +27,6 @@ export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetad
 export declare namespace FileMetadata {
     interface Raw {
         id?: string | null;
-        organization_id?: string | null;
         source_id: string;
         file_name?: string | null;
         file_path?: string | null;

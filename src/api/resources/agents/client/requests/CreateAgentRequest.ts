@@ -60,5 +60,6 @@ export interface CreateAgentRequest {
     projectId?: string;
     /** The environment variables for tool execution specific to this agent. */
     toolExecEnvironmentVariables?: Record<string, string | undefined>;
-    userId?: string;
+    /** The variables that should be set for the agent. */
+    variables?: Record<string, string | undefined>;
 }

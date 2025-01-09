@@ -12,7 +12,6 @@ export const Source: core.serialization.ObjectSchema<serializers.Source.Raw, Let
     name: core.serialization.string(),
     description: core.serialization.string().optional(),
     embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
-    organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
     metadata: core.serialization.property(
         "metadata_",
         core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
@@ -29,7 +28,6 @@ export declare namespace Source {
         name: string;
         description?: string | null;
         embedding_config: EmbeddingConfig.Raw;
-        organization_id?: string | null;
         metadata_?: Record<string, unknown> | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;

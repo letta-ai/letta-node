@@ -13,8 +13,6 @@
 export interface User {
     /** The human-friendly ID of the User */
     id?: string;
-    /** The organization id of the user */
-    organizationId?: string;
     /** The name of the user. */
     name: string;
     /** The creation date of the user. */

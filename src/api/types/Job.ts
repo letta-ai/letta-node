@@ -31,6 +31,4 @@ export interface Job {
     metadata?: Record<string, unknown>;
     /** The human-friendly ID of the Job */
     id?: string;
-    /** The unique identifier of the user associated with the job. */
-    userId?: string;
 }

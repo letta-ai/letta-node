@@ -19,7 +19,6 @@ export const Job: core.serialization.ObjectSchema<serializers.Job.Raw, Letta.Job
         core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
     ),
     id: core.serialization.string().optional(),
-    userId: core.serialization.property("user_id", core.serialization.string().optional()),
 });
 
 export declare namespace Job {
@@ -32,6 +31,5 @@ export declare namespace Job {
         completed_at?: string | null;
         metadata_?: Record<string, unknown> | null;
         id?: string | null;
-        user_id?: string | null;
     }
 }

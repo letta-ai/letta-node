@@ -34,8 +34,6 @@ export interface LettaSchemasMessageMessage {
     role: Letta.MessageRole;
     /** The text of the message. */
     text?: string;
-    /** The unique identifier of the organization. */
-    organizationId?: string;
     /** The unique identifier of the agent. */
     agentId?: string;
     /** The model used to make the function call. */

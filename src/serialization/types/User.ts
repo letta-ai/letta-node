@@ -8,7 +8,6 @@ import * as core from "../../core";
 
 export const User: core.serialization.ObjectSchema<serializers.User.Raw, Letta.User> = core.serialization.object({
     id: core.serialization.string().optional(),
-    organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
     name: core.serialization.string(),
     createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
     updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
@@ -18,7 +17,6 @@ export const User: core.serialization.ObjectSchema<serializers.User.Raw, Letta.U
 export declare namespace User {
     interface Raw {
         id?: string | null;
-        organization_id?: string | null;
         name: string;
         created_at?: string | null;
         updated_at?: string | null;

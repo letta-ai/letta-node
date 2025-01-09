@@ -43,8 +43,6 @@ export interface AgentState {
     llmConfig: Letta.LlmConfig;
     /** The embedding configuration used by the agent. */
     embeddingConfig: Letta.EmbeddingConfig;
-    /** The unique identifier of the organization associated with the agent. */
-    organizationId?: string;
     /** The description of the agent. */
     description?: string;
     /** The metadata of the agent. */
@@ -58,5 +56,5 @@ export interface AgentState {
     /** The tags associated with the agent. */
     tags: string[];
     /** The environment variables for tool execution specific to this agent. */
-    toolExecEnvironmentVariables: Letta.AgentEnvironmentVariable[];
+    toolExecEnvironmentVariables?: Letta.AgentEnvironmentVariable[];
 }

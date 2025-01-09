@@ -5,6 +5,4 @@
 export interface UserCreate {
     /** The name of the user. */
     name: string;
-    /** The organization id of the user. */
-    organizationId: string;
 }

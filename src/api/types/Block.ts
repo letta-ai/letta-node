@@ -33,8 +33,6 @@ export interface Block {
     metadata?: Record<string, unknown>;
     /** The human-friendly ID of the Block */
     id?: string;
-    /** The unique identifier of the organization associated with the block. */
-    organizationId?: string;
     /** The id of the user that made this Block. */
     createdById?: string;
     /** The id of the user that last updated this Block. */

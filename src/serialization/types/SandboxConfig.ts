@@ -15,7 +15,6 @@ export const SandboxConfig: core.serialization.ObjectSchema<serializers.SandboxC
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
         id: core.serialization.string().optional(),
         type: SandboxType.optional(),
-        organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
         config: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     });
 
@@ -27,7 +26,6 @@ export declare namespace SandboxConfig {
         updated_at?: string | null;
         id?: string | null;
         type?: SandboxType.Raw | null;
-        organization_id?: string | null;
         config?: Record<string, unknown> | null;
     }
 }

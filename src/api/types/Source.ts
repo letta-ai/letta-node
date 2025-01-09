@@ -24,8 +24,6 @@ export interface Source {
     description?: string;
     /** The embedding configuration used by the source. */
     embeddingConfig: Letta.EmbeddingConfig;
-    /** The ID of the organization that created the source. */
-    organizationId?: string;
     /** Metadata associated with the source. */
     metadata?: Record<string, unknown>;
     /** The id of the user that made this Tool. */

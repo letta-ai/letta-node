@@ -19,7 +19,6 @@ export const LettaSchemasMessageMessage: core.serialization.ObjectSchema<
     id: core.serialization.string().optional(),
     role: MessageRole,
     text: core.serialization.string().optional(),
-    organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
     agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
     model: core.serialization.string().optional(),
     name: core.serialization.string().optional(),
@@ -39,7 +38,6 @@ export declare namespace LettaSchemasMessageMessage {
         id?: string | null;
         role: MessageRole.Raw;
         text?: string | null;
-        organization_id?: string | null;
         agent_id?: string | null;
         model?: string | null;
         name?: string | null;

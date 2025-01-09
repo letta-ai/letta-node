@@ -18,7 +18,6 @@ export const Block: core.serialization.ObjectSchema<serializers.Block.Raw, Letta
         core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
     ),
     id: core.serialization.string().optional(),
-    organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
 });
@@ -33,7 +32,6 @@ export declare namespace Block {
         description?: string | null;
         metadata_?: Record<string, unknown> | null;
         id?: string | null;
-        organization_id?: string | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
     }

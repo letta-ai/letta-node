@@ -14,7 +14,6 @@ export const LettaSchemasToolTool: core.serialization.ObjectSchema<
     description: core.serialization.string().optional(),
     sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
     module: core.serialization.string().optional(),
-    organizationId: core.serialization.property("organization_id", core.serialization.string().optional()),
     name: core.serialization.string().optional(),
     tags: core.serialization.list(core.serialization.string()).optional(),
     sourceCode: core.serialization.property("source_code", core.serialization.string()),
@@ -33,7 +32,6 @@ export declare namespace LettaSchemasToolTool {
         description?: string | null;
         source_type?: string | null;
         module?: string | null;
-        organization_id?: string | null;
         name?: string | null;
         tags?: string[] | null;
         source_code: string;
