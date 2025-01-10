@@ -93,6 +93,7 @@ export * from "./ToolMessage";
 export * from "./ToolReturnMessageStatus";
 export * from "./ToolReturnMessage";
 export * from "./ToolRuleType";
+export * from "./ToolType";
 export * from "./UsageStatistics";
 export * from "./User";
 export * from "./UserCreate";
