@@ -65,6 +65,7 @@ export * from "./OpenAiAssistant";
 export * from "./Organization";
 export * from "./OrganizationCreate";
 export * from "./Passage";
+export * from "./Provider";
 export * from "./ReasoningMessage";
 export * from "./RecallMemorySummary";
 export * from "./ResponseFormat";

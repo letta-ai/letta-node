@@ -9,7 +9,11 @@ import * as core from "../../../../../core";
 export const ToolRunFromSource: core.serialization.Schema<serializers.ToolRunFromSource.Raw, Letta.ToolRunFromSource> =
     core.serialization.object({
         sourceCode: core.serialization.property("source_code", core.serialization.string()),
-        args: core.serialization.string(),
+        args: core.serialization.record(core.serialization.string(), core.serialization.string()),
+        envVars: core.serialization.property(
+            "env_vars",
+            core.serialization.record(core.serialization.string(), core.serialization.string()).optional()
+        ),
         name: core.serialization.string().optional(),
         sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
     });
@@ -17,7 +21,8 @@ export const ToolRunFromSource: core.serialization.Schema<serializers.ToolRunFro
 export declare namespace ToolRunFromSource {
     interface Raw {
         source_code: string;
-        args: string;
+        args: Record<string, string>;
+        env_vars?: Record<string, string> | null;
         name?: string | null;
         source_type?: string | null;
     }

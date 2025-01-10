@@ -11,11 +11,12 @@ import * as errors from "../../../../errors/index";
 import { Context } from "../resources/context/client/Client";
 import { Tools } from "../resources/tools/client/Client";
 import { Sources } from "../resources/sources/client/Client";
-import { Memory } from "../resources/memory/client/Client";
-import { MemoryBlocks } from "../resources/memoryBlocks/client/Client";
+import { CoreMemory } from "../resources/coreMemory/client/Client";
 import { RecallMemory } from "../resources/recallMemory/client/Client";
 import { ArchivalMemory } from "../resources/archivalMemory/client/Client";
 import { Messages } from "../resources/messages/client/Client";
+import { Templates } from "../resources/templates/client/Client";
+import { MemoryVariables } from "../resources/memoryVariables/client/Client";
 
 export declare namespace Agents {
     interface Options {
@@ -40,11 +41,12 @@ export class Agents {
     protected _context: Context | undefined;
     protected _tools: Tools | undefined;
     protected _sources: Sources | undefined;
-    protected _memory: Memory | undefined;
-    protected _memoryBlocks: MemoryBlocks | undefined;
+    protected _coreMemory: CoreMemory | undefined;
     protected _recallMemory: RecallMemory | undefined;
     protected _archivalMemory: ArchivalMemory | undefined;
     protected _messages: Messages | undefined;
+    protected _templates: Templates | undefined;
+    protected _memoryVariables: MemoryVariables | undefined;
 
     constructor(protected readonly _options: Agents.Options = {}) {}
 
@@ -60,12 +62,8 @@ export class Agents {
         return (this._sources ??= new Sources(this._options));
     }
 
-    public get memory(): Memory {
-        return (this._memory ??= new Memory(this._options));
-    }
-
-    public get memoryBlocks(): MemoryBlocks {
-        return (this._memoryBlocks ??= new MemoryBlocks(this._options));
+    public get coreMemory(): CoreMemory {
+        return (this._coreMemory ??= new CoreMemory(this._options));
     }
 
     public get recallMemory(): RecallMemory {
@@ -78,6 +76,14 @@ export class Agents {
 
     public get messages(): Messages {
         return (this._messages ??= new Messages(this._options));
+    }
+
+    public get templates(): Templates {
+        return (this._templates ??= new Templates(this._options));
+    }
+
+    public get memoryVariables(): MemoryVariables {
+        return (this._memoryVariables ??= new MemoryVariables(this._options));
     }
 
     /**
@@ -131,8 +137,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
+                "X-Fern-SDK-Version": "0.1.6",
+                "User-Agent": "@letta-ai/letta-client/0.1.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -219,8 +225,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
+                "X-Fern-SDK-Version": "0.1.6",
+                "User-Agent": "@letta-ai/letta-client/0.1.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -299,8 +305,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
+                "X-Fern-SDK-Version": "0.1.6",
+                "User-Agent": "@letta-ai/letta-client/0.1.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -378,8 +384,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
+                "X-Fern-SDK-Version": "0.1.6",
+                "User-Agent": "@letta-ai/letta-client/0.1.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -456,8 +462,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
+                "X-Fern-SDK-Version": "0.1.6",
+                "User-Agent": "@letta-ai/letta-client/0.1.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -516,272 +522,18 @@ export class Agents {
     }
 
     /**
-     * Retrieve a memory block from an agent.
+     * <Note>This endpoint is only available on Letta Cloud.</Note>
      *
-     * @param {string} agentId
-     * @param {string} blockLabel
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
+     * Search deployed agents.
      *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.agents.getAgentMemoryBlock("agent_id", "block_label")
-     */
-    public async getAgentMemoryBlock(
-        agentId: string,
-        blockLabel: string,
-        requestOptions?: Agents.RequestOptions
-    ): Promise<Letta.Block> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`
-            ),
-            method: "GET",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.Block.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/block/{block_label}."
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
-     *
-     * @param {string} agentId
-     * @param {string} blockLabel
-     * @param {Letta.BlockUpdate} request
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.agents.updateAgentMemoryBlockByLabel("agent_id", "block_label", {})
-     */
-    public async updateAgentMemoryBlockByLabel(
-        agentId: string,
-        blockLabel: string,
-        request: Letta.BlockUpdate,
-        requestOptions?: Agents.RequestOptions
-    ): Promise<Letta.Block> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`
-            ),
-            method: "PATCH",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.BlockUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.Block.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/memory/block/{block_label}."
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Retrieve the memory blocks of a specific agent.
-     *
-     * @param {string} agentId
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.agents.getAgentMemoryBlocks("agent_id")
-     */
-    public async getAgentMemoryBlocks(agentId: string, requestOptions?: Agents.RequestOptions): Promise<Letta.Block[]> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block`
-            ),
-            method: "GET",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.agents.getAgentMemoryBlocks.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/block."
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Search deployed agents
-     *
-     * @param {Letta.AgentsSearchDeployedAgentsRequest} request
+     * @param {Letta.AgentsSearchRequest} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.agents.searchdeployedagents()
+     *     await client.agents.search()
      */
-    public async searchdeployedagents(
-        request: Letta.AgentsSearchDeployedAgentsRequest = {},
+    public async search(
+        request: Letta.AgentsSearchRequest = {},
         requestOptions?: Agents.RequestOptions
     ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -793,8 +545,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
+                "X-Fern-SDK-Version": "0.1.6",
+                "User-Agent": "@letta-ai/letta-client/0.1.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -802,9 +554,7 @@ export class Agents {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.AgentsSearchDeployedAgentsRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            body: serializers.AgentsSearchRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -828,337 +578,6 @@ export class Agents {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/agents/search.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Creates a versioned version of an agent
-     *
-     * @param {string} agentId - The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
-     * @param {Letta.AgentsCreateVersionRequest} request
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.NotFoundError}
-     * @throws {@link Letta.InternalServerError}
-     *
-     * @example
-     *     await client.agents.createVersion("agent_id")
-     */
-    public async createVersion(
-        agentId: string,
-        request: Letta.AgentsCreateVersionRequest = {},
-        requestOptions?: Agents.RequestOptions
-    ): Promise<void> {
-        const { returnAgentState, ..._body } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (returnAgentState != null) {
-            _queryParams["returnAgentState"] = returnAgentState.toString();
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/version-template`
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.AgentsCreateVersionRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 404:
-                    throw new Letta.NotFoundError(_response.error.body);
-                case 500:
-                    throw new Letta.InternalServerError(_response.error.body);
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/version-template."
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Migrate an agent to a new versioned agent template
-     *
-     * @param {string} agentId
-     * @param {Letta.AgentsMigrateRequest} request
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.NotFoundError}
-     * @throws {@link Letta.ConflictError}
-     * @throws {@link Letta.InternalServerError}
-     *
-     * @example
-     *     await client.agents.migrate("agent_id", {
-     *         toTemplate: "to_template",
-     *         preserveCoreMemories: true
-     *     })
-     */
-    public async migrate(
-        agentId: string,
-        request: Letta.AgentsMigrateRequest,
-        requestOptions?: Agents.RequestOptions
-    ): Promise<Letta.AgentsMigrateResponse> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/migrate`
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.AgentsMigrateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.AgentsMigrateResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 404:
-                    throw new Letta.NotFoundError(_response.error.body);
-                case 409:
-                    throw new Letta.ConflictError(
-                        serializers.ConflictErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Letta.InternalServerError(_response.error.body);
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/agents/{agent_id}/migrate.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Create a template from an agent
-     *
-     * @param {string} agentId
-     * @param {Letta.AgentsCreateTemplateFromAgentRequest} request
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.NotFoundError}
-     * @throws {@link Letta.InternalServerError}
-     *
-     * @example
-     *     await client.agents.createtemplatefromagent("agent_id")
-     */
-    public async createtemplatefromagent(
-        agentId: string,
-        request: Letta.AgentsCreateTemplateFromAgentRequest = {},
-        requestOptions?: Agents.RequestOptions
-    ): Promise<void> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/template`
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.AgentsCreateTemplateFromAgentRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 404:
-                    throw new Letta.NotFoundError(_response.error.body);
-                case 500:
-                    throw new Letta.InternalServerError(_response.error.body);
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/template."
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Get the variables associated with an agent
-     *
-     * @param {string} agentId
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.NotFoundError}
-     *
-     * @example
-     *     await client.agents.getagentvariables("agent_id")
-     */
-    public async getagentvariables(
-        agentId: string,
-        requestOptions?: Agents.RequestOptions
-    ): Promise<Letta.AgentsGetAgentVariablesResponse> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/variables`
-            ),
-            method: "GET",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.5",
-                "User-Agent": "@letta-ai/letta-client/0.1.5",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.AgentsGetAgentVariablesResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 404:
-                    throw new Letta.NotFoundError(_response.error.body);
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/variables."
-                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

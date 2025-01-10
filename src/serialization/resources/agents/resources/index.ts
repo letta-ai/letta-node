@@ -1,8 +1,13 @@
 export * as messages from "./messages";
 export * from "./messages/types";
+export * as templates from "./templates";
+export * from "./templates/types";
+export * as memoryVariables from "./memoryVariables";
+export * from "./memoryVariables/types";
 export * as tools from "./tools";
 export * as sources from "./sources";
+export * as coreMemory from "./coreMemory";
 export * as archivalMemory from "./archivalMemory";
-export * as memory from "./memory";
 export * from "./archivalMemory/client/requests";
 export * from "./messages/client/requests";
+export * from "./templates/client/requests";

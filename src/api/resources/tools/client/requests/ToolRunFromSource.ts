@@ -6,14 +6,18 @@
  * @example
  *     {
  *         sourceCode: "source_code",
- *         args: "args"
+ *         args: {
+ *             "key": "value"
+ *         }
  *     }
  */
 export interface ToolRunFromSource {
     /** The source code of the function. */
     sourceCode: string;
-    /** The arguments to pass to the tool (as stringified JSON). */
-    args: string;
+    /** The arguments to pass to the tool. */
+    args: Record<string, string>;
+    /** The environment variables to pass to the tool. */
+    envVars?: Record<string, string>;
     /** The name of the tool to run. */
     name?: string;
     /** The type of the source code. */

@@ -11,6 +11,7 @@ import { Models } from "./api/resources/models/client/Client";
 import { Blocks } from "./api/resources/blocks/client/Client";
 import { Jobs } from "./api/resources/jobs/client/Client";
 import { Health } from "./api/resources/health/client/Client";
+import { Providers } from "./api/resources/providers/client/Client";
 
 export declare namespace LettaClient {
     interface Options {
@@ -39,6 +40,7 @@ export class LettaClient {
     protected _blocks: Blocks | undefined;
     protected _jobs: Jobs | undefined;
     protected _health: Health | undefined;
+    protected _providers: Providers | undefined;
 
     constructor(protected readonly _options: LettaClient.Options = {}) {}
 
@@ -68,5 +70,9 @@ export class LettaClient {
 
     public get health(): Health {
         return (this._health ??= new Health(this._options));
+    }
+
+    public get providers(): Providers {
+        return (this._providers ??= new Providers(this._options));
     }
 }

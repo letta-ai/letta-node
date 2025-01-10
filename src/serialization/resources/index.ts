@@ -5,6 +5,8 @@ export * as sources from "./sources";
 export * as models from "./models";
 export * as blocks from "./blocks";
 export * as jobs from "./jobs";
+export * as providers from "./providers";
 export * from "./tools/client/requests";
 export * from "./sources/client/requests";
 export * from "./agents/client/requests";
+export * from "./providers/client/requests";
