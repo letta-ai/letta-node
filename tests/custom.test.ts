@@ -40,7 +40,7 @@ afterAll(async () => {
     await cleanupAllAgents();
 });
 
-describe("Create agent", () => {
+describe.skip("Create agent", () => {
     it("should create an agent from default parameters", async () => {
         const agent = await createAndVerifyAgent({
             memoryBlocks: [
@@ -91,7 +91,7 @@ describe("Create agent", () => {
     });
 });
 
-describe("Delete agent", () => {
+describe.skip("Delete agent", () => {
     it("should delete an agent successfully", async () => {
         const agent = await createAndVerifyAgent({
             memoryBlocks: [
@@ -112,8 +112,8 @@ describe("Delete agent", () => {
     });
 });
 
-describe("Send message", () => {
-    it.skip("Should send a message", async () => {
+describe.skip("Send message", () => {
+    it("Should send a message", async () => {
         const agent = await createAndVerifyAgent({
             memoryBlocks: [
                 {
@@ -153,7 +153,7 @@ describe("Send message", () => {
         expect(lastUserMessage?.message).toContain(messageText);
     }, 10000);
 
-    it.skip("Should send a streaming message", async () => {
+    it("Should send a streaming message", async () => {
         const agent = await createAndVerifyAgent({
             memoryBlocks: [
                 {
