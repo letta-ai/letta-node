@@ -14,8 +14,6 @@ export interface ToolUpdate {
     /** Metadata tags. */
     tags?: string[];
     /** The source code of the function. */
-    module?: string;
-    /** The source code of the function. */
     sourceCode?: string;
     /** The type of the source code. */
     sourceType?: string;

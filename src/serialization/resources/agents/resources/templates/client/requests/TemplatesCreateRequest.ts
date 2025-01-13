@@ -10,11 +10,11 @@ export const TemplatesCreateRequest: core.serialization.Schema<
     serializers.agents.TemplatesCreateRequest.Raw,
     Letta.agents.TemplatesCreateRequest
 > = core.serialization.object({
-    projectId: core.serialization.property("project_id", core.serialization.string().optional()),
+    project: core.serialization.string().optional(),
 });
 
 export declare namespace TemplatesCreateRequest {
     interface Raw {
-        project_id?: string | null;
+        project?: string | null;
     }
 }

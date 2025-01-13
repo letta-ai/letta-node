@@ -11,7 +11,6 @@ export const ToolUpdate: core.serialization.Schema<serializers.ToolUpdate.Raw, L
         description: core.serialization.string().optional(),
         name: core.serialization.string().optional(),
         tags: core.serialization.list(core.serialization.string()).optional(),
-        module: core.serialization.string().optional(),
         sourceCode: core.serialization.property("source_code", core.serialization.string().optional()),
         sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
         jsonSchema: core.serialization.property(
@@ -26,7 +25,6 @@ export declare namespace ToolUpdate {
         description?: string | null;
         name?: string | null;
         tags?: string[] | null;
-        module?: string | null;
         source_code?: string | null;
         source_type?: string | null;
         json_schema?: Record<string, unknown> | null;

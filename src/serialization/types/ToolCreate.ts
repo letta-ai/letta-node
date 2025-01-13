@@ -11,7 +11,6 @@ export const ToolCreate: core.serialization.ObjectSchema<serializers.ToolCreate.
         name: core.serialization.string().optional(),
         description: core.serialization.string().optional(),
         tags: core.serialization.list(core.serialization.string()).optional(),
-        module: core.serialization.string().optional(),
         sourceCode: core.serialization.property("source_code", core.serialization.string()),
         sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
         jsonSchema: core.serialization.property(
@@ -26,7 +25,6 @@ export declare namespace ToolCreate {
         name?: string | null;
         description?: string | null;
         tags?: string[] | null;
-        module?: string | null;
         source_code: string;
         source_type?: string | null;
         json_schema?: Record<string, unknown> | null;

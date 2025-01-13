@@ -15,7 +15,7 @@ export interface ToolRunFromSource {
     /** The source code of the function. */
     sourceCode: string;
     /** The arguments to pass to the tool. */
-    args: Record<string, string>;
+    args: Record<string, unknown>;
     /** The environment variables to pass to the tool. */
     envVars?: Record<string, string>;
     /** The name of the tool to run. */

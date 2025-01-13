@@ -7,5 +7,5 @@
  *     {}
  */
 export interface TemplatesCreateRequest {
-    projectId?: string;
+    project?: string;
 }

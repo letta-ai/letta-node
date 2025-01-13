@@ -8,7 +8,7 @@ import * as core from "../../core";
 import { JobStatus } from "./JobStatus";
 import { JobType } from "./JobType";
 
-export const Job: core.serialization.ObjectSchema<serializers.Job.Raw, Letta.Job> = core.serialization.object({
+export const Run: core.serialization.ObjectSchema<serializers.Run.Raw, Letta.Run> = core.serialization.object({
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
@@ -23,7 +23,7 @@ export const Job: core.serialization.ObjectSchema<serializers.Job.Raw, Letta.Job
     id: core.serialization.string().optional(),
 });
 
-export declare namespace Job {
+export declare namespace Run {
     interface Raw {
         created_by_id?: string | null;
         last_updated_by_id?: string | null;

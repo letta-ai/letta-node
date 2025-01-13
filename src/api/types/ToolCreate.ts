@@ -10,8 +10,6 @@ export interface ToolCreate {
     /** Metadata tags. */
     tags?: string[];
     /** The source code of the function. */
-    module?: string;
-    /** The source code of the function. */
     sourceCode: string;
     /** The source type of the function. */
     sourceType?: string;

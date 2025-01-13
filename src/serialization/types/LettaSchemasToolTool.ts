@@ -15,7 +15,6 @@ export const LettaSchemasToolTool: core.serialization.ObjectSchema<
     toolType: core.serialization.property("tool_type", ToolType.optional()),
     description: core.serialization.string().optional(),
     sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
-    module: core.serialization.string().optional(),
     name: core.serialization.string().optional(),
     tags: core.serialization.list(core.serialization.string()).optional(),
     sourceCode: core.serialization.property("source_code", core.serialization.string().optional()),
@@ -34,7 +33,6 @@ export declare namespace LettaSchemasToolTool {
         tool_type?: ToolType.Raw | null;
         description?: string | null;
         source_type?: string | null;
-        module?: string | null;
         name?: string | null;
         tags?: string[] | null;
         source_code?: string | null;

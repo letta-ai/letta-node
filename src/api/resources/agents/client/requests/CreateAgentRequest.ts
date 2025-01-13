@@ -56,8 +56,8 @@ export interface CreateAgentRequest {
     embeddingChunkSize?: number;
     /** The template id used to configure the agent */
     fromTemplate?: string;
-    /** The project id that the agent will be associated with. */
-    projectId?: string;
+    /** The project slug that the agent will be associated with. */
+    project?: string;
     /** The environment variables for tool execution specific to this agent. */
     toolExecEnvironmentVariables?: Record<string, string | undefined>;
     /** The variables that should be set for the agent. */

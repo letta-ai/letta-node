@@ -23,8 +23,6 @@ export interface LettaSchemasToolTool {
     description?: string;
     /** The type of the source code. */
     sourceType?: string;
-    /** The module of the function. */
-    module?: string;
     /** The name of the function. */
     name?: string;
     /** Metadata tags. */

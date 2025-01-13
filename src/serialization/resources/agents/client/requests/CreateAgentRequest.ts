@@ -49,7 +49,7 @@ export const CreateAgentRequest: core.serialization.Schema<
     contextWindowLimit: core.serialization.property("context_window_limit", core.serialization.number().optional()),
     embeddingChunkSize: core.serialization.property("embedding_chunk_size", core.serialization.number().optional()),
     fromTemplate: core.serialization.property("from_template", core.serialization.string().optional()),
-    projectId: core.serialization.property("project_id", core.serialization.string().optional()),
+    project: core.serialization.string().optional(),
     toolExecEnvironmentVariables: core.serialization.property(
         "tool_exec_environment_variables",
         core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional()
@@ -82,7 +82,7 @@ export declare namespace CreateAgentRequest {
         context_window_limit?: number | null;
         embedding_chunk_size?: number | null;
         from_template?: string | null;
-        project_id?: string | null;
+        project?: string | null;
         tool_exec_environment_variables?: Record<string, string | null | undefined> | null;
         variables?: Record<string, string | null | undefined> | null;
     }

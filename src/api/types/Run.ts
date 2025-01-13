@@ -5,16 +5,17 @@
 import * as Letta from "../index";
 
 /**
- * Representation of offline jobs, used for tracking status of data loading tasks (involving parsing and embedding files).
+ * Representation of a run, which is a job with a 'run' prefix in its ID.
+ * Inherits all fields and behavior from Job except for the ID prefix.
  *
  * Parameters:
- *     id (str): The unique identifier of the job.
- *     status (JobStatus): The status of the job.
- *     created_at (datetime): The unix timestamp of when the job was created.
- *     completed_at (datetime): The unix timestamp of when the job was completed.
- *     user_id (str): The unique identifier of the user associated with the.
+ *     id (str): The unique identifier of the run (prefixed with 'run-').
+ *     status (JobStatus): The status of the run.
+ *     created_at (datetime): The unix timestamp of when the run was created.
+ *     completed_at (datetime): The unix timestamp of when the run was completed.
+ *     user_id (str): The unique identifier of the user associated with the run.
  */
-export interface Job {
+export interface Run {
     /** The id of the user that made this object. */
     createdById?: string;
     /** The id of the user that made this object. */
@@ -29,8 +30,7 @@ export interface Job {
     completedAt?: Date;
     /** The metadata of the job. */
     metadata?: Record<string, unknown>;
-    /** The type of the job. */
     jobType?: Letta.JobType;
-    /** The human-friendly ID of the Job */
+    /** The human-friendly ID of the Run */
     id?: string;
 }
