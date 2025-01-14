@@ -10,5 +10,5 @@ export const SandboxType: core.serialization.Schema<serializers.SandboxType.Raw,
     core.serialization.enum_(["e2b", "local"]);
 
 export declare namespace SandboxType {
-    type Raw = "e2b" | "local";
+    export type Raw = "e2b" | "local";
 }

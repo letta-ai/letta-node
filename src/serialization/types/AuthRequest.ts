@@ -12,7 +12,7 @@ export const AuthRequest: core.serialization.ObjectSchema<serializers.AuthReques
     });
 
 export declare namespace AuthRequest {
-    interface Raw {
+    export interface Raw {
         password?: string | null;
     }
 }

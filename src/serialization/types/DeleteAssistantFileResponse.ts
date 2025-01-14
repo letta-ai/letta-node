@@ -16,7 +16,7 @@ export const DeleteAssistantFileResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace DeleteAssistantFileResponse {
-    interface Raw {
+    export interface Raw {
         id: string;
         object?: string | null;
         deleted: boolean;

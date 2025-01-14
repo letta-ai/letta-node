@@ -13,7 +13,7 @@ export const UserUpdate: core.serialization.ObjectSchema<serializers.UserUpdate.
     });
 
 export declare namespace UserUpdate {
-    interface Raw {
+    export interface Raw {
         id: string;
         name?: string | null;
     }

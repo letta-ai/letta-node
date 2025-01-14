@@ -16,16 +16,16 @@ export const AuthSchemeField: core.serialization.ObjectSchema<serializers.AuthSc
         required: core.serialization.boolean().optional(),
         expectedFromCustomer: core.serialization.property(
             "expected_from_customer",
-            core.serialization.boolean().optional()
+            core.serialization.boolean().optional(),
         ),
         getCurrentUserEndpoint: core.serialization.property(
             "get_current_user_endpoint",
-            core.serialization.string().optional()
+            core.serialization.string().optional(),
         ),
     });
 
 export declare namespace AuthSchemeField {
-    interface Raw {
+    export interface Raw {
         name: string;
         display_name?: string | null;
         description: string;

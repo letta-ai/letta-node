@@ -15,7 +15,7 @@ export const MessageCreate: core.serialization.ObjectSchema<serializers.MessageC
     });
 
 export declare namespace MessageCreate {
-    interface Raw {
+    export interface Raw {
         role: MessageCreateRole.Raw;
         text: string;
         name?: string | null;

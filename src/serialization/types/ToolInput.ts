@@ -14,7 +14,7 @@ export const ToolInput: core.serialization.ObjectSchema<serializers.ToolInput.Ra
     });
 
 export declare namespace ToolInput {
-    interface Raw {
+    export interface Raw {
         type?: "function" | null;
         function: FunctionSchema.Raw;
     }

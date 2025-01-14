@@ -14,41 +14,41 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
         name: core.serialization.string().optional(),
         toolIds: core.serialization.property(
             "tool_ids",
-            core.serialization.list(core.serialization.string()).optional()
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         sourceIds: core.serialization.property(
             "source_ids",
-            core.serialization.list(core.serialization.string()).optional()
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         blockIds: core.serialization.property(
             "block_ids",
-            core.serialization.list(core.serialization.string()).optional()
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         tags: core.serialization.list(core.serialization.string()).optional(),
         system: core.serialization.string().optional(),
         toolRules: core.serialization.property(
             "tool_rules",
-            core.serialization.list(UpdateAgentToolRulesItem).optional()
+            core.serialization.list(UpdateAgentToolRulesItem).optional(),
         ),
         llmConfig: core.serialization.property("llm_config", LlmConfig.optional()),
         embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig.optional()),
         messageIds: core.serialization.property(
             "message_ids",
-            core.serialization.list(core.serialization.string()).optional()
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         description: core.serialization.string().optional(),
         metadata: core.serialization.property(
             "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
         toolExecEnvironmentVariables: core.serialization.property(
             "tool_exec_environment_variables",
-            core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional()
+            core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
         ),
     });
 
 export declare namespace UpdateAgent {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         tool_ids?: string[] | null;
         source_ids?: string[] | null;

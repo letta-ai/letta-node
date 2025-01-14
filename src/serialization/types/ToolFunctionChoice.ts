@@ -16,7 +16,7 @@ export const ToolFunctionChoice: core.serialization.ObjectSchema<
 });
 
 export declare namespace ToolFunctionChoice {
-    interface Raw {
+    export interface Raw {
         type?: "function" | null;
         function: FunctionCallInput.Raw;
     }

@@ -14,7 +14,7 @@ export const CreateArchivalMemory: core.serialization.Schema<
 });
 
 export declare namespace CreateArchivalMemory {
-    interface Raw {
+    export interface Raw {
         text: string;
     }
 }

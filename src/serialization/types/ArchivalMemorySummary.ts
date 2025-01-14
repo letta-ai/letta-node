@@ -14,7 +14,7 @@ export const ArchivalMemorySummary: core.serialization.ObjectSchema<
 });
 
 export declare namespace ArchivalMemorySummary {
-    interface Raw {
+    export interface Raw {
         size: number;
     }
 }

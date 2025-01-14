@@ -13,5 +13,5 @@ export const ToolType: core.serialization.Schema<serializers.ToolType.Raw, Letta
 ]);
 
 export declare namespace ToolType {
-    type Raw = "custom" | "letta_core" | "letta_memory_core";
+    export type Raw = "custom" | "letta_core" | "letta_memory_core";
 }

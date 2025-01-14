@@ -15,7 +15,7 @@ export const ValidationError: core.serialization.ObjectSchema<serializers.Valida
     });
 
 export declare namespace ValidationError {
-    interface Raw {
+    export interface Raw {
         loc: ValidationErrorLocItem.Raw[];
         msg: string;
         type: string;

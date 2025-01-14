@@ -10,13 +10,15 @@ import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Tools {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -45,15 +47,17 @@ export class Tools {
     public async get(toolId: string, requestOptions?: Tools.RequestOptions): Promise<Letta.LettaSchemasToolTool> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/tools/${encodeURIComponent(toolId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/tools/${encodeURIComponent(toolId)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -85,7 +89,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -124,15 +128,17 @@ export class Tools {
     public async delete(toolId: string, requestOptions?: Tools.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/tools/${encodeURIComponent(toolId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/tools/${encodeURIComponent(toolId)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -158,7 +164,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -198,19 +204,21 @@ export class Tools {
     public async update(
         toolId: string,
         request: Letta.ToolUpdate = {},
-        requestOptions?: Tools.RequestOptions
+        requestOptions?: Tools.RequestOptions,
     ): Promise<Letta.LettaSchemasToolTool> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/tools/${encodeURIComponent(toolId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/tools/${encodeURIComponent(toolId)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -243,7 +251,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -282,15 +290,17 @@ export class Tools {
     public async getByName(toolName: string, requestOptions?: Tools.RequestOptions): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/tools/name/${encodeURIComponent(toolName)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/tools/name/${encodeURIComponent(toolName)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -322,7 +332,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -360,7 +370,7 @@ export class Tools {
      */
     public async list(
         request: Letta.ToolsListRequest = {},
-        requestOptions?: Tools.RequestOptions
+        requestOptions?: Tools.RequestOptions,
     ): Promise<Letta.LettaSchemasToolTool[]> {
         const { cursor, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -374,15 +384,17 @@ export class Tools {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                "v1/tools/"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/tools/",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -415,7 +427,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -455,19 +467,21 @@ export class Tools {
      */
     public async create(
         request: Letta.ToolCreate,
-        requestOptions?: Tools.RequestOptions
+        requestOptions?: Tools.RequestOptions,
     ): Promise<Letta.LettaSchemasToolTool> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                "v1/tools/"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/tools/",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -500,7 +514,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -540,19 +554,21 @@ export class Tools {
      */
     public async upsert(
         request: Letta.ToolCreate,
-        requestOptions?: Tools.RequestOptions
+        requestOptions?: Tools.RequestOptions,
     ): Promise<Letta.LettaSchemasToolTool> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                "v1/tools/"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/tools/",
             ),
             method: "PUT",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -585,7 +601,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -623,15 +639,17 @@ export class Tools {
     public async addBaseTool(requestOptions?: Tools.RequestOptions): Promise<Letta.LettaSchemasToolTool[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                "v1/tools/add-base-tools"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/tools/add-base-tools",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -663,7 +681,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -706,19 +724,21 @@ export class Tools {
      */
     public async runToolFromSource(
         request: Letta.ToolRunFromSource,
-        requestOptions?: Tools.RequestOptions
+        requestOptions?: Tools.RequestOptions,
     ): Promise<Letta.ToolReturnMessage> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                "v1/tools/run"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/tools/run",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -751,7 +771,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -789,15 +809,17 @@ export class Tools {
     public async listComposioApps(requestOptions?: Tools.RequestOptions): Promise<Letta.AppModel[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                "v1/tools/composio/apps"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/tools/composio/apps",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -829,7 +851,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -867,19 +889,21 @@ export class Tools {
      */
     public async listComposioActionsByApp(
         composioAppName: string,
-        requestOptions?: Tools.RequestOptions
+        requestOptions?: Tools.RequestOptions,
     ): Promise<Letta.ActionModel[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/tools/composio/apps/${encodeURIComponent(composioAppName)}/actions`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/tools/composio/apps/${encodeURIComponent(composioAppName)}/actions`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -911,7 +935,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -929,7 +953,7 @@ export class Tools {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/tools/composio/apps/{composio_app_name}/actions."
+                    "Timeout exceeded when calling GET /v1/tools/composio/apps/{composio_app_name}/actions.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -951,19 +975,21 @@ export class Tools {
      */
     public async addComposioTool(
         composioActionName: string,
-        requestOptions?: Tools.RequestOptions
+        requestOptions?: Tools.RequestOptions,
     ): Promise<Letta.LettaSchemasToolTool> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/tools/composio/${encodeURIComponent(composioActionName)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/tools/composio/${encodeURIComponent(composioActionName)}`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -995,7 +1021,7 @@ export class Tools {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -1013,7 +1039,7 @@ export class Tools {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/tools/composio/{composio_action_name}."
+                    "Timeout exceeded when calling POST /v1/tools/composio/{composio_action_name}.",
                 );
             case "unknown":
                 throw new errors.LettaError({

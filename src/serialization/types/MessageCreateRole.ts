@@ -10,5 +10,5 @@ export const MessageCreateRole: core.serialization.Schema<serializers.MessageCre
     core.serialization.enum_(["user", "system"]);
 
 export declare namespace MessageCreateRole {
-    type Raw = "user" | "system";
+    export type Raw = "user" | "system";
 }

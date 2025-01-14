@@ -16,7 +16,7 @@ export const UserMessageOutput: core.serialization.ObjectSchema<
 });
 
 export declare namespace UserMessageOutput {
-    interface Raw {
+    export interface Raw {
         id: string;
         date: string;
         message: string;

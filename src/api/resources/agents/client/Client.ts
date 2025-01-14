@@ -19,13 +19,15 @@ import { Templates } from "../resources/templates/client/Client";
 import { MemoryVariables } from "../resources/memoryVariables/client/Client";
 
 export declare namespace Agents {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -100,7 +102,7 @@ export class Agents {
      */
     public async list(
         request: Letta.AgentsListRequest = {},
-        requestOptions?: Agents.RequestOptions
+        requestOptions?: Agents.RequestOptions,
     ): Promise<Letta.AgentState[]> {
         const { name, tags, matchAllTags, cursor, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -130,15 +132,17 @@ export class Agents {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                "v1/agents/"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/agents/",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -171,7 +175,7 @@ export class Agents {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -205,28 +209,25 @@ export class Agents {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.create({
-     *         memoryBlocks: [{
-     *                 value: "value",
-     *                 label: "label"
-     *             }]
-     *     })
+     *     await client.agents.create()
      */
     public async create(
-        request: Letta.CreateAgentRequest,
-        requestOptions?: Agents.RequestOptions
+        request: Letta.CreateAgentRequest = {},
+        requestOptions?: Agents.RequestOptions,
     ): Promise<Letta.AgentState> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                "v1/agents/"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/agents/",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -259,7 +260,7 @@ export class Agents {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -298,15 +299,17 @@ export class Agents {
     public async get(agentId: string, requestOptions?: Agents.RequestOptions): Promise<Letta.AgentState> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -338,7 +341,7 @@ export class Agents {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -377,15 +380,17 @@ export class Agents {
     public async delete(agentId: string, requestOptions?: Agents.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -411,7 +416,7 @@ export class Agents {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -451,19 +456,21 @@ export class Agents {
     public async update(
         agentId: string,
         request: Letta.UpdateAgent = {},
-        requestOptions?: Agents.RequestOptions
+        requestOptions?: Agents.RequestOptions,
     ): Promise<Letta.AgentState> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -496,7 +503,7 @@ export class Agents {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -536,7 +543,7 @@ export class Agents {
     public async resetMessages(
         agentId: string,
         request: Letta.ResetMessagesRequest = {},
-        requestOptions?: Agents.RequestOptions
+        requestOptions?: Agents.RequestOptions,
     ): Promise<Letta.AgentState> {
         const { addDefaultInitialMessages } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -546,15 +553,17 @@ export class Agents {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/reset-messages`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/reset-messages`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -587,7 +596,7 @@ export class Agents {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -605,7 +614,7 @@ export class Agents {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/reset-messages."
+                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/reset-messages.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -627,19 +636,21 @@ export class Agents {
      */
     public async search(
         request: Letta.AgentsSearchRequest = {},
-        requestOptions?: Agents.RequestOptions
+        requestOptions?: Agents.RequestOptions,
     ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                "v1/agents/search"
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/agents/search",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

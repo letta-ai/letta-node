@@ -12,20 +12,20 @@ export const LettaRequest: core.serialization.ObjectSchema<serializers.LettaRequ
         messages: core.serialization.list(MessageCreate),
         useAssistantMessage: core.serialization.property(
             "use_assistant_message",
-            core.serialization.boolean().optional()
+            core.serialization.boolean().optional(),
         ),
         assistantMessageToolName: core.serialization.property(
             "assistant_message_tool_name",
-            core.serialization.string().optional()
+            core.serialization.string().optional(),
         ),
         assistantMessageToolKwarg: core.serialization.property(
             "assistant_message_tool_kwarg",
-            core.serialization.string().optional()
+            core.serialization.string().optional(),
         ),
     });
 
 export declare namespace LettaRequest {
-    interface Raw {
+    export interface Raw {
         messages: MessageCreate.Raw[];
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;

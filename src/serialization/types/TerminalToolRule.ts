@@ -16,7 +16,7 @@ export const TerminalToolRule: core.serialization.ObjectSchema<
 });
 
 export declare namespace TerminalToolRule {
-    interface Raw {
+    export interface Raw {
         tool_name: string;
         type?: ToolRuleType.Raw | null;
     }

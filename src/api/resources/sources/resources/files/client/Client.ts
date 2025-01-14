@@ -12,13 +12,15 @@ import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Files {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -48,22 +50,24 @@ export class Files {
     public async upload(
         file: File | fs.ReadStream | Blob,
         sourceId: string,
-        requestOptions?: Files.RequestOptions
+        requestOptions?: Files.RequestOptions,
     ): Promise<Letta.Job> {
         const _request = await core.newFormData();
         await _request.appendFile("file", file);
         const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/sources/${encodeURIComponent(sourceId)}/upload`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/sources/${encodeURIComponent(sourceId)}/upload`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -97,7 +101,7 @@ export class Files {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -115,7 +119,7 @@ export class Files {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/sources/{source_id}/upload."
+                    "Timeout exceeded when calling POST /v1/sources/{source_id}/upload.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -139,7 +143,7 @@ export class Files {
     public async list(
         sourceId: string,
         request: Letta.sources.FilesListRequest = {},
-        requestOptions?: Files.RequestOptions
+        requestOptions?: Files.RequestOptions,
     ): Promise<Letta.FileMetadata[]> {
         const { limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -153,15 +157,17 @@ export class Files {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/sources/${encodeURIComponent(sourceId)}/files`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/sources/${encodeURIComponent(sourceId)}/files`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -194,7 +200,7 @@ export class Files {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -234,15 +240,17 @@ export class Files {
     public async delete(sourceId: string, fileId: string, requestOptions?: Files.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/sources/${encodeURIComponent(sourceId)}/${encodeURIComponent(fileId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/sources/${encodeURIComponent(sourceId)}/${encodeURIComponent(fileId)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -268,7 +276,7 @@ export class Files {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -286,7 +294,7 @@ export class Files {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling DELETE /v1/sources/{source_id}/{file_id}."
+                    "Timeout exceeded when calling DELETE /v1/sources/{source_id}/{file_id}.",
                 );
             case "unknown":
                 throw new errors.LettaError({

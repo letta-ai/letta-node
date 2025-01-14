@@ -17,17 +17,17 @@ export const CreateAgentRequest: core.serialization.Schema<
     Letta.CreateAgentRequest
 > = core.serialization.object({
     name: core.serialization.string().optional(),
-    memoryBlocks: core.serialization.property("memory_blocks", core.serialization.list(CreateBlock)),
+    memoryBlocks: core.serialization.property("memory_blocks", core.serialization.list(CreateBlock).optional()),
     tools: core.serialization.list(core.serialization.string()).optional(),
     toolIds: core.serialization.property("tool_ids", core.serialization.list(core.serialization.string()).optional()),
     sourceIds: core.serialization.property(
         "source_ids",
-        core.serialization.list(core.serialization.string()).optional()
+        core.serialization.list(core.serialization.string()).optional(),
     ),
     blockIds: core.serialization.property("block_ids", core.serialization.list(core.serialization.string()).optional()),
     toolRules: core.serialization.property(
         "tool_rules",
-        core.serialization.list(CreateAgentRequestToolRulesItem).optional()
+        core.serialization.list(CreateAgentRequestToolRulesItem).optional(),
     ),
     tags: core.serialization.list(core.serialization.string()).optional(),
     system: core.serialization.string().optional(),
@@ -36,23 +36,24 @@ export const CreateAgentRequest: core.serialization.Schema<
     embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig.optional()),
     initialMessageSequence: core.serialization.property(
         "initial_message_sequence",
-        core.serialization.list(MessageCreate).optional()
+        core.serialization.list(MessageCreate).optional(),
     ),
     includeBaseTools: core.serialization.property("include_base_tools", core.serialization.boolean().optional()),
     description: core.serialization.string().optional(),
     metadata: core.serialization.property(
         "metadata_",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     ),
     llm: core.serialization.string().optional(),
     embedding: core.serialization.string().optional(),
     contextWindowLimit: core.serialization.property("context_window_limit", core.serialization.number().optional()),
     embeddingChunkSize: core.serialization.property("embedding_chunk_size", core.serialization.number().optional()),
     fromTemplate: core.serialization.property("from_template", core.serialization.string().optional()),
+    template: core.serialization.boolean().optional(),
     project: core.serialization.string().optional(),
     toolExecEnvironmentVariables: core.serialization.property(
         "tool_exec_environment_variables",
-        core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional()
+        core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
     ),
     variables: core.serialization
         .record(core.serialization.string(), core.serialization.string().optional())
@@ -60,9 +61,9 @@ export const CreateAgentRequest: core.serialization.Schema<
 });
 
 export declare namespace CreateAgentRequest {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
-        memory_blocks: CreateBlock.Raw[];
+        memory_blocks?: CreateBlock.Raw[] | null;
         tools?: string[] | null;
         tool_ids?: string[] | null;
         source_ids?: string[] | null;
@@ -82,6 +83,7 @@ export declare namespace CreateAgentRequest {
         context_window_limit?: number | null;
         embedding_chunk_size?: number | null;
         from_template?: string | null;
+        template?: boolean | null;
         project?: string | null;
         tool_exec_environment_variables?: Record<string, string | null | undefined> | null;
         variables?: Record<string, string | null | undefined> | null;

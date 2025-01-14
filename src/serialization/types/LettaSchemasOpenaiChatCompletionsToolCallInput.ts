@@ -17,7 +17,7 @@ export const LettaSchemasOpenaiChatCompletionsToolCallInput: core.serialization.
 });
 
 export declare namespace LettaSchemasOpenaiChatCompletionsToolCallInput {
-    interface Raw {
+    export interface Raw {
         id: string;
         type?: string | null;
         function: LettaSchemasOpenaiChatCompletionsToolCallFunction.Raw;

@@ -13,5 +13,5 @@ export const Response: core.serialization.Schema<
 > = core.serialization.list(LettaSchemasMessageMessage);
 
 export declare namespace Response {
-    type Raw = LettaSchemasMessageMessage.Raw[];
+    export type Raw = LettaSchemasMessageMessage.Raw[];
 }

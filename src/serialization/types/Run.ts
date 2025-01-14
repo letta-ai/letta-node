@@ -17,14 +17,14 @@ export const Run: core.serialization.ObjectSchema<serializers.Run.Raw, Letta.Run
     completedAt: core.serialization.property("completed_at", core.serialization.date().optional()),
     metadata: core.serialization.property(
         "metadata_",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     ),
     jobType: core.serialization.property("job_type", JobType.optional()),
     id: core.serialization.string().optional(),
 });
 
 export declare namespace Run {
-    interface Raw {
+    export interface Raw {
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         created_at?: string | null;

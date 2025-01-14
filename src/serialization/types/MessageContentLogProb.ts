@@ -18,7 +18,7 @@ export const MessageContentLogProb: core.serialization.ObjectSchema<
 });
 
 export declare namespace MessageContentLogProb {
-    interface Raw {
+    export interface Raw {
         token: string;
         logprob: number;
         bytes?: number[] | null;

@@ -30,7 +30,7 @@ export const MessagesListResponseItem: core.serialization.Schema<
     });
 
 export declare namespace MessagesListResponseItem {
-    type Raw =
+    export type Raw =
         | MessagesListResponseItem.SystemMessage
         | MessagesListResponseItem.UserMessage
         | MessagesListResponseItem.ReasoningMessage
@@ -38,27 +38,27 @@ export declare namespace MessagesListResponseItem {
         | MessagesListResponseItem.ToolReturnMessage
         | MessagesListResponseItem.AssistantMessage;
 
-    interface SystemMessage extends SystemMessageOutput.Raw {
+    export interface SystemMessage extends SystemMessageOutput.Raw {
         message_type: "system_message";
     }
 
-    interface UserMessage extends UserMessageOutput.Raw {
+    export interface UserMessage extends UserMessageOutput.Raw {
         message_type: "user_message";
     }
 
-    interface ReasoningMessage extends ReasoningMessage.Raw {
+    export interface ReasoningMessage extends ReasoningMessage.Raw {
         message_type: "reasoning_message";
     }
 
-    interface ToolCallMessage extends ToolCallMessage.Raw {
+    export interface ToolCallMessage extends ToolCallMessage.Raw {
         message_type: "tool_call_message";
     }
 
-    interface ToolReturnMessage extends ToolReturnMessage.Raw {
+    export interface ToolReturnMessage extends ToolReturnMessage.Raw {
         message_type: "tool_return_message";
     }
 
-    interface AssistantMessage extends AssistantMessageOutput.Raw {
+    export interface AssistantMessage extends AssistantMessageOutput.Raw {
         message_type: "assistant_message";
     }
 }

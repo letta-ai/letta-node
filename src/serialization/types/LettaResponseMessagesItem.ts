@@ -30,7 +30,7 @@ export const LettaResponseMessagesItem: core.serialization.Schema<
     });
 
 export declare namespace LettaResponseMessagesItem {
-    type Raw =
+    export type Raw =
         | LettaResponseMessagesItem.SystemMessage
         | LettaResponseMessagesItem.UserMessage
         | LettaResponseMessagesItem.ReasoningMessage
@@ -38,27 +38,27 @@ export declare namespace LettaResponseMessagesItem {
         | LettaResponseMessagesItem.ToolReturnMessage
         | LettaResponseMessagesItem.AssistantMessage;
 
-    interface SystemMessage extends SystemMessageOutput.Raw {
+    export interface SystemMessage extends SystemMessageOutput.Raw {
         message_type: "system_message";
     }
 
-    interface UserMessage extends UserMessageOutput.Raw {
+    export interface UserMessage extends UserMessageOutput.Raw {
         message_type: "user_message";
     }
 
-    interface ReasoningMessage extends ReasoningMessage.Raw {
+    export interface ReasoningMessage extends ReasoningMessage.Raw {
         message_type: "reasoning_message";
     }
 
-    interface ToolCallMessage extends ToolCallMessage.Raw {
+    export interface ToolCallMessage extends ToolCallMessage.Raw {
         message_type: "tool_call_message";
     }
 
-    interface ToolReturnMessage extends ToolReturnMessage.Raw {
+    export interface ToolReturnMessage extends ToolReturnMessage.Raw {
         message_type: "tool_return_message";
     }
 
-    interface AssistantMessage extends AssistantMessageOutput.Raw {
+    export interface AssistantMessage extends AssistantMessageOutput.Raw {
         message_type: "assistant_message";
     }
 }

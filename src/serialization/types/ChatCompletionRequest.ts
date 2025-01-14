@@ -22,7 +22,7 @@ export const ChatCompletionRequest: core.serialization.ObjectSchema<
     frequencyPenalty: core.serialization.property("frequency_penalty", core.serialization.number().optional()),
     logitBias: core.serialization.property(
         "logit_bias",
-        core.serialization.record(core.serialization.string(), core.serialization.number().optional()).optional()
+        core.serialization.record(core.serialization.string(), core.serialization.number().optional()).optional(),
     ),
     logprobs: core.serialization.boolean().optional(),
     topLogprobs: core.serialization.property("top_logprobs", core.serialization.number().optional()),
@@ -43,7 +43,7 @@ export const ChatCompletionRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace ChatCompletionRequest {
-    interface Raw {
+    export interface Raw {
         model: string;
         messages: ChatCompletionRequestMessagesItem.Raw[];
         frequency_penalty?: number | null;

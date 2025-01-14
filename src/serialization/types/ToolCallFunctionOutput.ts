@@ -15,7 +15,7 @@ export const ToolCallFunctionOutput: core.serialization.ObjectSchema<
 });
 
 export declare namespace ToolCallFunctionOutput {
-    interface Raw {
+    export interface Raw {
         name: string;
         arguments: string;
     }

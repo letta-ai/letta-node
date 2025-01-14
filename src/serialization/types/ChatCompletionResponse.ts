@@ -22,7 +22,7 @@ export const ChatCompletionResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace ChatCompletionResponse {
-    interface Raw {
+    export interface Raw {
         id: string;
         choices: Choice.Raw[];
         created: string;

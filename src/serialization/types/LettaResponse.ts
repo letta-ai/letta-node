@@ -15,7 +15,7 @@ export const LettaResponse: core.serialization.ObjectSchema<serializers.LettaRes
     });
 
 export declare namespace LettaResponse {
-    interface Raw {
+    export interface Raw {
         messages: LettaResponseMessagesItem.Raw[];
         usage: LettaUsageStatistics.Raw;
     }

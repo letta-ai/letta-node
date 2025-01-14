@@ -14,7 +14,7 @@ export const InternalServerErrorBody: core.serialization.ObjectSchema<
 });
 
 export declare namespace InternalServerErrorBody {
-    interface Raw {
+    export interface Raw {
         message: "Failed to create agent template";
     }
 }

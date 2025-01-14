@@ -10,13 +10,15 @@ import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Templates {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -49,7 +51,7 @@ export class Templates {
     public async createVersion(
         agentId: string,
         request: Letta.agents.TemplatesCreateVersionRequest = {},
-        requestOptions?: Templates.RequestOptions
+        requestOptions?: Templates.RequestOptions,
     ): Promise<void> {
         const { returnAgentState, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -59,15 +61,17 @@ export class Templates {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/version-template`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/version-template`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -109,7 +113,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/version-template."
+                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/version-template.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -140,19 +144,21 @@ export class Templates {
     public async migrate(
         agentId: string,
         request: Letta.agents.TemplatesMigrateRequest,
-        requestOptions?: Templates.RequestOptions
+        requestOptions?: Templates.RequestOptions,
     ): Promise<Letta.agents.TemplatesMigrateResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/migrate`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/migrate`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -187,7 +193,7 @@ export class Templates {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Letta.InternalServerError(_response.error.body);
@@ -232,19 +238,21 @@ export class Templates {
     public async create(
         agentId: string,
         request: Letta.agents.TemplatesCreateRequest = {},
-        requestOptions?: Templates.RequestOptions
+        requestOptions?: Templates.RequestOptions,
     ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/template`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/template`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -283,7 +291,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/template."
+                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/template.",
                 );
             case "unknown":
                 throw new errors.LettaError({

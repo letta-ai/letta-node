@@ -11,5 +11,5 @@ export const Response: core.serialization.Schema<serializers.models.listLlms.Res
     core.serialization.list(LlmConfig);
 
 export declare namespace Response {
-    type Raw = LlmConfig.Raw[];
+    export type Raw = LlmConfig.Raw[];
 }

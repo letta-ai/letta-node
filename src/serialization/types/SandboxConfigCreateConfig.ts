@@ -14,5 +14,5 @@ export const SandboxConfigCreateConfig: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([LocalSandboxConfig, E2BSandboxConfig]);
 
 export declare namespace SandboxConfigCreateConfig {
-    type Raw = LocalSandboxConfig.Raw | E2BSandboxConfig.Raw;
+    export type Raw = LocalSandboxConfig.Raw | E2BSandboxConfig.Raw;
 }

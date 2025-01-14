@@ -17,7 +17,7 @@ export const UserMessageInput: core.serialization.ObjectSchema<
 });
 
 export declare namespace UserMessageInput {
-    interface Raw {
+    export interface Raw {
         content: UserMessageInputContent.Raw;
         role?: string | null;
         name?: string | null;

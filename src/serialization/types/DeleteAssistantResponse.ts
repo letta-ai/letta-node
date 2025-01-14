@@ -16,7 +16,7 @@ export const DeleteAssistantResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace DeleteAssistantResponse {
-    interface Raw {
+    export interface Raw {
         id: string;
         object?: string | null;
         deleted: boolean;

@@ -15,7 +15,7 @@ export const User: core.serialization.ObjectSchema<serializers.User.Raw, Letta.U
 });
 
 export declare namespace User {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         name: string;
         created_at?: string | null;

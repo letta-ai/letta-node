@@ -14,5 +14,5 @@ export const ToolCallMessageToolCall: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([LettaSchemasLettaMessageToolCall, ToolCallDelta]);
 
 export declare namespace ToolCallMessageToolCall {
-    type Raw = LettaSchemasLettaMessageToolCall.Raw | ToolCallDelta.Raw;
+    export type Raw = LettaSchemasLettaMessageToolCall.Raw | ToolCallDelta.Raw;
 }

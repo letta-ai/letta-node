@@ -16,7 +16,7 @@ export const ReasoningMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReasoningMessage {
-    interface Raw {
+    export interface Raw {
         id: string;
         date: string;
         reasoning: string;

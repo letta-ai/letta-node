@@ -16,7 +16,7 @@ export const AssistantMessageOutput: core.serialization.ObjectSchema<
 });
 
 export declare namespace AssistantMessageOutput {
-    interface Raw {
+    export interface Raw {
         id: string;
         date: string;
         assistant_message: string;

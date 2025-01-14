@@ -12,12 +12,12 @@ export const TemplatesCreateVersionRequest: core.serialization.Schema<
 > = core.serialization.object({
     migrateDeployedAgents: core.serialization.property(
         "migrate_deployed_agents",
-        core.serialization.boolean().optional()
+        core.serialization.boolean().optional(),
     ),
 });
 
 export declare namespace TemplatesCreateVersionRequest {
-    interface Raw {
+    export interface Raw {
         migrate_deployed_agents?: boolean | null;
     }
 }

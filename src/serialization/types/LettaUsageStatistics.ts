@@ -17,7 +17,7 @@ export const LettaUsageStatistics: core.serialization.ObjectSchema<
 });
 
 export declare namespace LettaUsageStatistics {
-    interface Raw {
+    export interface Raw {
         completion_tokens?: number | null;
         prompt_tokens?: number | null;
         total_tokens?: number | null;

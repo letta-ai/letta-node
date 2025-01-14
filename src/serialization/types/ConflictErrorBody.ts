@@ -11,12 +11,12 @@ export const ConflictErrorBody: core.serialization.ObjectSchema<
     Letta.ConflictErrorBody
 > = core.serialization.object({
     message: core.serialization.stringLiteral(
-        "You can only migrate agents to a new versioned agent template that belongs to the same project"
+        "You can only migrate agents to a new versioned agent template that belongs to the same project",
     ),
 });
 
 export declare namespace ConflictErrorBody {
-    interface Raw {
+    export interface Raw {
         message: "You can only migrate agents to a new versioned agent template that belongs to the same project";
     }
 }

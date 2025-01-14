@@ -15,13 +15,13 @@ export const ToolUpdate: core.serialization.Schema<serializers.ToolUpdate.Raw, L
         sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
         jsonSchema: core.serialization.property(
             "json_schema",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
         returnCharLimit: core.serialization.property("return_char_limit", core.serialization.number().optional()),
     });
 
 export declare namespace ToolUpdate {
-    interface Raw {
+    export interface Raw {
         description?: string | null;
         name?: string | null;
         tags?: string[] | null;

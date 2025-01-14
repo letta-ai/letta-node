@@ -14,7 +14,7 @@ export const TemplatesCreateRequest: core.serialization.Schema<
 });
 
 export declare namespace TemplatesCreateRequest {
-    interface Raw {
+    export interface Raw {
         project?: string | null;
     }
 }

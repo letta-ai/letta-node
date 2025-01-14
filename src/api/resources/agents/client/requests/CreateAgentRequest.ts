@@ -6,18 +6,13 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {
- *         memoryBlocks: [{
- *                 value: "value",
- *                 label: "label"
- *             }]
- *     }
+ *     {}
  */
 export interface CreateAgentRequest {
     /** The name of the agent. */
     name?: string;
     /** The blocks to create in the agent's in-context memory. */
-    memoryBlocks: Letta.CreateBlock[];
+    memoryBlocks?: Letta.CreateBlock[];
     /** The tools used by the agent. */
     tools?: string[];
     /** The ids of the tools used by the agent. */
@@ -56,6 +51,8 @@ export interface CreateAgentRequest {
     embeddingChunkSize?: number;
     /** The template id used to configure the agent */
     fromTemplate?: string;
+    /** Whether the agent is a template */
+    template?: boolean;
     /** The project slug that the agent will be associated with. */
     project?: string;
     /** The environment variables for tool execution specific to this agent. */

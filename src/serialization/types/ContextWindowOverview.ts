@@ -19,7 +19,7 @@ export const ContextWindowOverview: core.serialization.ObjectSchema<
     numRecallMemory: core.serialization.property("num_recall_memory", core.serialization.number()),
     numTokensExternalMemorySummary: core.serialization.property(
         "num_tokens_external_memory_summary",
-        core.serialization.number()
+        core.serialization.number(),
     ),
     externalMemorySummary: core.serialization.property("external_memory_summary", core.serialization.string()),
     numTokensSystem: core.serialization.property("num_tokens_system", core.serialization.number()),
@@ -30,18 +30,18 @@ export const ContextWindowOverview: core.serialization.ObjectSchema<
     summaryMemory: core.serialization.property("summary_memory", core.serialization.string().optional()),
     numTokensFunctionsDefinitions: core.serialization.property(
         "num_tokens_functions_definitions",
-        core.serialization.number()
+        core.serialization.number(),
     ),
     functionsDefinitions: core.serialization.property(
         "functions_definitions",
-        core.serialization.list(LettaSchemasOpenaiChatCompletionRequestTool).optional()
+        core.serialization.list(LettaSchemasOpenaiChatCompletionRequestTool).optional(),
     ),
     numTokensMessages: core.serialization.property("num_tokens_messages", core.serialization.number()),
     messages: core.serialization.list(LettaSchemasMessageMessage),
 });
 
 export declare namespace ContextWindowOverview {
-    interface Raw {
+    export interface Raw {
         context_window_size_max: number;
         context_window_size_current: number;
         num_messages: number;

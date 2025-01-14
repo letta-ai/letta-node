@@ -11,5 +11,5 @@ export const Response: core.serialization.Schema<serializers.agents.list.Respons
     core.serialization.list(AgentState);
 
 export declare namespace Response {
-    type Raw = AgentState.Raw[];
+    export type Raw = AgentState.Raw[];
 }

@@ -11,7 +11,7 @@ export const EmbeddingConfig: core.serialization.ObjectSchema<serializers.Embedd
     core.serialization.object({
         embeddingEndpointType: core.serialization.property(
             "embedding_endpoint_type",
-            EmbeddingConfigEmbeddingEndpointType
+            EmbeddingConfigEmbeddingEndpointType,
         ),
         embeddingEndpoint: core.serialization.property("embedding_endpoint", core.serialization.string().optional()),
         embeddingModel: core.serialization.property("embedding_model", core.serialization.string()),
@@ -24,7 +24,7 @@ export const EmbeddingConfig: core.serialization.ObjectSchema<serializers.Embedd
     });
 
 export declare namespace EmbeddingConfig {
-    interface Raw {
+    export interface Raw {
         embedding_endpoint_type: EmbeddingConfigEmbeddingEndpointType.Raw;
         embedding_endpoint?: string | null;
         embedding_model: string;

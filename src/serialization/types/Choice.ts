@@ -19,7 +19,7 @@ export const Choice: core.serialization.ObjectSchema<serializers.Choice.Raw, Let
 });
 
 export declare namespace Choice {
-    interface Raw {
+    export interface Raw {
         finish_reason: string;
         index: number;
         message: LettaSchemasOpenaiChatCompletionResponseMessage.Raw;

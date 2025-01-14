@@ -32,7 +32,7 @@ export const LettaStreamingResponse: core.serialization.Schema<
     });
 
 export declare namespace LettaStreamingResponse {
-    type Raw =
+    export type Raw =
         | LettaStreamingResponse.SystemMessage
         | LettaStreamingResponse.UserMessage
         | LettaStreamingResponse.ReasoningMessage
@@ -41,31 +41,31 @@ export declare namespace LettaStreamingResponse {
         | LettaStreamingResponse.AssistantMessage
         | LettaStreamingResponse.UsageStatistics;
 
-    interface SystemMessage extends SystemMessageOutput.Raw {
+    export interface SystemMessage extends SystemMessageOutput.Raw {
         message_type: "system_message";
     }
 
-    interface UserMessage extends UserMessageOutput.Raw {
+    export interface UserMessage extends UserMessageOutput.Raw {
         message_type: "user_message";
     }
 
-    interface ReasoningMessage extends ReasoningMessage.Raw {
+    export interface ReasoningMessage extends ReasoningMessage.Raw {
         message_type: "reasoning_message";
     }
 
-    interface ToolCallMessage extends ToolCallMessage.Raw {
+    export interface ToolCallMessage extends ToolCallMessage.Raw {
         message_type: "tool_call_message";
     }
 
-    interface ToolReturnMessage extends ToolReturnMessage.Raw {
+    export interface ToolReturnMessage extends ToolReturnMessage.Raw {
         message_type: "tool_return_message";
     }
 
-    interface AssistantMessage extends AssistantMessageOutput.Raw {
+    export interface AssistantMessage extends AssistantMessageOutput.Raw {
         message_type: "assistant_message";
     }
 
-    interface UsageStatistics extends LettaUsageStatistics.Raw {
+    export interface UsageStatistics extends LettaUsageStatistics.Raw {
         message_type: "usage_statistics";
     }
 }

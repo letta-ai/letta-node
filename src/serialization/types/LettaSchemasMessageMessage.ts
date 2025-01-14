@@ -24,13 +24,13 @@ export const LettaSchemasMessageMessage: core.serialization.ObjectSchema<
     name: core.serialization.string().optional(),
     toolCalls: core.serialization.property(
         "tool_calls",
-        core.serialization.list(LettaSchemasOpenaiChatCompletionsToolCallOutput).optional()
+        core.serialization.list(LettaSchemasOpenaiChatCompletionsToolCallOutput).optional(),
     ),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
 });
 
 export declare namespace LettaSchemasMessageMessage {
-    interface Raw {
+    export interface Raw {
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         created_at?: string | null;

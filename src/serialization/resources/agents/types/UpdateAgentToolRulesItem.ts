@@ -16,5 +16,5 @@ export const UpdateAgentToolRulesItem: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([ChildToolRule, InitToolRule, TerminalToolRule, ConditionalToolRule]);
 
 export declare namespace UpdateAgentToolRulesItem {
-    type Raw = ChildToolRule.Raw | InitToolRule.Raw | TerminalToolRule.Raw | ConditionalToolRule.Raw;
+    export type Raw = ChildToolRule.Raw | InitToolRule.Raw | TerminalToolRule.Raw | ConditionalToolRule.Raw;
 }

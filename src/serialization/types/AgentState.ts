@@ -24,11 +24,11 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         name: core.serialization.string(),
         toolRules: core.serialization.property(
             "tool_rules",
-            core.serialization.list(AgentStateToolRulesItem).optional()
+            core.serialization.list(AgentStateToolRulesItem).optional(),
         ),
         messageIds: core.serialization.property(
             "message_ids",
-            core.serialization.list(core.serialization.string()).optional()
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         system: core.serialization.string(),
         agentType: core.serialization.property("agent_type", AgentType),
@@ -37,7 +37,7 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         description: core.serialization.string().optional(),
         metadata: core.serialization.property(
             "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
         memory: Memory,
         tools: core.serialization.list(LettaSchemasToolTool),
@@ -45,12 +45,12 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         tags: core.serialization.list(core.serialization.string()),
         toolExecEnvironmentVariables: core.serialization.property(
             "tool_exec_environment_variables",
-            core.serialization.list(AgentEnvironmentVariable).optional()
+            core.serialization.list(AgentEnvironmentVariable).optional(),
         ),
     });
 
 export declare namespace AgentState {
-    interface Raw {
+    export interface Raw {
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         created_at?: string | null;

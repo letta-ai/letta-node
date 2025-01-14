@@ -21,7 +21,7 @@ export const CreateAssistantRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace CreateAssistantRequest {
-    interface Raw {
+    export interface Raw {
         model: string;
         name: string;
         description?: string | null;

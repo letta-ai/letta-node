@@ -15,13 +15,13 @@ export const ToolCreate: core.serialization.ObjectSchema<serializers.ToolCreate.
         sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
         jsonSchema: core.serialization.property(
             "json_schema",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
         returnCharLimit: core.serialization.property("return_char_limit", core.serialization.number().optional()),
     });
 
 export declare namespace ToolCreate {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         description?: string | null;
         tags?: string[] | null;

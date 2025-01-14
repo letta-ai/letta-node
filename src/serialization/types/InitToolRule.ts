@@ -14,7 +14,7 @@ export const InitToolRule: core.serialization.ObjectSchema<serializers.InitToolR
     });
 
 export declare namespace InitToolRule {
-    interface Raw {
+    export interface Raw {
         tool_name: string;
         type?: ToolRuleType.Raw | null;
     }

@@ -13,7 +13,7 @@ export const AuthResponse: core.serialization.ObjectSchema<serializers.AuthRespo
     });
 
 export declare namespace AuthResponse {
-    interface Raw {
+    export interface Raw {
         uuid: string;
         is_admin?: boolean | null;
     }

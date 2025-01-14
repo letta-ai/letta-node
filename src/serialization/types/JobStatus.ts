@@ -10,5 +10,5 @@ export const JobStatus: core.serialization.Schema<serializers.JobStatus.Raw, Let
     core.serialization.enum_(["created", "running", "completed", "failed", "pending"]);
 
 export declare namespace JobStatus {
-    type Raw = "created" | "running" | "completed" | "failed" | "pending";
+    export type Raw = "created" | "running" | "completed" | "failed" | "pending";
 }

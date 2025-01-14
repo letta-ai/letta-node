@@ -15,7 +15,7 @@ export const ToolCallMessage: core.serialization.ObjectSchema<serializers.ToolCa
     });
 
 export declare namespace ToolCallMessage {
-    interface Raw {
+    export interface Raw {
         id: string;
         date: string;
         tool_call: ToolCallMessageToolCall.Raw;

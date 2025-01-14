@@ -12,5 +12,5 @@ export const ToolReturnMessageStatus: core.serialization.Schema<
 > = core.serialization.enum_(["success", "error"]);
 
 export declare namespace ToolReturnMessageStatus {
-    type Raw = "success" | "error";
+    export type Raw = "success" | "error";
 }

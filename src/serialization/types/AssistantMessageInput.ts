@@ -16,12 +16,12 @@ export const AssistantMessageInput: core.serialization.ObjectSchema<
     name: core.serialization.string().optional(),
     toolCalls: core.serialization.property(
         "tool_calls",
-        core.serialization.list(LettaSchemasOpenaiChatCompletionRequestToolCall).optional()
+        core.serialization.list(LettaSchemasOpenaiChatCompletionRequestToolCall).optional(),
     ),
 });
 
 export declare namespace AssistantMessageInput {
-    interface Raw {
+    export interface Raw {
         content?: string | null;
         role?: string | null;
         name?: string | null;

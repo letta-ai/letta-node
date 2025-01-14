@@ -15,7 +15,7 @@ export const NotFoundErrorBodyMessage: core.serialization.Schema<
 ]);
 
 export declare namespace NotFoundErrorBodyMessage {
-    type Raw =
+    export type Raw =
         | "Agent provided is a template or not found, you can only migrate deployed agents"
         | "Template version provided does not exist";
 }

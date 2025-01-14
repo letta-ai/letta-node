@@ -16,7 +16,7 @@ export const SandboxEnvironmentVariableUpdate: core.serialization.ObjectSchema<
 });
 
 export declare namespace SandboxEnvironmentVariableUpdate {
-    interface Raw {
+    export interface Raw {
         key?: string | null;
         value?: string | null;
         description?: string | null;

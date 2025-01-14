@@ -14,7 +14,7 @@ export const AgentsSearchRequestSearchItemVersion: core.serialization.ObjectSche
 });
 
 export declare namespace AgentsSearchRequestSearchItemVersion {
-    interface Raw {
+    export interface Raw {
         value: string;
     }
 }

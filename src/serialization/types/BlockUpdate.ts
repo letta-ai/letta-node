@@ -16,12 +16,12 @@ export const BlockUpdate: core.serialization.ObjectSchema<serializers.BlockUpdat
         description: core.serialization.string().optional(),
         metadata: core.serialization.property(
             "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
     });
 
 export declare namespace BlockUpdate {
-    interface Raw {
+    export interface Raw {
         value?: string | null;
         limit?: number | null;
         name?: string | null;

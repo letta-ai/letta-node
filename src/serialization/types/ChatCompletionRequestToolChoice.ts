@@ -18,5 +18,5 @@ export const ChatCompletionRequestToolChoice: core.serialization.Schema<
 ]);
 
 export declare namespace ChatCompletionRequestToolChoice {
-    type Raw = "none" | "auto" | "required" | ToolFunctionChoice.Raw;
+    export type Raw = "none" | "auto" | "required" | ToolFunctionChoice.Raw;
 }

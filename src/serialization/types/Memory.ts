@@ -13,7 +13,7 @@ export const Memory: core.serialization.ObjectSchema<serializers.Memory.Raw, Let
 });
 
 export declare namespace Memory {
-    interface Raw {
+    export interface Raw {
         blocks: Block.Raw[];
         prompt_template?: string | null;
     }

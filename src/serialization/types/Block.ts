@@ -15,7 +15,7 @@ export const Block: core.serialization.ObjectSchema<serializers.Block.Raw, Letta
     description: core.serialization.string().optional(),
     metadata: core.serialization.property(
         "metadata_",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     ),
     id: core.serialization.string().optional(),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
@@ -23,7 +23,7 @@ export const Block: core.serialization.ObjectSchema<serializers.Block.Raw, Letta
 });
 
 export declare namespace Block {
-    interface Raw {
+    export interface Raw {
         value: string;
         limit?: number | null;
         name?: string | null;

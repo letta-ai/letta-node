@@ -16,5 +16,5 @@ export const ChatCompletionRequestMessagesItem: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([SystemMessageInput, UserMessageInput, AssistantMessageInput, ToolMessage]);
 
 export declare namespace ChatCompletionRequestMessagesItem {
-    type Raw = SystemMessageInput.Raw | UserMessageInput.Raw | AssistantMessageInput.Raw | ToolMessage.Raw;
+    export type Raw = SystemMessageInput.Raw | UserMessageInput.Raw | AssistantMessageInput.Raw | ToolMessage.Raw;
 }

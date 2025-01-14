@@ -14,7 +14,7 @@ export const NotFoundErrorBody: core.serialization.ObjectSchema<
 });
 
 export declare namespace NotFoundErrorBody {
-    interface Raw {
+    export interface Raw {
         message: "Agent not found";
     }
 }

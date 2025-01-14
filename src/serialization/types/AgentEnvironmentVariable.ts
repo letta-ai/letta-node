@@ -22,7 +22,7 @@ export const AgentEnvironmentVariable: core.serialization.ObjectSchema<
 });
 
 export declare namespace AgentEnvironmentVariable {
-    interface Raw {
+    export interface Raw {
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         created_at?: string | null;

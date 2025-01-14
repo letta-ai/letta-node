@@ -12,5 +12,5 @@ export const AgentsSearchRequestCombinator: core.serialization.Schema<
 > = core.serialization.enum_(["AND", "OR"]);
 
 export declare namespace AgentsSearchRequestCombinator {
-    type Raw = "AND" | "OR";
+    export type Raw = "AND" | "OR";
 }

@@ -15,7 +15,7 @@ export const AssistantFile: core.serialization.ObjectSchema<serializers.Assistan
     });
 
 export declare namespace AssistantFile {
-    interface Raw {
+    export interface Raw {
         id: string;
         object?: string | null;
         created_at: number;

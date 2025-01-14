@@ -13,7 +13,7 @@ export const ProviderCreate: core.serialization.Schema<serializers.ProviderCreat
     });
 
 export declare namespace ProviderCreate {
-    interface Raw {
+    export interface Raw {
         name: string;
         api_key: string;
     }

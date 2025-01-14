@@ -13,5 +13,5 @@ export const Response: core.serialization.Schema<
 > = core.serialization.list(EmbeddingConfig);
 
 export declare namespace Response {
-    type Raw = EmbeddingConfig.Raw[];
+    export type Raw = EmbeddingConfig.Raw[];
 }

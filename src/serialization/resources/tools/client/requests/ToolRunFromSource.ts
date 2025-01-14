@@ -12,14 +12,14 @@ export const ToolRunFromSource: core.serialization.Schema<serializers.ToolRunFro
         args: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
         envVars: core.serialization.property(
             "env_vars",
-            core.serialization.record(core.serialization.string(), core.serialization.string()).optional()
+            core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
         ),
         name: core.serialization.string().optional(),
         sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
     });
 
 export declare namespace ToolRunFromSource {
-    interface Raw {
+    export interface Raw {
         source_code: string;
         args: Record<string, unknown>;
         env_vars?: Record<string, string> | null;

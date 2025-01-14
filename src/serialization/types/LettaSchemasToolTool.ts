@@ -20,7 +20,7 @@ export const LettaSchemasToolTool: core.serialization.ObjectSchema<
     sourceCode: core.serialization.property("source_code", core.serialization.string().optional()),
     jsonSchema: core.serialization.property(
         "json_schema",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     ),
     returnCharLimit: core.serialization.property("return_char_limit", core.serialization.number().optional()),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
@@ -28,7 +28,7 @@ export const LettaSchemasToolTool: core.serialization.ObjectSchema<
 });
 
 export declare namespace LettaSchemasToolTool {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         tool_type?: ToolType.Raw | null;
         description?: string | null;

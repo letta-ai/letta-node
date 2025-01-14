@@ -12,5 +12,5 @@ export const AgentsSearchRequestSearchItemOrderByDirection: core.serialization.S
 > = core.serialization.enum_(["asc", "desc"]);
 
 export declare namespace AgentsSearchRequestSearchItemOrderByDirection {
-    type Raw = "asc" | "desc";
+    export type Raw = "asc" | "desc";
 }

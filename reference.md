@@ -1381,14 +1381,7 @@ Create a new agent with the specified configuration.
 <dd>
 
 ```typescript
-await client.agents.create({
-    memoryBlocks: [
-        {
-            value: "value",
-            label: "label",
-        },
-    ],
-});
+await client.agents.create();
 ```
 
 </dd>
@@ -3163,6 +3156,71 @@ await client.runs.getRunUsage("run_id");
 <dd>
 
 **requestOptions:** `Runs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Tag
+
+<details><summary><code>client.tag.<a href="/src/api/resources/tag/client/Client.ts">listTags</a>({ ...params }) -> string[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of all tags in the database
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tag.listTags();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ListTagsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tag.RequestOptions`
 
 </dd>
 </dl>

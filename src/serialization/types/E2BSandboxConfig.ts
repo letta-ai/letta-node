@@ -14,12 +14,12 @@ export const E2BSandboxConfig: core.serialization.ObjectSchema<
     template: core.serialization.string().optional(),
     pipRequirements: core.serialization.property(
         "pip_requirements",
-        core.serialization.list(core.serialization.string()).optional()
+        core.serialization.list(core.serialization.string()).optional(),
     ),
 });
 
 export declare namespace E2BSandboxConfig {
-    interface Raw {
+    export interface Raw {
         timeout?: number | null;
         template?: string | null;
         pip_requirements?: string[] | null;

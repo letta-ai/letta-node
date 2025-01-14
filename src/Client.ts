@@ -13,15 +13,18 @@ import { Jobs } from "./api/resources/jobs/client/Client";
 import { Health } from "./api/resources/health/client/Client";
 import { Providers } from "./api/resources/providers/client/Client";
 import { Runs } from "./api/resources/runs/client/Client";
+import { Tag } from "./api/resources/tag/client/Client";
 
 export declare namespace LettaClient {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -43,6 +46,7 @@ export class LettaClient {
     protected _health: Health | undefined;
     protected _providers: Providers | undefined;
     protected _runs: Runs | undefined;
+    protected _tag: Tag | undefined;
 
     constructor(protected readonly _options: LettaClient.Options = {}) {}
 
@@ -80,5 +84,9 @@ export class LettaClient {
 
     public get runs(): Runs {
         return (this._runs ??= new Runs(this._options));
+    }
+
+    public get tag(): Tag {
+        return (this._tag ??= new Tag(this._options));
     }
 }

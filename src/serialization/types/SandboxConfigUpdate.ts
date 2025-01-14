@@ -15,7 +15,7 @@ export const SandboxConfigUpdate: core.serialization.ObjectSchema<
 });
 
 export declare namespace SandboxConfigUpdate {
-    interface Raw {
+    export interface Raw {
         config?: SandboxConfigUpdateConfig.Raw | null;
     }
 }

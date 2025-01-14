@@ -12,7 +12,7 @@ export const UserCreate: core.serialization.ObjectSchema<serializers.UserCreate.
     });
 
 export declare namespace UserCreate {
-    interface Raw {
+    export interface Raw {
         name: string;
     }
 }

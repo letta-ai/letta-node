@@ -14,7 +14,7 @@ export const FunctionSchema: core.serialization.ObjectSchema<serializers.Functio
     });
 
 export declare namespace FunctionSchema {
-    interface Raw {
+    export interface Raw {
         name: string;
         description?: string | null;
         parameters?: Record<string, unknown> | null;

@@ -10,13 +10,15 @@ import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace MemoryVariables {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -46,19 +48,21 @@ export class MemoryVariables {
      */
     public async get(
         agentId: string,
-        requestOptions?: MemoryVariables.RequestOptions
+        requestOptions?: MemoryVariables.RequestOptions,
     ): Promise<Letta.agents.MemoryVariablesGetResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/variables`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/variables`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -100,7 +104,7 @@ export class MemoryVariables {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/variables."
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/variables.",
                 );
             case "unknown":
                 throw new errors.LettaError({

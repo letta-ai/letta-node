@@ -19,7 +19,7 @@ export const Passage: core.serialization.ObjectSchema<serializers.Passage.Raw, L
         fileId: core.serialization.property("file_id", core.serialization.string().optional()),
         metadata: core.serialization.property(
             "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
         id: core.serialization.string().optional(),
         text: core.serialization.string(),
@@ -28,7 +28,7 @@ export const Passage: core.serialization.ObjectSchema<serializers.Passage.Raw, L
     });
 
 export declare namespace Passage {
-    interface Raw {
+    export interface Raw {
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         created_at?: string | null;

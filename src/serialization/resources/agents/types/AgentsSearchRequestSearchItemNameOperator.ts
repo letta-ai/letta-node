@@ -12,5 +12,5 @@ export const AgentsSearchRequestSearchItemNameOperator: core.serialization.Schem
 > = core.serialization.enum_(["eq", "neq", "contains"]);
 
 export declare namespace AgentsSearchRequestSearchItemNameOperator {
-    type Raw = "eq" | "neq" | "contains";
+    export type Raw = "eq" | "neq" | "contains";
 }

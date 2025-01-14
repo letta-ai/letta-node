@@ -24,20 +24,20 @@ export const AgentsSearchRequestSearchItem: core.serialization.Schema<
     });
 
 export declare namespace AgentsSearchRequestSearchItem {
-    type Raw =
+    export type Raw =
         | AgentsSearchRequestSearchItem.Version
         | AgentsSearchRequestSearchItem.Name
         | AgentsSearchRequestSearchItem.OrderBy;
 
-    interface Version extends AgentsSearchRequestSearchItemVersion.Raw {
+    export interface Version extends AgentsSearchRequestSearchItemVersion.Raw {
         field: "version";
     }
 
-    interface Name extends AgentsSearchRequestSearchItemName.Raw {
+    export interface Name extends AgentsSearchRequestSearchItemName.Raw {
         field: "name";
     }
 
-    interface OrderBy extends AgentsSearchRequestSearchItemOrderBy.Raw {
+    export interface OrderBy extends AgentsSearchRequestSearchItemOrderBy.Raw {
         field: "order_by";
     }
 }

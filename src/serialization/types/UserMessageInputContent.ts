@@ -15,5 +15,5 @@ export const UserMessageInputContent: core.serialization.Schema<
 ]);
 
 export declare namespace UserMessageInputContent {
-    type Raw = string | string[];
+    export type Raw = string | string[];
 }

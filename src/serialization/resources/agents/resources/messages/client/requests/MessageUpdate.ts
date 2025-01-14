@@ -17,13 +17,13 @@ export const MessageUpdate: core.serialization.Schema<
     name: core.serialization.string().optional(),
     toolCalls: core.serialization.property(
         "tool_calls",
-        core.serialization.list(LettaSchemasOpenaiChatCompletionsToolCallInput).optional()
+        core.serialization.list(LettaSchemasOpenaiChatCompletionsToolCallInput).optional(),
     ),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
 });
 
 export declare namespace MessageUpdate {
-    interface Raw {
+    export interface Raw {
         role?: MessageRole.Raw | null;
         text?: string | null;
         name?: string | null;

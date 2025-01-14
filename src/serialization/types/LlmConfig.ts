@@ -16,13 +16,13 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
         contextWindow: core.serialization.property("context_window", core.serialization.number()),
         putInnerThoughtsInKwargs: core.serialization.property(
             "put_inner_thoughts_in_kwargs",
-            core.serialization.boolean().optional()
+            core.serialization.boolean().optional(),
         ),
         handle: core.serialization.string().optional(),
     });
 
 export declare namespace LlmConfig {
-    interface Raw {
+    export interface Raw {
         model: string;
         model_endpoint_type: LlmConfigModelEndpointType.Raw;
         model_endpoint?: string | null;

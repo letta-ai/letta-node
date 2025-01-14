@@ -18,13 +18,13 @@ export const OpenAiAssistant: core.serialization.ObjectSchema<serializers.OpenAi
         tools: core.serialization.list(core.serialization.string()).optional(),
         fileIds: core.serialization.property(
             "file_ids",
-            core.serialization.list(core.serialization.string()).optional()
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     });
 
 export declare namespace OpenAiAssistant {
-    interface Raw {
+    export interface Raw {
         id: string;
         name: string;
         object?: string | null;

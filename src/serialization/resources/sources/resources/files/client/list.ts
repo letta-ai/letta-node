@@ -11,5 +11,5 @@ export const Response: core.serialization.Schema<serializers.sources.files.list.
     core.serialization.list(FileMetadata);
 
 export declare namespace Response {
-    type Raw = FileMetadata.Raw[];
+    export type Raw = FileMetadata.Raw[];
 }

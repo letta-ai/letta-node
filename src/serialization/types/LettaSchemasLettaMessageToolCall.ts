@@ -16,7 +16,7 @@ export const LettaSchemasLettaMessageToolCall: core.serialization.ObjectSchema<
 });
 
 export declare namespace LettaSchemasLettaMessageToolCall {
-    interface Raw {
+    export interface Raw {
         name: string;
         arguments: string;
         tool_call_id: string;

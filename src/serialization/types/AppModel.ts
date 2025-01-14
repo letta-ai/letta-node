@@ -27,16 +27,16 @@ export const AppModel: core.serialization.ObjectSchema<serializers.AppModel.Raw,
             .optional(),
         documentationDocText: core.serialization.property(
             "documentation_doc_text",
-            core.serialization.string().optional()
+            core.serialization.string().optional(),
         ),
         configurationDocsText: core.serialization.property(
             "configuration_docs_text",
-            core.serialization.string().optional()
+            core.serialization.string().optional(),
         ),
     });
 
 export declare namespace AppModel {
-    interface Raw {
+    export interface Raw {
         name: string;
         key: string;
         appId: string;

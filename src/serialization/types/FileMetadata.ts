@@ -17,7 +17,7 @@ export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetad
         fileCreationDate: core.serialization.property("file_creation_date", core.serialization.string().optional()),
         fileLastModifiedDate: core.serialization.property(
             "file_last_modified_date",
-            core.serialization.string().optional()
+            core.serialization.string().optional(),
         ),
         createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
@@ -25,7 +25,7 @@ export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetad
     });
 
 export declare namespace FileMetadata {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         source_id: string;
         file_name?: string | null;

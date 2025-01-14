@@ -16,16 +16,16 @@ export const ConditionalToolRule: core.serialization.ObjectSchema<
     defaultChild: core.serialization.property("default_child", core.serialization.string().optional()),
     childOutputMapping: core.serialization.property(
         "child_output_mapping",
-        core.serialization.record(core.serialization.string(), core.serialization.string())
+        core.serialization.record(core.serialization.string(), core.serialization.string()),
     ),
     requireOutputMapping: core.serialization.property(
         "require_output_mapping",
-        core.serialization.boolean().optional()
+        core.serialization.boolean().optional(),
     ),
 });
 
 export declare namespace ConditionalToolRule {
-    interface Raw {
+    export interface Raw {
         tool_name: string;
         type?: ToolRuleType.Raw | null;
         default_child?: string | null;

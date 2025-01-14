@@ -10,13 +10,15 @@ import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace CoreMemory {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -44,19 +46,21 @@ export class CoreMemory {
      */
     public async listInContext(
         agentId: string,
-        requestOptions?: CoreMemory.RequestOptions
+        requestOptions?: CoreMemory.RequestOptions,
     ): Promise<Letta.LettaSchemasMessageMessage[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/messages`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/memory/messages`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -88,7 +92,7 @@ export class CoreMemory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -106,7 +110,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/messages."
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/messages.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -130,15 +134,17 @@ export class CoreMemory {
     public async get(agentId: string, requestOptions?: CoreMemory.RequestOptions): Promise<Letta.Memory> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/memory`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -170,7 +176,7 @@ export class CoreMemory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -210,19 +216,21 @@ export class CoreMemory {
     public async getBlock(
         agentId: string,
         blockLabel: string,
-        requestOptions?: CoreMemory.RequestOptions
+        requestOptions?: CoreMemory.RequestOptions,
     ): Promise<Letta.Block> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -254,7 +262,7 @@ export class CoreMemory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -272,7 +280,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/block/{block_label}."
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/block/{block_label}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -296,19 +304,21 @@ export class CoreMemory {
     public async removeBlock(
         agentId: string,
         blockLabel: string,
-        requestOptions?: CoreMemory.RequestOptions
+        requestOptions?: CoreMemory.RequestOptions,
     ): Promise<Letta.Memory> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -340,7 +350,7 @@ export class CoreMemory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -358,7 +368,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling DELETE /v1/agents/{agent_id}/memory/block/{block_label}."
+                    "Timeout exceeded when calling DELETE /v1/agents/{agent_id}/memory/block/{block_label}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -384,19 +394,21 @@ export class CoreMemory {
         agentId: string,
         blockLabel: string,
         request: Letta.BlockUpdate,
-        requestOptions?: CoreMemory.RequestOptions
+        requestOptions?: CoreMemory.RequestOptions,
     ): Promise<Letta.Block> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -429,7 +441,7 @@ export class CoreMemory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -447,7 +459,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/memory/block/{block_label}."
+                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/memory/block/{block_label}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -470,15 +482,17 @@ export class CoreMemory {
     public async getBlocks(agentId: string, requestOptions?: CoreMemory.RequestOptions): Promise<Letta.Block[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/memory/block`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -510,7 +524,7 @@ export class CoreMemory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -528,7 +542,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/block."
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/block.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -555,19 +569,21 @@ export class CoreMemory {
     public async addBlock(
         agentId: string,
         request: Letta.CreateBlock,
-        requestOptions?: CoreMemory.RequestOptions
+        requestOptions?: CoreMemory.RequestOptions,
     ): Promise<Letta.Memory> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/memory/block`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.8",
-                "User-Agent": "@letta-ai/letta-client/0.1.8",
+                "X-Fern-SDK-Version": "0.1.9",
+                "User-Agent": "@letta-ai/letta-client/0.1.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -600,7 +616,7 @@ export class CoreMemory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.LettaError({
@@ -618,7 +634,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/memory/block."
+                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/memory/block.",
                 );
             case "unknown":
                 throw new errors.LettaError({

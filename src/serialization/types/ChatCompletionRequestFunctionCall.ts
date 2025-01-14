@@ -17,5 +17,5 @@ export const ChatCompletionRequestFunctionCall: core.serialization.Schema<
 ]);
 
 export declare namespace ChatCompletionRequestFunctionCall {
-    type Raw = "none" | "auto" | FunctionCallInput.Raw;
+    export type Raw = "none" | "auto" | FunctionCallInput.Raw;
 }

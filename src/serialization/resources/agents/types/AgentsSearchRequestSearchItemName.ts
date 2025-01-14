@@ -16,7 +16,7 @@ export const AgentsSearchRequestSearchItemName: core.serialization.ObjectSchema<
 });
 
 export declare namespace AgentsSearchRequestSearchItemName {
-    interface Raw {
+    export interface Raw {
         operator: AgentsSearchRequestSearchItemNameOperator.Raw;
         value: string;
     }

@@ -9,5 +9,5 @@ export const Response: core.serialization.Schema<serializers.sources.getByName.R
     core.serialization.string();
 
 export declare namespace Response {
-    type Raw = string;
+    export type Raw = string;
 }

@@ -12,5 +12,5 @@ export const JobType: core.serialization.Schema<serializers.JobType.Raw, Letta.J
 ]);
 
 export declare namespace JobType {
-    type Raw = "job" | "run";
+    export type Raw = "job" | "run";
 }

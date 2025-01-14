@@ -16,7 +16,7 @@ export const LocalSandboxConfig: core.serialization.ObjectSchema<
 });
 
 export declare namespace LocalSandboxConfig {
-    interface Raw {
+    export interface Raw {
         sandbox_dir: string;
         use_venv?: boolean | null;
         venv_name?: string | null;

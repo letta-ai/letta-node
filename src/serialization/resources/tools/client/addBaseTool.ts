@@ -13,5 +13,5 @@ export const Response: core.serialization.Schema<
 > = core.serialization.list(LettaSchemasToolTool);
 
 export declare namespace Response {
-    type Raw = LettaSchemasToolTool.Raw[];
+    export type Raw = LettaSchemasToolTool.Raw[];
 }

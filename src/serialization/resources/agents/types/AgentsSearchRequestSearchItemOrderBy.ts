@@ -17,7 +17,7 @@ export const AgentsSearchRequestSearchItemOrderBy: core.serialization.ObjectSche
 });
 
 export declare namespace AgentsSearchRequestSearchItemOrderBy {
-    interface Raw {
+    export interface Raw {
         value: AgentsSearchRequestSearchItemOrderByValue.Raw;
         direction: AgentsSearchRequestSearchItemOrderByDirection.Raw;
     }

@@ -15,14 +15,14 @@ export const LettaSchemasOpenaiChatCompletionResponseMessage: core.serialization
     content: core.serialization.string().optional(),
     toolCalls: core.serialization.property(
         "tool_calls",
-        core.serialization.list(LettaSchemasOpenaiChatCompletionResponseToolCall).optional()
+        core.serialization.list(LettaSchemasOpenaiChatCompletionResponseToolCall).optional(),
     ),
     role: core.serialization.string(),
     functionCall: core.serialization.property("function_call", FunctionCallOutput.optional()),
 });
 
 export declare namespace LettaSchemasOpenaiChatCompletionResponseMessage {
-    interface Raw {
+    export interface Raw {
         content?: string | null;
         tool_calls?: LettaSchemasOpenaiChatCompletionResponseToolCall.Raw[] | null;
         role: string;

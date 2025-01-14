@@ -14,7 +14,7 @@ export const CreateAssistantFileRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace CreateAssistantFileRequest {
-    interface Raw {
+    export interface Raw {
         file_id: string;
     }
 }

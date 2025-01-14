@@ -15,7 +15,7 @@ export const Provider: core.serialization.ObjectSchema<serializers.Provider.Raw,
     });
 
 export declare namespace Provider {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         name: string;
         api_key?: string | null;

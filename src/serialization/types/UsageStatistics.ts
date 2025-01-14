@@ -14,7 +14,7 @@ export const UsageStatistics: core.serialization.ObjectSchema<serializers.UsageS
     });
 
 export declare namespace UsageStatistics {
-    interface Raw {
+    export interface Raw {
         completion_tokens?: number | null;
         prompt_tokens?: number | null;
         total_tokens?: number | null;

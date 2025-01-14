@@ -15,7 +15,7 @@ export const ChildToolRule: core.serialization.ObjectSchema<serializers.ChildToo
     });
 
 export declare namespace ChildToolRule {
-    interface Raw {
+    export interface Raw {
         tool_name: string;
         type?: ToolRuleType.Raw | null;
         children: string[];

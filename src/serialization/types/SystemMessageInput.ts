@@ -16,7 +16,7 @@ export const SystemMessageInput: core.serialization.ObjectSchema<
 });
 
 export declare namespace SystemMessageInput {
-    interface Raw {
+    export interface Raw {
         content: string;
         role?: string | null;
         name?: string | null;

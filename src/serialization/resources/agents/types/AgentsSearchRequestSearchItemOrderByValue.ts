@@ -12,5 +12,5 @@ export const AgentsSearchRequestSearchItemOrderByValue: core.serialization.Schem
 > = core.serialization.enum_(["created_at", "updated_at"]);
 
 export declare namespace AgentsSearchRequestSearchItemOrderByValue {
-    type Raw = "created_at" | "updated_at";
+    export type Raw = "created_at" | "updated_at";
 }

@@ -14,7 +14,7 @@ export const TemplatesMigrateResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace TemplatesMigrateResponse {
-    interface Raw {
+    export interface Raw {
         success: boolean;
     }
 }

@@ -30,7 +30,7 @@ export const LlmConfigModelEndpointType: core.serialization.Schema<
 ]);
 
 export declare namespace LlmConfigModelEndpointType {
-    type Raw =
+    export type Raw =
         | "openai"
         | "anthropic"
         | "cohere"

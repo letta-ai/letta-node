@@ -15,17 +15,17 @@ export const LettaStreamingRequest: core.serialization.Schema<
     useAssistantMessage: core.serialization.property("use_assistant_message", core.serialization.boolean().optional()),
     assistantMessageToolName: core.serialization.property(
         "assistant_message_tool_name",
-        core.serialization.string().optional()
+        core.serialization.string().optional(),
     ),
     assistantMessageToolKwarg: core.serialization.property(
         "assistant_message_tool_kwarg",
-        core.serialization.string().optional()
+        core.serialization.string().optional(),
     ),
     streamTokens: core.serialization.property("stream_tokens", core.serialization.boolean().optional()),
 });
 
 export declare namespace LettaStreamingRequest {
-    interface Raw {
+    export interface Raw {
         messages: MessageCreate.Raw[];
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;

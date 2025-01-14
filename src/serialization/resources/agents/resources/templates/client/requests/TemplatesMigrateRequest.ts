@@ -16,7 +16,7 @@ export const TemplatesMigrateRequest: core.serialization.Schema<
 });
 
 export declare namespace TemplatesMigrateRequest {
-    interface Raw {
+    export interface Raw {
         to_template: string;
         variables?: Record<string, string> | null;
         preserve_core_memories: boolean;

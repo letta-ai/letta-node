@@ -11,5 +11,5 @@ export const Response: core.serialization.Schema<serializers.sources.passages.li
     core.serialization.list(Passage);
 
 export declare namespace Response {
-    type Raw = Passage.Raw[];
+    export type Raw = Passage.Raw[];
 }

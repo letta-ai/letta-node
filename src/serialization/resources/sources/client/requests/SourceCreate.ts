@@ -14,12 +14,12 @@ export const SourceCreate: core.serialization.Schema<serializers.SourceCreate.Ra
         description: core.serialization.string().optional(),
         metadata: core.serialization.property(
             "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
     });
 
 export declare namespace SourceCreate {
-    interface Raw {
+    export interface Raw {
         name: string;
         embedding_config?: EmbeddingConfig.Raw | null;
         description?: string | null;

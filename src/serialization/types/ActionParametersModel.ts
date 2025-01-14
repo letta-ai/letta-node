@@ -17,7 +17,7 @@ export const ActionParametersModel: core.serialization.ObjectSchema<
 });
 
 export declare namespace ActionParametersModel {
-    interface Raw {
+    export interface Raw {
         properties: Record<string, unknown>;
         title: string;
         type: string;

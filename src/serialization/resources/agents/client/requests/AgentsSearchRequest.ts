@@ -20,7 +20,7 @@ export const AgentsSearchRequest: core.serialization.Schema<
 });
 
 export declare namespace AgentsSearchRequest {
-    interface Raw {
+    export interface Raw {
         search?: AgentsSearchRequestSearchItem.Raw[] | null;
         project_id?: string | null;
         combinator?: AgentsSearchRequestCombinator.Raw | null;

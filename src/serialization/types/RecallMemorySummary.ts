@@ -14,7 +14,7 @@ export const RecallMemorySummary: core.serialization.ObjectSchema<
 });
 
 export declare namespace RecallMemorySummary {
-    interface Raw {
+    export interface Raw {
         size: number;
     }
 }

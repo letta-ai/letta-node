@@ -18,18 +18,18 @@ export const AppAuthScheme: core.serialization.ObjectSchema<serializers.AppAuthS
         tokenUrl: core.serialization.property("token_url", core.serialization.string().optional()),
         defaultScopes: core.serialization.property(
             "default_scopes",
-            core.serialization.list(core.serialization.unknown()).optional()
+            core.serialization.list(core.serialization.unknown()).optional(),
         ),
         tokenResponseMetadata: core.serialization.property(
             "token_response_metadata",
-            core.serialization.list(core.serialization.unknown()).optional()
+            core.serialization.list(core.serialization.unknown()).optional(),
         ),
         clientId: core.serialization.property("client_id", core.serialization.string().optional()),
         clientSecret: core.serialization.property("client_secret", core.serialization.string().optional()),
     });
 
 export declare namespace AppAuthScheme {
-    interface Raw {
+    export interface Raw {
         scheme_name: string;
         auth_mode: AppAuthSchemeAuthMode.Raw;
         fields: AuthSchemeField.Raw[];

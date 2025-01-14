@@ -14,7 +14,7 @@ export const MemoryVariablesGetResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace MemoryVariablesGetResponse {
-    interface Raw {
+    export interface Raw {
         variables: Record<string, string>;
     }
 }

@@ -17,5 +17,5 @@ export const MessagesListResponse: core.serialization.Schema<
 ]);
 
 export declare namespace MessagesListResponse {
-    type Raw = LettaSchemasMessageMessage.Raw[] | MessagesListResponseItem.Raw[];
+    export type Raw = LettaSchemasMessageMessage.Raw[] | MessagesListResponseItem.Raw[];
 }

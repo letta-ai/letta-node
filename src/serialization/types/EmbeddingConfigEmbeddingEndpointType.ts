@@ -30,7 +30,7 @@ export const EmbeddingConfigEmbeddingEndpointType: core.serialization.Schema<
 ]);
 
 export declare namespace EmbeddingConfigEmbeddingEndpointType {
-    type Raw =
+    export type Raw =
         | "openai"
         | "anthropic"
         | "cohere"

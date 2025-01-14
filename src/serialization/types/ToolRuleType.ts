@@ -17,7 +17,7 @@ export const ToolRuleType: core.serialization.Schema<serializers.ToolRuleType.Ra
     ]);
 
 export declare namespace ToolRuleType {
-    type Raw =
+    export type Raw =
         | "InitToolRule"
         | "TerminalToolRule"
         | "continue_loop"

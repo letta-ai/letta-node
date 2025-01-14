@@ -14,7 +14,7 @@ export const Source: core.serialization.ObjectSchema<serializers.Source.Raw, Let
     embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
     metadata: core.serialization.property(
         "metadata_",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     ),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
@@ -23,7 +23,7 @@ export const Source: core.serialization.ObjectSchema<serializers.Source.Raw, Let
 });
 
 export declare namespace Source {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         name: string;
         description?: string | null;

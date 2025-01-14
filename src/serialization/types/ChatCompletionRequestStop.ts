@@ -15,5 +15,5 @@ export const ChatCompletionRequestStop: core.serialization.Schema<
 ]);
 
 export declare namespace ChatCompletionRequestStop {
-    type Raw = string | string[];
+    export type Raw = string | string[];
 }

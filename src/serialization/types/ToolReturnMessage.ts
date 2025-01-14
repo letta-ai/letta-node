@@ -21,7 +21,7 @@ export const ToolReturnMessage: core.serialization.ObjectSchema<
 });
 
 export declare namespace ToolReturnMessage {
-    interface Raw {
+    export interface Raw {
         id: string;
         date: string;
         tool_return: string;

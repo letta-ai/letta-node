@@ -10,5 +10,5 @@ export const AgentType: core.serialization.Schema<serializers.AgentType.Raw, Let
     core.serialization.enum_(["memgpt_agent", "split_thread_agent", "offline_memory_agent", "chat_only_agent"]);
 
 export declare namespace AgentType {
-    type Raw = "memgpt_agent" | "split_thread_agent" | "offline_memory_agent" | "chat_only_agent";
+    export type Raw = "memgpt_agent" | "split_thread_agent" | "offline_memory_agent" | "chat_only_agent";
 }

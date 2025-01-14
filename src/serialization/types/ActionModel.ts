@@ -23,7 +23,7 @@ export const ActionModel: core.serialization.ObjectSchema<serializers.ActionMode
     });
 
 export declare namespace ActionModel {
-    interface Raw {
+    export interface Raw {
         name: string;
         display_name?: string | null;
         parameters: ActionParametersModel.Raw;

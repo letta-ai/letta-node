@@ -12,5 +12,5 @@ export const AppAuthSchemeAuthMode: core.serialization.Schema<
 > = core.serialization.enum_(["OAUTH2", "OAUTH1", "API_KEY", "BASIC", "BEARER_TOKEN", "BASIC_WITH_JWT"]);
 
 export declare namespace AppAuthSchemeAuthMode {
-    type Raw = "OAUTH2" | "OAUTH1" | "API_KEY" | "BASIC" | "BEARER_TOKEN" | "BASIC_WITH_JWT";
+    export type Raw = "OAUTH2" | "OAUTH1" | "API_KEY" | "BASIC" | "BEARER_TOKEN" | "BASIC_WITH_JWT";
 }
