@@ -2,5 +2,5 @@
 
 tests/custom.test.ts
 .github/workflows/ci.yml
-src/api/resources/tools/client/wrapper/Client.ts
-src/api/resources/tools/index.ts
+src/wrapper
+src/index.ts
