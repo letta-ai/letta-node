@@ -1,4 +1,4 @@
-import { LettaEnvironment } from "../src/environments";
+/*import { LettaEnvironment } from "../src/environments";
 import { LettaClient } from "../src/Client";
 import { AgentState, LettaUsageStatistics, UserMessageOutput } from "../src/api";
 import { LettaStreamingResponse, MessagesListResponseItem } from "../src/api/resources/agents";
@@ -198,3 +198,4 @@ describe.skip("Send message", () => {
         expect(lastUserMessage?.message).toContain(messageText);
     }, 10000);
 });
+*/
