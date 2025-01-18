@@ -22,9 +22,13 @@ export interface AgentsListRequest {
     /**
      * Cursor for pagination
      */
-    cursor?: number;
+    cursor?: string;
     /**
      * Limit for pagination
      */
     limit?: number;
+    /**
+     * Search agents by name
+     */
+    queryText?: string;
 }

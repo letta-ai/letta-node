@@ -12,6 +12,7 @@ export const EmbeddingConfigEmbeddingEndpointType: core.serialization.Schema<
 > = core.serialization.enum_([
     "openai",
     "anthropic",
+    "bedrock",
     "cohere",
     "google_ai",
     "azure",
@@ -33,6 +34,7 @@ export declare namespace EmbeddingConfigEmbeddingEndpointType {
     export type Raw =
         | "openai"
         | "anthropic"
+        | "bedrock"
         | "cohere"
         | "google_ai"
         | "azure"

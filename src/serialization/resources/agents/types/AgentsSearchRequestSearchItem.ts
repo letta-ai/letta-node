@@ -7,6 +7,7 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { AgentsSearchRequestSearchItemVersion } from "./AgentsSearchRequestSearchItemVersion";
 import { AgentsSearchRequestSearchItemName } from "./AgentsSearchRequestSearchItemName";
+import { AgentsSearchRequestSearchItemTags } from "./AgentsSearchRequestSearchItemTags";
 import { AgentsSearchRequestSearchItemOrderBy } from "./AgentsSearchRequestSearchItemOrderBy";
 
 export const AgentsSearchRequestSearchItem: core.serialization.Schema<
@@ -16,6 +17,7 @@ export const AgentsSearchRequestSearchItem: core.serialization.Schema<
     .union("field", {
         version: AgentsSearchRequestSearchItemVersion,
         name: AgentsSearchRequestSearchItemName,
+        tags: AgentsSearchRequestSearchItemTags,
         order_by: AgentsSearchRequestSearchItemOrderBy,
     })
     .transform<Letta.AgentsSearchRequestSearchItem>({
@@ -27,6 +29,7 @@ export declare namespace AgentsSearchRequestSearchItem {
     export type Raw =
         | AgentsSearchRequestSearchItem.Version
         | AgentsSearchRequestSearchItem.Name
+        | AgentsSearchRequestSearchItem.Tags
         | AgentsSearchRequestSearchItem.OrderBy;
 
     export interface Version extends AgentsSearchRequestSearchItemVersion.Raw {
@@ -35,6 +38,10 @@ export declare namespace AgentsSearchRequestSearchItem {
 
     export interface Name extends AgentsSearchRequestSearchItemName.Raw {
         field: "name";
+    }
+
+    export interface Tags extends AgentsSearchRequestSearchItemTags.Raw {
+        field: "tags";
     }
 
     export interface OrderBy extends AgentsSearchRequestSearchItemOrderBy.Raw {

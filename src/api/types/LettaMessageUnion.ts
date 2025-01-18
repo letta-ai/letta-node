@@ -4,15 +4,15 @@
 
 import * as Letta from "../index";
 
-export type LettaResponseMessagesItem =
-    | Letta.LettaResponseMessagesItem.SystemMessage
-    | Letta.LettaResponseMessagesItem.UserMessage
-    | Letta.LettaResponseMessagesItem.ReasoningMessage
-    | Letta.LettaResponseMessagesItem.ToolCallMessage
-    | Letta.LettaResponseMessagesItem.ToolReturnMessage
-    | Letta.LettaResponseMessagesItem.AssistantMessage;
+export type LettaMessageUnion =
+    | Letta.LettaMessageUnion.SystemMessage
+    | Letta.LettaMessageUnion.UserMessage
+    | Letta.LettaMessageUnion.ReasoningMessage
+    | Letta.LettaMessageUnion.ToolCallMessage
+    | Letta.LettaMessageUnion.ToolReturnMessage
+    | Letta.LettaMessageUnion.AssistantMessage;
 
-export namespace LettaResponseMessagesItem {
+export namespace LettaMessageUnion {
     export interface SystemMessage extends Letta.SystemMessageOutput {
         messageType: "system_message";
     }

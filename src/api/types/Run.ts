@@ -33,4 +33,6 @@ export interface Run {
     jobType?: Letta.JobType;
     /** The human-friendly ID of the Run */
     id?: string;
+    /** The request configuration for the run. */
+    requestConfig?: Letta.LettaRequestConfig;
 }

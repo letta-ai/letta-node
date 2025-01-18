@@ -3018,7 +3018,7 @@ await client.runs.deleteRun("run_id");
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">getRunMessages</a>(runId, { ...params }) -> Letta.LettaSchemasMessageMessage[]</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">getRunMessages</a>(runId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
 <dl>
 <dd>
 
@@ -3035,16 +3035,14 @@ Get messages associated with a run with filtering options.
 Args:
 run_id: ID of the run
 cursor: Cursor for pagination
-start_date: Filter messages after this date
-end_date: Filter messages before this date
 limit: Maximum number of messages to return
-query_text: Search text in message content
 ascending: Sort order by creation time
-tags: Filter by message tags
-match_all_tags: If true, match all tags. If false, match any tag
-role: Filter by message role (user/assistant/system/tool)
-tool_name: Filter by tool call name
+role: Filter by role (user/assistant/system/tool)
+return_message_object: Whether to return Message objects or LettaMessage objects
 user_id: ID of the user making the request
+
+Returns:
+A list of messages associated with the run. Default is List[LettaMessage].
 
 </dd>
 </dl>
@@ -4473,7 +4471,7 @@ await client.agents.messages.list("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">create</a>(agentId, { ...params }) -> Letta.LettaResponse</code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">send</a>(agentId, { ...params }) -> Letta.LettaResponse</code></summary>
 <dl>
 <dd>
 
@@ -4502,7 +4500,7 @@ This endpoint accepts a message from a user and processes it through the agent.
 <dd>
 
 ```typescript
-await client.agents.messages.create("agent_id", {
+await client.agents.messages.send("agent_id", {
     messages: [
         {
             role: "user",
@@ -4714,7 +4712,7 @@ for await (const item of response) {
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">createAsync</a>(agentId, { ...params }) -> Letta.Run</code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">sendAsync</a>(agentId, { ...params }) -> Letta.Run</code></summary>
 <dl>
 <dd>
 
@@ -4726,8 +4724,8 @@ for await (const item of response) {
 <dl>
 <dd>
 
-Asynchronously process a user message and return a job ID.
-The actual processing happens in the background, and the status can be checked using the job ID.
+Asynchronously process a user message and return a run object.
+The actual processing happens in the background, and the status can be checked using the run ID.
 
 </dd>
 </dl>
@@ -4743,7 +4741,7 @@ The actual processing happens in the background, and the status can be checked u
 <dd>
 
 ```typescript
-await client.agents.messages.createAsync("agent_id", {
+await client.agents.messages.sendAsync("agent_id", {
     messages: [
         {
             role: "user",

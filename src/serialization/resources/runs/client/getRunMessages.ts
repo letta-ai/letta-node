@@ -5,13 +5,13 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { LettaSchemasMessageMessage } from "../../../types/LettaSchemasMessageMessage";
+import { LettaMessageUnion } from "../../../types/LettaMessageUnion";
 
 export const Response: core.serialization.Schema<
     serializers.runs.getRunMessages.Response.Raw,
-    Letta.LettaSchemasMessageMessage[]
-> = core.serialization.list(LettaSchemasMessageMessage);
+    Letta.LettaMessageUnion[]
+> = core.serialization.list(LettaMessageUnion);
 
 export declare namespace Response {
-    export type Raw = LettaSchemasMessageMessage.Raw[];
+    export type Raw = LettaMessageUnion.Raw[];
 }

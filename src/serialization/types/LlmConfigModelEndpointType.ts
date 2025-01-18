@@ -27,6 +27,7 @@ export const LlmConfigModelEndpointType: core.serialization.Schema<
     "hugging-face",
     "mistral",
     "together",
+    "bedrock",
 ]);
 
 export declare namespace LlmConfigModelEndpointType {
@@ -47,5 +48,6 @@ export declare namespace LlmConfigModelEndpointType {
         | "vllm"
         | "hugging-face"
         | "mistral"
-        | "together";
+        | "together"
+        | "bedrock";
 }

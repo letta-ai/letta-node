@@ -14,39 +14,15 @@ export interface GetRunMessagesRequest {
      */
     cursor?: string;
     /**
-     * Filter messages after this date
-     */
-    startDate?: Date;
-    /**
-     * Filter messages before this date
-     */
-    endDate?: Date;
-    /**
      * Maximum number of messages to return
      */
     limit?: number;
-    /**
-     * Search text in message content
-     */
-    queryText?: string;
     /**
      * Sort order by creation time
      */
     ascending?: boolean;
     /**
-     * Filter by message tags
-     */
-    tags?: string | string[];
-    /**
-     * If true, match all tags. If false, match any tag
-     */
-    matchAllTags?: boolean;
-    /**
-     * Filter by message role
+     * Filter by role
      */
     role?: Letta.MessageRole;
-    /**
-     * Filter by tool call name
-     */
-    toolName?: string;
 }

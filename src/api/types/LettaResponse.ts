@@ -14,7 +14,7 @@ import * as Letta from "../index";
  */
 export interface LettaResponse {
     /** The messages returned by the agent. */
-    messages: Letta.LettaResponseMessagesItem[];
+    messages: Letta.LettaMessageUnion[];
     /** The usage statistics of the agent. */
     usage: Letta.LettaUsageStatistics;
 }

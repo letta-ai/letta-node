@@ -3,6 +3,7 @@ export * from "./UpdateAgentToolRulesItem";
 export * from "./AgentsSearchRequestSearchItemVersion";
 export * from "./AgentsSearchRequestSearchItemNameOperator";
 export * from "./AgentsSearchRequestSearchItemName";
+export * from "./AgentsSearchRequestSearchItemTags";
 export * from "./AgentsSearchRequestSearchItemOrderByValue";
 export * from "./AgentsSearchRequestSearchItemOrderByDirection";
 export * from "./AgentsSearchRequestSearchItemOrderBy";

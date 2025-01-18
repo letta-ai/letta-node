@@ -22,7 +22,8 @@ export type LlmConfigModelEndpointType =
     | "vllm"
     | "hugging-face"
     | "mistral"
-    | "together";
+    | "together"
+    | "bedrock";
 export const LlmConfigModelEndpointType = {
     Openai: "openai",
     Anthropic: "anthropic",
@@ -41,4 +42,5 @@ export const LlmConfigModelEndpointType = {
     HuggingFace: "hugging-face",
     Mistral: "mistral",
     Together: "together",
+    Bedrock: "bedrock",
 } as const;

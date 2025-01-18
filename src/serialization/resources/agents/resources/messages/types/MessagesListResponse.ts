@@ -6,16 +6,16 @@ import * as serializers from "../../../../../index";
 import * as Letta from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { LettaSchemasMessageMessage } from "../../../../../types/LettaSchemasMessageMessage";
-import { MessagesListResponseItem } from "./MessagesListResponseItem";
+import { LettaMessageUnion } from "../../../../../types/LettaMessageUnion";
 
 export const MessagesListResponse: core.serialization.Schema<
     serializers.agents.MessagesListResponse.Raw,
     Letta.agents.MessagesListResponse
 > = core.serialization.undiscriminatedUnion([
     core.serialization.list(LettaSchemasMessageMessage),
-    core.serialization.list(MessagesListResponseItem),
+    core.serialization.list(LettaMessageUnion),
 ]);
 
 export declare namespace MessagesListResponse {
-    export type Raw = LettaSchemasMessageMessage.Raw[] | MessagesListResponseItem.Raw[];
+    export type Raw = LettaSchemasMessageMessage.Raw[] | LettaMessageUnion.Raw[];
 }

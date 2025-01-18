@@ -5,18 +5,18 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { LettaResponseMessagesItem } from "./LettaResponseMessagesItem";
+import { LettaMessageUnion } from "./LettaMessageUnion";
 import { LettaUsageStatistics } from "./LettaUsageStatistics";
 
 export const LettaResponse: core.serialization.ObjectSchema<serializers.LettaResponse.Raw, Letta.LettaResponse> =
     core.serialization.object({
-        messages: core.serialization.list(LettaResponseMessagesItem),
+        messages: core.serialization.list(LettaMessageUnion),
         usage: LettaUsageStatistics,
     });
 
 export declare namespace LettaResponse {
     export interface Raw {
-        messages: LettaResponseMessagesItem.Raw[];
+        messages: LettaMessageUnion.Raw[];
         usage: LettaUsageStatistics.Raw;
     }
 }

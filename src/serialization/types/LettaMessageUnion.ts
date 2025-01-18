@@ -12,31 +12,29 @@ import { ToolCallMessage } from "./ToolCallMessage";
 import { ToolReturnMessage } from "./ToolReturnMessage";
 import { AssistantMessageOutput } from "./AssistantMessageOutput";
 
-export const LettaResponseMessagesItem: core.serialization.Schema<
-    serializers.LettaResponseMessagesItem.Raw,
-    Letta.LettaResponseMessagesItem
-> = core.serialization
-    .union(core.serialization.discriminant("messageType", "message_type"), {
-        system_message: SystemMessageOutput,
-        user_message: UserMessageOutput,
-        reasoning_message: ReasoningMessage,
-        tool_call_message: ToolCallMessage,
-        tool_return_message: ToolReturnMessage,
-        assistant_message: AssistantMessageOutput,
-    })
-    .transform<Letta.LettaResponseMessagesItem>({
-        transform: (value) => value,
-        untransform: (value) => value,
-    });
+export const LettaMessageUnion: core.serialization.Schema<serializers.LettaMessageUnion.Raw, Letta.LettaMessageUnion> =
+    core.serialization
+        .union(core.serialization.discriminant("messageType", "message_type"), {
+            system_message: SystemMessageOutput,
+            user_message: UserMessageOutput,
+            reasoning_message: ReasoningMessage,
+            tool_call_message: ToolCallMessage,
+            tool_return_message: ToolReturnMessage,
+            assistant_message: AssistantMessageOutput,
+        })
+        .transform<Letta.LettaMessageUnion>({
+            transform: (value) => value,
+            untransform: (value) => value,
+        });
 
-export declare namespace LettaResponseMessagesItem {
+export declare namespace LettaMessageUnion {
     export type Raw =
-        | LettaResponseMessagesItem.SystemMessage
-        | LettaResponseMessagesItem.UserMessage
-        | LettaResponseMessagesItem.ReasoningMessage
-        | LettaResponseMessagesItem.ToolCallMessage
-        | LettaResponseMessagesItem.ToolReturnMessage
-        | LettaResponseMessagesItem.AssistantMessage;
+        | LettaMessageUnion.SystemMessage
+        | LettaMessageUnion.UserMessage
+        | LettaMessageUnion.ReasoningMessage
+        | LettaMessageUnion.ToolCallMessage
+        | LettaMessageUnion.ToolReturnMessage
+        | LettaMessageUnion.AssistantMessage;
 
     export interface SystemMessage extends SystemMessageOutput.Raw {
         message_type: "system_message";

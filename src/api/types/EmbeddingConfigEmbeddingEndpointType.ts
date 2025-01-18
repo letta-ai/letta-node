@@ -8,6 +8,7 @@
 export type EmbeddingConfigEmbeddingEndpointType =
     | "openai"
     | "anthropic"
+    | "bedrock"
     | "cohere"
     | "google_ai"
     | "azure"
@@ -26,6 +27,7 @@ export type EmbeddingConfigEmbeddingEndpointType =
 export const EmbeddingConfigEmbeddingEndpointType = {
     Openai: "openai",
     Anthropic: "anthropic",
+    Bedrock: "bedrock",
     Cohere: "cohere",
     GoogleAi: "google_ai",
     Azure: "azure",

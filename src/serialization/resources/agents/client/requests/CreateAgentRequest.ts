@@ -39,6 +39,10 @@ export const CreateAgentRequest: core.serialization.Schema<
         core.serialization.list(MessageCreate).optional(),
     ),
     includeBaseTools: core.serialization.property("include_base_tools", core.serialization.boolean().optional()),
+    includeMultiAgentTools: core.serialization.property(
+        "include_multi_agent_tools",
+        core.serialization.boolean().optional(),
+    ),
     description: core.serialization.string().optional(),
     metadata: core.serialization.property(
         "metadata_",
@@ -76,6 +80,7 @@ export declare namespace CreateAgentRequest {
         embedding_config?: EmbeddingConfig.Raw | null;
         initial_message_sequence?: MessageCreate.Raw[] | null;
         include_base_tools?: boolean | null;
+        include_multi_agent_tools?: boolean | null;
         description?: string | null;
         metadata_?: Record<string, unknown> | null;
         llm?: string | null;

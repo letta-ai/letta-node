@@ -55,8 +55,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.9",
-                "User-Agent": "@letta-ai/letta-client/0.1.9",
+                "X-Fern-SDK-Version": "0.1.10",
+                "User-Agent": "@letta-ai/letta-client/0.1.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -135,8 +135,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.9",
-                "User-Agent": "@letta-ai/letta-client/0.1.9",
+                "X-Fern-SDK-Version": "0.1.10",
+                "User-Agent": "@letta-ai/letta-client/0.1.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -216,8 +216,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.9",
-                "User-Agent": "@letta-ai/letta-client/0.1.9",
+                "X-Fern-SDK-Version": "0.1.10",
+                "User-Agent": "@letta-ai/letta-client/0.1.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -297,8 +297,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.9",
-                "User-Agent": "@letta-ai/letta-client/0.1.9",
+                "X-Fern-SDK-Version": "0.1.10",
+                "User-Agent": "@letta-ai/letta-client/0.1.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -361,16 +361,14 @@ export class Runs {
      * Args:
      *     run_id: ID of the run
      *     cursor: Cursor for pagination
-     *     start_date: Filter messages after this date
-     *     end_date: Filter messages before this date
      *     limit: Maximum number of messages to return
-     *     query_text: Search text in message content
      *     ascending: Sort order by creation time
-     *     tags: Filter by message tags
-     *     match_all_tags: If true, match all tags. If false, match any tag
-     *     role: Filter by message role (user/assistant/system/tool)
-     *     tool_name: Filter by tool call name
+     *     role: Filter by role (user/assistant/system/tool)
+     *     return_message_object: Whether to return Message objects or LettaMessage objects
      *     user_id: ID of the user making the request
+     *
+     * Returns:
+     *     A list of messages associated with the run. Default is List[LettaMessage].
      *
      * @param {string} runId
      * @param {Letta.GetRunMessagesRequest} request
@@ -385,51 +383,23 @@ export class Runs {
         runId: string,
         request: Letta.GetRunMessagesRequest = {},
         requestOptions?: Runs.RequestOptions,
-    ): Promise<Letta.LettaSchemasMessageMessage[]> {
-        const { cursor, startDate, endDate, limit, queryText, ascending, tags, matchAllTags, role, toolName } = request;
+    ): Promise<Letta.LettaMessageUnion[]> {
+        const { cursor, limit, ascending, role } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (cursor != null) {
             _queryParams["cursor"] = cursor;
-        }
-
-        if (startDate != null) {
-            _queryParams["start_date"] = startDate.toISOString();
-        }
-
-        if (endDate != null) {
-            _queryParams["end_date"] = endDate.toISOString();
         }
 
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
         }
 
-        if (queryText != null) {
-            _queryParams["query_text"] = queryText;
-        }
-
         if (ascending != null) {
             _queryParams["ascending"] = ascending.toString();
         }
 
-        if (tags != null) {
-            if (Array.isArray(tags)) {
-                _queryParams["tags"] = tags.map((item) => item);
-            } else {
-                _queryParams["tags"] = tags;
-            }
-        }
-
-        if (matchAllTags != null) {
-            _queryParams["match_all_tags"] = matchAllTags.toString();
-        }
-
         if (role != null) {
             _queryParams["role"] = role;
-        }
-
-        if (toolName != null) {
-            _queryParams["tool_name"] = toolName;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -443,8 +413,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.9",
-                "User-Agent": "@letta-ai/letta-client/0.1.9",
+                "X-Fern-SDK-Version": "0.1.10",
+                "User-Agent": "@letta-ai/letta-client/0.1.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -525,8 +495,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.9",
-                "User-Agent": "@letta-ai/letta-client/0.1.9",
+                "X-Fern-SDK-Version": "0.1.10",
+                "User-Agent": "@letta-ai/letta-client/0.1.10",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -7,6 +7,7 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { JobStatus } from "./JobStatus";
 import { JobType } from "./JobType";
+import { LettaRequestConfig } from "./LettaRequestConfig";
 
 export const Run: core.serialization.ObjectSchema<serializers.Run.Raw, Letta.Run> = core.serialization.object({
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
@@ -21,6 +22,7 @@ export const Run: core.serialization.ObjectSchema<serializers.Run.Raw, Letta.Run
     ),
     jobType: core.serialization.property("job_type", JobType.optional()),
     id: core.serialization.string().optional(),
+    requestConfig: core.serialization.property("request_config", LettaRequestConfig.optional()),
 });
 
 export declare namespace Run {
@@ -34,5 +36,6 @@ export declare namespace Run {
         metadata_?: Record<string, unknown> | null;
         job_type?: JobType.Raw | null;
         id?: string | null;
+        request_config?: LettaRequestConfig.Raw | null;
     }
 }
