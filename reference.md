@@ -199,69 +199,6 @@ await client.tools.update("tool_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">getByName</a>(toolName) -> string</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get a tool ID by name
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tools.getByName("tool_name");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**toolName:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">list</a>({ ...params }) -> Letta.LettaSchemasToolTool[]</code></summary>
 <dl>
 <dd>
@@ -1554,7 +1491,7 @@ await client.agents.delete("agent_id");
 <dl>
 <dd>
 
-Update an exsiting agent
+Update an existing agent
 
 </dd>
 </dl>
@@ -2649,6 +2586,71 @@ await client.providers.createProvider({
 </dl>
 </details>
 
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">deleteProvider</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete an existing custom provider
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.providers.deleteProvider({
+    providerId: "provider_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.DeleteProviderRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Providers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">updateProvider</a>({ ...params }) -> Letta.Provider</code></summary>
 <dl>
 <dd>
@@ -2697,71 +2699,6 @@ await client.providers.updateProvider({
 <dd>
 
 **request:** `Letta.ProviderUpdate`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Providers.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">deleteProvider</a>({ ...params }) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete an existing custom provider
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.providers.deleteProvider({
-    providerId: "provider_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Letta.DeleteProviderRequest`
 
 </dd>
 </dl>
@@ -3568,69 +3505,6 @@ await client.agents.sources.get("agent_id");
 
 ## Agents CoreMemory
 
-<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">listInContext</a>(agentId) -> Letta.LettaSchemasMessageMessage[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the messages in the context of a specific agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.coreMemory.listInContext("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CoreMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">get</a>(agentId) -> Letta.Memory</code></summary>
 <dl>
 <dd>
@@ -3916,7 +3790,7 @@ await client.agents.coreMemory.updateBlock("agent_id", "block_label", {});
 </dl>
 </details>
 
-<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">getBlocks</a>(agentId) -> Letta.Block[]</code></summary>
+<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">list</a>(agentId) -> Letta.Block[]</code></summary>
 <dl>
 <dd>
 
@@ -3944,7 +3818,7 @@ Retrieve the memory blocks of a specific agent.
 <dd>
 
 ```typescript
-await client.agents.coreMemory.getBlocks("agent_id");
+await client.agents.coreMemory.list("agent_id");
 ```
 
 </dd>
@@ -4053,135 +3927,7 @@ await client.agents.coreMemory.addBlock("agent_id", {
 </dl>
 </details>
 
-## Agents RecallMemory
-
-<details><summary><code>client.agents.recallMemory.<a href="/src/api/resources/agents/resources/recallMemory/client/Client.ts">getSummary</a>(agentId) -> Letta.RecallMemorySummary</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the summary of the recall memory of a specific agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.recallMemory.getSummary("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RecallMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Agents ArchivalMemory
-
-<details><summary><code>client.agents.archivalMemory.<a href="/src/api/resources/agents/resources/archivalMemory/client/Client.ts">getSummary</a>(agentId) -> Letta.ArchivalMemorySummary</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the summary of the archival memory of a specific agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.archivalMemory.getSummary("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ArchivalMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
 
 <details><summary><code>client.agents.archivalMemory.<a href="/src/api/resources/agents/resources/archivalMemory/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.Passage[]</code></summary>
 <dl>
@@ -4471,7 +4217,7 @@ await client.agents.messages.list("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">send</a>(agentId, { ...params }) -> Letta.LettaResponse</code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">create</a>(agentId, { ...params }) -> Letta.LettaResponse</code></summary>
 <dl>
 <dd>
 
@@ -4500,7 +4246,7 @@ This endpoint accepts a message from a user and processes it through the agent.
 <dd>
 
 ```typescript
-await client.agents.messages.send("agent_id", {
+await client.agents.messages.create("agent_id", {
     messages: [
         {
             role: "user",
@@ -4629,7 +4375,7 @@ await client.agents.messages.update("agent_id", "message_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">stream</a>(agentId, { ...params }) -> core.Stream<Letta.LettaStreamingResponse></code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">createStream</a>(agentId, { ...params }) -> core.Stream<Letta.LettaStreamingResponse></code></summary>
 <dl>
 <dd>
 
@@ -4659,7 +4405,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 <dd>
 
 ```typescript
-const response = await client.agents.messages.stream("agent_id", {
+const response = await client.agents.messages.createStream("agent_id", {
     messages: [
         {
             role: "user",
@@ -4712,7 +4458,7 @@ for await (const item of response) {
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">sendAsync</a>(agentId, { ...params }) -> Letta.Run</code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">createAsync</a>(agentId, { ...params }) -> Letta.Run</code></summary>
 <dl>
 <dd>
 
@@ -4741,7 +4487,7 @@ The actual processing happens in the background, and the status can be checked u
 <dd>
 
 ```typescript
-await client.agents.messages.sendAsync("agent_id", {
+await client.agents.messages.createAsync("agent_id", {
     messages: [
         {
             role: "user",

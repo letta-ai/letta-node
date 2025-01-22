@@ -34,92 +34,6 @@ export class CoreMemory {
     constructor(protected readonly _options: CoreMemory.Options = {}) {}
 
     /**
-     * Retrieve the messages in the context of a specific agent.
-     *
-     * @param {string} agentId
-     * @param {CoreMemory.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.agents.coreMemory.listInContext("agent_id")
-     */
-    public async listInContext(
-        agentId: string,
-        requestOptions?: CoreMemory.RequestOptions,
-    ): Promise<Letta.LettaSchemasMessageMessage[]> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/messages`,
-            ),
-            method: "GET",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.11",
-                "User-Agent": "@letta-ai/letta-client/0.1.11",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.agents.coreMemory.listInContext.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/messages.",
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
      * Retrieve the memory state of a specific agent.
      * This endpoint fetches the current memory state of the agent identified by the user ID and agent ID.
      *
@@ -137,14 +51,14 @@ export class CoreMemory {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory`,
+                `v1/agents/${encodeURIComponent(agentId)}/core_memory`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.11",
-                "User-Agent": "@letta-ai/letta-client/0.1.11",
+                "X-Fern-SDK-Version": "0.1.12",
+                "User-Agent": "@letta-ai/letta-client/0.1.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -193,7 +107,9 @@ export class CoreMemory {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/agents/{agent_id}/memory.");
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/core_memory.",
+                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,
@@ -223,14 +139,14 @@ export class CoreMemory {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`,
+                `v1/agents/${encodeURIComponent(agentId)}/core_memory/blocks/${encodeURIComponent(blockLabel)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.11",
-                "User-Agent": "@letta-ai/letta-client/0.1.11",
+                "X-Fern-SDK-Version": "0.1.12",
+                "User-Agent": "@letta-ai/letta-client/0.1.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -280,7 +196,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/block/{block_label}.",
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/core_memory/blocks/{block_label}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -311,14 +227,14 @@ export class CoreMemory {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`,
+                `v1/agents/${encodeURIComponent(agentId)}/core_memory/blocks/${encodeURIComponent(blockLabel)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.11",
-                "User-Agent": "@letta-ai/letta-client/0.1.11",
+                "X-Fern-SDK-Version": "0.1.12",
+                "User-Agent": "@letta-ai/letta-client/0.1.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -368,7 +284,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling DELETE /v1/agents/{agent_id}/memory/block/{block_label}.",
+                    "Timeout exceeded when calling DELETE /v1/agents/{agent_id}/core_memory/blocks/{block_label}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -401,14 +317,14 @@ export class CoreMemory {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block/${encodeURIComponent(blockLabel)}`,
+                `v1/agents/${encodeURIComponent(agentId)}/core_memory/blocks/${encodeURIComponent(blockLabel)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.11",
-                "User-Agent": "@letta-ai/letta-client/0.1.11",
+                "X-Fern-SDK-Version": "0.1.12",
+                "User-Agent": "@letta-ai/letta-client/0.1.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -459,7 +375,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/memory/block/{block_label}.",
+                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/core_memory/blocks/{block_label}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -477,22 +393,22 @@ export class CoreMemory {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.coreMemory.getBlocks("agent_id")
+     *     await client.agents.coreMemory.list("agent_id")
      */
-    public async getBlocks(agentId: string, requestOptions?: CoreMemory.RequestOptions): Promise<Letta.Block[]> {
+    public async list(agentId: string, requestOptions?: CoreMemory.RequestOptions): Promise<Letta.Block[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block`,
+                `v1/agents/${encodeURIComponent(agentId)}/core_memory/blocks`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.11",
-                "User-Agent": "@letta-ai/letta-client/0.1.11",
+                "X-Fern-SDK-Version": "0.1.12",
+                "User-Agent": "@letta-ai/letta-client/0.1.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -505,7 +421,7 @@ export class CoreMemory {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.agents.coreMemory.getBlocks.Response.parseOrThrow(_response.body, {
+            return serializers.agents.coreMemory.list.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -542,7 +458,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/memory/block.",
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/core_memory/blocks.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -576,14 +492,14 @@ export class CoreMemory {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/memory/block`,
+                `v1/agents/${encodeURIComponent(agentId)}/core_memory/blocks`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.11",
-                "User-Agent": "@letta-ai/letta-client/0.1.11",
+                "X-Fern-SDK-Version": "0.1.12",
+                "User-Agent": "@letta-ai/letta-client/0.1.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -634,7 +550,7 @@ export class CoreMemory {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/memory/block.",
+                    "Timeout exceeded when calling POST /v1/agents/{agent_id}/core_memory/blocks.",
                 );
             case "unknown":
                 throw new errors.LettaError({

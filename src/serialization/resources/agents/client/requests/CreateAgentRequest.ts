@@ -48,7 +48,7 @@ export const CreateAgentRequest: core.serialization.Schema<
         "metadata_",
         core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     ),
-    llm: core.serialization.string().optional(),
+    model: core.serialization.string().optional(),
     embedding: core.serialization.string().optional(),
     contextWindowLimit: core.serialization.property("context_window_limit", core.serialization.number().optional()),
     embeddingChunkSize: core.serialization.property("embedding_chunk_size", core.serialization.number().optional()),
@@ -59,9 +59,10 @@ export const CreateAgentRequest: core.serialization.Schema<
         "tool_exec_environment_variables",
         core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
     ),
-    variables: core.serialization
-        .record(core.serialization.string(), core.serialization.string().optional())
-        .optional(),
+    memoryVariables: core.serialization.property(
+        "memory_variables",
+        core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
+    ),
 });
 
 export declare namespace CreateAgentRequest {
@@ -83,7 +84,7 @@ export declare namespace CreateAgentRequest {
         include_multi_agent_tools?: boolean | null;
         description?: string | null;
         metadata_?: Record<string, unknown> | null;
-        llm?: string | null;
+        model?: string | null;
         embedding?: string | null;
         context_window_limit?: number | null;
         embedding_chunk_size?: number | null;
@@ -91,6 +92,6 @@ export declare namespace CreateAgentRequest {
         template?: boolean | null;
         project?: string | null;
         tool_exec_environment_variables?: Record<string, string | null | undefined> | null;
-        variables?: Record<string, string | null | undefined> | null;
+        memory_variables?: Record<string, string | null | undefined> | null;
     }
 }

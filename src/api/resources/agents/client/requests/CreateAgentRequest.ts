@@ -44,7 +44,7 @@ export interface CreateAgentRequest {
     /** The metadata of the agent. */
     metadata?: Record<string, unknown>;
     /** The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config. */
-    llm?: string;
+    model?: string;
     /** The embedding configuration handle used by the agent, specified in the format provider/model-name. */
     embedding?: string;
     /** The context window limit used by the agent. */
@@ -60,5 +60,5 @@ export interface CreateAgentRequest {
     /** The environment variables for tool execution specific to this agent. */
     toolExecEnvironmentVariables?: Record<string, string | undefined>;
     /** The variables that should be set for the agent. */
-    variables?: Record<string, string | undefined>;
+    memoryVariables?: Record<string, string | undefined>;
 }

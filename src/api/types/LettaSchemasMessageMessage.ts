@@ -44,4 +44,6 @@ export interface LettaSchemasMessageMessage {
     toolCalls?: Letta.LettaSchemasOpenaiChatCompletionsToolCallOutput[];
     /** The id of the tool call. */
     toolCallId?: string;
+    /** The id of the step that this message was created in. */
+    stepId?: string;
 }

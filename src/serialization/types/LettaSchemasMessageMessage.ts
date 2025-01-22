@@ -27,6 +27,7 @@ export const LettaSchemasMessageMessage: core.serialization.ObjectSchema<
         core.serialization.list(LettaSchemasOpenaiChatCompletionsToolCallOutput).optional(),
     ),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
+    stepId: core.serialization.property("step_id", core.serialization.string().optional()),
 });
 
 export declare namespace LettaSchemasMessageMessage {
@@ -43,5 +44,6 @@ export declare namespace LettaSchemasMessageMessage {
         name?: string | null;
         tool_calls?: LettaSchemasOpenaiChatCompletionsToolCallOutput.Raw[] | null;
         tool_call_id?: string | null;
+        step_id?: string | null;
     }
 }

@@ -1,4 +1,3 @@
-export * as getByName from "./getByName";
 export * as list from "./list";
 export * as addBaseTool from "./addBaseTool";
 export * as listComposioApps from "./listComposioApps";
