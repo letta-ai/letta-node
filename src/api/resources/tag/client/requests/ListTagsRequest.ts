@@ -7,7 +7,7 @@
  *     {}
  */
 export interface ListTagsRequest {
-    cursor?: string;
+    after?: string;
     limit?: number;
     queryText?: string;
 }

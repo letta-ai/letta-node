@@ -22,7 +22,11 @@ export interface AgentsListRequest {
     /**
      * Cursor for pagination
      */
-    cursor?: string;
+    before?: string;
+    /**
+     * Cursor for pagination
+     */
+    after?: string;
     /**
      * Limit for pagination
      */

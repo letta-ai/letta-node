@@ -55,8 +55,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.13",
-                "User-Agent": "@letta-ai/letta-client/0.1.13",
+                "X-Fern-SDK-Version": "0.1.14",
+                "User-Agent": "@letta-ai/letta-client/0.1.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -135,8 +135,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.13",
-                "User-Agent": "@letta-ai/letta-client/0.1.13",
+                "X-Fern-SDK-Version": "0.1.14",
+                "User-Agent": "@letta-ai/letta-client/0.1.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -216,8 +216,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.13",
-                "User-Agent": "@letta-ai/letta-client/0.1.13",
+                "X-Fern-SDK-Version": "0.1.14",
+                "User-Agent": "@letta-ai/letta-client/0.1.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -297,8 +297,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.13",
-                "User-Agent": "@letta-ai/letta-client/0.1.13",
+                "X-Fern-SDK-Version": "0.1.14",
+                "User-Agent": "@letta-ai/letta-client/0.1.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -360,9 +360,10 @@ export class Runs {
      *
      * Args:
      *     run_id: ID of the run
-     *     cursor: Cursor for pagination
+     *     before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+     *     after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
      *     limit: Maximum number of messages to return
-     *     ascending: Sort order by creation time
+     *     order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
      *     role: Filter by role (user/assistant/system/tool)
      *     return_message_object: Whether to return Message objects or LettaMessage objects
      *     user_id: ID of the user making the request
@@ -384,18 +385,22 @@ export class Runs {
         request: Letta.ListRunMessagesRequest = {},
         requestOptions?: Runs.RequestOptions,
     ): Promise<Letta.LettaMessageUnion[]> {
-        const { cursor, limit, ascending, role } = request;
+        const { before, after, limit, order, role } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (cursor != null) {
-            _queryParams["cursor"] = cursor;
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
         }
 
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
         }
 
-        if (ascending != null) {
-            _queryParams["ascending"] = ascending.toString();
+        if (order != null) {
+            _queryParams["order"] = order;
         }
 
         if (role != null) {
@@ -413,8 +418,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.13",
-                "User-Agent": "@letta-ai/letta-client/0.1.13",
+                "X-Fern-SDK-Version": "0.1.14",
+                "User-Agent": "@letta-ai/letta-client/0.1.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -495,8 +500,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.13",
-                "User-Agent": "@letta-ai/letta-client/0.1.13",
+                "X-Fern-SDK-Version": "0.1.14",
+                "User-Agent": "@letta-ai/letta-client/0.1.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -14,5 +14,5 @@ export interface FilesListRequest {
     /**
      * Pagination cursor to fetch the next set of results
      */
-    cursor?: string;
+    after?: string;
 }

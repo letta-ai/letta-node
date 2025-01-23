@@ -7,6 +7,6 @@
  *     {}
  */
 export interface ListProvidersRequest {
-    cursor?: string;
+    after?: string;
     limit?: number;
 }

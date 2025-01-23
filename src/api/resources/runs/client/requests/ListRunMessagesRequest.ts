@@ -12,15 +12,19 @@ export interface ListRunMessagesRequest {
     /**
      * Cursor for pagination
      */
-    cursor?: string;
+    before?: string;
+    /**
+     * Cursor for pagination
+     */
+    after?: string;
     /**
      * Maximum number of messages to return
      */
     limit?: number;
     /**
-     * Sort order by creation time
+     * Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
      */
-    ascending?: boolean;
+    order?: string;
     /**
      * Filter by role
      */

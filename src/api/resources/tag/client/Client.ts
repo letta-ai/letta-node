@@ -45,10 +45,10 @@ export class Tag {
      *     await client.tag.listTags()
      */
     public async listTags(request: Letta.ListTagsRequest = {}, requestOptions?: Tag.RequestOptions): Promise<string[]> {
-        const { cursor, limit, queryText } = request;
+        const { after, limit, queryText } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (cursor != null) {
-            _queryParams["cursor"] = cursor;
+        if (after != null) {
+            _queryParams["after"] = after;
         }
 
         if (limit != null) {
@@ -70,8 +70,8 @@ export class Tag {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.13",
-                "User-Agent": "@letta-ai/letta-client/0.1.13",
+                "X-Fern-SDK-Version": "0.1.14",
+                "User-Agent": "@letta-ai/letta-client/0.1.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

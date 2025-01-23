@@ -7,6 +7,6 @@
  *     {}
  */
 export interface ToolsListRequest {
-    cursor?: string;
+    after?: string;
     limit?: number;
 }
