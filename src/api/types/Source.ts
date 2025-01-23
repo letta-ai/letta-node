@@ -12,7 +12,7 @@ import * as Letta from "../index";
  *     name (str): The name of the source.
  *     embedding_config (EmbeddingConfig): The embedding configuration used by the source.
  *     user_id (str): The ID of the user that created the source.
- *     metadata_ (dict): Metadata associated with the source.
+ *     metadata (dict): Metadata associated with the source.
  *     description (str): The description of the source.
  */
 export interface Source {

@@ -5,8 +5,8 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { LettaSchemasOpenaiChatCompletionRequestTool } from "./LettaSchemasOpenaiChatCompletionRequestTool";
-import { LettaSchemasMessageMessage } from "./LettaSchemasMessageMessage";
+import { FunctionTool } from "./FunctionTool";
+import { Message } from "./Message";
 
 export const ContextWindowOverview: core.serialization.ObjectSchema<
     serializers.ContextWindowOverview.Raw,
@@ -34,10 +34,10 @@ export const ContextWindowOverview: core.serialization.ObjectSchema<
     ),
     functionsDefinitions: core.serialization.property(
         "functions_definitions",
-        core.serialization.list(LettaSchemasOpenaiChatCompletionRequestTool).optional(),
+        core.serialization.list(FunctionTool).optional(),
     ),
     numTokensMessages: core.serialization.property("num_tokens_messages", core.serialization.number()),
-    messages: core.serialization.list(LettaSchemasMessageMessage),
+    messages: core.serialization.list(Message),
 });
 
 export declare namespace ContextWindowOverview {
@@ -56,8 +56,8 @@ export declare namespace ContextWindowOverview {
         num_tokens_summary_memory: number;
         summary_memory?: string | null;
         num_tokens_functions_definitions: number;
-        functions_definitions?: LettaSchemasOpenaiChatCompletionRequestTool.Raw[] | null;
+        functions_definitions?: FunctionTool.Raw[] | null;
         num_tokens_messages: number;
-        messages: LettaSchemasMessageMessage.Raw[];
+        messages: Message.Raw[];
     }
 }

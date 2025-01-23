@@ -84,8 +84,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -177,8 +177,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -249,14 +249,14 @@ export class Messages {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.messages.update("agent_id", "message_id")
+     *     await client.agents.messages.modify("agent_id", "message_id")
      */
-    public async update(
+    public async modify(
         agentId: string,
         messageId: string,
         request: Letta.agents.MessageUpdate = {},
         requestOptions?: Messages.RequestOptions,
-    ): Promise<Letta.LettaSchemasMessageMessage> {
+    ): Promise<Letta.Message> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -268,8 +268,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -283,7 +283,7 @@ export class Messages {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.LettaSchemasMessageMessage.parseOrThrow(_response.body, {
+            return serializers.Message.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -350,8 +350,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -456,8 +456,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

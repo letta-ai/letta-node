@@ -15,5 +15,6 @@ import * as Letta from "../index";
 export interface ToolCallMessage {
     id: string;
     date: Date;
+    messageType: "tool_call_message";
     toolCall: Letta.ToolCallMessageToolCall;
 }

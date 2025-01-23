@@ -5,25 +5,7 @@
 import * as Letta from "../../../index";
 
 export type AgentsSearchRequestSearchItem =
-    | Letta.AgentsSearchRequestSearchItem.Version
-    | Letta.AgentsSearchRequestSearchItem.Name
-    | Letta.AgentsSearchRequestSearchItem.Tags
-    | Letta.AgentsSearchRequestSearchItem.OrderBy;
-
-export namespace AgentsSearchRequestSearchItem {
-    export interface Version extends Letta.AgentsSearchRequestSearchItemVersion {
-        field: "version";
-    }
-
-    export interface Name extends Letta.AgentsSearchRequestSearchItemName {
-        field: "name";
-    }
-
-    export interface Tags extends Letta.AgentsSearchRequestSearchItemTags {
-        field: "tags";
-    }
-
-    export interface OrderBy extends Letta.AgentsSearchRequestSearchItemOrderBy {
-        field: "order_by";
-    }
-}
+    | Letta.AgentsSearchRequestSearchItemZero
+    | Letta.AgentsSearchRequestSearchItemOne
+    | Letta.AgentsSearchRequestSearchItemTwo
+    | Letta.AgentsSearchRequestSearchItemDirection;

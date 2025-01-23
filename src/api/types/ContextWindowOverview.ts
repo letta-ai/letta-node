@@ -37,9 +37,9 @@ export interface ContextWindowOverview {
     /** The number of tokens in the functions definitions. */
     numTokensFunctionsDefinitions: number;
     /** The content of the functions definitions. */
-    functionsDefinitions?: Letta.LettaSchemasOpenaiChatCompletionRequestTool[];
+    functionsDefinitions?: Letta.FunctionTool[];
     /** The number of tokens in the messages list. */
     numTokensMessages: number;
     /** The messages in the context window. */
-    messages: Letta.LettaSchemasMessageMessage[];
+    messages: Letta.Message[];
 }

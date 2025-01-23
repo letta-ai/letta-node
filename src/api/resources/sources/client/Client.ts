@@ -55,9 +55,9 @@ export class Sources {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.sources.get("source_id")
+     *     await client.sources.retrieve("source_id")
      */
-    public async get(sourceId: string, requestOptions?: Sources.RequestOptions): Promise<Letta.Source> {
+    public async retrieve(sourceId: string, requestOptions?: Sources.RequestOptions): Promise<Letta.Source> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -69,8 +69,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -150,8 +150,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -212,9 +212,9 @@ export class Sources {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.sources.update("source_id")
+     *     await client.sources.modify("source_id")
      */
-    public async update(
+    public async modify(
         sourceId: string,
         request: Letta.SourceUpdate = {},
         requestOptions?: Sources.RequestOptions,
@@ -230,8 +230,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -312,8 +312,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -392,8 +392,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -475,8 +475,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -527,194 +527,6 @@ export class Sources {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/sources/.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Attach a data source to an existing agent.
-     *
-     * @param {string} sourceId
-     * @param {Letta.SourcesAttachRequest} request
-     * @param {Sources.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.sources.attach("source_id", {
-     *         agentId: "agent_id"
-     *     })
-     */
-    public async attach(
-        sourceId: string,
-        request: Letta.SourcesAttachRequest,
-        requestOptions?: Sources.RequestOptions,
-    ): Promise<Letta.Source> {
-        const { agentId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["agent_id"] = agentId;
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/sources/${encodeURIComponent(sourceId)}/attach`,
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.Source.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/sources/{source_id}/attach.",
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Detach a data source from an existing agent.
-     *
-     * @param {string} sourceId
-     * @param {Letta.SourcesDetachRequest} request
-     * @param {Sources.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.sources.detach("source_id", {
-     *         agentId: "agent_id"
-     *     })
-     */
-    public async detach(
-        sourceId: string,
-        request: Letta.SourcesDetachRequest,
-        requestOptions?: Sources.RequestOptions,
-    ): Promise<Letta.Source> {
-        const { agentId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["agent_id"] = agentId;
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/sources/${encodeURIComponent(sourceId)}/detach`,
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.Source.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/sources/{source_id}/detach.",
-                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

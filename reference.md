@@ -2,7 +2,7 @@
 
 ## Tools
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">get</a>(toolId) -> Letta.LettaSchemasToolTool</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">retrieve</a>(toolId) -> Letta.Tool</code></summary>
 <dl>
 <dd>
 
@@ -30,7 +30,7 @@ Get a tool by ID
 <dd>
 
 ```typescript
-await client.tools.get("tool_id");
+await client.tools.retrieve("tool_id");
 ```
 
 </dd>
@@ -128,7 +128,7 @@ await client.tools.delete("tool_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">update</a>(toolId, { ...params }) -> Letta.LettaSchemasToolTool</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">modify</a>(toolId, { ...params }) -> Letta.Tool</code></summary>
 <dl>
 <dd>
 
@@ -156,7 +156,7 @@ Update an existing tool
 <dd>
 
 ```typescript
-await client.tools.update("tool_id");
+await client.tools.modify("tool_id");
 ```
 
 </dd>
@@ -199,7 +199,7 @@ await client.tools.update("tool_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">list</a>({ ...params }) -> Letta.LettaSchemasToolTool[]</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">list</a>({ ...params }) -> Letta.Tool[]</code></summary>
 <dl>
 <dd>
 
@@ -262,7 +262,7 @@ await client.tools.list();
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">create</a>({ ...params }) -> Letta.LettaSchemasToolTool</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">create</a>({ ...params }) -> Letta.Tool</code></summary>
 <dl>
 <dd>
 
@@ -327,7 +327,7 @@ await client.tools.create({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">upsert</a>({ ...params }) -> Letta.LettaSchemasToolTool</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">upsert</a>({ ...params }) -> Letta.Tool</code></summary>
 <dl>
 <dd>
 
@@ -392,7 +392,7 @@ await client.tools.upsert({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">addBaseTool</a>() -> Letta.LettaSchemasToolTool[]</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">addBaseTool</a>() -> Letta.Tool[]</code></summary>
 <dl>
 <dd>
 
@@ -633,7 +633,7 @@ await client.tools.listComposioActionsByApp("composio_app_name");
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">addComposioTool</a>(composioActionName) -> Letta.LettaSchemasToolTool</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">addComposioTool</a>(composioActionName) -> Letta.Tool</code></summary>
 <dl>
 <dd>
 
@@ -698,7 +698,7 @@ await client.tools.addComposioTool("composio_action_name");
 
 ## Sources
 
-<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">get</a>(sourceId) -> Letta.Source</code></summary>
+<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">retrieve</a>(sourceId) -> Letta.Source</code></summary>
 <dl>
 <dd>
 
@@ -726,7 +726,7 @@ Get all sources
 <dd>
 
 ```typescript
-await client.sources.get("source_id");
+await client.sources.retrieve("source_id");
 ```
 
 </dd>
@@ -824,7 +824,7 @@ await client.sources.delete("source_id");
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">update</a>(sourceId, { ...params }) -> Letta.Source</code></summary>
+<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">modify</a>(sourceId, { ...params }) -> Letta.Source</code></summary>
 <dl>
 <dd>
 
@@ -852,7 +852,7 @@ Update the name or documentation of an existing data source.
 <dd>
 
 ```typescript
-await client.sources.update("source_id");
+await client.sources.modify("source_id");
 ```
 
 </dd>
@@ -1078,152 +1078,6 @@ await client.sources.create({
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">attach</a>(sourceId, { ...params }) -> Letta.Source</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Attach a data source to an existing agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.sources.attach("source_id", {
-    agentId: "agent_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**sourceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.SourcesAttachRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Sources.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">detach</a>(sourceId, { ...params }) -> Letta.Source</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Detach a data source from an existing agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.sources.detach("source_id", {
-    agentId: "agent_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**sourceId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.SourcesDetachRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Sources.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Agents
 
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">list</a>({ ...params }) -> Letta.AgentState[]</code></summary>
@@ -1353,7 +1207,7 @@ await client.agents.create();
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">get</a>(agentId) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">retrieve</a>(agentId) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
 
@@ -1381,7 +1235,7 @@ Get the state of the agent.
 <dd>
 
 ```typescript
-await client.agents.get("agent_id");
+await client.agents.retrieve("agent_id");
 ```
 
 </dd>
@@ -1479,7 +1333,7 @@ await client.agents.delete("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">update</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">modify</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
 
@@ -1507,7 +1361,7 @@ Update an existing agent
 <dd>
 
 ```typescript
-await client.agents.update("agent_id");
+await client.agents.modify("agent_id");
 ```
 
 </dd>
@@ -1532,6 +1386,640 @@ await client.agents.update("agent_id");
 <dd>
 
 **request:** `Letta.UpdateAgent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">retrieveAgentMemory</a>(agentId) -> Letta.Memory</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the memory state of a specific agent.
+This endpoint fetches the current memory state of the agent identified by the user ID and agent ID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.retrieveAgentMemory("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">retrieveCoreMemoryBlock</a>(agentId, blockLabel) -> Letta.Block</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a memory block from an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.retrieveCoreMemoryBlock("agent_id", "block_label");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**blockLabel:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">modifyCoreMemoryBlock</a>(agentId, blockLabel, { ...params }) -> Letta.Block</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a memory block of an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.modifyCoreMemoryBlock("agent_id", "block_label", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**blockLabel:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.BlockUpdate`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">listCoreMemoryBlocks</a>(agentId) -> Letta.Block[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the memory blocks of a specific agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.listCoreMemoryBlocks("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">attachCoreMemoryBlock</a>(agentId, blockId) -> Letta.AgentState</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Attach a block to an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.attachCoreMemoryBlock("agent_id", "block_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**blockId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">detachCoreMemoryBlock</a>(agentId, blockId) -> Letta.AgentState</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Detach a block from an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.detachCoreMemoryBlock("agent_id", "block_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**blockId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">listArchivalMemory</a>(agentId, { ...params }) -> Letta.Passage[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the memories in an agent's archival memory store (paginated query).
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.listArchivalMemory("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.ListArchivalMemoryRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">createArchivalMemory</a>(agentId, { ...params }) -> Letta.Passage[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Insert a memory into an agent's archival memory store.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.createArchivalMemory("agent_id", {
+    text: "text",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.CreateArchivalMemory`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">deleteArchivalMemory</a>(agentId, memoryId) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a memory from an agent's archival memory store.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.deleteArchivalMemory("agent_id", "memory_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memoryId:** `string`
 
 </dd>
 </dl>
@@ -1869,7 +2357,7 @@ await client.blocks.create({
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">get</a>(blockId) -> Letta.Block</code></summary>
+<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">retrieve</a>(blockId) -> Letta.Block</code></summary>
 <dl>
 <dd>
 
@@ -1882,7 +2370,7 @@ await client.blocks.create({
 <dd>
 
 ```typescript
-await client.blocks.get("block_id");
+await client.blocks.retrieve("block_id");
 ```
 
 </dd>
@@ -1965,7 +2453,7 @@ await client.blocks.delete("block_id");
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">update</a>(blockId, { ...params }) -> Letta.Block</code></summary>
+<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">modify</a>(blockId, { ...params }) -> Letta.Block</code></summary>
 <dl>
 <dd>
 
@@ -1978,7 +2466,7 @@ await client.blocks.delete("block_id");
 <dd>
 
 ```typescript
-await client.blocks.update("block_id", {});
+await client.blocks.modify("block_id", {});
 ```
 
 </dd>
@@ -2003,152 +2491,6 @@ await client.blocks.update("block_id", {});
 <dd>
 
 **request:** `Letta.BlockUpdate`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Blocks.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">linkAgentMemoryBlock</a>(blockId, { ...params }) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Link a memory block to an agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.blocks.linkAgentMemoryBlock("block_id", {
-    agentId: "agent_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**blockId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.LinkAgentMemoryBlockRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Blocks.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">unlinkAgentMemoryBlock</a>(blockId, { ...params }) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Unlink a memory block from an agent
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.blocks.unlinkAgentMemoryBlock("block_id", {
-    agentId: "agent_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**blockId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.UnlinkAgentMemoryBlockRequest`
 
 </dd>
 </dl>
@@ -2287,7 +2629,7 @@ await client.jobs.listActive();
 </dl>
 </details>
 
-<details><summary><code>client.jobs.<a href="/src/api/resources/jobs/client/Client.ts">get</a>(jobId) -> Letta.Job</code></summary>
+<details><summary><code>client.jobs.<a href="/src/api/resources/jobs/client/Client.ts">retrieve</a>(jobId) -> Letta.Job</code></summary>
 <dl>
 <dd>
 
@@ -2315,7 +2657,7 @@ Get the status of a job.
 <dd>
 
 ```typescript
-await client.jobs.get("job_id");
+await client.jobs.retrieve("job_id");
 ```
 
 </dd>
@@ -2651,7 +2993,7 @@ await client.providers.deleteProvider({
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">updateProvider</a>({ ...params }) -> Letta.Provider</code></summary>
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">modifyProvider</a>({ ...params }) -> Letta.Provider</code></summary>
 <dl>
 <dd>
 
@@ -2679,7 +3021,7 @@ Update an existing custom provider
 <dd>
 
 ```typescript
-await client.providers.updateProvider({
+await client.providers.modifyProvider({
     id: "id",
     apiKey: "api_key",
 });
@@ -2829,7 +3171,7 @@ await client.runs.listActiveRuns();
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">getRun</a>(runId) -> Letta.Run</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">retrieveRun</a>(runId) -> Letta.Run</code></summary>
 <dl>
 <dd>
 
@@ -2857,7 +3199,7 @@ Get the status of a run.
 <dd>
 
 ```typescript
-await client.runs.getRun("run_id");
+await client.runs.retrieveRun("run_id");
 ```
 
 </dd>
@@ -2955,7 +3297,7 @@ await client.runs.deleteRun("run_id");
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">getRunMessages</a>(runId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listRunMessages</a>(runId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
 <dl>
 <dd>
 
@@ -2995,7 +3337,7 @@ A list of messages associated with the run. Default is List[LettaMessage].
 <dd>
 
 ```typescript
-await client.runs.getRunMessages("run_id");
+await client.runs.listRunMessages("run_id");
 ```
 
 </dd>
@@ -3019,7 +3361,7 @@ await client.runs.getRunMessages("run_id");
 <dl>
 <dd>
 
-**request:** `Letta.GetRunMessagesRequest`
+**request:** `Letta.ListRunMessagesRequest`
 
 </dd>
 </dl>
@@ -3038,7 +3380,7 @@ await client.runs.getRunMessages("run_id");
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">getRunUsage</a>(runId) -> Letta.UsageStatistics</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">retrieveRunUsage</a>(runId) -> Letta.UsageStatistics</code></summary>
 <dl>
 <dd>
 
@@ -3066,7 +3408,7 @@ Get usage statistics for a run.
 <dd>
 
 ```typescript
-await client.runs.getRunUsage("run_id");
+await client.runs.retrieveRunUsage("run_id");
 ```
 
 </dd>
@@ -3168,7 +3510,7 @@ await client.tag.listTags();
 
 ## Agents Context
 
-<details><summary><code>client.agents.context.<a href="/src/api/resources/agents/resources/context/client/Client.ts">get</a>(agentId) -> Letta.ContextWindowOverview</code></summary>
+<details><summary><code>client.agents.context.<a href="/src/api/resources/agents/resources/context/client/Client.ts">retrieve</a>(agentId) -> Letta.ContextWindowOverview</code></summary>
 <dl>
 <dd>
 
@@ -3196,7 +3538,7 @@ Retrieve the context window of a specific agent.
 <dd>
 
 ```typescript
-await client.agents.context.get("agent_id");
+await client.agents.context.retrieve("agent_id");
 ```
 
 </dd>
@@ -3233,7 +3575,7 @@ await client.agents.context.get("agent_id");
 
 ## Agents Tools
 
-<details><summary><code>client.agents.tools.<a href="/src/api/resources/agents/resources/tools/client/Client.ts">list</a>(agentId) -> Letta.LettaSchemasToolTool[]</code></summary>
+<details><summary><code>client.agents.tools.<a href="/src/api/resources/agents/resources/tools/client/Client.ts">list</a>(agentId) -> Letta.Tool[]</code></summary>
 <dl>
 <dd>
 
@@ -3296,7 +3638,7 @@ await client.agents.tools.list("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.tools.<a href="/src/api/resources/agents/resources/tools/client/Client.ts">add</a>(agentId, toolId) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.tools.<a href="/src/api/resources/agents/resources/tools/client/Client.ts">attach</a>(agentId, toolId) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
 
@@ -3308,7 +3650,7 @@ await client.agents.tools.list("agent_id");
 <dl>
 <dd>
 
-Add tools to an existing agent
+Attach a tool to an agent.
 
 </dd>
 </dl>
@@ -3324,7 +3666,7 @@ Add tools to an existing agent
 <dd>
 
 ```typescript
-await client.agents.tools.add("agent_id", "tool_id");
+await client.agents.tools.attach("agent_id", "tool_id");
 ```
 
 </dd>
@@ -3367,7 +3709,7 @@ await client.agents.tools.add("agent_id", "tool_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.tools.<a href="/src/api/resources/agents/resources/tools/client/Client.ts">remove</a>(agentId, toolId) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.tools.<a href="/src/api/resources/agents/resources/tools/client/Client.ts">detach</a>(agentId, toolId) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
 
@@ -3379,7 +3721,7 @@ await client.agents.tools.add("agent_id", "tool_id");
 <dl>
 <dd>
 
-Add tools to an existing agent
+Detach a tool from an agent.
 
 </dd>
 </dl>
@@ -3395,7 +3737,7 @@ Add tools to an existing agent
 <dd>
 
 ```typescript
-await client.agents.tools.remove("agent_id", "tool_id");
+await client.agents.tools.detach("agent_id", "tool_id");
 ```
 
 </dd>
@@ -3440,7 +3782,149 @@ await client.agents.tools.remove("agent_id", "tool_id");
 
 ## Agents Sources
 
-<details><summary><code>client.agents.sources.<a href="/src/api/resources/agents/resources/sources/client/Client.ts">get</a>(agentId) -> Letta.Source[]</code></summary>
+<details><summary><code>client.agents.sources.<a href="/src/api/resources/agents/resources/sources/client/Client.ts">attach</a>(agentId, sourceId) -> Letta.AgentState</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Attach a source to an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.sources.attach("agent_id", "source_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sourceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sources.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.sources.<a href="/src/api/resources/agents/resources/sources/client/Client.ts">detach</a>(agentId, sourceId) -> Letta.AgentState</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Detach a source from an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.sources.detach("agent_id", "source_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sourceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sources.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.sources.<a href="/src/api/resources/agents/resources/sources/client/Client.ts">list</a>(agentId) -> Letta.Source[]</code></summary>
 <dl>
 <dd>
 
@@ -3468,7 +3952,7 @@ Get the sources associated with an agent.
 <dd>
 
 ```typescript
-await client.agents.sources.get("agent_id");
+await client.agents.sources.list("agent_id");
 ```
 
 </dd>
@@ -3493,647 +3977,6 @@ await client.agents.sources.get("agent_id");
 <dd>
 
 **requestOptions:** `Sources.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Agents CoreMemory
-
-<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">get</a>(agentId) -> Letta.Memory</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the memory state of a specific agent.
-This endpoint fetches the current memory state of the agent identified by the user ID and agent ID.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.coreMemory.get("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CoreMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">getBlock</a>(agentId, blockLabel) -> Letta.Block</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve a memory block from an agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.coreMemory.getBlock("agent_id", "block_label");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**blockLabel:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CoreMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">removeBlock</a>(agentId, blockLabel) -> Letta.Memory</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.coreMemory.removeBlock("agent_id", "block_label");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**blockLabel:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CoreMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">updateBlock</a>(agentId, blockLabel, { ...params }) -> Letta.Block</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.coreMemory.updateBlock("agent_id", "block_label", {});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**blockLabel:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.BlockUpdate`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CoreMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">list</a>(agentId) -> Letta.Block[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the memory blocks of a specific agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.coreMemory.list("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CoreMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">addBlock</a>(agentId, { ...params }) -> Letta.Memory</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a memory block and links it to the agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.coreMemory.addBlock("agent_id", {
-    value: "value",
-    label: "label",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.CreateBlock`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CoreMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Agents ArchivalMemory
-
-<details><summary><code>client.agents.archivalMemory.<a href="/src/api/resources/agents/resources/archivalMemory/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.Passage[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the memories in an agent's archival memory store (paginated query).
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.archivalMemory.list("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.agents.ArchivalMemoryListRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ArchivalMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.archivalMemory.<a href="/src/api/resources/agents/resources/archivalMemory/client/Client.ts">create</a>(agentId, { ...params }) -> Letta.Passage[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Insert a memory into an agent's archival memory store.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.archivalMemory.create("agent_id", {
-    text: "text",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.agents.CreateArchivalMemory`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ArchivalMemory.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.archivalMemory.<a href="/src/api/resources/agents/resources/archivalMemory/client/Client.ts">delete</a>(agentId, memoryId) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a memory from an agent's archival memory store.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.archivalMemory.delete("agent_id", "memory_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**memoryId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ArchivalMemory.RequestOptions`
 
 </dd>
 </dl>
@@ -4296,7 +4139,7 @@ await client.agents.messages.create("agent_id", {
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">update</a>(agentId, messageId, { ...params }) -> Letta.LettaSchemasMessageMessage</code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">modify</a>(agentId, messageId, { ...params }) -> Letta.Message</code></summary>
 <dl>
 <dd>
 
@@ -4324,7 +4167,7 @@ Update the details of a message associated with an agent.
 <dd>
 
 ```typescript
-await client.agents.messages.update("agent_id", "message_id");
+await client.agents.messages.modify("agent_id", "message_id");
 ```
 
 </dd>
@@ -4763,7 +4606,7 @@ await client.agents.templates.create("agent_id");
 
 ## Agents MemoryVariables
 
-<details><summary><code>client.agents.memoryVariables.<a href="/src/api/resources/agents/resources/memoryVariables/client/Client.ts">get</a>(agentId) -> Letta.MemoryVariablesGetResponse</code></summary>
+<details><summary><code>client.agents.memoryVariables.<a href="/src/api/resources/agents/resources/memoryVariables/client/Client.ts">list</a>(agentId) -> Letta.MemoryVariablesListResponse</code></summary>
 <dl>
 <dd>
 
@@ -4793,7 +4636,7 @@ Returns the memory variables associated with an agent.
 <dd>
 
 ```typescript
-await client.agents.memoryVariables.get("agent_id");
+await client.agents.memoryVariables.list("agent_id");
 ```
 
 </dd>
@@ -4818,6 +4661,482 @@ await client.agents.memoryVariables.get("agent_id");
 <dd>
 
 **requestOptions:** `MemoryVariables.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Agents CoreMemory
+
+<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">retrieve</a>(agentId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.coreMemory.retrieve("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CoreMemory.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">listBlocks</a>(agentId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.coreMemory.listBlocks("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CoreMemory.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">attachBlock</a>(agentId, blockId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.coreMemory.attachBlock("agent_id", "block_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**blockId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CoreMemory.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">detachBlock</a>(agentId, blockId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.coreMemory.detachBlock("agent_id", "block_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**blockId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CoreMemory.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">retrieveBlock</a>(agentId, blockLabel) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.coreMemory.retrieveBlock("agent_id", "block_label");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**blockLabel:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CoreMemory.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">modifyBlock</a>(agentId, blockLabel) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.coreMemory.modifyBlock("agent_id", "block_label");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**blockLabel:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CoreMemory.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Agents ArchivalMemory
+
+<details><summary><code>client.agents.archivalMemory.<a href="/src/api/resources/agents/resources/archivalMemory/client/Client.ts">list</a>(agentId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.archivalMemory.list("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ArchivalMemory.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.archivalMemory.<a href="/src/api/resources/agents/resources/archivalMemory/client/Client.ts">create</a>(agentId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.archivalMemory.create("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ArchivalMemory.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.archivalMemory.<a href="/src/api/resources/agents/resources/archivalMemory/client/Client.ts">delete</a>(agentId, memoryId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.archivalMemory.delete("agent_id", "memory_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memoryId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ArchivalMemory.RequestOptions`
 
 </dd>
 </dl>

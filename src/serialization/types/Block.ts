@@ -13,10 +13,7 @@ export const Block: core.serialization.ObjectSchema<serializers.Block.Raw, Letta
     isTemplate: core.serialization.property("is_template", core.serialization.boolean().optional()),
     label: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
-    metadata: core.serialization.property(
-        "metadata_",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    ),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     id: core.serialization.string().optional(),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
@@ -30,7 +27,7 @@ export declare namespace Block {
         is_template?: boolean | null;
         label?: string | null;
         description?: string | null;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
         id?: string | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;

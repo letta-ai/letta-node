@@ -4,4 +4,4 @@
 
 import * as Letta from "../../../../../index";
 
-export type MessagesListResponse = Letta.LettaSchemasMessageMessage[] | Letta.LettaMessageUnion[];
+export type MessagesListResponse = Letta.Message[] | Letta.LettaMessageUnion[];

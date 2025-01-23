@@ -50,7 +50,7 @@ export interface AgentState {
     /** The in-context memory of the agent. */
     memory: Letta.Memory;
     /** The tools used by the agent. */
-    tools: Letta.LettaSchemasToolTool[];
+    tools: Letta.Tool[];
     /** The sources used by the agent. */
     sources: Letta.Source[];
     /** The tags associated with the agent. */

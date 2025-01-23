@@ -10,7 +10,7 @@ import { AgentType } from "./AgentType";
 import { LlmConfig } from "./LlmConfig";
 import { EmbeddingConfig } from "./EmbeddingConfig";
 import { Memory } from "./Memory";
-import { LettaSchemasToolTool } from "./LettaSchemasToolTool";
+import { Tool } from "./Tool";
 import { Source } from "./Source";
 import { AgentEnvironmentVariable } from "./AgentEnvironmentVariable";
 
@@ -35,12 +35,9 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         llmConfig: core.serialization.property("llm_config", LlmConfig),
         embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
         description: core.serialization.string().optional(),
-        metadata: core.serialization.property(
-            "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        ),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         memory: Memory,
-        tools: core.serialization.list(LettaSchemasToolTool),
+        tools: core.serialization.list(Tool),
         sources: core.serialization.list(Source),
         tags: core.serialization.list(core.serialization.string()),
         toolExecEnvironmentVariables: core.serialization.property(
@@ -64,9 +61,9 @@ export declare namespace AgentState {
         llm_config: LlmConfig.Raw;
         embedding_config: EmbeddingConfig.Raw;
         description?: string | null;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
         memory: Memory.Raw;
-        tools: LettaSchemasToolTool.Raw[];
+        tools: Tool.Raw[];
         sources: Source.Raw[];
         tags: string[];
         tool_exec_environment_variables?: AgentEnvironmentVariable.Raw[] | null;

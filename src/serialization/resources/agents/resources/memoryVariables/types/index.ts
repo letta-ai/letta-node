@@ -1,1 +1,1 @@
-export * from "./MemoryVariablesGetResponse";
+export * from "./MemoryVariablesListResponse";

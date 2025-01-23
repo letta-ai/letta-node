@@ -5,35 +5,9 @@
 import * as Letta from "../index";
 
 export type LettaMessageUnion =
-    | Letta.LettaMessageUnion.SystemMessage
-    | Letta.LettaMessageUnion.UserMessage
-    | Letta.LettaMessageUnion.ReasoningMessage
-    | Letta.LettaMessageUnion.ToolCallMessage
-    | Letta.LettaMessageUnion.ToolReturnMessage
-    | Letta.LettaMessageUnion.AssistantMessage;
-
-export namespace LettaMessageUnion {
-    export interface SystemMessage extends Letta.SystemMessageOutput {
-        messageType: "system_message";
-    }
-
-    export interface UserMessage extends Letta.UserMessageOutput {
-        messageType: "user_message";
-    }
-
-    export interface ReasoningMessage extends Letta.ReasoningMessage {
-        messageType: "reasoning_message";
-    }
-
-    export interface ToolCallMessage extends Letta.ToolCallMessage {
-        messageType: "tool_call_message";
-    }
-
-    export interface ToolReturnMessage extends Letta.ToolReturnMessage {
-        messageType: "tool_return_message";
-    }
-
-    export interface AssistantMessage extends Letta.AssistantMessageOutput {
-        messageType: "assistant_message";
-    }
-}
+    | Letta.SystemMessage
+    | Letta.UserMessage
+    | Letta.ReasoningMessage
+    | Letta.ToolCallMessage
+    | Letta.ToolReturnMessage
+    | Letta.AssistantMessage;

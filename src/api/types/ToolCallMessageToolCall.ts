@@ -4,4 +4,4 @@
 
 import * as Letta from "../index";
 
-export type ToolCallMessageToolCall = Letta.LettaSchemasLettaMessageToolCall | Letta.ToolCallDelta;
+export type ToolCallMessageToolCall = Letta.ToolCall | Letta.ToolCallDelta;

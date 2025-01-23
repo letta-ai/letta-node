@@ -71,8 +71,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -154,8 +154,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -220,9 +220,9 @@ export class Blocks {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.blocks.get("block_id")
+     *     await client.blocks.retrieve("block_id")
      */
-    public async get(blockId: string, requestOptions?: Blocks.RequestOptions): Promise<Letta.Block> {
+    public async retrieve(blockId: string, requestOptions?: Blocks.RequestOptions): Promise<Letta.Block> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -234,8 +234,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -313,8 +313,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -379,9 +379,9 @@ export class Blocks {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.blocks.update("block_id", {})
+     *     await client.blocks.modify("block_id", {})
      */
-    public async update(
+    public async modify(
         blockId: string,
         request: Letta.BlockUpdate,
         requestOptions?: Blocks.RequestOptions,
@@ -397,8 +397,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -449,178 +449,6 @@ export class Blocks {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/blocks/{block_id}.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Link a memory block to an agent.
-     *
-     * @param {string} blockId
-     * @param {Letta.LinkAgentMemoryBlockRequest} request
-     * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.blocks.linkAgentMemoryBlock("block_id", {
-     *         agentId: "agent_id"
-     *     })
-     */
-    public async linkAgentMemoryBlock(
-        blockId: string,
-        request: Letta.LinkAgentMemoryBlockRequest,
-        requestOptions?: Blocks.RequestOptions,
-    ): Promise<void> {
-        const { agentId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["agent_id"] = agentId;
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/blocks/${encodeURIComponent(blockId)}/attach`,
-            ),
-            method: "PATCH",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/blocks/{block_id}/attach.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Unlink a memory block from an agent
-     *
-     * @param {string} blockId
-     * @param {Letta.UnlinkAgentMemoryBlockRequest} request
-     * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.blocks.unlinkAgentMemoryBlock("block_id", {
-     *         agentId: "agent_id"
-     *     })
-     */
-    public async unlinkAgentMemoryBlock(
-        blockId: string,
-        request: Letta.UnlinkAgentMemoryBlockRequest,
-        requestOptions?: Blocks.RequestOptions,
-    ): Promise<void> {
-        const { agentId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["agent_id"] = agentId;
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/blocks/${encodeURIComponent(blockId)}/detach`,
-            ),
-            method: "PATCH",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/blocks/{block_id}/detach.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

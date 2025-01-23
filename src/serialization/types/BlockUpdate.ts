@@ -14,10 +14,7 @@ export const BlockUpdate: core.serialization.ObjectSchema<serializers.BlockUpdat
         isTemplate: core.serialization.property("is_template", core.serialization.boolean().optional()),
         label: core.serialization.string().optional(),
         description: core.serialization.string().optional(),
-        metadata: core.serialization.property(
-            "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        ),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     });
 
 export declare namespace BlockUpdate {
@@ -28,6 +25,6 @@ export declare namespace BlockUpdate {
         is_template?: boolean | null;
         label?: string | null;
         description?: string | null;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
     }
 }

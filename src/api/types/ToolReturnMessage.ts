@@ -19,6 +19,7 @@ import * as Letta from "../index";
 export interface ToolReturnMessage {
     id: string;
     date: Date;
+    messageType: "tool_return_message";
     toolReturn: string;
     status: Letta.ToolReturnMessageStatus;
     toolCallId: string;

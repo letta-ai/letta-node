@@ -15,10 +15,7 @@ export const Job: core.serialization.ObjectSchema<serializers.Job.Raw, Letta.Job
     updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
     status: JobStatus.optional(),
     completedAt: core.serialization.property("completed_at", core.serialization.date().optional()),
-    metadata: core.serialization.property(
-        "metadata_",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    ),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     jobType: core.serialization.property("job_type", JobType.optional()),
     id: core.serialization.string().optional(),
 });
@@ -31,7 +28,7 @@ export declare namespace Job {
         updated_at?: string | null;
         status?: JobStatus.Raw | null;
         completed_at?: string | null;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
         job_type?: JobType.Raw | null;
         id?: string | null;
     }

@@ -5,14 +5,14 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { LettaSchemasLettaMessageToolCall } from "./LettaSchemasLettaMessageToolCall";
+import { ToolCall } from "./ToolCall";
 import { ToolCallDelta } from "./ToolCallDelta";
 
 export const ToolCallMessageToolCall: core.serialization.Schema<
     serializers.ToolCallMessageToolCall.Raw,
     Letta.ToolCallMessageToolCall
-> = core.serialization.undiscriminatedUnion([LettaSchemasLettaMessageToolCall, ToolCallDelta]);
+> = core.serialization.undiscriminatedUnion([ToolCall, ToolCallDelta]);
 
 export declare namespace ToolCallMessageToolCall {
-    export type Raw = LettaSchemasLettaMessageToolCall.Raw | ToolCallDelta.Raw;
+    export type Raw = ToolCall.Raw | ToolCallDelta.Raw;
 }

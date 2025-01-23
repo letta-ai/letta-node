@@ -44,12 +44,12 @@ export class MemoryVariables {
      * @throws {@link Letta.NotFoundError}
      *
      * @example
-     *     await client.agents.memoryVariables.get("agent_id")
+     *     await client.agents.memoryVariables.list("agent_id")
      */
-    public async get(
+    public async list(
         agentId: string,
         requestOptions?: MemoryVariables.RequestOptions,
-    ): Promise<Letta.agents.MemoryVariablesGetResponse> {
+    ): Promise<Letta.agents.MemoryVariablesListResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -61,8 +61,8 @@ export class MemoryVariables {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -75,7 +75,7 @@ export class MemoryVariables {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.agents.MemoryVariablesGetResponse.parseOrThrow(_response.body, {
+            return serializers.agents.MemoryVariablesListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

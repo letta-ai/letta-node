@@ -12,10 +12,7 @@ export const Source: core.serialization.ObjectSchema<serializers.Source.Raw, Let
     name: core.serialization.string(),
     description: core.serialization.string().optional(),
     embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
-    metadata: core.serialization.property(
-        "metadata_",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    ),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
@@ -28,7 +25,7 @@ export declare namespace Source {
         name: string;
         description?: string | null;
         embedding_config: EmbeddingConfig.Raw;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         created_at?: string | null;

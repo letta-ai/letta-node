@@ -13,6 +13,7 @@ export const ToolReturnMessage: core.serialization.ObjectSchema<
 > = core.serialization.object({
     id: core.serialization.string(),
     date: core.serialization.date(),
+    messageType: core.serialization.property("message_type", core.serialization.stringLiteral("tool_return_message")),
     toolReturn: core.serialization.property("tool_return", core.serialization.string()),
     status: ToolReturnMessageStatus,
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
@@ -24,6 +25,7 @@ export declare namespace ToolReturnMessage {
     export interface Raw {
         id: string;
         date: string;
+        message_type: "tool_return_message";
         tool_return: string;
         status: ToolReturnMessageStatus.Raw;
         tool_call_id: string;

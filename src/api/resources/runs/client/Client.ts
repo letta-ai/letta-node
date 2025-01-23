@@ -55,8 +55,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -135,8 +135,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -202,9 +202,9 @@ export class Runs {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.runs.getRun("run_id")
+     *     await client.runs.retrieveRun("run_id")
      */
-    public async getRun(runId: string, requestOptions?: Runs.RequestOptions): Promise<Letta.Run> {
+    public async retrieveRun(runId: string, requestOptions?: Runs.RequestOptions): Promise<Letta.Run> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -216,8 +216,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -297,8 +297,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -371,17 +371,17 @@ export class Runs {
      *     A list of messages associated with the run. Default is List[LettaMessage].
      *
      * @param {string} runId
-     * @param {Letta.GetRunMessagesRequest} request
+     * @param {Letta.ListRunMessagesRequest} request
      * @param {Runs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.runs.getRunMessages("run_id")
+     *     await client.runs.listRunMessages("run_id")
      */
-    public async getRunMessages(
+    public async listRunMessages(
         runId: string,
-        request: Letta.GetRunMessagesRequest = {},
+        request: Letta.ListRunMessagesRequest = {},
         requestOptions?: Runs.RequestOptions,
     ): Promise<Letta.LettaMessageUnion[]> {
         const { cursor, limit, ascending, role } = request;
@@ -413,8 +413,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -428,7 +428,7 @@ export class Runs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.runs.getRunMessages.Response.parseOrThrow(_response.body, {
+            return serializers.runs.listRunMessages.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -481,9 +481,9 @@ export class Runs {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.runs.getRunUsage("run_id")
+     *     await client.runs.retrieveRunUsage("run_id")
      */
-    public async getRunUsage(runId: string, requestOptions?: Runs.RequestOptions): Promise<Letta.UsageStatistics> {
+    public async retrieveRunUsage(runId: string, requestOptions?: Runs.RequestOptions): Promise<Letta.UsageStatistics> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -495,8 +495,8 @@ export class Runs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

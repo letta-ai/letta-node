@@ -5,46 +5,25 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { AgentsSearchRequestSearchItemVersion } from "./AgentsSearchRequestSearchItemVersion";
-import { AgentsSearchRequestSearchItemName } from "./AgentsSearchRequestSearchItemName";
-import { AgentsSearchRequestSearchItemTags } from "./AgentsSearchRequestSearchItemTags";
-import { AgentsSearchRequestSearchItemOrderBy } from "./AgentsSearchRequestSearchItemOrderBy";
+import { AgentsSearchRequestSearchItemZero } from "./AgentsSearchRequestSearchItemZero";
+import { AgentsSearchRequestSearchItemOne } from "./AgentsSearchRequestSearchItemOne";
+import { AgentsSearchRequestSearchItemTwo } from "./AgentsSearchRequestSearchItemTwo";
+import { AgentsSearchRequestSearchItemDirection } from "./AgentsSearchRequestSearchItemDirection";
 
 export const AgentsSearchRequestSearchItem: core.serialization.Schema<
     serializers.AgentsSearchRequestSearchItem.Raw,
     Letta.AgentsSearchRequestSearchItem
-> = core.serialization
-    .union("field", {
-        version: AgentsSearchRequestSearchItemVersion,
-        name: AgentsSearchRequestSearchItemName,
-        tags: AgentsSearchRequestSearchItemTags,
-        order_by: AgentsSearchRequestSearchItemOrderBy,
-    })
-    .transform<Letta.AgentsSearchRequestSearchItem>({
-        transform: (value) => value,
-        untransform: (value) => value,
-    });
+> = core.serialization.undiscriminatedUnion([
+    AgentsSearchRequestSearchItemZero,
+    AgentsSearchRequestSearchItemOne,
+    AgentsSearchRequestSearchItemTwo,
+    AgentsSearchRequestSearchItemDirection,
+]);
 
 export declare namespace AgentsSearchRequestSearchItem {
     export type Raw =
-        | AgentsSearchRequestSearchItem.Version
-        | AgentsSearchRequestSearchItem.Name
-        | AgentsSearchRequestSearchItem.Tags
-        | AgentsSearchRequestSearchItem.OrderBy;
-
-    export interface Version extends AgentsSearchRequestSearchItemVersion.Raw {
-        field: "version";
-    }
-
-    export interface Name extends AgentsSearchRequestSearchItemName.Raw {
-        field: "name";
-    }
-
-    export interface Tags extends AgentsSearchRequestSearchItemTags.Raw {
-        field: "tags";
-    }
-
-    export interface OrderBy extends AgentsSearchRequestSearchItemOrderBy.Raw {
-        field: "order_by";
-    }
+        | AgentsSearchRequestSearchItemZero.Raw
+        | AgentsSearchRequestSearchItemOne.Raw
+        | AgentsSearchRequestSearchItemTwo.Raw
+        | AgentsSearchRequestSearchItemDirection.Raw;
 }

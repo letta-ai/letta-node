@@ -13,5 +13,6 @@
 export interface ReasoningMessage {
     id: string;
     date: Date;
+    messageType: "reasoning_message";
     reasoning: string;
 }

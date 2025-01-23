@@ -5,13 +5,11 @@
 import * as serializers from "../../../../../index";
 import * as Letta from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { LettaSchemasToolTool } from "../../../../../types/LettaSchemasToolTool";
+import { Tool } from "../../../../../types/Tool";
 
-export const Response: core.serialization.Schema<
-    serializers.agents.tools.list.Response.Raw,
-    Letta.LettaSchemasToolTool[]
-> = core.serialization.list(LettaSchemasToolTool);
+export const Response: core.serialization.Schema<serializers.agents.tools.list.Response.Raw, Letta.Tool[]> =
+    core.serialization.list(Tool);
 
 export declare namespace Response {
-    export type Raw = LettaSchemasToolTool.Raw[];
+    export type Raw = Tool.Raw[];
 }

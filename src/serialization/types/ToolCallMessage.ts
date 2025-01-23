@@ -11,6 +11,7 @@ export const ToolCallMessage: core.serialization.ObjectSchema<serializers.ToolCa
     core.serialization.object({
         id: core.serialization.string(),
         date: core.serialization.date(),
+        messageType: core.serialization.property("message_type", core.serialization.stringLiteral("tool_call_message")),
         toolCall: core.serialization.property("tool_call", ToolCallMessageToolCall),
     });
 
@@ -18,6 +19,7 @@ export declare namespace ToolCallMessage {
     export interface Raw {
         id: string;
         date: string;
+        message_type: "tool_call_message";
         tool_call: ToolCallMessageToolCall.Raw;
     }
 }

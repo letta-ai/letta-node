@@ -5,67 +5,34 @@
 import * as serializers from "../../../../../index";
 import * as Letta from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { SystemMessageOutput } from "../../../../../types/SystemMessageOutput";
-import { UserMessageOutput } from "../../../../../types/UserMessageOutput";
+import { SystemMessage } from "../../../../../types/SystemMessage";
+import { UserMessage } from "../../../../../types/UserMessage";
 import { ReasoningMessage } from "../../../../../types/ReasoningMessage";
 import { ToolCallMessage } from "../../../../../types/ToolCallMessage";
 import { ToolReturnMessage } from "../../../../../types/ToolReturnMessage";
-import { AssistantMessageOutput } from "../../../../../types/AssistantMessageOutput";
+import { AssistantMessage } from "../../../../../types/AssistantMessage";
 import { LettaUsageStatistics } from "../../../../../types/LettaUsageStatistics";
 
 export const LettaStreamingResponse: core.serialization.Schema<
     serializers.agents.LettaStreamingResponse.Raw,
     Letta.agents.LettaStreamingResponse
-> = core.serialization
-    .union(core.serialization.discriminant("messageType", "message_type"), {
-        system_message: SystemMessageOutput,
-        user_message: UserMessageOutput,
-        reasoning_message: ReasoningMessage,
-        tool_call_message: ToolCallMessage,
-        tool_return_message: ToolReturnMessage,
-        assistant_message: AssistantMessageOutput,
-        usage_statistics: LettaUsageStatistics,
-    })
-    .transform<Letta.agents.LettaStreamingResponse>({
-        transform: (value) => value,
-        untransform: (value) => value,
-    });
+> = core.serialization.undiscriminatedUnion([
+    SystemMessage,
+    UserMessage,
+    ReasoningMessage,
+    ToolCallMessage,
+    ToolReturnMessage,
+    AssistantMessage,
+    LettaUsageStatistics,
+]);
 
 export declare namespace LettaStreamingResponse {
     export type Raw =
-        | LettaStreamingResponse.SystemMessage
-        | LettaStreamingResponse.UserMessage
-        | LettaStreamingResponse.ReasoningMessage
-        | LettaStreamingResponse.ToolCallMessage
-        | LettaStreamingResponse.ToolReturnMessage
-        | LettaStreamingResponse.AssistantMessage
-        | LettaStreamingResponse.UsageStatistics;
-
-    export interface SystemMessage extends SystemMessageOutput.Raw {
-        message_type: "system_message";
-    }
-
-    export interface UserMessage extends UserMessageOutput.Raw {
-        message_type: "user_message";
-    }
-
-    export interface ReasoningMessage extends ReasoningMessage.Raw {
-        message_type: "reasoning_message";
-    }
-
-    export interface ToolCallMessage extends ToolCallMessage.Raw {
-        message_type: "tool_call_message";
-    }
-
-    export interface ToolReturnMessage extends ToolReturnMessage.Raw {
-        message_type: "tool_return_message";
-    }
-
-    export interface AssistantMessage extends AssistantMessageOutput.Raw {
-        message_type: "assistant_message";
-    }
-
-    export interface UsageStatistics extends LettaUsageStatistics.Raw {
-        message_type: "usage_statistics";
-    }
+        | SystemMessage.Raw
+        | UserMessage.Raw
+        | ReasoningMessage.Raw
+        | ToolCallMessage.Raw
+        | ToolReturnMessage.Raw
+        | AssistantMessage.Raw
+        | LettaUsageStatistics.Raw;
 }

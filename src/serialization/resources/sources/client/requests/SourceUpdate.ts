@@ -11,10 +11,7 @@ export const SourceUpdate: core.serialization.Schema<serializers.SourceUpdate.Ra
     core.serialization.object({
         name: core.serialization.string().optional(),
         description: core.serialization.string().optional(),
-        metadata: core.serialization.property(
-            "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        ),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig.optional()),
     });
 
@@ -22,7 +19,7 @@ export declare namespace SourceUpdate {
     export interface Raw {
         name?: string | null;
         description?: string | null;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
         embedding_config?: EmbeddingConfig.Raw | null;
     }
 }

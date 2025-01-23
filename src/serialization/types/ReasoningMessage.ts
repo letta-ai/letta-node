@@ -12,6 +12,7 @@ export const ReasoningMessage: core.serialization.ObjectSchema<
 > = core.serialization.object({
     id: core.serialization.string(),
     date: core.serialization.date(),
+    messageType: core.serialization.property("message_type", core.serialization.stringLiteral("reasoning_message")),
     reasoning: core.serialization.string(),
 });
 
@@ -19,6 +20,7 @@ export declare namespace ReasoningMessage {
     export interface Raw {
         id: string;
         date: string;
+        message_type: "reasoning_message";
         reasoning: string;
     }
 }

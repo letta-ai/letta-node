@@ -5,58 +5,29 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { SystemMessageOutput } from "./SystemMessageOutput";
-import { UserMessageOutput } from "./UserMessageOutput";
+import { SystemMessage } from "./SystemMessage";
+import { UserMessage } from "./UserMessage";
 import { ReasoningMessage } from "./ReasoningMessage";
 import { ToolCallMessage } from "./ToolCallMessage";
 import { ToolReturnMessage } from "./ToolReturnMessage";
-import { AssistantMessageOutput } from "./AssistantMessageOutput";
+import { AssistantMessage } from "./AssistantMessage";
 
 export const LettaMessageUnion: core.serialization.Schema<serializers.LettaMessageUnion.Raw, Letta.LettaMessageUnion> =
-    core.serialization
-        .union(core.serialization.discriminant("messageType", "message_type"), {
-            system_message: SystemMessageOutput,
-            user_message: UserMessageOutput,
-            reasoning_message: ReasoningMessage,
-            tool_call_message: ToolCallMessage,
-            tool_return_message: ToolReturnMessage,
-            assistant_message: AssistantMessageOutput,
-        })
-        .transform<Letta.LettaMessageUnion>({
-            transform: (value) => value,
-            untransform: (value) => value,
-        });
+    core.serialization.undiscriminatedUnion([
+        SystemMessage,
+        UserMessage,
+        ReasoningMessage,
+        ToolCallMessage,
+        ToolReturnMessage,
+        AssistantMessage,
+    ]);
 
 export declare namespace LettaMessageUnion {
     export type Raw =
-        | LettaMessageUnion.SystemMessage
-        | LettaMessageUnion.UserMessage
-        | LettaMessageUnion.ReasoningMessage
-        | LettaMessageUnion.ToolCallMessage
-        | LettaMessageUnion.ToolReturnMessage
-        | LettaMessageUnion.AssistantMessage;
-
-    export interface SystemMessage extends SystemMessageOutput.Raw {
-        message_type: "system_message";
-    }
-
-    export interface UserMessage extends UserMessageOutput.Raw {
-        message_type: "user_message";
-    }
-
-    export interface ReasoningMessage extends ReasoningMessage.Raw {
-        message_type: "reasoning_message";
-    }
-
-    export interface ToolCallMessage extends ToolCallMessage.Raw {
-        message_type: "tool_call_message";
-    }
-
-    export interface ToolReturnMessage extends ToolReturnMessage.Raw {
-        message_type: "tool_return_message";
-    }
-
-    export interface AssistantMessage extends AssistantMessageOutput.Raw {
-        message_type: "assistant_message";
-    }
+        | SystemMessage.Raw
+        | UserMessage.Raw
+        | ReasoningMessage.Raw
+        | ToolCallMessage.Raw
+        | ToolReturnMessage.Raw
+        | AssistantMessage.Raw;
 }

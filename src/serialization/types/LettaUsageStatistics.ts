@@ -10,6 +10,10 @@ export const LettaUsageStatistics: core.serialization.ObjectSchema<
     serializers.LettaUsageStatistics.Raw,
     Letta.LettaUsageStatistics
 > = core.serialization.object({
+    messageType: core.serialization.property(
+        "message_type",
+        core.serialization.stringLiteral("usage_statistics").optional(),
+    ),
     completionTokens: core.serialization.property("completion_tokens", core.serialization.number().optional()),
     promptTokens: core.serialization.property("prompt_tokens", core.serialization.number().optional()),
     totalTokens: core.serialization.property("total_tokens", core.serialization.number().optional()),
@@ -18,6 +22,7 @@ export const LettaUsageStatistics: core.serialization.ObjectSchema<
 
 export declare namespace LettaUsageStatistics {
     export interface Raw {
+        message_type?: "usage_statistics" | null;
         completion_tokens?: number | null;
         prompt_tokens?: number | null;
         total_tokens?: number | null;

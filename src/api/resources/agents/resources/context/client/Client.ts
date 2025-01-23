@@ -42,9 +42,12 @@ export class Context {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.context.get("agent_id")
+     *     await client.agents.context.retrieve("agent_id")
      */
-    public async get(agentId: string, requestOptions?: Context.RequestOptions): Promise<Letta.ContextWindowOverview> {
+    public async retrieve(
+        agentId: string,
+        requestOptions?: Context.RequestOptions,
+    ): Promise<Letta.ContextWindowOverview> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -56,8 +59,8 @@ export class Context {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

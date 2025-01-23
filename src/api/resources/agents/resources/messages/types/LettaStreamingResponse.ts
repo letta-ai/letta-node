@@ -5,40 +5,10 @@
 import * as Letta from "../../../../../index";
 
 export type LettaStreamingResponse =
-    | Letta.agents.LettaStreamingResponse.SystemMessage
-    | Letta.agents.LettaStreamingResponse.UserMessage
-    | Letta.agents.LettaStreamingResponse.ReasoningMessage
-    | Letta.agents.LettaStreamingResponse.ToolCallMessage
-    | Letta.agents.LettaStreamingResponse.ToolReturnMessage
-    | Letta.agents.LettaStreamingResponse.AssistantMessage
-    | Letta.agents.LettaStreamingResponse.UsageStatistics;
-
-export namespace LettaStreamingResponse {
-    export interface SystemMessage extends Letta.SystemMessageOutput {
-        messageType: "system_message";
-    }
-
-    export interface UserMessage extends Letta.UserMessageOutput {
-        messageType: "user_message";
-    }
-
-    export interface ReasoningMessage extends Letta.ReasoningMessage {
-        messageType: "reasoning_message";
-    }
-
-    export interface ToolCallMessage extends Letta.ToolCallMessage {
-        messageType: "tool_call_message";
-    }
-
-    export interface ToolReturnMessage extends Letta.ToolReturnMessage {
-        messageType: "tool_return_message";
-    }
-
-    export interface AssistantMessage extends Letta.AssistantMessageOutput {
-        messageType: "assistant_message";
-    }
-
-    export interface UsageStatistics extends Letta.LettaUsageStatistics {
-        messageType: "usage_statistics";
-    }
-}
+    | Letta.SystemMessage
+    | Letta.UserMessage
+    | Letta.ReasoningMessage
+    | Letta.ToolCallMessage
+    | Letta.ToolReturnMessage
+    | Letta.AssistantMessage
+    | Letta.LettaUsageStatistics;

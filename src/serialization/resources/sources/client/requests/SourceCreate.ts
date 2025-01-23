@@ -12,10 +12,7 @@ export const SourceCreate: core.serialization.Schema<serializers.SourceCreate.Ra
         name: core.serialization.string(),
         embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig.optional()),
         description: core.serialization.string().optional(),
-        metadata: core.serialization.property(
-            "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        ),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     });
 
 export declare namespace SourceCreate {
@@ -23,6 +20,6 @@ export declare namespace SourceCreate {
         name: string;
         embedding_config?: EmbeddingConfig.Raw | null;
         description?: string | null;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
     }
 }

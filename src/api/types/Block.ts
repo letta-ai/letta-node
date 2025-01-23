@@ -13,7 +13,7 @@
  *     label (str): The label of the block (e.g. 'human', 'persona'). This defines a category for the block.
  *     template_name (str): The name of the block template (if it is a template).
  *     description (str): Description of the block.
- *     metadata_ (Dict): Metadata of the block.
+ *     metadata (Dict): Metadata of the block.
  *     user_id (str): The unique identifier of the user associated with the block.
  */
 export interface Block {

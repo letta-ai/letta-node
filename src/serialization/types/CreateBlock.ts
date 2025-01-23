@@ -14,10 +14,7 @@ export const CreateBlock: core.serialization.ObjectSchema<serializers.CreateBloc
         isTemplate: core.serialization.property("is_template", core.serialization.boolean().optional()),
         label: core.serialization.string(),
         description: core.serialization.string().optional(),
-        metadata: core.serialization.property(
-            "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        ),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     });
 
 export declare namespace CreateBlock {
@@ -28,6 +25,6 @@ export declare namespace CreateBlock {
         is_template?: boolean | null;
         label: string;
         description?: string | null;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
     }
 }

@@ -16,7 +16,7 @@ export interface MessageUpdate {
     /** The name of the participant. */
     name?: string;
     /** The list of tool calls requested. */
-    toolCalls?: Letta.LettaSchemasOpenaiChatCompletionsToolCallInput[];
+    toolCalls?: Letta.ChatCompletionMessageToolCall[];
     /** The id of the tool call. */
     toolCallId?: string;
 }

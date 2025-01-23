@@ -44,7 +44,7 @@ export class Tools {
      * @example
      *     await client.agents.tools.list("agent_id")
      */
-    public async list(agentId: string, requestOptions?: Tools.RequestOptions): Promise<Letta.LettaSchemasToolTool[]> {
+    public async list(agentId: string, requestOptions?: Tools.RequestOptions): Promise<Letta.Tool[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -56,8 +56,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -115,7 +115,7 @@ export class Tools {
     }
 
     /**
-     * Add tools to an existing agent
+     * Attach a tool to an agent.
      *
      * @param {string} agentId
      * @param {string} toolId
@@ -124,9 +124,9 @@ export class Tools {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.tools.add("agent_id", "tool_id")
+     *     await client.agents.tools.attach("agent_id", "tool_id")
      */
-    public async add(
+    public async attach(
         agentId: string,
         toolId: string,
         requestOptions?: Tools.RequestOptions,
@@ -136,14 +136,14 @@ export class Tools {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/add-tool/${encodeURIComponent(toolId)}`,
+                `v1/agents/${encodeURIComponent(agentId)}/tools/attach/${encodeURIComponent(toolId)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -193,7 +193,7 @@ export class Tools {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/add-tool/{tool_id}.",
+                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/tools/attach/{tool_id}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -203,7 +203,7 @@ export class Tools {
     }
 
     /**
-     * Add tools to an existing agent
+     * Detach a tool from an agent.
      *
      * @param {string} agentId
      * @param {string} toolId
@@ -212,9 +212,9 @@ export class Tools {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.tools.remove("agent_id", "tool_id")
+     *     await client.agents.tools.detach("agent_id", "tool_id")
      */
-    public async remove(
+    public async detach(
         agentId: string,
         toolId: string,
         requestOptions?: Tools.RequestOptions,
@@ -224,14 +224,14 @@ export class Tools {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/remove-tool/${encodeURIComponent(toolId)}`,
+                `v1/agents/${encodeURIComponent(agentId)}/tools/detach/${encodeURIComponent(toolId)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.12",
-                "User-Agent": "@letta-ai/letta-client/0.1.12",
+                "X-Fern-SDK-Version": "0.1.13",
+                "User-Agent": "@letta-ai/letta-client/0.1.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -281,7 +281,7 @@ export class Tools {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/remove-tool/{tool_id}.",
+                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/tools/detach/{tool_id}.",
                 );
             case "unknown":
                 throw new errors.LettaError({

@@ -1,1 +1,0 @@
-export { CreateArchivalMemory } from "./CreateArchivalMemory";

@@ -37,10 +37,7 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
             core.serialization.list(core.serialization.string()).optional(),
         ),
         description: core.serialization.string().optional(),
-        metadata: core.serialization.property(
-            "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        ),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         toolExecEnvironmentVariables: core.serialization.property(
             "tool_exec_environment_variables",
             core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
@@ -60,7 +57,7 @@ export declare namespace UpdateAgent {
         embedding_config?: EmbeddingConfig.Raw | null;
         message_ids?: string[] | null;
         description?: string | null;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
         tool_exec_environment_variables?: Record<string, string | null | undefined> | null;
     }
 }

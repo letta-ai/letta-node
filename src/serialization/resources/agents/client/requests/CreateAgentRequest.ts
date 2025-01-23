@@ -44,10 +44,7 @@ export const CreateAgentRequest: core.serialization.Schema<
         core.serialization.boolean().optional(),
     ),
     description: core.serialization.string().optional(),
-    metadata: core.serialization.property(
-        "metadata_",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    ),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     model: core.serialization.string().optional(),
     embedding: core.serialization.string().optional(),
     contextWindowLimit: core.serialization.property("context_window_limit", core.serialization.number().optional()),
@@ -83,7 +80,7 @@ export declare namespace CreateAgentRequest {
         include_base_tools?: boolean | null;
         include_multi_agent_tools?: boolean | null;
         description?: string | null;
-        metadata_?: Record<string, unknown> | null;
+        metadata?: Record<string, unknown> | null;
         model?: string | null;
         embedding?: string | null;
         context_window_limit?: number | null;
