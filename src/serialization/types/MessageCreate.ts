@@ -6,18 +6,19 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { MessageCreateRole } from "./MessageCreateRole";
+import { MessageCreateContent } from "./MessageCreateContent";
 
 export const MessageCreate: core.serialization.ObjectSchema<serializers.MessageCreate.Raw, Letta.MessageCreate> =
     core.serialization.object({
         role: MessageCreateRole,
-        text: core.serialization.string(),
+        content: MessageCreateContent,
         name: core.serialization.string().optional(),
     });
 
 export declare namespace MessageCreate {
     export interface Raw {
         role: MessageCreateRole.Raw;
-        text: string;
+        content: MessageCreateContent.Raw;
         name?: string | null;
     }
 }

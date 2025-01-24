@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { AssistantMessageContent } from "./AssistantMessageContent";
 
 export const AssistantMessage: core.serialization.ObjectSchema<
     serializers.AssistantMessage.Raw,
@@ -13,7 +14,7 @@ export const AssistantMessage: core.serialization.ObjectSchema<
     id: core.serialization.string(),
     date: core.serialization.date(),
     messageType: core.serialization.property("message_type", core.serialization.stringLiteral("assistant_message")),
-    assistantMessage: core.serialization.property("assistant_message", core.serialization.string()),
+    content: AssistantMessageContent,
 });
 
 export declare namespace AssistantMessage {
@@ -21,6 +22,6 @@ export declare namespace AssistantMessage {
         id: string;
         date: string;
         message_type: "assistant_message";
-        assistant_message: string;
+        content: AssistantMessageContent.Raw;
     }
 }

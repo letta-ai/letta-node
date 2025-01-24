@@ -32,8 +32,8 @@ export interface Message {
     id?: string;
     /** The role of the participant. */
     role: Letta.MessageRole;
-    /** The text of the message. */
-    text?: string;
+    /** The content of the message. */
+    content?: Letta.TextContent[];
     /** The unique identifier of the agent. */
     agentId?: string;
     /** The model used to make the function call. */

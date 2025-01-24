@@ -55,14 +55,14 @@ export class MemoryVariables {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/core_memory/variables`,
+                `v1/agents/${encodeURIComponent(agentId)}/core-memory/variables`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.14",
-                "User-Agent": "@letta-ai/letta-client/0.1.14",
+                "X-Fern-SDK-Version": "0.1.15",
+                "User-Agent": "@letta-ai/letta-client/0.1.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -104,7 +104,7 @@ export class MemoryVariables {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/core_memory/variables.",
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/core-memory/variables.",
                 );
             case "unknown":
                 throw new errors.LettaError({

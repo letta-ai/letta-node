@@ -19,6 +19,7 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
             core.serialization.boolean().optional(),
         ),
         handle: core.serialization.string().optional(),
+        temperature: core.serialization.number().optional(),
     });
 
 export declare namespace LlmConfig {
@@ -30,5 +31,6 @@ export declare namespace LlmConfig {
         context_window: number;
         put_inner_thoughts_in_kwargs?: boolean | null;
         handle?: string | null;
+        temperature?: number | null;
     }
 }

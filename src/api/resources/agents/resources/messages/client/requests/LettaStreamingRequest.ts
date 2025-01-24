@@ -9,7 +9,7 @@ import * as Letta from "../../../../../../index";
  *     {
  *         messages: [{
  *                 role: "user",
- *                 text: "text"
+ *                 content: "content"
  *             }]
  *     }
  */

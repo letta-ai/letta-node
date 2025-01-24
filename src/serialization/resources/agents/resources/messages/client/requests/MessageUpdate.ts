@@ -6,6 +6,7 @@ import * as serializers from "../../../../../../index";
 import * as Letta from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
 import { MessageRole } from "../../../../../../types/MessageRole";
+import { MessageUpdateContent } from "../../types/MessageUpdateContent";
 import { ChatCompletionMessageToolCall } from "../../../../../../types/ChatCompletionMessageToolCall";
 
 export const MessageUpdate: core.serialization.Schema<
@@ -13,7 +14,7 @@ export const MessageUpdate: core.serialization.Schema<
     Letta.agents.MessageUpdate
 > = core.serialization.object({
     role: MessageRole.optional(),
-    text: core.serialization.string().optional(),
+    content: MessageUpdateContent.optional(),
     name: core.serialization.string().optional(),
     toolCalls: core.serialization.property(
         "tool_calls",
@@ -25,7 +26,7 @@ export const MessageUpdate: core.serialization.Schema<
 export declare namespace MessageUpdate {
     export interface Raw {
         role?: MessageRole.Raw | null;
-        text?: string | null;
+        content?: MessageUpdateContent.Raw | null;
         name?: string | null;
         tool_calls?: ChatCompletionMessageToolCall.Raw[] | null;
         tool_call_id?: string | null;

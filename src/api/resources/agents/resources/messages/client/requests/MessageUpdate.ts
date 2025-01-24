@@ -11,8 +11,8 @@ import * as Letta from "../../../../../../index";
 export interface MessageUpdate {
     /** The role of the participant. */
     role?: Letta.MessageRole;
-    /** The text of the message. */
-    text?: string;
+    /** The content of the message. */
+    content?: Letta.agents.MessageUpdateContent;
     /** The name of the participant. */
     name?: string;
     /** The list of tool calls requested. */

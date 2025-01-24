@@ -5,13 +5,14 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { UserMessageContent } from "./UserMessageContent";
 
 export const UserMessage: core.serialization.ObjectSchema<serializers.UserMessage.Raw, Letta.UserMessage> =
     core.serialization.object({
         id: core.serialization.string(),
         date: core.serialization.date(),
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("user_message")),
-        message: core.serialization.string(),
+        content: UserMessageContent,
     });
 
 export declare namespace UserMessage {
@@ -19,6 +20,6 @@ export declare namespace UserMessage {
         id: string;
         date: string;
         message_type: "user_message";
-        message: string;
+        content: UserMessageContent.Raw;
     }
 }

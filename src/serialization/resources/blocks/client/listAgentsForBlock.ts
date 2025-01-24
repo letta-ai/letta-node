@@ -5,13 +5,13 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { Passage } from "../../../types/Passage";
+import { AgentState } from "../../../types/AgentState";
 
 export const Response: core.serialization.Schema<
-    serializers.agents.createArchivalMemory.Response.Raw,
-    Letta.Passage[]
-> = core.serialization.list(Passage);
+    serializers.blocks.listAgentsForBlock.Response.Raw,
+    Letta.AgentState[]
+> = core.serialization.list(AgentState);
 
 export declare namespace Response {
-    export type Raw = Passage.Raw[];
+    export type Raw = AgentState.Raw[];
 }

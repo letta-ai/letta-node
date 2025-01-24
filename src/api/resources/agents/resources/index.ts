@@ -9,5 +9,6 @@ export * as tools from "./tools";
 export * as sources from "./sources";
 export * as coreMemory from "./coreMemory";
 export * as archivalMemory from "./archivalMemory";
+export * from "./archivalMemory/client/requests";
 export * from "./messages/client/requests";
 export * from "./templates/client/requests";

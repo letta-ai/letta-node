@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ListArchivalMemoryRequest {
+export interface ArchivalMemoryListRequest {
     /**
      * Unique ID of the memory to start the query range at.
      */

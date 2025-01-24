@@ -71,8 +71,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.14",
-                "User-Agent": "@letta-ai/letta-client/0.1.14",
+                "X-Fern-SDK-Version": "0.1.15",
+                "User-Agent": "@letta-ai/letta-client/0.1.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -154,8 +154,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.14",
-                "User-Agent": "@letta-ai/letta-client/0.1.14",
+                "X-Fern-SDK-Version": "0.1.15",
+                "User-Agent": "@letta-ai/letta-client/0.1.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -234,8 +234,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.14",
-                "User-Agent": "@letta-ai/letta-client/0.1.14",
+                "X-Fern-SDK-Version": "0.1.15",
+                "User-Agent": "@letta-ai/letta-client/0.1.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -313,8 +313,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.14",
-                "User-Agent": "@letta-ai/letta-client/0.1.14",
+                "X-Fern-SDK-Version": "0.1.15",
+                "User-Agent": "@letta-ai/letta-client/0.1.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -397,8 +397,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.14",
-                "User-Agent": "@letta-ai/letta-client/0.1.14",
+                "X-Fern-SDK-Version": "0.1.15",
+                "User-Agent": "@letta-ai/letta-client/0.1.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -449,6 +449,91 @@ export class Blocks {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/blocks/{block_id}.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Retrieves all agents associated with the specified block.
+     * Raises a 404 if the block does not exist.
+     *
+     * @param {string} blockId
+     * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.blocks.listAgentsForBlock("block_id")
+     */
+    public async listAgentsForBlock(
+        blockId: string,
+        requestOptions?: Blocks.RequestOptions,
+    ): Promise<Letta.AgentState[]> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/blocks/${encodeURIComponent(blockId)}/agents`,
+            ),
+            method: "GET",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.15",
+                "User-Agent": "@letta-ai/letta-client/0.1.15",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.blocks.listAgentsForBlock.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/blocks/{block_id}/agents.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

@@ -10,8 +10,8 @@ import * as Letta from "../index";
 export interface MessageCreate {
     /** The role of the participant. */
     role: Letta.MessageCreateRole;
-    /** The text of the message. */
-    text: string;
+    /** The content of the message. */
+    content: Letta.MessageCreateContent;
     /** The name of the participant. */
     name?: string;
 }
