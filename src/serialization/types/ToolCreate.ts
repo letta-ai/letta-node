@@ -8,7 +8,6 @@ import * as core from "../../core";
 
 export const ToolCreate: core.serialization.ObjectSchema<serializers.ToolCreate.Raw, Letta.ToolCreate> =
     core.serialization.object({
-        name: core.serialization.string().optional(),
         description: core.serialization.string().optional(),
         tags: core.serialization.list(core.serialization.string()).optional(),
         sourceCode: core.serialization.property("source_code", core.serialization.string()),
@@ -22,7 +21,6 @@ export const ToolCreate: core.serialization.ObjectSchema<serializers.ToolCreate.
 
 export declare namespace ToolCreate {
     export interface Raw {
-        name?: string | null;
         description?: string | null;
         tags?: string[] | null;
         source_code: string;

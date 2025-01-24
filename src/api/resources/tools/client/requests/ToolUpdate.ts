@@ -9,8 +9,6 @@
 export interface ToolUpdate {
     /** The description of the tool. */
     description?: string;
-    /** The name of the function. */
-    name?: string;
     /** Metadata tags. */
     tags?: string[];
     /** The source code of the function. */

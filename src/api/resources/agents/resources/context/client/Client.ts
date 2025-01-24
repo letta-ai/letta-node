@@ -59,8 +59,8 @@ export class Context {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.15",
-                "User-Agent": "@letta-ai/letta-client/0.1.15",
+                "X-Fern-SDK-Version": "0.1.16",
+                "User-Agent": "@letta-ai/letta-client/0.1.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

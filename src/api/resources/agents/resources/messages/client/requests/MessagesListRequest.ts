@@ -8,6 +8,10 @@
  */
 export interface MessagesListRequest {
     /**
+     * Message after which to retrieve the returned messages.
+     */
+    after?: string;
+    /**
      * Message before which to retrieve the returned messages.
      */
     before?: string;

@@ -9,7 +9,6 @@ import * as core from "../../../../../core";
 export const ToolUpdate: core.serialization.Schema<serializers.ToolUpdate.Raw, Letta.ToolUpdate> =
     core.serialization.object({
         description: core.serialization.string().optional(),
-        name: core.serialization.string().optional(),
         tags: core.serialization.list(core.serialization.string()).optional(),
         sourceCode: core.serialization.property("source_code", core.serialization.string().optional()),
         sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
@@ -23,7 +22,6 @@ export const ToolUpdate: core.serialization.Schema<serializers.ToolUpdate.Raw, L
 export declare namespace ToolUpdate {
     export interface Raw {
         description?: string | null;
-        name?: string | null;
         tags?: string[] | null;
         source_code?: string | null;
         source_type?: string | null;
