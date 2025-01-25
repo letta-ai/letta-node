@@ -9,34 +9,40 @@ import {
     AssistantMessage,
 } from "../src/api";
 
+const environment = process.env.LETTA_ENV === 'localhost' 
+        ? LettaEnvironment.SelfHosted 
+        : LettaEnvironment.LettaCloud;
+
 describe("Letta Client", () => {
     it("should create multiple agent with shared memory", async () => {
-        // Initialize client (to run locally, override using LettaEnvironment.SelfHosted)
         const client = new LettaClient({
-            environment: LettaEnvironment.SelfHosted,
+            environment: environment,
             token: process.env.LETTA_API_KEY ?? "",
         });
 
         // Create shared memory block
         let block = await client.blocks.create({
-            value: "name: caren",
+            value: "name: Caren",
             label: "human",
         });
 
         // Create agents and attach block
         const agent1 = await client.agents.create({
-            model: "openai/gpt-4",
+            model: "openai/gpt-4o-mini",
+            embedding: "openai/text-embedding-ada-002",
+            blockIds: [block.id!],
+        });
+        expect(agent1.memory.blocks[0].id).toEqual(block.id);
+
+        let agent2 = await client.agents.create({
+            model: "openai/gpt-4o-mini",
             embedding: "openai/text-embedding-ada-002",
         });
-        client.agents.coreMemory.attachBlock(agent1.id, block.id!);
+        // Another way to attach memory blocks
+        agent2 = await client.agents.coreMemory.attachBlock(agent2.id, block.id!);
+        expect(agent2.memory.blocks[0].id).toEqual(block.id);
 
-        const agent2 = await client.agents.create({
-            model: "openai/gpt-4",
-            embedding: "openai/text-embedding-ada-002",
-        });
-        client.agents.coreMemory.attachBlock(agent2.id, block.id!);
-
-        await client.agents.messages.create(agent1.id, {
+        let response = await client.agents.messages.create(agent1.id, {
             messages: [
                 {
                     role: "user",
@@ -53,7 +59,7 @@ describe("Letta Client", () => {
         expect(block.value.toLowerCase()).toContain("sarah");
 
         // Ask agent to confirm memory update
-        const response = await client.agents.messages.create(agent2.id, {
+        response = await client.agents.messages.create(agent1.id, {
             messages: [
                 {
                     role: "user",
@@ -68,18 +74,18 @@ describe("Letta Client", () => {
         // Delete agents
         await client.agents.delete(agent1.id);
         await client.agents.delete(agent2.id);
+        await client.blocks.delete(block.id!);
     }, 100000);
 
     it("create agent with custom tool", async () => {
-        // Initialize client (to run locally, override using LettaEnvironment.SelfHosted)
         const client = new LettaClient({
-            environment: LettaEnvironment.SelfHosted,
+            environment: environment,
             token: process.env.LETTA_API_KEY ?? "",
         });
 
         // Create agent
         const agent = await client.agents.create({
-            model: "openai/gpt-4",
+            model: "openai/gpt-4o-mini",
             embedding: "openai/text-embedding-ada-002",
         });
 
@@ -131,9 +137,9 @@ def secret_message():
     }, 100000);
 
     it("should create single agent and send messages", async () => {
-        // Initialize client (to run locally, override using LettaEnvironment.SelfHosted)
+        console.log("start");
         const client = new LettaClient({
-            environment: LettaEnvironment.SelfHosted,
+            environment: environment,
             token: process.env.LETTA_API_KEY ?? "",
         });
 
@@ -168,13 +174,13 @@ def secret_message():
 
         // Validate send message response contains single assistant message
         expect(response.usage.stepCount).toEqual(1);
-        expect(response.messages).toHaveLength(1);
+        expect(response.messages).toHaveLength(1); // SHOULD BE 2 WITH REASONING MESSAGE
         expect(response.messages[0]).toHaveProperty("messageType", "assistant_message");
 
         // Validate message history
         let cursor = messages[messages.length - 1].id;
         messages = await client.agents.messages.list(agent.id, { after: cursor });
-        expect(messages).toHaveLength(3);
+        expect(messages).toHaveLength(3); // SHOULD BE A REASONING MESSAGE HERE TOO
 
         // 1. User message that was just sent
         expect(messages[0]).toHaveProperty("messageType", "user_message");
@@ -187,6 +193,7 @@ def secret_message():
         // 3. Tool return message that contains success/failure of tool call
         expect(messages[2]).toHaveProperty("messageType", "tool_return_message");
         expect((messages[2] as ToolReturnMessage).status).toEqual("success");
+        console.log("done 1");
 
         // Send message with streaming
         messageText = "My name isn't Caren, it's Sarah. Please update your core memory with core_memory_replace";
@@ -264,6 +271,7 @@ def secret_message():
         // 7. Tool return message that contains success/failure of tool call
         expect(messages[6]).toHaveProperty("messageType", "tool_return_message");
         expect((messages[6] as ToolReturnMessage).status).toEqual("success");
+        console.log("done 2");
 
         // Send async message
         messageText = "What's my name?";
@@ -276,25 +284,29 @@ def secret_message():
             ],
         });
         expect(run.status).toEqual("created");
-        await new Promise(resolve => setTimeout(resolve, 10000)); // Sleep for 1000 ms
 
+        // Wait for run to complete
+        await new Promise(resolve => setTimeout(resolve, 10000));
         run = await client.runs.retrieveRun(run.id!);
-
-        
-
-        // Validate send message response contains single assistant message
         expect(run.status).toEqual("completed");
+        
+        // Validate messages from run
         const run_messages = await client.runs.listRunMessages(run.id!);
         expect(run_messages).toHaveLength(3);
         for (const message of run_messages) {
             switch (message.messageType) {
+                // 1. User message that was just sent
                 case "user_message":
                     expect((message as UserMessage).content).toContain(messageText);
                     break;
-                case "assistant_message":
+
+                // 2. Assistant message with response
+                case "assistant_message": // ADD REASONING
                     expect(((message as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
                     break;
-                case "tool_return_message":
+                
+                // 3. Tool call for sending the assistant message response back
+                case "tool_return_message": // THIS SHOULD NOT BE RETURNED
                     expect((message as ToolReturnMessage).status).toEqual("success");
                     break;
                 default:
