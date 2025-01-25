@@ -40,7 +40,7 @@ describe("Letta Client", () => {
             messages: [
                 {
                     role: "user",
-                    content: "Actually, my name is Sarah.",
+                    content: "My name isn't Caren, it's Sarah. Please update your core memory with core_memory_replace",
                 },
             ],
         });
@@ -133,7 +133,7 @@ def secret_message():
     it("should create single agent and send messages", async () => {
         // Initialize client (to run locally, override using LettaEnvironment.SelfHosted)
         const client = new LettaClient({
-            environment: LettaEnvironment.LettaCloud,
+            environment: LettaEnvironment.SelfHosted,
             token: process.env.LETTA_API_KEY ?? "",
         });
 
@@ -189,7 +189,7 @@ def secret_message():
         expect((messages[2] as ToolReturnMessage).status).toEqual("success");
 
         // Send message with streaming
-        messageText = "Actually, my name is Sarah.";
+        messageText = "My name isn't Caren, it's Sarah. Please update your core memory with core_memory_replace";
         const streamResponse = await client.agents.messages.createStream(agent.id, {
             messages: [
                 {
@@ -264,6 +264,43 @@ def secret_message():
         // 7. Tool return message that contains success/failure of tool call
         expect(messages[6]).toHaveProperty("messageType", "tool_return_message");
         expect((messages[6] as ToolReturnMessage).status).toEqual("success");
+
+        // Send async message
+        messageText = "What's my name?";
+        let run = await client.agents.messages.createAsync(agent.id, {
+            messages: [
+                {
+                    role: "user",
+                    content: messageText,
+                },
+            ],
+        });
+        expect(run.status).toEqual("created");
+        await new Promise(resolve => setTimeout(resolve, 10000)); // Sleep for 1000 ms
+
+        run = await client.runs.retrieveRun(run.id!);
+
+        
+
+        // Validate send message response contains single assistant message
+        expect(run.status).toEqual("completed");
+        const run_messages = await client.runs.listRunMessages(run.id!);
+        expect(run_messages).toHaveLength(3);
+        for (const message of run_messages) {
+            switch (message.messageType) {
+                case "user_message":
+                    expect((message as UserMessage).content).toContain(messageText);
+                    break;
+                case "assistant_message":
+                    expect(((message as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
+                    break;
+                case "tool_return_message":
+                    expect((message as ToolReturnMessage).status).toEqual("success");
+                    break;
+                default:
+                    fail(`Unexpected message type: ${(message as any).messageType}`);
+            }
+        }
 
         // Delete agent
         await client.agents.delete(agent.id);
