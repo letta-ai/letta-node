@@ -77,14 +77,16 @@ describe("Letta Client", () => {
             token: process.env.LETTA_API_KEY ?? "",
         });
 
+        // Create agent
         const agent = await client.agents.create({
             model: "openai/gpt-4",
             embedding: "openai/text-embedding-ada-002",
         });
 
+        // Create custom tool with python source code
         const custom_tool_source_code = `
-def custom_tool():
-    """Return a greeting message."""
+def secret_message():
+    """Return a secret message."""
     return "Hello world!"
         `.trim();
 
@@ -92,20 +94,40 @@ def custom_tool():
             sourceCode: custom_tool_source_code,
         });
 
+        // Attach custom tool to agent and invoke
         await client.agents.tools.attach(agent.id, tool.id!);
 
         const response = await client.agents.messages.create(agent.id, {
             messages: [
                 {
                     role: "user",
-                    content: "Run custom tool and tell me what it returns",
+                    content: "Run secret message tool and tell me what it returns",
                 },
             ],
         });
 
         // Validate send message response contains expected return value
-        expect(response.messages).toHaveLength(1);
-        expect(((response.messages[0] as AssistantMessage).content as string).toLowerCase()).toContain("hello world");
+        expect(response.usage.stepCount).toEqual(2);
+        expect(response.messages).toHaveLength(3);
+        for (const message of response.messages) {
+            switch (message.messageType) {
+                case "tool_call_message":
+                    expect((message as ToolCallMessage).toolCall.name).toEqual("secret_message");
+                    break;
+                case "tool_return_message":
+                    expect((message as ToolReturnMessage).status).toEqual("success");
+                    break;
+                case "assistant_message":
+                    expect(((message as AssistantMessage).content as string).toLowerCase()).toContain("hello world");
+                    break;
+                default:
+                    fail(`Unexpected message type: ${(message as any).messageType}`);
+            }
+        }
+
+        // Delete
+        await client.agents.delete(agent.id);
+        await client.tools.delete(tool.id!);
     }, 100000);
 
     it("should create single agent and send messages", async () => {
