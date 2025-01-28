@@ -2939,6 +2939,87 @@ await client.tag.listTags();
 </dl>
 </details>
 
+## Templates
+
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">createagentsfromtemplate</a>(project, templateVersion, { ...params }) -> Letta.TemplatesCreateAgentsFromTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates agents given a template
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.createagentsfromtemplate("project", "template_version");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateVersion:** `string` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesCreateAgentsFromTemplateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Agents Context
 
 <details><summary><code>client.agents.context.<a href="/src/api/resources/agents/resources/context/client/Client.ts">retrieve</a>(agentId) -> Letta.ContextWindowOverview</code></summary>
@@ -4058,7 +4139,7 @@ await client.agents.archivalMemory.delete("agent_id", "memory_id");
 
 ## Agents Messages
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.MessagesListResponse</code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
 <dl>
 <dd>
 

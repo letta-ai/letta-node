@@ -5,7 +5,7 @@
 import * as Letta from "../index";
 
 export interface FunctionTool {
-    function: Letta.FunctionDefinition;
+    function: Letta.FunctionDefinitionOutput;
     type: "function";
     /** Accepts any additional properties */
     [key: string]: any;

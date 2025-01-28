@@ -9,13 +9,15 @@ import * as Letta from "../index";
  */
 export interface ActionModel {
     name: string;
-    displayName?: string;
+    description: string;
     parameters: Letta.ActionParametersModel;
     response: Letta.ActionResponseModel;
     appName: string;
     appId: string;
+    version: string;
+    availableVersions: string[];
     tags: string[];
-    enabled?: boolean;
     logo?: string;
-    description?: string;
+    displayName?: string;
+    enabled?: boolean;
 }

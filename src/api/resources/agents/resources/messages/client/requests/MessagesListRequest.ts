@@ -20,15 +20,15 @@ export interface MessagesListRequest {
      */
     limit?: number;
     /**
-     * If true, returns Message objects. If false, return LettaMessage objects.
+     * Whether to use assistant messages
      */
-    msgObject?: boolean;
+    useAssistantMessage?: boolean;
     /**
      * The name of the designated message tool.
      */
     assistantMessageToolName?: string;
     /**
-     * The name of the message argument in the designated message tool.
+     * The name of the message argument.
      */
     assistantMessageToolKwarg?: string;
 }

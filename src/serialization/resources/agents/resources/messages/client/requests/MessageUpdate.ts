@@ -7,7 +7,7 @@ import * as Letta from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
 import { MessageRole } from "../../../../../../types/MessageRole";
 import { MessageUpdateContent } from "../../types/MessageUpdateContent";
-import { ChatCompletionMessageToolCall } from "../../../../../../types/ChatCompletionMessageToolCall";
+import { ChatCompletionMessageToolCallInput } from "../../../../../../types/ChatCompletionMessageToolCallInput";
 
 export const MessageUpdate: core.serialization.Schema<
     serializers.agents.MessageUpdate.Raw,
@@ -18,7 +18,7 @@ export const MessageUpdate: core.serialization.Schema<
     name: core.serialization.string().optional(),
     toolCalls: core.serialization.property(
         "tool_calls",
-        core.serialization.list(ChatCompletionMessageToolCall).optional(),
+        core.serialization.list(ChatCompletionMessageToolCallInput).optional(),
     ),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
 });
@@ -28,7 +28,7 @@ export declare namespace MessageUpdate {
         role?: MessageRole.Raw | null;
         content?: MessageUpdateContent.Raw | null;
         name?: string | null;
-        tool_calls?: ChatCompletionMessageToolCall.Raw[] | null;
+        tool_calls?: ChatCompletionMessageToolCallInput.Raw[] | null;
         tool_call_id?: string | null;
     }
 }

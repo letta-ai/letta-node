@@ -6,21 +6,30 @@ import * as serializers from "../../../../../../index";
 import * as Letta from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
 import { MessageCreate } from "../../../../../../types/MessageCreate";
-import { LettaRequestConfig } from "../../../../../../types/LettaRequestConfig";
 
 export const LettaStreamingRequest: core.serialization.Schema<
     serializers.agents.LettaStreamingRequest.Raw,
     Letta.agents.LettaStreamingRequest
 > = core.serialization.object({
     messages: core.serialization.list(MessageCreate),
-    config: LettaRequestConfig.optional(),
+    useAssistantMessage: core.serialization.property("use_assistant_message", core.serialization.boolean().optional()),
+    assistantMessageToolName: core.serialization.property(
+        "assistant_message_tool_name",
+        core.serialization.string().optional(),
+    ),
+    assistantMessageToolKwarg: core.serialization.property(
+        "assistant_message_tool_kwarg",
+        core.serialization.string().optional(),
+    ),
     streamTokens: core.serialization.property("stream_tokens", core.serialization.boolean().optional()),
 });
 
 export declare namespace LettaStreamingRequest {
     export interface Raw {
         messages: MessageCreate.Raw[];
-        config?: LettaRequestConfig.Raw | null;
+        use_assistant_message?: boolean | null;
+        assistant_message_tool_name?: string | null;
+        assistant_message_tool_kwarg?: string | null;
         stream_tokens?: boolean | null;
     }
 }
