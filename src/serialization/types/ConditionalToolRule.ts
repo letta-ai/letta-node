@@ -5,14 +5,13 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { ToolRuleType } from "./ToolRuleType";
 
 export const ConditionalToolRule: core.serialization.ObjectSchema<
     serializers.ConditionalToolRule.Raw,
     Letta.ConditionalToolRule
 > = core.serialization.object({
     toolName: core.serialization.property("tool_name", core.serialization.string()),
-    type: ToolRuleType.optional(),
+    type: core.serialization.stringLiteral("conditional"),
     defaultChild: core.serialization.property("default_child", core.serialization.string().optional()),
     childOutputMapping: core.serialization.property(
         "child_output_mapping",
@@ -27,7 +26,7 @@ export const ConditionalToolRule: core.serialization.ObjectSchema<
 export declare namespace ConditionalToolRule {
     export interface Raw {
         tool_name: string;
-        type?: ToolRuleType.Raw | null;
+        type: "conditional";
         default_child?: string | null;
         child_output_mapping: Record<string, string>;
         require_output_mapping?: boolean | null;

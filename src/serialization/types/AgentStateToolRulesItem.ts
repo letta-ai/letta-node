@@ -5,16 +5,16 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { ChildToolRule } from "./ChildToolRule";
-import { InitToolRule } from "./InitToolRule";
-import { TerminalToolRule } from "./TerminalToolRule";
 import { ConditionalToolRule } from "./ConditionalToolRule";
+import { ChildToolRule } from "./ChildToolRule";
+import { TerminalToolRule } from "./TerminalToolRule";
+import { InitToolRule } from "./InitToolRule";
 
 export const AgentStateToolRulesItem: core.serialization.Schema<
     serializers.AgentStateToolRulesItem.Raw,
     Letta.AgentStateToolRulesItem
-> = core.serialization.undiscriminatedUnion([ChildToolRule, InitToolRule, TerminalToolRule, ConditionalToolRule]);
+> = core.serialization.undiscriminatedUnion([ConditionalToolRule, ChildToolRule, TerminalToolRule, InitToolRule]);
 
 export declare namespace AgentStateToolRulesItem {
-    export type Raw = ChildToolRule.Raw | InitToolRule.Raw | TerminalToolRule.Raw | ConditionalToolRule.Raw;
+    export type Raw = ConditionalToolRule.Raw | ChildToolRule.Raw | TerminalToolRule.Raw | InitToolRule.Raw;
 }

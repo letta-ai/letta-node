@@ -10,22 +10,10 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemIte
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwoType.Raw,
     Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwoType
 > = core.serialization.undiscriminatedUnion([
-    core.serialization.stringLiteral("InitToolRule"),
-    core.serialization.stringLiteral("TerminalToolRule"),
-    core.serialization.stringLiteral("continue_loop"),
-    core.serialization.stringLiteral("conditional"),
-    core.serialization.stringLiteral("ToolRule"),
-    core.serialization.stringLiteral("require_parent_tools"),
+    core.serialization.stringLiteral("exit_loop"),
     core.serialization.unknown(),
 ]);
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwoType {
-    export type Raw =
-        | "InitToolRule"
-        | "TerminalToolRule"
-        | "continue_loop"
-        | "conditional"
-        | "ToolRule"
-        | "require_parent_tools"
-        | unknown;
+    export type Raw = "exit_loop" | unknown;
 }

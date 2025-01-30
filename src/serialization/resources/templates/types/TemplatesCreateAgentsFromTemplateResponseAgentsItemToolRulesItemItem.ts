@@ -9,7 +9,6 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChi
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping";
-import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemItem } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemItem";
 
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem: core.serialization.Schema<
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem.Raw,
@@ -19,7 +18,6 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemIte
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne,
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo,
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping,
-    core.serialization.list(TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemItem),
 ]);
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem {
@@ -27,6 +25,5 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemTool
         | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildren.Raw
         | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne.Raw
         | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo.Raw
-        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping.Raw
-        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemItem.Raw[];
+        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping.Raw;
 }

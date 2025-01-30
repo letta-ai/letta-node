@@ -3,10 +3,5 @@
  */
 
 export type TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildrenType =
-    | "InitToolRule"
-    | "TerminalToolRule"
-    | "continue_loop"
-    | "conditional"
-    | "ToolRule"
-    | "require_parent_tools"
+    | "constrain_child_tools"
     | unknown;

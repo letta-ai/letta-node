@@ -13,6 +13,7 @@ import { Jobs } from "./api/resources/jobs/client/Client";
 import { Health } from "./api/resources/health/client/Client";
 import { Providers } from "./api/resources/providers/client/Client";
 import { Runs } from "./api/resources/runs/client/Client";
+import { Steps } from "./api/resources/steps/client/Client";
 import { Tag } from "./api/resources/tag/client/Client";
 import { Templates } from "./api/resources/templates/client/Client";
 
@@ -47,6 +48,7 @@ export class LettaClient {
     protected _health: Health | undefined;
     protected _providers: Providers | undefined;
     protected _runs: Runs | undefined;
+    protected _steps: Steps | undefined;
     protected _tag: Tag | undefined;
     protected _templates: Templates | undefined;
 
@@ -86,6 +88,10 @@ export class LettaClient {
 
     public get runs(): Runs {
         return (this._runs ??= new Runs(this._options));
+    }
+
+    public get steps(): Steps {
+        return (this._steps ??= new Steps(this._options));
     }
 
     public get tag(): Tag {
