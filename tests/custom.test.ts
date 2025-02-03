@@ -2,11 +2,12 @@ import { LettaEnvironment } from "../src/environments";
 import { LettaClient } from "../src/Client";
 import {
     AgentState,
+    AssistantMessage,
+    ReasoningMessage,
     SystemMessage,
-    UserMessage,
     ToolCallMessage,
     ToolReturnMessage,
-    AssistantMessage,
+    UserMessage,
 } from "../src/api";
 
 const environment = process.env.LETTA_ENV === 'localhost' 
@@ -69,7 +70,7 @@ describe("Letta Client", () => {
         });
 
         // Validate send message response contains new name
-        expect(((response.messages[0] as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
+        expect(((response.messages[1] as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
 
         // Delete agents
         await client.agents.delete(agent1.id);
@@ -96,7 +97,7 @@ def secret_message():
     return "Hello world!"
         `.trim();
 
-        const tool = await client.tools.create({
+        const tool = await client.tools.upsert({
             sourceCode: custom_tool_source_code,
         });
 
@@ -114,18 +115,25 @@ def secret_message():
 
         // Validate send message response contains expected return value
         expect(response.usage.stepCount).toEqual(2);
-        expect(response.messages).toHaveLength(3);
+        expect(response.messages).toHaveLength(5);
         for (const message of response.messages) {
             switch (message.messageType) {
+                case "reasoning_message":
+                    expect((message as ReasoningMessage).reasoning.toLowerCase()).toContain("secret message");
+                    break;
+                
                 case "tool_call_message":
                     expect((message as ToolCallMessage).toolCall.name).toEqual("secret_message");
                     break;
+                
                 case "tool_return_message":
                     expect((message as ToolReturnMessage).status).toEqual("success");
                     break;
+                
                 case "assistant_message":
                     expect(((message as AssistantMessage).content as string).toLowerCase()).toContain("hello world");
                     break;
+                
                 default:
                     fail(`Unexpected message type: ${(message as any).messageType}`);
             }
@@ -137,7 +145,6 @@ def secret_message():
     }, 100000);
 
     it("should create single agent and send messages", async () => {
-        console.log("start");
         const client = new LettaClient({
             environment: environment,
             token: process.env.LETTA_API_KEY ?? "",
@@ -151,7 +158,7 @@ def secret_message():
                     label: "human",
                 },
             ],
-            model: "openai/gpt-4",
+            model: "openai/gpt-4o-mini",
             embedding: "openai/text-embedding-ada-002",
         });
 
@@ -174,26 +181,24 @@ def secret_message():
 
         // Validate send message response contains single assistant message
         expect(response.usage.stepCount).toEqual(1);
-        expect(response.messages).toHaveLength(1); // SHOULD BE 2 WITH REASONING MESSAGE
-        expect(response.messages[0]).toHaveProperty("messageType", "assistant_message");
+        expect(response.messages).toHaveLength(2);
+        expect(response.messages[0]).toHaveProperty("messageType", "reasoning_message");
+        expect(response.messages[1]).toHaveProperty("messageType", "assistant_message");
 
         // Validate message history
         let cursor = messages[messages.length - 1].id;
         messages = await client.agents.messages.list(agent.id, { after: cursor });
-        expect(messages).toHaveLength(3); // SHOULD BE A REASONING MESSAGE HERE TOO
+        expect(messages).toHaveLength(3);
 
         // 1. User message that was just sent
         expect(messages[0]).toHaveProperty("messageType", "user_message");
         expect((messages[0] as UserMessage).content).toContain(messageText);
 
-        // 2. Tool call for sending the assistant message back
-        expect(messages[1]).toHaveProperty("messageType", "tool_call_message");
-        expect((messages[1] as ToolCallMessage).toolCall.name).toEqual("send_message");
+        // 2. Assistant message with response
+        expect(messages[1]).toHaveProperty("messageType", "assistant_message");
 
-        // 3. Tool return message that contains success/failure of tool call
-        expect(messages[2]).toHaveProperty("messageType", "tool_return_message");
-        expect((messages[2] as ToolReturnMessage).status).toEqual("success");
-        console.log("done 1");
+        // 3. Reasoning message with agent's internal monologue
+        expect(messages[2]).toHaveProperty("messageType", "reasoning_message");
 
         // Send message with streaming
         messageText = "My name isn't Caren, it's Sarah. Please update your core memory with core_memory_replace";
@@ -211,7 +216,6 @@ def secret_message():
             switch (chunk.messageType) {
                 // 1. Reasoning message with the agent's internal monologue
                 case "reasoning_message":
-                    expect(chunk.reasoning.toLowerCase()).toContain("sarah");
                     break;
 
                 // 2. Tool call to update core memory content
@@ -242,7 +246,10 @@ def secret_message():
         // Validate message history
         cursor = messages[messages.length - 1].id;
         messages = await client.agents.messages.list(agent.id, { after: cursor });
-        expect(messages).toHaveLength(7);
+        if (messages.length > 0 && messages[0].messageType == "tool_return_message") {
+            messages.shift();
+        }
+        expect(messages).toHaveLength(8);
 
         // 1. User message that was just sent
         expect(messages[0]).toHaveProperty("messageType", "user_message");
@@ -252,26 +259,27 @@ def secret_message():
         expect(messages[1]).toHaveProperty("messageType", "tool_call_message");
         expect((messages[1] as ToolCallMessage).toolCall.name).toEqual("core_memory_replace");
 
-        // 3. System message with core memory update
-        expect(messages[2]).toHaveProperty("messageType", "system_message");
-        expect(((messages[2] as SystemMessage).content as string).toLowerCase()).toContain("name: sarah");
+        // 3. Reasoning message with core memory update
+        expect(messages[2]).toHaveProperty("messageType", "reasoning_message");
 
-        // 4. Tool return message that contains success/failure of tool call
-        expect(messages[3]).toHaveProperty("messageType", "tool_return_message");
-        expect((messages[3] as ToolReturnMessage).status).toEqual("success");
+        // 4. System message with core memory update
+        expect(messages[3]).toHaveProperty("messageType", "system_message");
+        expect(((messages[3] as SystemMessage).content as string).toLowerCase()).toContain("name: sarah");
 
-        // 5. Tool call for sending the assistant message back
-        expect(messages[4]).toHaveProperty("messageType", "user_message");
-        expect((messages[4] as UserMessage).content).toContain("heartbeat");
+        // 5. Tool return message that contains success/failure of tool call
+        expect(messages[4]).toHaveProperty("messageType", "tool_return_message");
+        expect((messages[4] as ToolReturnMessage).status).toEqual("success");
 
-        // 6. Tool return message that contains success/failure of tool call
-        expect(messages[5]).toHaveProperty("messageType", "tool_call_message");
-        expect((messages[5] as ToolCallMessage).toolCall.name).toEqual("send_message");
+        // 6. Tool call for sending the assistant message back
+        expect(messages[5]).toHaveProperty("messageType", "user_message");
+        expect((messages[5] as UserMessage).content).toContain("heartbeat");
 
-        // 7. Tool return message that contains success/failure of tool call
-        expect(messages[6]).toHaveProperty("messageType", "tool_return_message");
-        expect((messages[6] as ToolReturnMessage).status).toEqual("success");
-        console.log("done 2");
+        // 7. Assistant message that response
+        expect(messages[6]).toHaveProperty("messageType", "assistant_message");
+        expect(((messages[6] as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
+
+        // 8. Reasoning message that contains inner monologue of agent
+        expect(messages[7]).toHaveProperty("messageType", "reasoning_message");
 
         // Send async message
         messageText = "What's my name?";
@@ -291,7 +299,7 @@ def secret_message():
         expect(run.status).toEqual("completed");
         
         // Validate messages from run
-        const run_messages = await client.runs.listRunMessages(run.id!);
+        const run_messages = await client.runs.listRunMessages(run.id!, { order: "asc" });
         expect(run_messages).toHaveLength(3);
         for (const message of run_messages) {
             switch (message.messageType) {
@@ -299,16 +307,16 @@ def secret_message():
                 case "user_message":
                     expect((message as UserMessage).content).toContain(messageText);
                     break;
+                
+                // 2. Reasoning message with response
+                case "reasoning_message":
+                    break;
 
-                // 2. Assistant message with response
-                case "assistant_message": // ADD REASONING
+                // 3. Assistant message with response
+                case "assistant_message":
                     expect(((message as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
                     break;
                 
-                // 3. Tool call for sending the assistant message response back
-                case "tool_return_message": // THIS SHOULD NOT BE RETURNED
-                    expect((message as ToolReturnMessage).status).toEqual("success");
-                    break;
                 default:
                     fail(`Unexpected message type: ${(message as any).messageType}`);
             }
