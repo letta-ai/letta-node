@@ -2,3 +2,4 @@
 
 tests/custom.test.ts
 .github/workflows/ci.yml
+.github/workflows/tests.yml
