@@ -5,20 +5,26 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { PipRequirement } from "./PipRequirement";
 
 export const LocalSandboxConfig: core.serialization.ObjectSchema<
     serializers.LocalSandboxConfig.Raw,
     Letta.LocalSandboxConfig
 > = core.serialization.object({
-    sandboxDir: core.serialization.property("sandbox_dir", core.serialization.string()),
+    sandboxDir: core.serialization.property("sandbox_dir", core.serialization.string().optional()),
     useVenv: core.serialization.property("use_venv", core.serialization.boolean().optional()),
     venvName: core.serialization.property("venv_name", core.serialization.string().optional()),
+    pipRequirements: core.serialization.property(
+        "pip_requirements",
+        core.serialization.list(PipRequirement).optional(),
+    ),
 });
 
 export declare namespace LocalSandboxConfig {
     export interface Raw {
-        sandbox_dir: string;
+        sandbox_dir?: string | null;
         use_venv?: boolean | null;
         venv_name?: string | null;
+        pip_requirements?: PipRequirement.Raw[] | null;
     }
 }

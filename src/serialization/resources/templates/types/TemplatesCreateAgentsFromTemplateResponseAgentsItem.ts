@@ -21,6 +21,9 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemMemory } from "./Tem
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItem } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItem";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId";
 
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItem: core.serialization.ObjectSchema<
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItem.Raw,
@@ -73,6 +76,18 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItem: core.serializa
         "tool_exec_environment_variables",
         TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables.optional(),
     ),
+    projectId: core.serialization.property(
+        "project_id",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId.optional(),
+    ),
+    templateId: core.serialization.property(
+        "template_id",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId.optional(),
+    ),
+    baseTemplateId: core.serialization.property(
+        "base_template_id",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId.optional(),
+    ),
 });
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItem {
@@ -97,5 +112,8 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItem {
         sources: TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem.Raw[];
         tags: string[];
         tool_exec_environment_variables?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables.Raw | null;
+        project_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId.Raw | null;
+        template_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId.Raw | null;
+        base_template_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId.Raw | null;
     }
 }

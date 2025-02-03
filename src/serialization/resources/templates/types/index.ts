@@ -148,5 +148,11 @@ export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvi
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemOrganizationId";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectIdItem";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateIdItem";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateIdItem";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponse";

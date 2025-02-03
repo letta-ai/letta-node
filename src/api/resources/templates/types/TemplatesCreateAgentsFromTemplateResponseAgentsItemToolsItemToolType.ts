@@ -7,11 +7,13 @@ export type TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemToolType
     | "letta_core"
     | "letta_memory_core"
     | "letta_multi_agent_core"
-    | "external_composio";
+    | "external_composio"
+    | "external_langchain";
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemToolType = {
     Custom: "custom",
     LettaCore: "letta_core",
     LettaMemoryCore: "letta_memory_core",
     LettaMultiAgentCore: "letta_multi_agent_core",
     ExternalComposio: "external_composio",
+    ExternalLangchain: "external_langchain",
 } as const;

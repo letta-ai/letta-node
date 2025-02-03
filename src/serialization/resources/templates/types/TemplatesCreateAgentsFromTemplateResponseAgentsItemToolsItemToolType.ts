@@ -15,8 +15,15 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemToolTyp
     "letta_memory_core",
     "letta_multi_agent_core",
     "external_composio",
+    "external_langchain",
 ]);
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemToolType {
-    export type Raw = "custom" | "letta_core" | "letta_memory_core" | "letta_multi_agent_core" | "external_composio";
+    export type Raw =
+        | "custom"
+        | "letta_core"
+        | "letta_memory_core"
+        | "letta_multi_agent_core"
+        | "external_composio"
+        | "external_langchain";
 }

@@ -25,4 +25,7 @@ export interface TemplatesCreateAgentsFromTemplateResponseAgentsItem {
     sources: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem[];
     tags: string[];
     toolExecEnvironmentVariables?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables;
+    projectId?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId;
+    templateId?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId;
+    baseTemplateId?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId;
 }

@@ -61,4 +61,10 @@ export interface CreateAgentRequest {
     toolExecEnvironmentVariables?: Record<string, string | undefined>;
     /** The variables that should be set for the agent. */
     memoryVariables?: Record<string, string | undefined>;
+    /** The id of the project the agent belongs to. */
+    projectId?: string;
+    /** The id of the template the agent belongs to. */
+    templateId?: string;
+    /** The base template id of the agent. */
+    baseTemplateId?: string;
 }

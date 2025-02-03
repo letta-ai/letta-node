@@ -109,6 +109,7 @@ export * from "./MessageRole";
 export * from "./Organization";
 export * from "./OrganizationCreate";
 export * from "./Passage";
+export * from "./PipRequirement";
 export * from "./Provider";
 export * from "./ReasoningMessage";
 export * from "./ResponseFormatJsonObject";

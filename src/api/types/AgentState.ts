@@ -57,4 +57,10 @@ export interface AgentState {
     tags: string[];
     /** The environment variables for tool execution specific to this agent. */
     toolExecEnvironmentVariables?: Letta.AgentEnvironmentVariable[];
+    /** The id of the project the agent belongs to. */
+    projectId?: string;
+    /** The id of the template the agent belongs to. */
+    templateId?: string;
+    /** The base template id of the agent. */
+    baseTemplateId?: string;
 }
