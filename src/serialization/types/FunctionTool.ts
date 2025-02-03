@@ -5,19 +5,19 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { FunctionDefinition } from "./FunctionDefinition";
+import { FunctionDefinitionOutput } from "./FunctionDefinitionOutput";
 
 export const FunctionTool: core.serialization.ObjectSchema<serializers.FunctionTool.Raw, Letta.FunctionTool> =
     core.serialization
         .object({
-            function: FunctionDefinition,
+            function: FunctionDefinitionOutput,
             type: core.serialization.stringLiteral("function"),
         })
         .passthrough();
 
 export declare namespace FunctionTool {
     export interface Raw {
-        function: FunctionDefinition.Raw;
+        function: FunctionDefinitionOutput.Raw;
         type: "function";
         [key: string]: any;
     }

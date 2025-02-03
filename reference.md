@@ -2874,6 +2874,135 @@ await client.runs.retrieveRunUsage("run_id");
 </dl>
 </details>
 
+## Steps
+
+<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">listSteps</a>({ ...params }) -> Letta.Step[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List steps with optional pagination and date filters.
+Dates should be provided in ISO 8601 format (e.g. 2025-01-29T15:01:19-08:00)
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.steps.listSteps();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ListStepsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Steps.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">retrieveStep</a>(stepId) -> Letta.Step</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a step by ID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.steps.retrieveStep("step_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**stepId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Steps.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Tag
 
 <details><summary><code>client.tag.<a href="/src/api/resources/tag/client/Client.ts">listTags</a>({ ...params }) -> string[]</code></summary>
@@ -2929,6 +3058,87 @@ await client.tag.listTags();
 <dd>
 
 **requestOptions:** `Tag.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Templates
+
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">createagentsfromtemplate</a>(project, templateVersion, { ...params }) -> Letta.TemplatesCreateAgentsFromTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates agents given a template
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.createagentsfromtemplate("project", "template_version");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateVersion:** `string` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesCreateAgentsFromTemplateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
 
 </dd>
 </dl>
@@ -4058,7 +4268,7 @@ await client.agents.archivalMemory.delete("agent_id", "memory_id");
 
 ## Agents Messages
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.MessagesListResponse</code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
 <dl>
 <dd>
 

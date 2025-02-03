@@ -5,7 +5,7 @@
 import * as Letta from "../../../index";
 
 export type UpdateAgentToolRulesItem =
+    | Letta.ConditionalToolRule
     | Letta.ChildToolRule
-    | Letta.InitToolRule
     | Letta.TerminalToolRule
-    | Letta.ConditionalToolRule;
+    | Letta.InitToolRule;

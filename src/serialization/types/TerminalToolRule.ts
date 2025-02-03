@@ -5,19 +5,18 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { ToolRuleType } from "./ToolRuleType";
 
 export const TerminalToolRule: core.serialization.ObjectSchema<
     serializers.TerminalToolRule.Raw,
     Letta.TerminalToolRule
 > = core.serialization.object({
     toolName: core.serialization.property("tool_name", core.serialization.string()),
-    type: ToolRuleType.optional(),
+    type: core.serialization.stringLiteral("exit_loop"),
 });
 
 export declare namespace TerminalToolRule {
     export interface Raw {
         tool_name: string;
-        type?: ToolRuleType.Raw | null;
+        type: "exit_loop";
     }
 }

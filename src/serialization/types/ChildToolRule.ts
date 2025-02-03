@@ -5,19 +5,18 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { ToolRuleType } from "./ToolRuleType";
 
 export const ChildToolRule: core.serialization.ObjectSchema<serializers.ChildToolRule.Raw, Letta.ChildToolRule> =
     core.serialization.object({
         toolName: core.serialization.property("tool_name", core.serialization.string()),
-        type: ToolRuleType.optional(),
+        type: core.serialization.stringLiteral("constrain_child_tools"),
         children: core.serialization.list(core.serialization.string()),
     });
 
 export declare namespace ChildToolRule {
     export interface Raw {
         tool_name: string;
-        type?: ToolRuleType.Raw | null;
+        type: "constrain_child_tools";
         children: string[];
     }
 }

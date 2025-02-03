@@ -9,4 +9,5 @@
 export interface ToolsListRequest {
     after?: string;
     limit?: number;
+    name?: string;
 }

@@ -7,7 +7,7 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { MessageRole } from "./MessageRole";
 import { TextContent } from "./TextContent";
-import { ChatCompletionMessageToolCall } from "./ChatCompletionMessageToolCall";
+import { ChatCompletionMessageToolCallOutput } from "./ChatCompletionMessageToolCallOutput";
 
 export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Letta.Message> =
     core.serialization.object({
@@ -23,7 +23,7 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         name: core.serialization.string().optional(),
         toolCalls: core.serialization.property(
             "tool_calls",
-            core.serialization.list(ChatCompletionMessageToolCall).optional(),
+            core.serialization.list(ChatCompletionMessageToolCallOutput).optional(),
         ),
         toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
         stepId: core.serialization.property("step_id", core.serialization.string().optional()),
@@ -41,7 +41,7 @@ export declare namespace Message {
         agent_id?: string | null;
         model?: string | null;
         name?: string | null;
-        tool_calls?: ChatCompletionMessageToolCall.Raw[] | null;
+        tool_calls?: ChatCompletionMessageToolCallOutput.Raw[] | null;
         tool_call_id?: string | null;
         step_id?: string | null;
     }

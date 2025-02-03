@@ -1,5 +1,7 @@
 export * as agents from "./agents";
 export * from "./agents/types";
+export * as templates from "./templates";
+export * from "./templates/types";
 export * as tools from "./tools";
 export * as sources from "./sources";
 export * as models from "./models";
@@ -7,8 +9,10 @@ export * as blocks from "./blocks";
 export * as jobs from "./jobs";
 export * as providers from "./providers";
 export * as runs from "./runs";
+export * as steps from "./steps";
 export * as tag from "./tag";
 export * from "./tools/client/requests";
 export * from "./sources/client/requests";
 export * from "./agents/client/requests";
 export * from "./providers/client/requests";
+export * from "./templates/client/requests";

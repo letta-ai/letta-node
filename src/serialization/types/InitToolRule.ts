@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { ToolRuleType } from "./ToolRuleType";
 
 export const InitToolRule: core.serialization.ObjectSchema<serializers.InitToolRule.Raw, Letta.InitToolRule> =
     core.serialization.object({
         toolName: core.serialization.property("tool_name", core.serialization.string()),
-        type: ToolRuleType.optional(),
+        type: core.serialization.stringLiteral("run_first"),
     });
 
 export declare namespace InitToolRule {
     export interface Raw {
         tool_name: string;
-        type?: ToolRuleType.Raw | null;
+        type: "run_first";
     }
 }

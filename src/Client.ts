@@ -13,7 +13,9 @@ import { Jobs } from "./api/resources/jobs/client/Client";
 import { Health } from "./api/resources/health/client/Client";
 import { Providers } from "./api/resources/providers/client/Client";
 import { Runs } from "./api/resources/runs/client/Client";
+import { Steps } from "./api/resources/steps/client/Client";
 import { Tag } from "./api/resources/tag/client/Client";
+import { Templates } from "./api/resources/templates/client/Client";
 
 export declare namespace LettaClient {
     export interface Options {
@@ -46,7 +48,9 @@ export class LettaClient {
     protected _health: Health | undefined;
     protected _providers: Providers | undefined;
     protected _runs: Runs | undefined;
+    protected _steps: Steps | undefined;
     protected _tag: Tag | undefined;
+    protected _templates: Templates | undefined;
 
     constructor(protected readonly _options: LettaClient.Options = {}) {}
 
@@ -86,7 +90,15 @@ export class LettaClient {
         return (this._runs ??= new Runs(this._options));
     }
 
+    public get steps(): Steps {
+        return (this._steps ??= new Steps(this._options));
+    }
+
     public get tag(): Tag {
         return (this._tag ??= new Tag(this._options));
+    }
+
+    public get templates(): Templates {
+        return (this._templates ??= new Templates(this._options));
     }
 }
