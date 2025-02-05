@@ -42,6 +42,9 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
             "tool_exec_environment_variables",
             core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
         ),
+        projectId: core.serialization.property("project_id", core.serialization.string().optional()),
+        templateId: core.serialization.property("template_id", core.serialization.string().optional()),
+        baseTemplateId: core.serialization.property("base_template_id", core.serialization.string().optional()),
     });
 
 export declare namespace UpdateAgent {
@@ -59,5 +62,8 @@ export declare namespace UpdateAgent {
         description?: string | null;
         metadata?: Record<string, unknown> | null;
         tool_exec_environment_variables?: Record<string, string | null | undefined> | null;
+        project_id?: string | null;
+        template_id?: string | null;
+        base_template_id?: string | null;
     }
 }

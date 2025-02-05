@@ -35,4 +35,16 @@ export interface AgentsListRequest {
      * Search agents by name
      */
     queryText?: string;
+    /**
+     * Search agents by project id
+     */
+    projectId?: string;
+    /**
+     * Search agents by template id
+     */
+    templateId?: string;
+    /**
+     * Search agents by base template id
+     */
+    baseTemplateId?: string;
 }

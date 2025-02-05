@@ -35,4 +35,10 @@ export interface UpdateAgent {
     metadata?: Record<string, unknown>;
     /** The environment variables for tool execution specific to this agent. */
     toolExecEnvironmentVariables?: Record<string, string | undefined>;
+    /** The id of the project the agent belongs to. */
+    projectId?: string;
+    /** The id of the template the agent belongs to. */
+    templateId?: string;
+    /** The base template id of the agent. */
+    baseTemplateId?: string;
 }
