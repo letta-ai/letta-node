@@ -6,7 +6,6 @@ import * as serializers from "../../../../index";
 import * as Letta from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { AgentsSearchRequestSearchItem } from "../../types/AgentsSearchRequestSearchItem";
-import { AgentsSearchRequestCombinator } from "../../types/AgentsSearchRequestCombinator";
 
 export const AgentsSearchRequest: core.serialization.Schema<
     serializers.AgentsSearchRequest.Raw,
@@ -14,17 +13,17 @@ export const AgentsSearchRequest: core.serialization.Schema<
 > = core.serialization.object({
     search: core.serialization.list(AgentsSearchRequestSearchItem).optional(),
     projectId: core.serialization.property("project_id", core.serialization.string().optional()),
-    combinator: AgentsSearchRequestCombinator.optional(),
+    combinator: core.serialization.stringLiteral("AND").optional(),
     limit: core.serialization.number().optional(),
-    offset: core.serialization.number().optional(),
+    after: core.serialization.string().optional(),
 });
 
 export declare namespace AgentsSearchRequest {
     export interface Raw {
         search?: AgentsSearchRequestSearchItem.Raw[] | null;
         project_id?: string | null;
-        combinator?: AgentsSearchRequestCombinator.Raw | null;
+        combinator?: "AND" | null;
         limit?: number | null;
-        offset?: number | null;
+        after?: string | null;
     }
 }

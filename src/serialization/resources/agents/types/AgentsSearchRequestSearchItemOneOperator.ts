@@ -9,8 +9,8 @@ import * as core from "../../../../core";
 export const AgentsSearchRequestSearchItemOneOperator: core.serialization.Schema<
     serializers.AgentsSearchRequestSearchItemOneOperator.Raw,
     Letta.AgentsSearchRequestSearchItemOneOperator
-> = core.serialization.enum_(["eq", "neq", "contains"]);
+> = core.serialization.enum_(["eq", "contains"]);
 
 export declare namespace AgentsSearchRequestSearchItemOneOperator {
-    export type Raw = "eq" | "neq" | "contains";
+    export type Raw = "eq" | "contains";
 }

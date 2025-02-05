@@ -14,6 +14,7 @@ export const Step: core.serialization.ObjectSchema<serializers.Step.Raw, Letta.S
     jobId: core.serialization.property("job_id", core.serialization.string().optional()),
     providerName: core.serialization.property("provider_name", core.serialization.string().optional()),
     model: core.serialization.string().optional(),
+    modelEndpoint: core.serialization.property("model_endpoint", core.serialization.string().optional()),
     contextWindowLimit: core.serialization.property("context_window_limit", core.serialization.number().optional()),
     completionTokens: core.serialization.property("completion_tokens", core.serialization.number().optional()),
     promptTokens: core.serialization.property("prompt_tokens", core.serialization.number().optional()),
@@ -35,6 +36,7 @@ export declare namespace Step {
         job_id?: string | null;
         provider_name?: string | null;
         model?: string | null;
+        model_endpoint?: string | null;
         context_window_limit?: number | null;
         completion_tokens?: number | null;
         prompt_tokens?: number | null;

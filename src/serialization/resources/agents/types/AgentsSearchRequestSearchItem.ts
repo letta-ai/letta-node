@@ -7,8 +7,7 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { AgentsSearchRequestSearchItemZero } from "./AgentsSearchRequestSearchItemZero";
 import { AgentsSearchRequestSearchItemOne } from "./AgentsSearchRequestSearchItemOne";
-import { AgentsSearchRequestSearchItemTwo } from "./AgentsSearchRequestSearchItemTwo";
-import { AgentsSearchRequestSearchItemDirection } from "./AgentsSearchRequestSearchItemDirection";
+import { AgentsSearchRequestSearchItemField } from "./AgentsSearchRequestSearchItemField";
 
 export const AgentsSearchRequestSearchItem: core.serialization.Schema<
     serializers.AgentsSearchRequestSearchItem.Raw,
@@ -16,14 +15,12 @@ export const AgentsSearchRequestSearchItem: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([
     AgentsSearchRequestSearchItemZero,
     AgentsSearchRequestSearchItemOne,
-    AgentsSearchRequestSearchItemTwo,
-    AgentsSearchRequestSearchItemDirection,
+    AgentsSearchRequestSearchItemField,
 ]);
 
 export declare namespace AgentsSearchRequestSearchItem {
     export type Raw =
         | AgentsSearchRequestSearchItemZero.Raw
         | AgentsSearchRequestSearchItemOne.Raw
-        | AgentsSearchRequestSearchItemTwo.Raw
-        | AgentsSearchRequestSearchItemDirection.Raw;
+        | AgentsSearchRequestSearchItemField.Raw;
 }

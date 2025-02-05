@@ -11,7 +11,7 @@ import * as Letta from "../../../../index";
 export interface AgentsSearchRequest {
     search?: Letta.AgentsSearchRequestSearchItem[];
     projectId?: string;
-    combinator?: Letta.AgentsSearchRequestCombinator;
+    combinator?: "AND";
     limit?: number;
-    offset?: number;
+    after?: string;
 }
