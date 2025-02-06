@@ -7,6 +7,8 @@
  *     {}
  */
 export interface TemplatesCreateAgentsFromTemplateRequest {
+    /** The tags to assign to the agent */
+    tags?: string[];
     /** The name of the agent, optional otherwise a random one will be assigned */
     agentName?: string;
     /** The memory variables to assign to the agent */

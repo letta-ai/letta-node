@@ -4810,7 +4810,7 @@ await client.agents.templates.migrate("agent_id", {
 </dl>
 </details>
 
-<details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">create</a>(agentId, { ...params }) -> void</code></summary>
+<details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">create</a>(agentId, { ...params }) -> Letta.TemplatesCreateResponse</code></summary>
 <dl>
 <dd>
 

@@ -10,6 +10,7 @@ export const TemplatesCreateAgentsFromTemplateRequest: core.serialization.Schema
     serializers.TemplatesCreateAgentsFromTemplateRequest.Raw,
     Letta.TemplatesCreateAgentsFromTemplateRequest
 > = core.serialization.object({
+    tags: core.serialization.list(core.serialization.string()).optional(),
     agentName: core.serialization.property("agent_name", core.serialization.string().optional()),
     memoryVariables: core.serialization.property(
         "memory_variables",
@@ -23,6 +24,7 @@ export const TemplatesCreateAgentsFromTemplateRequest: core.serialization.Schema
 
 export declare namespace TemplatesCreateAgentsFromTemplateRequest {
     export interface Raw {
+        tags?: string[] | null;
         agent_name?: string | null;
         memory_variables?: Record<string, string> | null;
         tool_variables?: Record<string, string> | null;

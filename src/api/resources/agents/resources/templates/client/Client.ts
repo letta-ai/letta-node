@@ -70,8 +70,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.21",
-                "User-Agent": "@letta-ai/letta-client/0.1.21",
+                "X-Fern-SDK-Version": "0.1.22",
+                "User-Agent": "@letta-ai/letta-client/0.1.22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -157,8 +157,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.21",
-                "User-Agent": "@letta-ai/letta-client/0.1.21",
+                "X-Fern-SDK-Version": "0.1.22",
+                "User-Agent": "@letta-ai/letta-client/0.1.22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -229,7 +229,6 @@ export class Templates {
      * @param {Letta.agents.TemplatesCreateRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Letta.NotFoundError}
      * @throws {@link Letta.InternalServerError}
      *
      * @example
@@ -239,7 +238,7 @@ export class Templates {
         agentId: string,
         request: Letta.agents.TemplatesCreateRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): Promise<void> {
+    ): Promise<Letta.agents.TemplatesCreateResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -251,8 +250,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.21",
-                "User-Agent": "@letta-ai/letta-client/0.1.21",
+                "X-Fern-SDK-Version": "0.1.22",
+                "User-Agent": "@letta-ai/letta-client/0.1.22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -266,13 +265,17 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return serializers.agents.TemplatesCreateResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
-                case 404:
-                    throw new Letta.NotFoundError(_response.error.body);
                 case 500:
                     throw new Letta.InternalServerError(_response.error.body);
                 default:
