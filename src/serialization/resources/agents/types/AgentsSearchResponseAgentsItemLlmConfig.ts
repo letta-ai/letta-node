@@ -11,6 +11,7 @@ import { AgentsSearchResponseAgentsItemLlmConfigModelWrapper } from "./AgentsSea
 import { AgentsSearchResponseAgentsItemLlmConfigPutInnerThoughtsInKwargs } from "./AgentsSearchResponseAgentsItemLlmConfigPutInnerThoughtsInKwargs";
 import { AgentsSearchResponseAgentsItemLlmConfigHandle } from "./AgentsSearchResponseAgentsItemLlmConfigHandle";
 import { AgentsSearchResponseAgentsItemLlmConfigTemperature } from "./AgentsSearchResponseAgentsItemLlmConfigTemperature";
+import { AgentsSearchResponseAgentsItemLlmConfigMaxTokens } from "./AgentsSearchResponseAgentsItemLlmConfigMaxTokens";
 
 export const AgentsSearchResponseAgentsItemLlmConfig: core.serialization.ObjectSchema<
     serializers.AgentsSearchResponseAgentsItemLlmConfig.Raw,
@@ -36,6 +37,7 @@ export const AgentsSearchResponseAgentsItemLlmConfig: core.serialization.ObjectS
     ),
     handle: AgentsSearchResponseAgentsItemLlmConfigHandle.optional(),
     temperature: AgentsSearchResponseAgentsItemLlmConfigTemperature.optional(),
+    maxTokens: core.serialization.property("max_tokens", AgentsSearchResponseAgentsItemLlmConfigMaxTokens.optional()),
 });
 
 export declare namespace AgentsSearchResponseAgentsItemLlmConfig {
@@ -48,5 +50,6 @@ export declare namespace AgentsSearchResponseAgentsItemLlmConfig {
         put_inner_thoughts_in_kwargs?: AgentsSearchResponseAgentsItemLlmConfigPutInnerThoughtsInKwargs.Raw | null;
         handle?: AgentsSearchResponseAgentsItemLlmConfigHandle.Raw | null;
         temperature?: AgentsSearchResponseAgentsItemLlmConfigTemperature.Raw | null;
+        max_tokens?: AgentsSearchResponseAgentsItemLlmConfigMaxTokens.Raw | null;
     }
 }

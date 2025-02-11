@@ -51,6 +51,8 @@ export * from "./AgentsSearchResponseAgentsItemLlmConfigPutInnerThoughtsInKwargs
 export * from "./AgentsSearchResponseAgentsItemLlmConfigHandleItem";
 export * from "./AgentsSearchResponseAgentsItemLlmConfigHandle";
 export * from "./AgentsSearchResponseAgentsItemLlmConfigTemperature";
+export * from "./AgentsSearchResponseAgentsItemLlmConfigMaxTokensItem";
+export * from "./AgentsSearchResponseAgentsItemLlmConfigMaxTokens";
 export * from "./AgentsSearchResponseAgentsItemLlmConfig";
 export * from "./AgentsSearchResponseAgentsItemEmbeddingConfigEmbeddingEndpointType";
 export * from "./AgentsSearchResponseAgentsItemEmbeddingConfigEmbeddingEndpointItem";

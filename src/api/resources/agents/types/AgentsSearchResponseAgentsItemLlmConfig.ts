@@ -13,4 +13,5 @@ export interface AgentsSearchResponseAgentsItemLlmConfig {
     putInnerThoughtsInKwargs?: Letta.AgentsSearchResponseAgentsItemLlmConfigPutInnerThoughtsInKwargs;
     handle?: Letta.AgentsSearchResponseAgentsItemLlmConfigHandle;
     temperature?: Letta.AgentsSearchResponseAgentsItemLlmConfigTemperature;
+    maxTokens?: Letta.AgentsSearchResponseAgentsItemLlmConfigMaxTokens;
 }

@@ -11,6 +11,7 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelWrappe
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigPutInnerThoughtsInKwargs } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigPutInnerThoughtsInKwargs";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandle } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandle";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTemperature } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTemperature";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens";
 
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig: core.serialization.ObjectSchema<
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig.Raw,
@@ -36,6 +37,10 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig: core.
     ),
     handle: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandle.optional(),
     temperature: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTemperature.optional(),
+    maxTokens: core.serialization.property(
+        "max_tokens",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens.optional(),
+    ),
 });
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig {
@@ -48,5 +53,6 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmC
         put_inner_thoughts_in_kwargs?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigPutInnerThoughtsInKwargs.Raw | null;
         handle?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandle.Raw | null;
         temperature?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTemperature.Raw | null;
+        max_tokens?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens.Raw | null;
     }
 }

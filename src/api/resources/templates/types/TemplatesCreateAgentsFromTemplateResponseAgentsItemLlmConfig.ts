@@ -13,4 +13,5 @@ export interface TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig {
     putInnerThoughtsInKwargs?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigPutInnerThoughtsInKwargs;
     handle?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandle;
     temperature?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTemperature;
+    maxTokens?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens;
 }

@@ -44,6 +44,8 @@ export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigPut
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandleItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandle";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTemperature";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokensItem";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigEmbeddingEndpointType";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigEmbeddingEndpointItem";

@@ -20,6 +20,7 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
         ),
         handle: core.serialization.string().optional(),
         temperature: core.serialization.number().optional(),
+        maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
     });
 
 export declare namespace LlmConfig {
@@ -32,5 +33,6 @@ export declare namespace LlmConfig {
         put_inner_thoughts_in_kwargs?: boolean | null;
         handle?: string | null;
         temperature?: number | null;
+        max_tokens?: number | null;
     }
 }

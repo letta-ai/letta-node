@@ -15,6 +15,7 @@ import * as Letta from "../index";
  *     context_window (int): The context window size for the model.
  *     put_inner_thoughts_in_kwargs (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to True. This helps with function calling performance and also the generation of inner thoughts.
  *     temperature (float): The temperature to use when generating text with the model. A higher temperature will result in more random text.
+ *     max_tokens (int): The maximum number of tokens to generate.
  */
 export interface LlmConfig {
     /** LLM model name. */
@@ -33,4 +34,6 @@ export interface LlmConfig {
     handle?: string;
     /** The temperature to use when generating text with the model. A higher temperature will result in more random text. */
     temperature?: number;
+    /** The maximum number of tokens to generate. If not set, the model will use its default value. */
+    maxTokens?: number;
 }
