@@ -28,5 +28,6 @@ export interface AgentsSearchResponseAgentsItem {
     projectId?: Letta.AgentsSearchResponseAgentsItemProjectId;
     templateId?: Letta.AgentsSearchResponseAgentsItemTemplateId;
     baseTemplateId?: Letta.AgentsSearchResponseAgentsItemBaseTemplateId;
+    messageBufferAutoclear?: Letta.AgentsSearchResponseAgentsItemMessageBufferAutoclear;
     template?: string;
 }

@@ -24,6 +24,7 @@ import { AgentsSearchResponseAgentsItemToolExecEnvironmentVariables } from "./Ag
 import { AgentsSearchResponseAgentsItemProjectId } from "./AgentsSearchResponseAgentsItemProjectId";
 import { AgentsSearchResponseAgentsItemTemplateId } from "./AgentsSearchResponseAgentsItemTemplateId";
 import { AgentsSearchResponseAgentsItemBaseTemplateId } from "./AgentsSearchResponseAgentsItemBaseTemplateId";
+import { AgentsSearchResponseAgentsItemMessageBufferAutoclear } from "./AgentsSearchResponseAgentsItemMessageBufferAutoclear";
 
 export const AgentsSearchResponseAgentsItem: core.serialization.ObjectSchema<
     serializers.AgentsSearchResponseAgentsItem.Raw,
@@ -64,6 +65,10 @@ export const AgentsSearchResponseAgentsItem: core.serialization.ObjectSchema<
         "base_template_id",
         AgentsSearchResponseAgentsItemBaseTemplateId.optional(),
     ),
+    messageBufferAutoclear: core.serialization.property(
+        "message_buffer_autoclear",
+        AgentsSearchResponseAgentsItemMessageBufferAutoclear.optional(),
+    ),
     template: core.serialization.string().optional(),
 });
 
@@ -92,6 +97,7 @@ export declare namespace AgentsSearchResponseAgentsItem {
         project_id?: AgentsSearchResponseAgentsItemProjectId.Raw | null;
         template_id?: AgentsSearchResponseAgentsItemTemplateId.Raw | null;
         base_template_id?: AgentsSearchResponseAgentsItemBaseTemplateId.Raw | null;
+        message_buffer_autoclear?: AgentsSearchResponseAgentsItemMessageBufferAutoclear.Raw | null;
         template?: string | null;
     }
 }

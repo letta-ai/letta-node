@@ -24,6 +24,7 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentV
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear";
 
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItem: core.serialization.ObjectSchema<
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItem.Raw,
@@ -88,6 +89,10 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItem: core.serializa
         "base_template_id",
         TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId.optional(),
     ),
+    messageBufferAutoclear: core.serialization.property(
+        "message_buffer_autoclear",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear.optional(),
+    ),
 });
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItem {
@@ -115,5 +120,6 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItem {
         project_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId.Raw | null;
         template_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId.Raw | null;
         base_template_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId.Raw | null;
+        message_buffer_autoclear?: TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear.Raw | null;
     }
 }

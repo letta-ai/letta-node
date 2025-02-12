@@ -156,5 +156,6 @@ export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateIdIt
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateIdItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponse";
