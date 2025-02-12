@@ -11,8 +11,6 @@ export const CompletionCreateParamsNonStreamingModel: core.serialization.Schema<
     Letta.CompletionCreateParamsNonStreamingModel
 > = core.serialization.undiscriminatedUnion([
     core.serialization.string(),
-    core.serialization.stringLiteral("o3-mini"),
-    core.serialization.stringLiteral("o3-mini-2025-01-31"),
     core.serialization.stringLiteral("o1"),
     core.serialization.stringLiteral("o1-2024-12-17"),
     core.serialization.stringLiteral("o1-preview"),
@@ -55,8 +53,6 @@ export const CompletionCreateParamsNonStreamingModel: core.serialization.Schema<
 export declare namespace CompletionCreateParamsNonStreamingModel {
     export type Raw =
         | string
-        | "o3-mini"
-        | "o3-mini-2025-01-31"
         | "o1"
         | "o1-2024-12-17"
         | "o1-preview"
