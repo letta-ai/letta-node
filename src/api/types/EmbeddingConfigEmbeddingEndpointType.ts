@@ -11,6 +11,7 @@ export type EmbeddingConfigEmbeddingEndpointType =
     | "bedrock"
     | "cohere"
     | "google_ai"
+    | "google_vertex"
     | "azure"
     | "groq"
     | "ollama"
@@ -30,6 +31,7 @@ export const EmbeddingConfigEmbeddingEndpointType = {
     Bedrock: "bedrock",
     Cohere: "cohere",
     GoogleAi: "google_ai",
+    GoogleVertex: "google_vertex",
     Azure: "azure",
     Groq: "groq",
     Ollama: "ollama",

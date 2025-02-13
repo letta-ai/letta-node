@@ -15,6 +15,7 @@ export const AgentsSearchResponseAgentsItemEmbeddingConfigEmbeddingEndpointType:
     "bedrock",
     "cohere",
     "google_ai",
+    "google_vertex",
     "azure",
     "groq",
     "ollama",
@@ -37,6 +38,7 @@ export declare namespace AgentsSearchResponseAgentsItemEmbeddingConfigEmbeddingE
         | "bedrock"
         | "cohere"
         | "google_ai"
+        | "google_vertex"
         | "azure"
         | "groq"
         | "ollama"

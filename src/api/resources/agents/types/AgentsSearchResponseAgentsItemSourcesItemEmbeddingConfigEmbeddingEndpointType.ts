@@ -8,6 +8,7 @@ export type AgentsSearchResponseAgentsItemSourcesItemEmbeddingConfigEmbeddingEnd
     | "bedrock"
     | "cohere"
     | "google_ai"
+    | "google_vertex"
     | "azure"
     | "groq"
     | "ollama"
@@ -27,6 +28,7 @@ export const AgentsSearchResponseAgentsItemSourcesItemEmbeddingConfigEmbeddingEn
     Bedrock: "bedrock",
     Cohere: "cohere",
     GoogleAi: "google_ai",
+    GoogleVertex: "google_vertex",
     Azure: "azure",
     Groq: "groq",
     Ollama: "ollama",

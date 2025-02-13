@@ -15,6 +15,7 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigE
     "bedrock",
     "cohere",
     "google_ai",
+    "google_vertex",
     "azure",
     "groq",
     "ollama",
@@ -37,6 +38,7 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbe
         | "bedrock"
         | "cohere"
         | "google_ai"
+        | "google_vertex"
         | "azure"
         | "groq"
         | "ollama"

@@ -7,6 +7,7 @@ export type AgentsSearchResponseAgentsItemLlmConfigModelEndpointType =
     | "anthropic"
     | "cohere"
     | "google_ai"
+    | "google_vertex"
     | "azure"
     | "groq"
     | "ollama"
@@ -26,6 +27,7 @@ export const AgentsSearchResponseAgentsItemLlmConfigModelEndpointType = {
     Anthropic: "anthropic",
     Cohere: "cohere",
     GoogleAi: "google_ai",
+    GoogleVertex: "google_vertex",
     Azure: "azure",
     Groq: "groq",
     Ollama: "ollama",

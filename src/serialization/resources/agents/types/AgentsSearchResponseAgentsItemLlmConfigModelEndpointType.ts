@@ -14,6 +14,7 @@ export const AgentsSearchResponseAgentsItemLlmConfigModelEndpointType: core.seri
     "anthropic",
     "cohere",
     "google_ai",
+    "google_vertex",
     "azure",
     "groq",
     "ollama",
@@ -36,6 +37,7 @@ export declare namespace AgentsSearchResponseAgentsItemLlmConfigModelEndpointTyp
         | "anthropic"
         | "cohere"
         | "google_ai"
+        | "google_vertex"
         | "azure"
         | "groq"
         | "ollama"
