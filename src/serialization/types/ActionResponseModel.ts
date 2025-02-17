@@ -14,6 +14,7 @@ export const ActionResponseModel: core.serialization.ObjectSchema<
     title: core.serialization.string(),
     type: core.serialization.string(),
     required: core.serialization.list(core.serialization.string()).optional(),
+    examples: core.serialization.list(core.serialization.unknown()).optional(),
 });
 
 export declare namespace ActionResponseModel {
@@ -22,5 +23,6 @@ export declare namespace ActionResponseModel {
         title: string;
         type: string;
         required?: string[] | null;
+        examples?: unknown[] | null;
     }
 }
