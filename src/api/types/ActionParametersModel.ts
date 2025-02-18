@@ -10,5 +10,4 @@ export interface ActionParametersModel {
     title: string;
     type: string;
     required?: string[];
-    examples?: unknown[];
 }

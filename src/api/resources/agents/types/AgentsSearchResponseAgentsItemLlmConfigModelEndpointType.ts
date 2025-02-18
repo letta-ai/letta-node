@@ -15,13 +15,15 @@ export type AgentsSearchResponseAgentsItemLlmConfigModelEndpointType =
     | "webui-legacy"
     | "lmstudio"
     | "lmstudio-legacy"
+    | "lmstudio-chatcompletions"
     | "llamacpp"
     | "koboldcpp"
     | "vllm"
     | "hugging-face"
     | "mistral"
     | "together"
-    | "bedrock";
+    | "bedrock"
+    | "deepseek";
 export const AgentsSearchResponseAgentsItemLlmConfigModelEndpointType = {
     Openai: "openai",
     Anthropic: "anthropic",
@@ -35,6 +37,7 @@ export const AgentsSearchResponseAgentsItemLlmConfigModelEndpointType = {
     WebuiLegacy: "webui-legacy",
     Lmstudio: "lmstudio",
     LmstudioLegacy: "lmstudio-legacy",
+    LmstudioChatcompletions: "lmstudio-chatcompletions",
     Llamacpp: "llamacpp",
     Koboldcpp: "koboldcpp",
     Vllm: "vllm",
@@ -42,4 +45,5 @@ export const AgentsSearchResponseAgentsItemLlmConfigModelEndpointType = {
     Mistral: "mistral",
     Together: "together",
     Bedrock: "bedrock",
+    Deepseek: "deepseek",
 } as const;

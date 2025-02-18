@@ -18,13 +18,15 @@ export type LlmConfigModelEndpointType =
     | "webui-legacy"
     | "lmstudio"
     | "lmstudio-legacy"
+    | "lmstudio-chatcompletions"
     | "llamacpp"
     | "koboldcpp"
     | "vllm"
     | "hugging-face"
     | "mistral"
     | "together"
-    | "bedrock";
+    | "bedrock"
+    | "deepseek";
 export const LlmConfigModelEndpointType = {
     Openai: "openai",
     Anthropic: "anthropic",
@@ -38,6 +40,7 @@ export const LlmConfigModelEndpointType = {
     WebuiLegacy: "webui-legacy",
     Lmstudio: "lmstudio",
     LmstudioLegacy: "lmstudio-legacy",
+    LmstudioChatcompletions: "lmstudio-chatcompletions",
     Llamacpp: "llamacpp",
     Koboldcpp: "koboldcpp",
     Vllm: "vllm",
@@ -45,4 +48,5 @@ export const LlmConfigModelEndpointType = {
     Mistral: "mistral",
     Together: "together",
     Bedrock: "bedrock",
+    Deepseek: "deepseek",
 } as const;

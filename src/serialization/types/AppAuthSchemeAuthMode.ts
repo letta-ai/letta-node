@@ -9,8 +9,8 @@ import * as core from "../../core";
 export const AppAuthSchemeAuthMode: core.serialization.Schema<
     serializers.AppAuthSchemeAuthMode.Raw,
     Letta.AppAuthSchemeAuthMode
-> = core.serialization.enum_(["OAUTH2", "OAUTH1", "API_KEY", "BASIC", "BEARER_TOKEN", "BASIC_WITH_JWT", "NO_AUTH"]);
+> = core.serialization.enum_(["OAUTH2", "OAUTH1", "API_KEY", "BASIC", "BEARER_TOKEN", "BASIC_WITH_JWT"]);
 
 export declare namespace AppAuthSchemeAuthMode {
-    export type Raw = "OAUTH2" | "OAUTH1" | "API_KEY" | "BASIC" | "BEARER_TOKEN" | "BASIC_WITH_JWT" | "NO_AUTH";
+    export type Raw = "OAUTH2" | "OAUTH1" | "API_KEY" | "BASIC" | "BEARER_TOKEN" | "BASIC_WITH_JWT";
 }

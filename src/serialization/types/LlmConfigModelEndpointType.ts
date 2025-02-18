@@ -22,6 +22,7 @@ export const LlmConfigModelEndpointType: core.serialization.Schema<
     "webui-legacy",
     "lmstudio",
     "lmstudio-legacy",
+    "lmstudio-chatcompletions",
     "llamacpp",
     "koboldcpp",
     "vllm",
@@ -29,6 +30,7 @@ export const LlmConfigModelEndpointType: core.serialization.Schema<
     "mistral",
     "together",
     "bedrock",
+    "deepseek",
 ]);
 
 export declare namespace LlmConfigModelEndpointType {
@@ -45,11 +47,13 @@ export declare namespace LlmConfigModelEndpointType {
         | "webui-legacy"
         | "lmstudio"
         | "lmstudio-legacy"
+        | "lmstudio-chatcompletions"
         | "llamacpp"
         | "koboldcpp"
         | "vllm"
         | "hugging-face"
         | "mistral"
         | "together"
-        | "bedrock";
+        | "bedrock"
+        | "deepseek";
 }

@@ -22,6 +22,7 @@ export const AgentsSearchResponseAgentsItemLlmConfigModelEndpointType: core.seri
     "webui-legacy",
     "lmstudio",
     "lmstudio-legacy",
+    "lmstudio-chatcompletions",
     "llamacpp",
     "koboldcpp",
     "vllm",
@@ -29,6 +30,7 @@ export const AgentsSearchResponseAgentsItemLlmConfigModelEndpointType: core.seri
     "mistral",
     "together",
     "bedrock",
+    "deepseek",
 ]);
 
 export declare namespace AgentsSearchResponseAgentsItemLlmConfigModelEndpointType {
@@ -45,11 +47,13 @@ export declare namespace AgentsSearchResponseAgentsItemLlmConfigModelEndpointTyp
         | "webui-legacy"
         | "lmstudio"
         | "lmstudio-legacy"
+        | "lmstudio-chatcompletions"
         | "llamacpp"
         | "koboldcpp"
         | "vllm"
         | "hugging-face"
         | "mistral"
         | "together"
-        | "bedrock";
+        | "bedrock"
+        | "deepseek";
 }

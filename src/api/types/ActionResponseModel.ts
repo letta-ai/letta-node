@@ -10,5 +10,4 @@ export interface ActionResponseModel {
     title: string;
     type: string;
     required?: string[];
-    examples?: unknown[];
 }

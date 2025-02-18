@@ -22,6 +22,7 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEn
     "webui-legacy",
     "lmstudio",
     "lmstudio-legacy",
+    "lmstudio-chatcompletions",
     "llamacpp",
     "koboldcpp",
     "vllm",
@@ -29,6 +30,7 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEn
     "mistral",
     "together",
     "bedrock",
+    "deepseek",
 ]);
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType {
@@ -45,11 +47,13 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmC
         | "webui-legacy"
         | "lmstudio"
         | "lmstudio-legacy"
+        | "lmstudio-chatcompletions"
         | "llamacpp"
         | "koboldcpp"
         | "vllm"
         | "hugging-face"
         | "mistral"
         | "together"
-        | "bedrock";
+        | "bedrock"
+        | "deepseek";
 }
