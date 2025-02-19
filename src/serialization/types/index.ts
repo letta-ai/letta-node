@@ -72,6 +72,7 @@ export * from "./CompletionCreateParamsStreamingToolChoice";
 export * from "./CompletionCreateParamsStreaming";
 export * from "./ConditionalToolRule";
 export * from "./ContextWindowOverview";
+export * from "./ContinueToolRule";
 export * from "./CreateBlock";
 export * from "./E2BSandboxConfig";
 export * from "./EmbeddingConfigEmbeddingEndpointType";

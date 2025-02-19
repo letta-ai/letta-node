@@ -9,6 +9,7 @@ import { AgentsSearchResponseAgentsItemToolRulesItemItemChildren } from "./Agent
 import { AgentsSearchResponseAgentsItemToolRulesItemItemOne } from "./AgentsSearchResponseAgentsItemToolRulesItemItemOne";
 import { AgentsSearchResponseAgentsItemToolRulesItemItemTwo } from "./AgentsSearchResponseAgentsItemToolRulesItemItemTwo";
 import { AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping } from "./AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping";
+import { AgentsSearchResponseAgentsItemToolRulesItemItemToolName } from "./AgentsSearchResponseAgentsItemToolRulesItemItemToolName";
 
 export const AgentsSearchResponseAgentsItemToolRulesItemItem: core.serialization.Schema<
     serializers.AgentsSearchResponseAgentsItemToolRulesItemItem.Raw,
@@ -18,6 +19,7 @@ export const AgentsSearchResponseAgentsItemToolRulesItemItem: core.serialization
     AgentsSearchResponseAgentsItemToolRulesItemItemOne,
     AgentsSearchResponseAgentsItemToolRulesItemItemTwo,
     AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping,
+    AgentsSearchResponseAgentsItemToolRulesItemItemToolName,
 ]);
 
 export declare namespace AgentsSearchResponseAgentsItemToolRulesItemItem {
@@ -25,5 +27,6 @@ export declare namespace AgentsSearchResponseAgentsItemToolRulesItemItem {
         | AgentsSearchResponseAgentsItemToolRulesItemItemChildren.Raw
         | AgentsSearchResponseAgentsItemToolRulesItemItemOne.Raw
         | AgentsSearchResponseAgentsItemToolRulesItemItemTwo.Raw
-        | AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping.Raw;
+        | AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping.Raw
+        | AgentsSearchResponseAgentsItemToolRulesItemItemToolName.Raw;
 }

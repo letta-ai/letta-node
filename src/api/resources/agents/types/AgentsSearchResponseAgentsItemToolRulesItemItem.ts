@@ -8,4 +8,5 @@ export type AgentsSearchResponseAgentsItemToolRulesItemItem =
     | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemChildren
     | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemOne
     | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemTwo
-    | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping;
+    | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping
+    | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemToolName;

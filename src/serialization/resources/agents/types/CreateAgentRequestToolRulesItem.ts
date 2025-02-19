@@ -7,14 +7,26 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { ConditionalToolRule } from "../../../types/ConditionalToolRule";
 import { ChildToolRule } from "../../../types/ChildToolRule";
+import { ContinueToolRule } from "../../../types/ContinueToolRule";
 import { TerminalToolRule } from "../../../types/TerminalToolRule";
 import { InitToolRule } from "../../../types/InitToolRule";
 
 export const CreateAgentRequestToolRulesItem: core.serialization.Schema<
     serializers.CreateAgentRequestToolRulesItem.Raw,
     Letta.CreateAgentRequestToolRulesItem
-> = core.serialization.undiscriminatedUnion([ConditionalToolRule, ChildToolRule, TerminalToolRule, InitToolRule]);
+> = core.serialization.undiscriminatedUnion([
+    ConditionalToolRule,
+    ChildToolRule,
+    ContinueToolRule,
+    TerminalToolRule,
+    InitToolRule,
+]);
 
 export declare namespace CreateAgentRequestToolRulesItem {
-    export type Raw = ConditionalToolRule.Raw | ChildToolRule.Raw | TerminalToolRule.Raw | InitToolRule.Raw;
+    export type Raw =
+        | ConditionalToolRule.Raw
+        | ChildToolRule.Raw
+        | ContinueToolRule.Raw
+        | TerminalToolRule.Raw
+        | InitToolRule.Raw;
 }

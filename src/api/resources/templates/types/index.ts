@@ -17,6 +17,8 @@ export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesIte
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemChildOutputMappingDefaultChild";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemChildOutputMappingRequireOutputMapping";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemChildOutputMapping";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemToolNameType";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemToolName";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildrenType";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildren";
@@ -29,6 +31,8 @@ export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesIte
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMappingDefaultChild";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMappingRequireOutputMapping";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolNameType";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolName";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRules";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageIdsItem";

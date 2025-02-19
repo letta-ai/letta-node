@@ -43,6 +43,10 @@ export const CreateAgentRequest: core.serialization.Schema<
         "include_multi_agent_tools",
         core.serialization.boolean().optional(),
     ),
+    includeBaseToolRules: core.serialization.property(
+        "include_base_tool_rules",
+        core.serialization.boolean().optional(),
+    ),
     description: core.serialization.string().optional(),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     model: core.serialization.string().optional(),
@@ -87,6 +91,7 @@ export declare namespace CreateAgentRequest {
         initial_message_sequence?: MessageCreate.Raw[] | null;
         include_base_tools?: boolean | null;
         include_multi_agent_tools?: boolean | null;
+        include_base_tool_rules?: boolean | null;
         description?: string | null;
         metadata?: Record<string, unknown> | null;
         model?: string | null;

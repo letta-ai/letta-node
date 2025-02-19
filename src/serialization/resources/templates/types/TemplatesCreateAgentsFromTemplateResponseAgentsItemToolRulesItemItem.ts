@@ -9,6 +9,7 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChi
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolName } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolName";
 
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem: core.serialization.Schema<
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem.Raw,
@@ -18,6 +19,7 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemIte
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne,
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo,
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping,
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolName,
 ]);
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem {
@@ -25,5 +27,6 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemTool
         | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildren.Raw
         | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne.Raw
         | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo.Raw
-        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping.Raw;
+        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping.Raw
+        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolName.Raw;
 }

@@ -8,4 +8,5 @@ export type TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem
     | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildren
     | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne
     | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo
-    | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping;
+    | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping
+    | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolName;

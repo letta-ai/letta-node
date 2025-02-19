@@ -40,6 +40,8 @@ export interface CreateAgentRequest {
     includeBaseTools?: boolean;
     /** If true, attaches the Letta multi-agent tools (e.g. sending a message to another agent). */
     includeMultiAgentTools?: boolean;
+    /** If true, attaches the Letta base tool rules (e.g. deny all tools not explicitly allowed). */
+    includeBaseToolRules?: boolean;
     /** The description of the agent. */
     description?: string;
     /** The metadata of the agent. */
