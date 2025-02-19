@@ -15,5 +15,6 @@ export * as tag from "./tag";
 export * from "./tools/client/requests";
 export * from "./sources/client/requests";
 export * from "./agents/client/requests";
+export * from "./identities/client/requests";
 export * from "./providers/client/requests";
 export * from "./templates/client/requests";

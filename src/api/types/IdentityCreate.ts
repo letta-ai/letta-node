@@ -4,9 +4,7 @@
 
 import * as Letta from "../index";
 
-export interface Identity {
-    /** The internal id of the identity. */
-    id: string;
+export interface IdentityCreate {
     /** External, user-generated identifier key of the identity. */
     identifierKey: string;
     /** The name of the identity. */
@@ -15,6 +13,6 @@ export interface Identity {
     identityType: Letta.IdentityType;
     /** The project id of the identity, if applicable. */
     projectId?: string;
-    /** The agents associated with the identity. */
-    agents: Letta.AgentState[];
+    /** The agent ids that are associated with the identity. */
+    agentIds?: string[];
 }
