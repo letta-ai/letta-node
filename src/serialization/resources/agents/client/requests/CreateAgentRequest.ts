@@ -14,7 +14,7 @@ import { MessageCreate } from "../../../../types/MessageCreate";
 
 export const CreateAgentRequest: core.serialization.Schema<
     serializers.CreateAgentRequest.Raw,
-    Letta.CreateAgentRequest
+    Omit<Letta.CreateAgentRequest, "projectSlug">
 > = core.serialization.object({
     name: core.serialization.string().optional(),
     memoryBlocks: core.serialization.property("memory_blocks", core.serialization.list(CreateBlock).optional()),

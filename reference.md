@@ -1540,6 +1540,71 @@ await client.agents.search();
 </dl>
 </details>
 
+## Identities
+
+<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">listIdentities</a>({ ...params }) -> Letta.Identity[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of all identities in the database
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.identities.listIdentities();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ListIdentitiesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Identities.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Models
 
 <details><summary><code>client.models.<a href="/src/api/resources/models/client/Client.ts">listLlms</a>() -> Letta.LlmConfig[]</code></summary>

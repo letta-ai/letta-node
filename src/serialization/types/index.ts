@@ -84,6 +84,8 @@ export * from "./FunctionDefinitionOutput";
 export * from "./FunctionTool";
 export * from "./HttpValidationError";
 export * from "./Health";
+export * from "./Identity";
+export * from "./IdentityType";
 export * from "./ImageUrlDetail";
 export * from "./ImageUrl";
 export * from "./InitToolRule";
