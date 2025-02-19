@@ -163,6 +163,8 @@ export * from "./AgentsSearchResponseAgentsItemTemplateIdItem";
 export * from "./AgentsSearchResponseAgentsItemTemplateId";
 export * from "./AgentsSearchResponseAgentsItemBaseTemplateIdItem";
 export * from "./AgentsSearchResponseAgentsItemBaseTemplateId";
+export * from "./AgentsSearchResponseAgentsItemIdentifierKeyItem";
+export * from "./AgentsSearchResponseAgentsItemIdentifierKey";
 export * from "./AgentsSearchResponseAgentsItemMessageBufferAutoclear";
 export * from "./AgentsSearchResponseAgentsItem";
 export * from "./AgentsSearchResponse";

@@ -28,5 +28,6 @@ export interface TemplatesCreateAgentsFromTemplateResponseAgentsItem {
     projectId?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId;
     templateId?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId;
     baseTemplateId?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId;
+    identifierKey?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKey;
     messageBufferAutoclear?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear;
 }

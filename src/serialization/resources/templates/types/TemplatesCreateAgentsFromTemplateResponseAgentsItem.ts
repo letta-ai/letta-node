@@ -24,6 +24,7 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentV
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKey } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKey";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear";
 
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItem: core.serialization.ObjectSchema<
@@ -89,6 +90,10 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItem: core.serializa
         "base_template_id",
         TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId.optional(),
     ),
+    identifierKey: core.serialization.property(
+        "identifier_key",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKey.optional(),
+    ),
     messageBufferAutoclear: core.serialization.property(
         "message_buffer_autoclear",
         TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear.optional(),
@@ -120,6 +125,7 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItem {
         project_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId.Raw | null;
         template_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId.Raw | null;
         base_template_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId.Raw | null;
+        identifier_key?: TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKey.Raw | null;
         message_buffer_autoclear?: TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear.Raw | null;
     }
 }

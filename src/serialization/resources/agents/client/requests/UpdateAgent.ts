@@ -45,6 +45,7 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
         projectId: core.serialization.property("project_id", core.serialization.string().optional()),
         templateId: core.serialization.property("template_id", core.serialization.string().optional()),
         baseTemplateId: core.serialization.property("base_template_id", core.serialization.string().optional()),
+        identifierKey: core.serialization.property("identifier_key", core.serialization.string().optional()),
         messageBufferAutoclear: core.serialization.property(
             "message_buffer_autoclear",
             core.serialization.boolean().optional(),
@@ -69,6 +70,7 @@ export declare namespace UpdateAgent {
         project_id?: string | null;
         template_id?: string | null;
         base_template_id?: string | null;
+        identifier_key?: string | null;
         message_buffer_autoclear?: boolean | null;
     }
 }

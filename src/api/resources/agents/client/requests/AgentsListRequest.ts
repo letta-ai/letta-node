@@ -47,4 +47,8 @@ export interface AgentsListRequest {
      * Search agents by base template id
      */
     baseTemplateId?: string;
+    /**
+     * Search agents by identifier key
+     */
+    identifierKey?: string;
 }
