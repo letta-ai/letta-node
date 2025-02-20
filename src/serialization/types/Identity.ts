@@ -10,7 +10,7 @@ import { AgentState } from "./AgentState";
 
 export const Identity: core.serialization.ObjectSchema<serializers.Identity.Raw, Letta.Identity> =
     core.serialization.object({
-        id: core.serialization.string(),
+        id: core.serialization.string().optional(),
         identifierKey: core.serialization.property("identifier_key", core.serialization.string()),
         name: core.serialization.string(),
         identityType: core.serialization.property("identity_type", IdentityType),
@@ -20,7 +20,7 @@ export const Identity: core.serialization.ObjectSchema<serializers.Identity.Raw,
 
 export declare namespace Identity {
     export interface Raw {
-        id: string;
+        id?: string | null;
         identifier_key: string;
         name: string;
         identity_type: IdentityType.Raw;

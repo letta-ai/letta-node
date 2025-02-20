@@ -5,8 +5,8 @@
 import * as Letta from "../index";
 
 export interface Identity {
-    /** The internal id of the identity. */
-    id: string;
+    /** The human-friendly ID of the Identity */
+    id?: string;
     /** External, user-generated identifier key of the identity. */
     identifierKey: string;
     /** The name of the identity. */

@@ -15,6 +15,6 @@ import * as Letta from "../../../../index";
  *     }
  */
 export interface UpsertIdentityRequest {
-    projectSlug?: string;
+    project?: string;
     body: Letta.IdentityCreate;
 }
