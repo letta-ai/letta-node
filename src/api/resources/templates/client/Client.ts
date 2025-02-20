@@ -34,22 +34,22 @@ export class Templates {
     constructor(protected readonly _options: Templates.Options = {}) {}
 
     /**
-     * Creates agents given a template
+     * Creates an Agent or multiple Agents from a template
      *
      * @param {string} project - The project slug
      * @param {string} templateVersion - The template version, formatted as {template-name}:{version-number} or {template-name}:latest
-     * @param {Letta.TemplatesCreateAgentsFromTemplateRequest} request
+     * @param {Letta.TemplatesCreateAgentsRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.templates.createagentsfromtemplate("project", "template_version")
+     *     await client.templates.createAgents("project", "template_version")
      */
-    public async createagentsfromtemplate(
+    public async createAgents(
         project: string,
         templateVersion: string,
-        request: Letta.TemplatesCreateAgentsFromTemplateRequest = {},
+        request: Letta.TemplatesCreateAgentsRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): Promise<Letta.TemplatesCreateAgentsFromTemplateResponse> {
+    ): Promise<Letta.TemplatesCreateAgentsResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -61,8 +61,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.36",
-                "User-Agent": "@letta-ai/letta-client/0.1.36",
+                "X-Fern-SDK-Version": "0.1.37",
+                "User-Agent": "@letta-ai/letta-client/0.1.37",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -70,15 +70,13 @@ export class Templates {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.TemplatesCreateAgentsFromTemplateRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            body: serializers.TemplatesCreateAgentsRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.TemplatesCreateAgentsFromTemplateResponse.parseOrThrow(_response.body, {
+            return serializers.TemplatesCreateAgentsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

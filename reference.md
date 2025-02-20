@@ -3410,7 +3410,7 @@ await client.tag.listTags();
 
 ## Templates
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">createagentsfromtemplate</a>(project, templateVersion, { ...params }) -> Letta.TemplatesCreateAgentsFromTemplateResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">createAgents</a>(project, templateVersion, { ...params }) -> Letta.TemplatesCreateAgentsResponse</code></summary>
 <dl>
 <dd>
 
@@ -3422,7 +3422,7 @@ await client.tag.listTags();
 <dl>
 <dd>
 
-Creates agents given a template
+Creates an Agent or multiple Agents from a template
 
 </dd>
 </dl>
@@ -3438,7 +3438,7 @@ Creates agents given a template
 <dd>
 
 ```typescript
-await client.templates.createagentsfromtemplate("project", "template_version");
+await client.templates.createAgents("project", "template_version");
 ```
 
 </dd>
@@ -3470,7 +3470,7 @@ await client.templates.createagentsfromtemplate("project", "template_version");
 <dl>
 <dd>
 
-**request:** `Letta.TemplatesCreateAgentsFromTemplateRequest`
+**request:** `Letta.TemplatesCreateAgentsRequest`
 
 </dd>
 </dl>

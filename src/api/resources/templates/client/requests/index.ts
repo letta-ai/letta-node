@@ -1,1 +1,1 @@
-export { type TemplatesCreateAgentsFromTemplateRequest } from "./TemplatesCreateAgentsFromTemplateRequest";
+export { type TemplatesCreateAgentsRequest } from "./TemplatesCreateAgentsRequest";
