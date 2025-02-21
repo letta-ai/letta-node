@@ -8,9 +8,10 @@ import * as Letta from "../../../../index";
  * @example
  *     {}
  */
-export interface ListIdentitiesRequest {
+export interface IdentitiesListRequest {
     name?: string;
     projectId?: string;
+    identifierKey?: string;
     identityType?: Letta.IdentityType;
     before?: string;
     after?: string;

@@ -1542,7 +1542,7 @@ await client.agents.search();
 
 ## Identities
 
-<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">listIdentities</a>({ ...params }) -> Letta.Identity[]</code></summary>
+<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">list</a>({ ...params }) -> Letta.Identity[]</code></summary>
 <dl>
 <dd>
 
@@ -1570,7 +1570,7 @@ Get a list of all identities in the database
 <dd>
 
 ```typescript
-await client.identities.listIdentities();
+await client.identities.list();
 ```
 
 </dd>
@@ -1586,7 +1586,7 @@ await client.identities.listIdentities();
 <dl>
 <dd>
 
-**request:** `Letta.ListIdentitiesRequest`
+**request:** `Letta.IdentitiesListRequest`
 
 </dd>
 </dl>
@@ -1605,7 +1605,7 @@ await client.identities.listIdentities();
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">createIdentity</a>({ ...params }) -> Letta.Identity</code></summary>
+<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">create</a>({ ...params }) -> Letta.Identity</code></summary>
 <dl>
 <dd>
 
@@ -1618,7 +1618,7 @@ await client.identities.listIdentities();
 <dd>
 
 ```typescript
-await client.identities.createIdentity({
+await client.identities.create({
     body: {
         identifierKey: "identifier_key",
         name: "name",
@@ -1640,7 +1640,7 @@ await client.identities.createIdentity({
 <dl>
 <dd>
 
-**request:** `Letta.CreateIdentityRequest`
+**request:** `Letta.IdentitiesCreateRequest`
 
 </dd>
 </dl>
@@ -1659,7 +1659,7 @@ await client.identities.createIdentity({
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">upsertIdentity</a>({ ...params }) -> Letta.Identity</code></summary>
+<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">upsert</a>({ ...params }) -> Letta.Identity</code></summary>
 <dl>
 <dd>
 
@@ -1672,7 +1672,7 @@ await client.identities.createIdentity({
 <dd>
 
 ```typescript
-await client.identities.upsertIdentity({
+await client.identities.upsert({
     body: {
         identifierKey: "identifier_key",
         name: "name",
@@ -1694,7 +1694,7 @@ await client.identities.upsertIdentity({
 <dl>
 <dd>
 
-**request:** `Letta.UpsertIdentityRequest`
+**request:** `Letta.IdentitiesUpsertRequest`
 
 </dd>
 </dl>
@@ -1713,7 +1713,7 @@ await client.identities.upsertIdentity({
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">getIdentityFromIdentifierKey</a>(identifierKey) -> Letta.Identity</code></summary>
+<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">retrieve</a>(identityId) -> Letta.Identity</code></summary>
 <dl>
 <dd>
 
@@ -1726,7 +1726,7 @@ await client.identities.upsertIdentity({
 <dd>
 
 ```typescript
-await client.identities.getIdentityFromIdentifierKey("identifier_key");
+await client.identities.retrieve("identity_id");
 ```
 
 </dd>
@@ -1742,7 +1742,7 @@ await client.identities.getIdentityFromIdentifierKey("identifier_key");
 <dl>
 <dd>
 
-**identifierKey:** `string`
+**identityId:** `string`
 
 </dd>
 </dl>
@@ -1761,7 +1761,7 @@ await client.identities.getIdentityFromIdentifierKey("identifier_key");
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">deleteIdentity</a>(identifierKey) -> unknown</code></summary>
+<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">delete</a>(identityId) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1789,7 +1789,7 @@ Delete an identity by its identifier key
 <dd>
 
 ```typescript
-await client.identities.deleteIdentity("identifier_key");
+await client.identities.delete("identity_id");
 ```
 
 </dd>
@@ -1805,7 +1805,7 @@ await client.identities.deleteIdentity("identifier_key");
 <dl>
 <dd>
 
-**identifierKey:** `string`
+**identityId:** `string`
 
 </dd>
 </dl>
@@ -1824,7 +1824,7 @@ await client.identities.deleteIdentity("identifier_key");
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">updateIdentity</a>(identifierKey, { ...params }) -> Letta.Identity</code></summary>
+<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">modify</a>(identityId, { ...params }) -> Letta.Identity</code></summary>
 <dl>
 <dd>
 
@@ -1837,7 +1837,7 @@ await client.identities.deleteIdentity("identifier_key");
 <dd>
 
 ```typescript
-await client.identities.updateIdentity("identifier_key");
+await client.identities.modify("identity_id");
 ```
 
 </dd>
@@ -1853,7 +1853,7 @@ await client.identities.updateIdentity("identifier_key");
 <dl>
 <dd>
 
-**identifierKey:** `string`
+**identityId:** `string`
 
 </dd>
 </dl>

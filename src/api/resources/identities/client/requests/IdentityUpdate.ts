@@ -9,10 +9,14 @@ import * as Letta from "../../../../index";
  *     {}
  */
 export interface IdentityUpdate {
+    /** External, user-generated identifier key of the identity. */
+    identifierKey?: string;
     /** The name of the identity. */
     name?: string;
     /** The type of the identity. */
     identityType?: Letta.IdentityType;
     /** The agent ids that are associated with the identity. */
     agentIds?: string[];
+    /** List of properties associated with the identity. */
+    properties?: Letta.IdentityProperty[];
 }

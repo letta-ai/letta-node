@@ -15,4 +15,6 @@ export interface IdentityCreate {
     projectId?: string;
     /** The agent ids that are associated with the identity. */
     agentIds?: string[];
+    /** List of properties associated with the identity. */
+    properties?: Letta.IdentityProperty[];
 }

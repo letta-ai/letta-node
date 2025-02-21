@@ -48,7 +48,7 @@ export interface AgentsListRequest {
      */
     baseTemplateId?: string;
     /**
-     * Search agents by identifier key
+     * Search agents by identifier keys
      */
-    identifierKey?: string;
+    identifierKeys?: string | string[];
 }

@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { IdentityType } from "./IdentityType";
+import { IdentityProperty } from "./IdentityProperty";
 
 export const IdentityCreate: core.serialization.ObjectSchema<serializers.IdentityCreate.Raw, Letta.IdentityCreate> =
     core.serialization.object({
@@ -17,6 +18,7 @@ export const IdentityCreate: core.serialization.ObjectSchema<serializers.Identit
             "agent_ids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        properties: core.serialization.list(IdentityProperty).optional(),
     });
 
 export declare namespace IdentityCreate {
@@ -26,5 +28,6 @@ export declare namespace IdentityCreate {
         identity_type: IdentityType.Raw;
         project_id?: string | null;
         agent_ids?: string[] | null;
+        properties?: IdentityProperty.Raw[] | null;
     }
 }

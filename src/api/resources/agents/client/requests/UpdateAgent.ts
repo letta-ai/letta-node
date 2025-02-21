@@ -41,8 +41,8 @@ export interface UpdateAgent {
     templateId?: string;
     /** The base template id of the agent. */
     baseTemplateId?: string;
-    /** The identifier key belonging to the identity associated with this agent. */
-    identifierKey?: string;
+    /** The ids of the identities associated with this agent. */
+    identityIds?: string[];
     /** If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case. */
     messageBufferAutoclear?: boolean;
 }

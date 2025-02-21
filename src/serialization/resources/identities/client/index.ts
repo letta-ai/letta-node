@@ -1,2 +1,2 @@
-export * as listIdentities from "./listIdentities";
+export * as list from "./list";
 export * from "./requests";

@@ -6,7 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { IdentityType } from "./IdentityType";
-import { AgentState } from "./AgentState";
+import { IdentityProperty } from "./IdentityProperty";
 
 export const Identity: core.serialization.ObjectSchema<serializers.Identity.Raw, Letta.Identity> =
     core.serialization.object({
@@ -15,7 +15,8 @@ export const Identity: core.serialization.ObjectSchema<serializers.Identity.Raw,
         name: core.serialization.string(),
         identityType: core.serialization.property("identity_type", IdentityType),
         projectId: core.serialization.property("project_id", core.serialization.string().optional()),
-        agents: core.serialization.list(AgentState),
+        agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string())),
+        properties: core.serialization.list(IdentityProperty).optional(),
     });
 
 export declare namespace Identity {
@@ -25,6 +26,7 @@ export declare namespace Identity {
         name: string;
         identity_type: IdentityType.Raw;
         project_id?: string | null;
-        agents: AgentState.Raw[];
+        agent_ids: string[];
+        properties?: IdentityProperty.Raw[] | null;
     }
 }
