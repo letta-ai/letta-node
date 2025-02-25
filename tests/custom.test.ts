@@ -40,7 +40,7 @@ describe("Letta Client", () => {
             embedding: "openai/text-embedding-ada-002",
         });
         // Another way to attach memory blocks
-        agent2 = await client.agents.coreMemory.attachBlock(agent2.id, block.id!);
+        agent2 = await client.agents.blocks.attach(agent2.id, block.id!);
         expect(agent2.memory.blocks[0].id).toEqual(block.id);
 
         let response = await client.agents.messages.create(agent1.id, {
@@ -56,7 +56,7 @@ describe("Letta Client", () => {
         block = await client.blocks.retrieve(block.id!);
         expect(block.value.toLowerCase()).toContain("sarah");
 
-        block = await client.agents.coreMemory.retrieveBlock(agent2.id, "human");
+        block = await client.agents.blocks.retrieve(agent2.id, "human");
         expect(block.value.toLowerCase()).toContain("sarah");
 
         // Ask agent to confirm memory update
