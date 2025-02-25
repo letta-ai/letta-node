@@ -9,7 +9,7 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
-export declare namespace ArchivalMemory {
+export declare namespace Passages {
     export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -30,25 +30,25 @@ export declare namespace ArchivalMemory {
     }
 }
 
-export class ArchivalMemory {
-    constructor(protected readonly _options: ArchivalMemory.Options = {}) {}
+export class Passages {
+    constructor(protected readonly _options: Passages.Options = {}) {}
 
     /**
      * Retrieve the memories in an agent's archival memory store (paginated query).
      *
      * @param {string} agentId
-     * @param {Letta.agents.ArchivalMemoryListRequest} request
-     * @param {ArchivalMemory.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Letta.agents.PassagesListRequest} request
+     * @param {Passages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.archivalMemory.list("agent_id")
+     *     await client.agents.passages.list("agent_id")
      */
     public async list(
         agentId: string,
-        request: Letta.agents.ArchivalMemoryListRequest = {},
-        requestOptions?: ArchivalMemory.RequestOptions,
+        request: Letta.agents.PassagesListRequest = {},
+        requestOptions?: Passages.RequestOptions,
     ): Promise<Letta.Passage[]> {
         const { after, before, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -75,8 +75,8 @@ export class ArchivalMemory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.38",
-                "User-Agent": "@letta-ai/letta-client/0.1.38",
+                "X-Fern-SDK-Version": "0.1.39",
+                "User-Agent": "@letta-ai/letta-client/0.1.39",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -90,7 +90,7 @@ export class ArchivalMemory {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.agents.archivalMemory.list.Response.parseOrThrow(_response.body, {
+            return serializers.agents.passages.list.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -141,19 +141,19 @@ export class ArchivalMemory {
      *
      * @param {string} agentId
      * @param {Letta.agents.CreateArchivalMemory} request
-     * @param {ArchivalMemory.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Passages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.archivalMemory.create("agent_id", {
+     *     await client.agents.passages.create("agent_id", {
      *         text: "text"
      *     })
      */
     public async create(
         agentId: string,
         request: Letta.agents.CreateArchivalMemory,
-        requestOptions?: ArchivalMemory.RequestOptions,
+        requestOptions?: Passages.RequestOptions,
     ): Promise<Letta.Passage[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
@@ -166,8 +166,8 @@ export class ArchivalMemory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.38",
-                "User-Agent": "@letta-ai/letta-client/0.1.38",
+                "X-Fern-SDK-Version": "0.1.39",
+                "User-Agent": "@letta-ai/letta-client/0.1.39",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -181,7 +181,7 @@ export class ArchivalMemory {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.agents.archivalMemory.create.Response.parseOrThrow(_response.body, {
+            return serializers.agents.passages.create.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -232,18 +232,14 @@ export class ArchivalMemory {
      *
      * @param {string} agentId
      * @param {string} memoryId
-     * @param {ArchivalMemory.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Passages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.archivalMemory.delete("agent_id", "memory_id")
+     *     await client.agents.passages.delete("agent_id", "memory_id")
      */
-    public async delete(
-        agentId: string,
-        memoryId: string,
-        requestOptions?: ArchivalMemory.RequestOptions,
-    ): Promise<unknown> {
+    public async delete(agentId: string, memoryId: string, requestOptions?: Passages.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -255,8 +251,8 @@ export class ArchivalMemory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.38",
-                "User-Agent": "@letta-ai/letta-client/0.1.38",
+                "X-Fern-SDK-Version": "0.1.39",
+                "User-Agent": "@letta-ai/letta-client/0.1.39",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

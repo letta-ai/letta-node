@@ -5,11 +5,11 @@
 import * as serializers from "../../../../../index";
 import * as Letta from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { Passage } from "../../../../../types/Passage";
+import { Block } from "../../../../../types/Block";
 
-export const Response: core.serialization.Schema<serializers.agents.archivalMemory.list.Response.Raw, Letta.Passage[]> =
-    core.serialization.list(Passage);
+export const Response: core.serialization.Schema<serializers.agents.blocks.list.Response.Raw, Letta.Block[]> =
+    core.serialization.list(Block);
 
 export declare namespace Response {
-    export type Raw = Passage.Raw[];
+    export type Raw = Block.Raw[];
 }
