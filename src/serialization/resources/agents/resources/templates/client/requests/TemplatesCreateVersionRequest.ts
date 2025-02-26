@@ -14,10 +14,12 @@ export const TemplatesCreateVersionRequest: core.serialization.Schema<
         "migrate_deployed_agents",
         core.serialization.boolean().optional(),
     ),
+    message: core.serialization.string().optional(),
 });
 
 export declare namespace TemplatesCreateVersionRequest {
     export interface Raw {
         migrate_deployed_agents?: boolean | null;
+        message?: string | null;
     }
 }

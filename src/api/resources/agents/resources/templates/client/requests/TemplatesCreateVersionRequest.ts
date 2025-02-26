@@ -9,4 +9,5 @@
 export interface TemplatesCreateVersionRequest {
     returnAgentState?: boolean;
     migrateDeployedAgents?: boolean;
+    message?: string;
 }
