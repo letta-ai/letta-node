@@ -31,6 +31,7 @@ export const LlmConfigModelEndpointType: core.serialization.Schema<
     "together",
     "bedrock",
     "deepseek",
+    "xai",
 ]);
 
 export declare namespace LlmConfigModelEndpointType {
@@ -55,5 +56,6 @@ export declare namespace LlmConfigModelEndpointType {
         | "mistral"
         | "together"
         | "bedrock"
-        | "deepseek";
+        | "deepseek"
+        | "xai";
 }

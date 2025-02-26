@@ -23,7 +23,8 @@ export type TemplatesCreateAgentsResponseAgentsItemLlmConfigModelEndpointType =
     | "mistral"
     | "together"
     | "bedrock"
-    | "deepseek";
+    | "deepseek"
+    | "xai";
 export const TemplatesCreateAgentsResponseAgentsItemLlmConfigModelEndpointType = {
     Openai: "openai",
     Anthropic: "anthropic",
@@ -46,4 +47,5 @@ export const TemplatesCreateAgentsResponseAgentsItemLlmConfigModelEndpointType =
     Together: "together",
     Bedrock: "bedrock",
     Deepseek: "deepseek",
+    Xai: "xai",
 } as const;

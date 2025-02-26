@@ -26,7 +26,8 @@ export type LlmConfigModelEndpointType =
     | "mistral"
     | "together"
     | "bedrock"
-    | "deepseek";
+    | "deepseek"
+    | "xai";
 export const LlmConfigModelEndpointType = {
     Openai: "openai",
     Anthropic: "anthropic",
@@ -49,4 +50,5 @@ export const LlmConfigModelEndpointType = {
     Together: "together",
     Bedrock: "bedrock",
     Deepseek: "deepseek",
+    Xai: "xai",
 } as const;

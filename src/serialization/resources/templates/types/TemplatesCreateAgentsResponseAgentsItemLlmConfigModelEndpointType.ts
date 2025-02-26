@@ -31,6 +31,7 @@ export const TemplatesCreateAgentsResponseAgentsItemLlmConfigModelEndpointType: 
     "together",
     "bedrock",
     "deepseek",
+    "xai",
 ]);
 
 export declare namespace TemplatesCreateAgentsResponseAgentsItemLlmConfigModelEndpointType {
@@ -55,5 +56,6 @@ export declare namespace TemplatesCreateAgentsResponseAgentsItemLlmConfigModelEn
         | "mistral"
         | "together"
         | "bedrock"
-        | "deepseek";
+        | "deepseek"
+        | "xai";
 }

@@ -31,6 +31,7 @@ export const AgentsSearchResponseAgentsItemLlmConfigModelEndpointType: core.seri
     "together",
     "bedrock",
     "deepseek",
+    "xai",
 ]);
 
 export declare namespace AgentsSearchResponseAgentsItemLlmConfigModelEndpointType {
@@ -55,5 +56,6 @@ export declare namespace AgentsSearchResponseAgentsItemLlmConfigModelEndpointTyp
         | "mistral"
         | "together"
         | "bedrock"
-        | "deepseek";
+        | "deepseek"
+        | "xai";
 }
