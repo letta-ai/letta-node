@@ -1,5 +1,7 @@
 export * as agents from "./agents";
 export * from "./agents/types";
+export * as voice from "./voice";
+export * from "./voice/types";
 export * as templates from "./templates";
 export * from "./templates/types";
 export * as tools from "./tools";

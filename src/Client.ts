@@ -16,6 +16,7 @@ import { Providers } from "./api/resources/providers/client/Client";
 import { Runs } from "./api/resources/runs/client/Client";
 import { Steps } from "./api/resources/steps/client/Client";
 import { Tag } from "./api/resources/tag/client/Client";
+import { Voice } from "./api/resources/voice/client/Client";
 import { Templates } from "./api/resources/templates/client/Client";
 
 export declare namespace LettaClient {
@@ -52,6 +53,7 @@ export class LettaClient {
     protected _runs: Runs | undefined;
     protected _steps: Steps | undefined;
     protected _tag: Tag | undefined;
+    protected _voice: Voice | undefined;
     protected _templates: Templates | undefined;
 
     constructor(protected readonly _options: LettaClient.Options = {}) {}
@@ -102,6 +104,10 @@ export class LettaClient {
 
     public get tag(): Tag {
         return (this._tag ??= new Tag(this._options));
+    }
+
+    public get voice(): Voice {
+        return (this._voice ??= new Voice(this._options));
     }
 
     public get templates(): Templates {
