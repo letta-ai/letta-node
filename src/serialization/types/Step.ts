@@ -25,6 +25,7 @@ export const Step: core.serialization.ObjectSchema<serializers.Step.Raw, Letta.S
     ),
     tags: core.serialization.list(core.serialization.string()).optional(),
     tid: core.serialization.string().optional(),
+    traceId: core.serialization.property("trace_id", core.serialization.string().optional()),
     messages: core.serialization.list(Message).optional(),
 });
 
@@ -44,6 +45,7 @@ export declare namespace Step {
         completion_tokens_details?: Record<string, unknown> | null;
         tags?: string[] | null;
         tid?: string | null;
+        trace_id?: string | null;
         messages?: Message.Raw[] | null;
     }
 }

@@ -33,6 +33,8 @@ export interface Step {
     tags?: string[];
     /** The unique identifier of the transaction that processed this step. */
     tid?: string;
+    /** The trace id of the agent step. */
+    traceId?: string;
     /** The messages generated during this step. */
     messages?: Letta.Message[];
 }
