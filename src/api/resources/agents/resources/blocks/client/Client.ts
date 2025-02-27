@@ -34,7 +34,7 @@ export class Blocks {
     constructor(protected readonly _options: Blocks.Options = {}) {}
 
     /**
-     * Retrieve a memory block from an agent.
+     * Retrieve a core memory block from an agent.
      *
      * @param {string} agentId
      * @param {string} blockLabel
@@ -61,8 +61,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.44",
-                "User-Agent": "@letta-ai/letta-client/0.1.44",
+                "X-Fern-SDK-Version": "0.1.45",
+                "User-Agent": "@letta-ai/letta-client/0.1.45",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -122,7 +122,7 @@ export class Blocks {
     }
 
     /**
-     * Updates a memory block of an agent.
+     * Updates a core memory block of an agent.
      *
      * @param {string} agentId
      * @param {string} blockLabel
@@ -151,8 +151,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.44",
-                "User-Agent": "@letta-ai/letta-client/0.1.44",
+                "X-Fern-SDK-Version": "0.1.45",
+                "User-Agent": "@letta-ai/letta-client/0.1.45",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -213,7 +213,7 @@ export class Blocks {
     }
 
     /**
-     * Retrieve the memory blocks of a specific agent.
+     * Retrieve the core memory blocks of a specific agent.
      *
      * @param {string} agentId
      * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
@@ -235,8 +235,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.44",
-                "User-Agent": "@letta-ai/letta-client/0.1.44",
+                "X-Fern-SDK-Version": "0.1.45",
+                "User-Agent": "@letta-ai/letta-client/0.1.45",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -296,7 +296,7 @@ export class Blocks {
     }
 
     /**
-     * Attach a block to an agent.
+     * Attach a core memoryblock to an agent.
      *
      * @param {string} agentId
      * @param {string} blockId
@@ -323,8 +323,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.44",
-                "User-Agent": "@letta-ai/letta-client/0.1.44",
+                "X-Fern-SDK-Version": "0.1.45",
+                "User-Agent": "@letta-ai/letta-client/0.1.45",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -384,7 +384,7 @@ export class Blocks {
     }
 
     /**
-     * Detach a block from an agent.
+     * Detach a core memory block from an agent.
      *
      * @param {string} agentId
      * @param {string} blockId
@@ -411,8 +411,8 @@ export class Blocks {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.44",
-                "User-Agent": "@letta-ai/letta-client/0.1.44",
+                "X-Fern-SDK-Version": "0.1.45",
+                "User-Agent": "@letta-ai/letta-client/0.1.45",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

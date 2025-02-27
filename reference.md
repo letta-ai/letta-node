@@ -1404,6 +1404,87 @@ await client.agents.modify("agent_id");
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">modifyPassage</a>(agentId, memoryId, { ...params }) -> Letta.Passage[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Modify a memory in the agent's archival memory store.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.modifyPassage("agent_id", "memory_id", {
+    id: "id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memoryId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.PassageUpdate`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">resetMessages</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
@@ -4106,7 +4187,7 @@ await client.agents.coreMemory.retrieve("agent_id");
 <dl>
 <dd>
 
-Retrieve a memory block from an agent.
+Retrieve a core memory block from an agent.
 
 </dd>
 </dl>
@@ -4177,7 +4258,7 @@ await client.agents.blocks.retrieve("agent_id", "block_label");
 <dl>
 <dd>
 
-Updates a memory block of an agent.
+Updates a core memory block of an agent.
 
 </dd>
 </dl>
@@ -4256,7 +4337,7 @@ await client.agents.blocks.modify("agent_id", "block_label", {});
 <dl>
 <dd>
 
-Retrieve the memory blocks of a specific agent.
+Retrieve the core memory blocks of a specific agent.
 
 </dd>
 </dl>
@@ -4319,7 +4400,7 @@ await client.agents.blocks.list("agent_id");
 <dl>
 <dd>
 
-Attach a block to an agent.
+Attach a core memoryblock to an agent.
 
 </dd>
 </dl>
@@ -4390,7 +4471,7 @@ await client.agents.blocks.attach("agent_id", "block_id");
 <dl>
 <dd>
 
-Detach a block from an agent.
+Detach a core memory block from an agent.
 
 </dd>
 </dl>
