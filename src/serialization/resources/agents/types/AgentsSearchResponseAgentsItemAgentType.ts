@@ -9,8 +9,8 @@ import * as core from "../../../../core";
 export const AgentsSearchResponseAgentsItemAgentType: core.serialization.Schema<
     serializers.AgentsSearchResponseAgentsItemAgentType.Raw,
     Letta.AgentsSearchResponseAgentsItemAgentType
-> = core.serialization.enum_(["memgpt_agent", "split_thread_agent", "offline_memory_agent", "chat_only_agent"]);
+> = core.serialization.enum_(["memgpt_agent", "split_thread_agent", "offline_memory_agent"]);
 
 export declare namespace AgentsSearchResponseAgentsItemAgentType {
-    export type Raw = "memgpt_agent" | "split_thread_agent" | "offline_memory_agent" | "chat_only_agent";
+    export type Raw = "memgpt_agent" | "split_thread_agent" | "offline_memory_agent";
 }

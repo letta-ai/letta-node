@@ -5,10 +5,9 @@
 /**
  * Enum to represent the type of agent.
  */
-export type AgentType = "memgpt_agent" | "split_thread_agent" | "offline_memory_agent" | "chat_only_agent";
+export type AgentType = "memgpt_agent" | "split_thread_agent" | "offline_memory_agent";
 export const AgentType = {
     MemgptAgent: "memgpt_agent",
     SplitThreadAgent: "split_thread_agent",
     OfflineMemoryAgent: "offline_memory_agent",
-    ChatOnlyAgent: "chat_only_agent",
 } as const;
