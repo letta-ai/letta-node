@@ -31,6 +31,8 @@ export interface Tool {
     sourceCode?: string;
     /** The JSON schema of the function. */
     jsonSchema?: Record<string, unknown>;
+    /** The args JSON schema of the function. */
+    argsJsonSchema?: Record<string, unknown>;
     /** The maximum number of characters in the response. */
     returnCharLimit?: number;
     /** The id of the user that made this Tool. */

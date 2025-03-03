@@ -12,6 +12,7 @@ import { TemplatesCreateAgentsResponseAgentsItemToolsItemOrganizationId } from "
 import { TemplatesCreateAgentsResponseAgentsItemToolsItemName } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemName";
 import { TemplatesCreateAgentsResponseAgentsItemToolsItemSourceCode } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemSourceCode";
 import { TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchema } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchema";
+import { TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema";
 import { TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById";
 import { TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById";
 
@@ -43,6 +44,10 @@ export const TemplatesCreateAgentsResponseAgentsItemToolsItem: core.serializatio
         "json_schema",
         TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchema.optional(),
     ),
+    argsJsonSchema: core.serialization.property(
+        "args_json_schema",
+        TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema.optional(),
+    ),
     returnCharLimit: core.serialization.property("return_char_limit", core.serialization.number().optional()),
     createdById: core.serialization.property(
         "created_by_id",
@@ -65,6 +70,7 @@ export declare namespace TemplatesCreateAgentsResponseAgentsItemToolsItem {
         tags?: string[] | null;
         source_code?: TemplatesCreateAgentsResponseAgentsItemToolsItemSourceCode.Raw | null;
         json_schema?: TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchema.Raw | null;
+        args_json_schema?: TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema.Raw | null;
         return_char_limit?: number | null;
         created_by_id?: TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById.Raw | null;
         last_updated_by_id?: TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById.Raw | null;

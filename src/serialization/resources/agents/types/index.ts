@@ -111,6 +111,8 @@ export * from "./AgentsSearchResponseAgentsItemToolsItemSourceCodeItem";
 export * from "./AgentsSearchResponseAgentsItemToolsItemSourceCode";
 export * from "./AgentsSearchResponseAgentsItemToolsItemJsonSchemaItem";
 export * from "./AgentsSearchResponseAgentsItemToolsItemJsonSchema";
+export * from "./AgentsSearchResponseAgentsItemToolsItemArgsJsonSchemaItem";
+export * from "./AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema";
 export * from "./AgentsSearchResponseAgentsItemToolsItemCreatedByIdItem";
 export * from "./AgentsSearchResponseAgentsItemToolsItemCreatedById";
 export * from "./AgentsSearchResponseAgentsItemToolsItemLastUpdatedByIdItem";

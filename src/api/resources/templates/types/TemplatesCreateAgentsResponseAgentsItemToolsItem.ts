@@ -14,6 +14,7 @@ export interface TemplatesCreateAgentsResponseAgentsItemToolsItem {
     tags?: string[];
     sourceCode?: Letta.TemplatesCreateAgentsResponseAgentsItemToolsItemSourceCode;
     jsonSchema?: Letta.TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchema;
+    argsJsonSchema?: Letta.TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema;
     returnCharLimit?: number;
     createdById?: Letta.TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById;
     lastUpdatedById?: Letta.TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById;

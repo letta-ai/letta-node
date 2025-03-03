@@ -19,6 +19,10 @@ export const Tool: core.serialization.ObjectSchema<serializers.Tool.Raw, Letta.T
         "json_schema",
         core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     ),
+    argsJsonSchema: core.serialization.property(
+        "args_json_schema",
+        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    ),
     returnCharLimit: core.serialization.property("return_char_limit", core.serialization.number().optional()),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
@@ -34,6 +38,7 @@ export declare namespace Tool {
         tags?: string[] | null;
         source_code?: string | null;
         json_schema?: Record<string, unknown> | null;
+        args_json_schema?: Record<string, unknown> | null;
         return_char_limit?: number | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;

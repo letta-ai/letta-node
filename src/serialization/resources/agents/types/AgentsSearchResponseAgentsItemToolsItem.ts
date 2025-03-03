@@ -12,6 +12,7 @@ import { AgentsSearchResponseAgentsItemToolsItemOrganizationId } from "./AgentsS
 import { AgentsSearchResponseAgentsItemToolsItemName } from "./AgentsSearchResponseAgentsItemToolsItemName";
 import { AgentsSearchResponseAgentsItemToolsItemSourceCode } from "./AgentsSearchResponseAgentsItemToolsItemSourceCode";
 import { AgentsSearchResponseAgentsItemToolsItemJsonSchema } from "./AgentsSearchResponseAgentsItemToolsItemJsonSchema";
+import { AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema } from "./AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema";
 import { AgentsSearchResponseAgentsItemToolsItemCreatedById } from "./AgentsSearchResponseAgentsItemToolsItemCreatedById";
 import { AgentsSearchResponseAgentsItemToolsItemLastUpdatedById } from "./AgentsSearchResponseAgentsItemToolsItemLastUpdatedById";
 
@@ -40,6 +41,10 @@ export const AgentsSearchResponseAgentsItemToolsItem: core.serialization.ObjectS
         "json_schema",
         AgentsSearchResponseAgentsItemToolsItemJsonSchema.optional(),
     ),
+    argsJsonSchema: core.serialization.property(
+        "args_json_schema",
+        AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema.optional(),
+    ),
     returnCharLimit: core.serialization.property("return_char_limit", core.serialization.number().optional()),
     createdById: core.serialization.property(
         "created_by_id",
@@ -62,6 +67,7 @@ export declare namespace AgentsSearchResponseAgentsItemToolsItem {
         tags?: string[] | null;
         source_code?: AgentsSearchResponseAgentsItemToolsItemSourceCode.Raw | null;
         json_schema?: AgentsSearchResponseAgentsItemToolsItemJsonSchema.Raw | null;
+        args_json_schema?: AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema.Raw | null;
         return_char_limit?: number | null;
         created_by_id?: AgentsSearchResponseAgentsItemToolsItemCreatedById.Raw | null;
         last_updated_by_id?: AgentsSearchResponseAgentsItemToolsItemLastUpdatedById.Raw | null;

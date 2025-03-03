@@ -17,6 +17,8 @@ export interface ToolUpdate {
     sourceType?: string;
     /** The JSON schema of the function (auto-generated from source_code if not provided) */
     jsonSchema?: Record<string, unknown>;
+    /** The args JSON schema of the function. */
+    argsJsonSchema?: Record<string, unknown>;
     /** The maximum number of characters in the response. */
     returnCharLimit?: number;
 }

@@ -16,6 +16,10 @@ export const ToolCreate: core.serialization.ObjectSchema<serializers.ToolCreate.
             "json_schema",
             core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
+        argsJsonSchema: core.serialization.property(
+            "args_json_schema",
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        ),
         returnCharLimit: core.serialization.property("return_char_limit", core.serialization.number().optional()),
     });
 
@@ -26,6 +30,7 @@ export declare namespace ToolCreate {
         source_code: string;
         source_type?: string | null;
         json_schema?: Record<string, unknown> | null;
+        args_json_schema?: Record<string, unknown> | null;
         return_char_limit?: number | null;
     }
 }

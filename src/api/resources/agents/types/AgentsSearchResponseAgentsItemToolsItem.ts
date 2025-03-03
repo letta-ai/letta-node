@@ -14,6 +14,7 @@ export interface AgentsSearchResponseAgentsItemToolsItem {
     tags?: string[];
     sourceCode?: Letta.AgentsSearchResponseAgentsItemToolsItemSourceCode;
     jsonSchema?: Letta.AgentsSearchResponseAgentsItemToolsItemJsonSchema;
+    argsJsonSchema?: Letta.AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema;
     returnCharLimit?: number;
     createdById?: Letta.AgentsSearchResponseAgentsItemToolsItemCreatedById;
     lastUpdatedById?: Letta.AgentsSearchResponseAgentsItemToolsItemLastUpdatedById;

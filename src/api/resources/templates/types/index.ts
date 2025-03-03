@@ -104,6 +104,8 @@ export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemSourceCodeItem"
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemSourceCode";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchemaItem";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchema";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchemaItem";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedByIdItem";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedByIdItem";

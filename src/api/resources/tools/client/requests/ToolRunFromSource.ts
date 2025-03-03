@@ -22,4 +22,6 @@ export interface ToolRunFromSource {
     name?: string;
     /** The type of the source code. */
     sourceType?: string;
+    /** The args JSON schema of the function. */
+    argsJsonSchema?: Record<string, unknown>;
 }

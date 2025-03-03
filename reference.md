@@ -3295,6 +3295,87 @@ await client.runs.retrieveRunUsage("run_id");
 </dl>
 </details>
 
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listRunSteps</a>(runId, { ...params }) -> Letta.Step[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get messages associated with a run with filtering options.
+
+Args:
+run_id: ID of the run
+before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+limit: Maximum number of steps to return
+order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+
+Returns:
+A list of steps associated with the run.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.runs.listRunSteps("run_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**runId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.ListRunStepsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Runs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Steps
 
 <details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">listSteps</a>({ ...params }) -> Letta.Step[]</code></summary>
