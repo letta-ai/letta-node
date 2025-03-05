@@ -46,4 +46,8 @@ export interface Message {
     toolCallId?: string;
     /** The id of the step that this message was created in. */
     stepId?: string;
+    /** The offline threading id associated with this message */
+    otid?: string;
+    /** Tool execution return information for prior tool calls */
+    toolReturns?: Letta.ToolReturn[];
 }

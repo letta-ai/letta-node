@@ -8,6 +8,7 @@ import * as core from "../../core";
 import { MessageRole } from "./MessageRole";
 import { TextContent } from "./TextContent";
 import { ChatCompletionMessageToolCallOutput } from "./ChatCompletionMessageToolCallOutput";
+import { ToolReturn } from "./ToolReturn";
 
 export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Letta.Message> =
     core.serialization.object({
@@ -27,6 +28,8 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         ),
         toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
         stepId: core.serialization.property("step_id", core.serialization.string().optional()),
+        otid: core.serialization.string().optional(),
+        toolReturns: core.serialization.property("tool_returns", core.serialization.list(ToolReturn).optional()),
     });
 
 export declare namespace Message {
@@ -44,5 +47,7 @@ export declare namespace Message {
         tool_calls?: ChatCompletionMessageToolCallOutput.Raw[] | null;
         tool_call_id?: string | null;
         step_id?: string | null;
+        otid?: string | null;
+        tool_returns?: ToolReturn.Raw[] | null;
     }
 }

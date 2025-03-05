@@ -144,6 +144,8 @@ export * from "./ToolCallDelta";
 export * from "./ToolCallMessageToolCall";
 export * from "./ToolCallMessage";
 export * from "./ToolCreate";
+export * from "./ToolReturnStatus";
+export * from "./ToolReturn";
 export * from "./ToolReturnMessageStatus";
 export * from "./ToolReturnMessage";
 export * from "./ToolType";
