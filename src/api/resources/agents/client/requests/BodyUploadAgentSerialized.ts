@@ -8,7 +8,11 @@
  */
 export interface BodyUploadAgentSerialized {
     /**
-     * Whether to mark the uploaded agent as a copy
+     * If set to True, appends "_copy" to the end of the agent name.
      */
-    markAsCopy?: boolean;
+    appendCopySuffix?: boolean;
+    /**
+     * If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.
+     */
+    overrideExistingTools?: boolean;
 }
