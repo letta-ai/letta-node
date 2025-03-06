@@ -41,7 +41,7 @@ export interface Message {
     /** The name of the participant. */
     name?: string;
     /** The list of tool calls requested. */
-    toolCalls?: Letta.ChatCompletionMessageToolCallOutput[];
+    toolCalls?: Letta.ChatCompletionMessageToolCall[];
     /** The id of the tool call. */
     toolCallId?: string;
     /** The id of the step that this message was created in. */

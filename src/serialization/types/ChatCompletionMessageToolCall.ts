@@ -7,9 +7,9 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { FunctionOutput } from "./FunctionOutput";
 
-export const ChatCompletionMessageToolCallOutput: core.serialization.ObjectSchema<
-    serializers.ChatCompletionMessageToolCallOutput.Raw,
-    Letta.ChatCompletionMessageToolCallOutput
+export const ChatCompletionMessageToolCall: core.serialization.ObjectSchema<
+    serializers.ChatCompletionMessageToolCall.Raw,
+    Letta.ChatCompletionMessageToolCall
 > = core.serialization
     .object({
         id: core.serialization.string(),
@@ -18,7 +18,7 @@ export const ChatCompletionMessageToolCallOutput: core.serialization.ObjectSchem
     })
     .passthrough();
 
-export declare namespace ChatCompletionMessageToolCallOutput {
+export declare namespace ChatCompletionMessageToolCall {
     export interface Raw {
         id: string;
         function: FunctionOutput.Raw;

@@ -5114,7 +5114,7 @@ await client.agents.messages.create("agent_id", {
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">modify</a>(agentId, messageId, { ...params }) -> Letta.Message</code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">modify</a>(agentId, messageId, { ...params }) -> Letta.MessagesModifyResponse</code></summary>
 <dl>
 <dd>
 
@@ -5142,7 +5142,10 @@ Update the details of a message associated with an agent.
 <dd>
 
 ```typescript
-await client.agents.messages.modify("agent_id", "message_id");
+await client.agents.messages.modify("agent_id", "message_id", {
+    content: "content",
+    messageType: "system_message",
+});
 ```
 
 </dd>
@@ -5174,7 +5177,7 @@ await client.agents.messages.modify("agent_id", "message_id");
 <dl>
 <dd>
 
-**request:** `Letta.agents.MessageUpdate`
+**request:** `Letta.MessagesModifyRequest`
 
 </dd>
 </dl>
