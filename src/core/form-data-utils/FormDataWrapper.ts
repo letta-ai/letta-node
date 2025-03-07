@@ -24,7 +24,10 @@ export interface CrossPlatformFormData {
 
 export async function newFormData(): Promise<CrossPlatformFormData> {
     let formdata: CrossPlatformFormData;
-    if (RUNTIME.type === "node" && RUNTIME.parsedVersion != null && RUNTIME.parsedVersion >= 18) {
+    if (RUNTIME.type === "react-native") {
+        // React Native Supports FormData natively
+        formdata = new WebFormData();
+    } else if (RUNTIME.type === "node" && RUNTIME.parsedVersion != null && RUNTIME.parsedVersion >= 18) {
         formdata = new Node18FormData();
     } else if (RUNTIME.type === "node") {
         formdata = new Node16FormData();

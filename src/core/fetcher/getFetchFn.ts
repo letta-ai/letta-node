@@ -4,6 +4,10 @@ import { RUNTIME } from "../runtime";
  * Returns a fetch function based on the runtime
  */
 export async function getFetchFn(): Promise<any> {
+    // In React Native environments, use Expo's >=52 fetch for sse/streaming (WinterCG-compliant Fetch API) | https://expo.dev/changelog/2024-11-12-sdk-52 
+    if (RUNTIME.type === "react-native") {
+        return (await import('expo/fetch')).fetch;
+    }
     // In Node.js 18+ environments, use native fetch
     if (RUNTIME.type === "node" && RUNTIME.parsedVersion != null && RUNTIME.parsedVersion >= 18) {
         return fetch;

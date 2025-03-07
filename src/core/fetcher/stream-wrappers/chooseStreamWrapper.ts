@@ -22,7 +22,10 @@ export interface StreamWrapper<WritableStream, ReadFormat> {
 }
 
 export async function chooseStreamWrapper(responseBody: any): Promise<Promise<StreamWrapper<any, any>>> {
-    if (RUNTIME.type === "node" && RUNTIME.parsedVersion != null && RUNTIME.parsedVersion >= 18) {
+    if (RUNTIME.type === "react-native") {
+        // Expo has support for ReadableStream | https://github.com/expo/expo/blob/sdk-52/packages/expo/src/winter/fetch/FetchResponse.ts
+        return Promise.resolve(responseBody)
+    } else if (RUNTIME.type === "node" && RUNTIME.parsedVersion != null && RUNTIME.parsedVersion >= 18) {
         return new (await import("./Node18UniversalStreamWrapper")).Node18UniversalStreamWrapper(
             responseBody as ReadableStream,
         );
