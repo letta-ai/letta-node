@@ -13,6 +13,8 @@ export interface Step {
     providerId?: string;
     /** The unique identifier of the job that this step belongs to. Only included for async calls. */
     jobId?: string;
+    /** The ID of the agent that performed the step. */
+    agentId?: string;
     /** The name of the provider used for this step. */
     providerName?: string;
     /** The name of the model used for this step. */

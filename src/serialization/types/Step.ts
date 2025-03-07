@@ -12,6 +12,7 @@ export const Step: core.serialization.ObjectSchema<serializers.Step.Raw, Letta.S
     origin: core.serialization.string().optional(),
     providerId: core.serialization.property("provider_id", core.serialization.string().optional()),
     jobId: core.serialization.property("job_id", core.serialization.string().optional()),
+    agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
     providerName: core.serialization.property("provider_name", core.serialization.string().optional()),
     model: core.serialization.string().optional(),
     modelEndpoint: core.serialization.property("model_endpoint", core.serialization.string().optional()),
@@ -35,6 +36,7 @@ export declare namespace Step {
         origin?: string | null;
         provider_id?: string | null;
         job_id?: string | null;
+        agent_id?: string | null;
         provider_name?: string | null;
         model?: string | null;
         model_endpoint?: string | null;

@@ -35,4 +35,8 @@ export interface ListStepsRequest {
      * Filter by the name of the model used for the step
      */
     model?: string;
+    /**
+     * Filter by the ID of the agent that performed the step
+     */
+    agentId?: string;
 }
