@@ -20,6 +20,10 @@ export const TemplatesCreateAgentsRequest: core.serialization.Schema<
         "tool_variables",
         core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
     ),
+    identityIds: core.serialization.property(
+        "identity_ids",
+        core.serialization.list(core.serialization.string()).optional(),
+    ),
 });
 
 export declare namespace TemplatesCreateAgentsRequest {
@@ -28,5 +32,6 @@ export declare namespace TemplatesCreateAgentsRequest {
         agent_name?: string | null;
         memory_variables?: Record<string, string> | null;
         tool_variables?: Record<string, string> | null;
+        identity_ids?: string[] | null;
     }
 }

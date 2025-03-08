@@ -15,4 +15,6 @@ export interface TemplatesCreateAgentsRequest {
     memoryVariables?: Record<string, string>;
     /** The tool variables to assign to the agent */
     toolVariables?: Record<string, string>;
+    /** The identity ids to assign to the agent */
+    identityIds?: string[];
 }
