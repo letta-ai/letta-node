@@ -9,7 +9,11 @@ export type AppAuthSchemeAuthMode =
     | "BASIC"
     | "BEARER_TOKEN"
     | "BASIC_WITH_JWT"
-    | "NO_AUTH";
+    | "GOOGLE_SERVICE_ACCOUNT"
+    | "GOOGLEADS_AUTH"
+    | "NO_AUTH"
+    | "COMPOSIO_LINK"
+    | "CALCOM_AUTH";
 export const AppAuthSchemeAuthMode = {
     Oauth2: "OAUTH2",
     Oauth1: "OAUTH1",
@@ -17,5 +21,9 @@ export const AppAuthSchemeAuthMode = {
     Basic: "BASIC",
     BearerToken: "BEARER_TOKEN",
     BasicWithJwt: "BASIC_WITH_JWT",
+    GoogleServiceAccount: "GOOGLE_SERVICE_ACCOUNT",
+    GoogleadsAuth: "GOOGLEADS_AUTH",
     NoAuth: "NO_AUTH",
+    ComposioLink: "COMPOSIO_LINK",
+    CalcomAuth: "CALCOM_AUTH",
 } as const;

@@ -3706,7 +3706,7 @@ await client.tag.listTags();
 
 ## Voice
 
-<details><summary><code>client.voice.<a href="/src/api/resources/voice/client/Client.ts">createVoiceChatCompletions</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.voice.<a href="/src/api/resources/voice/client/Client.ts">createVoiceChatCompletions</a>(agentId, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3719,7 +3719,7 @@ await client.tag.listTags();
 <dd>
 
 ```typescript
-await client.voice.createVoiceChatCompletions({
+await client.voice.createVoiceChatCompletions("agent_id", {
     messages: [
         {
             content: "content",
@@ -3739,6 +3739,14 @@ await client.voice.createVoiceChatCompletions({
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
 
 <dl>
 <dd>

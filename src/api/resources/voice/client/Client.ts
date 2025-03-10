@@ -34,13 +34,14 @@ export class Voice {
     constructor(protected readonly _options: Voice.Options = {}) {}
 
     /**
+     * @param {string} agentId
      * @param {Letta.CreateVoiceChatCompletionsRequest} request
      * @param {Voice.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.voice.createVoiceChatCompletions({
+     *     await client.voice.createVoiceChatCompletions("agent_id", {
      *         messages: [{
      *                 content: "content",
      *                 role: "developer"
@@ -49,6 +50,7 @@ export class Voice {
      *     })
      */
     public async createVoiceChatCompletions(
+        agentId: string,
         request: Letta.CreateVoiceChatCompletionsRequest,
         requestOptions?: Voice.RequestOptions,
     ): Promise<unknown> {
@@ -57,14 +59,14 @@ export class Voice {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                "v1/voice/chat/completions",
+                `v1/voice/${encodeURIComponent(agentId)}/chat/completions`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.54",
-                "User-Agent": "@letta-ai/letta-client/0.1.54",
+                "X-Fern-SDK-Version": "0.1.55",
+                "User-Agent": "@letta-ai/letta-client/0.1.55",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -110,7 +112,9 @@ export class Voice {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/voice/chat/completions.");
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling POST /v1/voice/{agent_id}/chat/completions.",
+                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,
