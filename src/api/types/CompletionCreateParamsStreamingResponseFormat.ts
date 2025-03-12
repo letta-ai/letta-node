@@ -6,5 +6,5 @@ import * as Letta from "../index";
 
 export type CompletionCreateParamsStreamingResponseFormat =
     | Letta.ResponseFormatText
-    | Letta.ResponseFormatJsonObject
-    | Letta.ResponseFormatJsonSchema;
+    | Letta.ResponseFormatJsonSchema
+    | Letta.ResponseFormatJsonObject;

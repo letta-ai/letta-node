@@ -8,6 +8,7 @@ import * as core from "../../core";
 import { ChatCompletionContentPartTextParam } from "./ChatCompletionContentPartTextParam";
 import { ChatCompletionContentPartImageParam } from "./ChatCompletionContentPartImageParam";
 import { ChatCompletionContentPartInputAudioParam } from "./ChatCompletionContentPartInputAudioParam";
+import { File_ } from "./File_";
 
 export const ChatCompletionUserMessageParamContentItem: core.serialization.Schema<
     serializers.ChatCompletionUserMessageParamContentItem.Raw,
@@ -16,11 +17,13 @@ export const ChatCompletionUserMessageParamContentItem: core.serialization.Schem
     ChatCompletionContentPartTextParam,
     ChatCompletionContentPartImageParam,
     ChatCompletionContentPartInputAudioParam,
+    File_,
 ]);
 
 export declare namespace ChatCompletionUserMessageParamContentItem {
     export type Raw =
         | ChatCompletionContentPartTextParam.Raw
         | ChatCompletionContentPartImageParam.Raw
-        | ChatCompletionContentPartInputAudioParam.Raw;
+        | ChatCompletionContentPartInputAudioParam.Raw
+        | File_.Raw;
 }

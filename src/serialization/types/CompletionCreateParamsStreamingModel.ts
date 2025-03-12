@@ -19,6 +19,9 @@ export const CompletionCreateParamsStreamingModel: core.serialization.Schema<
     core.serialization.stringLiteral("o1-preview-2024-09-12"),
     core.serialization.stringLiteral("o1-mini"),
     core.serialization.stringLiteral("o1-mini-2024-09-12"),
+    core.serialization.stringLiteral("computer-use-preview"),
+    core.serialization.stringLiteral("computer-use-preview-2025-02-04"),
+    core.serialization.stringLiteral("computer-use-preview-2025-03-11"),
     core.serialization.stringLiteral("gpt-4.5-preview"),
     core.serialization.stringLiteral("gpt-4.5-preview-2025-02-27"),
     core.serialization.stringLiteral("gpt-4o"),
@@ -65,6 +68,9 @@ export declare namespace CompletionCreateParamsStreamingModel {
         | "o1-preview-2024-09-12"
         | "o1-mini"
         | "o1-mini-2024-09-12"
+        | "computer-use-preview"
+        | "computer-use-preview-2025-02-04"
+        | "computer-use-preview-2025-03-11"
         | "gpt-4.5-preview"
         | "gpt-4.5-preview-2025-02-27"
         | "gpt-4o"

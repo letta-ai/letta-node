@@ -7,4 +7,5 @@ import * as Letta from "../index";
 export type ChatCompletionUserMessageParamContentItem =
     | Letta.ChatCompletionContentPartTextParam
     | Letta.ChatCompletionContentPartImageParam
-    | Letta.ChatCompletionContentPartInputAudioParam;
+    | Letta.ChatCompletionContentPartInputAudioParam
+    | Letta.File_;

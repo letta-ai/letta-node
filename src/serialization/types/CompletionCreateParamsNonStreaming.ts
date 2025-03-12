@@ -19,6 +19,7 @@ import { CompletionCreateParamsNonStreamingStop } from "./CompletionCreateParams
 import { ChatCompletionStreamOptionsParam } from "./ChatCompletionStreamOptionsParam";
 import { CompletionCreateParamsNonStreamingToolChoice } from "./CompletionCreateParamsNonStreamingToolChoice";
 import { ChatCompletionToolParam } from "./ChatCompletionToolParam";
+import { WebSearchOptions } from "./WebSearchOptions";
 
 export const CompletionCreateParamsNonStreaming: core.serialization.ObjectSchema<
     serializers.CompletionCreateParamsNonStreaming.Raw,
@@ -65,6 +66,7 @@ export const CompletionCreateParamsNonStreaming: core.serialization.ObjectSchema
     topLogprobs: core.serialization.property("top_logprobs", core.serialization.number().optional()),
     topP: core.serialization.property("top_p", core.serialization.number().optional()),
     user: core.serialization.string().optional(),
+    webSearchOptions: core.serialization.property("web_search_options", WebSearchOptions.optional()),
     stream: core.serialization.boolean().optional(),
 });
 
@@ -99,6 +101,7 @@ export declare namespace CompletionCreateParamsNonStreaming {
         top_logprobs?: number | null;
         top_p?: number | null;
         user?: string | null;
+        web_search_options?: WebSearchOptions.Raw | null;
         stream?: boolean | null;
     }
 }

@@ -6,14 +6,14 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { ResponseFormatText } from "./ResponseFormatText";
-import { ResponseFormatJsonObject } from "./ResponseFormatJsonObject";
 import { ResponseFormatJsonSchema } from "./ResponseFormatJsonSchema";
+import { ResponseFormatJsonObject } from "./ResponseFormatJsonObject";
 
 export const CompletionCreateParamsNonStreamingResponseFormat: core.serialization.Schema<
     serializers.CompletionCreateParamsNonStreamingResponseFormat.Raw,
     Letta.CompletionCreateParamsNonStreamingResponseFormat
-> = core.serialization.undiscriminatedUnion([ResponseFormatText, ResponseFormatJsonObject, ResponseFormatJsonSchema]);
+> = core.serialization.undiscriminatedUnion([ResponseFormatText, ResponseFormatJsonSchema, ResponseFormatJsonObject]);
 
 export declare namespace CompletionCreateParamsNonStreamingResponseFormat {
-    export type Raw = ResponseFormatText.Raw | ResponseFormatJsonObject.Raw | ResponseFormatJsonSchema.Raw;
+    export type Raw = ResponseFormatText.Raw | ResponseFormatJsonSchema.Raw | ResponseFormatJsonObject.Raw;
 }

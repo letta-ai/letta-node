@@ -34,5 +34,6 @@ export interface CompletionCreateParamsNonStreaming {
     topLogprobs?: number;
     topP?: number;
     user?: string;
+    webSearchOptions?: Letta.WebSearchOptions;
     stream?: boolean;
 }
