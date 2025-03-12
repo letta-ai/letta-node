@@ -16,6 +16,7 @@ export const Identity: core.serialization.ObjectSchema<serializers.Identity.Raw,
         identityType: core.serialization.property("identity_type", IdentityType),
         projectId: core.serialization.property("project_id", core.serialization.string().optional()),
         agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string())),
+        blockIds: core.serialization.property("block_ids", core.serialization.list(core.serialization.string())),
         properties: core.serialization.list(IdentityProperty).optional(),
     });
 
@@ -27,6 +28,7 @@ export declare namespace Identity {
         identity_type: IdentityType.Raw;
         project_id?: string | null;
         agent_ids: string[];
+        block_ids: string[];
         properties?: IdentityProperty.Raw[] | null;
     }
 }

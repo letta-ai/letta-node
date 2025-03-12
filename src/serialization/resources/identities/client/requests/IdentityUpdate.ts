@@ -17,6 +17,10 @@ export const IdentityUpdate: core.serialization.Schema<serializers.IdentityUpdat
             "agent_ids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        blockIds: core.serialization.property(
+            "block_ids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         properties: core.serialization.list(IdentityProperty).optional(),
     });
 
@@ -26,6 +30,7 @@ export declare namespace IdentityUpdate {
         name?: string | null;
         identity_type?: IdentityType.Raw | null;
         agent_ids?: string[] | null;
+        block_ids?: string[] | null;
         properties?: IdentityProperty.Raw[] | null;
     }
 }

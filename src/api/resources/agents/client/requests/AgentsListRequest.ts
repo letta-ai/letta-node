@@ -50,7 +50,7 @@ export interface AgentsListRequest {
     /**
      * Search agents by identifier id
      */
-    identifierId?: string;
+    identityId?: string;
     /**
      * Search agents by identifier keys
      */

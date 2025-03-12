@@ -18,6 +18,10 @@ export const IdentityCreate: core.serialization.ObjectSchema<serializers.Identit
             "agent_ids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        blockIds: core.serialization.property(
+            "block_ids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         properties: core.serialization.list(IdentityProperty).optional(),
     });
 
@@ -28,6 +32,7 @@ export declare namespace IdentityCreate {
         identity_type: IdentityType.Raw;
         project_id?: string | null;
         agent_ids?: string[] | null;
+        block_ids?: string[] | null;
         properties?: IdentityProperty.Raw[] | null;
     }
 }

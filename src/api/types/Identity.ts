@@ -17,6 +17,8 @@ export interface Identity {
     projectId?: string;
     /** The IDs of the agents associated with the identity. */
     agentIds: string[];
+    /** The IDs of the blocks associated with the identity. */
+    blockIds: string[];
     /** List of properties associated with the identity */
     properties?: Letta.IdentityProperty[];
 }

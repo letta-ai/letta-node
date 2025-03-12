@@ -19,4 +19,12 @@ export interface BlocksListRequest {
      * Name of the block
      */
     name?: string;
+    /**
+     * Search agents by identifier id
+     */
+    identityId?: string;
+    /**
+     * Search agents by identifier keys
+     */
+    identifierKeys?: string | string[];
 }
