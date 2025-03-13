@@ -11,13 +11,16 @@ export const UpdateSystemMessage: core.serialization.ObjectSchema<
     serializers.UpdateSystemMessage.Raw,
     Letta.UpdateSystemMessage
 > = core.serialization.object({
+    messageType: core.serialization.property(
+        "message_type",
+        core.serialization.stringLiteral("system_message").optional(),
+    ),
     content: UpdateSystemMessageContent,
-    messageType: core.serialization.property("message_type", core.serialization.stringLiteral("system_message")),
 });
 
 export declare namespace UpdateSystemMessage {
     export interface Raw {
+        message_type?: "system_message" | null;
         content: UpdateSystemMessageContent.Raw;
-        message_type: "system_message";
     }
 }

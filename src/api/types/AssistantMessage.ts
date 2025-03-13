@@ -4,9 +4,18 @@
 
 import * as Letta from "../index";
 
+/**
+ * A message sent by the LLM in response to user input. Used in the LLM context.
+ *
+ * Args:
+ *     id (str): The ID of the message
+ *     date (datetime): The date the message was created in ISO format
+ *     content (Union[str, List[LettaMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)
+ */
 export interface AssistantMessage {
     id: string;
     date: Date;
     messageType: "assistant_message";
+    /** The message content sent by the agent (can be a string or an array of content parts) */
     content: Letta.AssistantMessageContent;
 }

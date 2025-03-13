@@ -5,6 +5,7 @@
 import * as Letta from "../index";
 
 export interface UpdateSystemMessage {
+    messageType?: "system_message";
+    /** The message content sent by the system (can be a string or an array of content parts) */
     content: Letta.UpdateSystemMessageContent;
-    messageType: "system_message";
 }

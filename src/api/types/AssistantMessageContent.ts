@@ -4,4 +4,7 @@
 
 import * as Letta from "../index";
 
-export type AssistantMessageContent = string | Letta.TextContent[];
+/**
+ * The message content sent by the agent (can be a string or an array of content parts)
+ */
+export type AssistantMessageContent = Letta.ComponentsSchemasTextContent[] | string;

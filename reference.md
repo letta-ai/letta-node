@@ -5837,8 +5837,12 @@ Update the details of a message associated with an agent.
 
 ```typescript
 await client.agents.messages.modify("agent_id", "message_id", {
-    content: "content",
-    messageType: "system_message",
+    content: [
+        {
+            type: "text",
+            text: "text",
+        },
+    ],
 });
 ```
 

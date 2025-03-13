@@ -4,4 +4,7 @@
 
 import * as Letta from "../index";
 
-export type SystemMessageContent = string | Letta.TextContent[];
+/**
+ * The message content sent by the system (can be a string or an array of content parts)
+ */
+export type SystemMessageContent = Letta.ComponentsSchemasTextContent[] | string;

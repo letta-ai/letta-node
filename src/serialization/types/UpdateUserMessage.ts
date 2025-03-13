@@ -11,13 +11,16 @@ export const UpdateUserMessage: core.serialization.ObjectSchema<
     serializers.UpdateUserMessage.Raw,
     Letta.UpdateUserMessage
 > = core.serialization.object({
+    messageType: core.serialization.property(
+        "message_type",
+        core.serialization.stringLiteral("user_message").optional(),
+    ),
     content: UpdateUserMessageContent,
-    messageType: core.serialization.property("message_type", core.serialization.stringLiteral("user_message")),
 });
 
 export declare namespace UpdateUserMessage {
     export interface Raw {
+        message_type?: "user_message" | null;
         content: UpdateUserMessageContent.Raw;
-        message_type: "user_message";
     }
 }

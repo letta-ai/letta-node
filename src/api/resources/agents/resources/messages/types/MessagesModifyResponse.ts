@@ -5,7 +5,9 @@
 import * as Letta from "../../../../../index";
 
 export type MessagesModifyResponse =
-    | Letta.UpdateSystemMessage
-    | Letta.UpdateUserMessage
-    | Letta.UpdateReasoningMessage
-    | Letta.UpdateAssistantMessage;
+    | Letta.SystemMessage
+    | Letta.UserMessage
+    | Letta.ReasoningMessage
+    | Letta.ToolCallMessage
+    | Letta.ToolReturnMessage
+    | Letta.AssistantMessage;

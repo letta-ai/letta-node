@@ -5,25 +5,31 @@
 import * as serializers from "../../../../../index";
 import * as Letta from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { UpdateSystemMessage } from "../../../../../types/UpdateSystemMessage";
-import { UpdateUserMessage } from "../../../../../types/UpdateUserMessage";
-import { UpdateReasoningMessage } from "../../../../../types/UpdateReasoningMessage";
-import { UpdateAssistantMessage } from "../../../../../types/UpdateAssistantMessage";
+import { SystemMessage } from "../../../../../types/SystemMessage";
+import { UserMessage } from "../../../../../types/UserMessage";
+import { ReasoningMessage } from "../../../../../types/ReasoningMessage";
+import { ToolCallMessage } from "../../../../../types/ToolCallMessage";
+import { ToolReturnMessage } from "../../../../../types/ToolReturnMessage";
+import { AssistantMessage } from "../../../../../types/AssistantMessage";
 
 export const MessagesModifyResponse: core.serialization.Schema<
     serializers.agents.MessagesModifyResponse.Raw,
     Letta.agents.MessagesModifyResponse
 > = core.serialization.undiscriminatedUnion([
-    UpdateSystemMessage,
-    UpdateUserMessage,
-    UpdateReasoningMessage,
-    UpdateAssistantMessage,
+    SystemMessage,
+    UserMessage,
+    ReasoningMessage,
+    ToolCallMessage,
+    ToolReturnMessage,
+    AssistantMessage,
 ]);
 
 export declare namespace MessagesModifyResponse {
     export type Raw =
-        | UpdateSystemMessage.Raw
-        | UpdateUserMessage.Raw
-        | UpdateReasoningMessage.Raw
-        | UpdateAssistantMessage.Raw;
+        | SystemMessage.Raw
+        | UserMessage.Raw
+        | ReasoningMessage.Raw
+        | ToolCallMessage.Raw
+        | ToolReturnMessage.Raw
+        | AssistantMessage.Raw;
 }

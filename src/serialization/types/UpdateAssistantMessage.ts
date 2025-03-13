@@ -11,13 +11,16 @@ export const UpdateAssistantMessage: core.serialization.ObjectSchema<
     serializers.UpdateAssistantMessage.Raw,
     Letta.UpdateAssistantMessage
 > = core.serialization.object({
+    messageType: core.serialization.property(
+        "message_type",
+        core.serialization.stringLiteral("assistant_message").optional(),
+    ),
     content: UpdateAssistantMessageContent,
-    messageType: core.serialization.property("message_type", core.serialization.stringLiteral("assistant_message")),
 });
 
 export declare namespace UpdateAssistantMessage {
     export interface Raw {
+        message_type?: "assistant_message" | null;
         content: UpdateAssistantMessageContent.Raw;
-        message_type: "assistant_message";
     }
 }

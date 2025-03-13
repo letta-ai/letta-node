@@ -5,19 +5,21 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { UpdateReasoningMessageReasoning } from "./UpdateReasoningMessageReasoning";
 
 export const UpdateReasoningMessage: core.serialization.ObjectSchema<
     serializers.UpdateReasoningMessage.Raw,
     Letta.UpdateReasoningMessage
 > = core.serialization.object({
-    reasoning: UpdateReasoningMessageReasoning,
-    messageType: core.serialization.property("message_type", core.serialization.stringLiteral("reasoning_message")),
+    reasoning: core.serialization.string(),
+    messageType: core.serialization.property(
+        "message_type",
+        core.serialization.stringLiteral("reasoning_message").optional(),
+    ),
 });
 
 export declare namespace UpdateReasoningMessage {
     export interface Raw {
-        reasoning: UpdateReasoningMessageReasoning.Raw;
-        message_type: "reasoning_message";
+        reasoning: string;
+        message_type?: "reasoning_message" | null;
     }
 }

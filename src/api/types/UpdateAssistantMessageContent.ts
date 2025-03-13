@@ -4,4 +4,7 @@
 
 import * as Letta from "../index";
 
-export type UpdateAssistantMessageContent = string | Letta.TextContent[];
+/**
+ * The message content sent by the assistant (can be a string or an array of content parts)
+ */
+export type UpdateAssistantMessageContent = Letta.ComponentsSchemasTextContent[] | string;

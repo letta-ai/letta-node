@@ -4,4 +4,7 @@
 
 import * as Letta from "../index";
 
-export type UserMessageContent = string | Letta.TextContent[];
+/**
+ * The message content sent by the user (can be a string or an array of content parts)
+ */
+export type UserMessageContent = Letta.ComponentsSchemasTextContent[] | string;

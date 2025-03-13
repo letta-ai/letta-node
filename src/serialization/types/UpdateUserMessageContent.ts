@@ -5,13 +5,16 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { TextContent } from "./TextContent";
+import { ComponentsSchemasTextContent } from "./ComponentsSchemasTextContent";
 
 export const UpdateUserMessageContent: core.serialization.Schema<
     serializers.UpdateUserMessageContent.Raw,
     Letta.UpdateUserMessageContent
-> = core.serialization.undiscriminatedUnion([core.serialization.string(), core.serialization.list(TextContent)]);
+> = core.serialization.undiscriminatedUnion([
+    core.serialization.list(ComponentsSchemasTextContent),
+    core.serialization.string(),
+]);
 
 export declare namespace UpdateUserMessageContent {
-    export type Raw = string | TextContent.Raw[];
+    export type Raw = ComponentsSchemasTextContent.Raw[] | string;
 }

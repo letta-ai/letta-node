@@ -4,4 +4,4 @@
 
 import * as Letta from "../index";
 
-export type UpdateReasoningMessageReasoning = string | Letta.TextContent[];
+export type ComponentsSchemasTextContent = Letta.TextContent;
