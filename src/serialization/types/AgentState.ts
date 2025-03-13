@@ -13,6 +13,7 @@ import { Memory } from "./Memory";
 import { Tool } from "./Tool";
 import { Source } from "./Source";
 import { AgentEnvironmentVariable } from "./AgentEnvironmentVariable";
+import { Group } from "./Group";
 
 export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.Raw, Letta.AgentState> =
     core.serialization.object({
@@ -55,6 +56,7 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
             "message_buffer_autoclear",
             core.serialization.boolean().optional(),
         ),
+        multiAgentGroup: core.serialization.property("multi_agent_group", Group.optional()),
     });
 
 export declare namespace AgentState {
@@ -83,5 +85,6 @@ export declare namespace AgentState {
         base_template_id?: string | null;
         identity_ids?: string[] | null;
         message_buffer_autoclear?: boolean | null;
+        multi_agent_group?: Group.Raw | null;
     }
 }

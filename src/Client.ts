@@ -7,6 +7,7 @@ import * as core from "./core";
 import { Tools } from "./api/resources/tools/client/Client";
 import { Sources } from "./api/resources/sources/client/Client";
 import { Agents } from "./api/resources/agents/client/Client";
+import { Groups } from "./api/resources/groups/client/Client";
 import { Identities } from "./api/resources/identities/client/Client";
 import { Models } from "./api/resources/models/client/Client";
 import { Blocks } from "./api/resources/blocks/client/Client";
@@ -44,6 +45,7 @@ export class LettaClient {
     protected _tools: Tools | undefined;
     protected _sources: Sources | undefined;
     protected _agents: Agents | undefined;
+    protected _groups: Groups | undefined;
     protected _identities: Identities | undefined;
     protected _models: Models | undefined;
     protected _blocks: Blocks | undefined;
@@ -68,6 +70,10 @@ export class LettaClient {
 
     public get agents(): Agents {
         return (this._agents ??= new Agents(this._options));
+    }
+
+    public get groups(): Groups {
+        return (this._groups ??= new Groups(this._options));
     }
 
     public get identities(): Identities {

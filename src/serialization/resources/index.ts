@@ -7,6 +7,7 @@ export * from "./voice/types";
 export * as templates from "./templates";
 export * from "./templates/types";
 export * as sources from "./sources";
+export * as groups from "./groups";
 export * as identities from "./identities";
 export * as models from "./models";
 export * as blocks from "./blocks";

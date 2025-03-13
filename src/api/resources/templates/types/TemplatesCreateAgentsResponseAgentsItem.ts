@@ -30,4 +30,5 @@ export interface TemplatesCreateAgentsResponseAgentsItem {
     baseTemplateId?: Letta.TemplatesCreateAgentsResponseAgentsItemBaseTemplateId;
     identityIds?: Letta.TemplatesCreateAgentsResponseAgentsItemIdentityIds;
     messageBufferAutoclear?: Letta.TemplatesCreateAgentsResponseAgentsItemMessageBufferAutoclear;
+    multiAgentGroup?: Letta.TemplatesCreateAgentsResponseAgentsItemMultiAgentGroup;
 }

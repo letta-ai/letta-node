@@ -26,6 +26,7 @@ import { TemplatesCreateAgentsResponseAgentsItemTemplateId } from "./TemplatesCr
 import { TemplatesCreateAgentsResponseAgentsItemBaseTemplateId } from "./TemplatesCreateAgentsResponseAgentsItemBaseTemplateId";
 import { TemplatesCreateAgentsResponseAgentsItemIdentityIds } from "./TemplatesCreateAgentsResponseAgentsItemIdentityIds";
 import { TemplatesCreateAgentsResponseAgentsItemMessageBufferAutoclear } from "./TemplatesCreateAgentsResponseAgentsItemMessageBufferAutoclear";
+import { TemplatesCreateAgentsResponseAgentsItemMultiAgentGroup } from "./TemplatesCreateAgentsResponseAgentsItemMultiAgentGroup";
 
 export const TemplatesCreateAgentsResponseAgentsItem: core.serialization.ObjectSchema<
     serializers.TemplatesCreateAgentsResponseAgentsItem.Raw,
@@ -86,6 +87,10 @@ export const TemplatesCreateAgentsResponseAgentsItem: core.serialization.ObjectS
         "message_buffer_autoclear",
         TemplatesCreateAgentsResponseAgentsItemMessageBufferAutoclear.optional(),
     ),
+    multiAgentGroup: core.serialization.property(
+        "multi_agent_group",
+        TemplatesCreateAgentsResponseAgentsItemMultiAgentGroup.optional(),
+    ),
 });
 
 export declare namespace TemplatesCreateAgentsResponseAgentsItem {
@@ -115,5 +120,6 @@ export declare namespace TemplatesCreateAgentsResponseAgentsItem {
         base_template_id?: TemplatesCreateAgentsResponseAgentsItemBaseTemplateId.Raw | null;
         identity_ids?: TemplatesCreateAgentsResponseAgentsItemIdentityIds.Raw | null;
         message_buffer_autoclear?: TemplatesCreateAgentsResponseAgentsItemMessageBufferAutoclear.Raw | null;
+        multi_agent_group?: TemplatesCreateAgentsResponseAgentsItemMultiAgentGroup.Raw | null;
     }
 }

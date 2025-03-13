@@ -26,6 +26,7 @@ import { AgentsSearchResponseAgentsItemTemplateId } from "./AgentsSearchResponse
 import { AgentsSearchResponseAgentsItemBaseTemplateId } from "./AgentsSearchResponseAgentsItemBaseTemplateId";
 import { AgentsSearchResponseAgentsItemIdentityIds } from "./AgentsSearchResponseAgentsItemIdentityIds";
 import { AgentsSearchResponseAgentsItemMessageBufferAutoclear } from "./AgentsSearchResponseAgentsItemMessageBufferAutoclear";
+import { AgentsSearchResponseAgentsItemMultiAgentGroup } from "./AgentsSearchResponseAgentsItemMultiAgentGroup";
 
 export const AgentsSearchResponseAgentsItem: core.serialization.ObjectSchema<
     serializers.AgentsSearchResponseAgentsItem.Raw,
@@ -71,6 +72,10 @@ export const AgentsSearchResponseAgentsItem: core.serialization.ObjectSchema<
         "message_buffer_autoclear",
         AgentsSearchResponseAgentsItemMessageBufferAutoclear.optional(),
     ),
+    multiAgentGroup: core.serialization.property(
+        "multi_agent_group",
+        AgentsSearchResponseAgentsItemMultiAgentGroup.optional(),
+    ),
     template: core.serialization.string().optional(),
 });
 
@@ -101,6 +106,7 @@ export declare namespace AgentsSearchResponseAgentsItem {
         base_template_id?: AgentsSearchResponseAgentsItemBaseTemplateId.Raw | null;
         identity_ids?: AgentsSearchResponseAgentsItemIdentityIds.Raw | null;
         message_buffer_autoclear?: AgentsSearchResponseAgentsItemMessageBufferAutoclear.Raw | null;
+        multi_agent_group?: AgentsSearchResponseAgentsItemMultiAgentGroup.Raw | null;
         template?: string | null;
     }
 }

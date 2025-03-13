@@ -30,5 +30,6 @@ export interface AgentsSearchResponseAgentsItem {
     baseTemplateId?: Letta.AgentsSearchResponseAgentsItemBaseTemplateId;
     identityIds?: Letta.AgentsSearchResponseAgentsItemIdentityIds;
     messageBufferAutoclear?: Letta.AgentsSearchResponseAgentsItemMessageBufferAutoclear;
+    multiAgentGroup?: Letta.AgentsSearchResponseAgentsItemMultiAgentGroup;
     template?: string;
 }

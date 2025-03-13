@@ -9,5 +9,4 @@ export * as sources from "./sources";
 export * as blocks from "./blocks";
 export * as passages from "./passages";
 export * from "./passages/client/requests";
-export * from "./messages/client/requests";
 export * from "./templates/client/requests";

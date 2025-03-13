@@ -50,4 +50,6 @@ export interface Message {
     otid?: string;
     /** Tool execution return information for prior tool calls */
     toolReturns?: Letta.ToolReturn[];
+    /** The multi-agent group that the message was sent in */
+    groupId?: string;
 }
