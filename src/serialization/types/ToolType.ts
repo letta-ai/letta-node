@@ -13,6 +13,7 @@ export const ToolType: core.serialization.Schema<serializers.ToolType.Raw, Letta
     "letta_multi_agent_core",
     "external_composio",
     "external_langchain",
+    "external_mcp",
 ]);
 
 export declare namespace ToolType {
@@ -22,5 +23,6 @@ export declare namespace ToolType {
         | "letta_memory_core"
         | "letta_multi_agent_core"
         | "external_composio"
-        | "external_langchain";
+        | "external_langchain"
+        | "external_mcp";
 }

@@ -16,6 +16,7 @@ export const AgentsSearchResponseAgentsItemToolsItemToolType: core.serialization
     "letta_multi_agent_core",
     "external_composio",
     "external_langchain",
+    "external_mcp",
 ]);
 
 export declare namespace AgentsSearchResponseAgentsItemToolsItemToolType {
@@ -25,5 +26,6 @@ export declare namespace AgentsSearchResponseAgentsItemToolsItemToolType {
         | "letta_memory_core"
         | "letta_multi_agent_core"
         | "external_composio"
-        | "external_langchain";
+        | "external_langchain"
+        | "external_mcp";
 }

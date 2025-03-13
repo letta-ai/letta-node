@@ -16,6 +16,7 @@ export const TemplatesCreateAgentsResponseAgentsItemToolsItemToolType: core.seri
     "letta_multi_agent_core",
     "external_composio",
     "external_langchain",
+    "external_mcp",
 ]);
 
 export declare namespace TemplatesCreateAgentsResponseAgentsItemToolsItemToolType {
@@ -25,5 +26,6 @@ export declare namespace TemplatesCreateAgentsResponseAgentsItemToolsItemToolTyp
         | "letta_memory_core"
         | "letta_multi_agent_core"
         | "external_composio"
-        | "external_langchain";
+        | "external_langchain"
+        | "external_mcp";
 }

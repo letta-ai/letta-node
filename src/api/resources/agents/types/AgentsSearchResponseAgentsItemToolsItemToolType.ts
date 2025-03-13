@@ -8,7 +8,8 @@ export type AgentsSearchResponseAgentsItemToolsItemToolType =
     | "letta_memory_core"
     | "letta_multi_agent_core"
     | "external_composio"
-    | "external_langchain";
+    | "external_langchain"
+    | "external_mcp";
 export const AgentsSearchResponseAgentsItemToolsItemToolType = {
     Custom: "custom",
     LettaCore: "letta_core",
@@ -16,4 +17,5 @@ export const AgentsSearchResponseAgentsItemToolsItemToolType = {
     LettaMultiAgentCore: "letta_multi_agent_core",
     ExternalComposio: "external_composio",
     ExternalLangchain: "external_langchain",
+    ExternalMcp: "external_mcp",
 } as const;
