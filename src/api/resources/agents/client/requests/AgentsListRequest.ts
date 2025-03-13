@@ -16,7 +16,7 @@ export interface AgentsListRequest {
      */
     tags?: string | string[];
     /**
-     * If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
+     * If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed-in tags.
      */
     matchAllTags?: boolean;
     /**
@@ -36,23 +36,27 @@ export interface AgentsListRequest {
      */
     queryText?: string;
     /**
-     * Search agents by project id
+     * Search agents by project ID
      */
     projectId?: string;
     /**
-     * Search agents by template id
+     * Search agents by template ID
      */
     templateId?: string;
     /**
-     * Search agents by base template id
+     * Search agents by base template ID
      */
     baseTemplateId?: string;
     /**
-     * Search agents by identifier id
+     * Search agents by identity ID
      */
     identityId?: string;
     /**
      * Search agents by identifier keys
      */
     identifierKeys?: string | string[];
+    /**
+     * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
+     */
+    includeRelationships?: string | string[];
 }

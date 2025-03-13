@@ -1282,7 +1282,9 @@ await client.sources.create({
 <dd>
 
 List all agents associated with a given user.
-This endpoint retrieves a list of all agents and their configurations associated with the specified user ID.
+
+This endpoint retrieves a list of all agents and their configurations
+associated with the specified user ID.
 
 </dd>
 </dl>
