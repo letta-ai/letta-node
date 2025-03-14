@@ -5,21 +5,22 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { SystemMessageContent } from "./SystemMessageContent";
 
 export const SystemMessage: core.serialization.ObjectSchema<serializers.SystemMessage.Raw, Letta.SystemMessage> =
     core.serialization.object({
         id: core.serialization.string(),
         date: core.serialization.date(),
+        name: core.serialization.string().optional(),
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("system_message")),
-        content: SystemMessageContent,
+        content: core.serialization.string(),
     });
 
 export declare namespace SystemMessage {
     export interface Raw {
         id: string;
         date: string;
+        name?: string | null;
         message_type: "system_message";
-        content: SystemMessageContent.Raw;
+        content: string;
     }
 }

@@ -5,7 +5,6 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { UpdateSystemMessageContent } from "./UpdateSystemMessageContent";
 
 export const UpdateSystemMessage: core.serialization.ObjectSchema<
     serializers.UpdateSystemMessage.Raw,
@@ -15,12 +14,12 @@ export const UpdateSystemMessage: core.serialization.ObjectSchema<
         "message_type",
         core.serialization.stringLiteral("system_message").optional(),
     ),
-    content: UpdateSystemMessageContent,
+    content: core.serialization.string(),
 });
 
 export declare namespace UpdateSystemMessage {
     export interface Raw {
         message_type?: "system_message" | null;
-        content: UpdateSystemMessageContent.Raw;
+        content: string;
     }
 }

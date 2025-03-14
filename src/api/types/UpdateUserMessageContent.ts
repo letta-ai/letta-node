@@ -5,6 +5,6 @@
 import * as Letta from "../index";
 
 /**
- * The message content sent by the user (can be a string or an array of content parts)
+ * The message content sent by the user (can be a string or an array of multi-modal content parts)
  */
 export type UpdateUserMessageContent = Letta.ComponentsSchemasTextContent[] | string;

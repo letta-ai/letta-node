@@ -5,13 +5,16 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { TextContent } from "./TextContent";
+import { LettaMessageContentUnion } from "./LettaMessageContentUnion";
 
 export const MessageCreateContent: core.serialization.Schema<
     serializers.MessageCreateContent.Raw,
     Letta.MessageCreateContent
-> = core.serialization.undiscriminatedUnion([core.serialization.string(), core.serialization.list(TextContent)]);
+> = core.serialization.undiscriminatedUnion([
+    core.serialization.list(LettaMessageContentUnion),
+    core.serialization.string(),
+]);
 
 export declare namespace MessageCreateContent {
-    export type Raw = string | TextContent.Raw[];
+    export type Raw = LettaMessageContentUnion.Raw[] | string;
 }

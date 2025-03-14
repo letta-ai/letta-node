@@ -89,8 +89,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.64",
-                "User-Agent": "@letta-ai/letta-client/0.1.64",
+                "X-Fern-SDK-Version": "0.1.65",
+                "User-Agent": "@letta-ai/letta-client/0.1.65",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -162,7 +162,10 @@ export class Messages {
      *     await client.agents.messages.create("agent_id", {
      *         messages: [{
      *                 role: "user",
-     *                 content: "content"
+     *                 content: [{
+     *                         type: "text",
+     *                         text: "text"
+     *                     }]
      *             }]
      *     })
      */
@@ -182,8 +185,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.64",
-                "User-Agent": "@letta-ai/letta-client/0.1.64",
+                "X-Fern-SDK-Version": "0.1.65",
+                "User-Agent": "@letta-ai/letta-client/0.1.65",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -255,10 +258,7 @@ export class Messages {
      *
      * @example
      *     await client.agents.messages.modify("agent_id", "message_id", {
-     *         content: [{
-     *                 type: "text",
-     *                 text: "text"
-     *             }]
+     *         content: "content"
      *     })
      */
     public async modify(
@@ -278,8 +278,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.64",
-                "User-Agent": "@letta-ai/letta-client/0.1.64",
+                "X-Fern-SDK-Version": "0.1.65",
+                "User-Agent": "@letta-ai/letta-client/0.1.65",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -360,8 +360,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.64",
-                "User-Agent": "@letta-ai/letta-client/0.1.64",
+                "X-Fern-SDK-Version": "0.1.65",
+                "User-Agent": "@letta-ai/letta-client/0.1.65",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -446,7 +446,10 @@ export class Messages {
      *     await client.agents.messages.createAsync("agent_id", {
      *         messages: [{
      *                 role: "user",
-     *                 content: "content"
+     *                 content: [{
+     *                         type: "text",
+     *                         text: "text"
+     *                     }]
      *             }]
      *     })
      */
@@ -466,8 +469,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.64",
-                "User-Agent": "@letta-ai/letta-client/0.1.64",
+                "X-Fern-SDK-Version": "0.1.65",
+                "User-Agent": "@letta-ai/letta-client/0.1.65",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

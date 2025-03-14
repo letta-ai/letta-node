@@ -10,11 +10,13 @@ import * as Letta from "../index";
  * Args:
  *     id (str): The ID of the message
  *     date (datetime): The date the message was created in ISO format
- *     content (Union[str, List[LettaMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)
+ *     name (Optional[str]): The name of the sender of the message
+ *     content (Union[str, List[LettaAssistantMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)
  */
 export interface AssistantMessage {
     id: string;
     date: Date;
+    name?: string;
     messageType: "assistant_message";
     /** The message content sent by the agent (can be a string or an array of content parts) */
     content: Letta.AssistantMessageContent;

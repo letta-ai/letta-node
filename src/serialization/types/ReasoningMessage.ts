@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { ReasoningMessageSource } from "./ReasoningMessageSource";
 
 export const ReasoningMessage: core.serialization.ObjectSchema<
     serializers.ReasoningMessage.Raw,
@@ -12,7 +13,9 @@ export const ReasoningMessage: core.serialization.ObjectSchema<
 > = core.serialization.object({
     id: core.serialization.string(),
     date: core.serialization.date(),
+    name: core.serialization.string().optional(),
     messageType: core.serialization.property("message_type", core.serialization.stringLiteral("reasoning_message")),
+    source: ReasoningMessageSource.optional(),
     reasoning: core.serialization.string(),
 });
 
@@ -20,7 +23,9 @@ export declare namespace ReasoningMessage {
     export interface Raw {
         id: string;
         date: string;
+        name?: string | null;
         message_type: "reasoning_message";
+        source?: ReasoningMessageSource.Raw | null;
         reasoning: string;
     }
 }

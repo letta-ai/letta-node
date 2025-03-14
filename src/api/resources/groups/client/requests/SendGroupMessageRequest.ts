@@ -11,7 +11,10 @@ import * as Letta from "../../../../index";
  *         body: {
  *             messages: [{
  *                     role: "user",
- *                     content: "content"
+ *                     content: [{
+ *                             type: "text",
+ *                             text: "text"
+ *                         }]
  *                 }]
  *         }
  *     }

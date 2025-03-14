@@ -6,6 +6,6 @@ import * as Letta from "../index";
 
 export interface UpdateUserMessage {
     messageType?: "user_message";
-    /** The message content sent by the user (can be a string or an array of content parts) */
+    /** The message content sent by the user (can be a string or an array of multi-modal content parts) */
     content: Letta.UpdateUserMessageContent;
 }

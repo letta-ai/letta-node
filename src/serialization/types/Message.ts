@@ -6,7 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { MessageRole } from "./MessageRole";
-import { TextContent } from "./TextContent";
+import { MessageContentItem } from "./MessageContentItem";
 import { ChatCompletionMessageToolCall } from "./ChatCompletionMessageToolCall";
 import { ToolReturn } from "./ToolReturn";
 
@@ -18,7 +18,7 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
         id: core.serialization.string().optional(),
         role: MessageRole,
-        content: core.serialization.list(TextContent).optional(),
+        content: core.serialization.list(MessageContentItem).optional(),
         agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
         model: core.serialization.string().optional(),
         name: core.serialization.string().optional(),
@@ -41,7 +41,7 @@ export declare namespace Message {
         updated_at?: string | null;
         id?: string | null;
         role: MessageRole.Raw;
-        content?: TextContent.Raw[] | null;
+        content?: MessageContentItem.Raw[] | null;
         agent_id?: string | null;
         model?: string | null;
         name?: string | null;

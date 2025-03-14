@@ -7,4 +7,4 @@ import * as Letta from "../index";
 /**
  * The content of the message.
  */
-export type MessageCreateContent = string | Letta.TextContent[];
+export type MessageCreateContent = Letta.LettaMessageContentUnion[] | string;

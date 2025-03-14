@@ -10,11 +10,13 @@ import * as Letta from "../index";
  * Args:
  *     id (str): The ID of the message
  *     date (datetime): The date the message was created in ISO format
+ *     name (Optional[str]): The name of the sender of the message
  *     tool_call (Union[ToolCall, ToolCallDelta]): The tool call
  */
 export interface ToolCallMessage {
     id: string;
     date: Date;
+    name?: string;
     messageType: "tool_call_message";
     toolCall: Letta.ToolCallMessageToolCall;
 }

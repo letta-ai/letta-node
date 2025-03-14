@@ -2446,7 +2446,12 @@ await client.groups.sendGroupMessage("group_id", {
         messages: [
             {
                 role: "user",
-                content: "content",
+                content: [
+                    {
+                        type: "text",
+                        text: "text",
+                    },
+                ],
             },
         ],
     },
@@ -2527,7 +2532,12 @@ await client.groups.sendGroupMessageStreaming("group_id", {
     messages: [
         {
             role: "user",
-            content: "content",
+            content: [
+                {
+                    type: "text",
+                    text: "text",
+                },
+            ],
         },
     ],
 });
@@ -5894,7 +5904,12 @@ await client.agents.messages.create("agent_id", {
     messages: [
         {
             role: "user",
-            content: "content",
+            content: [
+                {
+                    type: "text",
+                    text: "text",
+                },
+            ],
         },
     ],
 });
@@ -5969,12 +5984,7 @@ Update the details of a message associated with an agent.
 
 ```typescript
 await client.agents.messages.modify("agent_id", "message_id", {
-    content: [
-        {
-            type: "text",
-            text: "text",
-        },
-    ],
+    content: "content",
 });
 ```
 
@@ -6060,7 +6070,12 @@ const response = await client.agents.messages.createStream("agent_id", {
     messages: [
         {
             role: "user",
-            content: "content",
+            content: [
+                {
+                    type: "text",
+                    text: "text",
+                },
+            ],
         },
     ],
 });
@@ -6142,7 +6157,12 @@ await client.agents.messages.createAsync("agent_id", {
     messages: [
         {
             role: "user",
-            content: "content",
+            content: [
+                {
+                    type: "text",
+                    text: "text",
+                },
+            ],
         },
     ],
 });

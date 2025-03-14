@@ -10,12 +10,14 @@ import * as Letta from "../index";
  * Args:
  *     id (str): The ID of the message
  *     date (datetime): The date the message was created in ISO format
- *     content (Union[str, List[LettaMessageContentUnion]]): The message content sent by the user (can be a string or an array of content parts)
+ *     name (Optional[str]): The name of the sender of the message
+ *     content (Union[str, List[LettaUserMessageContentUnion]]): The message content sent by the user (can be a string or an array of multi-modal content parts)
  */
 export interface UserMessage {
     id: string;
     date: Date;
+    name?: string;
     messageType: "user_message";
-    /** The message content sent by the user (can be a string or an array of content parts) */
+    /** The message content sent by the user (can be a string or an array of multi-modal content parts) */
     content: Letta.UserMessageContent;
 }
