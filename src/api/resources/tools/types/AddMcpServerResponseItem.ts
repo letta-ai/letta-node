@@ -4,4 +4,4 @@
 
 import * as Letta from "../../../index";
 
-export type ListMcpServersResponseValue = Letta.SseServerConfig | Letta.StdioServerConfig;
+export type AddMcpServerResponseItem = Letta.StdioServerConfig | Letta.SseServerConfig;

@@ -4,7 +4,7 @@
 
 import * as Letta from "../index";
 
-export interface LocalServerConfig {
+export interface StdioServerConfig {
     /** The name of the server */
     serverName: string;
     type?: Letta.McpServerType;
@@ -12,4 +12,6 @@ export interface LocalServerConfig {
     command: string;
     /** The arguments to pass to the command */
     args: string[];
+    /** Environment variables to set */
+    env?: Record<string, string | undefined>;
 }

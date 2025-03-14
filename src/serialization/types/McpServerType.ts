@@ -7,8 +7,8 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 
 export const McpServerType: core.serialization.Schema<serializers.McpServerType.Raw, Letta.McpServerType> =
-    core.serialization.enum_(["sse", "local"]);
+    core.serialization.enum_(["sse", "stdio"]);
 
 export declare namespace McpServerType {
-    export type Raw = "sse" | "local";
+    export type Raw = "sse" | "stdio";
 }

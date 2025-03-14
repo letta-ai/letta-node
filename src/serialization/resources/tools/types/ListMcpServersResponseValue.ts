@@ -6,13 +6,13 @@ import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { SseServerConfig } from "../../../types/SseServerConfig";
-import { LocalServerConfig } from "../../../types/LocalServerConfig";
+import { StdioServerConfig } from "../../../types/StdioServerConfig";
 
 export const ListMcpServersResponseValue: core.serialization.Schema<
     serializers.ListMcpServersResponseValue.Raw,
     Letta.ListMcpServersResponseValue
-> = core.serialization.undiscriminatedUnion([SseServerConfig, LocalServerConfig]);
+> = core.serialization.undiscriminatedUnion([SseServerConfig, StdioServerConfig]);
 
 export declare namespace ListMcpServersResponseValue {
-    export type Raw = SseServerConfig.Raw | LocalServerConfig.Raw;
+    export type Raw = SseServerConfig.Raw | StdioServerConfig.Raw;
 }

@@ -751,6 +751,73 @@ await client.tools.listMcpServers();
 </dl>
 </details>
 
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">addMcpServer</a>({ ...params }) -> Letta.AddMcpServerResponseItem[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a new MCP server to the Letta MCP server config
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.addMcpServer({
+    serverName: "server_name",
+    command: "command",
+    args: ["args"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.AddMcpServerRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listMcpToolsByServer</a>(mcpServerName) -> Letta.McpTool[]</code></summary>
 <dl>
 <dd>
@@ -826,7 +893,7 @@ await client.tools.listMcpToolsByServer("mcp_server_name");
 <dl>
 <dd>
 
-Add a new MCP tool by server + tool name
+Register a new MCP tool as a Letta server by MCP server + tool name
 
 </dd>
 </dl>
@@ -867,6 +934,69 @@ await client.tools.addMcpTool("mcp_server_name", "mcp_tool_name");
 <dd>
 
 **mcpToolName:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">deleteMcpServer</a>(mcpServerName) -> Letta.DeleteMcpServerResponseItem[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a new MCP server to the Letta MCP server config
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.deleteMcpServer("mcp_server_name");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerName:** `string`
 
 </dd>
 </dl>
