@@ -1528,7 +1528,7 @@ await client.agents.create();
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">downloadAgentSerialized</a>(agentId) -> unknown</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">exportAgentSerialized</a>(agentId) -> Letta.AgentSchema</code></summary>
 <dl>
 <dd>
 
@@ -1540,7 +1540,7 @@ await client.agents.create();
 <dl>
 <dd>
 
-Download the serialized JSON representation of an agent.
+Export the serialized JSON representation of an agent.
 
 </dd>
 </dl>
@@ -1556,7 +1556,7 @@ Download the serialized JSON representation of an agent.
 <dd>
 
 ```typescript
-await client.agents.downloadAgentSerialized("agent_id");
+await client.agents.exportAgentSerialized("agent_id");
 ```
 
 </dd>
@@ -1591,7 +1591,7 @@ await client.agents.downloadAgentSerialized("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">uploadAgentSerialized</a>(file, { ...params }) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">importAgentSerialized</a>(file, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
 
@@ -1603,7 +1603,7 @@ await client.agents.downloadAgentSerialized("agent_id");
 <dl>
 <dd>
 
-Upload a serialized agent JSON file and recreate the agent in the system.
+Import a serialized agent file and recreate the agent in the system.
 
 </dd>
 </dl>
@@ -1619,7 +1619,7 @@ Upload a serialized agent JSON file and recreate the agent in the system.
 <dd>
 
 ```typescript
-await client.agents.uploadAgentSerialized(fs.createReadStream("/path/to/your/file"), {});
+await client.agents.importAgentSerialized(fs.createReadStream("/path/to/your/file"), {});
 ```
 
 </dd>
@@ -1643,7 +1643,7 @@ await client.agents.uploadAgentSerialized(fs.createReadStream("/path/to/your/fil
 <dl>
 <dd>
 
-**request:** `Letta.BodyUploadAgentSerialized`
+**request:** `Letta.BodyImportAgentSerialized`
 
 </dd>
 </dl>

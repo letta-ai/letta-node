@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface BodyUploadAgentSerialized {
+export interface BodyImportAgentSerialized {
     /**
      * If set to True, appends "_copy" to the end of the agent name.
      */
