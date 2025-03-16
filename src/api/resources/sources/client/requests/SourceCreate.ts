@@ -13,7 +13,11 @@ import * as Letta from "../../../../index";
 export interface SourceCreate {
     /** The name of the source. */
     name: string;
-    /** The embedding configuration used by the source. */
+    /** The hande for the embedding config used by the source. */
+    embedding?: string;
+    /** The chunk size of the embedding. */
+    embeddingChunkSize?: number;
+    /** (Legacy) The embedding configuration used by the source. */
     embeddingConfig?: Letta.EmbeddingConfig;
     /** The description of the source. */
     description?: string;
