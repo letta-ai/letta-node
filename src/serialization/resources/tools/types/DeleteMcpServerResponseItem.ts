@@ -5,14 +5,14 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { StdioServerConfig } from "../../../types/StdioServerConfig";
 import { SseServerConfig } from "../../../types/SseServerConfig";
+import { StdioServerConfig } from "../../../types/StdioServerConfig";
 
 export const DeleteMcpServerResponseItem: core.serialization.Schema<
     serializers.DeleteMcpServerResponseItem.Raw,
     Letta.DeleteMcpServerResponseItem
-> = core.serialization.undiscriminatedUnion([StdioServerConfig, SseServerConfig]);
+> = core.serialization.undiscriminatedUnion([SseServerConfig, StdioServerConfig]);
 
 export declare namespace DeleteMcpServerResponseItem {
-    export type Raw = StdioServerConfig.Raw | SseServerConfig.Raw;
+    export type Raw = SseServerConfig.Raw | StdioServerConfig.Raw;
 }

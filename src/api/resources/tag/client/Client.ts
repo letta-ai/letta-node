@@ -70,8 +70,8 @@ export class Tag {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.66",
-                "User-Agent": "@letta-ai/letta-client/0.1.66",
+                "X-Fern-SDK-Version": "0.1.67",
+                "User-Agent": "@letta-ai/letta-client/0.1.67",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

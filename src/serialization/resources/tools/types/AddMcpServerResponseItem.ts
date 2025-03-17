@@ -5,14 +5,14 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { StdioServerConfig } from "../../../types/StdioServerConfig";
 import { SseServerConfig } from "../../../types/SseServerConfig";
+import { StdioServerConfig } from "../../../types/StdioServerConfig";
 
 export const AddMcpServerResponseItem: core.serialization.Schema<
     serializers.AddMcpServerResponseItem.Raw,
     Letta.AddMcpServerResponseItem
-> = core.serialization.undiscriminatedUnion([StdioServerConfig, SseServerConfig]);
+> = core.serialization.undiscriminatedUnion([SseServerConfig, StdioServerConfig]);
 
 export declare namespace AddMcpServerResponseItem {
-    export type Raw = StdioServerConfig.Raw | SseServerConfig.Raw;
+    export type Raw = SseServerConfig.Raw | StdioServerConfig.Raw;
 }
