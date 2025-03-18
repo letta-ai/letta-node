@@ -59,14 +59,14 @@ export class Voice {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/voice/${encodeURIComponent(agentId)}/chat/completions`,
+                `v1/voice-beta/${encodeURIComponent(agentId)}/chat/completions`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.70",
-                "User-Agent": "@letta-ai/letta-client/0.1.70",
+                "X-Fern-SDK-Version": "0.1.71",
+                "User-Agent": "@letta-ai/letta-client/0.1.71",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -113,7 +113,7 @@ export class Voice {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/voice/{agent_id}/chat/completions.",
+                    "Timeout exceeded when calling POST /v1/voice-beta/{agent_id}/chat/completions.",
                 );
             case "unknown":
                 throw new errors.LettaError({
