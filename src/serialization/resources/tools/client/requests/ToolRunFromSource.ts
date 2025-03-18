@@ -20,6 +20,10 @@ export const ToolRunFromSource: core.serialization.Schema<serializers.ToolRunFro
             "args_json_schema",
             core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
+        jsonSchema: core.serialization.property(
+            "json_schema",
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        ),
     });
 
 export declare namespace ToolRunFromSource {
@@ -30,5 +34,6 @@ export declare namespace ToolRunFromSource {
         name?: string | null;
         source_type?: string | null;
         args_json_schema?: Record<string, unknown> | null;
+        json_schema?: Record<string, unknown> | null;
     }
 }
