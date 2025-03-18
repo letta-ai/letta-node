@@ -18,4 +18,5 @@ export interface TemplatesCreateAgentsResponseAgentsItemToolsItem {
     returnCharLimit?: number;
     createdById?: Letta.TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById;
     lastUpdatedById?: Letta.TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById;
+    metadata?: Letta.TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata;
 }

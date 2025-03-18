@@ -110,6 +110,8 @@ export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedByIdItem
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedByIdItem";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemMetadataItem";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolsItem";
 export * from "./TemplatesCreateAgentsResponseAgentsItemSourcesItemId";
 export * from "./TemplatesCreateAgentsResponseAgentsItemSourcesItemDescriptionItem";

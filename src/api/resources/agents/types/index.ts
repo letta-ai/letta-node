@@ -117,6 +117,8 @@ export * from "./AgentsSearchResponseAgentsItemToolsItemCreatedByIdItem";
 export * from "./AgentsSearchResponseAgentsItemToolsItemCreatedById";
 export * from "./AgentsSearchResponseAgentsItemToolsItemLastUpdatedByIdItem";
 export * from "./AgentsSearchResponseAgentsItemToolsItemLastUpdatedById";
+export * from "./AgentsSearchResponseAgentsItemToolsItemMetadataItem";
+export * from "./AgentsSearchResponseAgentsItemToolsItemMetadata";
 export * from "./AgentsSearchResponseAgentsItemToolsItem";
 export * from "./AgentsSearchResponseAgentsItemSourcesItemId";
 export * from "./AgentsSearchResponseAgentsItemSourcesItemDescriptionItem";

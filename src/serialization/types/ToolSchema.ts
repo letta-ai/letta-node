@@ -21,6 +21,10 @@ export const ToolSchema: core.serialization.ObjectSchema<serializers.ToolSchema.
         tags: core.serialization.list(core.serialization.string()),
         toolType: core.serialization.property("tool_type", core.serialization.string()),
         updatedAt: core.serialization.property("updated_at", core.serialization.string()),
+        metadata: core.serialization.property(
+            "metadata_",
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        ),
     });
 
 export declare namespace ToolSchema {
@@ -37,5 +41,6 @@ export declare namespace ToolSchema {
         tags: string[];
         tool_type: string;
         updated_at: string;
+        metadata_?: Record<string, unknown> | null;
     }
 }

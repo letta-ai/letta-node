@@ -15,6 +15,7 @@ import { TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchema } from "./Te
 import { TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema";
 import { TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById";
 import { TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById";
+import { TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata } from "./TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata";
 
 export const TemplatesCreateAgentsResponseAgentsItemToolsItem: core.serialization.ObjectSchema<
     serializers.TemplatesCreateAgentsResponseAgentsItemToolsItem.Raw,
@@ -57,6 +58,10 @@ export const TemplatesCreateAgentsResponseAgentsItemToolsItem: core.serializatio
         "last_updated_by_id",
         TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById.optional(),
     ),
+    metadata: core.serialization.property(
+        "metadata_",
+        TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata.optional(),
+    ),
 });
 
 export declare namespace TemplatesCreateAgentsResponseAgentsItemToolsItem {
@@ -74,5 +79,6 @@ export declare namespace TemplatesCreateAgentsResponseAgentsItemToolsItem {
         return_char_limit?: number | null;
         created_by_id?: TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById.Raw | null;
         last_updated_by_id?: TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById.Raw | null;
+        metadata_?: TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata.Raw | null;
     }
 }

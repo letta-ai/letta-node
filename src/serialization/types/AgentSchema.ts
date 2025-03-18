@@ -29,7 +29,7 @@ export const AgentSchema: core.serialization.ObjectSchema<serializers.AgentSchem
         messages: core.serialization.list(MessageSchema),
         metadata: core.serialization.property(
             "metadata_",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()),
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
         multiAgentGroup: core.serialization.property("multi_agent_group", core.serialization.unknown()),
         name: core.serialization.string(),
@@ -58,7 +58,7 @@ export declare namespace AgentSchema {
         llm_config: LlmConfig.Raw;
         message_buffer_autoclear: boolean;
         messages: MessageSchema.Raw[];
-        metadata_: Record<string, unknown>;
+        metadata_?: Record<string, unknown> | null;
         multi_agent_group?: unknown;
         name: string;
         system: string;

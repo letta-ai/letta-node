@@ -18,4 +18,5 @@ export interface AgentsSearchResponseAgentsItemToolsItem {
     returnCharLimit?: number;
     createdById?: Letta.AgentsSearchResponseAgentsItemToolsItemCreatedById;
     lastUpdatedById?: Letta.AgentsSearchResponseAgentsItemToolsItemLastUpdatedById;
+    metadata?: Letta.AgentsSearchResponseAgentsItemToolsItemMetadata;
 }

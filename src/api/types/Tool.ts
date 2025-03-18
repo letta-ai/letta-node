@@ -39,4 +39,6 @@ export interface Tool {
     createdById?: string;
     /** The id of the user that made this Tool. */
     lastUpdatedById?: string;
+    /** A dictionary of additional metadata for the tool. */
+    metadata?: Record<string, unknown>;
 }

@@ -17,4 +17,5 @@ export interface ToolSchema {
     tags: string[];
     toolType: string;
     updatedAt: string;
+    metadata?: Record<string, unknown>;
 }

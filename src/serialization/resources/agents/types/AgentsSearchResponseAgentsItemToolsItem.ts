@@ -15,6 +15,7 @@ import { AgentsSearchResponseAgentsItemToolsItemJsonSchema } from "./AgentsSearc
 import { AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema } from "./AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema";
 import { AgentsSearchResponseAgentsItemToolsItemCreatedById } from "./AgentsSearchResponseAgentsItemToolsItemCreatedById";
 import { AgentsSearchResponseAgentsItemToolsItemLastUpdatedById } from "./AgentsSearchResponseAgentsItemToolsItemLastUpdatedById";
+import { AgentsSearchResponseAgentsItemToolsItemMetadata } from "./AgentsSearchResponseAgentsItemToolsItemMetadata";
 
 export const AgentsSearchResponseAgentsItemToolsItem: core.serialization.ObjectSchema<
     serializers.AgentsSearchResponseAgentsItemToolsItem.Raw,
@@ -54,6 +55,7 @@ export const AgentsSearchResponseAgentsItemToolsItem: core.serialization.ObjectS
         "last_updated_by_id",
         AgentsSearchResponseAgentsItemToolsItemLastUpdatedById.optional(),
     ),
+    metadata: core.serialization.property("metadata_", AgentsSearchResponseAgentsItemToolsItemMetadata.optional()),
 });
 
 export declare namespace AgentsSearchResponseAgentsItemToolsItem {
@@ -71,5 +73,6 @@ export declare namespace AgentsSearchResponseAgentsItemToolsItem {
         return_char_limit?: number | null;
         created_by_id?: AgentsSearchResponseAgentsItemToolsItemCreatedById.Raw | null;
         last_updated_by_id?: AgentsSearchResponseAgentsItemToolsItemLastUpdatedById.Raw | null;
+        metadata_?: AgentsSearchResponseAgentsItemToolsItemMetadata.Raw | null;
     }
 }
