@@ -6,14 +6,14 @@ import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolNameType: core.serialization.Schema<
-    serializers.TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolNameType.Raw,
-    Letta.TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolNameType
+export const TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFourType: core.serialization.Schema<
+    serializers.TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFourType.Raw,
+    Letta.TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFourType
 > = core.serialization.undiscriminatedUnion([
     core.serialization.stringLiteral("continue_loop"),
     core.serialization.unknown(),
 ]);
 
-export declare namespace TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolNameType {
+export declare namespace TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFourType {
     export type Raw = "continue_loop" | unknown;
 }

@@ -9,4 +9,5 @@ export type TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem =
     | Letta.TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOne
     | Letta.TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwo
     | Letta.TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMapping
-    | Letta.TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName;
+    | Letta.TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour
+    | Letta.TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit;

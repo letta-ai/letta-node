@@ -9,7 +9,8 @@ import { TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildren } from
 import { TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOne } from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOne";
 import { TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwo } from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwo";
 import { TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMapping } from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMapping";
-import { TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName } from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName";
+import { TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour } from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour";
+import { TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit } from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit";
 
 export const TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem: core.serialization.Schema<
     serializers.TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem.Raw,
@@ -19,7 +20,8 @@ export const TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem: core.seri
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOne,
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwo,
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMapping,
-    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName,
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour,
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit,
 ]);
 
 export declare namespace TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem {
@@ -28,5 +30,6 @@ export declare namespace TemplatesCreateAgentsResponseAgentsItemToolRulesItemIte
         | TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOne.Raw
         | TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwo.Raw
         | TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMapping.Raw
-        | TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName.Raw;
+        | TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour.Raw
+        | TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit.Raw;
 }

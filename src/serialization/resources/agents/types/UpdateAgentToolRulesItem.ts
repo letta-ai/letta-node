@@ -9,6 +9,7 @@ import { ConditionalToolRule } from "../../../types/ConditionalToolRule";
 import { ChildToolRule } from "../../../types/ChildToolRule";
 import { ContinueToolRule } from "../../../types/ContinueToolRule";
 import { TerminalToolRule } from "../../../types/TerminalToolRule";
+import { MaxCountPerStepToolRule } from "../../../types/MaxCountPerStepToolRule";
 import { InitToolRule } from "../../../types/InitToolRule";
 
 export const UpdateAgentToolRulesItem: core.serialization.Schema<
@@ -19,6 +20,7 @@ export const UpdateAgentToolRulesItem: core.serialization.Schema<
     ChildToolRule,
     ContinueToolRule,
     TerminalToolRule,
+    MaxCountPerStepToolRule,
     InitToolRule,
 ]);
 
@@ -28,5 +30,6 @@ export declare namespace UpdateAgentToolRulesItem {
         | ChildToolRule.Raw
         | ContinueToolRule.Raw
         | TerminalToolRule.Raw
+        | MaxCountPerStepToolRule.Raw
         | InitToolRule.Raw;
 }

@@ -24,8 +24,10 @@ export * from "./AgentsSearchResponseAgentsItemToolRulesItemChildOutputMappingDe
 export * from "./AgentsSearchResponseAgentsItemToolRulesItemChildOutputMappingDefaultChild";
 export * from "./AgentsSearchResponseAgentsItemToolRulesItemChildOutputMappingRequireOutputMapping";
 export * from "./AgentsSearchResponseAgentsItemToolRulesItemChildOutputMapping";
-export * from "./AgentsSearchResponseAgentsItemToolRulesItemToolNameType";
-export * from "./AgentsSearchResponseAgentsItemToolRulesItemToolName";
+export * from "./AgentsSearchResponseAgentsItemToolRulesItemFourType";
+export * from "./AgentsSearchResponseAgentsItemToolRulesItemFour";
+export * from "./AgentsSearchResponseAgentsItemToolRulesItemMaxCountLimitType";
+export * from "./AgentsSearchResponseAgentsItemToolRulesItemMaxCountLimit";
 export * from "./AgentsSearchResponseAgentsItemToolRulesItem";
 export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemChildrenType";
 export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemChildren";
@@ -38,8 +40,10 @@ export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMappi
 export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMappingDefaultChild";
 export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMappingRequireOutputMapping";
 export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping";
-export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemToolNameType";
-export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemToolName";
+export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemFourType";
+export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemFour";
+export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemMaxCountLimitType";
+export * from "./AgentsSearchResponseAgentsItemToolRulesItemItemMaxCountLimit";
 export * from "./AgentsSearchResponseAgentsItemToolRulesItemItem";
 export * from "./AgentsSearchResponseAgentsItemToolRules";
 export * from "./AgentsSearchResponseAgentsItemMessageIdsItem";

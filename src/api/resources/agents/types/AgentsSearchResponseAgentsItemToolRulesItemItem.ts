@@ -9,4 +9,5 @@ export type AgentsSearchResponseAgentsItemToolRulesItemItem =
     | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemOne
     | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemTwo
     | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping
-    | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemToolName;
+    | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemFour
+    | Letta.AgentsSearchResponseAgentsItemToolRulesItemItemMaxCountLimit;

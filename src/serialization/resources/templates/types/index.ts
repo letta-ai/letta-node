@@ -17,8 +17,10 @@ export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemChildOutput
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemChildOutputMappingDefaultChild";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemChildOutputMappingRequireOutputMapping";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemChildOutputMapping";
-export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolNameType";
-export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolName";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemFourType";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemFour";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemMaxCountLimitType";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemMaxCountLimit";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItem";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildrenType";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildren";
@@ -31,8 +33,10 @@ export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOu
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMappingDefaultChild";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMappingRequireOutputMapping";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMapping";
-export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolNameType";
-export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFourType";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimitType";
+export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem";
 export * from "./TemplatesCreateAgentsResponseAgentsItemToolRules";
 export * from "./TemplatesCreateAgentsResponseAgentsItemMessageIdsItem";
