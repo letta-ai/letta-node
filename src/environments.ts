@@ -3,7 +3,7 @@
  */
 
 export const LettaEnvironment = {
-    LettaCloud: "https://app.letta.com",
+    LettaCloud: "https://api.letta.com",
     SelfHosted: "http://localhost:8283",
 } as const;
 
