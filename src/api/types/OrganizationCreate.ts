@@ -5,4 +5,6 @@
 export interface OrganizationCreate {
     /** The name of the organization. */
     name?: string;
+    /** Whether the organization has access to privileged tools. */
+    privilegedTools?: boolean;
 }

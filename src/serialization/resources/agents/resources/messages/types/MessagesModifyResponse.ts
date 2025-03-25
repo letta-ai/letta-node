@@ -8,6 +8,7 @@ import * as core from "../../../../../../core";
 import { SystemMessage } from "../../../../../types/SystemMessage";
 import { UserMessage } from "../../../../../types/UserMessage";
 import { ReasoningMessage } from "../../../../../types/ReasoningMessage";
+import { HiddenReasoningMessage } from "../../../../../types/HiddenReasoningMessage";
 import { ToolCallMessage } from "../../../../../types/ToolCallMessage";
 import { ToolReturnMessage } from "../../../../../types/ToolReturnMessage";
 import { AssistantMessage } from "../../../../../types/AssistantMessage";
@@ -19,6 +20,7 @@ export const MessagesModifyResponse: core.serialization.Schema<
     SystemMessage,
     UserMessage,
     ReasoningMessage,
+    HiddenReasoningMessage,
     ToolCallMessage,
     ToolReturnMessage,
     AssistantMessage,
@@ -29,6 +31,7 @@ export declare namespace MessagesModifyResponse {
         | SystemMessage.Raw
         | UserMessage.Raw
         | ReasoningMessage.Raw
+        | HiddenReasoningMessage.Raw
         | ToolCallMessage.Raw
         | ToolReturnMessage.Raw
         | AssistantMessage.Raw;

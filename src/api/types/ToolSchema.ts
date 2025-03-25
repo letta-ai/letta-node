@@ -8,7 +8,6 @@ export interface ToolSchema {
     argsJsonSchema?: unknown;
     createdAt: string;
     description: string;
-    isDeleted: boolean;
     jsonSchema: Letta.ToolJsonSchema;
     name: string;
     returnCharLimit: number;

@@ -5,7 +5,6 @@
 export interface ToolEnvVarSchema {
     createdAt: string;
     description?: string;
-    isDeleted: boolean;
     key: string;
     updatedAt: string;
     value: string;

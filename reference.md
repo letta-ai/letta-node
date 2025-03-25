@@ -515,7 +515,7 @@ await client.tools.runToolFromSource({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listComposioApps</a>() -> Letta.AppModel[]</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listComposioApps</a>({ ...params }) -> Letta.AppModel[]</code></summary>
 <dl>
 <dd>
 
@@ -555,6 +555,14 @@ await client.tools.listComposioApps();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ListComposioAppsRequest`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -696,7 +704,7 @@ await client.tools.addComposioTool("composio_action_name");
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listMcpServers</a>() -> Record<string, Letta.ListMcpServersResponseValue></code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listMcpServers</a>({ ...params }) -> Record<string, Letta.ListMcpServersResponseValue></code></summary>
 <dl>
 <dd>
 
@@ -736,6 +744,14 @@ await client.tools.listMcpServers();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ListMcpServersRequest`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -4548,13 +4564,15 @@ await client.tag.listTags();
 
 ```typescript
 await client.voice.createVoiceChatCompletions("agent_id", {
-    messages: [
-        {
-            content: "content",
-            role: "developer",
-        },
-    ],
-    model: "model",
+    body: {
+        messages: [
+            {
+                content: "content",
+                role: "developer",
+            },
+        ],
+        model: "model",
+    },
 });
 ```
 

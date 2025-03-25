@@ -36,4 +36,8 @@ export interface LlmConfig {
     temperature?: number;
     /** The maximum number of tokens to generate. If not set, the model will use its default value. */
     maxTokens?: number;
+    /** Whether or not the model should use extended thinking if it is a 'reasoning' style model */
+    enableReasoner?: boolean;
+    /** Configurable thinking budget for extended thinking, only used if enable_reasoner is True. Minimum value is 1024. */
+    maxReasoningTokens?: number;
 }

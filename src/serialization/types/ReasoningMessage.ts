@@ -17,6 +17,7 @@ export const ReasoningMessage: core.serialization.ObjectSchema<
     messageType: core.serialization.property("message_type", core.serialization.stringLiteral("reasoning_message")),
     source: ReasoningMessageSource.optional(),
     reasoning: core.serialization.string(),
+    signature: core.serialization.string().optional(),
 });
 
 export declare namespace ReasoningMessage {
@@ -27,5 +28,6 @@ export declare namespace ReasoningMessage {
         message_type: "reasoning_message";
         source?: ReasoningMessageSource.Raw | null;
         reasoning: string;
+        signature?: string | null;
     }
 }

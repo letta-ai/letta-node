@@ -8,6 +8,7 @@ export type MessagesModifyResponse =
     | Letta.SystemMessage
     | Letta.UserMessage
     | Letta.ReasoningMessage
+    | Letta.HiddenReasoningMessage
     | Letta.ToolCallMessage
     | Letta.ToolReturnMessage
     | Letta.AssistantMessage;

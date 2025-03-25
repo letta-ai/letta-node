@@ -28,4 +28,5 @@ export * from "./providers/client/requests";
 export * from "./runs/client/requests";
 export * from "./steps/client/requests";
 export * from "./tag/client/requests";
+export * from "./voice/client/requests";
 export * from "./templates/client/requests";

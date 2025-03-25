@@ -19,11 +19,8 @@ export const AgentSchema: core.serialization.ObjectSchema<serializers.AgentSchem
         agentType: core.serialization.property("agent_type", core.serialization.string()),
         coreMemory: core.serialization.property("core_memory", core.serialization.list(CoreMemoryBlockSchema)),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
-        description: core.serialization.string(),
+        description: core.serialization.string().optional(),
         embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
-        groups: core.serialization.list(core.serialization.unknown()),
-        identities: core.serialization.list(core.serialization.unknown()),
-        isDeleted: core.serialization.property("is_deleted", core.serialization.boolean()),
         llmConfig: core.serialization.property("llm_config", LlmConfig),
         messageBufferAutoclear: core.serialization.property("message_buffer_autoclear", core.serialization.boolean()),
         messages: core.serialization.list(MessageSchema),
@@ -50,11 +47,8 @@ export declare namespace AgentSchema {
         agent_type: string;
         core_memory: CoreMemoryBlockSchema.Raw[];
         created_at: string;
-        description: string;
+        description?: string | null;
         embedding_config: EmbeddingConfig.Raw;
-        groups: unknown[];
-        identities: unknown[];
-        is_deleted: boolean;
         llm_config: LlmConfig.Raw;
         message_buffer_autoclear: boolean;
         messages: MessageSchema.Raw[];

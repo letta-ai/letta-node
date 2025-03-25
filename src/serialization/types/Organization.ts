@@ -11,6 +11,7 @@ export const Organization: core.serialization.ObjectSchema<serializers.Organizat
         id: core.serialization.string().optional(),
         name: core.serialization.string().optional(),
         createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
+        privilegedTools: core.serialization.property("privileged_tools", core.serialization.boolean().optional()),
     });
 
 export declare namespace Organization {
@@ -18,5 +19,6 @@ export declare namespace Organization {
         id?: string | null;
         name?: string | null;
         created_at?: string | null;
+        privileged_tools?: boolean | null;
     }
 }

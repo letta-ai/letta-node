@@ -42,11 +42,13 @@ export class Voice {
      *
      * @example
      *     await client.voice.createVoiceChatCompletions("agent_id", {
-     *         messages: [{
-     *                 content: "content",
-     *                 role: "developer"
-     *             }],
-     *         model: "model"
+     *         body: {
+     *             messages: [{
+     *                     content: "content",
+     *                     role: "developer"
+     *                 }],
+     *             model: "model"
+     *         }
      *     })
      */
     public async createVoiceChatCompletions(
@@ -54,6 +56,7 @@ export class Voice {
         request: Letta.CreateVoiceChatCompletionsRequest,
         requestOptions?: Voice.RequestOptions,
     ): Promise<unknown> {
+        const { userId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -65,16 +68,17 @@ export class Voice {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.72",
-                "User-Agent": "@letta-ai/letta-client/0.1.72",
+                "X-Fern-SDK-Version": "0.1.73",
+                "User-Agent": "@letta-ai/letta-client/0.1.73",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "user-id": userId != null ? userId : undefined,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CreateVoiceChatCompletionsRequest.jsonOrThrow(request, {
+            body: serializers.CreateVoiceChatCompletionsRequestBody.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,

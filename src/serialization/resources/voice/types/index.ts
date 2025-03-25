@@ -1,1 +1,1 @@
-export * from "./CreateVoiceChatCompletionsRequest";
+export * from "./CreateVoiceChatCompletionsRequestBody";

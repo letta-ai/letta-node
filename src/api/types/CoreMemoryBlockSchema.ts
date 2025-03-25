@@ -5,8 +5,6 @@
 export interface CoreMemoryBlockSchema {
     createdAt: string;
     description?: string;
-    identities: unknown[];
-    isDeleted: boolean;
     isTemplate: boolean;
     label: string;
     limit: number;

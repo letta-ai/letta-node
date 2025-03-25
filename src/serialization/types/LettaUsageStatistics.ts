@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { Message } from "./Message";
 
 export const LettaUsageStatistics: core.serialization.ObjectSchema<
     serializers.LettaUsageStatistics.Raw,
@@ -18,6 +19,10 @@ export const LettaUsageStatistics: core.serialization.ObjectSchema<
     promptTokens: core.serialization.property("prompt_tokens", core.serialization.number().optional()),
     totalTokens: core.serialization.property("total_tokens", core.serialization.number().optional()),
     stepCount: core.serialization.property("step_count", core.serialization.number().optional()),
+    stepsMessages: core.serialization.property(
+        "steps_messages",
+        core.serialization.list(core.serialization.list(Message)).optional(),
+    ),
 });
 
 export declare namespace LettaUsageStatistics {
@@ -27,5 +32,6 @@ export declare namespace LettaUsageStatistics {
         prompt_tokens?: number | null;
         total_tokens?: number | null;
         step_count?: number | null;
+        steps_messages?: Message.Raw[][] | null;
     }
 }

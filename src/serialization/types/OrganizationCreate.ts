@@ -11,10 +11,12 @@ export const OrganizationCreate: core.serialization.ObjectSchema<
     Letta.OrganizationCreate
 > = core.serialization.object({
     name: core.serialization.string().optional(),
+    privilegedTools: core.serialization.property("privileged_tools", core.serialization.boolean().optional()),
 });
 
 export declare namespace OrganizationCreate {
     export interface Raw {
         name?: string | null;
+        privileged_tools?: boolean | null;
     }
 }

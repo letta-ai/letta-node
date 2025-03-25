@@ -59,4 +59,8 @@ export interface AgentsListRequest {
      * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
      */
     includeRelationships?: string | string[];
+    /**
+     * Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+     */
+    ascending?: boolean;
 }

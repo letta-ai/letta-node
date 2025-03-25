@@ -14,6 +14,7 @@ import * as Letta from "../index";
  *     source (Literal["reasoner_model", "non_reasoner_model"]): Whether the reasoning
  *         content was generated natively by a reasoner model or derived via prompting
  *     reasoning (str): The internal reasoning of the agent
+ *     signature (Optional[str]): The model-generated signature of the reasoning step
  */
 export interface ReasoningMessage {
     id: string;
@@ -22,4 +23,5 @@ export interface ReasoningMessage {
     messageType: "reasoning_message";
     source?: Letta.ReasoningMessageSource;
     reasoning: string;
+    signature?: string;
 }

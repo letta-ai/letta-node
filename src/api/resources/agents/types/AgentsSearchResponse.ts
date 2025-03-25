@@ -5,6 +5,6 @@
 import * as Letta from "../../../index";
 
 export interface AgentsSearchResponse {
-    agents: Letta.AgentsSearchResponseAgentsItem[];
+    agents: Letta.AgentState[];
     nextCursor?: string;
 }

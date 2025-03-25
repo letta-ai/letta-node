@@ -10,13 +10,21 @@ export interface PassagesListRequest {
     /**
      * Unique ID of the memory to start the query range at.
      */
-    after?: number;
+    after?: string;
     /**
      * Unique ID of the memory to end the query range at.
      */
-    before?: number;
+    before?: string;
     /**
      * How many results to include in the response.
      */
     limit?: number;
+    /**
+     * Search passages by text
+     */
+    search?: string;
+    /**
+     * Whether to sort passages oldest to newest (True, default) or newest to oldest (False)
+     */
+    ascending?: boolean;
 }

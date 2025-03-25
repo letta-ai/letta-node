@@ -53,6 +53,9 @@ export const CreateAgentRequest: core.serialization.Schema<
     embedding: core.serialization.string().optional(),
     contextWindowLimit: core.serialization.property("context_window_limit", core.serialization.number().optional()),
     embeddingChunkSize: core.serialization.property("embedding_chunk_size", core.serialization.number().optional()),
+    maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
+    maxReasoningTokens: core.serialization.property("max_reasoning_tokens", core.serialization.number().optional()),
+    enableReasoner: core.serialization.property("enable_reasoner", core.serialization.boolean().optional()),
     fromTemplate: core.serialization.property("from_template", core.serialization.string().optional()),
     template: core.serialization.boolean().optional(),
     createAgentRequestProject: core.serialization.property("project", core.serialization.string().optional()),
@@ -101,6 +104,9 @@ export declare namespace CreateAgentRequest {
         embedding?: string | null;
         context_window_limit?: number | null;
         embedding_chunk_size?: number | null;
+        max_tokens?: number | null;
+        max_reasoning_tokens?: number | null;
+        enable_reasoner?: boolean | null;
         from_template?: string | null;
         template?: boolean | null;
         project?: string | null;

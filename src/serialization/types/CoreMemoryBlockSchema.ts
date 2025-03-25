@@ -12,8 +12,6 @@ export const CoreMemoryBlockSchema: core.serialization.ObjectSchema<
 > = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string()),
     description: core.serialization.string().optional(),
-    identities: core.serialization.list(core.serialization.unknown()),
-    isDeleted: core.serialization.property("is_deleted", core.serialization.boolean()),
     isTemplate: core.serialization.property("is_template", core.serialization.boolean()),
     label: core.serialization.string(),
     limit: core.serialization.number(),
@@ -30,8 +28,6 @@ export declare namespace CoreMemoryBlockSchema {
     export interface Raw {
         created_at: string;
         description?: string | null;
-        identities: unknown[];
-        is_deleted: boolean;
         is_template: boolean;
         label: string;
         limit: number;

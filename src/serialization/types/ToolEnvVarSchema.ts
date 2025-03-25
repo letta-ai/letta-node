@@ -12,7 +12,6 @@ export const ToolEnvVarSchema: core.serialization.ObjectSchema<
 > = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string()),
     description: core.serialization.string().optional(),
-    isDeleted: core.serialization.property("is_deleted", core.serialization.boolean()),
     key: core.serialization.string(),
     updatedAt: core.serialization.property("updated_at", core.serialization.string()),
     value: core.serialization.string(),
@@ -22,7 +21,6 @@ export declare namespace ToolEnvVarSchema {
     export interface Raw {
         created_at: string;
         description?: string | null;
-        is_deleted: boolean;
         key: string;
         updated_at: string;
         value: string;

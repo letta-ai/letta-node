@@ -8,6 +8,7 @@ import * as core from "../../core";
 import { SystemMessage } from "./SystemMessage";
 import { UserMessage } from "./UserMessage";
 import { ReasoningMessage } from "./ReasoningMessage";
+import { HiddenReasoningMessage } from "./HiddenReasoningMessage";
 import { ToolCallMessage } from "./ToolCallMessage";
 import { ToolReturnMessage } from "./ToolReturnMessage";
 import { AssistantMessage } from "./AssistantMessage";
@@ -17,6 +18,7 @@ export const LettaMessageUnion: core.serialization.Schema<serializers.LettaMessa
         SystemMessage,
         UserMessage,
         ReasoningMessage,
+        HiddenReasoningMessage,
         ToolCallMessage,
         ToolReturnMessage,
         AssistantMessage,
@@ -27,6 +29,7 @@ export declare namespace LettaMessageUnion {
         | SystemMessage.Raw
         | UserMessage.Raw
         | ReasoningMessage.Raw
+        | HiddenReasoningMessage.Raw
         | ToolCallMessage.Raw
         | ToolReturnMessage.Raw
         | AssistantMessage.Raw;

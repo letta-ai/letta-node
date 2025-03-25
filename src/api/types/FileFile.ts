@@ -5,5 +5,5 @@
 export interface FileFile {
     fileData?: string;
     fileId?: string;
-    fileName?: string;
+    filename?: string;
 }

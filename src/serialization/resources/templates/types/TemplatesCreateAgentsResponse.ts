@@ -5,17 +5,17 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { TemplatesCreateAgentsResponseAgentsItem } from "./TemplatesCreateAgentsResponseAgentsItem";
+import { AgentState } from "../../../types/AgentState";
 
 export const TemplatesCreateAgentsResponse: core.serialization.ObjectSchema<
     serializers.TemplatesCreateAgentsResponse.Raw,
     Letta.TemplatesCreateAgentsResponse
 > = core.serialization.object({
-    agents: core.serialization.list(TemplatesCreateAgentsResponseAgentsItem),
+    agents: core.serialization.list(AgentState),
 });
 
 export declare namespace TemplatesCreateAgentsResponse {
     export interface Raw {
-        agents: TemplatesCreateAgentsResponseAgentsItem.Raw[];
+        agents: AgentState.Raw[];
     }
 }

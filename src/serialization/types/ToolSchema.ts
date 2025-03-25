@@ -12,7 +12,6 @@ export const ToolSchema: core.serialization.ObjectSchema<serializers.ToolSchema.
         argsJsonSchema: core.serialization.property("args_json_schema", core.serialization.unknown()),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
         description: core.serialization.string(),
-        isDeleted: core.serialization.property("is_deleted", core.serialization.boolean()),
         jsonSchema: core.serialization.property("json_schema", ToolJsonSchema),
         name: core.serialization.string(),
         returnCharLimit: core.serialization.property("return_char_limit", core.serialization.number()),
@@ -32,7 +31,6 @@ export declare namespace ToolSchema {
         args_json_schema?: unknown;
         created_at: string;
         description: string;
-        is_deleted: boolean;
         json_schema: ToolJsonSchema.Raw;
         name: string;
         return_char_limit: number;

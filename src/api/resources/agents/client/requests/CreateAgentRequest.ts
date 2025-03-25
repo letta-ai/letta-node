@@ -54,6 +54,12 @@ export interface CreateAgentRequest {
     contextWindowLimit?: number;
     /** The embedding chunk size used by the agent. */
     embeddingChunkSize?: number;
+    /** The maximum number of tokens to generate, including reasoning step. If not set, the model will use its default value. */
+    maxTokens?: number;
+    /** The maximum number of tokens to generate for reasoning step. If not set, the model will use its default value. */
+    maxReasoningTokens?: number;
+    /** Whether to enable internal extended thinking step for a reasoner model. */
+    enableReasoner?: boolean;
     /** The template id used to configure the agent */
     fromTemplate?: string;
     /** Whether the agent is a template */

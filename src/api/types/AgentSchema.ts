@@ -8,11 +8,8 @@ export interface AgentSchema {
     agentType: string;
     coreMemory: Letta.CoreMemoryBlockSchema[];
     createdAt: string;
-    description: string;
+    description?: string;
     embeddingConfig: Letta.EmbeddingConfig;
-    groups: unknown[];
-    identities: unknown[];
-    isDeleted: boolean;
     llmConfig: Letta.LlmConfig;
     messageBufferAutoclear: boolean;
     messages: Letta.MessageSchema[];

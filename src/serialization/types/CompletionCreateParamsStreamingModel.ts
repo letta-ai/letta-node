@@ -19,11 +19,6 @@ export const CompletionCreateParamsStreamingModel: core.serialization.Schema<
     core.serialization.stringLiteral("o1-preview-2024-09-12"),
     core.serialization.stringLiteral("o1-mini"),
     core.serialization.stringLiteral("o1-mini-2024-09-12"),
-    core.serialization.stringLiteral("computer-use-preview"),
-    core.serialization.stringLiteral("computer-use-preview-2025-02-04"),
-    core.serialization.stringLiteral("computer-use-preview-2025-03-11"),
-    core.serialization.stringLiteral("gpt-4.5-preview"),
-    core.serialization.stringLiteral("gpt-4.5-preview-2025-02-27"),
     core.serialization.stringLiteral("gpt-4o"),
     core.serialization.stringLiteral("gpt-4o-2024-11-20"),
     core.serialization.stringLiteral("gpt-4o-2024-08-06"),
@@ -33,6 +28,10 @@ export const CompletionCreateParamsStreamingModel: core.serialization.Schema<
     core.serialization.stringLiteral("gpt-4o-audio-preview-2024-12-17"),
     core.serialization.stringLiteral("gpt-4o-mini-audio-preview"),
     core.serialization.stringLiteral("gpt-4o-mini-audio-preview-2024-12-17"),
+    core.serialization.stringLiteral("gpt-4o-search-preview"),
+    core.serialization.stringLiteral("gpt-4o-mini-search-preview"),
+    core.serialization.stringLiteral("gpt-4o-search-preview-2025-03-11"),
+    core.serialization.stringLiteral("gpt-4o-mini-search-preview-2025-03-11"),
     core.serialization.stringLiteral("chatgpt-4o-latest"),
     core.serialization.stringLiteral("gpt-4o-mini"),
     core.serialization.stringLiteral("gpt-4o-mini-2024-07-18"),
@@ -68,11 +67,6 @@ export declare namespace CompletionCreateParamsStreamingModel {
         | "o1-preview-2024-09-12"
         | "o1-mini"
         | "o1-mini-2024-09-12"
-        | "computer-use-preview"
-        | "computer-use-preview-2025-02-04"
-        | "computer-use-preview-2025-03-11"
-        | "gpt-4.5-preview"
-        | "gpt-4.5-preview-2025-02-27"
         | "gpt-4o"
         | "gpt-4o-2024-11-20"
         | "gpt-4o-2024-08-06"
@@ -82,6 +76,10 @@ export declare namespace CompletionCreateParamsStreamingModel {
         | "gpt-4o-audio-preview-2024-12-17"
         | "gpt-4o-mini-audio-preview"
         | "gpt-4o-mini-audio-preview-2024-12-17"
+        | "gpt-4o-search-preview"
+        | "gpt-4o-mini-search-preview"
+        | "gpt-4o-search-preview-2025-03-11"
+        | "gpt-4o-mini-search-preview-2025-03-11"
         | "chatgpt-4o-latest"
         | "gpt-4o-mini"
         | "gpt-4o-mini-2024-07-18"

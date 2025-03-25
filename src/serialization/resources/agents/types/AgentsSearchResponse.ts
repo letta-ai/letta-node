@@ -5,19 +5,19 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { AgentsSearchResponseAgentsItem } from "./AgentsSearchResponseAgentsItem";
+import { AgentState } from "../../../types/AgentState";
 
 export const AgentsSearchResponse: core.serialization.ObjectSchema<
     serializers.AgentsSearchResponse.Raw,
     Letta.AgentsSearchResponse
 > = core.serialization.object({
-    agents: core.serialization.list(AgentsSearchResponseAgentsItem),
+    agents: core.serialization.list(AgentState),
     nextCursor: core.serialization.string().optional(),
 });
 
 export declare namespace AgentsSearchResponse {
     export interface Raw {
-        agents: AgentsSearchResponseAgentsItem.Raw[];
+        agents: AgentState.Raw[];
         nextCursor?: string | null;
     }
 }

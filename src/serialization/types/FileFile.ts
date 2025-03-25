@@ -10,13 +10,13 @@ export const FileFile: core.serialization.ObjectSchema<serializers.FileFile.Raw,
     core.serialization.object({
         fileData: core.serialization.property("file_data", core.serialization.string().optional()),
         fileId: core.serialization.property("file_id", core.serialization.string().optional()),
-        fileName: core.serialization.property("file_name", core.serialization.string().optional()),
+        filename: core.serialization.string().optional(),
     });
 
 export declare namespace FileFile {
     export interface Raw {
         file_data?: string | null;
         file_id?: string | null;
-        file_name?: string | null;
+        filename?: string | null;
     }
 }

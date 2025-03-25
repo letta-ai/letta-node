@@ -5,5 +5,5 @@
 import * as Letta from "../../../index";
 
 export interface TemplatesCreateAgentsResponse {
-    agents: Letta.TemplatesCreateAgentsResponseAgentsItem[];
+    agents: Letta.AgentState[];
 }
