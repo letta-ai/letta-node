@@ -53,6 +53,8 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
             "message_buffer_autoclear",
             core.serialization.boolean().optional(),
         ),
+        model: core.serialization.string().optional(),
+        embedding: core.serialization.string().optional(),
     });
 
 export declare namespace UpdateAgent {
@@ -75,5 +77,7 @@ export declare namespace UpdateAgent {
         base_template_id?: string | null;
         identity_ids?: string[] | null;
         message_buffer_autoclear?: boolean | null;
+        model?: string | null;
+        embedding?: string | null;
     }
 }
