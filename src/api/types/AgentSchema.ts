@@ -19,7 +19,7 @@ export interface AgentSchema {
     system: string;
     tags: Letta.TagSchema[];
     toolExecEnvironmentVariables: Letta.ToolEnvVarSchema[];
-    toolRules: Letta.ToolRuleSchema[];
+    toolRules: Letta.AgentSchemaToolRulesItem[];
     tools: Letta.ToolSchema[];
     updatedAt: string;
     version: string;

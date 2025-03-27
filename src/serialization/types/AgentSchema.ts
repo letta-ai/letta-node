@@ -11,7 +11,7 @@ import { LlmConfig } from "./LlmConfig";
 import { MessageSchema } from "./MessageSchema";
 import { TagSchema } from "./TagSchema";
 import { ToolEnvVarSchema } from "./ToolEnvVarSchema";
-import { ToolRuleSchema } from "./ToolRuleSchema";
+import { AgentSchemaToolRulesItem } from "./AgentSchemaToolRulesItem";
 import { ToolSchema } from "./ToolSchema";
 
 export const AgentSchema: core.serialization.ObjectSchema<serializers.AgentSchema.Raw, Letta.AgentSchema> =
@@ -36,7 +36,7 @@ export const AgentSchema: core.serialization.ObjectSchema<serializers.AgentSchem
             "tool_exec_environment_variables",
             core.serialization.list(ToolEnvVarSchema),
         ),
-        toolRules: core.serialization.property("tool_rules", core.serialization.list(ToolRuleSchema)),
+        toolRules: core.serialization.property("tool_rules", core.serialization.list(AgentSchemaToolRulesItem)),
         tools: core.serialization.list(ToolSchema),
         updatedAt: core.serialization.property("updated_at", core.serialization.string()),
         version: core.serialization.string(),
@@ -58,7 +58,7 @@ export declare namespace AgentSchema {
         system: string;
         tags: TagSchema.Raw[];
         tool_exec_environment_variables: ToolEnvVarSchema.Raw[];
-        tool_rules: ToolRuleSchema.Raw[];
+        tool_rules: AgentSchemaToolRulesItem.Raw[];
         tools: ToolSchema.Raw[];
         updated_at: string;
         version: string;
