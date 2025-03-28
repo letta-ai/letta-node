@@ -11,7 +11,6 @@ export const MessageSchema: core.serialization.ObjectSchema<serializers.MessageS
     core.serialization.object({
         createdAt: core.serialization.property("created_at", core.serialization.string()),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
-        inContext: core.serialization.property("in_context", core.serialization.boolean()),
         model: core.serialization.string().optional(),
         name: core.serialization.string().optional(),
         role: core.serialization.string(),
@@ -26,7 +25,6 @@ export declare namespace MessageSchema {
     export interface Raw {
         created_at: string;
         group_id?: string | null;
-        in_context: boolean;
         model?: string | null;
         name?: string | null;
         role: string;

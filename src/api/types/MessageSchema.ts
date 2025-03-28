@@ -7,7 +7,6 @@ import * as Letta from "../index";
 export interface MessageSchema {
     createdAt: string;
     groupId?: string;
-    inContext: boolean;
     model?: string;
     name?: string;
     role: string;

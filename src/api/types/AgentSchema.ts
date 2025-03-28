@@ -12,6 +12,7 @@ export interface AgentSchema {
     embeddingConfig: Letta.EmbeddingConfig;
     llmConfig: Letta.LlmConfig;
     messageBufferAutoclear: boolean;
+    inContextMessageIndices: number[];
     messages: Letta.MessageSchema[];
     metadata?: Record<string, unknown>;
     multiAgentGroup?: unknown;

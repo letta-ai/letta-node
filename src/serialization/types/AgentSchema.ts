@@ -23,6 +23,10 @@ export const AgentSchema: core.serialization.ObjectSchema<serializers.AgentSchem
         embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
         llmConfig: core.serialization.property("llm_config", LlmConfig),
         messageBufferAutoclear: core.serialization.property("message_buffer_autoclear", core.serialization.boolean()),
+        inContextMessageIndices: core.serialization.property(
+            "in_context_message_indices",
+            core.serialization.list(core.serialization.number()),
+        ),
         messages: core.serialization.list(MessageSchema),
         metadata: core.serialization.property(
             "metadata_",
@@ -51,6 +55,7 @@ export declare namespace AgentSchema {
         embedding_config: EmbeddingConfig.Raw;
         llm_config: LlmConfig.Raw;
         message_buffer_autoclear: boolean;
+        in_context_message_indices: number[];
         messages: MessageSchema.Raw[];
         metadata_?: Record<string, unknown> | null;
         multi_agent_group?: unknown;
