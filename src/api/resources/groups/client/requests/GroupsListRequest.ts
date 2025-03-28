@@ -8,7 +8,7 @@ import * as Letta from "../../../../index";
  * @example
  *     {}
  */
-export interface ListGroupsRequest {
+export interface GroupsListRequest {
     /**
      * Search groups by manager type
      */

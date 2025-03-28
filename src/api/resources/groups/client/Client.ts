@@ -8,6 +8,7 @@ import * as Letta from "../../../index";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
+import { Messages } from "../resources/messages/client/Client";
 
 export declare namespace Groups {
     export interface Options {
@@ -31,21 +32,27 @@ export declare namespace Groups {
 }
 
 export class Groups {
+    protected _messages: Messages | undefined;
+
     constructor(protected readonly _options: Groups.Options = {}) {}
+
+    public get messages(): Messages {
+        return (this._messages ??= new Messages(this._options));
+    }
 
     /**
      * Fetch all multi-agent groups matching query.
      *
-     * @param {Letta.ListGroupsRequest} request
+     * @param {Letta.GroupsListRequest} request
      * @param {Groups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.groups.listGroups()
+     *     await client.groups.list()
      */
-    public async listGroups(
-        request: Letta.ListGroupsRequest = {},
+    public async list(
+        request: Letta.GroupsListRequest = {},
         requestOptions?: Groups.RequestOptions,
     ): Promise<Letta.Group[]> {
         const { managerType, before, after, limit, projectId } = request;
@@ -81,8 +88,8 @@ export class Groups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.78",
-                "User-Agent": "@letta-ai/letta-client/0.1.78",
+                "X-Fern-SDK-Version": "0.1.79",
+                "User-Agent": "@letta-ai/letta-client/0.1.79",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -96,7 +103,7 @@ export class Groups {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.groups.listGroups.Response.parseOrThrow(_response.body, {
+            return serializers.groups.list.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -143,24 +150,19 @@ export class Groups {
     /**
      * Create a new multi-agent group with the specified configuration.
      *
-     * @param {Letta.CreateGroupRequest} request
+     * @param {Letta.GroupCreate} request
      * @param {Groups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.groups.createGroup({
-     *         body: {
-     *             agentIds: ["agent_ids"],
-     *             description: "description"
-     *         }
+     *     await client.groups.create({
+     *         agentIds: ["agent_ids"],
+     *         description: "description"
      *     })
      */
-    public async createGroup(
-        request: Letta.CreateGroupRequest,
-        requestOptions?: Groups.RequestOptions,
-    ): Promise<Letta.Group> {
-        const { project, body: _body } = request;
+    public async create(request: Letta.GroupCreate, requestOptions?: Groups.RequestOptions): Promise<Letta.Group> {
+        const { project, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -172,8 +174,8 @@ export class Groups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.78",
-                "User-Agent": "@letta-ai/letta-client/0.1.78",
+                "X-Fern-SDK-Version": "0.1.79",
+                "User-Agent": "@letta-ai/letta-client/0.1.79",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Project": project != null ? project : undefined,
@@ -233,48 +235,37 @@ export class Groups {
     }
 
     /**
-     * Create a new multi-agent group with the specified configuration.
+     * Retrieve the group by id.
      *
-     * @param {Letta.UpsertGroupRequest} request
+     * @param {string} groupId
      * @param {Groups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.groups.upsertGroup({
-     *         body: {
-     *             agentIds: ["agent_ids"],
-     *             description: "description"
-     *         }
-     *     })
+     *     await client.groups.retrieve("group_id")
      */
-    public async upsertGroup(
-        request: Letta.UpsertGroupRequest,
-        requestOptions?: Groups.RequestOptions,
-    ): Promise<Letta.Group> {
-        const { project, body: _body } = request;
+    public async retrieve(groupId: string, requestOptions?: Groups.RequestOptions): Promise<Letta.Group> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                "v1/groups/",
+                `v1/groups/${encodeURIComponent(groupId)}`,
             ),
-            method: "PUT",
+            method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.78",
-                "User-Agent": "@letta-ai/letta-client/0.1.78",
+                "X-Fern-SDK-Version": "0.1.79",
+                "User-Agent": "@letta-ai/letta-client/0.1.79",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Project": project != null ? project : undefined,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.GroupCreate.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -316,7 +307,96 @@ export class Groups {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling PUT /v1/groups/.");
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/groups/{group_id}.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Create a new multi-agent group with the specified configuration.
+     *
+     * @param {string} groupId
+     * @param {Letta.GroupUpdate} request
+     * @param {Groups.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.groups.modifyGroup("group_id")
+     */
+    public async modifyGroup(
+        groupId: string,
+        request: Letta.GroupUpdate = {},
+        requestOptions?: Groups.RequestOptions,
+    ): Promise<Letta.Group> {
+        const { project, ..._body } = request;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/groups/${encodeURIComponent(groupId)}`,
+            ),
+            method: "PUT",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.79",
+                "User-Agent": "@letta-ai/letta-client/0.1.79",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Project": project != null ? project : undefined,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.GroupUpdate.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.Group.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling PUT /v1/groups/{group_id}.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,
@@ -333,9 +413,9 @@ export class Groups {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.groups.deleteGroup("group_id")
+     *     await client.groups.delete("group_id")
      */
-    public async deleteGroup(groupId: string, requestOptions?: Groups.RequestOptions): Promise<unknown> {
+    public async delete(groupId: string, requestOptions?: Groups.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -347,8 +427,8 @@ export class Groups {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.78",
-                "User-Agent": "@letta-ai/letta-client/0.1.78",
+                "X-Fern-SDK-Version": "0.1.79",
+                "User-Agent": "@letta-ai/letta-client/0.1.79",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -400,102 +480,46 @@ export class Groups {
     }
 
     /**
-     * Retrieve message history for an agent.
-     *
      * @param {string} groupId
-     * @param {Letta.ListGroupMessagesRequest} request
      * @param {Groups.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
      * @example
-     *     await client.groups.listGroupMessages("group_id")
+     *     await client.groups.modify("group_id")
      */
-    public async listGroupMessages(
-        groupId: string,
-        request: Letta.ListGroupMessagesRequest = {},
-        requestOptions?: Groups.RequestOptions,
-    ): Promise<Letta.LettaMessageUnion[]> {
-        const { after, before, limit, useAssistantMessage, assistantMessageToolName, assistantMessageToolKwarg } =
-            request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (after != null) {
-            _queryParams["after"] = after;
-        }
-
-        if (before != null) {
-            _queryParams["before"] = before;
-        }
-
-        if (limit != null) {
-            _queryParams["limit"] = limit.toString();
-        }
-
-        if (useAssistantMessage != null) {
-            _queryParams["use_assistant_message"] = useAssistantMessage.toString();
-        }
-
-        if (assistantMessageToolName != null) {
-            _queryParams["assistant_message_tool_name"] = assistantMessageToolName;
-        }
-
-        if (assistantMessageToolKwarg != null) {
-            _queryParams["assistant_message_tool_kwarg"] = assistantMessageToolKwarg;
-        }
-
+    public async modify(groupId: string, requestOptions?: Groups.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/groups/${encodeURIComponent(groupId)}/messages`,
+                `v1/groups/${encodeURIComponent(groupId)}`,
             ),
-            method: "GET",
+            method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.78",
-                "User-Agent": "@letta-ai/letta-client/0.1.78",
+                "X-Fern-SDK-Version": "0.1.79",
+                "User-Agent": "@letta-ai/letta-client/0.1.79",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
-            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.groups.listGroupMessages.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return;
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
         }
 
         switch (_response.error.reason) {
@@ -505,7 +529,7 @@ export class Groups {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/groups/{group_id}/messages.");
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/groups/{group_id}.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,
@@ -514,150 +538,30 @@ export class Groups {
     }
 
     /**
-     * Process a user message and return the group's response.
-     * This endpoint accepts a message from a user and processes it through through agents in the group based on the specified pattern
+     * Delete the group messages for all agents that are part of the multi-agent group.
      *
      * @param {string} groupId
-     * @param {Letta.SendGroupMessageRequest} request
      * @param {Groups.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.groups.sendGroupMessage("group_id", {
-     *         agentId: "agent_id",
-     *         body: {
-     *             messages: [{
-     *                     role: "user",
-     *                     content: [{
-     *                             type: "text",
-     *                             text: "text"
-     *                         }]
-     *                 }]
-     *         }
-     *     })
+     *     await client.groups.resetMessages("group_id")
      */
-    public async sendGroupMessage(
-        groupId: string,
-        request: Letta.SendGroupMessageRequest,
-        requestOptions?: Groups.RequestOptions,
-    ): Promise<Letta.LettaResponse> {
-        const { agentId, body: _body } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["agent_id"] = agentId;
+    public async resetMessages(groupId: string, requestOptions?: Groups.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/groups/${encodeURIComponent(groupId)}/messages`,
+                `v1/groups/${encodeURIComponent(groupId)}/reset-messages`,
             ),
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.78",
-                "User-Agent": "@letta-ai/letta-client/0.1.78",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.LettaRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.LettaResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/groups/{group_id}/messages.",
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Process a user message and return the group's responses.
-     * This endpoint accepts a message from a user and processes it through agents in the group based on the specified pattern.
-     * It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
-     *
-     * @param {string} groupId
-     * @param {Letta.LettaStreamingRequest} request
-     * @param {Groups.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.groups.sendGroupMessageStreaming("group_id", {
-     *         messages: [{
-     *                 role: "user",
-     *                 content: [{
-     *                         type: "text",
-     *                         text: "text"
-     *                     }]
-     *             }]
-     *     })
-     */
-    public async sendGroupMessageStreaming(
-        groupId: string,
-        request: Letta.LettaStreamingRequest,
-        requestOptions?: Groups.RequestOptions,
-    ): Promise<unknown> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/groups/${encodeURIComponent(groupId)}/messages/stream`,
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.78",
-                "User-Agent": "@letta-ai/letta-client/0.1.78",
+                "X-Fern-SDK-Version": "0.1.79",
+                "User-Agent": "@letta-ai/letta-client/0.1.79",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -665,7 +569,6 @@ export class Groups {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.LettaStreamingRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -702,7 +605,7 @@ export class Groups {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/groups/{group_id}/messages/stream.",
+                    "Timeout exceeded when calling PATCH /v1/groups/{group_id}/reset-messages.",
                 );
             case "unknown":
                 throw new errors.LettaError({

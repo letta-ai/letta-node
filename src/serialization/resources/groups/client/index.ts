@@ -1,2 +1,2 @@
-export * as listGroups from "./listGroups";
-export * as listGroupMessages from "./listGroupMessages";
+export * as list from "./list";
+export * from "./requests";

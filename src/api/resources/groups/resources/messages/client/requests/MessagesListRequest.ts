@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ListGroupMessagesRequest {
+export interface MessagesListRequest {
     /**
      * Message after which to retrieve the returned messages.
      */

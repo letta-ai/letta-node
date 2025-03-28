@@ -7,7 +7,7 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { Group } from "../../../types/Group";
 
-export const Response: core.serialization.Schema<serializers.groups.listGroups.Response.Raw, Letta.Group[]> =
+export const Response: core.serialization.Schema<serializers.groups.list.Response.Raw, Letta.Group[]> =
     core.serialization.list(Group);
 
 export declare namespace Response {

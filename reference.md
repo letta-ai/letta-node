@@ -2094,7 +2094,7 @@ await client.agents.search();
 
 ## Groups
 
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">listGroups</a>({ ...params }) -> Letta.Group[]</code></summary>
+<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">list</a>({ ...params }) -> Letta.Group[]</code></summary>
 <dl>
 <dd>
 
@@ -2122,7 +2122,7 @@ Fetch all multi-agent groups matching query.
 <dd>
 
 ```typescript
-await client.groups.listGroups();
+await client.groups.list();
 ```
 
 </dd>
@@ -2138,7 +2138,7 @@ await client.groups.listGroups();
 <dl>
 <dd>
 
-**request:** `Letta.ListGroupsRequest`
+**request:** `Letta.GroupsListRequest`
 
 </dd>
 </dl>
@@ -2157,7 +2157,7 @@ await client.groups.listGroups();
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">createGroup</a>({ ...params }) -> Letta.Group</code></summary>
+<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">create</a>({ ...params }) -> Letta.Group</code></summary>
 <dl>
 <dd>
 
@@ -2185,11 +2185,9 @@ Create a new multi-agent group with the specified configuration.
 <dd>
 
 ```typescript
-await client.groups.createGroup({
-    body: {
-        agentIds: ["agent_ids"],
-        description: "description",
-    },
+await client.groups.create({
+    agentIds: ["agent_ids"],
+    description: "description",
 });
 ```
 
@@ -2206,7 +2204,7 @@ await client.groups.createGroup({
 <dl>
 <dd>
 
-**request:** `Letta.CreateGroupRequest`
+**request:** `Letta.GroupCreate`
 
 </dd>
 </dl>
@@ -2225,7 +2223,70 @@ await client.groups.createGroup({
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">upsertGroup</a>({ ...params }) -> Letta.Group</code></summary>
+<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">retrieve</a>(groupId) -> Letta.Group</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the group by id.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.groups.retrieve("group_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Groups.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">modifyGroup</a>(groupId, { ...params }) -> Letta.Group</code></summary>
 <dl>
 <dd>
 
@@ -2253,12 +2314,7 @@ Create a new multi-agent group with the specified configuration.
 <dd>
 
 ```typescript
-await client.groups.upsertGroup({
-    body: {
-        agentIds: ["agent_ids"],
-        description: "description",
-    },
-});
+await client.groups.modifyGroup("group_id");
 ```
 
 </dd>
@@ -2274,7 +2330,15 @@ await client.groups.upsertGroup({
 <dl>
 <dd>
 
-**request:** `Letta.UpsertGroupRequest`
+**groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.GroupUpdate`
 
 </dd>
 </dl>
@@ -2293,7 +2357,7 @@ await client.groups.upsertGroup({
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">deleteGroup</a>(groupId) -> unknown</code></summary>
+<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">delete</a>(groupId) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2321,7 +2385,7 @@ Delete a multi-agent group.
 <dd>
 
 ```typescript
-await client.groups.deleteGroup("group_id");
+await client.groups.delete("group_id");
 ```
 
 </dd>
@@ -2356,24 +2420,9 @@ await client.groups.deleteGroup("group_id");
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">listGroupMessages</a>(groupId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
+<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">modify</a>(groupId) -> void</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve message history for an agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2384,7 +2433,7 @@ Retrieve message history for an agent.
 <dd>
 
 ```typescript
-await client.groups.listGroupMessages("group_id");
+await client.groups.modify("group_id");
 ```
 
 </dd>
@@ -2401,14 +2450,6 @@ await client.groups.listGroupMessages("group_id");
 <dd>
 
 **groupId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListGroupMessagesRequest`
 
 </dd>
 </dl>
@@ -2427,7 +2468,7 @@ await client.groups.listGroupMessages("group_id");
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">sendGroupMessage</a>(groupId, { ...params }) -> Letta.LettaResponse</code></summary>
+<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">resetMessages</a>(groupId) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2439,8 +2480,7 @@ await client.groups.listGroupMessages("group_id");
 <dl>
 <dd>
 
-Process a user message and return the group's response.
-This endpoint accepts a message from a user and processes it through through agents in the group based on the specified pattern
+Delete the group messages for all agents that are part of the multi-agent group.
 
 </dd>
 </dl>
@@ -2456,22 +2496,7 @@ This endpoint accepts a message from a user and processes it through through age
 <dd>
 
 ```typescript
-await client.groups.sendGroupMessage("group_id", {
-    agentId: "agent_id",
-    body: {
-        messages: [
-            {
-                role: "user",
-                content: [
-                    {
-                        type: "text",
-                        text: "text",
-                    },
-                ],
-            },
-        ],
-    },
-});
+await client.groups.resetMessages("group_id");
 ```
 
 </dd>
@@ -2488,99 +2513,6 @@ await client.groups.sendGroupMessage("group_id", {
 <dd>
 
 **groupId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.SendGroupMessageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Groups.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">sendGroupMessageStreaming</a>(groupId, { ...params }) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Process a user message and return the group's responses.
-This endpoint accepts a message from a user and processes it through agents in the group based on the specified pattern.
-It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.groups.sendGroupMessageStreaming("group_id", {
-    messages: [
-        {
-            role: "user",
-            content: [
-                {
-                    type: "text",
-                    text: "text",
-                },
-            ],
-        },
-    ],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.LettaStreamingRequest`
 
 </dd>
 </dl>
@@ -6507,6 +6439,332 @@ await client.agents.memoryVariables.list("agent_id");
 <dd>
 
 **requestOptions:** `MemoryVariables.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Groups Messages
+
+<details><summary><code>client.groups.messages.<a href="/src/api/resources/groups/resources/messages/client/Client.ts">list</a>(groupId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve message history for an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.groups.messages.list("group_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.groups.MessagesListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.messages.<a href="/src/api/resources/groups/resources/messages/client/Client.ts">create</a>(groupId, { ...params }) -> Letta.LettaResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Process a user message and return the group's response.
+This endpoint accepts a message from a user and processes it through through agents in the group based on the specified pattern
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.groups.messages.create("group_id", {
+    messages: [
+        {
+            role: "user",
+            content: [
+                {
+                    type: "text",
+                    text: "text",
+                },
+            ],
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.LettaRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.messages.<a href="/src/api/resources/groups/resources/messages/client/Client.ts">createStream</a>(groupId, { ...params }) -> core.Stream<Letta.LettaStreamingResponse></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Process a user message and return the group's responses.
+This endpoint accepts a message from a user and processes it through agents in the group based on the specified pattern.
+It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.groups.messages.createStream("group_id", {
+    messages: [
+        {
+            role: "user",
+            content: [
+                {
+                    type: "text",
+                    text: "text",
+                },
+            ],
+        },
+    ],
+});
+for await (const item of response) {
+    console.log(item);
+}
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.LettaStreamingRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.messages.<a href="/src/api/resources/groups/resources/messages/client/Client.ts">modify</a>(groupId, messageId, { ...params }) -> Letta.MessagesModifyResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the details of a message associated with an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.groups.messages.modify("group_id", "message_id", {
+    content: "content",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messageId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.MessagesModifyRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
 
 </dd>
 </dl>

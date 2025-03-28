@@ -92,8 +92,6 @@ export * from "./FunctionDefinitionInput";
 export * from "./FunctionDefinitionOutput";
 export * from "./FunctionTool";
 export * from "./Group";
-export * from "./GroupCreateManagerConfig";
-export * from "./GroupCreate";
 export * from "./HttpValidationError";
 export * from "./Health";
 export * from "./HiddenReasoningMessageState";

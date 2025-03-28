@@ -20,6 +20,10 @@ export interface MessagesListRequest {
      */
     limit?: number;
     /**
+     * Group ID to filter messages by.
+     */
+    groupId?: string;
+    /**
      * Whether to use assistant messages
      */
     useAssistantMessage?: boolean;
