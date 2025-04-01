@@ -80,4 +80,6 @@ export interface CreateAgentRequest {
     identityIds?: string[];
     /** If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case. */
     messageBufferAutoclear?: boolean;
+    /** If set to True, memory management will move to a background agent thread. */
+    enableSleeptime?: boolean;
 }

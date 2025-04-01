@@ -19,4 +19,6 @@ export interface GroupCreate {
     description: string;
     /** */
     managerConfig?: Letta.GroupCreateManagerConfig;
+    /** */
+    sharedBlockIds?: string[];
 }

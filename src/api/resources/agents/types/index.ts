@@ -3,6 +3,7 @@ export * from "./UpdateAgentToolRulesItem";
 export * from "./AgentsSearchRequestSearchItemZero";
 export * from "./AgentsSearchRequestSearchItemOneOperator";
 export * from "./AgentsSearchRequestSearchItemOne";
-export * from "./AgentsSearchRequestSearchItemField";
+export * from "./AgentsSearchRequestSearchItemTwo";
+export * from "./AgentsSearchRequestSearchItemOperator";
 export * from "./AgentsSearchRequestSearchItem";
 export * from "./AgentsSearchResponse";

@@ -14,6 +14,10 @@ export const GroupCreate: core.serialization.Schema<
     agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string())),
     description: core.serialization.string(),
     managerConfig: core.serialization.property("manager_config", GroupCreateManagerConfig.optional()),
+    sharedBlockIds: core.serialization.property(
+        "shared_block_ids",
+        core.serialization.list(core.serialization.string()).optional(),
+    ),
 });
 
 export declare namespace GroupCreate {
@@ -21,5 +25,6 @@ export declare namespace GroupCreate {
         agent_ids: string[];
         description: string;
         manager_config?: GroupCreateManagerConfig.Raw | null;
+        shared_block_ids?: string[] | null;
     }
 }

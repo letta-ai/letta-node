@@ -4,4 +4,8 @@
 
 import * as Letta from "../../../index";
 
-export type GroupUpdateManagerConfig = Letta.DynamicManager | Letta.RoundRobinManager | Letta.SupervisorManager;
+export type GroupUpdateManagerConfig =
+    | Letta.BackgroundManager
+    | Letta.DynamicManager
+    | Letta.RoundRobinManager
+    | Letta.SupervisorManager;

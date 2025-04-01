@@ -55,6 +55,7 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
         ),
         model: core.serialization.string().optional(),
         embedding: core.serialization.string().optional(),
+        enableSleeptime: core.serialization.property("enable_sleeptime", core.serialization.boolean().optional()),
     });
 
 export declare namespace UpdateAgent {
@@ -79,5 +80,6 @@ export declare namespace UpdateAgent {
         message_buffer_autoclear?: boolean | null;
         model?: string | null;
         embedding?: string | null;
+        enable_sleeptime?: boolean | null;
     }
 }

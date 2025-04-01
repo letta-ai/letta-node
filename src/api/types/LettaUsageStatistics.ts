@@ -25,4 +25,6 @@ export interface LettaUsageStatistics {
     stepCount?: number;
     /** The messages generated per step */
     stepsMessages?: Letta.Message[][];
+    /** The background task run IDs associated with the agent interaction */
+    runIds?: string[];
 }

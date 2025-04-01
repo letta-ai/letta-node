@@ -14,6 +14,10 @@ export const GroupUpdate: core.serialization.Schema<
     agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string()).optional()),
     description: core.serialization.string().optional(),
     managerConfig: core.serialization.property("manager_config", GroupUpdateManagerConfig.optional()),
+    sharedBlockIds: core.serialization.property(
+        "shared_block_ids",
+        core.serialization.list(core.serialization.string()).optional(),
+    ),
 });
 
 export declare namespace GroupUpdate {
@@ -21,5 +25,6 @@ export declare namespace GroupUpdate {
         agent_ids?: string[] | null;
         description?: string | null;
         manager_config?: GroupUpdateManagerConfig.Raw | null;
+        shared_block_ids?: string[] | null;
     }
 }

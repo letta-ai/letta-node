@@ -7,4 +7,8 @@ import * as Letta from "../../../index";
 /**
  *
  */
-export type GroupCreateManagerConfig = Letta.DynamicManager | Letta.RoundRobinManager | Letta.SupervisorManager;
+export type GroupCreateManagerConfig =
+    | Letta.BackgroundManager
+    | Letta.DynamicManager
+    | Letta.RoundRobinManager
+    | Letta.SupervisorManager;

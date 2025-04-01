@@ -49,4 +49,6 @@ export interface UpdateAgent {
     model?: string;
     /** The embedding configuration handle used by the agent, specified in the format provider/model-name. */
     embedding?: string;
+    /** If set to True, memory management will move to a background agent thread. */
+    enableSleeptime?: boolean;
 }

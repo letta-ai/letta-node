@@ -7,8 +7,8 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 
 export const ManagerType: core.serialization.Schema<serializers.ManagerType.Raw, Letta.ManagerType> =
-    core.serialization.enum_(["round_robin", "supervisor", "dynamic", "swarm"]);
+    core.serialization.enum_(["round_robin", "supervisor", "dynamic", "background", "swarm"]);
 
 export declare namespace ManagerType {
-    export type Raw = "round_robin" | "supervisor" | "dynamic" | "swarm";
+    export type Raw = "round_robin" | "supervisor" | "dynamic" | "background" | "swarm";
 }

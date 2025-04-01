@@ -5,6 +5,7 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
+import { BackgroundManager } from "../../../types/BackgroundManager";
 import { DynamicManager } from "../../../types/DynamicManager";
 import { RoundRobinManager } from "../../../types/RoundRobinManager";
 import { SupervisorManager } from "../../../types/SupervisorManager";
@@ -12,8 +13,8 @@ import { SupervisorManager } from "../../../types/SupervisorManager";
 export const GroupCreateManagerConfig: core.serialization.Schema<
     serializers.GroupCreateManagerConfig.Raw,
     Letta.GroupCreateManagerConfig
-> = core.serialization.undiscriminatedUnion([DynamicManager, RoundRobinManager, SupervisorManager]);
+> = core.serialization.undiscriminatedUnion([BackgroundManager, DynamicManager, RoundRobinManager, SupervisorManager]);
 
 export declare namespace GroupCreateManagerConfig {
-    export type Raw = DynamicManager.Raw | RoundRobinManager.Raw | SupervisorManager.Raw;
+    export type Raw = BackgroundManager.Raw | DynamicManager.Raw | RoundRobinManager.Raw | SupervisorManager.Raw;
 }

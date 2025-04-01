@@ -6,16 +6,16 @@ import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const AgentsSearchRequestSearchItemField: core.serialization.ObjectSchema<
-    serializers.AgentsSearchRequestSearchItemField.Raw,
-    Letta.AgentsSearchRequestSearchItemField
+export const AgentsSearchRequestSearchItemTwo: core.serialization.ObjectSchema<
+    serializers.AgentsSearchRequestSearchItemTwo.Raw,
+    Letta.AgentsSearchRequestSearchItemTwo
 > = core.serialization.object({
     field: core.serialization.stringLiteral("tags"),
     operator: core.serialization.stringLiteral("contains"),
     value: core.serialization.list(core.serialization.string()),
 });
 
-export declare namespace AgentsSearchRequestSearchItemField {
+export declare namespace AgentsSearchRequestSearchItemTwo {
     export interface Raw {
         field: "tags";
         operator: "contains";

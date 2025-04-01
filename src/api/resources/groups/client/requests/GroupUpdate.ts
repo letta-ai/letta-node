@@ -16,4 +16,6 @@ export interface GroupUpdate {
     description?: string;
     /** */
     managerConfig?: Letta.GroupUpdateManagerConfig;
+    /** */
+    sharedBlockIds?: string[];
 }

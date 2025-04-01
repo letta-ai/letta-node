@@ -7,4 +7,5 @@ import * as Letta from "../../../index";
 export type AgentsSearchRequestSearchItem =
     | Letta.AgentsSearchRequestSearchItemZero
     | Letta.AgentsSearchRequestSearchItemOne
-    | Letta.AgentsSearchRequestSearchItemField;
+    | Letta.AgentsSearchRequestSearchItemTwo
+    | Letta.AgentsSearchRequestSearchItemOperator;

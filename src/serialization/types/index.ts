@@ -20,6 +20,7 @@ export * from "./Audio";
 export * from "./AuthRequest";
 export * from "./AuthResponse";
 export * from "./AuthSchemeField";
+export * from "./BackgroundManager";
 export * from "./BaseToolRuleSchema";
 export * from "./Block";
 export * from "./BlockUpdate";

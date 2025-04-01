@@ -78,6 +78,7 @@ export const CreateAgentRequest: core.serialization.Schema<
         "message_buffer_autoclear",
         core.serialization.boolean().optional(),
     ),
+    enableSleeptime: core.serialization.property("enable_sleeptime", core.serialization.boolean().optional()),
 });
 
 export declare namespace CreateAgentRequest {
@@ -117,5 +118,6 @@ export declare namespace CreateAgentRequest {
         base_template_id?: string | null;
         identity_ids?: string[] | null;
         message_buffer_autoclear?: boolean | null;
+        enable_sleeptime?: boolean | null;
     }
 }

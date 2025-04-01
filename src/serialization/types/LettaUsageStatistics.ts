@@ -23,6 +23,7 @@ export const LettaUsageStatistics: core.serialization.ObjectSchema<
         "steps_messages",
         core.serialization.list(core.serialization.list(Message)).optional(),
     ),
+    runIds: core.serialization.property("run_ids", core.serialization.list(core.serialization.string()).optional()),
 });
 
 export declare namespace LettaUsageStatistics {
@@ -33,5 +34,6 @@ export declare namespace LettaUsageStatistics {
         total_tokens?: number | null;
         step_count?: number | null;
         steps_messages?: Message.Raw[][] | null;
+        run_ids?: string[] | null;
     }
 }

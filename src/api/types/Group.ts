@@ -14,9 +14,17 @@ export interface Group {
     /** */
     description: string;
     /** */
+    sharedBlockIds?: string[];
+    /** */
     managerAgentId?: string;
     /** */
     terminationToken?: string;
     /** */
     maxTurns?: number;
+    /** */
+    backgroundAgentsInterval?: number;
+    /** */
+    turnsCounter?: number;
+    /** */
+    lastProcessedMessageId?: string;
 }
