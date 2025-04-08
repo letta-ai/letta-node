@@ -249,37 +249,33 @@ def secret_message():
         if (messages.length > 0 && messages[0].messageType == "tool_return_message") {
             messages.shift();
         }
-        expect(messages).toHaveLength(8);
-        
-        // 1. System message with core memory update
-        expect(messages[0]).toHaveProperty("messageType", "system_message");
-        expect(((messages[0] as SystemMessage).content as string).toLowerCase()).toContain("name: sarah");
+        expect(messages).toHaveLength(7);
 
-        // 2. User message that was just sent
-        expect(messages[1]).toHaveProperty("messageType", "user_message");
-        expect((messages[1] as UserMessage).content).toContain(messageText);
+        // 1. User message that was just sent
+        expect(messages[0]).toHaveProperty("messageType", "user_message");
+        expect((messages[0] as UserMessage).content).toContain(messageText);
 
-        // 3. Reasoning message with core memory update
-        expect(messages[2]).toHaveProperty("messageType", "reasoning_message");
+        // 2. Reasoning message with core memory update
+        expect(messages[1]).toHaveProperty("messageType", "reasoning_message");
 
-        // 4. Tool call to update core memory content and send system message with update
-        expect(messages[3]).toHaveProperty("messageType", "tool_call_message");
-        expect((messages[3] as ToolCallMessage).toolCall.name).toEqual("core_memory_replace");
+        // 3. Tool call to update core memory content and send system message with update
+        expect(messages[2]).toHaveProperty("messageType", "tool_call_message");
+        expect((messages[2] as ToolCallMessage).toolCall.name).toEqual("core_memory_replace");
 
-        // 5. Tool return message that contains success/failure of tool call
-        expect(messages[4]).toHaveProperty("messageType", "tool_return_message");
-        expect((messages[4] as ToolReturnMessage).status).toEqual("success");
+        // 4. Tool return message that contains success/failure of tool call
+        expect(messages[3]).toHaveProperty("messageType", "tool_return_message");
+        expect((messages[3] as ToolReturnMessage).status).toEqual("success");
 
-        // 6. Tool call for sending the assistant message back
-        expect(messages[5]).toHaveProperty("messageType", "user_message");
-        expect((messages[5] as UserMessage).content).toContain("heartbeat");
+        // 5. Tool call for sending the assistant message back
+        expect(messages[4]).toHaveProperty("messageType", "user_message");
+        expect((messages[4] as UserMessage).content).toContain("heartbeat");
 
-        // 7. Reasoning message that contains inner monologue of agent
-        expect(messages[6]).toHaveProperty("messageType", "reasoning_message");
+        // 6. Reasoning message that contains inner monologue of agent
+        expect(messages[5]).toHaveProperty("messageType", "reasoning_message");
 
-        // 8. Assistant message that response
-        expect(messages[7]).toHaveProperty("messageType", "assistant_message");
-        expect(((messages[7] as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
+        // 7. Assistant message that response
+        expect(messages[6]).toHaveProperty("messageType", "assistant_message");
+        expect(((messages[6] as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
 
         // Send async message
         messageText = "What's my name?";
