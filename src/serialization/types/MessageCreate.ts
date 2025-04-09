@@ -13,6 +13,7 @@ export const MessageCreate: core.serialization.ObjectSchema<serializers.MessageC
         role: MessageCreateRole,
         content: MessageCreateContent,
         name: core.serialization.string().optional(),
+        otid: core.serialization.string().optional(),
     });
 
 export declare namespace MessageCreate {
@@ -20,5 +21,6 @@ export declare namespace MessageCreate {
         role: MessageCreateRole.Raw;
         content: MessageCreateContent.Raw;
         name?: string | null;
+        otid?: string | null;
     }
 }

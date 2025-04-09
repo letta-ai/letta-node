@@ -14,6 +14,7 @@ export const HiddenReasoningMessage: core.serialization.ObjectSchema<
     id: core.serialization.string(),
     date: core.serialization.date(),
     name: core.serialization.string().optional(),
+    otid: core.serialization.string().optional(),
     messageType: core.serialization.property(
         "message_type",
         core.serialization.stringLiteral("hidden_reasoning_message"),
@@ -27,6 +28,7 @@ export declare namespace HiddenReasoningMessage {
         id: string;
         date: string;
         name?: string | null;
+        otid?: string | null;
         message_type: "hidden_reasoning_message";
         state: HiddenReasoningMessageState.Raw;
         hidden_reasoning?: string | null;

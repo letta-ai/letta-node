@@ -20,6 +20,7 @@ export interface ReasoningMessage {
     id: string;
     date: Date;
     name?: string;
+    otid?: string;
     messageType: "reasoning_message";
     source?: Letta.ReasoningMessageSource;
     reasoning: string;

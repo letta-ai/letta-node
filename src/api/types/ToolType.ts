@@ -7,6 +7,7 @@ export type ToolType =
     | "letta_core"
     | "letta_memory_core"
     | "letta_multi_agent_core"
+    | "letta_sleeptime_core"
     | "external_composio"
     | "external_langchain"
     | "external_mcp";
@@ -15,6 +16,7 @@ export const ToolType = {
     LettaCore: "letta_core",
     LettaMemoryCore: "letta_memory_core",
     LettaMultiAgentCore: "letta_multi_agent_core",
+    LettaSleeptimeCore: "letta_sleeptime_core",
     ExternalComposio: "external_composio",
     ExternalLangchain: "external_langchain",
     ExternalMcp: "external_mcp",

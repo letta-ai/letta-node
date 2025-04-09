@@ -22,7 +22,7 @@ export interface Group {
     /** */
     maxTurns?: number;
     /** */
-    backgroundAgentsInterval?: number;
+    sleeptimeAgentFrequency?: number;
     /** */
     turnsCounter?: number;
     /** */

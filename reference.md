@@ -3822,7 +3822,7 @@ await client.providers.modifyProvider({
 
 ## Runs
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listRuns</a>() -> Letta.Run[]</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listRuns</a>({ ...params }) -> Letta.Run[]</code></summary>
 <dl>
 <dd>
 
@@ -3866,6 +3866,14 @@ await client.runs.listRuns();
 <dl>
 <dd>
 
+**request:** `Letta.ListRunsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Runs.RequestOptions`
 
 </dd>
@@ -3877,7 +3885,7 @@ await client.runs.listRuns();
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listActiveRuns</a>() -> Letta.Run[]</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listActiveRuns</a>({ ...params }) -> Letta.Run[]</code></summary>
 <dl>
 <dd>
 
@@ -3917,6 +3925,14 @@ await client.runs.listActiveRuns();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ListActiveRunsRequest`
+
+</dd>
+</dl>
 
 <dl>
 <dd>

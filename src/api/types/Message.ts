@@ -30,19 +30,19 @@ export interface Message {
     updatedAt?: Date;
     /** The human-friendly ID of the Message */
     id?: string;
-    /** The role of the participant. */
-    role: Letta.MessageRole;
-    /** The content of the message. */
-    content?: Letta.MessageContentItem[];
     /** The unique identifier of the agent. */
     agentId?: string;
     /** The model used to make the function call. */
     model?: string;
-    /** The name of the participant. */
+    /** The role of the participant. */
+    role: Letta.MessageRole;
+    /** The content of the message. */
+    content?: Letta.MessageContentItem[];
+    /** For role user/assistant: the (optional) name of the participant. For role tool/function: the name of the function called. */
     name?: string;
-    /** The list of tool calls requested. */
+    /** The list of tool calls requested. Only applicable for role assistant. */
     toolCalls?: Letta.ChatCompletionMessageToolCall[];
-    /** The id of the tool call. */
+    /** The ID of the tool call. Only applicable for role tool. */
     toolCallId?: string;
     /** The id of the step that this message was created in. */
     stepId?: string;

@@ -3,21 +3,15 @@
  */
 
 export type ChatCompletionAudioParamVoice =
+    | string
     | "alloy"
     | "ash"
     | "ballad"
     | "coral"
     | "echo"
+    | "fable"
+    | "onyx"
+    | "nova"
     | "sage"
     | "shimmer"
     | "verse";
-export const ChatCompletionAudioParamVoice = {
-    Alloy: "alloy",
-    Ash: "ash",
-    Ballad: "ballad",
-    Coral: "coral",
-    Echo: "echo",
-    Sage: "sage",
-    Shimmer: "shimmer",
-    Verse: "verse",
-} as const;

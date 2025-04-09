@@ -17,10 +17,10 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
         id: core.serialization.string().optional(),
-        role: MessageRole,
-        content: core.serialization.list(MessageContentItem).optional(),
         agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
         model: core.serialization.string().optional(),
+        role: MessageRole,
+        content: core.serialization.list(MessageContentItem).optional(),
         name: core.serialization.string().optional(),
         toolCalls: core.serialization.property(
             "tool_calls",
@@ -40,10 +40,10 @@ export declare namespace Message {
         created_at?: string | null;
         updated_at?: string | null;
         id?: string | null;
-        role: MessageRole.Raw;
-        content?: MessageContentItem.Raw[] | null;
         agent_id?: string | null;
         model?: string | null;
+        role: MessageRole.Raw;
+        content?: MessageContentItem.Raw[] | null;
         name?: string | null;
         tool_calls?: ChatCompletionMessageToolCall.Raw[] | null;
         tool_call_id?: string | null;

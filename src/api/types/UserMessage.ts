@@ -17,6 +17,7 @@ export interface UserMessage {
     id: string;
     date: Date;
     name?: string;
+    otid?: string;
     messageType: "user_message";
     /** The message content sent by the user (can be a string or an array of multi-modal content parts) */
     content: Letta.UserMessageContent;

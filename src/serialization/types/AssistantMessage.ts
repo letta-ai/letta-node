@@ -14,6 +14,7 @@ export const AssistantMessage: core.serialization.ObjectSchema<
     id: core.serialization.string(),
     date: core.serialization.date(),
     name: core.serialization.string().optional(),
+    otid: core.serialization.string().optional(),
     messageType: core.serialization.property("message_type", core.serialization.stringLiteral("assistant_message")),
     content: AssistantMessageContent,
 });
@@ -23,6 +24,7 @@ export declare namespace AssistantMessage {
         id: string;
         date: string;
         name?: string | null;
+        otid?: string | null;
         message_type: "assistant_message";
         content: AssistantMessageContent.Raw;
     }

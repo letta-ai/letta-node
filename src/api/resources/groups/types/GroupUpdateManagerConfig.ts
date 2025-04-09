@@ -5,7 +5,7 @@
 import * as Letta from "../../../index";
 
 export type GroupUpdateManagerConfig =
-    | Letta.BackgroundManager
     | Letta.DynamicManager
     | Letta.RoundRobinManager
+    | Letta.SleeptimeManager
     | Letta.SupervisorManager;

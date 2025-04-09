@@ -8,7 +8,7 @@ import * as Letta from "../../../index";
  *
  */
 export type GroupCreateManagerConfig =
-    | Letta.BackgroundManager
     | Letta.DynamicManager
     | Letta.RoundRobinManager
+    | Letta.SleeptimeManager
     | Letta.SupervisorManager;

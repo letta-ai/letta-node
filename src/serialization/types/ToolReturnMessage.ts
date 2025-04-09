@@ -14,6 +14,7 @@ export const ToolReturnMessage: core.serialization.ObjectSchema<
     id: core.serialization.string(),
     date: core.serialization.date(),
     name: core.serialization.string().optional(),
+    otid: core.serialization.string().optional(),
     messageType: core.serialization.property("message_type", core.serialization.stringLiteral("tool_return_message")),
     toolReturn: core.serialization.property("tool_return", core.serialization.string()),
     status: ToolReturnMessageStatus,
@@ -27,6 +28,7 @@ export declare namespace ToolReturnMessage {
         id: string;
         date: string;
         name?: string | null;
+        otid?: string | null;
         message_type: "tool_return_message";
         tool_return: string;
         status: ToolReturnMessageStatus.Raw;

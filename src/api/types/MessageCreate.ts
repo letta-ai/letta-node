@@ -14,4 +14,6 @@ export interface MessageCreate {
     content: Letta.MessageCreateContent;
     /** The name of the participant. */
     name?: string;
+    /** The offline threading id associated with this message */
+    otid?: string;
 }

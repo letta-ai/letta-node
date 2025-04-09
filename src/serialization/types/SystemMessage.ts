@@ -11,6 +11,7 @@ export const SystemMessage: core.serialization.ObjectSchema<serializers.SystemMe
         id: core.serialization.string(),
         date: core.serialization.date(),
         name: core.serialization.string().optional(),
+        otid: core.serialization.string().optional(),
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("system_message")),
         content: core.serialization.string(),
     });
@@ -20,6 +21,7 @@ export declare namespace SystemMessage {
         id: string;
         date: string;
         name?: string | null;
+        otid?: string | null;
         message_type: "system_message";
         content: string;
     }

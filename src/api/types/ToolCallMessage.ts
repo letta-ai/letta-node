@@ -17,6 +17,7 @@ export interface ToolCallMessage {
     id: string;
     date: Date;
     name?: string;
+    otid?: string;
     messageType: "tool_call_message";
     toolCall: Letta.ToolCallMessageToolCall;
 }

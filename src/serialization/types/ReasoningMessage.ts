@@ -14,6 +14,7 @@ export const ReasoningMessage: core.serialization.ObjectSchema<
     id: core.serialization.string(),
     date: core.serialization.date(),
     name: core.serialization.string().optional(),
+    otid: core.serialization.string().optional(),
     messageType: core.serialization.property("message_type", core.serialization.stringLiteral("reasoning_message")),
     source: ReasoningMessageSource.optional(),
     reasoning: core.serialization.string(),
@@ -25,6 +26,7 @@ export declare namespace ReasoningMessage {
         id: string;
         date: string;
         name?: string | null;
+        otid?: string | null;
         message_type: "reasoning_message";
         source?: ReasoningMessageSource.Raw | null;
         reasoning: string;

@@ -12,6 +12,7 @@ export const ToolCallMessage: core.serialization.ObjectSchema<serializers.ToolCa
         id: core.serialization.string(),
         date: core.serialization.date(),
         name: core.serialization.string().optional(),
+        otid: core.serialization.string().optional(),
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("tool_call_message")),
         toolCall: core.serialization.property("tool_call", ToolCallMessageToolCall),
     });
@@ -21,6 +22,7 @@ export declare namespace ToolCallMessage {
         id: string;
         date: string;
         name?: string | null;
+        otid?: string | null;
         message_type: "tool_call_message";
         tool_call: ToolCallMessageToolCall.Raw;
     }

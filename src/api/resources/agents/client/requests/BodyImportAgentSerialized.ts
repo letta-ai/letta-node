@@ -19,4 +19,8 @@ export interface BodyImportAgentSerialized {
      * The project ID to associate the uploaded agent with.
      */
     projectId?: string;
+    /**
+     * If set to True, strips all messages from the agent before importing.
+     */
+    stripMessages?: boolean;
 }

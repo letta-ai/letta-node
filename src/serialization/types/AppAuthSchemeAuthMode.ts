@@ -19,7 +19,6 @@ export const AppAuthSchemeAuthMode: core.serialization.Schema<
     "GOOGLE_SERVICE_ACCOUNT",
     "GOOGLEADS_AUTH",
     "NO_AUTH",
-    "COMPOSIO_LINK",
     "CALCOM_AUTH",
 ]);
 
@@ -34,6 +33,5 @@ export declare namespace AppAuthSchemeAuthMode {
         | "GOOGLE_SERVICE_ACCOUNT"
         | "GOOGLEADS_AUTH"
         | "NO_AUTH"
-        | "COMPOSIO_LINK"
         | "CALCOM_AUTH";
 }

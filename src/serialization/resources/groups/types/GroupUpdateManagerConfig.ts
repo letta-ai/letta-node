@@ -5,16 +5,16 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { BackgroundManager } from "../../../types/BackgroundManager";
 import { DynamicManager } from "../../../types/DynamicManager";
 import { RoundRobinManager } from "../../../types/RoundRobinManager";
+import { SleeptimeManager } from "../../../types/SleeptimeManager";
 import { SupervisorManager } from "../../../types/SupervisorManager";
 
 export const GroupUpdateManagerConfig: core.serialization.Schema<
     serializers.GroupUpdateManagerConfig.Raw,
     Letta.GroupUpdateManagerConfig
-> = core.serialization.undiscriminatedUnion([BackgroundManager, DynamicManager, RoundRobinManager, SupervisorManager]);
+> = core.serialization.undiscriminatedUnion([DynamicManager, RoundRobinManager, SleeptimeManager, SupervisorManager]);
 
 export declare namespace GroupUpdateManagerConfig {
-    export type Raw = BackgroundManager.Raw | DynamicManager.Raw | RoundRobinManager.Raw | SupervisorManager.Raw;
+    export type Raw = DynamicManager.Raw | RoundRobinManager.Raw | SleeptimeManager.Raw | SupervisorManager.Raw;
 }

@@ -19,8 +19,8 @@ export const Group: core.serialization.ObjectSchema<serializers.Group.Raw, Letta
     managerAgentId: core.serialization.property("manager_agent_id", core.serialization.string().optional()),
     terminationToken: core.serialization.property("termination_token", core.serialization.string().optional()),
     maxTurns: core.serialization.property("max_turns", core.serialization.number().optional()),
-    backgroundAgentsInterval: core.serialization.property(
-        "background_agents_interval",
+    sleeptimeAgentFrequency: core.serialization.property(
+        "sleeptime_agent_frequency",
         core.serialization.number().optional(),
     ),
     turnsCounter: core.serialization.property("turns_counter", core.serialization.number().optional()),
@@ -40,7 +40,7 @@ export declare namespace Group {
         manager_agent_id?: string | null;
         termination_token?: string | null;
         max_turns?: number | null;
-        background_agents_interval?: number | null;
+        sleeptime_agent_frequency?: number | null;
         turns_counter?: number | null;
         last_processed_message_id?: string | null;
     }

@@ -17,6 +17,7 @@ export interface AssistantMessage {
     id: string;
     date: Date;
     name?: string;
+    otid?: string;
     messageType: "assistant_message";
     /** The message content sent by the agent (can be a string or an array of content parts) */
     content: Letta.AssistantMessageContent;

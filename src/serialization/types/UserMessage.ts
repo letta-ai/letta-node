@@ -12,6 +12,7 @@ export const UserMessage: core.serialization.ObjectSchema<serializers.UserMessag
         id: core.serialization.string(),
         date: core.serialization.date(),
         name: core.serialization.string().optional(),
+        otid: core.serialization.string().optional(),
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("user_message")),
         content: UserMessageContent,
     });
@@ -21,6 +22,7 @@ export declare namespace UserMessage {
         id: string;
         date: string;
         name?: string | null;
+        otid?: string | null;
         message_type: "user_message";
         content: UserMessageContent.Raw;
     }

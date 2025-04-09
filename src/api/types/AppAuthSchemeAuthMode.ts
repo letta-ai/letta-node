@@ -12,7 +12,6 @@ export type AppAuthSchemeAuthMode =
     | "GOOGLE_SERVICE_ACCOUNT"
     | "GOOGLEADS_AUTH"
     | "NO_AUTH"
-    | "COMPOSIO_LINK"
     | "CALCOM_AUTH";
 export const AppAuthSchemeAuthMode = {
     Oauth2: "OAUTH2",
@@ -24,6 +23,5 @@ export const AppAuthSchemeAuthMode = {
     GoogleServiceAccount: "GOOGLE_SERVICE_ACCOUNT",
     GoogleadsAuth: "GOOGLEADS_AUTH",
     NoAuth: "NO_AUTH",
-    ComposioLink: "COMPOSIO_LINK",
     CalcomAuth: "CALCOM_AUTH",
 } as const;
