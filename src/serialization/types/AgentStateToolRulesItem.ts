@@ -10,6 +10,7 @@ import { ChildToolRule } from "./ChildToolRule";
 import { ContinueToolRule } from "./ContinueToolRule";
 import { TerminalToolRule } from "./TerminalToolRule";
 import { MaxCountPerStepToolRule } from "./MaxCountPerStepToolRule";
+import { ParentToolRule } from "./ParentToolRule";
 import { InitToolRule } from "./InitToolRule";
 
 export const AgentStateToolRulesItem: core.serialization.Schema<
@@ -21,6 +22,7 @@ export const AgentStateToolRulesItem: core.serialization.Schema<
     ContinueToolRule,
     TerminalToolRule,
     MaxCountPerStepToolRule,
+    ParentToolRule,
     InitToolRule,
 ]);
 
@@ -31,5 +33,6 @@ export declare namespace AgentStateToolRulesItem {
         | ContinueToolRule.Raw
         | TerminalToolRule.Raw
         | MaxCountPerStepToolRule.Raw
+        | ParentToolRule.Raw
         | InitToolRule.Raw;
 }

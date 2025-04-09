@@ -138,6 +138,7 @@ export * from "./OrganizationCreate";
 export * from "./OrganizationUpdate";
 export * from "./ParameterProperties";
 export * from "./ParametersSchema";
+export * from "./ParentToolRule";
 export * from "./Passage";
 export * from "./PipRequirement";
 export * from "./Provider";

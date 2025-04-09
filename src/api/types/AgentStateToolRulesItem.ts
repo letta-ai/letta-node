@@ -10,4 +10,5 @@ export type AgentStateToolRulesItem =
     | Letta.ContinueToolRule
     | Letta.TerminalToolRule
     | Letta.MaxCountPerStepToolRule
+    | Letta.ParentToolRule
     | Letta.InitToolRule;
