@@ -1544,7 +1544,7 @@ await client.agents.create();
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">exportAgentSerialized</a>(agentId) -> Letta.AgentSchema</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">exportAgentSerialized</a>(agentId) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1556,7 +1556,7 @@ await client.agents.create();
 <dl>
 <dd>
 
-Export the serialized JSON representation of an agent.
+Export the serialized JSON representation of an agent, formatted with indentation.
 
 </dd>
 </dl>
@@ -2286,77 +2286,6 @@ await client.groups.retrieve("group_id");
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">modifyGroup</a>(groupId, { ...params }) -> Letta.Group</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a new multi-agent group with the specified configuration.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.groups.modifyGroup("group_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.GroupUpdate`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Groups.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">delete</a>(groupId) -> unknown</code></summary>
 <dl>
 <dd>
@@ -2420,9 +2349,24 @@ await client.groups.delete("group_id");
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">modify</a>(groupId) -> void</code></summary>
+<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">modify</a>(groupId, { ...params }) -> Letta.Group</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new multi-agent group with the specified configuration.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -2450,6 +2394,14 @@ await client.groups.modify("group_id");
 <dd>
 
 **groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.GroupUpdate`
 
 </dd>
 </dl>
