@@ -89,8 +89,8 @@ export class Identities {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.83",
-                "User-Agent": "@letta-ai/letta-client/0.1.83",
+                "X-Fern-SDK-Version": "0.1.84",
+                "User-Agent": "@letta-ai/letta-client/0.1.84",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -149,25 +149,23 @@ export class Identities {
     }
 
     /**
-     * @param {Letta.IdentitiesCreateRequest} request
+     * @param {Letta.IdentityCreate} request
      * @param {Identities.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
      *     await client.identities.create({
-     *         body: {
-     *             identifierKey: "identifier_key",
-     *             name: "name",
-     *             identityType: "org"
-     *         }
+     *         identifierKey: "identifier_key",
+     *         name: "name",
+     *         identityType: "org"
      *     })
      */
     public async create(
-        request: Letta.IdentitiesCreateRequest,
+        request: Letta.IdentityCreate,
         requestOptions?: Identities.RequestOptions,
     ): Promise<Letta.Identity> {
-        const { project, body: _body } = request;
+        const { project, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -179,8 +177,8 @@ export class Identities {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.83",
-                "User-Agent": "@letta-ai/letta-client/0.1.83",
+                "X-Fern-SDK-Version": "0.1.84",
+                "User-Agent": "@letta-ai/letta-client/0.1.84",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Project": project != null ? project : undefined,
@@ -240,25 +238,23 @@ export class Identities {
     }
 
     /**
-     * @param {Letta.IdentitiesUpsertRequest} request
+     * @param {Letta.IdentityUpsert} request
      * @param {Identities.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
      *     await client.identities.upsert({
-     *         body: {
-     *             identifierKey: "identifier_key",
-     *             name: "name",
-     *             identityType: "org"
-     *         }
+     *         identifierKey: "identifier_key",
+     *         name: "name",
+     *         identityType: "org"
      *     })
      */
     public async upsert(
-        request: Letta.IdentitiesUpsertRequest,
+        request: Letta.IdentityUpsert,
         requestOptions?: Identities.RequestOptions,
     ): Promise<Letta.Identity> {
-        const { project, body: _body } = request;
+        const { project, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -270,8 +266,8 @@ export class Identities {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.83",
-                "User-Agent": "@letta-ai/letta-client/0.1.83",
+                "X-Fern-SDK-Version": "0.1.84",
+                "User-Agent": "@letta-ai/letta-client/0.1.84",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Project": project != null ? project : undefined,
@@ -280,7 +276,7 @@ export class Identities {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.IdentityCreate.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.IdentityUpsert.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -351,8 +347,8 @@ export class Identities {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.83",
-                "User-Agent": "@letta-ai/letta-client/0.1.83",
+                "X-Fern-SDK-Version": "0.1.84",
+                "User-Agent": "@letta-ai/letta-client/0.1.84",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -432,8 +428,8 @@ export class Identities {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.83",
-                "User-Agent": "@letta-ai/letta-client/0.1.83",
+                "X-Fern-SDK-Version": "0.1.84",
+                "User-Agent": "@letta-ai/letta-client/0.1.84",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -512,8 +508,8 @@ export class Identities {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.83",
-                "User-Agent": "@letta-ai/letta-client/0.1.83",
+                "X-Fern-SDK-Version": "0.1.84",
+                "User-Agent": "@letta-ai/letta-client/0.1.84",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -564,6 +560,93 @@ export class Identities {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/identities/{identity_id}.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {string} identityId
+     * @param {Letta.IdentityProperty[]} request
+     * @param {Identities.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.identities.upsertIdentityProperties("identity_id", [{
+     *             key: "key",
+     *             value: "value",
+     *             type: "string"
+     *         }])
+     */
+    public async upsertIdentityProperties(
+        identityId: string,
+        request: Letta.IdentityProperty[],
+        requestOptions?: Identities.RequestOptions,
+    ): Promise<unknown> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/identities/${encodeURIComponent(identityId)}/properties`,
+            ),
+            method: "PUT",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.84",
+                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.identities.upsertIdentityProperties.Request.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return _response.body;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling PUT /v1/identities/{identity_id}/properties.",
+                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

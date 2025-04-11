@@ -1,4 +1,4 @@
 export { type IdentitiesListRequest } from "./IdentitiesListRequest";
-export { type IdentitiesCreateRequest } from "./IdentitiesCreateRequest";
-export { type IdentitiesUpsertRequest } from "./IdentitiesUpsertRequest";
+export { type IdentityCreate } from "./IdentityCreate";
+export { type IdentityUpsert } from "./IdentityUpsert";
 export { type IdentityUpdate } from "./IdentityUpdate";

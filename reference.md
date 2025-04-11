@@ -2562,11 +2562,9 @@ await client.identities.list();
 
 ```typescript
 await client.identities.create({
-    body: {
-        identifierKey: "identifier_key",
-        name: "name",
-        identityType: "org",
-    },
+    identifierKey: "identifier_key",
+    name: "name",
+    identityType: "org",
 });
 ```
 
@@ -2583,7 +2581,7 @@ await client.identities.create({
 <dl>
 <dd>
 
-**request:** `Letta.IdentitiesCreateRequest`
+**request:** `Letta.IdentityCreate`
 
 </dd>
 </dl>
@@ -2616,11 +2614,9 @@ await client.identities.create({
 
 ```typescript
 await client.identities.upsert({
-    body: {
-        identifierKey: "identifier_key",
-        name: "name",
-        identityType: "org",
-    },
+    identifierKey: "identifier_key",
+    name: "name",
+    identityType: "org",
 });
 ```
 
@@ -2637,7 +2633,7 @@ await client.identities.upsert({
 <dl>
 <dd>
 
-**request:** `Letta.IdentitiesUpsertRequest`
+**request:** `Letta.IdentityUpsert`
 
 </dd>
 </dl>
@@ -2805,6 +2801,68 @@ await client.identities.modify("identity_id");
 <dd>
 
 **request:** `Letta.IdentityUpdate`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Identities.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">upsertIdentityProperties</a>(identityId, { ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.identities.upsertIdentityProperties("identity_id", [
+    {
+        key: "key",
+        value: "value",
+        type: "string",
+    },
+]);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identityId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.IdentityProperty[]`
 
 </dd>
 </dl>
