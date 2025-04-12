@@ -204,8 +204,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -290,8 +290,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Project": project != null ? project : undefined,
@@ -361,7 +361,7 @@ export class Agents {
      * @example
      *     await client.agents.exportAgentSerialized("agent_id")
      */
-    public async exportAgentSerialized(agentId: string, requestOptions?: Agents.RequestOptions): Promise<unknown> {
+    public async exportAgentSerialized(agentId: string, requestOptions?: Agents.RequestOptions): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -373,8 +373,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -387,7 +387,13 @@ export class Agents {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.agents.exportAgentSerialized.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -473,8 +479,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -557,8 +563,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -638,8 +644,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -718,8 +724,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -809,8 +815,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -904,8 +910,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -991,8 +997,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.84",
-                "User-Agent": "@letta-ai/letta-client/0.1.84",
+                "X-Fern-SDK-Version": "0.1.85",
+                "User-Agent": "@letta-ai/letta-client/0.1.85",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

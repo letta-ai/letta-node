@@ -1544,7 +1544,7 @@ await client.agents.create();
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">exportAgentSerialized</a>(agentId) -> unknown</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">exportAgentSerialized</a>(agentId) -> string</code></summary>
 <dl>
 <dd>
 
