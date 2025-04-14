@@ -14,6 +14,7 @@ export const MessageCreate: core.serialization.ObjectSchema<serializers.MessageC
         content: MessageCreateContent,
         name: core.serialization.string().optional(),
         otid: core.serialization.string().optional(),
+        senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
     });
 
 export declare namespace MessageCreate {
@@ -22,5 +23,6 @@ export declare namespace MessageCreate {
         content: MessageCreateContent.Raw;
         name?: string | null;
         otid?: string | null;
+        sender_id?: string | null;
     }
 }

@@ -16,4 +16,6 @@ export interface MessageCreate {
     name?: string;
     /** The offline threading id associated with this message */
     otid?: string;
+    /** The id of the sender of the message, can be an identity id or agent id */
+    senderId?: string;
 }

@@ -20,8 +20,9 @@ export interface HiddenReasoningMessage {
     id: string;
     date: Date;
     name?: string;
-    otid?: string;
     messageType: "hidden_reasoning_message";
+    otid?: string;
+    senderId?: string;
     state: Letta.HiddenReasoningMessageState;
     hiddenReasoning?: string;
 }

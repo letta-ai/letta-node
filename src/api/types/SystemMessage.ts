@@ -15,8 +15,9 @@ export interface SystemMessage {
     id: string;
     date: Date;
     name?: string;
-    otid?: string;
     messageType: "system_message";
+    otid?: string;
+    senderId?: string;
     /** The message content sent by the system */
     content: string;
 }

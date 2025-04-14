@@ -20,8 +20,9 @@ export interface ReasoningMessage {
     id: string;
     date: Date;
     name?: string;
-    otid?: string;
     messageType: "reasoning_message";
+    otid?: string;
+    senderId?: string;
     source?: Letta.ReasoningMessageSource;
     reasoning: string;
     signature?: string;

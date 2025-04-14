@@ -21,8 +21,9 @@ export interface ToolReturnMessage {
     id: string;
     date: Date;
     name?: string;
-    otid?: string;
     messageType: "tool_return_message";
+    otid?: string;
+    senderId?: string;
     toolReturn: string;
     status: Letta.ToolReturnMessageStatus;
     toolCallId: string;

@@ -52,4 +52,6 @@ export interface Message {
     toolReturns?: Letta.ToolReturn[];
     /** The multi-agent group that the message was sent in */
     groupId?: string;
+    /** The id of the sender of the message, can be an identity id or agent id */
+    senderId?: string;
 }

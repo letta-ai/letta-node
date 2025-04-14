@@ -31,6 +31,7 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         otid: core.serialization.string().optional(),
         toolReturns: core.serialization.property("tool_returns", core.serialization.list(ToolReturn).optional()),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
+        senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
     });
 
 export declare namespace Message {
@@ -51,5 +52,6 @@ export declare namespace Message {
         otid?: string | null;
         tool_returns?: ToolReturn.Raw[] | null;
         group_id?: string | null;
+        sender_id?: string | null;
     }
 }
