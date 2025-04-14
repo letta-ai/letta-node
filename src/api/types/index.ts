@@ -112,6 +112,7 @@ export * from "./Job";
 export * from "./JobStatus";
 export * from "./JobType";
 export * from "./LlmConfigModelEndpointType";
+export * from "./LlmConfigReasoningEffort";
 export * from "./LlmConfig";
 export * from "./LettaRequest";
 export * from "./LettaRequestConfig";

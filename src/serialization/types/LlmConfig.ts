@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { LlmConfigModelEndpointType } from "./LlmConfigModelEndpointType";
+import { LlmConfigReasoningEffort } from "./LlmConfigReasoningEffort";
 
 export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Raw, Letta.LlmConfig> =
     core.serialization.object({
@@ -22,6 +23,7 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
         temperature: core.serialization.number().optional(),
         maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
         enableReasoner: core.serialization.property("enable_reasoner", core.serialization.boolean().optional()),
+        reasoningEffort: core.serialization.property("reasoning_effort", LlmConfigReasoningEffort.optional()),
         maxReasoningTokens: core.serialization.property("max_reasoning_tokens", core.serialization.number().optional()),
     });
 
@@ -37,6 +39,7 @@ export declare namespace LlmConfig {
         temperature?: number | null;
         max_tokens?: number | null;
         enable_reasoner?: boolean | null;
+        reasoning_effort?: LlmConfigReasoningEffort.Raw | null;
         max_reasoning_tokens?: number | null;
     }
 }

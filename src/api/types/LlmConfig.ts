@@ -38,6 +38,8 @@ export interface LlmConfig {
     maxTokens?: number;
     /** Whether or not the model should use extended thinking if it is a 'reasoning' style model */
     enableReasoner?: boolean;
+    /** The reasoning effort to use when generating text reasoning models */
+    reasoningEffort?: Letta.LlmConfigReasoningEffort;
     /** Configurable thinking budget for extended thinking, only used if enable_reasoner is True. Minimum value is 1024. */
     maxReasoningTokens?: number;
 }
