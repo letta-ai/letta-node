@@ -114,6 +114,8 @@ export * from "./JobType";
 export * from "./LlmConfigModelEndpointType";
 export * from "./LlmConfigReasoningEffort";
 export * from "./LlmConfig";
+export * from "./LettaBatchRequest";
+export * from "./LettaBatchResponse";
 export * from "./LettaRequest";
 export * from "./LettaRequestConfig";
 export * from "./LettaResponse";
