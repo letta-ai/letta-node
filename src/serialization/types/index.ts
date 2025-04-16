@@ -2,6 +2,7 @@ export * from "./NotFoundErrorBody";
 export * from "./InternalServerErrorBody";
 export * from "./NotFoundErrorBodyMessage";
 export * from "./ConflictErrorBody";
+export * from "./BadRequestErrorBody";
 export * from "./ActionModel";
 export * from "./ActionParametersModel";
 export * from "./ActionResponseModel";

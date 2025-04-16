@@ -4868,6 +4868,153 @@ await client.templates.createAgents("project", "template_version");
 </dl>
 </details>
 
+## ClientSideAccessTokens
+
+<details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">clientSideAccessTokensCreateClientSideAccessToken</a>({ ...params }) -> Letta.ClientSideAccessTokensCreateClientSideAccessTokenResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new client side access token with the specified configuration.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.clientSideAccessTokens.clientSideAccessTokensCreateClientSideAccessToken({
+    policy: [
+        {
+            type: "agent",
+            id: "id",
+            access: ["read_messages"],
+        },
+    ],
+    hostname: "hostname",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ClientSideAccessTokensCreateClientSideAccessTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ClientSideAccessTokens.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">clientSideAccessTokensDeleteClientSideAccessToken</a>(token, { ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a client side access token.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.clientSideAccessTokens.clientSideAccessTokensDeleteClientSideAccessToken("token", {
+    key: "value",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**token:** `string` — The access token to delete
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `unknown`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ClientSideAccessTokens.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Agents Context
 
 <details><summary><code>client.agents.context.<a href="/src/api/resources/agents/resources/context/client/Client.ts">retrieve</a>(agentId) -> Letta.ContextWindowOverview</code></summary>

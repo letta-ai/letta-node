@@ -19,6 +19,7 @@ import { Steps } from "./api/resources/steps/client/Client";
 import { Tag } from "./api/resources/tag/client/Client";
 import { Voice } from "./api/resources/voice/client/Client";
 import { Templates } from "./api/resources/templates/client/Client";
+import { ClientSideAccessTokens } from "./api/resources/clientSideAccessTokens/client/Client";
 
 export declare namespace LettaClient {
     export interface Options {
@@ -57,6 +58,7 @@ export class LettaClient {
     protected _tag: Tag | undefined;
     protected _voice: Voice | undefined;
     protected _templates: Templates | undefined;
+    protected _clientSideAccessTokens: ClientSideAccessTokens | undefined;
 
     constructor(protected readonly _options: LettaClient.Options = {}) {}
 
@@ -118,5 +120,9 @@ export class LettaClient {
 
     public get templates(): Templates {
         return (this._templates ??= new Templates(this._options));
+    }
+
+    public get clientSideAccessTokens(): ClientSideAccessTokens {
+        return (this._clientSideAccessTokens ??= new ClientSideAccessTokens(this._options));
     }
 }
