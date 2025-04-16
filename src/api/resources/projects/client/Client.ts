@@ -9,7 +9,7 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
-export declare namespace Health {
+export declare namespace Projects {
     export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -30,22 +30,42 @@ export declare namespace Health {
     }
 }
 
-export class Health {
-    constructor(protected readonly _options: Health.Options = {}) {}
+export class Projects {
+    constructor(protected readonly _options: Projects.Options = {}) {}
 
     /**
-     * @param {Health.RequestOptions} requestOptions - Request-specific configuration.
+     * List all projects
+     *
+     * @param {Letta.ProjectsListProjectsRequest} request
+     * @param {Projects.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.health.check()
+     *     await client.projects.listprojects()
      */
-    public async check(requestOptions?: Health.RequestOptions): Promise<Letta.Health> {
+    public async listprojects(
+        request: Letta.ProjectsListProjectsRequest = {},
+        requestOptions?: Projects.RequestOptions,
+    ): Promise<Letta.ProjectsListProjectsResponse> {
+        const { name, offset, limit } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (name != null) {
+            _queryParams["name"] = name;
+        }
+
+        if (offset != null) {
+            _queryParams["offset"] = offset.toString();
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                "v1/health/",
+                "v1/projects",
             ),
             method: "GET",
             headers: {
@@ -59,13 +79,14 @@ export class Health {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Health.parseOrThrow(_response.body, {
+            return serializers.ProjectsListProjectsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -88,7 +109,7 @@ export class Health {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/health/.");
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/projects.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

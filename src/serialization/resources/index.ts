@@ -10,6 +10,8 @@ export * as templates from "./templates";
 export * from "./templates/types";
 export * as clientSideAccessTokens from "./clientSideAccessTokens";
 export * from "./clientSideAccessTokens/types";
+export * as projects from "./projects";
+export * from "./projects/types";
 export * as sources from "./sources";
 export * as identities from "./identities";
 export * as models from "./models";

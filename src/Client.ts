@@ -20,6 +20,7 @@ import { Tag } from "./api/resources/tag/client/Client";
 import { Voice } from "./api/resources/voice/client/Client";
 import { Templates } from "./api/resources/templates/client/Client";
 import { ClientSideAccessTokens } from "./api/resources/clientSideAccessTokens/client/Client";
+import { Projects } from "./api/resources/projects/client/Client";
 
 export declare namespace LettaClient {
     export interface Options {
@@ -59,6 +60,7 @@ export class LettaClient {
     protected _voice: Voice | undefined;
     protected _templates: Templates | undefined;
     protected _clientSideAccessTokens: ClientSideAccessTokens | undefined;
+    protected _projects: Projects | undefined;
 
     constructor(protected readonly _options: LettaClient.Options = {}) {}
 
@@ -124,5 +126,9 @@ export class LettaClient {
 
     public get clientSideAccessTokens(): ClientSideAccessTokens {
         return (this._clientSideAccessTokens ??= new ClientSideAccessTokens(this._options));
+    }
+
+    public get projects(): Projects {
+        return (this._projects ??= new Projects(this._options));
     }
 }

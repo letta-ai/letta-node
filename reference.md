@@ -4868,6 +4868,69 @@ await client.templates.createAgents("project", "template_version");
 </dl>
 </details>
 
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listtemplates</a>({ ...params }) -> Letta.TemplatesListTemplatesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all templates
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.listtemplates();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesListTemplatesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## ClientSideAccessTokens
 
 <details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">clientSideAccessTokensCreateClientSideAccessToken</a>({ ...params }) -> Letta.ClientSideAccessTokensCreateClientSideAccessTokenResponse</code></summary>
@@ -5005,6 +5068,71 @@ await client.clientSideAccessTokens.clientSideAccessTokensDeleteClientSideAccess
 <dd>
 
 **requestOptions:** `ClientSideAccessTokens.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Projects
+
+<details><summary><code>client.projects.<a href="/src/api/resources/projects/client/Client.ts">listprojects</a>({ ...params }) -> Letta.ProjectsListProjectsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all projects
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.projects.listprojects();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ProjectsListProjectsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Projects.RequestOptions`
 
 </dd>
 </dl>
