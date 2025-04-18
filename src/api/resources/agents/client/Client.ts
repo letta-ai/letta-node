@@ -17,6 +17,7 @@ import { CoreMemory } from "../resources/coreMemory/client/Client";
 import { Blocks } from "../resources/blocks/client/Client";
 import { Passages } from "../resources/passages/client/Client";
 import { Messages } from "../resources/messages/client/Client";
+import { Groups } from "../resources/groups/client/Client";
 import { Templates } from "../resources/templates/client/Client";
 import { MemoryVariables } from "../resources/memoryVariables/client/Client";
 
@@ -49,6 +50,7 @@ export class Agents {
     protected _blocks: Blocks | undefined;
     protected _passages: Passages | undefined;
     protected _messages: Messages | undefined;
+    protected _groups: Groups | undefined;
     protected _templates: Templates | undefined;
     protected _memoryVariables: MemoryVariables | undefined;
 
@@ -80,6 +82,10 @@ export class Agents {
 
     public get messages(): Messages {
         return (this._messages ??= new Messages(this._options));
+    }
+
+    public get groups(): Groups {
+        return (this._groups ??= new Groups(this._options));
     }
 
     public get templates(): Templates {
@@ -204,8 +210,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -290,8 +296,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Project": project != null ? project : undefined,
@@ -373,8 +379,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -432,6 +438,64 @@ export class Agents {
     }
 
     /**
+     * @param {string} agentId
+     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.agents.export("agent_id")
+     */
+    public async export(agentId: string, requestOptions?: Agents.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/export`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/agents/{agent_id}/export.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
      * Import a serialized agent file and recreate the agent in the system.
      *
      * @param {File | fs.ReadStream | Blob} file
@@ -441,9 +505,9 @@ export class Agents {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.importAgentSerialized(fs.createReadStream("/path/to/your/file"), {})
+     *     await client.agents.import(fs.createReadStream("/path/to/your/file"), {})
      */
-    public async importAgentSerialized(
+    public async import(
         file: File | fs.ReadStream | Blob,
         request: Letta.BodyImportAgentSerialized,
         requestOptions?: Agents.RequestOptions,
@@ -479,8 +543,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -563,8 +627,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -644,8 +708,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -724,8 +788,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -784,287 +848,6 @@ export class Agents {
     }
 
     /**
-     * Modify a memory in the agent's archival memory store.
-     *
-     * @param {string} agentId
-     * @param {string} memoryId
-     * @param {Letta.PassageUpdate} request
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.agents.modifyPassage("agent_id", "memory_id", {
-     *         id: "id"
-     *     })
-     */
-    public async modifyPassage(
-        agentId: string,
-        memoryId: string,
-        request: Letta.PassageUpdate,
-        requestOptions?: Agents.RequestOptions,
-    ): Promise<Letta.Passage[]> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/archival-memory/${encodeURIComponent(memoryId)}`,
-            ),
-            method: "PATCH",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.PassageUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.agents.modifyPassage.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/archival-memory/{memory_id}.",
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Resets the messages for an agent
-     *
-     * @param {string} agentId
-     * @param {Letta.ResetMessagesRequest} request
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.agents.resetMessages("agent_id")
-     */
-    public async resetMessages(
-        agentId: string,
-        request: Letta.ResetMessagesRequest = {},
-        requestOptions?: Agents.RequestOptions,
-    ): Promise<Letta.AgentState> {
-        const { addDefaultInitialMessages } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (addDefaultInitialMessages != null) {
-            _queryParams["add_default_initial_messages"] = addDefaultInitialMessages.toString();
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/reset-messages`,
-            ),
-            method: "PATCH",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.AgentState.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/reset-messages.",
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Lists the groups for an agent
-     *
-     * @param {string} agentId
-     * @param {Letta.ListAgentGroupsRequest} request
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.agents.listAgentGroups("agent_id")
-     */
-    public async listAgentGroups(
-        agentId: string,
-        request: Letta.ListAgentGroupsRequest = {},
-        requestOptions?: Agents.RequestOptions,
-    ): Promise<Letta.Group[]> {
-        const { managerType } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (managerType != null) {
-            _queryParams["manager_type"] = managerType;
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/groups`,
-            ),
-            method: "GET",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.agents.listAgentGroups.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/agents/{agent_id}/groups.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
      * <Note>This endpoint is only available on Letta Cloud.</Note>
      *
      * Search deployed agents.
@@ -1090,8 +873,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

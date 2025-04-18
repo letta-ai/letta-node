@@ -36,16 +36,16 @@ export class Providers {
     /**
      * Get a list of all custom providers in the database
      *
-     * @param {Letta.ListProvidersRequest} request
+     * @param {Letta.ProvidersListRequest} request
      * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.providers.listProviders()
+     *     await client.providers.list()
      */
-    public async listProviders(
-        request: Letta.ListProvidersRequest = {},
+    public async list(
+        request: Letta.ProvidersListRequest = {},
         requestOptions?: Providers.RequestOptions,
     ): Promise<Letta.Provider[]> {
         const { after, limit } = request;
@@ -69,8 +69,8 @@ export class Providers {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -84,7 +84,7 @@ export class Providers {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.providers.listProviders.Response.parseOrThrow(_response.body, {
+            return serializers.providers.list.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -137,12 +137,12 @@ export class Providers {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.providers.createProvider({
+     *     await client.providers.create({
      *         name: "name",
      *         apiKey: "api_key"
      *     })
      */
-    public async createProvider(
+    public async create(
         request: Letta.ProviderCreate,
         requestOptions?: Providers.RequestOptions,
     ): Promise<Letta.Provider> {
@@ -157,8 +157,8 @@ export class Providers {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -247,8 +247,8 @@ export class Providers {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -329,8 +329,8 @@ export class Providers {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -381,6 +381,122 @@ export class Providers {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/providers/.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {string} providerId
+     * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.providers.delete("provider_id")
+     */
+    public async delete(providerId: string, requestOptions?: Providers.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/providers/${encodeURIComponent(providerId)}`,
+            ),
+            method: "DELETE",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling DELETE /v1/providers/{provider_id}.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {string} providerId
+     * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.providers.modify("provider_id")
+     */
+    public async modify(providerId: string, requestOptions?: Providers.RequestOptions): Promise<void> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/providers/${encodeURIComponent(providerId)}`,
+            ),
+            method: "PATCH",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/providers/{provider_id}.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

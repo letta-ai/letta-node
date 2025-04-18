@@ -1,3 +1,3 @@
-export * as getByName from "./getByName";
+export * as retrieveByName from "./retrieveByName";
 export * as list from "./list";
 export * from "./requests";

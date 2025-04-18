@@ -8,5 +8,6 @@ export * as tools from "./tools";
 export * as sources from "./sources";
 export * as blocks from "./blocks";
 export * as passages from "./passages";
+export * as groups from "./groups";
 export * from "./passages/client/requests";
 export * from "./templates/client/requests";

@@ -8,7 +8,6 @@ import * as Letta from "../../../index";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 import * as serializers from "../../../../serialization/index";
-import { Batches } from "../resources/batches/client/Client";
 
 export declare namespace Messages {
     export interface Options {
@@ -32,13 +31,7 @@ export declare namespace Messages {
 }
 
 export class Messages {
-    protected _batches: Batches | undefined;
-
     constructor(protected readonly _options: Messages.Options = {}) {}
-
-    public get batches(): Batches {
-        return (this._batches ??= new Batches(this._options));
-    }
 
     /**
      * Cancel a batch run.
@@ -63,8 +56,8 @@ export class Messages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.98",
-                "User-Agent": "@letta-ai/letta-client/0.1.98",
+                "X-Fern-SDK-Version": "0.1.99",
+                "User-Agent": "@letta-ai/letta-client/0.1.99",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

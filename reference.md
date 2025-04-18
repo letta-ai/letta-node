@@ -392,7 +392,7 @@ await client.tools.upsert({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">addBaseTool</a>() -> Letta.Tool[]</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">upsertBaseTools</a>() -> Letta.Tool[]</code></summary>
 <dl>
 <dd>
 
@@ -420,7 +420,7 @@ Upsert base tools
 <dd>
 
 ```typescript
-await client.tools.addBaseTool();
+await client.tools.upsertBaseTools();
 ```
 
 </dd>
@@ -1230,7 +1230,7 @@ await client.sources.modify("source_id");
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">getByName</a>(sourceName) -> string</code></summary>
+<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">retrieveByName</a>(sourceName) -> string</code></summary>
 <dl>
 <dd>
 
@@ -1258,7 +1258,7 @@ Get a source by name
 <dd>
 
 ```typescript
-await client.sources.getByName("source_name");
+await client.sources.retrieveByName("source_name");
 ```
 
 </dd>
@@ -1607,7 +1607,55 @@ await client.agents.exportAgentSerialized("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">importAgentSerialized</a>(file, { ...params }) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">export</a>(agentId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.export("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">import</a>(file, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
 
@@ -1635,7 +1683,7 @@ Import a serialized agent file and recreate the agent in the system.
 <dd>
 
 ```typescript
-await client.agents.importAgentSerialized(fs.createReadStream("/path/to/your/file"), {});
+await client.agents.import(fs.createReadStream("/path/to/your/file"), {});
 ```
 
 </dd>
@@ -1857,229 +1905,6 @@ await client.agents.modify("agent_id");
 <dd>
 
 **request:** `Letta.UpdateAgent`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">modifyPassage</a>(agentId, memoryId, { ...params }) -> Letta.Passage[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Modify a memory in the agent's archival memory store.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.modifyPassage("agent_id", "memory_id", {
-    id: "id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**memoryId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.PassageUpdate`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">resetMessages</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Resets the messages for an agent
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.resetMessages("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.ResetMessagesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">listAgentGroups</a>(agentId, { ...params }) -> Letta.Group[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Lists the groups for an agent
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.listAgentGroups("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListAgentGroupsRequest`
 
 </dd>
 </dl>
@@ -2491,69 +2316,6 @@ await client.groups.modify("group_id");
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">resetMessages</a>(groupId) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete the group messages for all agents that are part of the multi-agent group.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.groups.resetMessages("group_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Groups.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Identities
 
 <details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">list</a>({ ...params }) -> Letta.Identity[]</code></summary>
@@ -2890,71 +2652,9 @@ await client.identities.modify("identity_id");
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">upsertIdentityProperties</a>(identityId, { ...params }) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.identities.upsertIdentityProperties("identity_id", [
-    {
-        key: "key",
-        value: "value",
-        type: "string",
-    },
-]);
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**identityId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.IdentityProperty[]`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Identities.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Models
 
-<details><summary><code>client.models.<a href="/src/api/resources/models/client/Client.ts">listLlms</a>() -> Letta.LlmConfig[]</code></summary>
+<details><summary><code>client.models.<a href="/src/api/resources/models/client/Client.ts">list</a>() -> Letta.LlmConfig[]</code></summary>
 <dl>
 <dd>
 
@@ -2967,7 +2667,7 @@ await client.identities.upsertIdentityProperties("identity_id", [
 <dd>
 
 ```typescript
-await client.models.listLlms();
+await client.models.list();
 ```
 
 </dd>
@@ -2994,7 +2694,9 @@ await client.models.listLlms();
 </dl>
 </details>
 
-<details><summary><code>client.models.<a href="/src/api/resources/models/client/Client.ts">listEmbeddingModels</a>() -> Letta.EmbeddingConfig[]</code></summary>
+## Embeddings
+
+<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">list</a>() -> Letta.EmbeddingConfig[]</code></summary>
 <dl>
 <dd>
 
@@ -3007,7 +2709,7 @@ await client.models.listLlms();
 <dd>
 
 ```typescript
-await client.models.listEmbeddingModels();
+await client.embeddings.list();
 ```
 
 </dd>
@@ -3023,7 +2725,7 @@ await client.models.listEmbeddingModels();
 <dl>
 <dd>
 
-**requestOptions:** `Models.RequestOptions`
+**requestOptions:** `Embeddings.RequestOptions`
 
 </dd>
 </dl>
@@ -3269,70 +2971,6 @@ await client.blocks.modify("block_id", {});
 <dd>
 
 **request:** `Letta.BlockUpdate`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Blocks.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">listAgentsForBlock</a>(blockId) -> Letta.AgentState[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves all agents associated with the specified block.
-Raises a 404 if the block does not exist.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.blocks.listAgentsForBlock("block_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**blockId:** `string`
 
 </dd>
 </dl>
@@ -3641,7 +3279,7 @@ await client.health.check();
 
 ## Providers
 
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">listProviders</a>({ ...params }) -> Letta.Provider[]</code></summary>
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">list</a>({ ...params }) -> Letta.Provider[]</code></summary>
 <dl>
 <dd>
 
@@ -3669,7 +3307,7 @@ Get a list of all custom providers in the database
 <dd>
 
 ```typescript
-await client.providers.listProviders();
+await client.providers.list();
 ```
 
 </dd>
@@ -3685,7 +3323,7 @@ await client.providers.listProviders();
 <dl>
 <dd>
 
-**request:** `Letta.ListProvidersRequest`
+**request:** `Letta.ProvidersListRequest`
 
 </dd>
 </dl>
@@ -3704,7 +3342,7 @@ await client.providers.listProviders();
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">createProvider</a>({ ...params }) -> Letta.Provider</code></summary>
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">create</a>({ ...params }) -> Letta.Provider</code></summary>
 <dl>
 <dd>
 
@@ -3732,7 +3370,7 @@ Create a new custom provider
 <dd>
 
 ```typescript
-await client.providers.createProvider({
+await client.providers.create({
     name: "name",
     apiKey: "api_key",
 });
@@ -3901,6 +3539,102 @@ await client.providers.modifyProvider({
 </dl>
 </details>
 
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">delete</a>(providerId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.providers.delete("provider_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**providerId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Providers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">modify</a>(providerId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.providers.modify("provider_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**providerId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Providers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Runs
 
 <details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listRuns</a>({ ...params }) -> Letta.Run[]</code></summary>
@@ -3966,7 +3700,7 @@ await client.runs.listRuns();
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listActiveRuns</a>({ ...params }) -> Letta.Run[]</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listActive</a>({ ...params }) -> Letta.Run[]</code></summary>
 <dl>
 <dd>
 
@@ -3994,7 +3728,7 @@ List all active runs.
 <dd>
 
 ```typescript
-await client.runs.listActiveRuns();
+await client.runs.listActive();
 ```
 
 </dd>
@@ -4010,7 +3744,7 @@ await client.runs.listActiveRuns();
 <dl>
 <dd>
 
-**request:** `Letta.ListActiveRunsRequest`
+**request:** `Letta.RunsListActiveRequest`
 
 </dd>
 </dl>
@@ -4029,7 +3763,7 @@ await client.runs.listActiveRuns();
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">retrieveRun</a>(runId) -> Letta.Run</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">retrieve</a>(runId) -> Letta.Run</code></summary>
 <dl>
 <dd>
 
@@ -4057,7 +3791,7 @@ Get the status of a run.
 <dd>
 
 ```typescript
-await client.runs.retrieveRun("run_id");
+await client.runs.retrieve("run_id");
 ```
 
 </dd>
@@ -4092,7 +3826,7 @@ await client.runs.retrieveRun("run_id");
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">deleteRun</a>(runId) -> Letta.Run</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">delete</a>(runId) -> Letta.Run</code></summary>
 <dl>
 <dd>
 
@@ -4120,7 +3854,7 @@ Delete a run by its run_id.
 <dd>
 
 ```typescript
-await client.runs.deleteRun("run_id");
+await client.runs.delete("run_id");
 ```
 
 </dd>
@@ -4155,37 +3889,9 @@ await client.runs.deleteRun("run_id");
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listRunMessages</a>(runId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">list</a>() -> void</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get messages associated with a run with filtering options.
-
-Args:
-run_id: ID of the run
-before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-limit: Maximum number of messages to return
-order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-role: Filter by role (user/assistant/system/tool)
-return_message_object: Whether to return Message objects or LettaMessage objects
-user_id: ID of the user making the request
-
-Returns:
-A list of messages associated with the run. Default is List[LettaMessage].
-
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4196,7 +3902,7 @@ A list of messages associated with the run. Default is List[LettaMessage].
 <dd>
 
 ```typescript
-await client.runs.listRunMessages("run_id");
+await client.runs.list();
 ```
 
 </dd>
@@ -4208,166 +3914,6 @@ await client.runs.listRunMessages("run_id");
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**runId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListRunMessagesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Runs.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">retrieveRunUsage</a>(runId) -> Letta.UsageStatistics</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get usage statistics for a run.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.runs.retrieveRunUsage("run_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**runId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Runs.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listRunSteps</a>(runId, { ...params }) -> Letta.Step[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get messages associated with a run with filtering options.
-
-Args:
-run_id: ID of the run
-before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-limit: Maximum number of steps to return
-order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-
-Returns:
-A list of steps associated with the run.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.runs.listRunSteps("run_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**runId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListRunStepsRequest`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -4449,7 +3995,7 @@ await client.steps.listSteps();
 </dl>
 </details>
 
-<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">retrieveStep</a>(stepId) -> Letta.Step</code></summary>
+<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">retrieve</a>(stepId) -> Letta.Step</code></summary>
 <dl>
 <dd>
 
@@ -4477,7 +4023,7 @@ Get a step by ID.
 <dd>
 
 ```typescript
-await client.steps.retrieveStep("step_id");
+await client.steps.retrieve("step_id");
 ```
 
 </dd>
@@ -4497,6 +4043,46 @@ await client.steps.retrieveStep("step_id");
 
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Steps.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">list</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.steps.list();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>
@@ -4567,6 +4153,255 @@ await client.tag.listTags();
 <dd>
 
 **requestOptions:** `Tag.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Batches
+
+<details><summary><code>client.batches.<a href="/src/api/resources/batches/client/Client.ts">list</a>() -> Letta.BatchJob[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all batch runs.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.batches.list();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batches.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.batches.<a href="/src/api/resources/batches/client/Client.ts">create</a>({ ...params }) -> Letta.BatchJob</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit a batch of agent messages for asynchronous processing.
+Creates a job that will fan out messages to all listed agents and process them in parallel.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.batches.create({
+    requests: [
+        {
+            messages: [
+                {
+                    role: "user",
+                    content: [
+                        {
+                            type: "text",
+                            text: "text",
+                        },
+                    ],
+                },
+            ],
+            agentId: "agent_id",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.CreateBatch`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batches.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.batches.<a href="/src/api/resources/batches/client/Client.ts">retrieve</a>(batchId) -> Letta.BatchJob</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the status of a batch run.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.batches.retrieve("batch_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batchId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batches.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.batches.<a href="/src/api/resources/batches/client/Client.ts">cancel</a>(batchId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.batches.cancel("batch_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batchId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batches.RequestOptions`
 
 </dd>
 </dl>
@@ -4711,85 +4546,6 @@ await client.voice.createVoiceChatCompletions("agent_id", {
 </details>
 
 ## Templates
-
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">createAgents</a>(project, templateVersion, { ...params }) -> Letta.TemplatesCreateAgentsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an Agent or multiple Agents from a template
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.templates.createAgents("project", "template_version");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**project:** `string` — The project slug
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**templateVersion:** `string` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.TemplatesCreateAgentsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Templates.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
 
 <details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listtemplates</a>({ ...params }) -> Letta.TemplatesListTemplatesResponse</code></summary>
 <dl>
@@ -5056,6 +4812,48 @@ await client.projects.listprojects();
 <dd>
 
 **requestOptions:** `Projects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Tags
+
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">list</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tags.list();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tags.RequestOptions`
 
 </dd>
 </dl>
@@ -6185,6 +5983,87 @@ await client.agents.passages.delete("agent_id", "memory_id");
 </dl>
 </details>
 
+<details><summary><code>client.agents.passages.<a href="/src/api/resources/agents/resources/passages/client/Client.ts">modify</a>(agentId, memoryId, { ...params }) -> Letta.Passage[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Modify a memory in the agent's archival memory store.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.passages.modify("agent_id", "memory_id", {
+    id: "id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memoryId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.PassageUpdate`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Passages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Agents Messages
 
 <details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
@@ -6595,6 +6474,150 @@ await client.agents.messages.createAsync("agent_id", {
 </dl>
 </details>
 
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">reset</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Resets the messages for an agent
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.messages.reset("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.MessagesResetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Agents Groups
+
+<details><summary><code>client.agents.groups.<a href="/src/api/resources/agents/resources/groups/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.Group[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the groups for an agent
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.groups.list("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.GroupsListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Groups.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Agents Templates
 
 <details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">createVersion</a>(agentId, { ...params }) -> void</code></summary>
@@ -6876,6 +6899,72 @@ await client.agents.memoryVariables.list("agent_id");
 <dd>
 
 **requestOptions:** `MemoryVariables.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Blocks Agents
+
+<details><summary><code>client.blocks.agents.<a href="/src/api/resources/blocks/resources/agents/client/Client.ts">list</a>(blockId) -> Letta.AgentState[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves all agents associated with the specified block.
+Raises a 404 if the block does not exist.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.blocks.agents.list("block_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**blockId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
 
 </dd>
 </dl>
@@ -7212,9 +7301,7 @@ await client.groups.messages.modify("group_id", "message_id", {
 </dl>
 </details>
 
-## Messages Batches
-
-<details><summary><code>client.messages.batches.<a href="/src/api/resources/messages/resources/batches/client/Client.ts">list</a>() -> Letta.BatchJob[]</code></summary>
+<details><summary><code>client.groups.messages.<a href="/src/api/resources/groups/resources/messages/client/Client.ts">reset</a>(groupId) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -7226,7 +7313,7 @@ await client.groups.messages.modify("group_id", "message_id", {
 <dl>
 <dd>
 
-List all batch runs.
+Delete the group messages for all agents that are part of the multi-agent group.
 
 </dd>
 </dl>
@@ -7242,7 +7329,7 @@ List all batch runs.
 <dd>
 
 ```typescript
-await client.messages.batches.list();
+await client.groups.messages.reset("group_id");
 ```
 
 </dd>
@@ -7258,7 +7345,15 @@ await client.messages.batches.list();
 <dl>
 <dd>
 
-**requestOptions:** `Batches.RequestOptions`
+**groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
 
 </dd>
 </dl>
@@ -7269,7 +7364,73 @@ await client.messages.batches.list();
 </dl>
 </details>
 
-<details><summary><code>client.messages.batches.<a href="/src/api/resources/messages/resources/batches/client/Client.ts">create</a>({ ...params }) -> Letta.BatchJob</code></summary>
+## Identities Properties
+
+<details><summary><code>client.identities.properties.<a href="/src/api/resources/identities/resources/properties/client/Client.ts">upsert</a>(identityId, { ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.identities.properties.upsert("identity_id", [
+    {
+        key: "key",
+        value: "value",
+        type: "string",
+    },
+]);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identityId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.IdentityProperty[]`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Properties.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Runs Messages
+
+<details><summary><code>client.runs.messages.<a href="/src/api/resources/runs/resources/messages/client/Client.ts">list</a>(runId, { ...params }) -> Letta.LettaMessageUnion[]</code></summary>
 <dl>
 <dd>
 
@@ -7281,8 +7442,20 @@ await client.messages.batches.list();
 <dl>
 <dd>
 
-Submit a batch of agent messages for asynchronous processing.
-Creates a job that will fan out messages to all listed agents and process them in parallel.
+Get messages associated with a run with filtering options.
+
+Args:
+run_id: ID of the run
+before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+limit: Maximum number of messages to return
+order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+role: Filter by role (user/assistant/system/tool)
+return_message_object: Whether to return Message objects or LettaMessage objects
+user_id: ID of the user making the request
+
+Returns:
+A list of messages associated with the run. Default is List[LettaMessage].
 
 </dd>
 </dl>
@@ -7298,24 +7471,7 @@ Creates a job that will fan out messages to all listed agents and process them i
 <dd>
 
 ```typescript
-await client.messages.batches.create({
-    requests: [
-        {
-            messages: [
-                {
-                    role: "user",
-                    content: [
-                        {
-                            type: "text",
-                            text: "text",
-                        },
-                    ],
-                },
-            ],
-            agentId: "agent_id",
-        },
-    ],
-});
+await client.runs.messages.list("run_id");
 ```
 
 </dd>
@@ -7331,7 +7487,7 @@ await client.messages.batches.create({
 <dl>
 <dd>
 
-**request:** `Letta.messages.CreateBatch`
+**runId:** `string`
 
 </dd>
 </dl>
@@ -7339,7 +7495,15 @@ await client.messages.batches.create({
 <dl>
 <dd>
 
-**requestOptions:** `Batches.RequestOptions`
+**request:** `Letta.runs.MessagesListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
 
 </dd>
 </dl>
@@ -7350,7 +7514,9 @@ await client.messages.batches.create({
 </dl>
 </details>
 
-<details><summary><code>client.messages.batches.<a href="/src/api/resources/messages/resources/batches/client/Client.ts">retrieve</a>(batchId) -> Letta.BatchJob</code></summary>
+## Runs Usage
+
+<details><summary><code>client.runs.usage.<a href="/src/api/resources/runs/resources/usage/client/Client.ts">retrieve</a>(runId) -> Letta.UsageStatistics</code></summary>
 <dl>
 <dd>
 
@@ -7362,7 +7528,7 @@ await client.messages.batches.create({
 <dl>
 <dd>
 
-Get the status of a batch run.
+Get usage statistics for a run.
 
 </dd>
 </dl>
@@ -7378,7 +7544,7 @@ Get the status of a batch run.
 <dd>
 
 ```typescript
-await client.messages.batches.retrieve("batch_id");
+await client.runs.usage.retrieve("run_id");
 ```
 
 </dd>
@@ -7394,7 +7560,7 @@ await client.messages.batches.retrieve("batch_id");
 <dl>
 <dd>
 
-**batchId:** `string`
+**runId:** `string`
 
 </dd>
 </dl>
@@ -7402,7 +7568,7 @@ await client.messages.batches.retrieve("batch_id");
 <dl>
 <dd>
 
-**requestOptions:** `Batches.RequestOptions`
+**requestOptions:** `Usage.RequestOptions`
 
 </dd>
 </dl>
@@ -7413,9 +7579,36 @@ await client.messages.batches.retrieve("batch_id");
 </dl>
 </details>
 
-<details><summary><code>client.messages.batches.<a href="/src/api/resources/messages/resources/batches/client/Client.ts">cancel</a>(batchId) -> void</code></summary>
+## Runs Steps
+
+<details><summary><code>client.runs.steps.<a href="/src/api/resources/runs/resources/steps/client/Client.ts">list</a>(runId, { ...params }) -> Letta.Step[]</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get messages associated with a run with filtering options.
+
+Args:
+run_id: ID of the run
+before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+limit: Maximum number of steps to return
+order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+
+Returns:
+A list of steps associated with the run.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -7426,7 +7619,7 @@ await client.messages.batches.retrieve("batch_id");
 <dd>
 
 ```typescript
-await client.messages.batches.cancel("batch_id");
+await client.runs.steps.list("run_id");
 ```
 
 </dd>
@@ -7442,7 +7635,7 @@ await client.messages.batches.cancel("batch_id");
 <dl>
 <dd>
 
-**batchId:** `string`
+**runId:** `string`
 
 </dd>
 </dl>
@@ -7450,7 +7643,15 @@ await client.messages.batches.cancel("batch_id");
 <dl>
 <dd>
 
-**requestOptions:** `Batches.RequestOptions`
+**request:** `Letta.runs.StepsListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Steps.RequestOptions`
 
 </dd>
 </dl>
@@ -7731,6 +7932,87 @@ await client.sources.passages.list("source_id");
 <dd>
 
 **requestOptions:** `Passages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Templates Agents
+
+<details><summary><code>client.templates.agents.<a href="/src/api/resources/templates/resources/agents/client/Client.ts">create</a>(project, templateVersion, { ...params }) -> Letta.AgentsCreateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an Agent or multiple Agents from a template
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.agents.create("project", "template_version");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateVersion:** `string` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.templates.AgentsCreateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
 
 </dd>
 </dl>
