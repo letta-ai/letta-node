@@ -18,6 +18,9 @@ export const BatchJob: core.serialization.ObjectSchema<serializers.BatchJob.Raw,
         completedAt: core.serialization.property("completed_at", core.serialization.date().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         jobType: core.serialization.property("job_type", JobType.optional()),
+        callbackUrl: core.serialization.property("callback_url", core.serialization.string().optional()),
+        callbackSentAt: core.serialization.property("callback_sent_at", core.serialization.date().optional()),
+        callbackStatusCode: core.serialization.property("callback_status_code", core.serialization.number().optional()),
         id: core.serialization.string().optional(),
     });
 
@@ -31,6 +34,9 @@ export declare namespace BatchJob {
         completed_at?: string | null;
         metadata?: Record<string, unknown> | null;
         job_type?: JobType.Raw | null;
+        callback_url?: string | null;
+        callback_sent_at?: string | null;
+        callback_status_code?: number | null;
         id?: string | null;
     }
 }

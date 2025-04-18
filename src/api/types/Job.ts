@@ -31,6 +31,12 @@ export interface Job {
     metadata?: Record<string, unknown>;
     /** The type of the job. */
     jobType?: Letta.JobType;
+    /** If set, POST to this URL when the job completes. */
+    callbackUrl?: string;
+    /** Timestamp when the callback was last attempted. */
+    callbackSentAt?: Date;
+    /** HTTP status code returned by the callback endpoint. */
+    callbackStatusCode?: number;
     /** The human-friendly ID of the Job */
     id?: string;
 }

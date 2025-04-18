@@ -10,10 +10,12 @@ import { LettaBatchRequest } from "../../../../../../types/LettaBatchRequest";
 export const CreateBatch: core.serialization.Schema<serializers.messages.CreateBatch.Raw, Letta.messages.CreateBatch> =
     core.serialization.object({
         requests: core.serialization.list(LettaBatchRequest),
+        callbackUrl: core.serialization.property("callback_url", core.serialization.string().optional()),
     });
 
 export declare namespace CreateBatch {
     export interface Raw {
         requests: LettaBatchRequest.Raw[];
+        callback_url?: string | null;
     }
 }

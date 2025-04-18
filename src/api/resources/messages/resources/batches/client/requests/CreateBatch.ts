@@ -22,4 +22,6 @@ import * as Letta from "../../../../../../index";
 export interface CreateBatch {
     /** List of requests to be processed in batch. */
     requests: Letta.LettaBatchRequest[];
+    /** Optional URL to call via POST when the batch completes. */
+    callbackUrl?: string;
 }
