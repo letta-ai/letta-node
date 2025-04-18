@@ -8,6 +8,6 @@
  */
 export interface ProjectsListProjectsRequest {
     name?: string;
-    offset?: number;
-    limit?: number;
+    offset?: string;
+    limit?: string;
 }

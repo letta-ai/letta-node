@@ -53,11 +53,11 @@ export class Projects {
         }
 
         if (offset != null) {
-            _queryParams["offset"] = offset.toString();
+            _queryParams["offset"] = offset;
         }
 
         if (limit != null) {
-            _queryParams["limit"] = limit.toString();
+            _queryParams["limit"] = limit;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -71,8 +71,8 @@ export class Projects {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.95",
-                "User-Agent": "@letta-ai/letta-client/0.1.95",
+                "X-Fern-SDK-Version": "0.1.96",
+                "User-Agent": "@letta-ai/letta-client/0.1.96",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

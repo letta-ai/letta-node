@@ -61,8 +61,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.95",
-                "User-Agent": "@letta-ai/letta-client/0.1.95",
+                "X-Fern-SDK-Version": "0.1.96",
+                "User-Agent": "@letta-ai/letta-client/0.1.96",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -122,14 +122,14 @@ export class Templates {
         request: Letta.TemplatesListTemplatesRequest = {},
         requestOptions?: Templates.RequestOptions,
     ): Promise<Letta.TemplatesListTemplatesResponse> {
-        const { limit, offset, name, projectId } = request;
+        const { offset, limit, name, projectId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (limit != null) {
-            _queryParams["limit"] = limit.toString();
+        if (offset != null) {
+            _queryParams["offset"] = offset;
         }
 
-        if (offset != null) {
-            _queryParams["offset"] = offset.toString();
+        if (limit != null) {
+            _queryParams["limit"] = limit;
         }
 
         if (name != null) {
@@ -151,8 +151,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.95",
-                "User-Agent": "@letta-ai/letta-client/0.1.95",
+                "X-Fern-SDK-Version": "0.1.96",
+                "User-Agent": "@letta-ai/letta-client/0.1.96",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

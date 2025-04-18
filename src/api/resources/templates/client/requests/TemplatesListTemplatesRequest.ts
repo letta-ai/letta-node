@@ -7,8 +7,8 @@
  *     {}
  */
 export interface TemplatesListTemplatesRequest {
-    limit?: number;
-    offset?: number;
+    offset?: string;
+    limit?: string;
     name?: string;
     projectId?: string;
 }
