@@ -2098,148 +2098,6 @@ await client.agents.listAgentGroups("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">createBatchMessageRequest</a>({ ...params }) -> Letta.LettaBatchResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Submit a batch of agent messages for asynchronous processing.
-Creates a job that will fan out messages to all listed agents and process them in parallel.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.createBatchMessageRequest([
-    {
-        messages: [
-            {
-                role: "user",
-                content: [
-                    {
-                        type: "text",
-                        text: "text",
-                    },
-                ],
-            },
-        ],
-        agentId: "agent_id",
-    },
-]);
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Letta.LettaBatchRequest[]`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">retrieveBatchMessageRequest</a>(batchId) -> Letta.LettaBatchResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the result or current status of a previously submitted batch message request.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.retrieveBatchMessageRequest("batch_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**batchId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">search</a>({ ...params }) -> Letta.AgentsSearchResponse</code></summary>
 <dl>
 <dd>
@@ -4709,6 +4567,71 @@ await client.tag.listTags();
 <dd>
 
 **requestOptions:** `Tag.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Messages
+
+<details><summary><code>client.messages.<a href="/src/api/resources/messages/client/Client.ts">cancelBatchRun</a>(batchId) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a batch run.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.cancelBatchRun("batch_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batchId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
 
 </dd>
 </dl>
@@ -7279,6 +7202,255 @@ await client.groups.messages.modify("group_id", "message_id", {
 <dd>
 
 **requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Messages Batches
+
+<details><summary><code>client.messages.batches.<a href="/src/api/resources/messages/resources/batches/client/Client.ts">list</a>() -> Letta.BatchJob[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all batch runs.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.batches.list();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batches.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.batches.<a href="/src/api/resources/messages/resources/batches/client/Client.ts">create</a>({ ...params }) -> Letta.BatchJob</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit a batch of agent messages for asynchronous processing.
+Creates a job that will fan out messages to all listed agents and process them in parallel.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.batches.create({
+    requests: [
+        {
+            messages: [
+                {
+                    role: "user",
+                    content: [
+                        {
+                            type: "text",
+                            text: "text",
+                        },
+                    ],
+                },
+            ],
+            agentId: "agent_id",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.messages.CreateBatch`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batches.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.batches.<a href="/src/api/resources/messages/resources/batches/client/Client.ts">retrieve</a>(batchId) -> Letta.BatchJob</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the status of a batch run.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.batches.retrieve("batch_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batchId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batches.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.batches.<a href="/src/api/resources/messages/resources/batches/client/Client.ts">cancel</a>(batchId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.batches.cancel("batch_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batchId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Batches.RequestOptions`
 
 </dd>
 </dl>

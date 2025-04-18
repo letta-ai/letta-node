@@ -22,6 +22,7 @@ export * as providers from "./providers";
 export * as runs from "./runs";
 export * as steps from "./steps";
 export * as tag from "./tag";
+export * as messages from "./messages";
 export * from "./tools/client/requests";
 export * from "./sources/client/requests";
 export * from "./agents/client/requests";

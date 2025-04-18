@@ -9,8 +9,9 @@ import * as core from "../../core";
 export const JobType: core.serialization.Schema<serializers.JobType.Raw, Letta.JobType> = core.serialization.enum_([
     "job",
     "run",
+    "batch",
 ]);
 
 export declare namespace JobType {
-    export type Raw = "job" | "run";
+    export type Raw = "job" | "run" | "batch";
 }
