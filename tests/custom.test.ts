@@ -291,11 +291,11 @@ def secret_message():
 
         // Wait for run to complete
         await new Promise(resolve => setTimeout(resolve, 10000));
-        run = await client.runs.retrieveRun(run.id!);
+        run = await client.runs.retrieve(run.id!);
         expect(run.status).toEqual("completed");
         
         // Validate messages from run
-        const run_messages = await client.runs.listRunMessages(run.id!, { order: "asc" });
+        const run_messages = await client.runs.messages.list(run.id!, { order: "asc" });
         expect(run_messages).toHaveLength(3);
         for (const message of run_messages) {
             switch (message.messageType) {
