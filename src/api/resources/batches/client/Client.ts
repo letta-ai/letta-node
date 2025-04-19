@@ -55,8 +55,8 @@ export class Batches {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.100",
-                "User-Agent": "@letta-ai/letta-client/0.1.100",
+                "X-Fern-SDK-Version": "0.1.101",
+                "User-Agent": "@letta-ai/letta-client/0.1.101",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -148,8 +148,8 @@ export class Batches {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.100",
-                "User-Agent": "@letta-ai/letta-client/0.1.100",
+                "X-Fern-SDK-Version": "0.1.101",
+                "User-Agent": "@letta-ai/letta-client/0.1.101",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -230,8 +230,8 @@ export class Batches {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.100",
-                "User-Agent": "@letta-ai/letta-client/0.1.100",
+                "X-Fern-SDK-Version": "0.1.101",
+                "User-Agent": "@letta-ai/letta-client/0.1.101",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -291,26 +291,30 @@ export class Batches {
     }
 
     /**
+     * Cancel a batch run.
+     *
      * @param {string} batchId
      * @param {Batches.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
      *     await client.batches.cancel("batch_id")
      */
-    public async cancel(batchId: string, requestOptions?: Batches.RequestOptions): Promise<void> {
+    public async cancel(batchId: string, requestOptions?: Batches.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/messages/batches/${encodeURIComponent(batchId)}`,
+                `v1/messages/batches/${encodeURIComponent(batchId)}/cancel`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.100",
-                "User-Agent": "@letta-ai/letta-client/0.1.100",
+                "X-Fern-SDK-Version": "0.1.101",
+                "User-Agent": "@letta-ai/letta-client/0.1.101",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -323,14 +327,27 @@ export class Batches {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return _response.body;
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.LettaError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -341,7 +358,7 @@ export class Batches {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/messages/batches/{batch_id}.",
+                    "Timeout exceeded when calling PATCH /v1/messages/batches/{batch_id}/cancel.",
                 );
             case "unknown":
                 throw new errors.LettaError({

@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ListRunsRequest {
+export interface RunsListRequest {
     /**
      * The unique identifier of the agent associated with the run.
      */

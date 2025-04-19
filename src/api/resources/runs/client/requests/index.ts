@@ -1,2 +1,2 @@
-export { type ListRunsRequest } from "./ListRunsRequest";
+export { type RunsListRequest } from "./RunsListRequest";
 export { type RunsListActiveRequest } from "./RunsListActiveRequest";

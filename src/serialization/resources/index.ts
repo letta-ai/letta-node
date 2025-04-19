@@ -21,7 +21,7 @@ export * as jobs from "./jobs";
 export * as providers from "./providers";
 export * as runs from "./runs";
 export * as steps from "./steps";
-export * as tag from "./tag";
+export * as tags from "./tags";
 export * as batches from "./batches";
 export * from "./tools/client/requests";
 export * from "./sources/client/requests";

@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ListTagsRequest {
+export interface TagsListRequest {
     after?: string;
     limit?: number;
     queryText?: string;

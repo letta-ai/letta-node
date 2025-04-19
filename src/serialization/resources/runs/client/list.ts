@@ -7,7 +7,7 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { Run } from "../../../types/Run";
 
-export const Response: core.serialization.Schema<serializers.runs.listRuns.Response.Raw, Letta.Run[]> =
+export const Response: core.serialization.Schema<serializers.runs.list.Response.Raw, Letta.Run[]> =
     core.serialization.list(Run);
 
 export declare namespace Response {

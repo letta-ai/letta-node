@@ -5,7 +5,7 @@
 import * as serializers from "../../../index";
 import * as core from "../../../../core";
 
-export const Response: core.serialization.Schema<serializers.tag.listTags.Response.Raw, string[]> =
+export const Response: core.serialization.Schema<serializers.tags.list.Response.Raw, string[]> =
     core.serialization.list(core.serialization.string());
 
 export declare namespace Response {

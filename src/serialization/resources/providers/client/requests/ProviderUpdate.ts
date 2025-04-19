@@ -8,13 +8,11 @@ import * as core from "../../../../../core";
 
 export const ProviderUpdate: core.serialization.Schema<serializers.ProviderUpdate.Raw, Letta.ProviderUpdate> =
     core.serialization.object({
-        id: core.serialization.string(),
         apiKey: core.serialization.property("api_key", core.serialization.string()),
     });
 
 export declare namespace ProviderUpdate {
     export interface Raw {
-        id: string;
         api_key: string;
     }
 }

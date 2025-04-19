@@ -5,13 +5,10 @@
 /**
  * @example
  *     {
- *         id: "id",
  *         apiKey: "api_key"
  *     }
  */
 export interface ProviderUpdate {
-    /** The id of the provider to update. */
-    id: string;
     /** API key used for requests to the provider. */
     apiKey: string;
 }

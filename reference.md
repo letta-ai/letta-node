@@ -1544,7 +1544,7 @@ await client.agents.create();
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">exportAgentSerialized</a>(agentId) -> string</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">export</a>(agentId) -> string</code></summary>
 <dl>
 <dd>
 
@@ -1562,54 +1562,6 @@ Export the serialized JSON representation of an agent, formatted with indentatio
 </dl>
 </dd>
 </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.exportAgentSerialized("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">export</a>(agentId) -> void</code></summary>
-<dl>
-<dd>
 
 #### 🔌 Usage
 
@@ -3408,7 +3360,7 @@ await client.providers.create({
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">deleteProvider</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">delete</a>(providerId) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3426,122 +3378,6 @@ Delete an existing custom provider
 </dl>
 </dd>
 </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.providers.deleteProvider({
-    providerId: "provider_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Letta.DeleteProviderRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Providers.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">modifyProvider</a>({ ...params }) -> Letta.Provider</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update an existing custom provider
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.providers.modifyProvider({
-    id: "id",
-    apiKey: "api_key",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Letta.ProviderUpdate`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Providers.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">delete</a>(providerId) -> void</code></summary>
-<dl>
-<dd>
 
 #### 🔌 Usage
 
@@ -3587,9 +3423,24 @@ await client.providers.delete("provider_id");
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">modify</a>(providerId) -> void</code></summary>
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">modify</a>(providerId, { ...params }) -> Letta.Provider</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing custom provider
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -3600,7 +3451,9 @@ await client.providers.delete("provider_id");
 <dd>
 
 ```typescript
-await client.providers.modify("provider_id");
+await client.providers.modify("provider_id", {
+    apiKey: "api_key",
+});
 ```
 
 </dd>
@@ -3624,6 +3477,14 @@ await client.providers.modify("provider_id");
 <dl>
 <dd>
 
+**request:** `Letta.ProviderUpdate`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Providers.RequestOptions`
 
 </dd>
@@ -3637,7 +3498,7 @@ await client.providers.modify("provider_id");
 
 ## Runs
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">listRuns</a>({ ...params }) -> Letta.Run[]</code></summary>
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">list</a>({ ...params }) -> Letta.Run[]</code></summary>
 <dl>
 <dd>
 
@@ -3665,7 +3526,7 @@ List all runs.
 <dd>
 
 ```typescript
-await client.runs.listRuns();
+await client.runs.list();
 ```
 
 </dd>
@@ -3681,7 +3542,7 @@ await client.runs.listRuns();
 <dl>
 <dd>
 
-**request:** `Letta.ListRunsRequest`
+**request:** `Letta.RunsListRequest`
 
 </dd>
 </dl>
@@ -3889,46 +3750,6 @@ await client.runs.delete("run_id");
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">list</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.runs.list();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `Runs.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Steps
 
 <details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">listSteps</a>({ ...params }) -> Letta.Step[]</code></summary>
@@ -4098,9 +3919,9 @@ await client.steps.list();
 </dl>
 </details>
 
-## Tag
+## Tags
 
-<details><summary><code>client.tag.<a href="/src/api/resources/tag/client/Client.ts">listTags</a>({ ...params }) -> string[]</code></summary>
+<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">list</a>({ ...params }) -> string[]</code></summary>
 <dl>
 <dd>
 
@@ -4128,7 +3949,7 @@ Get a list of all tags in the database
 <dd>
 
 ```typescript
-await client.tag.listTags();
+await client.tags.list();
 ```
 
 </dd>
@@ -4144,7 +3965,7 @@ await client.tag.listTags();
 <dl>
 <dd>
 
-**request:** `Letta.ListTagsRequest`
+**request:** `Letta.TagsListRequest`
 
 </dd>
 </dl>
@@ -4152,7 +3973,7 @@ await client.tag.listTags();
 <dl>
 <dd>
 
-**requestOptions:** `Tag.RequestOptions`
+**requestOptions:** `Tags.RequestOptions`
 
 </dd>
 </dl>
@@ -4364,9 +4185,24 @@ await client.batches.retrieve("batch_id");
 </dl>
 </details>
 
-<details><summary><code>client.batches.<a href="/src/api/resources/batches/client/Client.ts">cancel</a>(batchId) -> void</code></summary>
+<details><summary><code>client.batches.<a href="/src/api/resources/batches/client/Client.ts">cancel</a>(batchId) -> unknown</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a batch run.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4402,71 +4238,6 @@ await client.batches.cancel("batch_id");
 <dd>
 
 **requestOptions:** `Batches.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Messages
-
-<details><summary><code>client.messages.<a href="/src/api/resources/messages/client/Client.ts">cancelBatchRun</a>(batchId) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Cancel a batch run.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.messages.cancelBatchRun("batch_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**batchId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Messages.RequestOptions`
 
 </dd>
 </dl>
@@ -4812,48 +4583,6 @@ await client.projects.list();
 <dd>
 
 **requestOptions:** `Projects.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Tags
-
-<details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">list</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tags.list();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tags.RequestOptions`
 
 </dd>
 </dl>

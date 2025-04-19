@@ -4,7 +4,9 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
+import * as Letta from "../../../index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Tags {
@@ -32,45 +34,84 @@ export class Tags {
     constructor(protected readonly _options: Tags.Options = {}) {}
 
     /**
+     * Get a list of all tags in the database
+     *
+     * @param {Letta.TagsListRequest} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
      *     await client.tags.list()
      */
-    public async list(requestOptions?: Tags.RequestOptions): Promise<void> {
+    public async list(request: Letta.TagsListRequest = {}, requestOptions?: Tags.RequestOptions): Promise<string[]> {
+        const { after, limit, queryText } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (queryText != null) {
+            _queryParams["query_text"] = queryText;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                "v1/tags",
+                "v1/tags/",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.100",
-                "User-Agent": "@letta-ai/letta-client/0.1.100",
+                "X-Fern-SDK-Version": "0.1.101",
+                "User-Agent": "@letta-ai/letta-client/0.1.101",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return serializers.tags.list.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.LettaError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -80,7 +121,7 @@ export class Tags {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/tags.");
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/tags/.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,
