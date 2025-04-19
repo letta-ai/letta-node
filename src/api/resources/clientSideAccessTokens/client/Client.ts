@@ -36,13 +36,13 @@ export class ClientSideAccessTokens {
     /**
      * Create a new client side access token with the specified configuration.
      *
-     * @param {Letta.ClientSideAccessTokensCreateClientSideAccessTokenRequest} request
+     * @param {Letta.ClientSideAccessTokensCreateRequest} request
      * @param {ClientSideAccessTokens.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.BadRequestError}
      *
      * @example
-     *     await client.clientSideAccessTokens.clientSideAccessTokensCreateClientSideAccessToken({
+     *     await client.clientSideAccessTokens.create({
      *         policy: [{
      *                 type: "agent",
      *                 id: "id",
@@ -51,10 +51,10 @@ export class ClientSideAccessTokens {
      *         hostname: "hostname"
      *     })
      */
-    public async clientSideAccessTokensCreateClientSideAccessToken(
-        request: Letta.ClientSideAccessTokensCreateClientSideAccessTokenRequest,
+    public async create(
+        request: Letta.ClientSideAccessTokensCreateRequest,
         requestOptions?: ClientSideAccessTokens.RequestOptions,
-    ): Promise<Letta.ClientSideAccessTokensCreateClientSideAccessTokenResponse> {
+    ): Promise<Letta.ClientSideAccessTokensCreateResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -66,8 +66,8 @@ export class ClientSideAccessTokens {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.99",
-                "User-Agent": "@letta-ai/letta-client/0.1.99",
+                "X-Fern-SDK-Version": "0.1.100",
+                "User-Agent": "@letta-ai/letta-client/0.1.100",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -75,7 +75,7 @@ export class ClientSideAccessTokens {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.ClientSideAccessTokensCreateClientSideAccessTokenRequest.jsonOrThrow(request, {
+            body: serializers.ClientSideAccessTokensCreateRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -83,7 +83,7 @@ export class ClientSideAccessTokens {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.ClientSideAccessTokensCreateClientSideAccessTokenResponse.parseOrThrow(_response.body, {
+            return serializers.ClientSideAccessTokensCreateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -129,11 +129,11 @@ export class ClientSideAccessTokens {
      * @throws {@link Letta.BadRequestError}
      *
      * @example
-     *     await client.clientSideAccessTokens.clientSideAccessTokensDeleteClientSideAccessToken("token", {
+     *     await client.clientSideAccessTokens.delete("token", {
      *         "key": "value"
      *     })
      */
-    public async clientSideAccessTokensDeleteClientSideAccessToken(
+    public async delete(
         token: string,
         request?: unknown,
         requestOptions?: ClientSideAccessTokens.RequestOptions,
@@ -149,8 +149,8 @@ export class ClientSideAccessTokens {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.99",
-                "User-Agent": "@letta-ai/letta-client/0.1.99",
+                "X-Fern-SDK-Version": "0.1.100",
+                "User-Agent": "@letta-ai/letta-client/0.1.100",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

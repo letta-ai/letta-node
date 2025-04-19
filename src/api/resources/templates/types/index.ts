@@ -1,2 +1,2 @@
-export * from "./TemplatesListTemplatesResponseTemplatesItem";
-export * from "./TemplatesListTemplatesResponse";
+export * from "./TemplatesListResponseTemplatesItem";
+export * from "./TemplatesListResponse";

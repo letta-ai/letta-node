@@ -4,8 +4,8 @@
 
 import * as Letta from "../../../index";
 
-export interface ClientSideAccessTokensCreateClientSideAccessTokenResponse {
-    policy: Letta.ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicy;
+export interface ClientSideAccessTokensCreateResponse {
+    policy: Letta.ClientSideAccessTokensCreateResponsePolicy;
     token: string;
     hostname: string;
     expiresAt: string;

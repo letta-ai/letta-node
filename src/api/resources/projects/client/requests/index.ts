@@ -1,1 +1,1 @@
-export { type ProjectsListProjectsRequest } from "./ProjectsListProjectsRequest";
+export { type ProjectsListRequest } from "./ProjectsListRequest";

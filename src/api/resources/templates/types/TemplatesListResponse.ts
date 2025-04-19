@@ -4,7 +4,7 @@
 
 import * as Letta from "../../../index";
 
-export interface TemplatesListTemplatesResponse {
-    templates: Letta.TemplatesListTemplatesResponseTemplatesItem[];
+export interface TemplatesListResponse {
+    templates: Letta.TemplatesListResponseTemplatesItem[];
     hasNextPage: boolean;
 }

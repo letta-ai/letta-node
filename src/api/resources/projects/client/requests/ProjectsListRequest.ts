@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ProjectsListProjectsRequest {
+export interface ProjectsListRequest {
     name?: string;
     offset?: string;
     limit?: string;

@@ -15,8 +15,8 @@ import * as Letta from "../../../../index";
  *         hostname: "hostname"
  *     }
  */
-export interface ClientSideAccessTokensCreateClientSideAccessTokenRequest {
-    policy: Letta.ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem[];
+export interface ClientSideAccessTokensCreateRequest {
+    policy: Letta.ClientSideAccessTokensCreateRequestPolicyItem[];
     /** The hostname of the client side application. Please specify the full URL including the protocol (http or https). */
     hostname: string;
     /** The expiration date of the token. If not provided, the token will expire in 5 minutes */

@@ -36,16 +36,16 @@ export class Projects {
     /**
      * List all projects
      *
-     * @param {Letta.ProjectsListProjectsRequest} request
+     * @param {Letta.ProjectsListRequest} request
      * @param {Projects.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.projects.listprojects()
+     *     await client.projects.list()
      */
-    public async listprojects(
-        request: Letta.ProjectsListProjectsRequest = {},
+    public async list(
+        request: Letta.ProjectsListRequest = {},
         requestOptions?: Projects.RequestOptions,
-    ): Promise<Letta.ProjectsListProjectsResponse> {
+    ): Promise<Letta.ProjectsListResponse> {
         const { name, offset, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (name != null) {
@@ -71,8 +71,8 @@ export class Projects {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.99",
-                "User-Agent": "@letta-ai/letta-client/0.1.99",
+                "X-Fern-SDK-Version": "0.1.100",
+                "User-Agent": "@letta-ai/letta-client/0.1.100",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -86,7 +86,7 @@ export class Projects {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.ProjectsListProjectsResponse.parseOrThrow(_response.body, {
+            return serializers.ProjectsListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

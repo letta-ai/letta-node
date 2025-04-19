@@ -4,7 +4,7 @@
 
 import * as Letta from "../../../index";
 
-export interface ProjectsListProjectsResponse {
-    projects: Letta.ProjectsListProjectsResponseProjectsItem[];
+export interface ProjectsListResponse {
+    projects: Letta.ProjectsListResponseProjectsItem[];
     hasNextPage: boolean;
 }

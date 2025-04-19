@@ -6,16 +6,16 @@ import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const ProjectsListProjectsResponseProjectsItem: core.serialization.ObjectSchema<
-    serializers.ProjectsListProjectsResponseProjectsItem.Raw,
-    Letta.ProjectsListProjectsResponseProjectsItem
+export const ProjectsListResponseProjectsItem: core.serialization.ObjectSchema<
+    serializers.ProjectsListResponseProjectsItem.Raw,
+    Letta.ProjectsListResponseProjectsItem
 > = core.serialization.object({
     name: core.serialization.string(),
     slug: core.serialization.string(),
     id: core.serialization.string(),
 });
 
-export declare namespace ProjectsListProjectsResponseProjectsItem {
+export declare namespace ProjectsListResponseProjectsItem {
     export interface Raw {
         name: string;
         slug: string;

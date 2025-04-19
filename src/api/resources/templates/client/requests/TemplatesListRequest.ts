@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface TemplatesListTemplatesRequest {
+export interface TemplatesListRequest {
     offset?: string;
     limit?: string;
     name?: string;

@@ -1,1 +1,1 @@
-export { ClientSideAccessTokensCreateClientSideAccessTokenRequest } from "./ClientSideAccessTokensCreateClientSideAccessTokenRequest";
+export { ClientSideAccessTokensCreateRequest } from "./ClientSideAccessTokensCreateRequest";

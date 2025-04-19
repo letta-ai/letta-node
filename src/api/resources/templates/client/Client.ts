@@ -43,16 +43,16 @@ export class Templates {
     /**
      * List all templates
      *
-     * @param {Letta.TemplatesListTemplatesRequest} request
+     * @param {Letta.TemplatesListRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.templates.listtemplates()
+     *     await client.templates.list()
      */
-    public async listtemplates(
-        request: Letta.TemplatesListTemplatesRequest = {},
+    public async list(
+        request: Letta.TemplatesListRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): Promise<Letta.TemplatesListTemplatesResponse> {
+    ): Promise<Letta.TemplatesListResponse> {
         const { offset, limit, name, projectId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (offset != null) {
@@ -82,8 +82,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.99",
-                "User-Agent": "@letta-ai/letta-client/0.1.99",
+                "X-Fern-SDK-Version": "0.1.100",
+                "User-Agent": "@letta-ai/letta-client/0.1.100",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -97,7 +97,7 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.TemplatesListTemplatesResponse.parseOrThrow(_response.body, {
+            return serializers.TemplatesListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

@@ -4547,7 +4547,7 @@ await client.voice.createVoiceChatCompletions("agent_id", {
 
 ## Templates
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listtemplates</a>({ ...params }) -> Letta.TemplatesListTemplatesResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">list</a>({ ...params }) -> Letta.TemplatesListResponse</code></summary>
 <dl>
 <dd>
 
@@ -4575,7 +4575,7 @@ List all templates
 <dd>
 
 ```typescript
-await client.templates.listtemplates();
+await client.templates.list();
 ```
 
 </dd>
@@ -4591,7 +4591,7 @@ await client.templates.listtemplates();
 <dl>
 <dd>
 
-**request:** `Letta.TemplatesListTemplatesRequest`
+**request:** `Letta.TemplatesListRequest`
 
 </dd>
 </dl>
@@ -4612,7 +4612,7 @@ await client.templates.listtemplates();
 
 ## ClientSideAccessTokens
 
-<details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">clientSideAccessTokensCreateClientSideAccessToken</a>({ ...params }) -> Letta.ClientSideAccessTokensCreateClientSideAccessTokenResponse</code></summary>
+<details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">create</a>({ ...params }) -> Letta.ClientSideAccessTokensCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -4640,7 +4640,7 @@ Create a new client side access token with the specified configuration.
 <dd>
 
 ```typescript
-await client.clientSideAccessTokens.clientSideAccessTokensCreateClientSideAccessToken({
+await client.clientSideAccessTokens.create({
     policy: [
         {
             type: "agent",
@@ -4665,7 +4665,7 @@ await client.clientSideAccessTokens.clientSideAccessTokensCreateClientSideAccess
 <dl>
 <dd>
 
-**request:** `Letta.ClientSideAccessTokensCreateClientSideAccessTokenRequest`
+**request:** `Letta.ClientSideAccessTokensCreateRequest`
 
 </dd>
 </dl>
@@ -4684,7 +4684,7 @@ await client.clientSideAccessTokens.clientSideAccessTokensCreateClientSideAccess
 </dl>
 </details>
 
-<details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">clientSideAccessTokensDeleteClientSideAccessToken</a>(token, { ...params }) -> unknown</code></summary>
+<details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">delete</a>(token, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -4712,7 +4712,7 @@ Delete a client side access token.
 <dd>
 
 ```typescript
-await client.clientSideAccessTokens.clientSideAccessTokensDeleteClientSideAccessToken("token", {
+await client.clientSideAccessTokens.delete("token", {
     key: "value",
 });
 ```
@@ -4759,7 +4759,7 @@ await client.clientSideAccessTokens.clientSideAccessTokensDeleteClientSideAccess
 
 ## Projects
 
-<details><summary><code>client.projects.<a href="/src/api/resources/projects/client/Client.ts">listprojects</a>({ ...params }) -> Letta.ProjectsListProjectsResponse</code></summary>
+<details><summary><code>client.projects.<a href="/src/api/resources/projects/client/Client.ts">list</a>({ ...params }) -> Letta.ProjectsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -4787,7 +4787,7 @@ List all projects
 <dd>
 
 ```typescript
-await client.projects.listprojects();
+await client.projects.list();
 ```
 
 </dd>
@@ -4803,7 +4803,7 @@ await client.projects.listprojects();
 <dl>
 <dd>
 
-**request:** `Letta.ProjectsListProjectsRequest`
+**request:** `Letta.ProjectsListRequest`
 
 </dd>
 </dl>

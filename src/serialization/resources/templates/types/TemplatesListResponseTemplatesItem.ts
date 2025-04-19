@@ -6,15 +6,15 @@ import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const TemplatesListTemplatesResponseTemplatesItem: core.serialization.ObjectSchema<
-    serializers.TemplatesListTemplatesResponseTemplatesItem.Raw,
-    Letta.TemplatesListTemplatesResponseTemplatesItem
+export const TemplatesListResponseTemplatesItem: core.serialization.ObjectSchema<
+    serializers.TemplatesListResponseTemplatesItem.Raw,
+    Letta.TemplatesListResponseTemplatesItem
 > = core.serialization.object({
     name: core.serialization.string(),
     id: core.serialization.string(),
 });
 
-export declare namespace TemplatesListTemplatesResponseTemplatesItem {
+export declare namespace TemplatesListResponseTemplatesItem {
     export interface Raw {
         name: string;
         id: string;

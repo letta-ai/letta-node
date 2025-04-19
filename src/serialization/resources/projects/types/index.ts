@@ -1,2 +1,2 @@
-export * from "./ProjectsListProjectsResponseProjectsItem";
-export * from "./ProjectsListProjectsResponse";
+export * from "./ProjectsListResponseProjectsItem";
+export * from "./ProjectsListResponse";
