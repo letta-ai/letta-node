@@ -11,6 +11,7 @@ import { AgentType } from "../../../../types/AgentType";
 import { LlmConfig } from "../../../../types/LlmConfig";
 import { EmbeddingConfig } from "../../../../types/EmbeddingConfig";
 import { MessageCreate } from "../../../../types/MessageCreate";
+import { CreateAgentRequestResponseFormat } from "../../types/CreateAgentRequestResponseFormat";
 
 export const CreateAgentRequest: core.serialization.Schema<
     serializers.CreateAgentRequest.Raw,
@@ -79,6 +80,7 @@ export const CreateAgentRequest: core.serialization.Schema<
         core.serialization.boolean().optional(),
     ),
     enableSleeptime: core.serialization.property("enable_sleeptime", core.serialization.boolean().optional()),
+    responseFormat: core.serialization.property("response_format", CreateAgentRequestResponseFormat.optional()),
 });
 
 export declare namespace CreateAgentRequest {
@@ -119,5 +121,6 @@ export declare namespace CreateAgentRequest {
         identity_ids?: string[] | null;
         message_buffer_autoclear?: boolean | null;
         enable_sleeptime?: boolean | null;
+        response_format?: CreateAgentRequestResponseFormat.Raw | null;
     }
 }

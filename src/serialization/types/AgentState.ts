@@ -9,6 +9,7 @@ import { AgentStateToolRulesItem } from "./AgentStateToolRulesItem";
 import { AgentType } from "./AgentType";
 import { LlmConfig } from "./LlmConfig";
 import { EmbeddingConfig } from "./EmbeddingConfig";
+import { AgentStateResponseFormat } from "./AgentStateResponseFormat";
 import { Memory } from "./Memory";
 import { Tool } from "./Tool";
 import { Source } from "./Source";
@@ -35,6 +36,7 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         agentType: core.serialization.property("agent_type", AgentType),
         llmConfig: core.serialization.property("llm_config", LlmConfig),
         embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
+        responseFormat: core.serialization.property("response_format", AgentStateResponseFormat.optional()),
         description: core.serialization.string().optional(),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         memory: Memory,
@@ -74,6 +76,7 @@ export declare namespace AgentState {
         agent_type: AgentType.Raw;
         llm_config: LlmConfig.Raw;
         embedding_config: EmbeddingConfig.Raw;
+        response_format?: AgentStateResponseFormat.Raw | null;
         description?: string | null;
         metadata?: Record<string, unknown> | null;
         memory: Memory.Raw;

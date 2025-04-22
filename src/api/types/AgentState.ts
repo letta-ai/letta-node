@@ -43,6 +43,8 @@ export interface AgentState {
     llmConfig: Letta.LlmConfig;
     /** The embedding configuration used by the agent. */
     embeddingConfig: Letta.EmbeddingConfig;
+    /** The response format used by the agent when returning from `send_message`. */
+    responseFormat?: Letta.AgentStateResponseFormat;
     /** The description of the agent. */
     description?: string;
     /** The metadata of the agent. */

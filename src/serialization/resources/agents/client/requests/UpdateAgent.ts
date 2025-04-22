@@ -8,6 +8,7 @@ import * as core from "../../../../../core";
 import { UpdateAgentToolRulesItem } from "../../types/UpdateAgentToolRulesItem";
 import { LlmConfig } from "../../../../types/LlmConfig";
 import { EmbeddingConfig } from "../../../../types/EmbeddingConfig";
+import { UpdateAgentResponseFormat } from "../../types/UpdateAgentResponseFormat";
 
 export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw, Letta.UpdateAgent> =
     core.serialization.object({
@@ -56,6 +57,7 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
         model: core.serialization.string().optional(),
         embedding: core.serialization.string().optional(),
         enableSleeptime: core.serialization.property("enable_sleeptime", core.serialization.boolean().optional()),
+        responseFormat: core.serialization.property("response_format", UpdateAgentResponseFormat.optional()),
     });
 
 export declare namespace UpdateAgent {
@@ -81,5 +83,6 @@ export declare namespace UpdateAgent {
         model?: string | null;
         embedding?: string | null;
         enable_sleeptime?: boolean | null;
+        response_format?: UpdateAgentResponseFormat.Raw | null;
     }
 }

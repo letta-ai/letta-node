@@ -82,4 +82,6 @@ export interface CreateAgentRequest {
     messageBufferAutoclear?: boolean;
     /** If set to True, memory management will move to a background agent thread. */
     enableSleeptime?: boolean;
+    /** The response format for the agent. */
+    responseFormat?: Letta.CreateAgentRequestResponseFormat;
 }

@@ -1,5 +1,7 @@
 export * from "./CreateAgentRequestToolRulesItem";
+export * from "./CreateAgentRequestResponseFormat";
 export * from "./UpdateAgentToolRulesItem";
+export * from "./UpdateAgentResponseFormat";
 export * from "./AgentsSearchRequestSearchItemZero";
 export * from "./AgentsSearchRequestSearchItemOneOperator";
 export * from "./AgentsSearchRequestSearchItemOne";
