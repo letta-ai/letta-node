@@ -1544,7 +1544,7 @@ await client.agents.create();
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">export</a>(agentId) -> string</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">exportFile</a>(agentId) -> string</code></summary>
 <dl>
 <dd>
 
@@ -1572,7 +1572,7 @@ Export the serialized JSON representation of an agent, formatted with indentatio
 <dd>
 
 ```typescript
-await client.agents.export("agent_id");
+await client.agents.exportFile("agent_id");
 ```
 
 </dd>
@@ -1607,7 +1607,7 @@ await client.agents.export("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">import</a>(file, { ...params }) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">importFile</a>(file, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
 
@@ -1635,7 +1635,7 @@ Import a serialized agent file and recreate the agent in the system.
 <dd>
 
 ```typescript
-await client.agents.import(fs.createReadStream("/path/to/your/file"), {});
+await client.agents.importFile(fs.createReadStream("/path/to/your/file"), {});
 ```
 
 </dd>
