@@ -392,6 +392,61 @@ await client.tools.upsert({
 </dl>
 </details>
 
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">count</a>() -> number</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a count of all tools available to agents belonging to the org of the user
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.count();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">upsertBaseTools</a>() -> Letta.Tool[]</code></summary>
 <dl>
 <dd>
@@ -1413,6 +1468,61 @@ await client.sources.create({
 </dl>
 </details>
 
+<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">count</a>() -> number</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Count all data sources created by a user.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sources.count();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sources.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Agents
 
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">list</a>({ ...params }) -> Letta.AgentState[]</code></summary>
@@ -1529,6 +1639,61 @@ await client.agents.create();
 
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">count</a>() -> number</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the count of all agents associated with a given user.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.count();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>
@@ -2422,6 +2587,61 @@ await client.identities.upsert({
 
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Identities.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.identities.<a href="/src/api/resources/identities/client/Client.ts">count</a>() -> number</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get count of all identities for a user
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.identities.count();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>

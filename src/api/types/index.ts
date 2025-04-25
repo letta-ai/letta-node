@@ -204,6 +204,8 @@ export * from "./UpdateSystemMessage";
 export * from "./UpdateUserMessageContent";
 export * from "./UpdateUserMessage";
 export * from "./UsageStatistics";
+export * from "./UsageStatisticsCompletionTokenDetails";
+export * from "./UsageStatisticsPromptTokenDetails";
 export * from "./User";
 export * from "./UserCreate";
 export * from "./UserMessageContent";

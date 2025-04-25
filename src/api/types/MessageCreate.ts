@@ -18,4 +18,6 @@ export interface MessageCreate {
     otid?: string;
     /** The id of the sender of the message, can be an identity id or agent id */
     senderId?: string;
+    /** The multi-agent group that the message was sent in */
+    groupId?: string;
 }

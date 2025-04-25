@@ -4,6 +4,4 @@
 
 export interface OmittedReasoningContent {
     type: "omitted_reasoning";
-    /** The reasoning token count for intermediate reasoning content. */
-    tokens: number;
 }

@@ -11,12 +11,10 @@ export const OmittedReasoningContent: core.serialization.ObjectSchema<
     Letta.OmittedReasoningContent
 > = core.serialization.object({
     type: core.serialization.stringLiteral("omitted_reasoning"),
-    tokens: core.serialization.number(),
 });
 
 export declare namespace OmittedReasoningContent {
     export interface Raw {
         type: "omitted_reasoning";
-        tokens: number;
     }
 }
