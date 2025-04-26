@@ -8,9 +8,9 @@ export interface LocalSandboxConfig {
     /** Directory for the sandbox environment. */
     sandboxDir?: string;
     /** Whether or not to use the venv, or run directly in the same run loop. */
-    useVenv?: boolean;
+    forceCreateVenv?: boolean;
     /** The name for the venv in the sandbox directory. We first search for an existing venv with this name, otherwise, we make it from the requirements.txt. */
     venvName?: string;
-    /** List of pip packages to install with mandatory name and optional version following semantic versioning. This only is considered when use_venv is True. */
+    /** List of pip packages to install with mandatory name and optional version following semantic versioning. This only is considered when force_create_venv is True. */
     pipRequirements?: Letta.PipRequirement[];
 }

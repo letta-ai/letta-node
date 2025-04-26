@@ -2874,9 +2874,9 @@ await client.models.list();
 </dl>
 </details>
 
-## Embeddings
+## EmbeddingModels
 
-<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">list</a>() -> Letta.EmbeddingConfig[]</code></summary>
+<details><summary><code>client.embeddingModels.<a href="/src/api/resources/embeddingModels/client/Client.ts">list</a>() -> Letta.EmbeddingConfig[]</code></summary>
 <dl>
 <dd>
 
@@ -2889,7 +2889,7 @@ await client.models.list();
 <dd>
 
 ```typescript
-await client.embeddings.list();
+await client.embeddingModels.list();
 ```
 
 </dd>
@@ -2905,7 +2905,7 @@ await client.embeddings.list();
 <dl>
 <dd>
 
-**requestOptions:** `Embeddings.RequestOptions`
+**requestOptions:** `EmbeddingModels.RequestOptions`
 
 </dd>
 </dl>
@@ -4534,6 +4534,48 @@ await client.voice.createVoiceChatCompletions("agent_id", {
 <dd>
 
 **requestOptions:** `Voice.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Embeddings
+
+<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">getTotalStorageSize</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.embeddings.getTotalStorageSize();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Embeddings.RequestOptions`
 
 </dd>
 </dl>

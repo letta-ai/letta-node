@@ -7,8 +7,10 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { EmbeddingConfig } from "../../../types/EmbeddingConfig";
 
-export const Response: core.serialization.Schema<serializers.embeddings.list.Response.Raw, Letta.EmbeddingConfig[]> =
-    core.serialization.list(EmbeddingConfig);
+export const Response: core.serialization.Schema<
+    serializers.embeddingModels.list.Response.Raw,
+    Letta.EmbeddingConfig[]
+> = core.serialization.list(EmbeddingConfig);
 
 export declare namespace Response {
     export type Raw = EmbeddingConfig.Raw[];

@@ -12,7 +12,7 @@ export const LocalSandboxConfig: core.serialization.ObjectSchema<
     Letta.LocalSandboxConfig
 > = core.serialization.object({
     sandboxDir: core.serialization.property("sandbox_dir", core.serialization.string().optional()),
-    useVenv: core.serialization.property("use_venv", core.serialization.boolean().optional()),
+    forceCreateVenv: core.serialization.property("force_create_venv", core.serialization.boolean().optional()),
     venvName: core.serialization.property("venv_name", core.serialization.string().optional()),
     pipRequirements: core.serialization.property(
         "pip_requirements",
@@ -23,7 +23,7 @@ export const LocalSandboxConfig: core.serialization.ObjectSchema<
 export declare namespace LocalSandboxConfig {
     export interface Raw {
         sandbox_dir?: string | null;
-        use_venv?: boolean | null;
+        force_create_venv?: boolean | null;
         venv_name?: string | null;
         pip_requirements?: PipRequirement.Raw[] | null;
     }

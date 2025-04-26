@@ -15,7 +15,7 @@ export * from "./projects/types";
 export * as sources from "./sources";
 export * as identities from "./identities";
 export * as models from "./models";
-export * as embeddings from "./embeddings";
+export * as embeddingModels from "./embeddingModels";
 export * as blocks from "./blocks";
 export * as jobs from "./jobs";
 export * as providers from "./providers";

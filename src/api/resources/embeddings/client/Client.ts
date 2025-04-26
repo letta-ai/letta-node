@@ -4,9 +4,7 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Letta from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Embeddings {
@@ -37,22 +35,22 @@ export class Embeddings {
      * @param {Embeddings.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.embeddings.list()
+     *     await client.embeddings.getTotalStorageSize()
      */
-    public async list(requestOptions?: Embeddings.RequestOptions): Promise<Letta.EmbeddingConfig[]> {
+    public async getTotalStorageSize(requestOptions?: Embeddings.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                "v1/models/embedding",
+                "v1/embeddings/get_total_storage_size",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.105",
-                "User-Agent": "@letta-ai/letta-client/0.1.105",
+                "X-Fern-SDK-Version": "0.1.106",
+                "User-Agent": "@letta-ai/letta-client/0.1.106",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -65,13 +63,7 @@ export class Embeddings {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.embeddings.list.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return;
         }
 
         if (_response.error.reason === "status-code") {
@@ -88,7 +80,9 @@ export class Embeddings {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/models/embedding.");
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling GET /v1/embeddings/get_total_storage_size.",
+                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

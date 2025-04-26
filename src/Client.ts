@@ -10,7 +10,7 @@ import { Agents } from "./api/resources/agents/client/Client";
 import { Groups } from "./api/resources/groups/client/Client";
 import { Identities } from "./api/resources/identities/client/Client";
 import { Models } from "./api/resources/models/client/Client";
-import { Embeddings } from "./api/resources/embeddings/client/Client";
+import { EmbeddingModels } from "./api/resources/embeddingModels/client/Client";
 import { Blocks } from "./api/resources/blocks/client/Client";
 import { Jobs } from "./api/resources/jobs/client/Client";
 import { Health } from "./api/resources/health/client/Client";
@@ -20,6 +20,7 @@ import { Steps } from "./api/resources/steps/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
 import { Batches } from "./api/resources/batches/client/Client";
 import { Voice } from "./api/resources/voice/client/Client";
+import { Embeddings } from "./api/resources/embeddings/client/Client";
 import { Templates } from "./api/resources/templates/client/Client";
 import { ClientSideAccessTokens } from "./api/resources/clientSideAccessTokens/client/Client";
 import { Projects } from "./api/resources/projects/client/Client";
@@ -52,7 +53,7 @@ export class LettaClient {
     protected _groups: Groups | undefined;
     protected _identities: Identities | undefined;
     protected _models: Models | undefined;
-    protected _embeddings: Embeddings | undefined;
+    protected _embeddingModels: EmbeddingModels | undefined;
     protected _blocks: Blocks | undefined;
     protected _jobs: Jobs | undefined;
     protected _health: Health | undefined;
@@ -62,6 +63,7 @@ export class LettaClient {
     protected _tags: Tags | undefined;
     protected _batches: Batches | undefined;
     protected _voice: Voice | undefined;
+    protected _embeddings: Embeddings | undefined;
     protected _templates: Templates | undefined;
     protected _clientSideAccessTokens: ClientSideAccessTokens | undefined;
     protected _projects: Projects | undefined;
@@ -92,8 +94,8 @@ export class LettaClient {
         return (this._models ??= new Models(this._options));
     }
 
-    public get embeddings(): Embeddings {
-        return (this._embeddings ??= new Embeddings(this._options));
+    public get embeddingModels(): EmbeddingModels {
+        return (this._embeddingModels ??= new EmbeddingModels(this._options));
     }
 
     public get blocks(): Blocks {
@@ -130,6 +132,10 @@ export class LettaClient {
 
     public get voice(): Voice {
         return (this._voice ??= new Voice(this._options));
+    }
+
+    public get embeddings(): Embeddings {
+        return (this._embeddings ??= new Embeddings(this._options));
     }
 
     public get templates(): Templates {
