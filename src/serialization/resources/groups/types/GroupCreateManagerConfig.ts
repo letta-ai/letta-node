@@ -9,12 +9,24 @@ import { DynamicManager } from "../../../types/DynamicManager";
 import { RoundRobinManager } from "../../../types/RoundRobinManager";
 import { SleeptimeManager } from "../../../types/SleeptimeManager";
 import { SupervisorManager } from "../../../types/SupervisorManager";
+import { VoiceSleeptimeManager } from "../../../types/VoiceSleeptimeManager";
 
 export const GroupCreateManagerConfig: core.serialization.Schema<
     serializers.GroupCreateManagerConfig.Raw,
     Letta.GroupCreateManagerConfig
-> = core.serialization.undiscriminatedUnion([DynamicManager, RoundRobinManager, SleeptimeManager, SupervisorManager]);
+> = core.serialization.undiscriminatedUnion([
+    DynamicManager,
+    RoundRobinManager,
+    SleeptimeManager,
+    SupervisorManager,
+    VoiceSleeptimeManager,
+]);
 
 export declare namespace GroupCreateManagerConfig {
-    export type Raw = DynamicManager.Raw | RoundRobinManager.Raw | SleeptimeManager.Raw | SupervisorManager.Raw;
+    export type Raw =
+        | DynamicManager.Raw
+        | RoundRobinManager.Raw
+        | SleeptimeManager.Raw
+        | SupervisorManager.Raw
+        | VoiceSleeptimeManager.Raw;
 }

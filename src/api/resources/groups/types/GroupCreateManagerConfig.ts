@@ -11,4 +11,5 @@ export type GroupCreateManagerConfig =
     | Letta.DynamicManager
     | Letta.RoundRobinManager
     | Letta.SleeptimeManager
-    | Letta.SupervisorManager;
+    | Letta.SupervisorManager
+    | Letta.VoiceSleeptimeManager;

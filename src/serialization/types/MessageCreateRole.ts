@@ -7,8 +7,8 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 
 export const MessageCreateRole: core.serialization.Schema<serializers.MessageCreateRole.Raw, Letta.MessageCreateRole> =
-    core.serialization.enum_(["user", "system"]);
+    core.serialization.enum_(["user", "system", "assistant"]);
 
 export declare namespace MessageCreateRole {
-    export type Raw = "user" | "system";
+    export type Raw = "user" | "system" | "assistant";
 }

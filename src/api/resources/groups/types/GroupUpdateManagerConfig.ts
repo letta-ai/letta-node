@@ -8,4 +8,5 @@ export type GroupUpdateManagerConfig =
     | Letta.DynamicManagerUpdate
     | Letta.RoundRobinManagerUpdate
     | Letta.SleeptimeManagerUpdate
-    | Letta.SupervisorManagerUpdate;
+    | Letta.SupervisorManagerUpdate
+    | Letta.VoiceSleeptimeManagerUpdate;

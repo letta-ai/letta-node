@@ -5,8 +5,9 @@
 /**
  * The role of the participant.
  */
-export type MessageCreateRole = "user" | "system";
+export type MessageCreateRole = "user" | "system" | "assistant";
 export const MessageCreateRole = {
     User: "user",
     System: "system",
+    Assistant: "assistant",
 } as const;

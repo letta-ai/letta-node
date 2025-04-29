@@ -9,6 +9,7 @@ import { DynamicManagerUpdate } from "../../../types/DynamicManagerUpdate";
 import { RoundRobinManagerUpdate } from "../../../types/RoundRobinManagerUpdate";
 import { SleeptimeManagerUpdate } from "../../../types/SleeptimeManagerUpdate";
 import { SupervisorManagerUpdate } from "../../../types/SupervisorManagerUpdate";
+import { VoiceSleeptimeManagerUpdate } from "../../../types/VoiceSleeptimeManagerUpdate";
 
 export const GroupUpdateManagerConfig: core.serialization.Schema<
     serializers.GroupUpdateManagerConfig.Raw,
@@ -18,6 +19,7 @@ export const GroupUpdateManagerConfig: core.serialization.Schema<
     RoundRobinManagerUpdate,
     SleeptimeManagerUpdate,
     SupervisorManagerUpdate,
+    VoiceSleeptimeManagerUpdate,
 ]);
 
 export declare namespace GroupUpdateManagerConfig {
@@ -25,5 +27,6 @@ export declare namespace GroupUpdateManagerConfig {
         | DynamicManagerUpdate.Raw
         | RoundRobinManagerUpdate.Raw
         | SleeptimeManagerUpdate.Raw
-        | SupervisorManagerUpdate.Raw;
+        | SupervisorManagerUpdate.Raw
+        | VoiceSleeptimeManagerUpdate.Raw;
 }
