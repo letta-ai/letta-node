@@ -4,7 +4,9 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
+import * as Letta from "../../../index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Embeddings {
@@ -32,27 +34,32 @@ export class Embeddings {
     constructor(protected readonly _options: Embeddings.Options = {}) {}
 
     /**
+     * Get the total size of all embeddings in the database for a user in the storage unit given.
+     *
      * @param {Embeddings.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
      * @example
-     *     await client.embeddings.getTotalStorageSize()
+     *     await client.embeddings.getEmbeddingsTotalStorageSize()
      */
-    public async getTotalStorageSize(requestOptions?: Embeddings.RequestOptions): Promise<void> {
+    public async getEmbeddingsTotalStorageSize(requestOptions?: Embeddings.RequestOptions): Promise<number> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                "v1/embeddings/get_total_storage_size",
+                "v1/embeddings/total_storage_size",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.106",
-                "User-Agent": "@letta-ai/letta-client/0.1.106",
+                "X-Fern-SDK-Version": "0.1.107",
+                "User-Agent": "@letta-ai/letta-client/0.1.107",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "storage-unit": "GB",
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
@@ -63,14 +70,33 @@ export class Embeddings {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return serializers.embeddings.getEmbeddingsTotalStorageSize.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.LettaError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -81,7 +107,7 @@ export class Embeddings {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/embeddings/get_total_storage_size.",
+                    "Timeout exceeded when calling GET /v1/embeddings/total_storage_size.",
                 );
             case "unknown":
                 throw new errors.LettaError({

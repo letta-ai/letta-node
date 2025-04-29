@@ -4546,9 +4546,24 @@ await client.voice.createVoiceChatCompletions("agent_id", {
 
 ## Embeddings
 
-<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">getTotalStorageSize</a>() -> void</code></summary>
+<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">getEmbeddingsTotalStorageSize</a>() -> number</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the total size of all embeddings in the database for a user in the storage unit given.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4559,7 +4574,7 @@ await client.voice.createVoiceChatCompletions("agent_id", {
 <dd>
 
 ```typescript
-await client.embeddings.getTotalStorageSize();
+await client.embeddings.getEmbeddingsTotalStorageSize();
 ```
 
 </dd>

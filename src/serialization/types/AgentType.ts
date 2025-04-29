@@ -7,8 +7,19 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 
 export const AgentType: core.serialization.Schema<serializers.AgentType.Raw, Letta.AgentType> =
-    core.serialization.enum_(["memgpt_agent", "split_thread_agent", "sleeptime_agent"]);
+    core.serialization.enum_([
+        "memgpt_agent",
+        "split_thread_agent",
+        "sleeptime_agent",
+        "voice_convo_agent",
+        "voice_sleeptime_agent",
+    ]);
 
 export declare namespace AgentType {
-    export type Raw = "memgpt_agent" | "split_thread_agent" | "sleeptime_agent";
+    export type Raw =
+        | "memgpt_agent"
+        | "split_thread_agent"
+        | "sleeptime_agent"
+        | "voice_convo_agent"
+        | "voice_sleeptime_agent";
 }

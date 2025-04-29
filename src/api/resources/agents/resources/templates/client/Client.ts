@@ -56,7 +56,7 @@ export class Templates {
         const { returnAgentState, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (returnAgentState != null) {
-            _queryParams["returnAgentState"] = returnAgentState.toString();
+            _queryParams["returnAgentState"] = returnAgentState;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -70,8 +70,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.106",
-                "User-Agent": "@letta-ai/letta-client/0.1.106",
+                "X-Fern-SDK-Version": "0.1.107",
+                "User-Agent": "@letta-ai/letta-client/0.1.107",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -157,8 +157,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.106",
-                "User-Agent": "@letta-ai/letta-client/0.1.106",
+                "X-Fern-SDK-Version": "0.1.107",
+                "User-Agent": "@letta-ai/letta-client/0.1.107",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -250,8 +250,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.106",
-                "User-Agent": "@letta-ai/letta-client/0.1.106",
+                "X-Fern-SDK-Version": "0.1.107",
+                "User-Agent": "@letta-ai/letta-client/0.1.107",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -23,6 +23,7 @@ export * as runs from "./runs";
 export * as steps from "./steps";
 export * as tags from "./tags";
 export * as batches from "./batches";
+export * as embeddings from "./embeddings";
 export * from "./tools/client/requests";
 export * from "./sources/client/requests";
 export * from "./agents/client/requests";
