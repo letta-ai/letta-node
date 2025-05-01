@@ -20,5 +20,6 @@ export interface ToolCallMessage {
     messageType: "tool_call_message";
     otid?: string;
     senderId?: string;
+    stepId?: string;
     toolCall: Letta.ToolCallMessageToolCall;
 }

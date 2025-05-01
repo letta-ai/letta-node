@@ -15,6 +15,7 @@ export const ToolCallMessage: core.serialization.ObjectSchema<serializers.ToolCa
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("tool_call_message")),
         otid: core.serialization.string().optional(),
         senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
+        stepId: core.serialization.property("step_id", core.serialization.string().optional()),
         toolCall: core.serialization.property("tool_call", ToolCallMessageToolCall),
     });
 
@@ -26,6 +27,7 @@ export declare namespace ToolCallMessage {
         message_type: "tool_call_message";
         otid?: string | null;
         sender_id?: string | null;
+        step_id?: string | null;
         tool_call: ToolCallMessageToolCall.Raw;
     }
 }

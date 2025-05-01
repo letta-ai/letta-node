@@ -20,6 +20,7 @@ export const HiddenReasoningMessage: core.serialization.ObjectSchema<
     ),
     otid: core.serialization.string().optional(),
     senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
+    stepId: core.serialization.property("step_id", core.serialization.string().optional()),
     state: HiddenReasoningMessageState,
     hiddenReasoning: core.serialization.property("hidden_reasoning", core.serialization.string().optional()),
 });
@@ -32,6 +33,7 @@ export declare namespace HiddenReasoningMessage {
         message_type: "hidden_reasoning_message";
         otid?: string | null;
         sender_id?: string | null;
+        step_id?: string | null;
         state: HiddenReasoningMessageState.Raw;
         hidden_reasoning?: string | null;
     }

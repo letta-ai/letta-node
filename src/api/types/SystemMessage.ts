@@ -18,6 +18,7 @@ export interface SystemMessage {
     messageType: "system_message";
     otid?: string;
     senderId?: string;
+    stepId?: string;
     /** The message content sent by the system */
     content: string;
 }

@@ -68,8 +68,8 @@ export class Voice {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.111",
-                "User-Agent": "@letta-ai/letta-client/0.1.111",
+                "X-Fern-SDK-Version": "0.1.112",
+                "User-Agent": "@letta-ai/letta-client/0.1.112",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "user-id": userId != null ? userId : undefined,

@@ -17,6 +17,7 @@ export const ToolReturnMessage: core.serialization.ObjectSchema<
     messageType: core.serialization.property("message_type", core.serialization.stringLiteral("tool_return_message")),
     otid: core.serialization.string().optional(),
     senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
+    stepId: core.serialization.property("step_id", core.serialization.string().optional()),
     toolReturn: core.serialization.property("tool_return", core.serialization.string()),
     status: ToolReturnMessageStatus,
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
@@ -32,6 +33,7 @@ export declare namespace ToolReturnMessage {
         message_type: "tool_return_message";
         otid?: string | null;
         sender_id?: string | null;
+        step_id?: string | null;
         tool_return: string;
         status: ToolReturnMessageStatus.Raw;
         tool_call_id: string;

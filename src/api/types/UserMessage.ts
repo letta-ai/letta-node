@@ -20,6 +20,7 @@ export interface UserMessage {
     messageType: "user_message";
     otid?: string;
     senderId?: string;
+    stepId?: string;
     /** The message content sent by the user (can be a string or an array of multi-modal content parts) */
     content: Letta.UserMessageContent;
 }
