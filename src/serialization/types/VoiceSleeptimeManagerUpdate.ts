@@ -12,11 +12,21 @@ export const VoiceSleeptimeManagerUpdate: core.serialization.ObjectSchema<
 > = core.serialization.object({
     managerType: core.serialization.property("manager_type", core.serialization.stringLiteral("voice_sleeptime")),
     managerAgentId: core.serialization.property("manager_agent_id", core.serialization.string().optional()),
+    maxMessageBufferLength: core.serialization.property(
+        "max_message_buffer_length",
+        core.serialization.number().optional(),
+    ),
+    minMessageBufferLength: core.serialization.property(
+        "min_message_buffer_length",
+        core.serialization.number().optional(),
+    ),
 });
 
 export declare namespace VoiceSleeptimeManagerUpdate {
     export interface Raw {
         manager_type: "voice_sleeptime";
         manager_agent_id?: string | null;
+        max_message_buffer_length?: number | null;
+        min_message_buffer_length?: number | null;
     }
 }

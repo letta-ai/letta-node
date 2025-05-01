@@ -27,4 +27,8 @@ export interface Group {
     turnsCounter?: number;
     /** */
     lastProcessedMessageId?: string;
+    /** The desired maximum length of messages in the context window of the convo agent. This is a best effort, and may be off slightly due to user/assistant interleaving. */
+    maxMessageBufferLength?: number;
+    /** The desired minimum length of messages in the context window of the convo agent. This is a best effort, and may be off-by-one due to user/assistant interleaving. */
+    minMessageBufferLength?: number;
 }

@@ -28,6 +28,14 @@ export const Group: core.serialization.ObjectSchema<serializers.Group.Raw, Letta
         "last_processed_message_id",
         core.serialization.string().optional(),
     ),
+    maxMessageBufferLength: core.serialization.property(
+        "max_message_buffer_length",
+        core.serialization.number().optional(),
+    ),
+    minMessageBufferLength: core.serialization.property(
+        "min_message_buffer_length",
+        core.serialization.number().optional(),
+    ),
 });
 
 export declare namespace Group {
@@ -43,5 +51,7 @@ export declare namespace Group {
         sleeptime_agent_frequency?: number | null;
         turns_counter?: number | null;
         last_processed_message_id?: string | null;
+        max_message_buffer_length?: number | null;
+        min_message_buffer_length?: number | null;
     }
 }
