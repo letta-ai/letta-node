@@ -30,6 +30,7 @@ export * from "./sources/client/requests";
 export * from "./agents/client/requests";
 export * from "./groups/client/requests";
 export * from "./identities/client/requests";
+export * from "./models/client/requests";
 export * from "./blocks/client/requests";
 export * from "./jobs/client/requests";
 export * from "./providers/client/requests";

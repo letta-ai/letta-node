@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ListStepsRequest {
+export interface StepsListRequest {
     /**
      * Return steps before this step ID
      */

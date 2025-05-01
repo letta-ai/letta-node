@@ -1,1 +1,1 @@
-export * as listSteps from "./listSteps";
+export * as list from "./list";

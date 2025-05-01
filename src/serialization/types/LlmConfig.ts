@@ -13,6 +13,7 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
         model: core.serialization.string(),
         modelEndpointType: core.serialization.property("model_endpoint_type", LlmConfigModelEndpointType),
         modelEndpoint: core.serialization.property("model_endpoint", core.serialization.string().optional()),
+        providerName: core.serialization.property("provider_name", core.serialization.string().optional()),
         modelWrapper: core.serialization.property("model_wrapper", core.serialization.string().optional()),
         contextWindow: core.serialization.property("context_window", core.serialization.number()),
         putInnerThoughtsInKwargs: core.serialization.property(
@@ -32,6 +33,7 @@ export declare namespace LlmConfig {
         model: string;
         model_endpoint_type: LlmConfigModelEndpointType.Raw;
         model_endpoint?: string | null;
+        provider_name?: string | null;
         model_wrapper?: string | null;
         context_window: number;
         put_inner_thoughts_in_kwargs?: boolean | null;

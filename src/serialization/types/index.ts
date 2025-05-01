@@ -149,6 +149,7 @@ export * from "./ParentToolRule";
 export * from "./Passage";
 export * from "./PipRequirement";
 export * from "./Provider";
+export * from "./ProviderType";
 export * from "./ReasoningContent";
 export * from "./ReasoningMessageSource";
 export * from "./ReasoningMessage";

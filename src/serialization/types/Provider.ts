@@ -5,12 +5,15 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { ProviderType } from "./ProviderType";
 
 export const Provider: core.serialization.ObjectSchema<serializers.Provider.Raw, Letta.Provider> =
     core.serialization.object({
         id: core.serialization.string().optional(),
         name: core.serialization.string(),
+        providerType: core.serialization.property("provider_type", ProviderType),
         apiKey: core.serialization.property("api_key", core.serialization.string().optional()),
+        baseUrl: core.serialization.property("base_url", core.serialization.string().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
     });
 
@@ -18,7 +21,9 @@ export declare namespace Provider {
     export interface Raw {
         id?: string | null;
         name: string;
+        provider_type: ProviderType.Raw;
         api_key?: string | null;
+        base_url?: string | null;
         updated_at?: string | null;
     }
 }

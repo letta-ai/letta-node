@@ -2834,7 +2834,7 @@ await client.identities.modify("identity_id");
 
 ## Models
 
-<details><summary><code>client.models.<a href="/src/api/resources/models/client/Client.ts">list</a>() -> Letta.LlmConfig[]</code></summary>
+<details><summary><code>client.models.<a href="/src/api/resources/models/client/Client.ts">list</a>({ ...params }) -> Letta.LlmConfig[]</code></summary>
 <dl>
 <dd>
 
@@ -2859,6 +2859,14 @@ await client.models.list();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ModelsListRequest`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -3552,6 +3560,7 @@ Create a new custom provider
 ```typescript
 await client.providers.create({
     name: "name",
+    providerType: "anthropic",
     apiKey: "api_key",
 });
 ```
@@ -3980,7 +3989,7 @@ await client.runs.delete("run_id");
 
 ## Steps
 
-<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">listSteps</a>({ ...params }) -> Letta.Step[]</code></summary>
+<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">list</a>({ ...params }) -> Letta.Step[]</code></summary>
 <dl>
 <dd>
 
@@ -4009,7 +4018,7 @@ Dates should be provided in ISO 8601 format (e.g. 2025-01-29T15:01:19-08:00)
 <dd>
 
 ```typescript
-await client.steps.listSteps();
+await client.steps.list();
 ```
 
 </dd>
@@ -4025,7 +4034,7 @@ await client.steps.listSteps();
 <dl>
 <dd>
 
-**request:** `Letta.ListStepsRequest`
+**request:** `Letta.StepsListRequest`
 
 </dd>
 </dl>
@@ -4092,46 +4101,6 @@ await client.steps.retrieve("step_id");
 
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Steps.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">list</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.steps.list();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
 
 <dl>
 <dd>

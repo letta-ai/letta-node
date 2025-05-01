@@ -24,6 +24,8 @@ export interface LlmConfig {
     modelEndpointType: Letta.LlmConfigModelEndpointType;
     /** The endpoint for the model. */
     modelEndpoint?: string;
+    /** The provider name for the model. */
+    providerName?: string;
     /** The wrapper for the model. */
     modelWrapper?: string;
     /** The context window size for the model. */

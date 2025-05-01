@@ -7,7 +7,7 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { Step } from "../../../types/Step";
 
-export const Response: core.serialization.Schema<serializers.steps.listSteps.Response.Raw, Letta.Step[]> =
+export const Response: core.serialization.Schema<serializers.steps.list.Response.Raw, Letta.Step[]> =
     core.serialization.list(Step);
 
 export declare namespace Response {
