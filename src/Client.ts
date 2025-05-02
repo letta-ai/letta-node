@@ -20,7 +20,6 @@ import { Steps } from "./api/resources/steps/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
 import { Batches } from "./api/resources/batches/client/Client";
 import { Voice } from "./api/resources/voice/client/Client";
-import { Embeddings } from "./api/resources/embeddings/client/Client";
 import { Templates } from "./api/resources/templates/client/Client";
 import { ClientSideAccessTokens } from "./api/resources/clientSideAccessTokens/client/Client";
 import { Projects } from "./api/resources/projects/client/Client";
@@ -63,7 +62,6 @@ export class LettaClient {
     protected _tags: Tags | undefined;
     protected _batches: Batches | undefined;
     protected _voice: Voice | undefined;
-    protected _embeddings: Embeddings | undefined;
     protected _templates: Templates | undefined;
     protected _clientSideAccessTokens: ClientSideAccessTokens | undefined;
     protected _projects: Projects | undefined;
@@ -132,10 +130,6 @@ export class LettaClient {
 
     public get voice(): Voice {
         return (this._voice ??= new Voice(this._options));
-    }
-
-    public get embeddings(): Embeddings {
-        return (this._embeddings ??= new Embeddings(this._options));
     }
 
     public get templates(): Templates {

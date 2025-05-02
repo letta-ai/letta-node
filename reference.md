@@ -4513,63 +4513,6 @@ await client.voice.createVoiceChatCompletions("agent_id", {
 </dl>
 </details>
 
-## Embeddings
-
-<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">getEmbeddingsTotalStorageSize</a>() -> number</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get the total size of all embeddings in the database for a user in the storage unit given.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.embeddings.getEmbeddingsTotalStorageSize();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `Embeddings.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Templates
 
 <details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">list</a>({ ...params }) -> Letta.TemplatesListResponse</code></summary>
