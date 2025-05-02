@@ -22,6 +22,6 @@ import * as Letta from "../../../../index";
 export interface CreateBatch {
     /** List of requests to be processed in batch. */
     requests: Letta.LettaBatchRequest[];
-    /** Optional URL to call via POST when the batch completes. */
+    /** Optional URL to call via POST when the batch completes. The callback payload will be a JSON object with the following fields: {'job_id': string, 'status': string, 'completed_at': string}. Where 'job_id' is the unique batch job identifier, 'status' is the final batch status (e.g., 'completed', 'failed'), and 'completed_at' is an ISO 8601 timestamp indicating when the batch job completed. */
     callbackUrl?: string;
 }

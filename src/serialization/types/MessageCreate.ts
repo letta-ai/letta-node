@@ -15,6 +15,7 @@ export const MessageCreate: core.serialization.ObjectSchema<serializers.MessageC
         name: core.serialization.string().optional(),
         otid: core.serialization.string().optional(),
         senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
+        batchItemId: core.serialization.property("batch_item_id", core.serialization.string().optional()),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
     });
 
@@ -25,6 +26,7 @@ export declare namespace MessageCreate {
         name?: string | null;
         otid?: string | null;
         sender_id?: string | null;
+        batch_item_id?: string | null;
         group_id?: string | null;
     }
 }

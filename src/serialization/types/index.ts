@@ -119,6 +119,7 @@ export * from "./JsonSchemaResponseFormat";
 export * from "./LlmConfigModelEndpointType";
 export * from "./LlmConfigReasoningEffort";
 export * from "./LlmConfig";
+export * from "./LettaBatchMessages";
 export * from "./LettaBatchRequest";
 export * from "./LettaRequest";
 export * from "./LettaRequestConfig";

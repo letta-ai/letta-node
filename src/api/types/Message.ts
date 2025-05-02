@@ -59,4 +59,6 @@ export interface Message {
     groupId?: string;
     /** The id of the sender of the message, can be an identity id or agent id */
     senderId?: string;
+    /** The id of the LLMBatchItem that this message is associated with */
+    batchItemId?: string;
 }
