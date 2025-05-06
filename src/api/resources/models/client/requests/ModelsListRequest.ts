@@ -8,4 +8,5 @@
  */
 export interface ModelsListRequest {
     byokOnly?: boolean;
+    defaultOnly?: boolean;
 }

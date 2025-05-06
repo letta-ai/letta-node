@@ -46,10 +46,14 @@ export class Models {
         request: Letta.ModelsListRequest = {},
         requestOptions?: Models.RequestOptions,
     ): Promise<Letta.LlmConfig[]> {
-        const { byokOnly } = request;
+        const { byokOnly, defaultOnly } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (byokOnly != null) {
             _queryParams["byok_only"] = byokOnly.toString();
+        }
+
+        if (defaultOnly != null) {
+            _queryParams["default_only"] = defaultOnly.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -63,8 +67,8 @@ export class Models {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.115",
-                "User-Agent": "@letta-ai/letta-client/0.1.115",
+                "X-Fern-SDK-Version": "0.1.116",
+                "User-Agent": "@letta-ai/letta-client/0.1.116",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
