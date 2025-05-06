@@ -41,6 +41,8 @@ export class Agents {
      * @param {Letta.templates.AgentsCreateRequest} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Letta.PaymentRequiredError}
+     *
      * @example
      *     await client.templates.agents.create("project", "template_version")
      */
@@ -61,8 +63,8 @@ export class Agents {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.116",
-                "User-Agent": "@letta-ai/letta-client/0.1.116",
+                "X-Fern-SDK-Version": "0.1.117",
+                "User-Agent": "@letta-ai/letta-client/0.1.117",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -86,10 +88,23 @@ export class Agents {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.LettaError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 402:
+                    throw new Letta.PaymentRequiredError(
+                        serializers.PaymentRequiredErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
