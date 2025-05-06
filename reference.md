@@ -2244,6 +2244,61 @@ await client.groups.create({
 </dl>
 </details>
 
+<details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">count</a>() -> number</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the count of all groups associated with a given user.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.groups.count();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Groups.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">retrieve</a>(groupId) -> Letta.Group</code></summary>
 <dl>
 <dd>
@@ -3010,6 +3065,61 @@ await client.blocks.create({
 
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Blocks.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">count</a>() -> number</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Count all blocks created by a user.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.blocks.count();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>
