@@ -46,14 +46,22 @@ export class Models {
         request: Letta.ModelsListRequest = {},
         requestOptions?: Models.RequestOptions,
     ): Promise<Letta.LlmConfig[]> {
-        const { byokOnly, defaultOnly } = request;
+        const { providerCategory, providerName, providerType } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (byokOnly != null) {
-            _queryParams["byok_only"] = byokOnly.toString();
+        if (providerCategory != null) {
+            if (Array.isArray(providerCategory)) {
+                _queryParams["provider_category"] = providerCategory.map((item) => item);
+            } else {
+                _queryParams["provider_category"] = providerCategory;
+            }
         }
 
-        if (defaultOnly != null) {
-            _queryParams["default_only"] = defaultOnly.toString();
+        if (providerName != null) {
+            _queryParams["provider_name"] = providerName;
+        }
+
+        if (providerType != null) {
+            _queryParams["provider_type"] = providerType;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -67,8 +75,8 @@ export class Models {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.117",
-                "User-Agent": "@letta-ai/letta-client/0.1.117",
+                "X-Fern-SDK-Version": "0.1.118",
+                "User-Agent": "@letta-ai/letta-client/0.1.118",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

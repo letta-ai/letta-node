@@ -36,6 +36,8 @@ export class EmbeddingModels {
     /**
      * @param {EmbeddingModels.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
      * @example
      *     await client.embeddingModels.list()
      */
@@ -51,8 +53,8 @@ export class EmbeddingModels {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.117",
-                "User-Agent": "@letta-ai/letta-client/0.1.117",
+                "X-Fern-SDK-Version": "0.1.118",
+                "User-Agent": "@letta-ai/letta-client/0.1.118",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -75,10 +77,23 @@ export class EmbeddingModels {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.LettaError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

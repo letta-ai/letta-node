@@ -11,6 +11,8 @@ export interface Provider {
     name: string;
     /** The type of the provider */
     providerType: Letta.ProviderType;
+    /** The category of the provider (base or byok) */
+    providerCategory: Letta.ProviderCategory;
     /** API key used for requests to the provider. */
     apiKey?: string;
     /** Base URL for the provider. */

@@ -151,6 +151,7 @@ export * from "./ParentToolRule";
 export * from "./Passage";
 export * from "./PipRequirement";
 export * from "./Provider";
+export * from "./ProviderCategory";
 export * from "./ProviderType";
 export * from "./ReasoningContent";
 export * from "./ReasoningMessageSource";
