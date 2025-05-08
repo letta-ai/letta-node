@@ -3843,6 +3843,57 @@ await client.providers.modify("provider_id", {
 </dl>
 </details>
 
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">check</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.providers.check({
+    apiKey: "x-api-key",
+    providerType: "anthropic",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ProvidersCheckRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Providers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Runs
 
 <details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">list</a>({ ...params }) -> Letta.Run[]</code></summary>
