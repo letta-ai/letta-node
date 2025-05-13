@@ -14,6 +14,7 @@ export const SourceCreate: core.serialization.Schema<serializers.SourceCreate.Ra
         embeddingChunkSize: core.serialization.property("embedding_chunk_size", core.serialization.number().optional()),
         embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig.optional()),
         description: core.serialization.string().optional(),
+        instructions: core.serialization.string().optional(),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     });
 
@@ -24,6 +25,7 @@ export declare namespace SourceCreate {
         embedding_chunk_size?: number | null;
         embedding_config?: EmbeddingConfig.Raw | null;
         description?: string | null;
+        instructions?: string | null;
         metadata?: Record<string, unknown> | null;
     }
 }

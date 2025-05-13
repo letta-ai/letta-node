@@ -27,4 +27,8 @@ export interface BlocksListRequest {
      * Search agents by identifier keys
      */
     identifierKeys?: string | string[];
+    /**
+     * Number of blocks to return
+     */
+    limit?: number;
 }

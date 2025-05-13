@@ -13,6 +13,8 @@ export interface SourceUpdate {
     name?: string;
     /** The description of the source. */
     description?: string;
+    /** Instructions for how to use the source. */
+    instructions?: string;
     /** Metadata associated with the source. */
     metadata?: Record<string, unknown>;
     /** The embedding configuration used by the source. */

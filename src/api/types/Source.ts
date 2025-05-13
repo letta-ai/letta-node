@@ -22,6 +22,8 @@ export interface Source {
     name: string;
     /** The description of the source. */
     description?: string;
+    /** Instructions for how to use the source. */
+    instructions?: string;
     /** The embedding configuration used by the source. */
     embeddingConfig: Letta.EmbeddingConfig;
     /** Metadata associated with the source. */
