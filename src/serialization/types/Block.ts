@@ -12,6 +12,7 @@ export const Block: core.serialization.ObjectSchema<serializers.Block.Raw, Letta
     name: core.serialization.string().optional(),
     isTemplate: core.serialization.property("is_template", core.serialization.boolean().optional()),
     label: core.serialization.string().optional(),
+    readOnly: core.serialization.property("read_only", core.serialization.boolean().optional()),
     description: core.serialization.string().optional(),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     id: core.serialization.string().optional(),
@@ -26,6 +27,7 @@ export declare namespace Block {
         name?: string | null;
         is_template?: boolean | null;
         label?: string | null;
+        read_only?: boolean | null;
         description?: string | null;
         metadata?: Record<string, unknown> | null;
         id?: string | null;

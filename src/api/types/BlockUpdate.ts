@@ -16,6 +16,8 @@ export interface BlockUpdate {
     isTemplate?: boolean;
     /** Label of the block (e.g. 'human', 'persona') in the context window. */
     label?: string;
+    /** Whether the agent has read-only access to the block. */
+    readOnly?: boolean;
     /** Description of the block. */
     description?: string;
     /** Metadata of the block. */

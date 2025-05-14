@@ -15,6 +15,8 @@ export interface CreateBlock {
     isTemplate?: boolean;
     /** Label of the block. */
     label: string;
+    /** Whether the agent has read-only access to the block. */
+    readOnly?: boolean;
     /** Description of the block. */
     description?: string;
     /** Metadata of the block. */
