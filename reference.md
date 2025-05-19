@@ -4342,6 +4342,56 @@ await client.tags.list();
 </dl>
 </details>
 
+## Telemetry
+
+<details><summary><code>client.telemetry.<a href="/src/api/resources/telemetry/client/Client.ts">retrieveProviderTrace</a>(stepId) -> Letta.ProviderTrace</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.telemetry.retrieveProviderTrace("step_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**stepId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Telemetry.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Batches
 
 <details><summary><code>client.batches.<a href="/src/api/resources/batches/client/Client.ts">list</a>() -> Letta.BatchJob[]</code></summary>

@@ -18,6 +18,7 @@ import { Providers } from "./api/resources/providers/client/Client";
 import { Runs } from "./api/resources/runs/client/Client";
 import { Steps } from "./api/resources/steps/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
+import { Telemetry } from "./api/resources/telemetry/client/Client";
 import { Batches } from "./api/resources/batches/client/Client";
 import { Messages } from "./api/resources/messages/client/Client";
 import { Voice } from "./api/resources/voice/client/Client";
@@ -61,6 +62,7 @@ export class LettaClient {
     protected _runs: Runs | undefined;
     protected _steps: Steps | undefined;
     protected _tags: Tags | undefined;
+    protected _telemetry: Telemetry | undefined;
     protected _batches: Batches | undefined;
     protected _messages: Messages | undefined;
     protected _voice: Voice | undefined;
@@ -124,6 +126,10 @@ export class LettaClient {
 
     public get tags(): Tags {
         return (this._tags ??= new Tags(this._options));
+    }
+
+    public get telemetry(): Telemetry {
+        return (this._telemetry ??= new Telemetry(this._options));
     }
 
     public get batches(): Batches {

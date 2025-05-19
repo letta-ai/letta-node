@@ -23,6 +23,7 @@ export * as providers from "./providers";
 export * as runs from "./runs";
 export * as steps from "./steps";
 export * as tags from "./tags";
+export * as telemetry from "./telemetry";
 export * as batches from "./batches";
 export * as messages from "./messages";
 export * from "./tools/client/requests";
