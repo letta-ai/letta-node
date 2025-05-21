@@ -34,6 +34,8 @@ export class Models {
     constructor(protected readonly _options: Models.Options = {}) {}
 
     /**
+     * List available LLM models using the asynchronous implementation for improved performance
+     *
      * @param {Letta.ModelsListRequest} request
      * @param {Models.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -75,8 +77,8 @@ export class Models {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.122",
-                "User-Agent": "@letta-ai/letta-client/0.1.122",
+                "X-Fern-SDK-Version": "0.1.123",
+                "User-Agent": "@letta-ai/letta-client/0.1.123",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

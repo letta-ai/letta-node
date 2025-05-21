@@ -34,6 +34,8 @@ export class EmbeddingModels {
     constructor(protected readonly _options: EmbeddingModels.Options = {}) {}
 
     /**
+     * List available embedding models using the asynchronous implementation for improved performance
+     *
      * @param {EmbeddingModels.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
@@ -53,8 +55,8 @@ export class EmbeddingModels {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.122",
-                "User-Agent": "@letta-ai/letta-client/0.1.122",
+                "X-Fern-SDK-Version": "0.1.123",
+                "User-Agent": "@letta-ai/letta-client/0.1.123",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -2893,6 +2893,21 @@ await client.identities.modify("identity_id");
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List available LLM models using the asynchronous implementation for improved performance
+
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -2942,6 +2957,21 @@ await client.models.list();
 <details><summary><code>client.embeddingModels.<a href="/src/api/resources/embeddingModels/client/Client.ts">list</a>() -> Letta.EmbeddingConfig[]</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List available embedding models using the asynchronous implementation for improved performance
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 

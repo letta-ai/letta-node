@@ -17,6 +17,8 @@ export interface Step {
     agentId?: string;
     /** The name of the provider used for this step. */
     providerName?: string;
+    /** The category of the provider used for this step. */
+    providerCategory?: string;
     /** The name of the model used for this step. */
     model?: string;
     /** The model endpoint url used for this step. */
