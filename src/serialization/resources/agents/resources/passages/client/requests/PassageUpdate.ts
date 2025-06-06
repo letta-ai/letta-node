@@ -19,6 +19,7 @@ export const PassageUpdate: core.serialization.Schema<
     passageUpdateAgentId: core.serialization.property("agent_id", core.serialization.string().optional()),
     sourceId: core.serialization.property("source_id", core.serialization.string().optional()),
     fileId: core.serialization.property("file_id", core.serialization.string().optional()),
+    fileName: core.serialization.property("file_name", core.serialization.string().optional()),
     metadata: core.serialization.property(
         "metadata_",
         core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
@@ -39,6 +40,7 @@ export declare namespace PassageUpdate {
         agent_id?: string | null;
         source_id?: string | null;
         file_id?: string | null;
+        file_name?: string | null;
         metadata_?: Record<string, unknown> | null;
         text?: string | null;
         embedding?: number[] | null;

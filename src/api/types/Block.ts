@@ -25,6 +25,8 @@ export interface Block {
     name?: string;
     /** Whether the block is a template (e.g. saved human/persona options). */
     isTemplate?: boolean;
+    /** Preserve the block on template migration. */
+    preserveOnMigration?: boolean;
     /** Label of the block (e.g. 'human', 'persona') in the context window. */
     label?: string;
     /** Whether the agent has read-only access to the block. */

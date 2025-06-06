@@ -15,4 +15,8 @@ export interface FilesListRequest {
      * Pagination cursor to fetch the next set of results
      */
     after?: string;
+    /**
+     * Whether to include full file content
+     */
+    includeContent?: boolean;
 }

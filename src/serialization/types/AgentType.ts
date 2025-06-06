@@ -9,6 +9,7 @@ import * as core from "../../core";
 export const AgentType: core.serialization.Schema<serializers.AgentType.Raw, Letta.AgentType> =
     core.serialization.enum_([
         "memgpt_agent",
+        "memgpt_v2_agent",
         "split_thread_agent",
         "sleeptime_agent",
         "voice_convo_agent",
@@ -18,6 +19,7 @@ export const AgentType: core.serialization.Schema<serializers.AgentType.Raw, Let
 export declare namespace AgentType {
     export type Raw =
         | "memgpt_agent"
+        | "memgpt_v2_agent"
         | "split_thread_agent"
         | "sleeptime_agent"
         | "voice_convo_agent"

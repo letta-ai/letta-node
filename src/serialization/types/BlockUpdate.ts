@@ -12,6 +12,10 @@ export const BlockUpdate: core.serialization.ObjectSchema<serializers.BlockUpdat
         limit: core.serialization.number().optional(),
         name: core.serialization.string().optional(),
         isTemplate: core.serialization.property("is_template", core.serialization.boolean().optional()),
+        preserveOnMigration: core.serialization.property(
+            "preserve_on_migration",
+            core.serialization.boolean().optional(),
+        ),
         label: core.serialization.string().optional(),
         readOnly: core.serialization.property("read_only", core.serialization.boolean().optional()),
         description: core.serialization.string().optional(),
@@ -24,6 +28,7 @@ export declare namespace BlockUpdate {
         limit?: number | null;
         name?: string | null;
         is_template?: boolean | null;
+        preserve_on_migration?: boolean | null;
         label?: string | null;
         read_only?: boolean | null;
         description?: string | null;

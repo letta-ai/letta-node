@@ -34,6 +34,8 @@ export interface Passage {
     sourceId?: string;
     /** The unique identifier of the file associated with the passage. */
     fileId?: string;
+    /** The name of the file (only for source passages). */
+    fileName?: string;
     /** The metadata of the passage. */
     metadata?: Record<string, unknown>;
     /** The human-friendly ID of the Passage */

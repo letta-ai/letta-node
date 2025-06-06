@@ -13,4 +13,6 @@ export interface LettaRequest {
     assistantMessageToolName?: string;
     /** The name of the message argument in the designated message tool. */
     assistantMessageToolKwarg?: string;
+    /** Only return specified message types in the response. If `None` (default) returns all messages. */
+    includeReturnMessageTypes?: Letta.MessageType[];
 }

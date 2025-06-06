@@ -39,4 +39,8 @@ export interface StepsListRequest {
      * Filter by the ID of the agent that performed the step
      */
     agentId?: string;
+    /**
+     * Filter by trace ids returned by the server
+     */
+    traceIds?: string | string[];
 }

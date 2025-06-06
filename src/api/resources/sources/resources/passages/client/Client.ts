@@ -37,6 +37,7 @@ export class Passages {
      * List all passages associated with a data source.
      *
      * @param {string} sourceId
+     * @param {Letta.sources.PassagesListRequest} request
      * @param {Passages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
@@ -44,7 +45,25 @@ export class Passages {
      * @example
      *     await client.sources.passages.list("source_id")
      */
-    public async list(sourceId: string, requestOptions?: Passages.RequestOptions): Promise<Letta.Passage[]> {
+    public async list(
+        sourceId: string,
+        request: Letta.sources.PassagesListRequest = {},
+        requestOptions?: Passages.RequestOptions,
+    ): Promise<Letta.Passage[]> {
+        const { after, before, limit } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -56,14 +75,15 @@ export class Passages {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.123",
-                "User-Agent": "@letta-ai/letta-client/0.1.123",
+                "X-Fern-SDK-Version": "0.1.124",
+                "User-Agent": "@letta-ai/letta-client/0.1.124",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,

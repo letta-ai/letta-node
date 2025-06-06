@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { MessageCreate } from "./MessageCreate";
+import { MessageType } from "./MessageType";
 
 export const LettaStreamingRequest: core.serialization.ObjectSchema<
     serializers.LettaStreamingRequest.Raw,
@@ -21,6 +22,10 @@ export const LettaStreamingRequest: core.serialization.ObjectSchema<
         "assistant_message_tool_kwarg",
         core.serialization.string().optional(),
     ),
+    includeReturnMessageTypes: core.serialization.property(
+        "include_return_message_types",
+        core.serialization.list(MessageType).optional(),
+    ),
     streamTokens: core.serialization.property("stream_tokens", core.serialization.boolean().optional()),
 });
 
@@ -30,6 +35,7 @@ export declare namespace LettaStreamingRequest {
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;
         assistant_message_tool_kwarg?: string | null;
+        include_return_message_types?: MessageType.Raw[] | null;
         stream_tokens?: boolean | null;
     }
 }

@@ -13,6 +13,8 @@ export interface LettaStreamingRequest {
     assistantMessageToolName?: string;
     /** The name of the message argument in the designated message tool. */
     assistantMessageToolKwarg?: string;
+    /** Only return specified message types in the response. If `None` (default) returns all messages. */
+    includeReturnMessageTypes?: Letta.MessageType[];
     /** Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True). */
     streamTokens?: boolean;
 }

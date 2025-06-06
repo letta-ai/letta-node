@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { FileProcessingStatus } from "./FileProcessingStatus";
 
 export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetadata.Raw, Letta.FileMetadata> =
     core.serialization.object({
@@ -19,9 +20,12 @@ export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetad
             "file_last_modified_date",
             core.serialization.string().optional(),
         ),
+        processingStatus: core.serialization.property("processing_status", FileProcessingStatus.optional()),
+        errorMessage: core.serialization.property("error_message", core.serialization.string().optional()),
         createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
         isDeleted: core.serialization.property("is_deleted", core.serialization.boolean().optional()),
+        content: core.serialization.string().optional(),
     });
 
 export declare namespace FileMetadata {
@@ -34,8 +38,11 @@ export declare namespace FileMetadata {
         file_size?: number | null;
         file_creation_date?: string | null;
         file_last_modified_date?: string | null;
+        processing_status?: FileProcessingStatus.Raw | null;
+        error_message?: string | null;
         created_at?: string | null;
         updated_at?: string | null;
         is_deleted?: boolean | null;
+        content?: string | null;
     }
 }

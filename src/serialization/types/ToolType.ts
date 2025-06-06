@@ -14,6 +14,7 @@ export const ToolType: core.serialization.Schema<serializers.ToolType.Raw, Letta
     "letta_sleeptime_core",
     "letta_voice_sleeptime_core",
     "letta_builtin",
+    "letta_files_core",
     "external_composio",
     "external_langchain",
     "external_mcp",
@@ -28,6 +29,7 @@ export declare namespace ToolType {
         | "letta_sleeptime_core"
         | "letta_voice_sleeptime_core"
         | "letta_builtin"
+        | "letta_files_core"
         | "external_composio"
         | "external_langchain"
         | "external_mcp";

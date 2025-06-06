@@ -62,8 +62,8 @@ export class Jobs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.123",
-                "User-Agent": "@letta-ai/letta-client/0.1.123",
+                "X-Fern-SDK-Version": "0.1.124",
+                "User-Agent": "@letta-ai/letta-client/0.1.124",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -124,6 +124,7 @@ export class Jobs {
     /**
      * List all active jobs.
      *
+     * @param {Letta.JobsListActiveRequest} request
      * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
@@ -131,7 +132,16 @@ export class Jobs {
      * @example
      *     await client.jobs.listActive()
      */
-    public async listActive(requestOptions?: Jobs.RequestOptions): Promise<Letta.Job[]> {
+    public async listActive(
+        request: Letta.JobsListActiveRequest = {},
+        requestOptions?: Jobs.RequestOptions,
+    ): Promise<Letta.Job[]> {
+        const { sourceId } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (sourceId != null) {
+            _queryParams["source_id"] = sourceId;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -143,14 +153,15 @@ export class Jobs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.123",
-                "User-Agent": "@letta-ai/letta-client/0.1.123",
+                "X-Fern-SDK-Version": "0.1.124",
+                "User-Agent": "@letta-ai/letta-client/0.1.124",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -224,8 +235,8 @@ export class Jobs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.123",
-                "User-Agent": "@letta-ai/letta-client/0.1.123",
+                "X-Fern-SDK-Version": "0.1.124",
+                "User-Agent": "@letta-ai/letta-client/0.1.124",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -305,8 +316,8 @@ export class Jobs {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.123",
-                "User-Agent": "@letta-ai/letta-client/0.1.123",
+                "X-Fern-SDK-Version": "0.1.124",
+                "User-Agent": "@letta-ai/letta-client/0.1.124",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

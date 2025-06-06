@@ -13,6 +13,8 @@ export interface CreateBlock {
     /** Name of the block if it is a template. */
     name?: string;
     isTemplate?: boolean;
+    /** Preserve the block on template migration. */
+    preserveOnMigration?: boolean;
     /** Label of the block. */
     label: string;
     /** Whether the agent has read-only access to the block. */

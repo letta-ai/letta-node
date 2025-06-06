@@ -13,7 +13,7 @@ npm i -s @letta-ai/letta-client
 
 ## Reference
 
-A full reference for this library is available [here](./reference.md).
+A full reference for this library is available [here](https://github.com/letta-ai/letta-node/blob/HEAD/./reference.md).
 
 ## Usage
 

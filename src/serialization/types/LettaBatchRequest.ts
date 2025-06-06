@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { MessageCreate } from "./MessageCreate";
+import { MessageType } from "./MessageType";
 
 export const LettaBatchRequest: core.serialization.ObjectSchema<
     serializers.LettaBatchRequest.Raw,
@@ -21,6 +22,10 @@ export const LettaBatchRequest: core.serialization.ObjectSchema<
         "assistant_message_tool_kwarg",
         core.serialization.string().optional(),
     ),
+    includeReturnMessageTypes: core.serialization.property(
+        "include_return_message_types",
+        core.serialization.list(MessageType).optional(),
+    ),
     agentId: core.serialization.property("agent_id", core.serialization.string()),
 });
 
@@ -30,6 +35,7 @@ export declare namespace LettaBatchRequest {
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;
         assistant_message_tool_kwarg?: string | null;
+        include_return_message_types?: MessageType.Raw[] | null;
         agent_id: string;
     }
 }

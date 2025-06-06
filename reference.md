@@ -2048,6 +2048,82 @@ await client.agents.modify("agent_id");
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">summarizeAgentConversation</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Summarize an agent's conversation history to a target message length.
+
+This endpoint summarizes the current message history for a given agent,
+truncating and compressing it down to the specified `max_message_length`.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.summarizeAgentConversation("agent_id", {
+    maxMessageLength: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.SummarizeAgentConversationRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">search</a>({ ...params }) -> Letta.AgentsSearchResponse</code></summary>
 <dl>
 <dd>
@@ -3382,7 +3458,7 @@ await client.jobs.list();
 </dl>
 </details>
 
-<details><summary><code>client.jobs.<a href="/src/api/resources/jobs/client/Client.ts">listActive</a>() -> Letta.Job[]</code></summary>
+<details><summary><code>client.jobs.<a href="/src/api/resources/jobs/client/Client.ts">listActive</a>({ ...params }) -> Letta.Job[]</code></summary>
 <dl>
 <dd>
 
@@ -3422,6 +3498,14 @@ await client.jobs.listActive();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.JobsListActiveRequest`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -8126,7 +8210,7 @@ await client.sources.files.delete("source_id", "file_id");
 
 ## Sources Passages
 
-<details><summary><code>client.sources.passages.<a href="/src/api/resources/sources/resources/passages/client/Client.ts">list</a>(sourceId) -> Letta.Passage[]</code></summary>
+<details><summary><code>client.sources.passages.<a href="/src/api/resources/sources/resources/passages/client/Client.ts">list</a>(sourceId, { ...params }) -> Letta.Passage[]</code></summary>
 <dl>
 <dd>
 
@@ -8171,6 +8255,14 @@ await client.sources.passages.list("source_id");
 <dd>
 
 **sourceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.sources.PassagesListRequest`
 
 </dd>
 </dl>
