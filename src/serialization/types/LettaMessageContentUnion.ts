@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { TextContent } from "./TextContent";
+import { ImageContent } from "./ImageContent";
 import { ToolCallContent } from "./ToolCallContent";
 import { ReasoningContent } from "./ReasoningContent";
 import { RedactedReasoningContent } from "./RedactedReasoningContent";
@@ -16,6 +17,7 @@ export const LettaMessageContentUnion: core.serialization.Schema<
     Letta.LettaMessageContentUnion
 > = core.serialization.undiscriminatedUnion([
     TextContent,
+    ImageContent,
     ToolCallContent,
     ReasoningContent,
     RedactedReasoningContent,
@@ -25,6 +27,7 @@ export const LettaMessageContentUnion: core.serialization.Schema<
 export declare namespace LettaMessageContentUnion {
     export type Raw =
         | TextContent.Raw
+        | ImageContent.Raw
         | ToolCallContent.Raw
         | ReasoningContent.Raw
         | RedactedReasoningContent.Raw

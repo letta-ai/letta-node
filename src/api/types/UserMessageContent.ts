@@ -7,4 +7,4 @@ import * as Letta from "../index";
 /**
  * The message content sent by the user (can be a string or an array of multi-modal content parts)
  */
-export type UserMessageContent = Letta.ComponentsSchemasTextContent[] | string;
+export type UserMessageContent = Letta.LettaUserMessageContentUnion[] | string;

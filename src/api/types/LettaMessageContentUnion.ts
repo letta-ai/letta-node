@@ -6,6 +6,7 @@ import * as Letta from "../index";
 
 export type LettaMessageContentUnion =
     | Letta.TextContent
+    | Letta.ImageContent
     | Letta.ToolCallContent
     | Letta.ReasoningContent
     | Letta.RedactedReasoningContent

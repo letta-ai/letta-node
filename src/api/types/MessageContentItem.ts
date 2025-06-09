@@ -5,6 +5,7 @@
 import * as Letta from "../index";
 
 export type MessageContentItem =
+    | Letta.ImageContent
     | Letta.OmittedReasoningContent
     | Letta.ReasoningContent
     | Letta.RedactedReasoningContent

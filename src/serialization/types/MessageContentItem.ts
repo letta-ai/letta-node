@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { ImageContent } from "./ImageContent";
 import { OmittedReasoningContent } from "./OmittedReasoningContent";
 import { ReasoningContent } from "./ReasoningContent";
 import { RedactedReasoningContent } from "./RedactedReasoningContent";
@@ -16,6 +17,7 @@ export const MessageContentItem: core.serialization.Schema<
     serializers.MessageContentItem.Raw,
     Letta.MessageContentItem
 > = core.serialization.undiscriminatedUnion([
+    ImageContent,
     OmittedReasoningContent,
     ReasoningContent,
     RedactedReasoningContent,
@@ -26,6 +28,7 @@ export const MessageContentItem: core.serialization.Schema<
 
 export declare namespace MessageContentItem {
     export type Raw =
+        | ImageContent.Raw
         | OmittedReasoningContent.Raw
         | ReasoningContent.Raw
         | RedactedReasoningContent.Raw
