@@ -82,8 +82,8 @@ export class Templates {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.125",
-                "User-Agent": "@letta-ai/letta-client/0.1.125",
+                "X-Fern-SDK-Version": "0.1.126",
+                "User-Agent": "@letta-ai/letta-client/0.1.126",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -1851,7 +1851,7 @@ await client.agents.importFile(fs.createReadStream("/path/to/your/file"), {});
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">retrieve</a>(agentId) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">retrieve</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
 
@@ -1896,6 +1896,14 @@ await client.agents.retrieve("agent_id");
 <dd>
 
 **agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.AgentsRetrieveRequest`
 
 </dd>
 </dl>
