@@ -13,6 +13,7 @@ export const LettaStreamingRequest: core.serialization.ObjectSchema<
     Letta.LettaStreamingRequest
 > = core.serialization.object({
     messages: core.serialization.list(MessageCreate),
+    maxSteps: core.serialization.property("max_steps", core.serialization.number().optional()),
     useAssistantMessage: core.serialization.property("use_assistant_message", core.serialization.boolean().optional()),
     assistantMessageToolName: core.serialization.property(
         "assistant_message_tool_name",
@@ -32,6 +33,7 @@ export const LettaStreamingRequest: core.serialization.ObjectSchema<
 export declare namespace LettaStreamingRequest {
     export interface Raw {
         messages: MessageCreate.Raw[];
+        max_steps?: number | null;
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;
         assistant_message_tool_kwarg?: string | null;

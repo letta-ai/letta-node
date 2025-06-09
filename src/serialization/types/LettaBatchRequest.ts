@@ -13,6 +13,7 @@ export const LettaBatchRequest: core.serialization.ObjectSchema<
     Letta.LettaBatchRequest
 > = core.serialization.object({
     messages: core.serialization.list(MessageCreate),
+    maxSteps: core.serialization.property("max_steps", core.serialization.number().optional()),
     useAssistantMessage: core.serialization.property("use_assistant_message", core.serialization.boolean().optional()),
     assistantMessageToolName: core.serialization.property(
         "assistant_message_tool_name",
@@ -32,6 +33,7 @@ export const LettaBatchRequest: core.serialization.ObjectSchema<
 export declare namespace LettaBatchRequest {
     export interface Raw {
         messages: MessageCreate.Raw[];
+        max_steps?: number | null;
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;
         assistant_message_tool_kwarg?: string | null;
