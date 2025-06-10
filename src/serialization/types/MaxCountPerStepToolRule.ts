@@ -12,6 +12,7 @@ export const MaxCountPerStepToolRule: core.serialization.ObjectSchema<
 > = core.serialization.object({
     toolName: core.serialization.property("tool_name", core.serialization.string()),
     type: core.serialization.stringLiteral("max_count_per_step"),
+    promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
     maxCountLimit: core.serialization.property("max_count_limit", core.serialization.number()),
 });
 
@@ -19,6 +20,7 @@ export declare namespace MaxCountPerStepToolRule {
     export interface Raw {
         tool_name: string;
         type: "max_count_per_step";
+        prompt_template?: string | null;
         max_count_limit: number;
     }
 }

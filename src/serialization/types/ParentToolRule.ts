@@ -10,6 +10,7 @@ export const ParentToolRule: core.serialization.ObjectSchema<serializers.ParentT
     core.serialization.object({
         toolName: core.serialization.property("tool_name", core.serialization.string()),
         type: core.serialization.stringLiteral("parent_last_tool"),
+        promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
         children: core.serialization.list(core.serialization.string()),
     });
 
@@ -17,6 +18,7 @@ export declare namespace ParentToolRule {
     export interface Raw {
         tool_name: string;
         type: "parent_last_tool";
+        prompt_template?: string | null;
         children: string[];
     }
 }

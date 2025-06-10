@@ -12,11 +12,13 @@ export const TerminalToolRule: core.serialization.ObjectSchema<
 > = core.serialization.object({
     toolName: core.serialization.property("tool_name", core.serialization.string()),
     type: core.serialization.stringLiteral("exit_loop"),
+    promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
 });
 
 export declare namespace TerminalToolRule {
     export interface Raw {
         tool_name: string;
         type: "exit_loop";
+        prompt_template?: string | null;
     }
 }

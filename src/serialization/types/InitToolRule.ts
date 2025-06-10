@@ -10,11 +10,13 @@ export const InitToolRule: core.serialization.ObjectSchema<serializers.InitToolR
     core.serialization.object({
         toolName: core.serialization.property("tool_name", core.serialization.string()),
         type: core.serialization.stringLiteral("run_first"),
+        promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
     });
 
 export declare namespace InitToolRule {
     export interface Raw {
         tool_name: string;
         type: "run_first";
+        prompt_template?: string | null;
     }
 }

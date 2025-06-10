@@ -12,11 +12,13 @@ export const ContinueToolRule: core.serialization.ObjectSchema<
 > = core.serialization.object({
     toolName: core.serialization.property("tool_name", core.serialization.string()),
     type: core.serialization.stringLiteral("continue_loop"),
+    promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
 });
 
 export declare namespace ContinueToolRule {
     export interface Raw {
         tool_name: string;
         type: "continue_loop";
+        prompt_template?: string | null;
     }
 }

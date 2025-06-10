@@ -10,6 +10,7 @@ export const ChildToolRule: core.serialization.ObjectSchema<serializers.ChildToo
     core.serialization.object({
         toolName: core.serialization.property("tool_name", core.serialization.string()),
         type: core.serialization.stringLiteral("constrain_child_tools"),
+        promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
         children: core.serialization.list(core.serialization.string()),
     });
 
@@ -17,6 +18,7 @@ export declare namespace ChildToolRule {
     export interface Raw {
         tool_name: string;
         type: "constrain_child_tools";
+        prompt_template?: string | null;
         children: string[];
     }
 }

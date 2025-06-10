@@ -12,6 +12,7 @@ export const ConditionalToolRule: core.serialization.ObjectSchema<
 > = core.serialization.object({
     toolName: core.serialization.property("tool_name", core.serialization.string()),
     type: core.serialization.stringLiteral("conditional"),
+    promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
     defaultChild: core.serialization.property("default_child", core.serialization.string().optional()),
     childOutputMapping: core.serialization.property(
         "child_output_mapping",
@@ -27,6 +28,7 @@ export declare namespace ConditionalToolRule {
     export interface Raw {
         tool_name: string;
         type: "conditional";
+        prompt_template?: string | null;
         default_child?: string | null;
         child_output_mapping: Record<string, string>;
         require_output_mapping?: boolean | null;
