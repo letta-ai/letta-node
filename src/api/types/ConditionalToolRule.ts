@@ -9,7 +9,7 @@ export interface ConditionalToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
     toolName: string;
     type: "conditional";
-    /** Optional Jinja2 template for generating agent prompt about this tool rule. Template can use variables like 'tool_name' and rule-specific attributes. */
+    /** Optional Jinja2 template for generating agent prompt about this tool rule. */
     promptTemplate?: string;
     /** The default child tool to be called. If None, any tool can be called. */
     defaultChild?: string;
