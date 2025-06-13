@@ -11,4 +11,5 @@ export type LettaStreamingResponse =
     | Letta.ToolCallMessage
     | Letta.ToolReturnMessage
     | Letta.AssistantMessage
+    | Letta.LettaStopReason
     | Letta.LettaUsageStatistics;

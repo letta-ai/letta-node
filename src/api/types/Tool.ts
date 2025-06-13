@@ -35,6 +35,8 @@ export interface Tool {
     argsJsonSchema?: Record<string, unknown>;
     /** The maximum number of characters in the response. */
     returnCharLimit?: number;
+    /** Optional list of pip packages required by this tool. */
+    pipRequirements?: Letta.PipRequirement[];
     /** The id of the user that made this Tool. */
     createdById?: string;
     /** The id of the user that made this Tool. */
