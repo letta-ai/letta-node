@@ -21,6 +21,7 @@ export const Run: core.serialization.ObjectSchema<serializers.Run.Raw, Letta.Run
     callbackUrl: core.serialization.property("callback_url", core.serialization.string().optional()),
     callbackSentAt: core.serialization.property("callback_sent_at", core.serialization.date().optional()),
     callbackStatusCode: core.serialization.property("callback_status_code", core.serialization.number().optional()),
+    callbackError: core.serialization.property("callback_error", core.serialization.string().optional()),
     id: core.serialization.string().optional(),
     requestConfig: core.serialization.property("request_config", LettaRequestConfig.optional()),
 });
@@ -38,6 +39,7 @@ export declare namespace Run {
         callback_url?: string | null;
         callback_sent_at?: string | null;
         callback_status_code?: number | null;
+        callback_error?: string | null;
         id?: string | null;
         request_config?: LettaRequestConfig.Raw | null;
     }

@@ -37,6 +37,8 @@ export interface Job {
     callbackSentAt?: Date;
     /** HTTP status code returned by the callback endpoint. */
     callbackStatusCode?: number;
+    /** Optional error message from attempting to POST the callback endpoint. */
+    callbackError?: string;
     /** The human-friendly ID of the Job */
     id?: string;
 }

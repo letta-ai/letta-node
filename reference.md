@@ -4875,13 +4875,7 @@ await client.messages.listBatchMessages("batch_id");
 ```typescript
 await client.voice.createVoiceChatCompletions("agent_id", {
     body: {
-        messages: [
-            {
-                content: "content",
-                role: "developer",
-            },
-        ],
-        model: "model",
+        key: "value",
     },
 });
 ```
@@ -6759,17 +6753,19 @@ The actual processing happens in the background, and the status can be checked u
 
 ```typescript
 await client.agents.messages.createAsync("agent_id", {
-    messages: [
-        {
-            role: "user",
-            content: [
-                {
-                    type: "text",
-                    text: "text",
-                },
-            ],
-        },
-    ],
+    body: {
+        messages: [
+            {
+                role: "user",
+                content: [
+                    {
+                        type: "text",
+                        text: "text",
+                    },
+                ],
+            },
+        ],
+    },
 });
 ```
 
@@ -6794,7 +6790,7 @@ await client.agents.messages.createAsync("agent_id", {
 <dl>
 <dd>
 
-**request:** `Letta.LettaRequest`
+**request:** `Letta.agents.MessagesCreateAsyncRequest`
 
 </dd>
 </dl>

@@ -5,12 +5,14 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { ToolAnnotations } from "./ToolAnnotations";
 
 export const McpTool: core.serialization.ObjectSchema<serializers.McpTool.Raw, Letta.McpTool> = core.serialization
     .object({
         name: core.serialization.string(),
         description: core.serialization.string().optional(),
         inputSchema: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
+        annotations: ToolAnnotations.optional(),
     })
     .passthrough();
 
@@ -19,6 +21,7 @@ export declare namespace McpTool {
         name: string;
         description?: string | null;
         inputSchema: Record<string, unknown>;
+        annotations?: ToolAnnotations.Raw | null;
         [key: string]: any;
     }
 }

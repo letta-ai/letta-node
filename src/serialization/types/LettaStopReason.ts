@@ -5,7 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { LettaStopReasonStopReason } from "./LettaStopReasonStopReason";
+import { StopReasonType } from "./StopReasonType";
 
 export const LettaStopReason: core.serialization.ObjectSchema<serializers.LettaStopReason.Raw, Letta.LettaStopReason> =
     core.serialization.object({
@@ -13,12 +13,12 @@ export const LettaStopReason: core.serialization.ObjectSchema<serializers.LettaS
             "message_type",
             core.serialization.stringLiteral("stop_reason").optional(),
         ),
-        stopReason: core.serialization.property("stop_reason", LettaStopReasonStopReason),
+        stopReason: core.serialization.property("stop_reason", StopReasonType),
     });
 
 export declare namespace LettaStopReason {
     export interface Raw {
         message_type?: "stop_reason" | null;
-        stop_reason: LettaStopReasonStopReason.Raw;
+        stop_reason: StopReasonType.Raw;
     }
 }

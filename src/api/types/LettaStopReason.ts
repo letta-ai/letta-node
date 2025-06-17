@@ -5,10 +5,11 @@
 import * as Letta from "../index";
 
 /**
- * Letta provided stop reason for why agent loop ended.
+ * The stop reason from Letta indicating why agent loop stopped execution.
  */
 export interface LettaStopReason {
     /** The type of the message. */
     messageType?: "stop_reason";
-    stopReason: Letta.LettaStopReasonStopReason;
+    /** The reason why execution stopped. */
+    stopReason: Letta.StopReasonType;
 }

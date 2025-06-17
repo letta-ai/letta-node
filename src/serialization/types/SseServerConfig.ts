@@ -12,6 +12,12 @@ export const SseServerConfig: core.serialization.ObjectSchema<serializers.SseSer
         serverName: core.serialization.property("server_name", core.serialization.string()),
         type: McpServerType.optional(),
         serverUrl: core.serialization.property("server_url", core.serialization.string()),
+        authHeader: core.serialization.property("auth_header", core.serialization.string().optional()),
+        authToken: core.serialization.property("auth_token", core.serialization.string().optional()),
+        customHeaders: core.serialization.property(
+            "custom_headers",
+            core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
+        ),
     });
 
 export declare namespace SseServerConfig {
@@ -19,5 +25,8 @@ export declare namespace SseServerConfig {
         server_name: string;
         type?: McpServerType.Raw | null;
         server_url: string;
+        auth_header?: string | null;
+        auth_token?: string | null;
+        custom_headers?: Record<string, string | null | undefined> | null;
     }
 }
