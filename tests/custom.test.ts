@@ -114,6 +114,7 @@ def secret_message():
         });
 
         // Validate send message response contains expected return value
+        expect(response.stopReason.stopReason).toEqual("end_turn");
         expect(response.usage.stepCount).toEqual(2);
         expect(response.messages).toHaveLength(5);
         for (const message of response.messages) {
@@ -180,6 +181,7 @@ def secret_message():
         });
 
         // Validate send message response contains single assistant message
+        expect(response.stopReason.stopReason).toEqual("end_turn");
         expect(response.usage.stepCount).toEqual(1);
         expect(response.messages).toHaveLength(2);
         expect(response.messages[0]).toHaveProperty("messageType", "reasoning_message");
@@ -232,8 +234,13 @@ def secret_message():
                 case "assistant_message":
                     expect((chunk.content as string).toLowerCase()).toContain("sarah");
                     break;
+                
+                // 5. Stop reason message
+                case "stop_reason":
+                    expect(chunk.stopReason).toEqual("end_turn");
+                    break;
 
-                // 5. Usage statistics message for the interaction capturing token and step count
+                // 6. Usage statistics message for the interaction capturing token and step count
                 case "usage_statistics":
                     expect(chunk.stepCount).toEqual(2);
                     break;
