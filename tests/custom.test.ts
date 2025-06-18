@@ -308,6 +308,7 @@ def secret_message():
             switch (message.messageType) {
                 // 1. Reasoning message with response
                 case "reasoning_message":
+                    expect(((message as ReasoningMessage).reasoning as string).length).toBeGreaterThan(0);
                     break;
 
                 // 2. Assistant message with response
