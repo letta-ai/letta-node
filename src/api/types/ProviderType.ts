@@ -4,7 +4,6 @@
 
 export type ProviderType =
     | "anthropic"
-    | "bedrock"
     | "google_ai"
     | "google_vertex"
     | "openai"
@@ -17,10 +16,10 @@ export type ProviderType =
     | "groq"
     | "together"
     | "azure"
-    | "vllm";
+    | "vllm"
+    | "bedrock";
 export const ProviderType = {
     Anthropic: "anthropic",
-    Bedrock: "bedrock",
     GoogleAi: "google_ai",
     GoogleVertex: "google_vertex",
     Openai: "openai",
@@ -34,4 +33,5 @@ export const ProviderType = {
     Together: "together",
     Azure: "azure",
     Vllm: "vllm",
+    Bedrock: "bedrock",
 } as const;

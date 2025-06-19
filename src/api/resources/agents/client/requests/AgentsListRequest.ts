@@ -63,4 +63,8 @@ export interface AgentsListRequest {
      * Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
      */
     ascending?: boolean;
+    /**
+     * Field to sort by. Options: 'created_at' (default), 'last_run_completion'
+     */
+    sortBy?: string;
 }

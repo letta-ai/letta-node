@@ -1,6 +1,6 @@
 {
     "name": "@letta-ai/letta-client",
-    "version": "0.1.131",
+    "version": "0.1.132",
     "private": false,
     "repository": "https://github.com/letta-ai/letta-node",
     "main": "./index.js",

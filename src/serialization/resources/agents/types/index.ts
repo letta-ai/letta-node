@@ -8,4 +8,5 @@ export * from "./AgentsSearchRequestSearchItemOne";
 export * from "./AgentsSearchRequestSearchItemTwo";
 export * from "./AgentsSearchRequestSearchItemOperator";
 export * from "./AgentsSearchRequestSearchItem";
+export * from "./AgentsSearchRequestSortBy";
 export * from "./AgentsSearchResponse";

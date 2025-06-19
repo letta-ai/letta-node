@@ -73,4 +73,8 @@ export interface AgentState {
     enableSleeptime?: boolean;
     /** The multi-agent group that this agent manages */
     multiAgentGroup?: Letta.Group;
+    /** The timestamp when the agent last completed a run. */
+    lastRunCompletion?: Date;
+    /** The duration in milliseconds of the agent's last run. */
+    lastRunDurationMs?: number;
 }

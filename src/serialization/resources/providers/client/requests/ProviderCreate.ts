@@ -12,6 +12,8 @@ export const ProviderCreate: core.serialization.Schema<serializers.ProviderCreat
         name: core.serialization.string(),
         providerType: core.serialization.property("provider_type", ProviderType),
         apiKey: core.serialization.property("api_key", core.serialization.string()),
+        accessKey: core.serialization.property("access_key", core.serialization.string().optional()),
+        region: core.serialization.string().optional(),
     });
 
 export declare namespace ProviderCreate {
@@ -19,5 +21,7 @@ export declare namespace ProviderCreate {
         name: string;
         provider_type: ProviderType.Raw;
         api_key: string;
+        access_key?: string | null;
+        region?: string | null;
     }
 }

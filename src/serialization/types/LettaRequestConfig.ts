@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { MessageType } from "./MessageType";
 
 export const LettaRequestConfig: core.serialization.ObjectSchema<
     serializers.LettaRequestConfig.Raw,
@@ -19,6 +20,10 @@ export const LettaRequestConfig: core.serialization.ObjectSchema<
         "assistant_message_tool_kwarg",
         core.serialization.string().optional(),
     ),
+    includeReturnMessageTypes: core.serialization.property(
+        "include_return_message_types",
+        core.serialization.list(MessageType).optional(),
+    ),
 });
 
 export declare namespace LettaRequestConfig {
@@ -26,5 +31,6 @@ export declare namespace LettaRequestConfig {
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;
         assistant_message_tool_kwarg?: string | null;
+        include_return_message_types?: MessageType.Raw[] | null;
     }
 }

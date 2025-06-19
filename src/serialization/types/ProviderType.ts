@@ -9,7 +9,6 @@ import * as core from "../../core";
 export const ProviderType: core.serialization.Schema<serializers.ProviderType.Raw, Letta.ProviderType> =
     core.serialization.enum_([
         "anthropic",
-        "bedrock",
         "google_ai",
         "google_vertex",
         "openai",
@@ -23,12 +22,12 @@ export const ProviderType: core.serialization.Schema<serializers.ProviderType.Ra
         "together",
         "azure",
         "vllm",
+        "bedrock",
     ]);
 
 export declare namespace ProviderType {
     export type Raw =
         | "anthropic"
-        | "bedrock"
         | "google_ai"
         | "google_vertex"
         | "openai"
@@ -41,5 +40,6 @@ export declare namespace ProviderType {
         | "groq"
         | "together"
         | "azure"
-        | "vllm";
+        | "vllm"
+        | "bedrock";
 }

@@ -58,6 +58,8 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
         embedding: core.serialization.string().optional(),
         enableSleeptime: core.serialization.property("enable_sleeptime", core.serialization.boolean().optional()),
         responseFormat: core.serialization.property("response_format", UpdateAgentResponseFormat.optional()),
+        lastRunCompletion: core.serialization.property("last_run_completion", core.serialization.date().optional()),
+        lastRunDurationMs: core.serialization.property("last_run_duration_ms", core.serialization.number().optional()),
     });
 
 export declare namespace UpdateAgent {
@@ -84,5 +86,7 @@ export declare namespace UpdateAgent {
         embedding?: string | null;
         enable_sleeptime?: boolean | null;
         response_format?: UpdateAgentResponseFormat.Raw | null;
+        last_run_completion?: string | null;
+        last_run_duration_ms?: number | null;
     }
 }

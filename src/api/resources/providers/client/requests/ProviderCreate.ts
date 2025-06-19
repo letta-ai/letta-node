@@ -17,6 +17,10 @@ export interface ProviderCreate {
     name: string;
     /** The type of the provider. */
     providerType: Letta.ProviderType;
-    /** API key used for requests to the provider. */
+    /** API key or secret key used for requests to the provider. */
     apiKey: string;
+    /** Access key used for requests to the provider. */
+    accessKey?: string;
+    /** Region used for requests to the provider. */
+    region?: string;
 }

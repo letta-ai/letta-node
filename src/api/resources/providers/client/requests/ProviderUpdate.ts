@@ -9,6 +9,10 @@
  *     }
  */
 export interface ProviderUpdate {
-    /** API key used for requests to the provider. */
+    /** API key or secret key used for requests to the provider. */
     apiKey: string;
+    /** Access key used for requests to the provider. */
+    accessKey?: string;
+    /** Region used for requests to the provider. */
+    region?: string;
 }

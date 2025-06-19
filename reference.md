@@ -1094,6 +1094,77 @@ await client.tools.deleteMcpServer("mcp_server_name");
 </dl>
 </details>
 
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">updateMcpServer</a>(mcpServerName, { ...params }) -> Letta.UpdateMcpServerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing MCP server configuration
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.updateMcpServer("mcp_server_name", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerName:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.UpdateMcpServerRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Sources
 
 <details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">count</a>() -> number</code></summary>
@@ -3965,7 +4036,7 @@ await client.providers.modify("provider_id", {
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">check</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">check</a>() -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3978,10 +4049,7 @@ await client.providers.modify("provider_id", {
 <dd>
 
 ```typescript
-await client.providers.check({
-    apiKey: "x-api-key",
-    providerType: "anthropic",
-});
+await client.providers.check();
 ```
 
 </dd>
@@ -3993,14 +4061,6 @@ await client.providers.check({
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**request:** `Letta.ProvidersCheckRequest`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -6753,19 +6813,17 @@ The actual processing happens in the background, and the status can be checked u
 
 ```typescript
 await client.agents.messages.createAsync("agent_id", {
-    body: {
-        messages: [
-            {
-                role: "user",
-                content: [
-                    {
-                        type: "text",
-                        text: "text",
-                    },
-                ],
-            },
-        ],
-    },
+    messages: [
+        {
+            role: "user",
+            content: [
+                {
+                    type: "text",
+                    text: "text",
+                },
+            ],
+        },
+    ],
 });
 ```
 
@@ -6790,7 +6848,7 @@ await client.agents.messages.createAsync("agent_id", {
 <dl>
 <dd>
 
-**request:** `Letta.agents.MessagesCreateAsyncRequest`
+**request:** `Letta.agents.LettaAsyncRequest`
 
 </dd>
 </dl>

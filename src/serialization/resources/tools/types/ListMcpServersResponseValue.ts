@@ -7,12 +7,13 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { SseServerConfig } from "../../../types/SseServerConfig";
 import { StdioServerConfig } from "../../../types/StdioServerConfig";
+import { StreamableHttpServerConfig } from "../../../types/StreamableHttpServerConfig";
 
 export const ListMcpServersResponseValue: core.serialization.Schema<
     serializers.ListMcpServersResponseValue.Raw,
     Letta.ListMcpServersResponseValue
-> = core.serialization.undiscriminatedUnion([SseServerConfig, StdioServerConfig]);
+> = core.serialization.undiscriminatedUnion([SseServerConfig, StdioServerConfig, StreamableHttpServerConfig]);
 
 export declare namespace ListMcpServersResponseValue {
-    export type Raw = SseServerConfig.Raw | StdioServerConfig.Raw;
+    export type Raw = SseServerConfig.Raw | StdioServerConfig.Raw | StreamableHttpServerConfig.Raw;
 }

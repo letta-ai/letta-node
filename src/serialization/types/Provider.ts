@@ -16,6 +16,8 @@ export const Provider: core.serialization.ObjectSchema<serializers.Provider.Raw,
         providerCategory: core.serialization.property("provider_category", ProviderCategory),
         apiKey: core.serialization.property("api_key", core.serialization.string().optional()),
         baseUrl: core.serialization.property("base_url", core.serialization.string().optional()),
+        accessKey: core.serialization.property("access_key", core.serialization.string().optional()),
+        region: core.serialization.string().optional(),
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
     });
 
@@ -27,6 +29,8 @@ export declare namespace Provider {
         provider_category: ProviderCategory.Raw;
         api_key?: string | null;
         base_url?: string | null;
+        access_key?: string | null;
+        region?: string | null;
         updated_at?: string | null;
     }
 }

@@ -7,12 +7,13 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { StdioServerConfig } from "../../../types/StdioServerConfig";
 import { SseServerConfig } from "../../../types/SseServerConfig";
+import { StreamableHttpServerConfig } from "../../../types/StreamableHttpServerConfig";
 
 export const AddMcpServerRequest: core.serialization.Schema<
     serializers.AddMcpServerRequest.Raw,
     Letta.AddMcpServerRequest
-> = core.serialization.undiscriminatedUnion([StdioServerConfig, SseServerConfig]);
+> = core.serialization.undiscriminatedUnion([StdioServerConfig, SseServerConfig, StreamableHttpServerConfig]);
 
 export declare namespace AddMcpServerRequest {
-    export type Raw = StdioServerConfig.Raw | SseServerConfig.Raw;
+    export type Raw = StdioServerConfig.Raw | SseServerConfig.Raw | StreamableHttpServerConfig.Raw;
 }

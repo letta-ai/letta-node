@@ -14,4 +14,6 @@ export interface AgentsSearchRequest {
     combinator?: "AND";
     limit?: number;
     after?: string;
+    sortBy?: Letta.AgentsSearchRequestSortBy;
+    ascending?: boolean;
 }

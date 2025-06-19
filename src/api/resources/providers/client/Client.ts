@@ -77,8 +77,8 @@ export class Providers {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.131",
-                "User-Agent": "@letta-ai/letta-client/0.1.131",
+                "X-Fern-SDK-Version": "0.1.132",
+                "User-Agent": "@letta-ai/letta-client/0.1.132",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -166,8 +166,8 @@ export class Providers {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.131",
-                "User-Agent": "@letta-ai/letta-client/0.1.131",
+                "X-Fern-SDK-Version": "0.1.132",
+                "User-Agent": "@letta-ai/letta-client/0.1.132",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -248,8 +248,8 @@ export class Providers {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.131",
-                "User-Agent": "@letta-ai/letta-client/0.1.131",
+                "X-Fern-SDK-Version": "0.1.132",
+                "User-Agent": "@letta-ai/letta-client/0.1.132",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -330,8 +330,8 @@ export class Providers {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.131",
-                "User-Agent": "@letta-ai/letta-client/0.1.131",
+                "X-Fern-SDK-Version": "0.1.132",
+                "User-Agent": "@letta-ai/letta-client/0.1.132",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -390,24 +390,14 @@ export class Providers {
     }
 
     /**
-     * @param {Letta.ProvidersCheckRequest} request
      * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.providers.check({
-     *         apiKey: "x-api-key",
-     *         providerType: "anthropic"
-     *     })
+     *     await client.providers.check()
      */
-    public async check(
-        request: Letta.ProvidersCheckRequest,
-        requestOptions?: Providers.RequestOptions,
-    ): Promise<unknown> {
-        const { providerType, apiKey } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["provider_type"] = providerType;
+    public async check(requestOptions?: Providers.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -419,16 +409,14 @@ export class Providers {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.131",
-                "User-Agent": "@letta-ai/letta-client/0.1.131",
+                "X-Fern-SDK-Version": "0.1.132",
+                "User-Agent": "@letta-ai/letta-client/0.1.132",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "x-api-key": apiKey,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
-            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,

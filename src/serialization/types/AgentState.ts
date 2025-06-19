@@ -60,6 +60,8 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         ),
         enableSleeptime: core.serialization.property("enable_sleeptime", core.serialization.boolean().optional()),
         multiAgentGroup: core.serialization.property("multi_agent_group", Group.optional()),
+        lastRunCompletion: core.serialization.property("last_run_completion", core.serialization.date().optional()),
+        lastRunDurationMs: core.serialization.property("last_run_duration_ms", core.serialization.number().optional()),
     });
 
 export declare namespace AgentState {
@@ -91,5 +93,7 @@ export declare namespace AgentState {
         message_buffer_autoclear?: boolean | null;
         enable_sleeptime?: boolean | null;
         multi_agent_group?: Group.Raw | null;
+        last_run_completion?: string | null;
+        last_run_duration_ms?: number | null;
     }
 }

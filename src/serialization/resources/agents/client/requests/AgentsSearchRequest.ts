@@ -6,6 +6,7 @@ import * as serializers from "../../../../index";
 import * as Letta from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { AgentsSearchRequestSearchItem } from "../../types/AgentsSearchRequestSearchItem";
+import { AgentsSearchRequestSortBy } from "../../types/AgentsSearchRequestSortBy";
 
 export const AgentsSearchRequest: core.serialization.Schema<
     serializers.AgentsSearchRequest.Raw,
@@ -16,6 +17,8 @@ export const AgentsSearchRequest: core.serialization.Schema<
     combinator: core.serialization.stringLiteral("AND").optional(),
     limit: core.serialization.number().optional(),
     after: core.serialization.string().optional(),
+    sortBy: AgentsSearchRequestSortBy.optional(),
+    ascending: core.serialization.boolean().optional(),
 });
 
 export declare namespace AgentsSearchRequest {
@@ -25,5 +28,7 @@ export declare namespace AgentsSearchRequest {
         combinator?: "AND" | null;
         limit?: number | null;
         after?: string | null;
+        sortBy?: AgentsSearchRequestSortBy.Raw | null;
+        ascending?: boolean | null;
     }
 }

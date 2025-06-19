@@ -4,4 +4,7 @@
 
 import * as Letta from "../../../index";
 
-export type DeleteMcpServerResponseItem = Letta.StdioServerConfig | Letta.SseServerConfig;
+export type DeleteMcpServerResponseItem =
+    | Letta.StdioServerConfig
+    | Letta.SseServerConfig
+    | Letta.StreamableHttpServerConfig;

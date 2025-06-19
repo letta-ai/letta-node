@@ -4,4 +4,4 @@
 
 import * as Letta from "../../../index";
 
-export type AddMcpServerRequest = Letta.StdioServerConfig | Letta.SseServerConfig;
+export type AddMcpServerRequest = Letta.StdioServerConfig | Letta.SseServerConfig | Letta.StreamableHttpServerConfig;

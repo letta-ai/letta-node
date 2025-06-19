@@ -13,10 +13,14 @@ export interface Provider {
     providerType: Letta.ProviderType;
     /** The category of the provider (base or byok) */
     providerCategory: Letta.ProviderCategory;
-    /** API key used for requests to the provider. */
+    /** API key or secret key used for requests to the provider. */
     apiKey?: string;
     /** Base URL for the provider. */
     baseUrl?: string;
+    /** Access key used for requests to the provider. */
+    accessKey?: string;
+    /** Region used for requests to the provider. */
+    region?: string;
     /** The last update timestamp of the provider. */
     updatedAt?: Date;
 }

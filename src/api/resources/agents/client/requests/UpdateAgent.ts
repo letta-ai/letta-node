@@ -53,4 +53,8 @@ export interface UpdateAgent {
     enableSleeptime?: boolean;
     /** The response format for the agent. */
     responseFormat?: Letta.UpdateAgentResponseFormat;
+    /** The timestamp when the agent last completed a run. */
+    lastRunCompletion?: Date;
+    /** The duration in milliseconds of the agent's last run. */
+    lastRunDurationMs?: number;
 }
