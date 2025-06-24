@@ -11,4 +11,5 @@ export type UpdateAgentToolRulesItem =
     | Letta.TerminalToolRule
     | Letta.MaxCountPerStepToolRule
     | Letta.ParentToolRule
+    | Letta.RequiredBeforeExitToolRule
     | Letta.InitToolRule;

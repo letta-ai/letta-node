@@ -166,6 +166,7 @@ export * from "./ReasoningContent";
 export * from "./ReasoningMessageSource";
 export * from "./ReasoningMessage";
 export * from "./RedactedReasoningContent";
+export * from "./RequiredBeforeExitToolRule";
 export * from "./ResponseFormatJsonObject";
 export * from "./ResponseFormatJsonSchema";
 export * from "./ResponseFormatText";

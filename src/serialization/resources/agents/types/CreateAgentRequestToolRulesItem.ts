@@ -11,6 +11,7 @@ import { ContinueToolRule } from "../../../types/ContinueToolRule";
 import { TerminalToolRule } from "../../../types/TerminalToolRule";
 import { MaxCountPerStepToolRule } from "../../../types/MaxCountPerStepToolRule";
 import { ParentToolRule } from "../../../types/ParentToolRule";
+import { RequiredBeforeExitToolRule } from "../../../types/RequiredBeforeExitToolRule";
 import { InitToolRule } from "../../../types/InitToolRule";
 
 export const CreateAgentRequestToolRulesItem: core.serialization.Schema<
@@ -23,6 +24,7 @@ export const CreateAgentRequestToolRulesItem: core.serialization.Schema<
     TerminalToolRule,
     MaxCountPerStepToolRule,
     ParentToolRule,
+    RequiredBeforeExitToolRule,
     InitToolRule,
 ]);
 
@@ -34,5 +36,6 @@ export declare namespace CreateAgentRequestToolRulesItem {
         | TerminalToolRule.Raw
         | MaxCountPerStepToolRule.Raw
         | ParentToolRule.Raw
+        | RequiredBeforeExitToolRule.Raw
         | InitToolRule.Raw;
 }

@@ -7,25 +7,8 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 
 export const JobStatus: core.serialization.Schema<serializers.JobStatus.Raw, Letta.JobStatus> =
-    core.serialization.enum_([
-        "not_started",
-        "created",
-        "running",
-        "completed",
-        "failed",
-        "pending",
-        "cancelled",
-        "expired",
-    ]);
+    core.serialization.enum_(["created", "running", "completed", "failed", "pending", "cancelled", "expired"]);
 
 export declare namespace JobStatus {
-    export type Raw =
-        | "not_started"
-        | "created"
-        | "running"
-        | "completed"
-        | "failed"
-        | "pending"
-        | "cancelled"
-        | "expired";
+    export type Raw = "created" | "running" | "completed" | "failed" | "pending" | "cancelled" | "expired";
 }

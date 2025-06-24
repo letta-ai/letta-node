@@ -11,4 +11,5 @@ export type CreateAgentRequestToolRulesItem =
     | Letta.TerminalToolRule
     | Letta.MaxCountPerStepToolRule
     | Letta.ParentToolRule
+    | Letta.RequiredBeforeExitToolRule
     | Letta.InitToolRule;

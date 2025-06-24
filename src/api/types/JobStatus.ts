@@ -5,17 +5,8 @@
 /**
  * Status of the job.
  */
-export type JobStatus =
-    | "not_started"
-    | "created"
-    | "running"
-    | "completed"
-    | "failed"
-    | "pending"
-    | "cancelled"
-    | "expired";
+export type JobStatus = "created" | "running" | "completed" | "failed" | "pending" | "cancelled" | "expired";
 export const JobStatus = {
-    NotStarted: "not_started",
     Created: "created",
     Running: "running",
     Completed: "completed",
