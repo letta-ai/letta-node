@@ -84,4 +84,6 @@ export interface CreateAgentRequest {
     enableSleeptime?: boolean;
     /** The response format for the agent. */
     responseFormat?: Letta.CreateAgentRequestResponseFormat;
+    /** The timezone of the agent (IANA format). */
+    timezone?: string;
 }

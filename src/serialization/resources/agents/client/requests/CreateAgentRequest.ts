@@ -81,6 +81,7 @@ export const CreateAgentRequest: core.serialization.Schema<
     ),
     enableSleeptime: core.serialization.property("enable_sleeptime", core.serialization.boolean().optional()),
     responseFormat: core.serialization.property("response_format", CreateAgentRequestResponseFormat.optional()),
+    timezone: core.serialization.string().optional(),
 });
 
 export declare namespace CreateAgentRequest {
@@ -122,5 +123,6 @@ export declare namespace CreateAgentRequest {
         message_buffer_autoclear?: boolean | null;
         enable_sleeptime?: boolean | null;
         response_format?: CreateAgentRequestResponseFormat.Raw | null;
+        timezone?: string | null;
     }
 }

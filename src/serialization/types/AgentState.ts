@@ -62,6 +62,7 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         multiAgentGroup: core.serialization.property("multi_agent_group", Group.optional()),
         lastRunCompletion: core.serialization.property("last_run_completion", core.serialization.date().optional()),
         lastRunDurationMs: core.serialization.property("last_run_duration_ms", core.serialization.number().optional()),
+        timezone: core.serialization.string().optional(),
     });
 
 export declare namespace AgentState {
@@ -95,5 +96,6 @@ export declare namespace AgentState {
         multi_agent_group?: Group.Raw | null;
         last_run_completion?: string | null;
         last_run_duration_ms?: number | null;
+        timezone?: string | null;
     }
 }

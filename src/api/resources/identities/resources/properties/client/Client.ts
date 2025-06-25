@@ -63,8 +63,8 @@ export class Properties {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.133",
-                "User-Agent": "@letta-ai/letta-client/0.1.133",
+                "X-Fern-SDK-Version": "0.1.134",
+                "User-Agent": "@letta-ai/letta-client/0.1.134",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

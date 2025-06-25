@@ -57,4 +57,6 @@ export interface UpdateAgent {
     lastRunCompletion?: Date;
     /** The duration in milliseconds of the agent's last run. */
     lastRunDurationMs?: number;
+    /** The timezone of the agent (IANA format). */
+    timezone?: string;
 }

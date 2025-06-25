@@ -60,6 +60,7 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
         responseFormat: core.serialization.property("response_format", UpdateAgentResponseFormat.optional()),
         lastRunCompletion: core.serialization.property("last_run_completion", core.serialization.date().optional()),
         lastRunDurationMs: core.serialization.property("last_run_duration_ms", core.serialization.number().optional()),
+        timezone: core.serialization.string().optional(),
     });
 
 export declare namespace UpdateAgent {
@@ -88,5 +89,6 @@ export declare namespace UpdateAgent {
         response_format?: UpdateAgentResponseFormat.Raw | null;
         last_run_completion?: string | null;
         last_run_duration_ms?: number | null;
+        timezone?: string | null;
     }
 }
