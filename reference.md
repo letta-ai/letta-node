@@ -8136,7 +8136,7 @@ await client.runs.steps.list("run_id");
 
 ## Sources Files
 
-<details><summary><code>client.sources.files.<a href="/src/api/resources/sources/resources/files/client/Client.ts">upload</a>(file, sourceId) -> Letta.Job</code></summary>
+<details><summary><code>client.sources.files.<a href="/src/api/resources/sources/resources/files/client/Client.ts">upload</a>(file, sourceId) -> Letta.FileMetadata</code></summary>
 <dl>
 <dd>
 
