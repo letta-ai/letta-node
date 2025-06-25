@@ -10,7 +10,7 @@ export interface MessageSchema {
     model?: string;
     name?: string;
     role: string;
-    content: Letta.TextContent[];
+    content: Letta.LettaMessageContentUnion[];
     toolCallId?: string;
     toolCalls: unknown[];
     toolReturns: unknown[];

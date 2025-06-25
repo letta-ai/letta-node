@@ -68,8 +68,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.135",
-                "User-Agent": "@letta-ai/letta-client/0.1.135",
+                "X-Fern-SDK-Version": "0.1.136",
+                "User-Agent": "@letta-ai/letta-client/0.1.136",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -149,8 +149,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.135",
-                "User-Agent": "@letta-ai/letta-client/0.1.135",
+                "X-Fern-SDK-Version": "0.1.136",
+                "User-Agent": "@letta-ai/letta-client/0.1.136",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -230,8 +230,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.135",
-                "User-Agent": "@letta-ai/letta-client/0.1.135",
+                "X-Fern-SDK-Version": "0.1.136",
+                "User-Agent": "@letta-ai/letta-client/0.1.136",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -310,8 +310,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.135",
-                "User-Agent": "@letta-ai/letta-client/0.1.135",
+                "X-Fern-SDK-Version": "0.1.136",
+                "User-Agent": "@letta-ai/letta-client/0.1.136",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -392,8 +392,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.135",
-                "User-Agent": "@letta-ai/letta-client/0.1.135",
+                "X-Fern-SDK-Version": "0.1.136",
+                "User-Agent": "@letta-ai/letta-client/0.1.136",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -472,8 +472,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.135",
-                "User-Agent": "@letta-ai/letta-client/0.1.135",
+                "X-Fern-SDK-Version": "0.1.136",
+                "User-Agent": "@letta-ai/letta-client/0.1.136",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -555,8 +555,8 @@ export class Sources {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.135",
-                "User-Agent": "@letta-ai/letta-client/0.1.135",
+                "X-Fern-SDK-Version": "0.1.136",
+                "User-Agent": "@letta-ai/letta-client/0.1.136",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -607,6 +607,103 @@ export class Sources {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/sources/.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Retrieve metadata for a specific file by its ID.
+     *
+     * @param {string} sourceId
+     * @param {string} fileId
+     * @param {Letta.GetFileMetadataRequest} request
+     * @param {Sources.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sources.getFileMetadata("source_id", "file_id")
+     */
+    public async getFileMetadata(
+        sourceId: string,
+        fileId: string,
+        request: Letta.GetFileMetadataRequest = {},
+        requestOptions?: Sources.RequestOptions,
+    ): Promise<Letta.FileMetadata> {
+        const { includeContent } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (includeContent != null) {
+            _queryParams["include_content"] = includeContent.toString();
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/sources/${encodeURIComponent(sourceId)}/files/${encodeURIComponent(fileId)}`,
+            ),
+            method: "GET",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.136",
+                "User-Agent": "@letta-ai/letta-client/0.1.136",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.FileMetadata.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling GET /v1/sources/{source_id}/files/{file_id}.",
+                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

@@ -5,7 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { TextContent } from "./TextContent";
+import { LettaMessageContentUnion } from "./LettaMessageContentUnion";
 
 export const MessageSchema: core.serialization.ObjectSchema<serializers.MessageSchema.Raw, Letta.MessageSchema> =
     core.serialization.object({
@@ -14,7 +14,7 @@ export const MessageSchema: core.serialization.ObjectSchema<serializers.MessageS
         model: core.serialization.string().optional(),
         name: core.serialization.string().optional(),
         role: core.serialization.string(),
-        content: core.serialization.list(TextContent),
+        content: core.serialization.list(LettaMessageContentUnion),
         toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
         toolCalls: core.serialization.property("tool_calls", core.serialization.list(core.serialization.unknown())),
         toolReturns: core.serialization.property("tool_returns", core.serialization.list(core.serialization.unknown())),
@@ -28,7 +28,7 @@ export declare namespace MessageSchema {
         model?: string | null;
         name?: string | null;
         role: string;
-        content: TextContent.Raw[];
+        content: LettaMessageContentUnion.Raw[];
         tool_call_id?: string | null;
         tool_calls: unknown[];
         tool_returns: unknown[];
