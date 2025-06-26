@@ -41,4 +41,6 @@ export interface Step {
     traceId?: string;
     /** The messages generated during this step. */
     messages?: Letta.Message[];
+    /** The feedback for this step. Must be either 'positive' or 'negative'. */
+    feedback?: Letta.StepFeedback;
 }

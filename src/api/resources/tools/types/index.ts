@@ -4,3 +4,4 @@ export * from "./AddMcpServerResponseItem";
 export * from "./DeleteMcpServerResponseItem";
 export * from "./UpdateMcpServerRequest";
 export * from "./UpdateMcpServerResponse";
+export * from "./TestMcpServerRequest";

@@ -42,6 +42,8 @@ export interface CreateAgentRequest {
     includeMultiAgentTools?: boolean;
     /** If true, attaches the Letta base tool rules (e.g. deny all tools not explicitly allowed). */
     includeBaseToolRules?: boolean;
+    /** If true, automatically creates and attaches a default data source for this agent. */
+    includeDefaultSource?: boolean;
     /** The description of the agent. */
     description?: string;
     /** The metadata of the agent. */

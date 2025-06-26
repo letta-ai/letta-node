@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { Message } from "./Message";
+import { StepFeedback } from "./StepFeedback";
 
 export const Step: core.serialization.ObjectSchema<serializers.Step.Raw, Letta.Step> = core.serialization.object({
     id: core.serialization.string(),
@@ -29,6 +30,7 @@ export const Step: core.serialization.ObjectSchema<serializers.Step.Raw, Letta.S
     tid: core.serialization.string().optional(),
     traceId: core.serialization.property("trace_id", core.serialization.string().optional()),
     messages: core.serialization.list(Message).optional(),
+    feedback: StepFeedback.optional(),
 });
 
 export declare namespace Step {
@@ -51,5 +53,6 @@ export declare namespace Step {
         tid?: string | null;
         trace_id?: string | null;
         messages?: Message.Raw[] | null;
+        feedback?: StepFeedback.Raw | null;
     }
 }

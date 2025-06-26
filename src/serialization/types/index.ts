@@ -187,6 +187,7 @@ export * from "./SleeptimeManager";
 export * from "./SleeptimeManagerUpdate";
 export * from "./Source";
 export * from "./StdioServerConfig";
+export * from "./StepFeedback";
 export * from "./Step";
 export * from "./StopReasonType";
 export * from "./StreamableHttpServerConfig";
