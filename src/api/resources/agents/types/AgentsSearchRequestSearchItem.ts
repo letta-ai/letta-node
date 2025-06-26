@@ -8,4 +8,5 @@ export type AgentsSearchRequestSearchItem =
     | Letta.AgentsSearchRequestSearchItemZero
     | Letta.AgentsSearchRequestSearchItemOne
     | Letta.AgentsSearchRequestSearchItemTwo
-    | Letta.AgentsSearchRequestSearchItemOperator;
+    | Letta.AgentsSearchRequestSearchItemThree
+    | Letta.AgentsSearchRequestSearchItemField;

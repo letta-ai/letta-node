@@ -6,16 +6,16 @@ import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const AgentsSearchRequestSearchItemOperator: core.serialization.ObjectSchema<
-    serializers.AgentsSearchRequestSearchItemOperator.Raw,
-    Letta.AgentsSearchRequestSearchItemOperator
+export const AgentsSearchRequestSearchItemThree: core.serialization.ObjectSchema<
+    serializers.AgentsSearchRequestSearchItemThree.Raw,
+    Letta.AgentsSearchRequestSearchItemThree
 > = core.serialization.object({
     field: core.serialization.stringLiteral("identity"),
     operator: core.serialization.stringLiteral("eq"),
     value: core.serialization.string(),
 });
 
-export declare namespace AgentsSearchRequestSearchItemOperator {
+export declare namespace AgentsSearchRequestSearchItemThree {
     export interface Raw {
         field: "identity";
         operator: "eq";

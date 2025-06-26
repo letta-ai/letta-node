@@ -8,7 +8,8 @@ import * as core from "../../../../core";
 import { AgentsSearchRequestSearchItemZero } from "./AgentsSearchRequestSearchItemZero";
 import { AgentsSearchRequestSearchItemOne } from "./AgentsSearchRequestSearchItemOne";
 import { AgentsSearchRequestSearchItemTwo } from "./AgentsSearchRequestSearchItemTwo";
-import { AgentsSearchRequestSearchItemOperator } from "./AgentsSearchRequestSearchItemOperator";
+import { AgentsSearchRequestSearchItemThree } from "./AgentsSearchRequestSearchItemThree";
+import { AgentsSearchRequestSearchItemField } from "./AgentsSearchRequestSearchItemField";
 
 export const AgentsSearchRequestSearchItem: core.serialization.Schema<
     serializers.AgentsSearchRequestSearchItem.Raw,
@@ -17,7 +18,8 @@ export const AgentsSearchRequestSearchItem: core.serialization.Schema<
     AgentsSearchRequestSearchItemZero,
     AgentsSearchRequestSearchItemOne,
     AgentsSearchRequestSearchItemTwo,
-    AgentsSearchRequestSearchItemOperator,
+    AgentsSearchRequestSearchItemThree,
+    AgentsSearchRequestSearchItemField,
 ]);
 
 export declare namespace AgentsSearchRequestSearchItem {
@@ -25,5 +27,6 @@ export declare namespace AgentsSearchRequestSearchItem {
         | AgentsSearchRequestSearchItemZero.Raw
         | AgentsSearchRequestSearchItemOne.Raw
         | AgentsSearchRequestSearchItemTwo.Raw
-        | AgentsSearchRequestSearchItemOperator.Raw;
+        | AgentsSearchRequestSearchItemThree.Raw
+        | AgentsSearchRequestSearchItemField.Raw;
 }
