@@ -36,7 +36,7 @@ export interface CreateAgentRequest {
     embeddingConfig?: Letta.EmbeddingConfig;
     /** The initial set of messages to put in the agent's in-context memory. */
     initialMessageSequence?: Letta.MessageCreate[];
-    /** If true, attaches the Letta core tools (e.g. archival_memory and core_memory related functions). */
+    /** If true, attaches the Letta core tools (e.g. core_memory related functions). */
     includeBaseTools?: boolean;
     /** If true, attaches the Letta multi-agent tools (e.g. sending a message to another agent). */
     includeMultiAgentTools?: boolean;
