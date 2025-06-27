@@ -9,5 +9,5 @@ import * as Letta from "../../../../index";
  *     {}
  */
 export interface AddFeedbackRequest {
-    feedback?: Letta.AddFeedbackRequestFeedback;
+    feedback?: Letta.FeedbackType;
 }

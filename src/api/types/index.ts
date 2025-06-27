@@ -89,6 +89,7 @@ export * from "./DynamicManagerUpdate";
 export * from "./E2BSandboxConfig";
 export * from "./EmbeddingConfigEmbeddingEndpointType";
 export * from "./EmbeddingConfig";
+export * from "./FeedbackType";
 export * from "./File_";
 export * from "./FileFile";
 export * from "./FileMetadata";
