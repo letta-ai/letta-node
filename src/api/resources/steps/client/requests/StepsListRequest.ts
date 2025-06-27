@@ -50,6 +50,10 @@ export interface StepsListRequest {
      */
     feedback?: Letta.StepsListRequestFeedback;
     /**
+     * Filter by whether steps have feedback (true) or not (false)
+     */
+    hasFeedback?: boolean;
+    /**
      * Filter by tags
      */
     tags?: string | string[];

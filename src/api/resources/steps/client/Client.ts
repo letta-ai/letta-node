@@ -56,7 +56,20 @@ export class Steps {
         request: Letta.StepsListRequest = {},
         requestOptions?: Steps.RequestOptions,
     ): Promise<Letta.Step[]> {
-        const { before, after, limit, order, startDate, endDate, model, agentId, traceIds, feedback, tags } = request;
+        const {
+            before,
+            after,
+            limit,
+            order,
+            startDate,
+            endDate,
+            model,
+            agentId,
+            traceIds,
+            feedback,
+            hasFeedback,
+            tags,
+        } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (before != null) {
             _queryParams["before"] = before;
@@ -102,6 +115,10 @@ export class Steps {
             _queryParams["feedback"] = feedback;
         }
 
+        if (hasFeedback != null) {
+            _queryParams["has_feedback"] = hasFeedback.toString();
+        }
+
         if (tags != null) {
             if (Array.isArray(tags)) {
                 _queryParams["tags"] = tags.map((item) => item);
@@ -121,8 +138,8 @@ export class Steps {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.142",
-                "User-Agent": "@letta-ai/letta-client/0.1.142",
+                "X-Fern-SDK-Version": "0.1.143",
+                "User-Agent": "@letta-ai/letta-client/0.1.143",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -203,8 +220,8 @@ export class Steps {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.142",
-                "User-Agent": "@letta-ai/letta-client/0.1.142",
+                "X-Fern-SDK-Version": "0.1.143",
+                "User-Agent": "@letta-ai/letta-client/0.1.143",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -295,8 +312,8 @@ export class Steps {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.142",
-                "User-Agent": "@letta-ai/letta-client/0.1.142",
+                "X-Fern-SDK-Version": "0.1.143",
+                "User-Agent": "@letta-ai/letta-client/0.1.143",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
