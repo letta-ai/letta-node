@@ -7,18 +7,16 @@ import * as Letta from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { GroupCreateManagerConfig } from "../../types/GroupCreateManagerConfig";
 
-export const GroupCreate: core.serialization.Schema<
-    serializers.GroupCreate.Raw,
-    Omit<Letta.GroupCreate, "project">
-> = core.serialization.object({
-    agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string())),
-    description: core.serialization.string(),
-    managerConfig: core.serialization.property("manager_config", GroupCreateManagerConfig.optional()),
-    sharedBlockIds: core.serialization.property(
-        "shared_block_ids",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
-});
+export const GroupCreate: core.serialization.Schema<serializers.GroupCreate.Raw, Letta.GroupCreate> =
+    core.serialization.object({
+        agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string())),
+        description: core.serialization.string(),
+        managerConfig: core.serialization.property("manager_config", GroupCreateManagerConfig.optional()),
+        sharedBlockIds: core.serialization.property(
+            "shared_block_ids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+    });
 
 export declare namespace GroupCreate {
     export interface Raw {

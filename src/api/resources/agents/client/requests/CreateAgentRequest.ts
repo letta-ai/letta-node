@@ -9,7 +9,6 @@ import * as Letta from "../../../../index";
  *     {}
  */
 export interface CreateAgentRequest {
-    project?: string;
     /** The name of the agent. */
     name?: string;
     /** The blocks to create in the agent's in-context memory. */
@@ -67,7 +66,7 @@ export interface CreateAgentRequest {
     /** Whether the agent is a template */
     template?: boolean;
     /** Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below. */
-    createAgentRequestProject?: string;
+    project?: string;
     /** The environment variables for tool execution specific to this agent. */
     toolExecEnvironmentVariables?: Record<string, string | undefined>;
     /** The variables that should be set for the agent. */

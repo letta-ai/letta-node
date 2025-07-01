@@ -16,6 +16,8 @@ export declare namespace Identities {
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
+        /** Override the X-Project header */
+        project?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -26,6 +28,8 @@ export declare namespace Identities {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Override the X-Project header */
+        project?: string | undefined;
         /** Additional headers to include in the request. */
         headers?: Record<string, string>;
     }
@@ -94,10 +98,14 @@ export class Identities {
             ),
             method: "GET",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -172,7 +180,6 @@ export class Identities {
         request: Letta.IdentityCreate,
         requestOptions?: Identities.RequestOptions,
     ): Promise<Letta.Identity> {
-        const { project, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -182,19 +189,22 @@ export class Identities {
             ),
             method: "POST",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Project": project != null ? project : undefined,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.IdentityCreate.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.IdentityCreate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -261,7 +271,6 @@ export class Identities {
         request: Letta.IdentityUpsert,
         requestOptions?: Identities.RequestOptions,
     ): Promise<Letta.Identity> {
-        const { project, ..._body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -271,19 +280,22 @@ export class Identities {
             ),
             method: "PUT",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Project": project != null ? project : undefined,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.IdentityUpsert.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.IdentityUpsert.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -353,10 +365,14 @@ export class Identities {
             ),
             method: "GET",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -432,10 +448,14 @@ export class Identities {
             ),
             method: "GET",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -513,10 +533,14 @@ export class Identities {
             ),
             method: "DELETE",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -593,10 +617,14 @@ export class Identities {
             ),
             method: "PATCH",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

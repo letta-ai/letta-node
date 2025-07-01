@@ -4,7 +4,9 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
+import * as Letta from "../../../../../index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Feedback {
@@ -13,6 +15,8 @@ export declare namespace Feedback {
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
+        /** Override the X-Project header */
+        project?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -23,6 +27,8 @@ export declare namespace Feedback {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Override the X-Project header */
+        project?: string | undefined;
         /** Additional headers to include in the request. */
         headers?: Record<string, string>;
     }
@@ -32,13 +38,28 @@ export class Feedback {
     constructor(protected readonly _options: Feedback.Options = {}) {}
 
     /**
+     * Add feedback to a step.
+     *
      * @param {string} stepId
+     * @param {Letta.steps.FeedbackCreateRequest} request
      * @param {Feedback.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
      * @example
-     *     await client.steps.feedback.add("step_id")
+     *     await client.steps.feedback.create("step_id")
      */
-    public async add(stepId: string, requestOptions?: Feedback.RequestOptions): Promise<void> {
+    public async create(
+        stepId: string,
+        request: Letta.steps.FeedbackCreateRequest = {},
+        requestOptions?: Feedback.RequestOptions,
+    ): Promise<Letta.Step> {
+        const { feedback } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (feedback != null) {
+            _queryParams["feedback"] = feedback;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -46,32 +67,56 @@ export class Feedback {
                     environments.LettaEnvironment.LettaCloud,
                 `v1/steps/${encodeURIComponent(stepId)}/feedback`,
             ),
-            method: "POST",
+            method: "PATCH",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return;
+            return serializers.Step.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.LettaError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -81,7 +126,7 @@ export class Feedback {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/steps/{step_id}/feedback.");
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/steps/{step_id}/feedback.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

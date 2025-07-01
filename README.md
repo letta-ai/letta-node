@@ -22,7 +22,7 @@ Instantiate and use the client with the following:
 ```typescript
 import { LettaClient } from "@letta-ai/letta-client";
 
-const client = new LettaClient({ token: "YOUR_TOKEN" });
+const client = new LettaClient({ token: "YOUR_TOKEN", project: "YOUR_PROJECT" });
 await client.tools.create({
     sourceCode: "source_code",
 });

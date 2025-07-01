@@ -9,7 +9,6 @@ import * as Letta from "../../../../index";
  *     {}
  */
 export interface GroupUpdate {
-    project?: string;
     /** */
     agentIds?: string[];
     /** */

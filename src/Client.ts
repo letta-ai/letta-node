@@ -32,6 +32,8 @@ export declare namespace LettaClient {
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
+        /** Override the X-Project header */
+        project?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -42,6 +44,8 @@ export declare namespace LettaClient {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Override the X-Project header */
+        project?: string | undefined;
         /** Additional headers to include in the request. */
         headers?: Record<string, string>;
     }

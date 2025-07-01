@@ -15,6 +15,8 @@ export declare namespace ClientSideAccessTokens {
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<string | undefined>;
+        /** Override the X-Project header */
+        project?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -25,6 +27,8 @@ export declare namespace ClientSideAccessTokens {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Override the X-Project header */
+        project?: string | undefined;
         /** Additional headers to include in the request. */
         headers?: Record<string, string>;
     }
@@ -64,10 +68,14 @@ export class ClientSideAccessTokens {
             ),
             method: "POST",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -147,10 +155,14 @@ export class ClientSideAccessTokens {
             ),
             method: "DELETE",
             headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.143",
-                "User-Agent": "@letta-ai/letta-client/0.1.143",
+                "X-Fern-SDK-Version": "0.1.144",
+                "User-Agent": "@letta-ai/letta-client/0.1.144",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

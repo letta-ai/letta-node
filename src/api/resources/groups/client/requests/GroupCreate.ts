@@ -12,7 +12,6 @@ import * as Letta from "../../../../index";
  *     }
  */
 export interface GroupCreate {
-    project?: string;
     /** */
     agentIds: string[];
     /** */

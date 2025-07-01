@@ -7,18 +7,19 @@ import * as Letta from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { GroupUpdateManagerConfig } from "../../types/GroupUpdateManagerConfig";
 
-export const GroupUpdate: core.serialization.Schema<
-    serializers.GroupUpdate.Raw,
-    Omit<Letta.GroupUpdate, "project">
-> = core.serialization.object({
-    agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string()).optional()),
-    description: core.serialization.string().optional(),
-    managerConfig: core.serialization.property("manager_config", GroupUpdateManagerConfig.optional()),
-    sharedBlockIds: core.serialization.property(
-        "shared_block_ids",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
-});
+export const GroupUpdate: core.serialization.Schema<serializers.GroupUpdate.Raw, Letta.GroupUpdate> =
+    core.serialization.object({
+        agentIds: core.serialization.property(
+            "agent_ids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+        description: core.serialization.string().optional(),
+        managerConfig: core.serialization.property("manager_config", GroupUpdateManagerConfig.optional()),
+        sharedBlockIds: core.serialization.property(
+            "shared_block_ids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+    });
 
 export declare namespace GroupUpdate {
     export interface Raw {

@@ -13,7 +13,6 @@ import * as Letta from "../../../../index";
  *     }
  */
 export interface IdentityUpsert {
-    project?: string;
     /** External, user-generated identifier key of the identity. */
     identifierKey: string;
     /** The name of the identity. */

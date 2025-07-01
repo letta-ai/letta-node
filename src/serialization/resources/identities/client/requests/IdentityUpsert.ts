@@ -8,18 +8,22 @@ import * as core from "../../../../../core";
 import { IdentityType } from "../../../../types/IdentityType";
 import { IdentityProperty } from "../../../../types/IdentityProperty";
 
-export const IdentityUpsert: core.serialization.Schema<
-    serializers.IdentityUpsert.Raw,
-    Omit<Letta.IdentityUpsert, "project">
-> = core.serialization.object({
-    identifierKey: core.serialization.property("identifier_key", core.serialization.string()),
-    name: core.serialization.string(),
-    identityType: core.serialization.property("identity_type", IdentityType),
-    projectId: core.serialization.property("project_id", core.serialization.string().optional()),
-    agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string()).optional()),
-    blockIds: core.serialization.property("block_ids", core.serialization.list(core.serialization.string()).optional()),
-    properties: core.serialization.list(IdentityProperty).optional(),
-});
+export const IdentityUpsert: core.serialization.Schema<serializers.IdentityUpsert.Raw, Letta.IdentityUpsert> =
+    core.serialization.object({
+        identifierKey: core.serialization.property("identifier_key", core.serialization.string()),
+        name: core.serialization.string(),
+        identityType: core.serialization.property("identity_type", IdentityType),
+        projectId: core.serialization.property("project_id", core.serialization.string().optional()),
+        agentIds: core.serialization.property(
+            "agent_ids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+        blockIds: core.serialization.property(
+            "block_ids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+        properties: core.serialization.list(IdentityProperty).optional(),
+    });
 
 export declare namespace IdentityUpsert {
     export interface Raw {

@@ -15,7 +15,7 @@ import { CreateAgentRequestResponseFormat } from "../../types/CreateAgentRequest
 
 export const CreateAgentRequest: core.serialization.Schema<
     serializers.CreateAgentRequest.Raw,
-    Omit<Letta.CreateAgentRequest, "project">
+    Letta.CreateAgentRequest
 > = core.serialization.object({
     name: core.serialization.string().optional(),
     memoryBlocks: core.serialization.property("memory_blocks", core.serialization.list(CreateBlock).optional()),
@@ -63,7 +63,7 @@ export const CreateAgentRequest: core.serialization.Schema<
     enableReasoner: core.serialization.property("enable_reasoner", core.serialization.boolean().optional()),
     fromTemplate: core.serialization.property("from_template", core.serialization.string().optional()),
     template: core.serialization.boolean().optional(),
-    createAgentRequestProject: core.serialization.property("project", core.serialization.string().optional()),
+    project: core.serialization.string().optional(),
     toolExecEnvironmentVariables: core.serialization.property(
         "tool_exec_environment_variables",
         core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),

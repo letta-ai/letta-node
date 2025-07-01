@@ -4606,77 +4606,6 @@ await client.steps.retrieve("step_id");
 </dl>
 </details>
 
-<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">addFeedback</a>(stepId, { ...params }) -> Letta.Step</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Add feedback to a step.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.steps.addFeedback("step_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**stepId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.AddFeedbackRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Steps.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Tags
 
 <details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">list</a>({ ...params }) -> string[]</code></summary>
@@ -8563,9 +8492,24 @@ await client.sources.passages.list("source_id");
 
 ## Steps Feedback
 
-<details><summary><code>client.steps.feedback.<a href="/src/api/resources/steps/resources/feedback/client/Client.ts">add</a>(stepId) -> void</code></summary>
+<details><summary><code>client.steps.feedback.<a href="/src/api/resources/steps/resources/feedback/client/Client.ts">create</a>(stepId, { ...params }) -> Letta.Step</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add feedback to a step.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -8576,7 +8520,7 @@ await client.sources.passages.list("source_id");
 <dd>
 
 ```typescript
-await client.steps.feedback.add("step_id");
+await client.steps.feedback.create("step_id");
 ```
 
 </dd>
@@ -8593,6 +8537,14 @@ await client.steps.feedback.add("step_id");
 <dd>
 
 **stepId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.steps.FeedbackCreateRequest`
 
 </dd>
 </dl>
