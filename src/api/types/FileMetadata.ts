@@ -14,6 +14,8 @@ export interface FileMetadata {
     sourceId: string;
     /** The name of the file. */
     fileName?: string;
+    /** The original name of the file as uploaded. */
+    originalFileName?: string;
     /** The path to the file. */
     filePath?: string;
     /** The type of the file (MIME type). */

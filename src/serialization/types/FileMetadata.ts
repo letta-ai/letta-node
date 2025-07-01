@@ -12,6 +12,7 @@ export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetad
         id: core.serialization.string().optional(),
         sourceId: core.serialization.property("source_id", core.serialization.string()),
         fileName: core.serialization.property("file_name", core.serialization.string().optional()),
+        originalFileName: core.serialization.property("original_file_name", core.serialization.string().optional()),
         filePath: core.serialization.property("file_path", core.serialization.string().optional()),
         fileType: core.serialization.property("file_type", core.serialization.string().optional()),
         fileSize: core.serialization.property("file_size", core.serialization.number().optional()),
@@ -33,6 +34,7 @@ export declare namespace FileMetadata {
         id?: string | null;
         source_id: string;
         file_name?: string | null;
+        original_file_name?: string | null;
         file_path?: string | null;
         file_type?: string | null;
         file_size?: number | null;

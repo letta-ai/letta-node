@@ -18,6 +18,7 @@ export const EmbeddingConfig: core.serialization.ObjectSchema<serializers.Embedd
         embeddingDim: core.serialization.property("embedding_dim", core.serialization.number()),
         embeddingChunkSize: core.serialization.property("embedding_chunk_size", core.serialization.number().optional()),
         handle: core.serialization.string().optional(),
+        batchSize: core.serialization.property("batch_size", core.serialization.number().optional()),
         azureEndpoint: core.serialization.property("azure_endpoint", core.serialization.string().optional()),
         azureVersion: core.serialization.property("azure_version", core.serialization.string().optional()),
         azureDeployment: core.serialization.property("azure_deployment", core.serialization.string().optional()),
@@ -31,6 +32,7 @@ export declare namespace EmbeddingConfig {
         embedding_dim: number;
         embedding_chunk_size?: number | null;
         handle?: string | null;
+        batch_size?: number | null;
         azure_endpoint?: string | null;
         azure_version?: string | null;
         azure_deployment?: string | null;

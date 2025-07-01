@@ -30,6 +30,8 @@ export interface EmbeddingConfig {
     embeddingChunkSize?: number;
     /** The handle for this config, in the format provider/model-name. */
     handle?: string;
+    /** The maximum batch size for processing embeddings. */
+    batchSize?: number;
     /** The Azure endpoint for the model. */
     azureEndpoint?: string;
     /** The Azure version for the model. */
