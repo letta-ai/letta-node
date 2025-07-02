@@ -58,6 +58,7 @@ export * from "./ChatCompletionUserMessageParamContent";
 export * from "./ChatCompletionUserMessageParam";
 export * from "./ChildToolRule";
 export * from "./ChildToolRuleSchema";
+export * from "./CodeInput";
 export * from "./CompletionCreateParamsNonStreamingMessagesItem";
 export * from "./CompletionCreateParamsNonStreamingModel";
 export * from "./CompletionCreateParamsNonStreamingFunctionCall";

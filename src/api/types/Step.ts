@@ -43,4 +43,6 @@ export interface Step {
     messages?: Letta.Message[];
     /** The feedback for this step. Must be either 'positive' or 'negative'. */
     feedback?: Letta.StepFeedback;
+    /** The project that the agent that executed this step belongs to (cloud only). */
+    projectId?: string;
 }

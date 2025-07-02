@@ -57,4 +57,8 @@ export interface StepsListRequest {
      * Filter by tags
      */
     tags?: string | string[];
+    /**
+     * Filter by the project ID that is associated with the step (cloud only).
+     */
+    projectId?: string;
 }

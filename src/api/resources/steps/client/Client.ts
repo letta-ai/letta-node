@@ -73,6 +73,7 @@ export class Steps {
             feedback,
             hasFeedback,
             tags,
+            projectId,
         } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (before != null) {
@@ -131,6 +132,10 @@ export class Steps {
             }
         }
 
+        if (projectId != null) {
+            _queryParams["project_id"] = projectId;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -146,8 +151,8 @@ export class Steps {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.146",
-                "User-Agent": "@letta-ai/letta-client/0.1.146",
+                "X-Fern-SDK-Version": "0.1.147",
+                "User-Agent": "@letta-ai/letta-client/0.1.147",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -232,8 +237,8 @@ export class Steps {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.146",
-                "User-Agent": "@letta-ai/letta-client/0.1.146",
+                "X-Fern-SDK-Version": "0.1.147",
+                "User-Agent": "@letta-ai/letta-client/0.1.147",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

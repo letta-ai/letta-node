@@ -31,6 +31,7 @@ export const Step: core.serialization.ObjectSchema<serializers.Step.Raw, Letta.S
     traceId: core.serialization.property("trace_id", core.serialization.string().optional()),
     messages: core.serialization.list(Message).optional(),
     feedback: StepFeedback.optional(),
+    projectId: core.serialization.property("project_id", core.serialization.string().optional()),
 });
 
 export declare namespace Step {
@@ -54,5 +55,6 @@ export declare namespace Step {
         trace_id?: string | null;
         messages?: Message.Raw[] | null;
         feedback?: StepFeedback.Raw | null;
+        project_id?: string | null;
     }
 }
