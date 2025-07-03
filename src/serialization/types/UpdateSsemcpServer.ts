@@ -13,6 +13,10 @@ export const UpdateSsemcpServer: core.serialization.ObjectSchema<
     serverName: core.serialization.property("server_name", core.serialization.string().optional()),
     serverUrl: core.serialization.property("server_url", core.serialization.string().optional()),
     token: core.serialization.string().optional(),
+    customHeaders: core.serialization.property(
+        "custom_headers",
+        core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
+    ),
 });
 
 export declare namespace UpdateSsemcpServer {
@@ -20,5 +24,6 @@ export declare namespace UpdateSsemcpServer {
         server_name?: string | null;
         server_url?: string | null;
         token?: string | null;
+        custom_headers?: Record<string, string | null | undefined> | null;
     }
 }

@@ -2340,6 +2340,79 @@ await client.agents.closeAllOpenFiles("agent_id");
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">cancelAgentRun</a>(agentId, { ...params }) -> Record<string, unknown></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel runs associated with an agent. If run_ids are passed in, cancel those in particular.
+
+Note to cancel active runs associated with an agent, redis is required.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.cancelAgentRun("agent_id", undefined);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `string[]`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">summarizeAgentConversation</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
@@ -3700,6 +3773,7 @@ await client.blocks.modify("block_id", {});
 <dd>
 
 List all jobs.
+TODO (cliandy): implementation for pagination
 
 </dd>
 </dl>
@@ -3905,6 +3979,72 @@ Delete a job by its job_id.
 
 ```typescript
 await client.jobs.delete("job_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**jobId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Jobs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.jobs.<a href="/src/api/resources/jobs/client/Client.ts">cancelJob</a>(jobId) -> Letta.Job</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a job by its job_id.
+
+This endpoint marks a job as cancelled, which will cause any associated
+agent execution to terminate as soon as possible.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.jobs.cancelJob("job_id");
 ```
 
 </dd>
@@ -7010,6 +7150,9 @@ for await (const item of response) {
 
 Asynchronously process a user message and return a run object.
 The actual processing happens in the background, and the status can be checked using the run ID.
+
+This is "asynchronous" in the sense that it's a background job and explicitly must be fetched by the run ID.
+This is more like `send_message_job`
 
 </dd>
 </dl>

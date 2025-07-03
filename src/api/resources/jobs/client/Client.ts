@@ -39,6 +39,7 @@ export class Jobs {
 
     /**
      * List all jobs.
+     * TODO (cliandy): implementation for pagination
      *
      * @param {Letta.JobsListRequest} request
      * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
@@ -49,10 +50,26 @@ export class Jobs {
      *     await client.jobs.list()
      */
     public async list(request: Letta.JobsListRequest = {}, requestOptions?: Jobs.RequestOptions): Promise<Letta.Job[]> {
-        const { sourceId } = request;
+        const { sourceId, before, after, limit, ascending } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (sourceId != null) {
             _queryParams["source_id"] = sourceId;
+        }
+
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (ascending != null) {
+            _queryParams["ascending"] = ascending.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -70,8 +87,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -144,10 +161,26 @@ export class Jobs {
         request: Letta.JobsListActiveRequest = {},
         requestOptions?: Jobs.RequestOptions,
     ): Promise<Letta.Job[]> {
-        const { sourceId } = request;
+        const { sourceId, before, after, limit, ascending } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (sourceId != null) {
             _queryParams["source_id"] = sourceId;
+        }
+
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (ascending != null) {
+            _queryParams["ascending"] = ascending.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -165,8 +198,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -251,8 +284,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -336,8 +369,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -387,6 +420,94 @@ export class Jobs {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling DELETE /v1/jobs/{job_id}.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Cancel a job by its job_id.
+     *
+     * This endpoint marks a job as cancelled, which will cause any associated
+     * agent execution to terminate as soon as possible.
+     *
+     * @param {string} jobId
+     * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.jobs.cancelJob("job_id")
+     */
+    public async cancelJob(jobId: string, requestOptions?: Jobs.RequestOptions): Promise<Letta.Job> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/jobs/${encodeURIComponent(jobId)}/cancel`,
+            ),
+            method: "PATCH",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.Job.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/jobs/{job_id}/cancel.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

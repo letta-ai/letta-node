@@ -11,4 +11,20 @@ export interface JobsListRequest {
      * Only list jobs associated with the source.
      */
     sourceId?: string;
+    /**
+     * Cursor for pagination
+     */
+    before?: string;
+    /**
+     * Cursor for pagination
+     */
+    after?: string;
+    /**
+     * Limit for pagination
+     */
+    limit?: number;
+    /**
+     * Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
+     */
+    ascending?: boolean;
 }

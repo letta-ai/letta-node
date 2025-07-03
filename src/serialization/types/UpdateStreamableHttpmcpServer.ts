@@ -14,6 +14,10 @@ export const UpdateStreamableHttpmcpServer: core.serialization.ObjectSchema<
     serverUrl: core.serialization.property("server_url", core.serialization.string().optional()),
     authHeader: core.serialization.property("auth_header", core.serialization.string().optional()),
     authToken: core.serialization.property("auth_token", core.serialization.string().optional()),
+    customHeaders: core.serialization.property(
+        "custom_headers",
+        core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
+    ),
 });
 
 export declare namespace UpdateStreamableHttpmcpServer {
@@ -22,5 +26,6 @@ export declare namespace UpdateStreamableHttpmcpServer {
         server_url?: string | null;
         auth_header?: string | null;
         auth_token?: string | null;
+        custom_headers?: Record<string, string | null | undefined> | null;
     }
 }

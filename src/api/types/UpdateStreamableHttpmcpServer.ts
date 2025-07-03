@@ -14,4 +14,6 @@ export interface UpdateStreamableHttpmcpServer {
     authHeader?: string;
     /** The authentication token or API key value */
     authToken?: string;
+    /** Custom authentication headers as key-value pairs */
+    customHeaders?: Record<string, string | undefined>;
 }

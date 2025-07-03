@@ -7,8 +7,23 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 
 export const StopReasonType: core.serialization.Schema<serializers.StopReasonType.Raw, Letta.StopReasonType> =
-    core.serialization.enum_(["end_turn", "error", "invalid_tool_call", "max_steps", "no_tool_call", "tool_rule"]);
+    core.serialization.enum_([
+        "end_turn",
+        "error",
+        "invalid_tool_call",
+        "max_steps",
+        "no_tool_call",
+        "tool_rule",
+        "cancelled",
+    ]);
 
 export declare namespace StopReasonType {
-    export type Raw = "end_turn" | "error" | "invalid_tool_call" | "max_steps" | "no_tool_call" | "tool_rule";
+    export type Raw =
+        | "end_turn"
+        | "error"
+        | "invalid_tool_call"
+        | "max_steps"
+        | "no_tool_call"
+        | "tool_rule"
+        | "cancelled";
 }

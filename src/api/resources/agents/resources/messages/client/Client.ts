@@ -108,8 +108,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -208,8 +208,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -305,8 +305,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -391,8 +391,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -467,6 +467,9 @@ export class Messages {
      * Asynchronously process a user message and return a run object.
      * The actual processing happens in the background, and the status can be checked using the run ID.
      *
+     * This is "asynchronous" in the sense that it's a background job and explicitly must be fetched by the run ID.
+     * This is more like `send_message_job`
+     *
      * @param {string} agentId
      * @param {Letta.agents.LettaAsyncRequest} request
      * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
@@ -504,8 +507,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -603,8 +606,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.147",
-                "User-Agent": "@letta-ai/letta-client/0.1.147",
+                "X-Fern-SDK-Version": "0.1.148",
+                "User-Agent": "@letta-ai/letta-client/0.1.148",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

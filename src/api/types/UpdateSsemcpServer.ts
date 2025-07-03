@@ -12,4 +12,6 @@ export interface UpdateSsemcpServer {
     serverUrl?: string;
     /** The access token or API key for the MCP server (used for SSE authentication) */
     token?: string;
+    /** Custom authentication headers as key-value pairs */
+    customHeaders?: Record<string, string | undefined>;
 }
