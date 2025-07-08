@@ -23,6 +23,8 @@ export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetad
         ),
         processingStatus: core.serialization.property("processing_status", FileProcessingStatus.optional()),
         errorMessage: core.serialization.property("error_message", core.serialization.string().optional()),
+        totalChunks: core.serialization.property("total_chunks", core.serialization.number().optional()),
+        chunksEmbedded: core.serialization.property("chunks_embedded", core.serialization.number().optional()),
         createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
         isDeleted: core.serialization.property("is_deleted", core.serialization.boolean().optional()),
@@ -42,6 +44,8 @@ export declare namespace FileMetadata {
         file_last_modified_date?: string | null;
         processing_status?: FileProcessingStatus.Raw | null;
         error_message?: string | null;
+        total_chunks?: number | null;
+        chunks_embedded?: number | null;
         created_at?: string | null;
         updated_at?: string | null;
         is_deleted?: boolean | null;

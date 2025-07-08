@@ -42,6 +42,7 @@ export class Agents {
      * Raises a 404 if the block does not exist.
      *
      * @param {string} blockId
+     * @param {Letta.blocks.AgentsListRequest} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
@@ -49,7 +50,21 @@ export class Agents {
      * @example
      *     await client.blocks.agents.list("block_id")
      */
-    public async list(blockId: string, requestOptions?: Agents.RequestOptions): Promise<Letta.AgentState[]> {
+    public async list(
+        blockId: string,
+        request: Letta.blocks.AgentsListRequest = {},
+        requestOptions?: Agents.RequestOptions,
+    ): Promise<Letta.AgentState[]> {
+        const { includeRelationships } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (includeRelationships != null) {
+            if (Array.isArray(includeRelationships)) {
+                _queryParams["include_relationships"] = includeRelationships.map((item) => item);
+            } else {
+                _queryParams["include_relationships"] = includeRelationships;
+            }
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -65,14 +80,15 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.148",
-                "User-Agent": "@letta-ai/letta-client/0.1.148",
+                "X-Fern-SDK-Version": "0.1.149",
+                "User-Agent": "@letta-ai/letta-client/0.1.149",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,

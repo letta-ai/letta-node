@@ -1550,6 +1550,67 @@ await client.sources.retrieveByName("source_name");
 </dl>
 </details>
 
+<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">getSourcesMetadata</a>() -> Letta.OrganizationSourcesStats</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get aggregated metadata for all sources in an organization.
+
+Returns structured metadata including:
+
+- Total number of sources
+- Total number of files across all sources
+- Total size of all files
+- Per-source breakdown with file details (file_name, file_size per file)
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sources.getSourcesMetadata();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sources.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">list</a>() -> Letta.Source[]</code></summary>
 <dl>
 <dd>
@@ -2322,79 +2383,6 @@ await client.agents.closeAllOpenFiles("agent_id");
 <dd>
 
 **agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">cancelAgentRun</a>(agentId, { ...params }) -> Record<string, unknown></code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Cancel runs associated with an agent. If run_ids are passed in, cancel those in particular.
-
-Note to cancel active runs associated with an agent, redis is required.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.cancelAgentRun("agent_id", undefined);
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `string[]`
 
 </dd>
 </dl>
@@ -7136,6 +7124,79 @@ for await (const item of response) {
 </dl>
 </details>
 
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">cancel</a>(agentId, { ...params }) -> Record<string, unknown></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel runs associated with an agent. If run_ids are passed in, cancel those in particular.
+
+Note to cancel active runs associated with an agent, redis is required.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.messages.cancel("agent_id", undefined);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `string[]`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">createAsync</a>(agentId, { ...params }) -> Letta.Run</code></summary>
 <dl>
 <dd>
@@ -7660,7 +7721,7 @@ await client.agents.memoryVariables.list("agent_id");
 
 ## Blocks Agents
 
-<details><summary><code>client.blocks.agents.<a href="/src/api/resources/blocks/resources/agents/client/Client.ts">list</a>(blockId) -> Letta.AgentState[]</code></summary>
+<details><summary><code>client.blocks.agents.<a href="/src/api/resources/blocks/resources/agents/client/Client.ts">list</a>(blockId, { ...params }) -> Letta.AgentState[]</code></summary>
 <dl>
 <dd>
 
@@ -7706,6 +7767,14 @@ await client.blocks.agents.list("block_id");
 <dd>
 
 **blockId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.blocks.AgentsListRequest`
 
 </dd>
 </dl>

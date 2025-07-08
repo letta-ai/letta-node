@@ -28,6 +28,7 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
         enableReasoner: core.serialization.property("enable_reasoner", core.serialization.boolean().optional()),
         reasoningEffort: core.serialization.property("reasoning_effort", LlmConfigReasoningEffort.optional()),
         maxReasoningTokens: core.serialization.property("max_reasoning_tokens", core.serialization.number().optional()),
+        frequencyPenalty: core.serialization.property("frequency_penalty", core.serialization.number().optional()),
     });
 
 export declare namespace LlmConfig {
@@ -46,5 +47,6 @@ export declare namespace LlmConfig {
         enable_reasoner?: boolean | null;
         reasoning_effort?: LlmConfigReasoningEffort.Raw | null;
         max_reasoning_tokens?: number | null;
+        frequency_penalty?: number | null;
     }
 }

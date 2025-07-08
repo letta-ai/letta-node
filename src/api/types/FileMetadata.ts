@@ -30,6 +30,10 @@ export interface FileMetadata {
     processingStatus?: Letta.FileProcessingStatus;
     /** Optional error message if the file failed processing. */
     errorMessage?: string;
+    /** Total number of chunks for the file. */
+    totalChunks?: number;
+    /** Number of chunks that have been embedded. */
+    chunksEmbedded?: number;
     /** The creation date of the file. */
     createdAt?: Date;
     /** The update date of the file. */

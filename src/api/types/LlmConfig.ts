@@ -46,4 +46,6 @@ export interface LlmConfig {
     reasoningEffort?: Letta.LlmConfigReasoningEffort;
     /** Configurable thinking budget for extended thinking, only used if enable_reasoner is True. Minimum value is 1024. */
     maxReasoningTokens?: number;
+    /** Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. From OpenAI: Number between -2.0 and 2.0. */
+    frequencyPenalty?: number;
 }
