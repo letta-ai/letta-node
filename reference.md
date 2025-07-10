@@ -2401,6 +2401,93 @@ await client.agents.closeAllOpenFiles("agent_id");
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">previewRawPayload</a>(agentId, { ...params }) -> Record<string, unknown></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Inspect the raw LLM request payload without sending it.
+
+This endpoint processes the message through the agent loop up until
+the LLM request, then returns the raw request payload that would
+be sent to the LLM provider. Useful for debugging and inspection.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.previewRawPayload("agent_id", {
+    messages: [
+        {
+            role: "user",
+            content: [
+                {
+                    type: "text",
+                    text: "text",
+                },
+            ],
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.LettaRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">summarizeAgentConversation</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
@@ -6370,7 +6457,7 @@ await client.agents.blocks.list("agent_id");
 <dl>
 <dd>
 
-Attach a core memoryblock to an agent.
+Attach a core memory block to an agent.
 
 </dd>
 </dl>
