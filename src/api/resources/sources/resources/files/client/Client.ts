@@ -44,18 +44,25 @@ export class Files {
      *
      * @param {File | fs.ReadStream | Blob} file
      * @param {string} sourceId
+     * @param {Letta.sources.BodyUploadFileToSource} request
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id")
+     *     await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id", {})
      */
     public async upload(
         file: File | fs.ReadStream | Blob,
         sourceId: string,
+        request: Letta.sources.BodyUploadFileToSource,
         requestOptions?: Files.RequestOptions,
     ): Promise<Letta.FileMetadata> {
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (request.duplicateHandling != null) {
+            _queryParams["duplicate_handling"] = request.duplicateHandling;
+        }
+
         const _request = await core.newFormData();
         await _request.appendFile("file", file);
         const _maybeEncodedRequest = await _request.getRequest();
@@ -82,6 +89,7 @@ export class Files {
                 ..._maybeEncodedRequest.headers,
                 ...requestOptions?.headers,
             },
+            queryParameters: _queryParams,
             requestType: "file",
             duplex: _maybeEncodedRequest.duplex,
             body: _maybeEncodedRequest.body,

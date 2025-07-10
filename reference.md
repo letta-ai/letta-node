@@ -8569,7 +8569,7 @@ await client.runs.steps.list("run_id");
 
 ## Sources Files
 
-<details><summary><code>client.sources.files.<a href="/src/api/resources/sources/resources/files/client/Client.ts">upload</a>(file, sourceId) -> Letta.FileMetadata</code></summary>
+<details><summary><code>client.sources.files.<a href="/src/api/resources/sources/resources/files/client/Client.ts">upload</a>(file, sourceId, { ...params }) -> Letta.FileMetadata</code></summary>
 <dl>
 <dd>
 
@@ -8597,7 +8597,7 @@ Upload a file to a data source.
 <dd>
 
 ```typescript
-await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id");
+await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id", {});
 ```
 
 </dd>
@@ -8622,6 +8622,14 @@ await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "so
 <dd>
 
 **sourceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.sources.BodyUploadFileToSource`
 
 </dd>
 </dl>

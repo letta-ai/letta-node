@@ -85,6 +85,7 @@ export * from "./ContextWindowOverview";
 export * from "./ContinueToolRule";
 export * from "./CoreMemoryBlockSchema";
 export * from "./CreateBlock";
+export * from "./DuplicateFileHandling";
 export * from "./DynamicManager";
 export * from "./DynamicManagerUpdate";
 export * from "./E2BSandboxConfig";
