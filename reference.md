@@ -5396,6 +5396,69 @@ await client.templates.list();
 
 ## ClientSideAccessTokens
 
+<details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">clientSideAccessTokensListClientSideAccessTokens</a>({ ...params }) -> Letta.ClientSideAccessTokensListClientSideAccessTokensResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all client side access tokens for the current account. This is only available for cloud users.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.clientSideAccessTokens.clientSideAccessTokensListClientSideAccessTokens();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ClientSideAccessTokensListClientSideAccessTokensRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ClientSideAccessTokens.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">create</a>({ ...params }) -> Letta.ClientSideAccessTokensCreateResponse</code></summary>
 <dl>
 <dd>

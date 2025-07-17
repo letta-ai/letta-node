@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Letta from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace ClientSideAccessTokens {
@@ -36,6 +36,101 @@ export declare namespace ClientSideAccessTokens {
 
 export class ClientSideAccessTokens {
     constructor(protected readonly _options: ClientSideAccessTokens.Options = {}) {}
+
+    /**
+     * List all client side access tokens for the current account. This is only available for cloud users.
+     *
+     * @param {Letta.ClientSideAccessTokensListClientSideAccessTokensRequest} request
+     * @param {ClientSideAccessTokens.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.BadRequestError}
+     *
+     * @example
+     *     await client.clientSideAccessTokens.clientSideAccessTokensListClientSideAccessTokens()
+     */
+    public async clientSideAccessTokensListClientSideAccessTokens(
+        request: Letta.ClientSideAccessTokensListClientSideAccessTokensRequest = {},
+        requestOptions?: ClientSideAccessTokens.RequestOptions,
+    ): Promise<Letta.ClientSideAccessTokensListClientSideAccessTokensResponse> {
+        const { agentId, offset, limit } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (agentId != null) {
+            _queryParams["agentId"] = agentId;
+        }
+
+        if (offset != null) {
+            _queryParams["offset"] = offset.toString();
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/client-side-access-tokens",
+            ),
+            method: "GET",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.151",
+                "User-Agent": "@letta-ai/letta-client/0.1.151",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.ClientSideAccessTokensListClientSideAccessTokensResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Letta.BadRequestError(_response.error.body);
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/client-side-access-tokens.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
 
     /**
      * Create a new client side access token with the specified configuration.
@@ -74,8 +169,8 @@ export class ClientSideAccessTokens {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.150",
-                "User-Agent": "@letta-ai/letta-client/0.1.150",
+                "X-Fern-SDK-Version": "0.1.151",
+                "User-Agent": "@letta-ai/letta-client/0.1.151",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -161,8 +256,8 @@ export class ClientSideAccessTokens {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.150",
-                "User-Agent": "@letta-ai/letta-client/0.1.150",
+                "X-Fern-SDK-Version": "0.1.151",
+                "User-Agent": "@letta-ai/letta-client/0.1.151",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
