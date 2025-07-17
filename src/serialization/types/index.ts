@@ -225,6 +225,7 @@ export * from "./UpdateAssistantMessageContent";
 export * from "./UpdateAssistantMessage";
 export * from "./UpdateReasoningMessage";
 export * from "./UpdateSsemcpServer";
+export * from "./UpdateStdioMcpServer";
 export * from "./UpdateStreamableHttpmcpServer";
 export * from "./UpdateSystemMessage";
 export * from "./UpdateUserMessageContent";

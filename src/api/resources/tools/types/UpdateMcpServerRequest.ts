@@ -4,4 +4,7 @@
 
 import * as Letta from "../../../index";
 
-export type UpdateMcpServerRequest = Letta.UpdateSsemcpServer | Letta.UpdateStreamableHttpmcpServer;
+export type UpdateMcpServerRequest =
+    | Letta.UpdateStdioMcpServer
+    | Letta.UpdateSsemcpServer
+    | Letta.UpdateStreamableHttpmcpServer;

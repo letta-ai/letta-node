@@ -8,8 +8,6 @@ import * as Letta from "../index";
  * Representation of a single FileMetadata
  */
 export interface FileMetadata {
-    /** The human-friendly ID of the File */
-    id?: string;
     /** The unique identifier of the source associated with the document. */
     sourceId: string;
     /** The name of the file. */
@@ -34,12 +32,14 @@ export interface FileMetadata {
     totalChunks?: number;
     /** Number of chunks that have been embedded. */
     chunksEmbedded?: number;
+    /** Optional full-text content of the file; only populated on demand due to its size. */
+    content?: string;
+    /** The human-friendly ID of the File */
+    id?: string;
     /** The creation date of the file. */
     createdAt?: Date;
     /** The update date of the file. */
     updatedAt?: Date;
     /** Whether this file is deleted or not. */
     isDeleted?: boolean;
-    /** Optional full-text content of the file; only populated on demand due to its size. */
-    content?: string;
 }

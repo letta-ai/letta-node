@@ -16,18 +16,18 @@ import * as Letta from "../index";
  *     description (str): The description of the source.
  */
 export interface Source {
-    /** The human-friendly ID of the Source */
-    id?: string;
     /** The name of the source. */
     name: string;
     /** The description of the source. */
     description?: string;
     /** Instructions for how to use the source. */
     instructions?: string;
-    /** The embedding configuration used by the source. */
-    embeddingConfig: Letta.EmbeddingConfig;
     /** Metadata associated with the source. */
     metadata?: Record<string, unknown>;
+    /** The human-friendly ID of the Source */
+    id?: string;
+    /** The embedding configuration used by the source. */
+    embeddingConfig: Letta.EmbeddingConfig;
     /** The id of the user that made this Tool. */
     createdById?: string;
     /** The id of the user that made this Tool. */

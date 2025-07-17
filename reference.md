@@ -1550,7 +1550,7 @@ await client.sources.retrieveByName("source_name");
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">getSourcesMetadata</a>() -> Letta.OrganizationSourcesStats</code></summary>
+<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">getSourcesMetadata</a>({ ...params }) -> Letta.OrganizationSourcesStats</code></summary>
 <dl>
 <dd>
 
@@ -1569,7 +1569,7 @@ Returns structured metadata including:
 - Total number of sources
 - Total number of files across all sources
 - Total size of all files
-- Per-source breakdown with file details (file_name, file_size per file)
+- Per-source breakdown with file details (file_name, file_size per file) if include_detailed_per_source_metadata is True
   </dd>
   </dl>
   </dd>
@@ -1596,6 +1596,14 @@ await client.sources.getSourcesMetadata();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.GetSourcesMetadataRequest`
+
+</dd>
+</dl>
 
 <dl>
 <dd>

@@ -10,22 +10,22 @@ import { EmbeddingConfig } from "../../../../types/EmbeddingConfig";
 export const SourceCreate: core.serialization.Schema<serializers.SourceCreate.Raw, Letta.SourceCreate> =
     core.serialization.object({
         name: core.serialization.string(),
-        embedding: core.serialization.string().optional(),
-        embeddingChunkSize: core.serialization.property("embedding_chunk_size", core.serialization.number().optional()),
-        embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig.optional()),
         description: core.serialization.string().optional(),
         instructions: core.serialization.string().optional(),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        embedding: core.serialization.string().optional(),
+        embeddingChunkSize: core.serialization.property("embedding_chunk_size", core.serialization.number().optional()),
+        embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig.optional()),
     });
 
 export declare namespace SourceCreate {
     export interface Raw {
         name: string;
-        embedding?: string | null;
-        embedding_chunk_size?: number | null;
-        embedding_config?: EmbeddingConfig.Raw | null;
         description?: string | null;
         instructions?: string | null;
         metadata?: Record<string, unknown> | null;
+        embedding?: string | null;
+        embedding_chunk_size?: number | null;
+        embedding_config?: EmbeddingConfig.Raw | null;
     }
 }

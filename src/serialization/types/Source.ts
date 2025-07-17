@@ -8,12 +8,12 @@ import * as core from "../../core";
 import { EmbeddingConfig } from "./EmbeddingConfig";
 
 export const Source: core.serialization.ObjectSchema<serializers.Source.Raw, Letta.Source> = core.serialization.object({
-    id: core.serialization.string().optional(),
     name: core.serialization.string(),
     description: core.serialization.string().optional(),
     instructions: core.serialization.string().optional(),
-    embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    id: core.serialization.string().optional(),
+    embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
@@ -22,12 +22,12 @@ export const Source: core.serialization.ObjectSchema<serializers.Source.Raw, Let
 
 export declare namespace Source {
     export interface Raw {
-        id?: string | null;
         name: string;
         description?: string | null;
         instructions?: string | null;
-        embedding_config: EmbeddingConfig.Raw;
         metadata?: Record<string, unknown> | null;
+        id?: string | null;
+        embedding_config: EmbeddingConfig.Raw;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         created_at?: string | null;

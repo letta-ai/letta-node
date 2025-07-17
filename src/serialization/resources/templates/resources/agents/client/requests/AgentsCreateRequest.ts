@@ -5,6 +5,7 @@
 import * as serializers from "../../../../../../index";
 import * as Letta from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
+import { AgentsCreateRequestInitialMessageSequenceItem } from "../../types/AgentsCreateRequestInitialMessageSequenceItem";
 
 export const AgentsCreateRequest: core.serialization.Schema<
     serializers.templates.AgentsCreateRequest.Raw,
@@ -12,6 +13,10 @@ export const AgentsCreateRequest: core.serialization.Schema<
 > = core.serialization.object({
     tags: core.serialization.list(core.serialization.string()).optional(),
     agentName: core.serialization.property("agent_name", core.serialization.string().optional()),
+    initialMessageSequence: core.serialization.property(
+        "initial_message_sequence",
+        core.serialization.list(AgentsCreateRequestInitialMessageSequenceItem).optional(),
+    ),
     memoryVariables: core.serialization.property(
         "memory_variables",
         core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
@@ -30,6 +35,7 @@ export declare namespace AgentsCreateRequest {
     export interface Raw {
         tags?: string[] | null;
         agent_name?: string | null;
+        initial_message_sequence?: AgentsCreateRequestInitialMessageSequenceItem.Raw[] | null;
         memory_variables?: Record<string, string> | null;
         tool_variables?: Record<string, string> | null;
         identity_ids?: string[] | null;

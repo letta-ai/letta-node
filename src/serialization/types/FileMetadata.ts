@@ -9,7 +9,6 @@ import { FileProcessingStatus } from "./FileProcessingStatus";
 
 export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetadata.Raw, Letta.FileMetadata> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
         sourceId: core.serialization.property("source_id", core.serialization.string()),
         fileName: core.serialization.property("file_name", core.serialization.string().optional()),
         originalFileName: core.serialization.property("original_file_name", core.serialization.string().optional()),
@@ -25,15 +24,15 @@ export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetad
         errorMessage: core.serialization.property("error_message", core.serialization.string().optional()),
         totalChunks: core.serialization.property("total_chunks", core.serialization.number().optional()),
         chunksEmbedded: core.serialization.property("chunks_embedded", core.serialization.number().optional()),
+        content: core.serialization.string().optional(),
+        id: core.serialization.string().optional(),
         createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
         isDeleted: core.serialization.property("is_deleted", core.serialization.boolean().optional()),
-        content: core.serialization.string().optional(),
     });
 
 export declare namespace FileMetadata {
     export interface Raw {
-        id?: string | null;
         source_id: string;
         file_name?: string | null;
         original_file_name?: string | null;
@@ -46,9 +45,10 @@ export declare namespace FileMetadata {
         error_message?: string | null;
         total_chunks?: number | null;
         chunks_embedded?: number | null;
+        content?: string | null;
+        id?: string | null;
         created_at?: string | null;
         updated_at?: string | null;
         is_deleted?: boolean | null;
-        content?: string | null;
     }
 }

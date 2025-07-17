@@ -481,8 +481,9 @@ export class Sources {
      * - Total number of sources
      * - Total number of files across all sources
      * - Total size of all files
-     * - Per-source breakdown with file details (file_name, file_size per file)
+     * - Per-source breakdown with file details (file_name, file_size per file) if include_detailed_per_source_metadata is True
      *
+     * @param {Letta.GetSourcesMetadataRequest} request
      * @param {Sources.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
@@ -490,7 +491,16 @@ export class Sources {
      * @example
      *     await client.sources.getSourcesMetadata()
      */
-    public async getSourcesMetadata(requestOptions?: Sources.RequestOptions): Promise<Letta.OrganizationSourcesStats> {
+    public async getSourcesMetadata(
+        request: Letta.GetSourcesMetadataRequest = {},
+        requestOptions?: Sources.RequestOptions,
+    ): Promise<Letta.OrganizationSourcesStats> {
+        const { includeDetailedPerSourceMetadata } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (includeDetailedPerSourceMetadata != null) {
+            _queryParams["include_detailed_per_source_metadata"] = includeDetailedPerSourceMetadata.toString();
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -514,6 +524,7 @@ export class Sources {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
