@@ -1739,6 +1739,69 @@ await client.sources.create({
 </dl>
 </details>
 
+<details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">getAgentsForSource</a>(sourceId) -> string[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all agent IDs that have the specified source attached.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sources.getAgentsForSource("source_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sourceId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sources.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.sources.<a href="/src/api/resources/sources/client/Client.ts">getFileMetadata</a>(sourceId, fileId, { ...params }) -> Letta.FileMetadata</code></summary>
 <dl>
 <dd>
