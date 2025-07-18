@@ -35,4 +35,8 @@ export interface MessagesListRequest {
      * The name of the message argument.
      */
     assistantMessageToolKwarg?: string;
+    /**
+     * Whether to include error messages and error statuses. For debugging purposes only.
+     */
+    includeErr?: boolean;
 }

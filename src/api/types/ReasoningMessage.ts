@@ -24,6 +24,7 @@ export interface ReasoningMessage {
     otid?: string;
     senderId?: string;
     stepId?: string;
+    isErr?: boolean;
     source?: Letta.ReasoningMessageSource;
     reasoning: string;
     signature?: string;

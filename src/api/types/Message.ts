@@ -62,4 +62,6 @@ export interface Message {
     senderId?: string;
     /** The id of the LLMBatchItem that this message is associated with */
     batchItemId?: string;
+    /** Whether this message is part of an error step. Used only for debugging purposes. */
+    isErr?: boolean;
 }

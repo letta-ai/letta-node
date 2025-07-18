@@ -18,6 +18,7 @@ export const AssistantMessage: core.serialization.ObjectSchema<
     otid: core.serialization.string().optional(),
     senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
     stepId: core.serialization.property("step_id", core.serialization.string().optional()),
+    isErr: core.serialization.property("is_err", core.serialization.boolean().optional()),
     content: AssistantMessageContent,
 });
 
@@ -30,6 +31,7 @@ export declare namespace AssistantMessage {
         otid?: string | null;
         sender_id?: string | null;
         step_id?: string | null;
+        is_err?: boolean | null;
         content: AssistantMessageContent.Raw;
     }
 }

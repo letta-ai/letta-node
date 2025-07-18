@@ -19,6 +19,7 @@ export interface SystemMessage {
     otid?: string;
     senderId?: string;
     stepId?: string;
+    isErr?: boolean;
     /** The message content sent by the system */
     content: string;
 }

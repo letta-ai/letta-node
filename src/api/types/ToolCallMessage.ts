@@ -21,5 +21,6 @@ export interface ToolCallMessage {
     otid?: string;
     senderId?: string;
     stepId?: string;
+    isErr?: boolean;
     toolCall: Letta.ToolCallMessageToolCall;
 }

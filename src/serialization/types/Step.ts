@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { StopReasonType } from "./StopReasonType";
 import { Message } from "./Message";
 import { StepFeedback } from "./StepFeedback";
 
@@ -26,6 +27,7 @@ export const Step: core.serialization.ObjectSchema<serializers.Step.Raw, Letta.S
         "completion_tokens_details",
         core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     ),
+    stopReason: core.serialization.property("stop_reason", StopReasonType.optional()),
     tags: core.serialization.list(core.serialization.string()).optional(),
     tid: core.serialization.string().optional(),
     traceId: core.serialization.property("trace_id", core.serialization.string().optional()),
@@ -50,6 +52,7 @@ export declare namespace Step {
         prompt_tokens?: number | null;
         total_tokens?: number | null;
         completion_tokens_details?: Record<string, unknown> | null;
+        stop_reason?: StopReasonType.Raw | null;
         tags?: string[] | null;
         tid?: string | null;
         trace_id?: string | null;

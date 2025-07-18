@@ -21,6 +21,7 @@ export interface AssistantMessage {
     otid?: string;
     senderId?: string;
     stepId?: string;
+    isErr?: boolean;
     /** The message content sent by the agent (can be a string or an array of content parts) */
     content: Letta.AssistantMessageContent;
 }

@@ -33,6 +33,7 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
         senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
         batchItemId: core.serialization.property("batch_item_id", core.serialization.string().optional()),
+        isErr: core.serialization.property("is_err", core.serialization.boolean().optional()),
     });
 
 export declare namespace Message {
@@ -55,5 +56,6 @@ export declare namespace Message {
         group_id?: string | null;
         sender_id?: string | null;
         batch_item_id?: string | null;
+        is_err?: boolean | null;
     }
 }

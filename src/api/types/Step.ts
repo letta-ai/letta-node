@@ -33,6 +33,8 @@ export interface Step {
     totalTokens?: number;
     /** Metadata for the agent. */
     completionTokensDetails?: Record<string, unknown>;
+    /** The stop reason associated with the step. */
+    stopReason?: Letta.StopReasonType;
     /** Metadata tags. */
     tags?: string[];
     /** The unique identifier of the transaction that processed this step. */
