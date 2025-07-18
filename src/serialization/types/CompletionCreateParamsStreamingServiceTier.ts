@@ -9,8 +9,8 @@ import * as core from "../../core";
 export const CompletionCreateParamsStreamingServiceTier: core.serialization.Schema<
     serializers.CompletionCreateParamsStreamingServiceTier.Raw,
     Letta.CompletionCreateParamsStreamingServiceTier
-> = core.serialization.enum_(["auto", "default", "flex", "scale", "priority"]);
+> = core.serialization.enum_(["auto", "default"]);
 
 export declare namespace CompletionCreateParamsStreamingServiceTier {
-    export type Raw = "auto" | "default" | "flex" | "scale" | "priority";
+    export type Raw = "auto" | "default";
 }
