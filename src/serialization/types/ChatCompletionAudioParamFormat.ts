@@ -9,8 +9,8 @@ import * as core from "../../core";
 export const ChatCompletionAudioParamFormat: core.serialization.Schema<
     serializers.ChatCompletionAudioParamFormat.Raw,
     Letta.ChatCompletionAudioParamFormat
-> = core.serialization.enum_(["wav", "mp3", "flac", "opus", "pcm16"]);
+> = core.serialization.enum_(["wav", "aac", "mp3", "flac", "opus", "pcm16"]);
 
 export declare namespace ChatCompletionAudioParamFormat {
-    export type Raw = "wav" | "mp3" | "flac" | "opus" | "pcm16";
+    export type Raw = "wav" | "aac" | "mp3" | "flac" | "opus" | "pcm16";
 }
