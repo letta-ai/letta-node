@@ -2472,6 +2472,155 @@ await client.agents.closeAllOpenFiles("agent_id");
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">openFile</a>(agentId, fileId) -> string[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Opens a specific file for a given agent.
+
+This endpoint marks a specific file as open in the agent's file state.
+The file will be included in the agent's working memory view.
+Returns a list of file names that were closed due to LRU eviction.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.openFile("agent_id", "file_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fileId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">closeFile</a>(agentId, fileId) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Closes a specific file for a given agent.
+
+This endpoint marks a specific file as closed in the agent's file state.
+The file will be removed from the agent's working memory view.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.closeFile("agent_id", "file_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fileId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">summarizeAgentConversation</a>(agentId, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
