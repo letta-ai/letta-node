@@ -3713,7 +3713,7 @@ await client.blocks.retrieve("block_id");
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">delete</a>(blockId) -> Letta.Block</code></summary>
+<details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">delete</a>(blockId) -> unknown</code></summary>
 <dl>
 <dd>
 

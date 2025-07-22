@@ -102,8 +102,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.156",
-                "User-Agent": "@letta-ai/letta-client/0.1.156",
+                "X-Fern-SDK-Version": "0.1.157",
+                "User-Agent": "@letta-ai/letta-client/0.1.157",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -189,8 +189,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.156",
-                "User-Agent": "@letta-ai/letta-client/0.1.156",
+                "X-Fern-SDK-Version": "0.1.157",
+                "User-Agent": "@letta-ai/letta-client/0.1.157",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -274,8 +274,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.156",
-                "User-Agent": "@letta-ai/letta-client/0.1.156",
+                "X-Fern-SDK-Version": "0.1.157",
+                "User-Agent": "@letta-ai/letta-client/0.1.157",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -357,8 +357,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.156",
-                "User-Agent": "@letta-ai/letta-client/0.1.156",
+                "X-Fern-SDK-Version": "0.1.157",
+                "User-Agent": "@letta-ai/letta-client/0.1.157",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -424,7 +424,7 @@ export class Blocks {
      * @example
      *     await client.blocks.delete("block_id")
      */
-    public async delete(blockId: string, requestOptions?: Blocks.RequestOptions): Promise<Letta.Block> {
+    public async delete(blockId: string, requestOptions?: Blocks.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -440,8 +440,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.156",
-                "User-Agent": "@letta-ai/letta-client/0.1.156",
+                "X-Fern-SDK-Version": "0.1.157",
+                "User-Agent": "@letta-ai/letta-client/0.1.157",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -454,13 +454,7 @@ export class Blocks {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Block.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return _response.body;
         }
 
         if (_response.error.reason === "status-code") {
@@ -528,8 +522,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.156",
-                "User-Agent": "@letta-ai/letta-client/0.1.156",
+                "X-Fern-SDK-Version": "0.1.157",
+                "User-Agent": "@letta-ai/letta-client/0.1.157",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

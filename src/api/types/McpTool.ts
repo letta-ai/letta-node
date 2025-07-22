@@ -9,9 +9,12 @@ import * as Letta from "../index";
  */
 export interface McpTool {
     name: string;
+    title?: string;
     description?: string;
     inputSchema: Record<string, unknown>;
+    outputSchema?: Record<string, unknown>;
     annotations?: Letta.ToolAnnotations;
+    meta?: Record<string, unknown>;
     /** Accepts any additional properties */
     [key: string]: any;
 }

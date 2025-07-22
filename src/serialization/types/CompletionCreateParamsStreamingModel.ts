@@ -11,6 +11,16 @@ export const CompletionCreateParamsStreamingModel: core.serialization.Schema<
     Letta.CompletionCreateParamsStreamingModel
 > = core.serialization.undiscriminatedUnion([
     core.serialization.string(),
+    core.serialization.stringLiteral("gpt-4.1"),
+    core.serialization.stringLiteral("gpt-4.1-mini"),
+    core.serialization.stringLiteral("gpt-4.1-nano"),
+    core.serialization.stringLiteral("gpt-4.1-2025-04-14"),
+    core.serialization.stringLiteral("gpt-4.1-mini-2025-04-14"),
+    core.serialization.stringLiteral("gpt-4.1-nano-2025-04-14"),
+    core.serialization.stringLiteral("o4-mini"),
+    core.serialization.stringLiteral("o4-mini-2025-04-16"),
+    core.serialization.stringLiteral("o3"),
+    core.serialization.stringLiteral("o3-2025-04-16"),
     core.serialization.stringLiteral("o3-mini"),
     core.serialization.stringLiteral("o3-mini-2025-01-31"),
     core.serialization.stringLiteral("o1"),
@@ -26,6 +36,7 @@ export const CompletionCreateParamsStreamingModel: core.serialization.Schema<
     core.serialization.stringLiteral("gpt-4o-audio-preview"),
     core.serialization.stringLiteral("gpt-4o-audio-preview-2024-10-01"),
     core.serialization.stringLiteral("gpt-4o-audio-preview-2024-12-17"),
+    core.serialization.stringLiteral("gpt-4o-audio-preview-2025-06-03"),
     core.serialization.stringLiteral("gpt-4o-mini-audio-preview"),
     core.serialization.stringLiteral("gpt-4o-mini-audio-preview-2024-12-17"),
     core.serialization.stringLiteral("gpt-4o-search-preview"),
@@ -33,6 +44,7 @@ export const CompletionCreateParamsStreamingModel: core.serialization.Schema<
     core.serialization.stringLiteral("gpt-4o-search-preview-2025-03-11"),
     core.serialization.stringLiteral("gpt-4o-mini-search-preview-2025-03-11"),
     core.serialization.stringLiteral("chatgpt-4o-latest"),
+    core.serialization.stringLiteral("codex-mini-latest"),
     core.serialization.stringLiteral("gpt-4o-mini"),
     core.serialization.stringLiteral("gpt-4o-mini-2024-07-18"),
     core.serialization.stringLiteral("gpt-4-turbo"),
@@ -59,6 +71,16 @@ export const CompletionCreateParamsStreamingModel: core.serialization.Schema<
 export declare namespace CompletionCreateParamsStreamingModel {
     export type Raw =
         | string
+        | "gpt-4.1"
+        | "gpt-4.1-mini"
+        | "gpt-4.1-nano"
+        | "gpt-4.1-2025-04-14"
+        | "gpt-4.1-mini-2025-04-14"
+        | "gpt-4.1-nano-2025-04-14"
+        | "o4-mini"
+        | "o4-mini-2025-04-16"
+        | "o3"
+        | "o3-2025-04-16"
         | "o3-mini"
         | "o3-mini-2025-01-31"
         | "o1"
@@ -74,6 +96,7 @@ export declare namespace CompletionCreateParamsStreamingModel {
         | "gpt-4o-audio-preview"
         | "gpt-4o-audio-preview-2024-10-01"
         | "gpt-4o-audio-preview-2024-12-17"
+        | "gpt-4o-audio-preview-2025-06-03"
         | "gpt-4o-mini-audio-preview"
         | "gpt-4o-mini-audio-preview-2024-12-17"
         | "gpt-4o-search-preview"
@@ -81,6 +104,7 @@ export declare namespace CompletionCreateParamsStreamingModel {
         | "gpt-4o-search-preview-2025-03-11"
         | "gpt-4o-mini-search-preview-2025-03-11"
         | "chatgpt-4o-latest"
+        | "codex-mini-latest"
         | "gpt-4o-mini"
         | "gpt-4o-mini-2024-07-18"
         | "gpt-4-turbo"
