@@ -61,6 +61,11 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
         lastRunCompletion: core.serialization.property("last_run_completion", core.serialization.date().optional()),
         lastRunDurationMs: core.serialization.property("last_run_duration_ms", core.serialization.number().optional()),
         timezone: core.serialization.string().optional(),
+        maxFilesOpen: core.serialization.property("max_files_open", core.serialization.number().optional()),
+        perFileViewWindowCharLimit: core.serialization.property(
+            "per_file_view_window_char_limit",
+            core.serialization.number().optional(),
+        ),
     });
 
 export declare namespace UpdateAgent {
@@ -90,5 +95,7 @@ export declare namespace UpdateAgent {
         last_run_completion?: string | null;
         last_run_duration_ms?: number | null;
         timezone?: string | null;
+        max_files_open?: number | null;
+        per_file_view_window_char_limit?: number | null;
     }
 }

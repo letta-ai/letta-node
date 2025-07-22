@@ -86,6 +86,11 @@ export const CreateAgentRequest: core.serialization.Schema<
     enableSleeptime: core.serialization.property("enable_sleeptime", core.serialization.boolean().optional()),
     responseFormat: core.serialization.property("response_format", CreateAgentRequestResponseFormat.optional()),
     timezone: core.serialization.string().optional(),
+    maxFilesOpen: core.serialization.property("max_files_open", core.serialization.number().optional()),
+    perFileViewWindowCharLimit: core.serialization.property(
+        "per_file_view_window_char_limit",
+        core.serialization.number().optional(),
+    ),
 });
 
 export declare namespace CreateAgentRequest {
@@ -129,5 +134,7 @@ export declare namespace CreateAgentRequest {
         enable_sleeptime?: boolean | null;
         response_format?: CreateAgentRequestResponseFormat.Raw | null;
         timezone?: string | null;
+        max_files_open?: number | null;
+        per_file_view_window_char_limit?: number | null;
     }
 }
