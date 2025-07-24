@@ -14,6 +14,7 @@ export const ProviderType: core.serialization.Schema<serializers.ProviderType.Ra
         "openai",
         "letta",
         "deepseek",
+        "cerebras",
         "lmstudio_openai",
         "xai",
         "mistral",
@@ -23,6 +24,7 @@ export const ProviderType: core.serialization.Schema<serializers.ProviderType.Ra
         "azure",
         "vllm",
         "bedrock",
+        "cohere",
     ]);
 
 export declare namespace ProviderType {
@@ -33,6 +35,7 @@ export declare namespace ProviderType {
         | "openai"
         | "letta"
         | "deepseek"
+        | "cerebras"
         | "lmstudio_openai"
         | "xai"
         | "mistral"
@@ -41,5 +44,6 @@ export declare namespace ProviderType {
         | "together"
         | "azure"
         | "vllm"
-        | "bedrock";
+        | "bedrock"
+        | "cohere";
 }

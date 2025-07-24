@@ -29,6 +29,7 @@ export const EmbeddingConfigEmbeddingEndpointType: core.serialization.Schema<
     "hugging-face",
     "mistral",
     "together",
+    "pinecone",
 ]);
 
 export declare namespace EmbeddingConfigEmbeddingEndpointType {
@@ -51,5 +52,6 @@ export declare namespace EmbeddingConfigEmbeddingEndpointType {
         | "vllm"
         | "hugging-face"
         | "mistral"
-        | "together";
+        | "together"
+        | "pinecone";
 }

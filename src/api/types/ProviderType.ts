@@ -9,6 +9,7 @@ export type ProviderType =
     | "openai"
     | "letta"
     | "deepseek"
+    | "cerebras"
     | "lmstudio_openai"
     | "xai"
     | "mistral"
@@ -17,7 +18,8 @@ export type ProviderType =
     | "together"
     | "azure"
     | "vllm"
-    | "bedrock";
+    | "bedrock"
+    | "cohere";
 export const ProviderType = {
     Anthropic: "anthropic",
     GoogleAi: "google_ai",
@@ -25,6 +27,7 @@ export const ProviderType = {
     Openai: "openai",
     Letta: "letta",
     Deepseek: "deepseek",
+    Cerebras: "cerebras",
     LmstudioOpenai: "lmstudio_openai",
     Xai: "xai",
     Mistral: "mistral",
@@ -34,4 +37,5 @@ export const ProviderType = {
     Azure: "azure",
     Vllm: "vllm",
     Bedrock: "bedrock",
+    Cohere: "cohere",
 } as const;

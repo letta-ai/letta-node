@@ -24,7 +24,8 @@ export type EmbeddingConfigEmbeddingEndpointType =
     | "vllm"
     | "hugging-face"
     | "mistral"
-    | "together";
+    | "together"
+    | "pinecone";
 export const EmbeddingConfigEmbeddingEndpointType = {
     Openai: "openai",
     Anthropic: "anthropic",
@@ -45,4 +46,5 @@ export const EmbeddingConfigEmbeddingEndpointType = {
     HuggingFace: "hugging-face",
     Mistral: "mistral",
     Together: "together",
+    Pinecone: "pinecone",
 } as const;

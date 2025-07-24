@@ -10,8 +10,8 @@ import * as Letta from "../index";
 export interface Memory {
     /** Memory blocks contained in the agent's in-context memory */
     blocks: Letta.Block[];
-    /** Blocks representing the agent's in-context memory of an attached file */
-    fileBlocks?: Letta.Block[];
+    /** Special blocks representing the agent's in-context memory of an attached file */
+    fileBlocks?: Letta.FileBlock[];
     /** Jinja2 template for compiling memory blocks into a prompt string */
     promptTemplate?: string;
 }
