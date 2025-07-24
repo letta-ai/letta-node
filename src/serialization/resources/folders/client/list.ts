@@ -5,11 +5,11 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { Passage } from "../../../types/Passage";
+import { Folder } from "../../../types/Folder";
 
-export const Response: core.serialization.Schema<serializers.folders.listFolderPassages.Response.Raw, Letta.Passage[]> =
-    core.serialization.list(Passage);
+export const Response: core.serialization.Schema<serializers.folders.list.Response.Raw, Letta.Folder[]> =
+    core.serialization.list(Folder);
 
 export declare namespace Response {
-    export type Raw = Passage.Raw[];
+    export type Raw = Folder.Raw[];
 }

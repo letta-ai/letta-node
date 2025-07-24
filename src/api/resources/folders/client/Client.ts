@@ -8,8 +8,8 @@ import * as Letta from "../../../index";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
-import * as fs from "fs";
-import { Blob } from "buffer";
+import { Files } from "../resources/files/client/Client";
+import { Passages } from "../resources/passages/client/Client";
 
 export declare namespace Folders {
     export interface Options {
@@ -37,7 +37,18 @@ export declare namespace Folders {
 }
 
 export class Folders {
+    protected _files: Files | undefined;
+    protected _passages: Passages | undefined;
+
     constructor(protected readonly _options: Folders.Options = {}) {}
+
+    public get files(): Files {
+        return (this._files ??= new Files(this._options));
+    }
+
+    public get passages(): Passages {
+        return (this._passages ??= new Passages(this._options));
+    }
 
     /**
      * Count all data folders created by a user.
@@ -47,9 +58,9 @@ export class Folders {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.folders.countFolders()
+     *     await client.folders.count()
      */
-    public async countFolders(requestOptions?: Folders.RequestOptions): Promise<number> {
+    public async count(requestOptions?: Folders.RequestOptions): Promise<number> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -65,8 +76,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
+                "X-Fern-SDK-Version": "0.1.162",
+                "User-Agent": "@letta-ai/letta-client/0.1.162",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -79,7 +90,7 @@ export class Folders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.folders.countFolders.Response.parseOrThrow(_response.body, {
+            return serializers.folders.count.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -132,9 +143,9 @@ export class Folders {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.folders.retrieveFolder("folder_id")
+     *     await client.folders.retrieve("folder_id")
      */
-    public async retrieveFolder(folderId: string, requestOptions?: Folders.RequestOptions): Promise<Letta.Folder> {
+    public async retrieve(folderId: string, requestOptions?: Folders.RequestOptions): Promise<Letta.Folder> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -150,8 +161,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
+                "X-Fern-SDK-Version": "0.1.162",
+                "User-Agent": "@letta-ai/letta-client/0.1.162",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -217,9 +228,9 @@ export class Folders {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.folders.deleteFolder("folder_id")
+     *     await client.folders.delete("folder_id")
      */
-    public async deleteFolder(folderId: string, requestOptions?: Folders.RequestOptions): Promise<unknown> {
+    public async delete(folderId: string, requestOptions?: Folders.RequestOptions): Promise<unknown> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -235,8 +246,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
+                "X-Fern-SDK-Version": "0.1.162",
+                "User-Agent": "@letta-ai/letta-client/0.1.162",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -297,9 +308,9 @@ export class Folders {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.folders.modifyFolder("folder_id")
+     *     await client.folders.modify("folder_id")
      */
-    public async modifyFolder(
+    public async modify(
         folderId: string,
         request: Letta.FolderUpdate = {},
         requestOptions?: Folders.RequestOptions,
@@ -319,8 +330,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
+                "X-Fern-SDK-Version": "0.1.162",
+                "User-Agent": "@letta-ai/letta-client/0.1.162",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -387,9 +398,9 @@ export class Folders {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.folders.getFolderIdByName("folder_name")
+     *     await client.folders.retrieveByName("folder_name")
      */
-    public async getFolderIdByName(folderName: string, requestOptions?: Folders.RequestOptions): Promise<string> {
+    public async retrieveByName(folderName: string, requestOptions?: Folders.RequestOptions): Promise<string> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -405,8 +416,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
+                "X-Fern-SDK-Version": "0.1.162",
+                "User-Agent": "@letta-ai/letta-client/0.1.162",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -419,7 +430,7 @@ export class Folders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.folders.getFolderIdByName.Response.parseOrThrow(_response.body, {
+            return serializers.folders.retrieveByName.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -505,8 +516,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
+                "X-Fern-SDK-Version": "0.1.162",
+                "User-Agent": "@letta-ai/letta-client/0.1.162",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -572,9 +583,9 @@ export class Folders {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.folders.listFolders()
+     *     await client.folders.list()
      */
-    public async listFolders(requestOptions?: Folders.RequestOptions): Promise<Letta.Folder[]> {
+    public async list(requestOptions?: Folders.RequestOptions): Promise<Letta.Folder[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -590,8 +601,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
+                "X-Fern-SDK-Version": "0.1.162",
+                "User-Agent": "@letta-ai/letta-client/0.1.162",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -604,7 +615,7 @@ export class Folders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.folders.listFolders.Response.parseOrThrow(_response.body, {
+            return serializers.folders.list.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -657,14 +668,11 @@ export class Folders {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.folders.createFolder({
+     *     await client.folders.create({
      *         name: "name"
      *     })
      */
-    public async createFolder(
-        request: Letta.FolderCreate,
-        requestOptions?: Folders.RequestOptions,
-    ): Promise<Letta.Folder> {
+    public async create(request: Letta.FolderCreate, requestOptions?: Folders.RequestOptions): Promise<Letta.Folder> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -680,8 +688,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
+                "X-Fern-SDK-Version": "0.1.162",
+                "User-Agent": "@letta-ai/letta-client/0.1.162",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -740,111 +748,6 @@ export class Folders {
     }
 
     /**
-     * Upload a file to a data folder.
-     *
-     * @param {File | fs.ReadStream | Blob} file
-     * @param {string} folderId
-     * @param {Letta.BodyUploadFileToFolder} request
-     * @param {Folders.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.folders.uploadFileToFolder(fs.createReadStream("/path/to/your/file"), "folder_id", {})
-     */
-    public async uploadFileToFolder(
-        file: File | fs.ReadStream | Blob,
-        folderId: string,
-        request: Letta.BodyUploadFileToFolder,
-        requestOptions?: Folders.RequestOptions,
-    ): Promise<Letta.FileMetadata> {
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (request.duplicateHandling != null) {
-            _queryParams["duplicate_handling"] = request.duplicateHandling;
-        }
-
-        const _request = await core.newFormData();
-        await _request.appendFile("file", file);
-        const _maybeEncodedRequest = await _request.getRequest();
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/folders/${encodeURIComponent(folderId)}/upload`,
-            ),
-            method: "POST",
-            headers: {
-                "X-Project":
-                    (await core.Supplier.get(this._options.project)) != null
-                        ? await core.Supplier.get(this._options.project)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ..._maybeEncodedRequest.headers,
-                ...requestOptions?.headers,
-            },
-            queryParameters: _queryParams,
-            requestType: "file",
-            duplex: _maybeEncodedRequest.duplex,
-            body: _maybeEncodedRequest.body,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.FileMetadata.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/folders/{folder_id}/upload.",
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
      * Get all agent IDs that have the specified folder attached.
      *
      * @param {string} folderId
@@ -871,8 +774,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
+                "X-Fern-SDK-Version": "0.1.162",
+                "User-Agent": "@letta-ai/letta-client/0.1.162",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -922,304 +825,6 @@ export class Folders {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/folders/{folder_id}/agents.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * List all passages associated with a data folder.
-     *
-     * @param {string} folderId
-     * @param {Letta.ListFolderPassagesRequest} request
-     * @param {Folders.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.folders.listFolderPassages("folder_id")
-     */
-    public async listFolderPassages(
-        folderId: string,
-        request: Letta.ListFolderPassagesRequest = {},
-        requestOptions?: Folders.RequestOptions,
-    ): Promise<Letta.Passage[]> {
-        const { after, before, limit } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (after != null) {
-            _queryParams["after"] = after;
-        }
-
-        if (before != null) {
-            _queryParams["before"] = before;
-        }
-
-        if (limit != null) {
-            _queryParams["limit"] = limit.toString();
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/folders/${encodeURIComponent(folderId)}/passages`,
-            ),
-            method: "GET",
-            headers: {
-                "X-Project":
-                    (await core.Supplier.get(this._options.project)) != null
-                        ? await core.Supplier.get(this._options.project)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.folders.listFolderPassages.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/folders/{folder_id}/passages.",
-                );
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * List paginated files associated with a data folder.
-     *
-     * @param {string} folderId
-     * @param {Letta.ListFolderFilesRequest} request
-     * @param {Folders.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.folders.listFolderFiles("folder_id")
-     */
-    public async listFolderFiles(
-        folderId: string,
-        request: Letta.ListFolderFilesRequest = {},
-        requestOptions?: Folders.RequestOptions,
-    ): Promise<Letta.FileMetadata[]> {
-        const { limit, after, includeContent } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (limit != null) {
-            _queryParams["limit"] = limit.toString();
-        }
-
-        if (after != null) {
-            _queryParams["after"] = after;
-        }
-
-        if (includeContent != null) {
-            _queryParams["include_content"] = includeContent.toString();
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/folders/${encodeURIComponent(folderId)}/files`,
-            ),
-            method: "GET",
-            headers: {
-                "X-Project":
-                    (await core.Supplier.get(this._options.project)) != null
-                        ? await core.Supplier.get(this._options.project)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.folders.listFolderFiles.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/folders/{folder_id}/files.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Delete a file from a folder.
-     *
-     * @param {string} folderId
-     * @param {string} fileId
-     * @param {Folders.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.folders.deleteFileFromFolder("folder_id", "file_id")
-     */
-    public async deleteFileFromFolder(
-        folderId: string,
-        fileId: string,
-        requestOptions?: Folders.RequestOptions,
-    ): Promise<void> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/folders/${encodeURIComponent(folderId)}/${encodeURIComponent(fileId)}`,
-            ),
-            method: "DELETE",
-            headers: {
-                "X-Project":
-                    (await core.Supplier.get(this._options.project)) != null
-                        ? await core.Supplier.get(this._options.project)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.161",
-                "User-Agent": "@letta-ai/letta-client/0.1.161",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling DELETE /v1/folders/{folder_id}/{file_id}.",
-                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

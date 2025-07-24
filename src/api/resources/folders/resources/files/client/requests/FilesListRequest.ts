@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ListFolderFilesRequest {
+export interface FilesListRequest {
     /**
      * Number of files to return
      */

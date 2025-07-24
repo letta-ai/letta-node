@@ -5,9 +5,9 @@
 import * as serializers from "../../../index";
 import * as core from "../../../../core";
 
-export const Response: core.serialization.Schema<serializers.agents.closeAllOpenFiles.Response.Raw, string[]> =
-    core.serialization.list(core.serialization.string());
+export const Response: core.serialization.Schema<serializers.folders.retrieveByName.Response.Raw, string> =
+    core.serialization.string();
 
 export declare namespace Response {
-    export type Raw = string[];
+    export type Raw = string;
 }

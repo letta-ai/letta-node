@@ -6,6 +6,8 @@ export * as memoryVariables from "./memoryVariables";
 export * from "./memoryVariables/types";
 export * as tools from "./tools";
 export * as sources from "./sources";
+export * as folders from "./folders";
+export * as files from "./files";
 export * as blocks from "./blocks";
 export * as passages from "./passages";
 export * as groups from "./groups";

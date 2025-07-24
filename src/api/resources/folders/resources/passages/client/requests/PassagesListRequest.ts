@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ListFolderPassagesRequest {
+export interface PassagesListRequest {
     /**
      * Message after which to retrieve the returned messages.
      */

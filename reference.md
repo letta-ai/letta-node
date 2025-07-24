@@ -1883,7 +1883,7 @@ await client.sources.getFileMetadata("source_id", "file_id");
 
 ## Folders
 
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">countFolders</a>() -> number</code></summary>
+<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">count</a>() -> number</code></summary>
 <dl>
 <dd>
 
@@ -1911,7 +1911,7 @@ Count all data folders created by a user.
 <dd>
 
 ```typescript
-await client.folders.countFolders();
+await client.folders.count();
 ```
 
 </dd>
@@ -1938,7 +1938,7 @@ await client.folders.countFolders();
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">retrieveFolder</a>(folderId) -> Letta.Folder</code></summary>
+<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">retrieve</a>(folderId) -> Letta.Folder</code></summary>
 <dl>
 <dd>
 
@@ -1966,7 +1966,7 @@ Get a folder by ID
 <dd>
 
 ```typescript
-await client.folders.retrieveFolder("folder_id");
+await client.folders.retrieve("folder_id");
 ```
 
 </dd>
@@ -2001,7 +2001,7 @@ await client.folders.retrieveFolder("folder_id");
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">deleteFolder</a>(folderId) -> unknown</code></summary>
+<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">delete</a>(folderId) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2029,7 +2029,7 @@ Delete a data folder.
 <dd>
 
 ```typescript
-await client.folders.deleteFolder("folder_id");
+await client.folders.delete("folder_id");
 ```
 
 </dd>
@@ -2064,7 +2064,7 @@ await client.folders.deleteFolder("folder_id");
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">modifyFolder</a>(folderId, { ...params }) -> Letta.Folder</code></summary>
+<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">modify</a>(folderId, { ...params }) -> Letta.Folder</code></summary>
 <dl>
 <dd>
 
@@ -2092,7 +2092,7 @@ Update the name or documentation of an existing data folder.
 <dd>
 
 ```typescript
-await client.folders.modifyFolder("folder_id");
+await client.folders.modify("folder_id");
 ```
 
 </dd>
@@ -2135,7 +2135,7 @@ await client.folders.modifyFolder("folder_id");
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">getFolderIdByName</a>(folderName) -> string</code></summary>
+<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">retrieveByName</a>(folderName) -> string</code></summary>
 <dl>
 <dd>
 
@@ -2163,7 +2163,7 @@ Get a folder by name
 <dd>
 
 ```typescript
-await client.folders.getFolderIdByName("folder_name");
+await client.folders.retrieveByName("folder_name");
 ```
 
 </dd>
@@ -2267,7 +2267,7 @@ await client.folders.getFoldersMetadata();
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">listFolders</a>() -> Letta.Folder[]</code></summary>
+<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">list</a>() -> Letta.Folder[]</code></summary>
 <dl>
 <dd>
 
@@ -2295,7 +2295,7 @@ List all data folders created by a user.
 <dd>
 
 ```typescript
-await client.folders.listFolders();
+await client.folders.list();
 ```
 
 </dd>
@@ -2322,7 +2322,7 @@ await client.folders.listFolders();
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">createFolder</a>({ ...params }) -> Letta.Folder</code></summary>
+<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">create</a>({ ...params }) -> Letta.Folder</code></summary>
 <dl>
 <dd>
 
@@ -2350,7 +2350,7 @@ Create a new data folder.
 <dd>
 
 ```typescript
-await client.folders.createFolder({
+await client.folders.create({
     name: "name",
 });
 ```
@@ -2369,85 +2369,6 @@ await client.folders.createFolder({
 <dd>
 
 **request:** `Letta.FolderCreate`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Folders.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">uploadFileToFolder</a>(file, folderId, { ...params }) -> Letta.FileMetadata</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Upload a file to a data folder.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.folders.uploadFileToFolder(fs.createReadStream("/path/to/your/file"), "folder_id", {});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**file:** `File | fs.ReadStream | Blob`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**folderId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.BodyUploadFileToFolder`
 
 </dd>
 </dl>
@@ -2511,219 +2432,6 @@ await client.folders.getAgentsForFolder("folder_id");
 <dd>
 
 **folderId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Folders.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">listFolderPassages</a>(folderId, { ...params }) -> Letta.Passage[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List all passages associated with a data folder.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.folders.listFolderPassages("folder_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**folderId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListFolderPassagesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Folders.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">listFolderFiles</a>(folderId, { ...params }) -> Letta.FileMetadata[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List paginated files associated with a data folder.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.folders.listFolderFiles("folder_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**folderId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListFolderFilesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Folders.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">deleteFileFromFolder</a>(folderId, fileId) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a file from a folder.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.folders.deleteFileFromFolder("folder_id", "file_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**folderId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fileId:** `string`
 
 </dd>
 </dl>
@@ -3249,221 +2957,6 @@ await client.agents.modify("agent_id");
 <dd>
 
 **request:** `Letta.UpdateAgent`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">closeAllOpenFiles</a>(agentId) -> string[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Closes all currently open files for a given agent.
-
-This endpoint updates the file state for the agent so that no files are marked as open.
-Typically used to reset the working memory view for the agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.closeAllOpenFiles("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">openFile</a>(agentId, fileId) -> string[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Opens a specific file for a given agent.
-
-This endpoint marks a specific file as open in the agent's file state.
-The file will be included in the agent's working memory view.
-Returns a list of file names that were closed due to LRU eviction.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.openFile("agent_id", "file_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fileId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">closeFile</a>(agentId, fileId) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Closes a specific file for a given agent.
-
-This endpoint marks a specific file as closed in the agent's file state.
-The file will be removed from the agent's working memory view.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.closeFile("agent_id", "file_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fileId:** `string`
 
 </dd>
 </dl>
@@ -7221,6 +6714,430 @@ await client.agents.sources.list("agent_id");
 </dl>
 </details>
 
+## Agents Folders
+
+<details><summary><code>client.agents.folders.<a href="/src/api/resources/agents/resources/folders/client/Client.ts">attach</a>(agentId, folderId) -> Letta.AgentState</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Attach a folder to an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.folders.attach("agent_id", "folder_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Folders.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.folders.<a href="/src/api/resources/agents/resources/folders/client/Client.ts">detach</a>(agentId, folderId) -> Letta.AgentState</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Detach a folder from an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.folders.detach("agent_id", "folder_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Folders.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.folders.<a href="/src/api/resources/agents/resources/folders/client/Client.ts">list</a>(agentId) -> Letta.Source[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the folders associated with an agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.folders.list("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Folders.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Agents Files
+
+<details><summary><code>client.agents.files.<a href="/src/api/resources/agents/resources/files/client/Client.ts">closeAll</a>(agentId) -> string[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Closes all currently open files for a given agent.
+
+This endpoint updates the file state for the agent so that no files are marked as open.
+Typically used to reset the working memory view for the agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.files.closeAll("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Files.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.files.<a href="/src/api/resources/agents/resources/files/client/Client.ts">open</a>(agentId, fileId) -> string[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Opens a specific file for a given agent.
+
+This endpoint marks a specific file as open in the agent's file state.
+The file will be included in the agent's working memory view.
+Returns a list of file names that were closed due to LRU eviction.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.files.open("agent_id", "file_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fileId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Files.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.files.<a href="/src/api/resources/agents/resources/files/client/Client.ts">close</a>(agentId, fileId) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Closes a specific file for a given agent.
+
+This endpoint marks a specific file as closed in the agent's file state.
+The file will be removed from the agent's working memory view.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.files.close("agent_id", "file_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fileId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Files.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Agents CoreMemory
 
 <details><summary><code>client.agents.coreMemory.<a href="/src/api/resources/agents/resources/coreMemory/client/Client.ts">retrieve</a>(agentId) -> Letta.Memory</code></summary>
@@ -9014,6 +8931,302 @@ await client.blocks.agents.list("block_id");
 <dd>
 
 **requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Folders Files
+
+<details><summary><code>client.folders.files.<a href="/src/api/resources/folders/resources/files/client/Client.ts">upload</a>(file, folderId, { ...params }) -> Letta.FileMetadata</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Upload a file to a data folder.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.folders.files.upload(fs.createReadStream("/path/to/your/file"), "folder_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**file:** `File | fs.ReadStream | Blob`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.folders.BodyUploadFileToFolder`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Files.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.files.<a href="/src/api/resources/folders/resources/files/client/Client.ts">list</a>(folderId, { ...params }) -> Letta.FileMetadata[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List paginated files associated with a data folder.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.folders.files.list("folder_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folderId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.folders.FilesListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Files.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.files.<a href="/src/api/resources/folders/resources/files/client/Client.ts">delete</a>(folderId, fileId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a file from a folder.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.folders.files.delete("folder_id", "file_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folderId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fileId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Files.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Folders Passages
+
+<details><summary><code>client.folders.passages.<a href="/src/api/resources/folders/resources/passages/client/Client.ts">list</a>(folderId, { ...params }) -> Letta.Passage[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all passages associated with a data folder.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.folders.passages.list("folder_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folderId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.folders.PassagesListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Passages.RequestOptions`
 
 </dd>
 </dl>
