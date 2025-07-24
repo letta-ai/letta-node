@@ -6,6 +6,7 @@ import * as environments from "./environments";
 import * as core from "./core";
 import { Tools } from "./api/resources/tools/client/Client";
 import { Sources } from "./api/resources/sources/client/Client";
+import { Folders } from "./api/resources/folders/client/Client";
 import { Agents } from "./api/resources/agents/client/Client";
 import { Groups } from "./api/resources/groups/client/Client";
 import { Identities } from "./api/resources/identities/client/Client";
@@ -54,6 +55,7 @@ export declare namespace LettaClient {
 export class LettaClient {
     protected _tools: Tools | undefined;
     protected _sources: Sources | undefined;
+    protected _folders: Folders | undefined;
     protected _agents: Agents | undefined;
     protected _groups: Groups | undefined;
     protected _identities: Identities | undefined;
@@ -82,6 +84,10 @@ export class LettaClient {
 
     public get sources(): Sources {
         return (this._sources ??= new Sources(this._options));
+    }
+
+    public get folders(): Folders {
+        return (this._folders ??= new Folders(this._options));
     }
 
     public get agents(): Agents {

@@ -98,6 +98,7 @@ export * from "./FileFile";
 export * from "./FileMetadata";
 export * from "./FileProcessingStatus";
 export * from "./FileStats";
+export * from "./Folder";
 export * from "./FunctionOutput";
 export * from "./FunctionCall";
 export * from "./FunctionDefinitionInput";
