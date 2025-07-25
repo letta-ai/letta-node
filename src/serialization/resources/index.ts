@@ -25,8 +25,6 @@ export * as tags from "./tags";
 export * as batches from "./batches";
 export * as voice from "./voice";
 export * from "./tools/client/requests";
-export * from "./sources/client/requests";
-export * from "./folders/client/requests";
 export * from "./agents/client/requests";
 export * from "./groups/client/requests";
 export * from "./identities/client/requests";

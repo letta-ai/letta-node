@@ -7,5 +7,4 @@ export * as listMcpServers from "./listMcpServers";
 export * as addMcpServer from "./addMcpServer";
 export * as listMcpToolsByServer from "./listMcpToolsByServer";
 export * as deleteMcpServer from "./deleteMcpServer";
-export * as testMcpServer from "./testMcpServer";
 export * from "./requests";

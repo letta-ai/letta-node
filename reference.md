@@ -1165,7 +1165,7 @@ await client.tools.updateMcpServer("mcp_server_name", {});
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">testMcpServer</a>({ ...params }) -> Letta.McpTool[]</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">testMcpServer</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1178,7 +1178,7 @@ await client.tools.updateMcpServer("mcp_server_name", {});
 <dd>
 
 Test connection to an MCP server without adding it.
-Returns the list of available tools if successful.
+Returns the list of available tools if successful, or OAuth information if OAuth is required.
 
 </dd>
 </dl>
@@ -1215,6 +1215,145 @@ await client.tools.testMcpServer({
 <dd>
 
 **request:** `Letta.TestMcpServerRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">connectMcpServer</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Connect to an MCP server with support for OAuth via SSE.
+Returns a stream of events handling authorization state and exchange if OAuth is required.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.connectMcpServer({
+    serverName: "server_name",
+    command: "command",
+    args: ["args"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ConnectMcpServerRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">mcpOauthCallback</a>(sessionId, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Handle OAuth callback for MCP server authentication.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.mcpOauthCallback("session_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sessionId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.McpOauthCallbackRequest`
 
 </dd>
 </dl>
@@ -1444,7 +1583,7 @@ Update the name or documentation of an existing data source.
 <dd>
 
 ```typescript
-await client.sources.modify("source_id");
+await client.sources.modify("source_id", {});
 ```
 
 </dd>
@@ -2092,7 +2231,7 @@ Update the name or documentation of an existing data folder.
 <dd>
 
 ```typescript
-await client.folders.modify("folder_id");
+await client.folders.modify("folder_id", {});
 ```
 
 </dd>
@@ -2116,7 +2255,7 @@ await client.folders.modify("folder_id");
 <dl>
 <dd>
 
-**request:** `Letta.FolderUpdate`
+**request:** `Letta.SourceUpdate`
 
 </dd>
 </dl>
@@ -2368,7 +2507,7 @@ await client.folders.create({
 <dl>
 <dd>
 
-**request:** `Letta.FolderCreate`
+**request:** `Letta.SourceCreate`
 
 </dd>
 </dl>

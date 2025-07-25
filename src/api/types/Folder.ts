@@ -24,7 +24,7 @@ export interface Folder {
     instructions?: string;
     /** Metadata associated with the folder. */
     metadata?: Record<string, unknown>;
-    /** The human-friendly ID of the Folder */
+    /** The human-friendly ID of the Source */
     id?: string;
     /** The embedding configuration used by the folder. */
     embeddingConfig: Letta.EmbeddingConfig;
