@@ -27,6 +27,7 @@ export const LettaAsyncRequest: core.serialization.Schema<
         "include_return_message_types",
         core.serialization.list(MessageType).optional(),
     ),
+    enableThinking: core.serialization.property("enable_thinking", core.serialization.string().optional()),
     callbackUrl: core.serialization.property("callback_url", core.serialization.string().optional()),
 });
 
@@ -38,6 +39,7 @@ export declare namespace LettaAsyncRequest {
         assistant_message_tool_name?: string | null;
         assistant_message_tool_kwarg?: string | null;
         include_return_message_types?: MessageType.Raw[] | null;
+        enable_thinking?: string | null;
         callback_url?: string | null;
     }
 }

@@ -27,6 +27,7 @@ export const LettaBatchRequest: core.serialization.ObjectSchema<
         "include_return_message_types",
         core.serialization.list(MessageType).optional(),
     ),
+    enableThinking: core.serialization.property("enable_thinking", core.serialization.string().optional()),
     agentId: core.serialization.property("agent_id", core.serialization.string()),
 });
 
@@ -38,6 +39,7 @@ export declare namespace LettaBatchRequest {
         assistant_message_tool_name?: string | null;
         assistant_message_tool_kwarg?: string | null;
         include_return_message_types?: MessageType.Raw[] | null;
+        enable_thinking?: string | null;
         agent_id: string;
     }
 }

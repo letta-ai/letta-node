@@ -28,6 +28,7 @@ export const LettaRequest: core.serialization.ObjectSchema<serializers.LettaRequ
             "include_return_message_types",
             core.serialization.list(MessageType).optional(),
         ),
+        enableThinking: core.serialization.property("enable_thinking", core.serialization.string().optional()),
     });
 
 export declare namespace LettaRequest {
@@ -38,5 +39,6 @@ export declare namespace LettaRequest {
         assistant_message_tool_name?: string | null;
         assistant_message_tool_kwarg?: string | null;
         include_return_message_types?: MessageType.Raw[] | null;
+        enable_thinking?: string | null;
     }
 }

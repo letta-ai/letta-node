@@ -17,4 +17,6 @@ export interface LettaRequest {
     assistantMessageToolKwarg?: string;
     /** Only return specified message types in the response. If `None` (default) returns all messages. */
     includeReturnMessageTypes?: Letta.MessageType[];
+    /** If set to True, enables reasoning before responses or tool calls from the agent. */
+    enableThinking?: string;
 }
