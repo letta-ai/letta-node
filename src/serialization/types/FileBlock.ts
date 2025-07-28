@@ -10,6 +10,7 @@ export const FileBlock: core.serialization.ObjectSchema<serializers.FileBlock.Ra
     core.serialization.object({
         value: core.serialization.string(),
         limit: core.serialization.number().optional(),
+        projectId: core.serialization.property("project_id", core.serialization.string().optional()),
         name: core.serialization.string().optional(),
         isTemplate: core.serialization.property("is_template", core.serialization.boolean().optional()),
         preserveOnMigration: core.serialization.property(
@@ -33,6 +34,7 @@ export declare namespace FileBlock {
     export interface Raw {
         value: string;
         limit?: number | null;
+        project_id?: string | null;
         name?: string | null;
         is_template?: boolean | null;
         preserve_on_migration?: boolean | null;

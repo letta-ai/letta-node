@@ -18,6 +18,8 @@ export interface GroupCreate {
     description: string;
     /** */
     managerConfig?: Letta.GroupCreateManagerConfig;
+    /** The associated project id. */
+    projectId?: string;
     /** */
     sharedBlockIds?: string[];
 }

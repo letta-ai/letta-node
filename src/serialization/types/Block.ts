@@ -9,6 +9,7 @@ import * as core from "../../core";
 export const Block: core.serialization.ObjectSchema<serializers.Block.Raw, Letta.Block> = core.serialization.object({
     value: core.serialization.string(),
     limit: core.serialization.number().optional(),
+    projectId: core.serialization.property("project_id", core.serialization.string().optional()),
     name: core.serialization.string().optional(),
     isTemplate: core.serialization.property("is_template", core.serialization.boolean().optional()),
     preserveOnMigration: core.serialization.property("preserve_on_migration", core.serialization.boolean().optional()),
@@ -25,6 +26,7 @@ export declare namespace Block {
     export interface Raw {
         value: string;
         limit?: number | null;
+        project_id?: string | null;
         name?: string | null;
         is_template?: boolean | null;
         preserve_on_migration?: boolean | null;

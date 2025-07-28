@@ -13,6 +13,8 @@ export interface Group {
     agentIds: string[];
     /** */
     description: string;
+    /** The associated project id. */
+    projectId?: string;
     /** */
     sharedBlockIds?: string[];
     /** */

@@ -12,6 +12,7 @@ export const GroupCreate: core.serialization.Schema<serializers.GroupCreate.Raw,
         agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string())),
         description: core.serialization.string(),
         managerConfig: core.serialization.property("manager_config", GroupCreateManagerConfig.optional()),
+        projectId: core.serialization.property("project_id", core.serialization.string().optional()),
         sharedBlockIds: core.serialization.property(
             "shared_block_ids",
             core.serialization.list(core.serialization.string()).optional(),
@@ -23,6 +24,7 @@ export declare namespace GroupCreate {
         agent_ids: string[];
         description: string;
         manager_config?: GroupCreateManagerConfig.Raw | null;
+        project_id?: string | null;
         shared_block_ids?: string[] | null;
     }
 }

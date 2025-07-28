@@ -15,6 +15,8 @@ export interface GroupUpdate {
     description?: string;
     /** */
     managerConfig?: Letta.GroupUpdateManagerConfig;
+    /** The associated project id. */
+    projectId?: string;
     /** */
     sharedBlockIds?: string[];
 }

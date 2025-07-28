@@ -21,6 +21,8 @@ export interface Block {
     value: string;
     /** Character limit of the block. */
     limit?: number;
+    /** The associated project id. */
+    projectId?: string;
     /** Name of the block if it is a template. */
     name?: string;
     /** Whether the block is a template (e.g. saved human/persona options). */

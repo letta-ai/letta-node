@@ -15,6 +15,7 @@ export const GroupUpdate: core.serialization.Schema<serializers.GroupUpdate.Raw,
         ),
         description: core.serialization.string().optional(),
         managerConfig: core.serialization.property("manager_config", GroupUpdateManagerConfig.optional()),
+        projectId: core.serialization.property("project_id", core.serialization.string().optional()),
         sharedBlockIds: core.serialization.property(
             "shared_block_ids",
             core.serialization.list(core.serialization.string()).optional(),
@@ -26,6 +27,7 @@ export declare namespace GroupUpdate {
         agent_ids?: string[] | null;
         description?: string | null;
         manager_config?: GroupUpdateManagerConfig.Raw | null;
+        project_id?: string | null;
         shared_block_ids?: string[] | null;
     }
 }

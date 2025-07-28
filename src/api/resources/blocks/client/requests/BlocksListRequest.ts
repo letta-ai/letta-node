@@ -28,6 +28,10 @@ export interface BlocksListRequest {
      */
     identifierKeys?: string | string[];
     /**
+     * Search blocks by project id
+     */
+    projectId?: string;
+    /**
      * Number of blocks to return
      */
     limit?: number;
