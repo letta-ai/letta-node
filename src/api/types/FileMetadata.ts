@@ -40,6 +40,4 @@ export interface FileMetadata {
     createdAt?: Date;
     /** The update date of the file. */
     updatedAt?: Date;
-    /** Whether this file is deleted or not. */
-    isDeleted?: boolean;
 }

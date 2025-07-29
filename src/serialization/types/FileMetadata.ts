@@ -28,7 +28,6 @@ export const FileMetadata: core.serialization.ObjectSchema<serializers.FileMetad
         id: core.serialization.string().optional(),
         createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
-        isDeleted: core.serialization.property("is_deleted", core.serialization.boolean().optional()),
     });
 
 export declare namespace FileMetadata {
@@ -49,6 +48,5 @@ export declare namespace FileMetadata {
         id?: string | null;
         created_at?: string | null;
         updated_at?: string | null;
-        is_deleted?: boolean | null;
     }
 }

@@ -8,6 +8,7 @@ import * as core from "../../core";
 import { LlmConfigModelEndpointType } from "./LlmConfigModelEndpointType";
 import { ProviderCategory } from "./ProviderCategory";
 import { LlmConfigReasoningEffort } from "./LlmConfigReasoningEffort";
+import { LlmConfigCompatibilityType } from "./LlmConfigCompatibilityType";
 
 export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Raw, Letta.LlmConfig> =
     core.serialization.object({
@@ -29,6 +30,7 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
         reasoningEffort: core.serialization.property("reasoning_effort", LlmConfigReasoningEffort.optional()),
         maxReasoningTokens: core.serialization.property("max_reasoning_tokens", core.serialization.number().optional()),
         frequencyPenalty: core.serialization.property("frequency_penalty", core.serialization.number().optional()),
+        compatibilityType: core.serialization.property("compatibility_type", LlmConfigCompatibilityType.optional()),
     });
 
 export declare namespace LlmConfig {
@@ -48,5 +50,6 @@ export declare namespace LlmConfig {
         reasoning_effort?: LlmConfigReasoningEffort.Raw | null;
         max_reasoning_tokens?: number | null;
         frequency_penalty?: number | null;
+        compatibility_type?: LlmConfigCompatibilityType.Raw | null;
     }
 }

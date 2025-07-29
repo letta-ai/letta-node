@@ -48,4 +48,6 @@ export interface LlmConfig {
     maxReasoningTokens?: number;
     /** Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. From OpenAI: Number between -2.0 and 2.0. */
     frequencyPenalty?: number;
+    /** The framework compatibility type for the model. */
+    compatibilityType?: Letta.LlmConfigCompatibilityType;
 }

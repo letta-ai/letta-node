@@ -1178,7 +1178,7 @@ await client.tools.updateMcpServer("mcp_server_name", {});
 <dd>
 
 Test connection to an MCP server without adding it.
-Returns the list of available tools if successful, or OAuth information if OAuth is required.
+Returns the list of available tools if successful.
 
 </dd>
 </dl>
@@ -1233,7 +1233,7 @@ await client.tools.testMcpServer({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">connectMcpServer</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">connectMcpServer</a>({ ...params }) -> core.Stream<Letta.StreamingResponse></code></summary>
 <dl>
 <dd>
 
@@ -1262,11 +1262,14 @@ Returns a stream of events handling authorization state and exchange if OAuth is
 <dd>
 
 ```typescript
-await client.tools.connectMcpServer({
+const response = await client.tools.connectMcpServer({
     serverName: "server_name",
     command: "command",
     args: ["args"],
 });
+for await (const item of response) {
+    console.log(item);
+}
 ```
 
 </dd>
@@ -1283,77 +1286,6 @@ await client.tools.connectMcpServer({
 <dd>
 
 **request:** `Letta.ConnectMcpServerRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">mcpOauthCallback</a>(sessionId, { ...params }) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Handle OAuth callback for MCP server authentication.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tools.mcpOauthCallback("session_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**sessionId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.McpOauthCallbackRequest`
 
 </dd>
 </dl>
