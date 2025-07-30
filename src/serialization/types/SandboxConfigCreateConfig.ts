@@ -7,12 +7,13 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { LocalSandboxConfig } from "./LocalSandboxConfig";
 import { E2BSandboxConfig } from "./E2BSandboxConfig";
+import { ModalSandboxConfig } from "./ModalSandboxConfig";
 
 export const SandboxConfigCreateConfig: core.serialization.Schema<
     serializers.SandboxConfigCreateConfig.Raw,
     Letta.SandboxConfigCreateConfig
-> = core.serialization.undiscriminatedUnion([LocalSandboxConfig, E2BSandboxConfig]);
+> = core.serialization.undiscriminatedUnion([LocalSandboxConfig, E2BSandboxConfig, ModalSandboxConfig]);
 
 export declare namespace SandboxConfigCreateConfig {
-    export type Raw = LocalSandboxConfig.Raw | E2BSandboxConfig.Raw;
+    export type Raw = LocalSandboxConfig.Raw | E2BSandboxConfig.Raw | ModalSandboxConfig.Raw;
 }

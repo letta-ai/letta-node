@@ -157,6 +157,7 @@ export * from "./MessageCreate";
 export * from "./MessageRole";
 export * from "./MessageSchema";
 export * from "./MessageType";
+export * from "./ModalSandboxConfig";
 export * from "./OmittedReasoningContent";
 export * from "./Organization";
 export * from "./OrganizationCreate";

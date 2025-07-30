@@ -12,7 +12,6 @@ export type ToolType =
     | "letta_builtin"
     | "letta_files_core"
     | "external_composio"
-    | "external_langchain"
     | "external_mcp";
 export const ToolType = {
     Custom: "custom",
@@ -24,6 +23,5 @@ export const ToolType = {
     LettaBuiltin: "letta_builtin",
     LettaFilesCore: "letta_files_core",
     ExternalComposio: "external_composio",
-    ExternalLangchain: "external_langchain",
     ExternalMcp: "external_mcp",
 } as const;

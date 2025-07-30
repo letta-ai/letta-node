@@ -7,8 +7,8 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 
 export const SandboxType: core.serialization.Schema<serializers.SandboxType.Raw, Letta.SandboxType> =
-    core.serialization.enum_(["e2b", "local"]);
+    core.serialization.enum_(["e2b", "modal", "local"]);
 
 export declare namespace SandboxType {
-    export type Raw = "e2b" | "local";
+    export type Raw = "e2b" | "modal" | "local";
 }

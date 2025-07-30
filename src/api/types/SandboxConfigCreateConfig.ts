@@ -7,4 +7,4 @@ import * as Letta from "../index";
 /**
  * The configuration for the sandbox.
  */
-export type SandboxConfigCreateConfig = Letta.LocalSandboxConfig | Letta.E2BSandboxConfig;
+export type SandboxConfigCreateConfig = Letta.LocalSandboxConfig | Letta.E2BSandboxConfig | Letta.ModalSandboxConfig;

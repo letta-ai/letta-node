@@ -7,4 +7,4 @@ import * as Letta from "../index";
 /**
  * The JSON configuration data for the sandbox.
  */
-export type SandboxConfigUpdateConfig = Letta.LocalSandboxConfig | Letta.E2BSandboxConfig;
+export type SandboxConfigUpdateConfig = Letta.LocalSandboxConfig | Letta.E2BSandboxConfig | Letta.ModalSandboxConfig;
