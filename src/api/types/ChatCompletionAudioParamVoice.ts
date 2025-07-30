@@ -9,9 +9,6 @@ export type ChatCompletionAudioParamVoice =
     | "ballad"
     | "coral"
     | "echo"
-    | "fable"
-    | "onyx"
-    | "nova"
     | "sage"
     | "shimmer"
     | "verse";

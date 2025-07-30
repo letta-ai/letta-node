@@ -16,26 +16,11 @@ export const ChatCompletionAudioParamVoice: core.serialization.Schema<
     core.serialization.stringLiteral("ballad"),
     core.serialization.stringLiteral("coral"),
     core.serialization.stringLiteral("echo"),
-    core.serialization.stringLiteral("fable"),
-    core.serialization.stringLiteral("onyx"),
-    core.serialization.stringLiteral("nova"),
     core.serialization.stringLiteral("sage"),
     core.serialization.stringLiteral("shimmer"),
     core.serialization.stringLiteral("verse"),
 ]);
 
 export declare namespace ChatCompletionAudioParamVoice {
-    export type Raw =
-        | string
-        | "alloy"
-        | "ash"
-        | "ballad"
-        | "coral"
-        | "echo"
-        | "fable"
-        | "onyx"
-        | "nova"
-        | "sage"
-        | "shimmer"
-        | "verse";
+    export type Raw = string | "alloy" | "ash" | "ballad" | "coral" | "echo" | "sage" | "shimmer" | "verse";
 }
