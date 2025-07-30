@@ -11,6 +11,7 @@ import { ReasoningMessage } from "../../../../../types/ReasoningMessage";
 import { ToolCallMessage } from "../../../../../types/ToolCallMessage";
 import { ToolReturnMessage } from "../../../../../types/ToolReturnMessage";
 import { AssistantMessage } from "../../../../../types/AssistantMessage";
+import { LettaPing } from "../../../../../types/LettaPing";
 import { LettaStopReason } from "../../../../../types/LettaStopReason";
 import { LettaUsageStatistics } from "../../../../../types/LettaUsageStatistics";
 
@@ -24,6 +25,7 @@ export const LettaStreamingResponse: core.serialization.Schema<
     ToolCallMessage,
     ToolReturnMessage,
     AssistantMessage,
+    LettaPing,
     LettaStopReason,
     LettaUsageStatistics,
 ]);
@@ -36,6 +38,7 @@ export declare namespace LettaStreamingResponse {
         | ToolCallMessage.Raw
         | ToolReturnMessage.Raw
         | AssistantMessage.Raw
+        | LettaPing.Raw
         | LettaStopReason.Raw
         | LettaUsageStatistics.Raw;
 }

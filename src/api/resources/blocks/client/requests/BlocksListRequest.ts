@@ -35,4 +35,36 @@ export interface BlocksListRequest {
      * Number of blocks to return
      */
     limit?: number;
+    /**
+     * Cursor for pagination. If provided, returns blocks before this cursor.
+     */
+    before?: string;
+    /**
+     * Cursor for pagination. If provided, returns blocks after this cursor.
+     */
+    after?: string;
+    /**
+     * Search blocks by label. If provided, returns blocks that match this label. This is a full-text search on labels.
+     */
+    labelSearch?: string;
+    /**
+     * Search blocks by description. If provided, returns blocks that match this description. This is a full-text search on block descriptions.
+     */
+    descriptionSearch?: string;
+    /**
+     * Search blocks by value. If provided, returns blocks that match this value.
+     */
+    valueSearch?: string;
+    /**
+     * Filter blocks by the number of connected agents. If provided, returns blocks that have more than this number of connected agents.
+     */
+    connectedToAgentsCountGt?: number;
+    /**
+     * Filter blocks by the number of connected agents. If provided, returns blocks that have less than this number of connected agents.
+     */
+    connectedToAgentsCountLt?: number;
+    /**
+     * Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents.
+     */
+    connectedToAgentsCountEq?: number | number[];
 }

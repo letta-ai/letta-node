@@ -261,3 +261,4 @@ export * from "./LettaMessageUnion";
 export * from "./LettaMessageContentUnion";
 export * from "./ComponentsSchemasTextContent";
 export * from "./LettaUserMessageContentUnion";
+export * from "./LettaPing";

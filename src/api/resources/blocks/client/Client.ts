@@ -57,7 +57,23 @@ export class Blocks {
         request: Letta.BlocksListRequest = {},
         requestOptions?: Blocks.RequestOptions,
     ): Promise<Letta.Block[]> {
-        const { label, templatesOnly, name, identityId, identifierKeys, projectId, limit } = request;
+        const {
+            label,
+            templatesOnly,
+            name,
+            identityId,
+            identifierKeys,
+            projectId,
+            limit,
+            before,
+            after,
+            labelSearch,
+            descriptionSearch,
+            valueSearch,
+            connectedToAgentsCountGt,
+            connectedToAgentsCountLt,
+            connectedToAgentsCountEq,
+        } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (label != null) {
             _queryParams["label"] = label;
@@ -91,6 +107,42 @@ export class Blocks {
             _queryParams["limit"] = limit.toString();
         }
 
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (labelSearch != null) {
+            _queryParams["label_search"] = labelSearch;
+        }
+
+        if (descriptionSearch != null) {
+            _queryParams["description_search"] = descriptionSearch;
+        }
+
+        if (valueSearch != null) {
+            _queryParams["value_search"] = valueSearch;
+        }
+
+        if (connectedToAgentsCountGt != null) {
+            _queryParams["connected_to_agents_count_gt"] = connectedToAgentsCountGt.toString();
+        }
+
+        if (connectedToAgentsCountLt != null) {
+            _queryParams["connected_to_agents_count_lt"] = connectedToAgentsCountLt.toString();
+        }
+
+        if (connectedToAgentsCountEq != null) {
+            if (Array.isArray(connectedToAgentsCountEq)) {
+                _queryParams["connected_to_agents_count_eq"] = connectedToAgentsCountEq.map((item) => item.toString());
+            } else {
+                _queryParams["connected_to_agents_count_eq"] = connectedToAgentsCountEq.toString();
+            }
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -106,8 +158,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.167",
-                "User-Agent": "@letta-ai/letta-client/0.1.167",
+                "X-Fern-SDK-Version": "0.1.168",
+                "User-Agent": "@letta-ai/letta-client/0.1.168",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -193,8 +245,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.167",
-                "User-Agent": "@letta-ai/letta-client/0.1.167",
+                "X-Fern-SDK-Version": "0.1.168",
+                "User-Agent": "@letta-ai/letta-client/0.1.168",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -278,8 +330,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.167",
-                "User-Agent": "@letta-ai/letta-client/0.1.167",
+                "X-Fern-SDK-Version": "0.1.168",
+                "User-Agent": "@letta-ai/letta-client/0.1.168",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -361,8 +413,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.167",
-                "User-Agent": "@letta-ai/letta-client/0.1.167",
+                "X-Fern-SDK-Version": "0.1.168",
+                "User-Agent": "@letta-ai/letta-client/0.1.168",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -444,8 +496,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.167",
-                "User-Agent": "@letta-ai/letta-client/0.1.167",
+                "X-Fern-SDK-Version": "0.1.168",
+                "User-Agent": "@letta-ai/letta-client/0.1.168",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -526,8 +578,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.167",
-                "User-Agent": "@letta-ai/letta-client/0.1.167",
+                "X-Fern-SDK-Version": "0.1.168",
+                "User-Agent": "@letta-ai/letta-client/0.1.168",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
