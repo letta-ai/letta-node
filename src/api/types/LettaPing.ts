@@ -7,5 +7,5 @@
  */
 export interface LettaPing {
     /** The type of the message. */
-    messageType: "ping";
+    message_type: "ping";
 }

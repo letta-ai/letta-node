@@ -5,7 +5,7 @@
 export interface Base64Image {
     type: "base64";
     /** The media type for the image. */
-    mediaType: string;
+    media_type: string;
     /** The base64 encoded image data. */
     data: string;
     /** What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide) */

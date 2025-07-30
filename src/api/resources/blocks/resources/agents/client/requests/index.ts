@@ -1,1 +1,1 @@
-export { type AgentsListRequest } from "./AgentsListRequest";
+export { type AgentsListRequest } from "./AgentsListRequest.js";

@@ -6,5 +6,5 @@ export interface AuthResponse {
     /** UUID of the user */
     uuid: string;
     /** Whether the user is an admin */
-    isAdmin?: boolean;
+    is_admin?: boolean;
 }

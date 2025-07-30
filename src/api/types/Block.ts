@@ -22,17 +22,17 @@ export interface Block {
     /** Character limit of the block. */
     limit?: number;
     /** The associated project id. */
-    projectId?: string;
+    project_id?: string;
     /** Name of the block if it is a template. */
     name?: string;
     /** Whether the block is a template (e.g. saved human/persona options). */
-    isTemplate?: boolean;
+    is_template?: boolean;
     /** Preserve the block on template migration. */
-    preserveOnMigration?: boolean;
+    preserve_on_migration?: boolean;
     /** Label of the block (e.g. 'human', 'persona') in the context window. */
     label?: string;
     /** Whether the agent has read-only access to the block. */
-    readOnly?: boolean;
+    read_only?: boolean;
     /** Description of the block. */
     description?: string;
     /** Metadata of the block. */
@@ -40,7 +40,7 @@ export interface Block {
     /** The human-friendly ID of the Block */
     id?: string;
     /** The id of the user that made this Block. */
-    createdById?: string;
+    created_by_id?: string;
     /** The id of the user that last updated this Block. */
-    lastUpdatedById?: string;
+    last_updated_by_id?: string;
 }

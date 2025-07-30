@@ -3,7 +3,7 @@
  */
 
 export interface RoundRobinManager {
-    managerType: "round_robin";
+    manager_type: "round_robin";
     /** */
-    maxTurns?: number;
+    max_turns?: number;
 }

@@ -3,9 +3,9 @@
  */
 
 export interface SleeptimeManagerUpdate {
-    managerType: "sleeptime";
+    manager_type: "sleeptime";
     /** */
-    managerAgentId?: string;
+    manager_agent_id?: string;
     /** */
-    sleeptimeAgentFrequency?: number;
+    sleeptime_agent_frequency?: number;
 }

@@ -18,7 +18,7 @@ export interface AgentsListRequest {
     /**
      * If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed-in tags.
      */
-    matchAllTags?: boolean;
+    match_all_tags?: boolean;
     /**
      * Cursor for pagination
      */
@@ -34,31 +34,31 @@ export interface AgentsListRequest {
     /**
      * Search agents by name
      */
-    queryText?: string;
+    query_text?: string;
     /**
      * Search agents by project ID
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * Search agents by template ID
      */
-    templateId?: string;
+    template_id?: string;
     /**
      * Search agents by base template ID
      */
-    baseTemplateId?: string;
+    base_template_id?: string;
     /**
      * Search agents by identity ID
      */
-    identityId?: string;
+    identity_id?: string;
     /**
      * Search agents by identifier keys
      */
-    identifierKeys?: string | string[];
+    identifier_keys?: string | string[];
     /**
      * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
      */
-    includeRelationships?: string | string[];
+    include_relationships?: string | string[];
     /**
      * Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
      */
@@ -66,5 +66,5 @@ export interface AgentsListRequest {
     /**
      * Field to sort by. Options: 'created_at' (default), 'last_run_completion'
      */
-    sortBy?: string;
+    sort_by?: string;
 }

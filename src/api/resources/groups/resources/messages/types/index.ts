@@ -1,3 +1,3 @@
-export * from "./LettaStreamingResponse";
-export * from "./MessagesModifyRequest";
-export * from "./MessagesModifyResponse";
+export * from "./LettaStreamingResponse.js";
+export * from "./MessagesModifyRequest.js";
+export * from "./MessagesModifyResponse.js";

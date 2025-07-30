@@ -1,1 +1,1 @@
-export { type FeedbackCreateRequest } from "./FeedbackCreateRequest";
+export { type FeedbackCreateRequest } from "./FeedbackCreateRequest.js";

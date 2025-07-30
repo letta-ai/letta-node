@@ -3,7 +3,7 @@
  */
 
 export interface MaxCountPerStepToolRuleSchema {
-    toolName: string;
+    tool_name: string;
     type: string;
-    maxCountLimit: number;
+    max_count_limit: number;
 }

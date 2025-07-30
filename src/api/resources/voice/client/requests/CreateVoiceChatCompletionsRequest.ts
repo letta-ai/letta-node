@@ -11,6 +11,6 @@
  *     }
  */
 export interface CreateVoiceChatCompletionsRequest {
-    userId?: string;
+    "user-id"?: string;
     body: Record<string, unknown>;
 }

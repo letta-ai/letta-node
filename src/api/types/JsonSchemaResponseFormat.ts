@@ -8,5 +8,5 @@
 export interface JsonSchemaResponseFormat {
     type: "json_schema";
     /** The JSON schema of the response. */
-    jsonSchema: Record<string, unknown>;
+    json_schema: Record<string, unknown>;
 }

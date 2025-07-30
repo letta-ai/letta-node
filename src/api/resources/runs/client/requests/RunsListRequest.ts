@@ -10,5 +10,5 @@ export interface RunsListRequest {
     /**
      * The unique identifier of the agent associated with the run.
      */
-    agentIds?: string | string[];
+    agent_ids?: string | string[];
 }

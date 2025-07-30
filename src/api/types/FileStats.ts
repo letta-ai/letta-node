@@ -7,9 +7,9 @@
  */
 export interface FileStats {
     /** Unique identifier of the file */
-    fileId: string;
+    file_id: string;
     /** Name of the file */
-    fileName: string;
+    file_name: string;
     /** Size of the file in bytes */
-    fileSize?: number;
+    file_size?: number;
 }

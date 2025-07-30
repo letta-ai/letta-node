@@ -5,5 +5,5 @@
 export interface ToolCallDelta {
     name?: string;
     arguments?: string;
-    toolCallId?: string;
+    tool_call_id?: string;
 }

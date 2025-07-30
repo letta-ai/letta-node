@@ -1,2 +1,2 @@
-export { type ClientSideAccessTokensListClientSideAccessTokensRequest } from "./ClientSideAccessTokensListClientSideAccessTokensRequest";
-export { type ClientSideAccessTokensCreateRequest } from "./ClientSideAccessTokensCreateRequest";
+export { type ClientSideAccessTokensListClientSideAccessTokensRequest } from "./ClientSideAccessTokensListClientSideAccessTokensRequest.js";
+export { type ClientSideAccessTokensCreateRequest } from "./ClientSideAccessTokensCreateRequest.js";

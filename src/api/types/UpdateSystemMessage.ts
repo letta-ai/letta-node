@@ -3,7 +3,7 @@
  */
 
 export interface UpdateSystemMessage {
-    messageType?: "system_message";
+    message_type?: "system_message";
     /** The message content sent by the system (can be a string or an array of multi-modal content parts) */
     content: string;
 }

@@ -1,2 +1,1 @@
-export * from "./TemplatesListResponseTemplatesItem";
-export * from "./TemplatesListResponse";
+export * from "./TemplatesListResponse.js";

@@ -1,1 +1,1 @@
-export * from "./MemoryVariablesListResponse";
+export * from "./MemoryVariablesListResponse.js";

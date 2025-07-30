@@ -4,13 +4,13 @@
 
 export interface GenerateToolInput {
     /** Name of the tool to generate code for */
-    toolName: string;
+    tool_name: string;
     /** User prompt to generate code */
     prompt: string;
     /** Handle of the tool to generate code for */
     handle?: string;
     /** Python source code to parse for JSON schema */
-    starterCode?: string;
+    starter_code?: string;
     /** List of validation errors */
-    validationErrors: string[];
+    validation_errors: string[];
 }

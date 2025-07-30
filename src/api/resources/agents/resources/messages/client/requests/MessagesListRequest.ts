@@ -22,21 +22,21 @@ export interface MessagesListRequest {
     /**
      * Group ID to filter messages by.
      */
-    groupId?: string;
+    group_id?: string;
     /**
      * Whether to use assistant messages
      */
-    useAssistantMessage?: boolean;
+    use_assistant_message?: boolean;
     /**
      * The name of the designated message tool.
      */
-    assistantMessageToolName?: string;
+    assistant_message_tool_name?: string;
     /**
      * The name of the message argument.
      */
-    assistantMessageToolKwarg?: string;
+    assistant_message_tool_kwarg?: string;
     /**
      * Whether to include error messages and error statuses. For debugging purposes only.
      */
-    includeErr?: boolean;
+    include_err?: boolean;
 }

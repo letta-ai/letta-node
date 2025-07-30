@@ -1,1 +1,1 @@
-export { type GetFoldersMetadataRequest } from "./GetFoldersMetadataRequest";
+export { type GetFoldersMetadataRequest } from "./GetFoldersMetadataRequest.js";

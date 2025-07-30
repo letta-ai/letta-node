@@ -11,17 +11,17 @@ export interface BlockUpdate {
     /** Character limit of the block. */
     limit?: number;
     /** The associated project id. */
-    projectId?: string;
+    project_id?: string;
     /** Name of the block if it is a template. */
     name?: string;
     /** Whether the block is a template (e.g. saved human/persona options). */
-    isTemplate?: boolean;
+    is_template?: boolean;
     /** Preserve the block on template migration. */
-    preserveOnMigration?: boolean;
+    preserve_on_migration?: boolean;
     /** Label of the block (e.g. 'human', 'persona') in the context window. */
     label?: string;
     /** Whether the agent has read-only access to the block. */
-    readOnly?: boolean;
+    read_only?: boolean;
     /** Description of the block. */
     description?: string;
     /** Metadata of the block. */

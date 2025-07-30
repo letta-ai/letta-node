@@ -1,2 +1,1 @@
-export * from "./ProjectsListResponseProjectsItem";
-export * from "./ProjectsListResponse";
+export * from "./ProjectsListResponse.js";

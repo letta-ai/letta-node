@@ -13,13 +13,13 @@
  */
 export interface SystemMessage {
     id: string;
-    date: Date;
+    date: string;
     name?: string;
-    messageType: "system_message";
+    message_type: "system_message";
     otid?: string;
-    senderId?: string;
-    stepId?: string;
-    isErr?: boolean;
+    sender_id?: string;
+    step_id?: string;
+    is_err?: boolean;
     /** The message content sent by the system */
     content: string;
 }

@@ -1,3 +1,3 @@
-export { type PassagesListRequest } from "./PassagesListRequest";
-export { type CreateArchivalMemory } from "./CreateArchivalMemory";
-export { type PassageUpdate } from "./PassageUpdate";
+export { type PassagesListRequest } from "./PassagesListRequest.js";
+export { type CreateArchivalMemory } from "./CreateArchivalMemory.js";
+export { type PassageUpdate } from "./PassageUpdate.js";

@@ -3,9 +3,9 @@
  */
 
 export interface ConditionalToolRuleSchema {
-    toolName: string;
+    tool_name: string;
     type: string;
-    defaultChild?: string;
-    childOutputMapping: Record<string, string>;
-    requireOutputMapping: boolean;
+    default_child?: string;
+    child_output_mapping: Record<string, string>;
+    require_output_mapping: boolean;
 }

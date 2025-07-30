@@ -10,5 +10,5 @@ export interface AgentsRetrieveRequest {
     /**
      * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
      */
-    includeRelationships?: string | string[];
+    include_relationships?: string | string[];
 }

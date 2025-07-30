@@ -15,19 +15,19 @@
  */
 export interface ProviderTrace {
     /** The id of the user that made this object. */
-    createdById?: string;
+    created_by_id?: string;
     /** The id of the user that made this object. */
-    lastUpdatedById?: string;
+    last_updated_by_id?: string;
     /** The timestamp when the object was created. */
-    createdAt?: Date;
+    created_at?: string;
     /** The timestamp when the object was last updated. */
-    updatedAt?: Date;
+    updated_at?: string;
     /** The human-friendly ID of the Provider_trace */
     id?: string;
     /** JSON content of the provider request */
-    requestJson: Record<string, unknown>;
+    request_json: Record<string, unknown>;
     /** JSON content of the provider response */
-    responseJson: Record<string, unknown>;
+    response_json: Record<string, unknown>;
     /** ID of the step that this trace is associated with */
-    stepId?: string;
+    step_id?: string;
 }

@@ -1,3 +1,2 @@
-export * from "./types";
-export * from "./resources";
-export * from "./client";
+export * from "./resources/index.js";
+export * from "./client/index.js";

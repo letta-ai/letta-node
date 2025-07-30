@@ -7,8 +7,8 @@
  */
 export interface TerminalToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
-    toolName: string;
+    tool_name: string;
     type: "exit_loop";
     /** Optional Jinja2 template for generating agent prompt about this tool rule. */
-    promptTemplate?: string;
+    prompt_template?: string;
 }

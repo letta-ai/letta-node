@@ -1,3 +1,3 @@
-export * from "./TemplatesCreateVersionRequestReturnAgentState";
-export * from "./TemplatesMigrateResponse";
-export * from "./TemplatesCreateResponse";
+export * from "./TemplatesCreateVersionRequestReturnAgentState.js";
+export * from "./TemplatesMigrateResponse.js";
+export * from "./TemplatesCreateResponse.js";

@@ -1,2 +1,2 @@
-export { type BodyUploadFileToSource } from "./BodyUploadFileToSource";
-export { type FilesListRequest } from "./FilesListRequest";
+export { type BodyUploadFileToSource } from "./BodyUploadFileToSource.js";
+export { type FilesListRequest } from "./FilesListRequest.js";

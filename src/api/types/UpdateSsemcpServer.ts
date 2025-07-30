@@ -7,11 +7,11 @@
  */
 export interface UpdateSsemcpServer {
     /** The name of the server */
-    serverName?: string;
+    server_name?: string;
     /** The URL of the server (MCP SSE client will connect to this URL) */
-    serverUrl?: string;
+    server_url?: string;
     /** The access token or API key for the MCP server (used for SSE authentication) */
     token?: string;
     /** Custom authentication headers as key-value pairs */
-    customHeaders?: Record<string, string | undefined>;
+    custom_headers?: Record<string, string | undefined>;
 }

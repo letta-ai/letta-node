@@ -10,5 +10,5 @@ export interface GetFileMetadataRequest {
     /**
      * Whether to include full file content
      */
-    includeContent?: boolean;
+    include_content?: boolean;
 }

@@ -1,7 +1,7 @@
-export { type AgentsListRequest } from "./AgentsListRequest";
-export { type CreateAgentRequest } from "./CreateAgentRequest";
-export { type BodyImportAgentSerialized } from "./BodyImportAgentSerialized";
-export { type AgentsRetrieveRequest } from "./AgentsRetrieveRequest";
-export { type UpdateAgent } from "./UpdateAgent";
-export { type SummarizeAgentConversationRequest } from "./SummarizeAgentConversationRequest";
-export { type AgentsSearchRequest } from "./AgentsSearchRequest";
+export { type AgentsListRequest } from "./AgentsListRequest.js";
+export { type CreateAgentRequest } from "./CreateAgentRequest.js";
+export { type BodyImportAgentSerialized } from "./BodyImportAgentSerialized.js";
+export { type AgentsRetrieveRequest } from "./AgentsRetrieveRequest.js";
+export { type UpdateAgent } from "./UpdateAgent.js";
+export { type SummarizeAgentConversationRequest } from "./SummarizeAgentConversationRequest.js";
+export { type AgentsSearchRequest } from "./AgentsSearchRequest.js";

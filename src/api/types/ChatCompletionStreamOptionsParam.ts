@@ -3,5 +3,5 @@
  */
 
 export interface ChatCompletionStreamOptionsParam {
-    includeUsage?: boolean;
+    include_usage?: boolean;
 }

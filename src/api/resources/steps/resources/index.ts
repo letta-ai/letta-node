@@ -1,2 +1,2 @@
-export * as feedback from "./feedback";
-export * from "./feedback/client/requests";
+export * as feedback from "./feedback/index.js";
+export * from "./feedback/client/requests/index.js";

@@ -18,9 +18,9 @@ export interface ListBatchMessagesRequest {
     /**
      * Filter messages by agent ID
      */
-    agentId?: string;
+    agent_id?: string;
     /**
      * Sort messages by creation time (true=newest first)
      */
-    sortDescending?: boolean;
+    sort_descending?: boolean;
 }

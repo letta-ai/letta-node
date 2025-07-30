@@ -8,7 +8,7 @@ export interface Organization {
     /** The name of the organization. */
     name?: string;
     /** The creation date of the organization. */
-    createdAt?: Date;
+    created_at?: string;
     /** Whether the organization has access to privileged tools. */
-    privilegedTools?: boolean;
+    privileged_tools?: boolean;
 }

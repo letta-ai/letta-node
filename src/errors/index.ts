@@ -1,2 +1,2 @@
-export { LettaError } from "./LettaError";
-export { LettaTimeoutError } from "./LettaTimeoutError";
+export { LettaError } from "./LettaError.js";
+export { LettaTimeoutError } from "./LettaTimeoutError.js";

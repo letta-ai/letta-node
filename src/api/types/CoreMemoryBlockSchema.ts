@@ -3,13 +3,13 @@
  */
 
 export interface CoreMemoryBlockSchema {
-    createdAt: string;
+    created_at: string;
     description?: string;
-    isTemplate: boolean;
+    is_template: boolean;
     label: string;
     limit: number;
-    metadata?: Record<string, unknown>;
-    templateName?: string;
-    updatedAt: string;
+    metadata_?: Record<string, unknown>;
+    template_name?: string;
+    updated_at: string;
     value: string;
 }

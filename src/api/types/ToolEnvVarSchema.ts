@@ -3,9 +3,9 @@
  */
 
 export interface ToolEnvVarSchema {
-    createdAt: string;
+    created_at: string;
     description?: string;
     key: string;
-    updatedAt: string;
+    updated_at: string;
     value: string;
 }

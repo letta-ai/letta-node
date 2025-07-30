@@ -1,3 +1,3 @@
-export { type GroupsListRequest } from "./GroupsListRequest";
-export { type GroupCreate } from "./GroupCreate";
-export { type GroupUpdate } from "./GroupUpdate";
+export { type GroupsListRequest } from "./GroupsListRequest.js";
+export { type GroupCreate } from "./GroupCreate.js";
+export { type GroupUpdate } from "./GroupUpdate.js";

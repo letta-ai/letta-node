@@ -4,13 +4,13 @@
 
 export interface SandboxEnvironmentVariable {
     /** The id of the user that made this object. */
-    createdById?: string;
+    created_by_id?: string;
     /** The id of the user that made this object. */
-    lastUpdatedById?: string;
+    last_updated_by_id?: string;
     /** The timestamp when the object was created. */
-    createdAt?: Date;
+    created_at?: string;
     /** The timestamp when the object was last updated. */
-    updatedAt?: Date;
+    updated_at?: string;
     /** The human-friendly ID of the Sandbox-env */
     id?: string;
     /** The name of the environment variable. */
@@ -20,5 +20,5 @@ export interface SandboxEnvironmentVariable {
     /** An optional description of the environment variable. */
     description?: string;
     /** The ID of the sandbox config this environment variable belongs to. */
-    sandboxConfigId: string;
+    sandbox_config_id: string;
 }

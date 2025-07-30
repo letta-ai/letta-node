@@ -7,5 +7,5 @@
  *     {}
  */
 export interface GetSourcesMetadataRequest {
-    includeDetailedPerSourceMetadata?: boolean;
+    include_detailed_per_source_metadata?: boolean;
 }

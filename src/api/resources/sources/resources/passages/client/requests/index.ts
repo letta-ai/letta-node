@@ -1,1 +1,1 @@
-export { type PassagesListRequest } from "./PassagesListRequest";
+export { type PassagesListRequest } from "./PassagesListRequest.js";

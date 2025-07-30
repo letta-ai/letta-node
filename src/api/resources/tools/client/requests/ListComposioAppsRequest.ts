@@ -7,5 +7,5 @@
  *     {}
  */
 export interface ListComposioAppsRequest {
-    userId?: string;
+    "user-id"?: string;
 }

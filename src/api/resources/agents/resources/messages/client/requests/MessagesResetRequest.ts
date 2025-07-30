@@ -10,5 +10,5 @@ export interface MessagesResetRequest {
     /**
      * If true, adds the default initial messages after resetting.
      */
-    addDefaultInitialMessages?: boolean;
+    add_default_initial_messages?: boolean;
 }

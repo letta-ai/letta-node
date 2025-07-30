@@ -3,7 +3,7 @@
  */
 
 export interface FileFile {
-    fileData?: string;
-    fileId?: string;
+    file_data?: string;
+    file_id?: string;
     filename?: string;
 }

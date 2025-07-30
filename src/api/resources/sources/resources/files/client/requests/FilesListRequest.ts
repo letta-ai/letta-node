@@ -18,5 +18,5 @@ export interface FilesListRequest {
     /**
      * Whether to include full file content
      */
-    includeContent?: boolean;
+    include_content?: boolean;
 }

@@ -10,7 +10,7 @@ export interface JobsListRequest {
     /**
      * Only list jobs associated with the source.
      */
-    sourceId?: string;
+    source_id?: string;
     /**
      * Cursor for pagination
      */

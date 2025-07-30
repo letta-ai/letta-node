@@ -1,3 +1,3 @@
-export * as messages from "./messages";
-export * from "./messages/types";
-export * from "./messages/client/requests";
+export * as messages from "./messages/index.js";
+export * from "./messages/types/index.js";
+export * from "./messages/client/requests/index.js";
