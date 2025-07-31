@@ -7,11 +7,11 @@
  */
 export interface AuthSchemeField {
     name: string;
-    display_name?: string;
+    displayName?: string;
     description: string;
     type: string;
     default?: string;
     required?: boolean;
-    expected_from_customer?: boolean;
-    get_current_user_endpoint?: string;
+    expectedFromCustomer?: boolean;
+    getCurrentUserEndpoint?: string;
 }

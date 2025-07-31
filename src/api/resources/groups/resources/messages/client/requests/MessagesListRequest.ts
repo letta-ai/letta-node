@@ -22,13 +22,13 @@ export interface MessagesListRequest {
     /**
      * Whether to use assistant messages
      */
-    use_assistant_message?: boolean;
+    useAssistantMessage?: boolean;
     /**
      * The name of the designated message tool.
      */
-    assistant_message_tool_name?: string;
+    assistantMessageToolName?: string;
     /**
      * The name of the message argument.
      */
-    assistant_message_tool_kwarg?: string;
+    assistantMessageToolKwarg?: string;
 }

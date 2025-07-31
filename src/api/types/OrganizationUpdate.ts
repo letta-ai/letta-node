@@ -6,5 +6,5 @@ export interface OrganizationUpdate {
     /** The name of the organization. */
     name?: string;
     /** Whether the organization has access to privileged tools. */
-    privileged_tools?: boolean;
+    privilegedTools?: boolean;
 }

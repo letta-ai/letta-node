@@ -4,5 +4,5 @@
 
 export interface UpdateReasoningMessage {
     reasoning: string;
-    message_type?: "reasoning_message";
+    messageType?: "reasoning_message";
 }

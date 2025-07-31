@@ -1,8 +1,4 @@
-import { RUNTIME } from "../runtime/index.js";
-
-export async function toReadableStream(encoder: import("form-data-encoder").FormDataEncoder) {
-    return (await import("readable-stream")).Readable.from(encoder);
-}
+import { RUNTIME } from "../runtime";
 
 export type MaybePromise<T> = Promise<T> | T;
 
@@ -102,7 +98,7 @@ export class Node18FormData implements CrossPlatformFormData {
     public async getRequest(): Promise<FormDataRequest<unknown>> {
         const encoder = new (await import("form-data-encoder")).FormDataEncoder(this.fd as any);
         return {
-            body: await toReadableStream(encoder),
+            body: (await import("readable-stream")).Readable.from(encoder),
             headers: encoder.headers,
             duplex: "half",
         };

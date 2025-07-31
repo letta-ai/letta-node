@@ -1,1 +1,1 @@
-export { type TagsListRequest } from "./TagsListRequest.js";
+export { type TagsListRequest } from "./TagsListRequest";

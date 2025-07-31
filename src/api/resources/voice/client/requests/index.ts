@@ -1,1 +1,1 @@
-export { type CreateVoiceChatCompletionsRequest } from "./CreateVoiceChatCompletionsRequest.js";
+export { type CreateVoiceChatCompletionsRequest } from "./CreateVoiceChatCompletionsRequest";

@@ -1,1 +1,1 @@
-export { type BlocksListRequest } from "./BlocksListRequest.js";
+export { type BlocksListRequest } from "./BlocksListRequest";

@@ -5,9 +5,9 @@
 export interface ToolReturnContent {
     type: "tool_return";
     /** References the ID of the ToolCallContent that initiated this tool call. */
-    tool_call_id: string;
+    toolCallId: string;
     /** The content returned by the tool execution. */
     content: string;
     /** Indicates whether the tool execution resulted in an error. */
-    is_error: boolean;
+    isError: boolean;
 }

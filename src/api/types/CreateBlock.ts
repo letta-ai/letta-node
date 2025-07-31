@@ -11,16 +11,16 @@ export interface CreateBlock {
     /** Character limit of the block. */
     limit?: number;
     /** The associated project id. */
-    project_id?: string;
+    projectId?: string;
     /** Name of the block if it is a template. */
     name?: string;
-    is_template?: boolean;
+    isTemplate?: boolean;
     /** Preserve the block on template migration. */
-    preserve_on_migration?: boolean;
+    preserveOnMigration?: boolean;
     /** Label of the block. */
     label: string;
     /** Whether the agent has read-only access to the block. */
-    read_only?: boolean;
+    readOnly?: boolean;
     /** Description of the block. */
     description?: string;
     /** Metadata of the block. */

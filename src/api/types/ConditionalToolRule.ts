@@ -7,14 +7,14 @@
  */
 export interface ConditionalToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
-    tool_name: string;
+    toolName: string;
     type: "conditional";
     /** Optional Jinja2 template for generating agent prompt about this tool rule. */
-    prompt_template?: string;
+    promptTemplate?: string;
     /** The default child tool to be called. If None, any tool can be called. */
-    default_child?: string;
+    defaultChild?: string;
     /** The output case to check for mapping */
-    child_output_mapping: Record<string, string>;
+    childOutputMapping: Record<string, string>;
     /** Whether to throw an error when output doesn't match any case */
-    require_output_mapping?: boolean;
+    requireOutputMapping?: boolean;
 }

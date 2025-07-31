@@ -7,5 +7,5 @@
  *     {}
  */
 export interface ListMcpServersRequest {
-    "user-id"?: string;
+    userId?: string;
 }

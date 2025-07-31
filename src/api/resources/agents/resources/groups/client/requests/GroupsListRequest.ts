@@ -10,5 +10,5 @@ export interface GroupsListRequest {
     /**
      * Manager type to filter groups by
      */
-    manager_type?: string;
+    managerType?: string;
 }

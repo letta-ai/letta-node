@@ -7,8 +7,8 @@
  */
 export interface RequiredBeforeExitToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
-    tool_name: string;
+    toolName: string;
     type: "required_before_exit";
     /** Optional Jinja2 template for generating agent prompt about this tool rule. */
-    prompt_template?: string;
+    promptTemplate?: string;
 }

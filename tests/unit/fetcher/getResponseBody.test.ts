@@ -1,6 +1,5 @@
 import { RUNTIME } from "../../../src/core/runtime";
 import { getResponseBody } from "../../../src/core/fetcher/getResponseBody";
-
 import { chooseStreamWrapper } from "../../../src/core/fetcher/stream-wrappers/chooseStreamWrapper";
 
 describe("Test getResponseBody", () => {

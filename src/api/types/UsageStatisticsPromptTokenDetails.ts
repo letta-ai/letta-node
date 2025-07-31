@@ -3,5 +3,5 @@
  */
 
 export interface UsageStatisticsPromptTokenDetails {
-    cached_tokens?: number;
+    cachedTokens?: number;
 }

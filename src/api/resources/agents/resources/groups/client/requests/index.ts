@@ -1,1 +1,1 @@
-export { type GroupsListRequest } from "./GroupsListRequest.js";
+export { type GroupsListRequest } from "./GroupsListRequest";

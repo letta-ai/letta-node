@@ -3,11 +3,11 @@
  */
 
 export interface DynamicManager {
-    manager_type: "dynamic";
+    managerType: "dynamic";
     /** */
-    manager_agent_id: string;
+    managerAgentId: string;
     /** */
-    termination_token?: string;
+    terminationToken?: string;
     /** */
-    max_turns?: number;
+    maxTurns?: number;
 }

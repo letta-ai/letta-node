@@ -7,10 +7,10 @@
  */
 export interface MaxCountPerStepToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
-    tool_name: string;
+    toolName: string;
     type: "max_count_per_step";
     /** Optional Jinja2 template for generating agent prompt about this tool rule. */
-    prompt_template?: string;
+    promptTemplate?: string;
     /** The max limit for the total number of times this tool can be invoked in a single step. */
-    max_count_limit: number;
+    maxCountLimit: number;
 }

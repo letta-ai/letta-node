@@ -3,7 +3,7 @@
  */
 
 export interface SupervisorManager {
-    manager_type: "supervisor";
+    managerType: "supervisor";
     /** */
-    manager_agent_id: string;
+    managerAgentId: string;
 }

@@ -7,8 +7,8 @@
  */
 export interface InitToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
-    tool_name: string;
+    toolName: string;
     type: "run_first";
     /** Optional Jinja2 template for generating agent prompt about this tool rule. Template can use variables like 'tool_name' and rule-specific attributes. */
-    prompt_template?: string;
+    promptTemplate?: string;
 }

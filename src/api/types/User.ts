@@ -16,9 +16,9 @@ export interface User {
     /** The name of the user. */
     name: string;
     /** The creation date of the user. */
-    created_at?: string;
+    createdAt?: Date;
     /** The update date of the user. */
-    updated_at?: string;
+    updatedAt?: Date;
     /** Whether this user is deleted or not. */
-    is_deleted?: boolean;
+    isDeleted?: boolean;
 }

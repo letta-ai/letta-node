@@ -5,14 +5,14 @@
 /**
  * @example
  *     {
- *         api_key: "api_key"
+ *         apiKey: "api_key"
  *     }
  */
 export interface ProviderUpdate {
     /** API key or secret key used for requests to the provider. */
-    api_key: string;
+    apiKey: string;
     /** Access key used for requests to the provider. */
-    access_key?: string;
+    accessKey?: string;
     /** Region used for requests to the provider. */
     region?: string;
 }

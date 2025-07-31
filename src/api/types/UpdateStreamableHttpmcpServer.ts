@@ -7,13 +7,13 @@
  */
 export interface UpdateStreamableHttpmcpServer {
     /** The name of the server */
-    server_name?: string;
+    serverName?: string;
     /** The URL path for the streamable HTTP server (e.g., 'example/mcp') */
-    server_url?: string;
+    serverUrl?: string;
     /** The name of the authentication header (e.g., 'Authorization') */
-    auth_header?: string;
+    authHeader?: string;
     /** The authentication token or API key value */
-    auth_token?: string;
+    authToken?: string;
     /** Custom authentication headers as key-value pairs */
-    custom_headers?: Record<string, string | undefined>;
+    customHeaders?: Record<string, string | undefined>;
 }

@@ -354,7 +354,7 @@ Create a new tool
 
 ```typescript
 await client.tools.create({
-    source_code: "source_code",
+    sourceCode: "source_code",
 });
 ```
 
@@ -419,7 +419,7 @@ Create or update a tool
 
 ```typescript
 await client.tools.upsert({
-    source_code: "source_code",
+    sourceCode: "source_code",
 });
 ```
 
@@ -539,7 +539,7 @@ Attempt to build a tool from source, then run it on the provided arguments
 
 ```typescript
 await client.tools.runToolFromSource({
-    source_code: "source_code",
+    sourceCode: "source_code",
     args: {
         key: "value",
     },
@@ -859,7 +859,7 @@ Add a new MCP server to the Letta MCP server config
 
 ```typescript
 await client.tools.addMcpServer({
-    server_name: "server_name",
+    serverName: "server_name",
     command: "command",
     args: ["args"],
 });
@@ -1195,7 +1195,7 @@ Returns the list of available tools if successful.
 
 ```typescript
 await client.tools.testMcpServer({
-    server_name: "server_name",
+    serverName: "server_name",
     command: "command",
     args: ["args"],
 });
@@ -1263,7 +1263,7 @@ Returns a stream of events handling authorization state and exchange if OAuth is
 
 ```typescript
 const response = await client.tools.connectMcpServer({
-    server_name: "server_name",
+    serverName: "server_name",
     command: "command",
     args: ["args"],
 });
@@ -2770,7 +2770,7 @@ await client.agents.exportFile("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">importFile</a>({ ...params }) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">importFile</a>(file, { ...params }) -> Letta.AgentState</code></summary>
 <dl>
 <dd>
 
@@ -2798,9 +2798,7 @@ Import a serialized agent file and recreate the agent in the system.
 <dd>
 
 ```typescript
-await client.agents.importFile({
-    file: fs.createReadStream("/path/to/your/file"),
-});
+await client.agents.importFile(fs.createReadStream("/path/to/your/file"), {});
 ```
 
 </dd>
@@ -2812,6 +2810,14 @@ await client.agents.importFile({
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**file:** `File | fs.ReadStream | Blob`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -3072,7 +3078,7 @@ truncating and compressing it down to the specified `max_message_length`.
 
 ```typescript
 await client.agents.summarizeAgentConversation("agent_id", {
-    max_message_length: 1,
+    maxMessageLength: 1,
 });
 ```
 
@@ -3275,7 +3281,7 @@ Create a new multi-agent group with the specified configuration.
 
 ```typescript
 await client.groups.create({
-    agent_ids: ["agent_ids"],
+    agentIds: ["agent_ids"],
     description: "description",
 });
 ```
@@ -3643,9 +3649,9 @@ await client.identities.list();
 
 ```typescript
 await client.identities.create({
-    identifier_key: "identifier_key",
+    identifierKey: "identifier_key",
     name: "name",
-    identity_type: "org",
+    identityType: "org",
 });
 ```
 
@@ -3695,9 +3701,9 @@ await client.identities.create({
 
 ```typescript
 await client.identities.upsert({
-    identifier_key: "identifier_key",
+    identifierKey: "identifier_key",
     name: "name",
-    identity_type: "org",
+    identityType: "org",
 });
 ```
 
@@ -4843,8 +4849,8 @@ Create a new custom provider
 ```typescript
 await client.providers.create({
     name: "name",
-    provider_type: "anthropic",
-    api_key: "api_key",
+    providerType: "anthropic",
+    apiKey: "api_key",
 });
 ```
 
@@ -4972,7 +4978,7 @@ Update an existing custom provider
 
 ```typescript
 await client.providers.modify("provider_id", {
-    api_key: "api_key",
+    apiKey: "api_key",
 });
 ```
 
@@ -5654,7 +5660,7 @@ await client.batches.create({
                     ],
                 },
             ],
-            agent_id: "agent_id",
+            agentId: "agent_id",
         },
     ],
 });
@@ -8747,8 +8753,8 @@ Migrate an agent to a new versioned agent template.
 
 ```typescript
 await client.agents.templates.migrate("agent_id", {
-    to_template: "to_template",
-    preserve_core_memories: true,
+    toTemplate: "to_template",
+    preserveCoreMemories: true,
 });
 ```
 
@@ -9008,7 +9014,7 @@ await client.blocks.agents.list("block_id");
 
 ## Folders Files
 
-<details><summary><code>client.folders.files.<a href="/src/api/resources/folders/resources/files/client/Client.ts">upload</a>(folderId, { ...params }) -> Letta.FileMetadata</code></summary>
+<details><summary><code>client.folders.files.<a href="/src/api/resources/folders/resources/files/client/Client.ts">upload</a>(file, folderId, { ...params }) -> Letta.FileMetadata</code></summary>
 <dl>
 <dd>
 
@@ -9036,9 +9042,7 @@ Upload a file to a data folder.
 <dd>
 
 ```typescript
-await client.folders.files.upload("folder_id", {
-    file: fs.createReadStream("/path/to/your/file"),
-});
+await client.folders.files.upload(fs.createReadStream("/path/to/your/file"), "folder_id", {});
 ```
 
 </dd>
@@ -9050,6 +9054,14 @@ await client.folders.files.upload("folder_id", {
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**file:** `File | fs.ReadStream | Blob`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -9985,7 +9997,7 @@ await client.runs.steps.list("run_id");
 
 ## Sources Files
 
-<details><summary><code>client.sources.files.<a href="/src/api/resources/sources/resources/files/client/Client.ts">upload</a>(sourceId, { ...params }) -> Letta.FileMetadata</code></summary>
+<details><summary><code>client.sources.files.<a href="/src/api/resources/sources/resources/files/client/Client.ts">upload</a>(file, sourceId, { ...params }) -> Letta.FileMetadata</code></summary>
 <dl>
 <dd>
 
@@ -10013,9 +10025,7 @@ Upload a file to a data source.
 <dd>
 
 ```typescript
-await client.sources.files.upload("source_id", {
-    file: fs.createReadStream("/path/to/your/file"),
-});
+await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id", {});
 ```
 
 </dd>
@@ -10027,6 +10037,14 @@ await client.sources.files.upload("source_id", {
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**file:** `File | fs.ReadStream | Blob`
+
+</dd>
+</dl>
 
 <dl>
 <dd>

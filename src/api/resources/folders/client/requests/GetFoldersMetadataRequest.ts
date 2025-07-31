@@ -7,5 +7,5 @@
  *     {}
  */
 export interface GetFoldersMetadataRequest {
-    include_detailed_per_source_metadata?: boolean;
+    includeDetailedPerSourceMetadata?: boolean;
 }

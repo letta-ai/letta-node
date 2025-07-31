@@ -6,5 +6,5 @@ export interface ModalSandboxConfig {
     /** Time limit for the sandbox (in seconds). */
     timeout?: number;
     /** A list of pip packages to install in the Modal sandbox */
-    pip_requirements?: string[];
+    pipRequirements?: string[];
 }

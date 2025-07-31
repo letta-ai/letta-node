@@ -3,7 +3,7 @@
  */
 
 export interface ChildToolRuleSchema {
-    tool_name: string;
+    toolName: string;
     type: string;
     children: string[];
 }

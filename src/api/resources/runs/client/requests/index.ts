@@ -1,2 +1,2 @@
-export { type RunsListRequest } from "./RunsListRequest.js";
-export { type RunsListActiveRequest } from "./RunsListActiveRequest.js";
+export { type RunsListRequest } from "./RunsListRequest";
+export { type RunsListActiveRequest } from "./RunsListActiveRequest";

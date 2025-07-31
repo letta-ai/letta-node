@@ -1,13 +1,12 @@
-import { toJson } from "../json.js";
-import { APIResponse } from "./APIResponse.js";
-import { abortRawResponse, toRawResponse, unknownRawResponse } from "./RawResponse.js";
-import { Supplier } from "./Supplier.js";
-import { createRequestUrl } from "./createRequestUrl.js";
-import { getFetchFn } from "./getFetchFn.js";
-import { getRequestBody } from "./getRequestBody.js";
-import { getResponseBody } from "./getResponseBody.js";
-import { makeRequest } from "./makeRequest.js";
-import { requestWithRetries } from "./requestWithRetries.js";
+import { toJson } from "../json";
+import { APIResponse } from "./APIResponse";
+import { abortRawResponse, toRawResponse, unknownRawResponse } from "./RawResponse";
+import { createRequestUrl } from "./createRequestUrl";
+import { getFetchFn } from "./getFetchFn";
+import { getRequestBody } from "./getRequestBody";
+import { getResponseBody } from "./getResponseBody";
+import { makeRequest } from "./makeRequest";
+import { requestWithRetries } from "./requestWithRetries";
 
 export type FetchFunction = <R = unknown>(args: Fetcher.Args) => Promise<APIResponse<R, Fetcher.Error>>;
 
@@ -16,7 +15,7 @@ export declare namespace Fetcher {
         url: string;
         method: string;
         contentType?: string;
-        headers?: Record<string, string | Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | undefined>;
         queryParameters?: Record<string, string | string[] | object | object[] | null>;
         body?: unknown;
         timeoutMs?: number;
@@ -24,7 +23,7 @@ export declare namespace Fetcher {
         withCredentials?: boolean;
         abortSignal?: AbortSignal;
         requestType?: "json" | "file" | "bytes";
-        responseType?: "json" | "blob" | "sse" | "streaming" | "text" | "arrayBuffer" | "binary-response";
+        responseType?: "json" | "blob" | "sse" | "streaming" | "text" | "arrayBuffer";
         duplex?: "half";
     }
 
@@ -52,31 +51,20 @@ export declare namespace Fetcher {
     }
 }
 
-async function getHeaders(args: Fetcher.Args): Promise<Record<string, string>> {
-    const newHeaders: Record<string, string> = {};
-    if (args.body !== undefined && args.contentType != null) {
-        newHeaders["Content-Type"] = args.contentType;
-    }
-
-    if (args.headers == null) {
-        return newHeaders;
-    }
-
-    for (const [key, value] of Object.entries(args.headers)) {
-        const result = await Supplier.get(value);
-        if (typeof result === "string") {
-            newHeaders[key] = result;
-            continue;
-        }
-        if (result == null) {
-            continue;
-        }
-        newHeaders[key] = `${result}`;
-    }
-    return newHeaders;
-}
-
 export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse<R, Fetcher.Error>> {
+    const headers: Record<string, string> = {};
+    if (args.body !== undefined && args.contentType != null) {
+        headers["Content-Type"] = args.contentType;
+    }
+
+    if (args.headers != null) {
+        for (const [key, value] of Object.entries(args.headers)) {
+            if (value != null) {
+                headers[key] = value;
+            }
+        }
+    }
+
     const url = createRequestUrl(args.url, args.queryParameters);
     const requestBody: BodyInit | undefined = await getRequestBody({
         body: args.body,
@@ -91,7 +79,7 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                     fetchFn,
                     url,
                     args.method,
-                    await getHeaders(args),
+                    headers,
                     requestBody,
                     args.timeoutMs,
                     args.abortSignal,

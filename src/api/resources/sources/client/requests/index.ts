@@ -1,2 +1,2 @@
-export { type GetSourcesMetadataRequest } from "./GetSourcesMetadataRequest.js";
-export { type GetFileMetadataRequest } from "./GetFileMetadataRequest.js";
+export { type GetSourcesMetadataRequest } from "./GetSourcesMetadataRequest";
+export { type GetFileMetadataRequest } from "./GetFileMetadataRequest";

@@ -3,5 +3,5 @@
  */
 
 export interface UsageStatisticsCompletionTokenDetails {
-    reasoning_tokens?: number;
+    reasoningTokens?: number;
 }

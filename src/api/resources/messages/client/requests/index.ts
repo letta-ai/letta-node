@@ -1,1 +1,1 @@
-export { type ListBatchMessagesRequest } from "./ListBatchMessagesRequest.js";
+export { type ListBatchMessagesRequest } from "./ListBatchMessagesRequest";

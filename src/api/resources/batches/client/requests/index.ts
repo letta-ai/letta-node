@@ -1,1 +1,1 @@
-export { type CreateBatch } from "./CreateBatch.js";
+export { type CreateBatch } from "./CreateBatch";

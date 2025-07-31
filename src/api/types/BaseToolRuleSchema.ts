@@ -3,6 +3,6 @@
  */
 
 export interface BaseToolRuleSchema {
-    tool_name: string;
+    toolName: string;
     type: string;
 }

@@ -1,3 +1,3 @@
-export { type ProvidersListRequest } from "./ProvidersListRequest.js";
-export { type ProviderCreate } from "./ProviderCreate.js";
-export { type ProviderUpdate } from "./ProviderUpdate.js";
+export { type ProvidersListRequest } from "./ProvidersListRequest";
+export { type ProviderCreate } from "./ProviderCreate";
+export { type ProviderUpdate } from "./ProviderUpdate";

@@ -7,10 +7,10 @@
  */
 export interface ParentToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
-    tool_name: string;
+    toolName: string;
     type: "parent_last_tool";
     /** Optional Jinja2 template for generating agent prompt about this tool rule. */
-    prompt_template?: string;
+    promptTemplate?: string;
     /** The children tools that can be invoked. */
     children: string[];
 }

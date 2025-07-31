@@ -3,11 +3,11 @@
  */
 
 export interface VoiceSleeptimeManagerUpdate {
-    manager_type: "voice_sleeptime";
+    managerType: "voice_sleeptime";
     /** */
-    manager_agent_id?: string;
+    managerAgentId?: string;
     /** The desired maximum length of messages in the context window of the convo agent. This is a best effort, and may be off slightly due to user/assistant interleaving. */
-    max_message_buffer_length?: number;
+    maxMessageBufferLength?: number;
     /** The desired minimum length of messages in the context window of the convo agent. This is a best effort, and may be off-by-one due to user/assistant interleaving. */
-    min_message_buffer_length?: number;
+    minMessageBufferLength?: number;
 }

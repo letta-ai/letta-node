@@ -9,5 +9,5 @@
 export interface TagsListRequest {
     after?: string;
     limit?: number;
-    query_text?: string;
+    queryText?: string;
 }

@@ -14,7 +14,7 @@ export interface BlocksListRequest {
     /**
      * Whether to include only templates
      */
-    templates_only?: boolean;
+    templatesOnly?: boolean;
     /**
      * Name of the block
      */
@@ -22,15 +22,15 @@ export interface BlocksListRequest {
     /**
      * Search agents by identifier id
      */
-    identity_id?: string;
+    identityId?: string;
     /**
      * Search agents by identifier keys
      */
-    identifier_keys?: string | string[];
+    identifierKeys?: string | string[];
     /**
      * Search blocks by project id
      */
-    project_id?: string;
+    projectId?: string;
     /**
      * Number of blocks to return
      */
@@ -46,25 +46,25 @@ export interface BlocksListRequest {
     /**
      * Search blocks by label. If provided, returns blocks that match this label. This is a full-text search on labels.
      */
-    label_search?: string;
+    labelSearch?: string;
     /**
      * Search blocks by description. If provided, returns blocks that match this description. This is a full-text search on block descriptions.
      */
-    description_search?: string;
+    descriptionSearch?: string;
     /**
      * Search blocks by value. If provided, returns blocks that match this value.
      */
-    value_search?: string;
+    valueSearch?: string;
     /**
      * Filter blocks by the number of connected agents. If provided, returns blocks that have more than this number of connected agents.
      */
-    connected_to_agents_count_gt?: number;
+    connectedToAgentsCountGt?: number;
     /**
      * Filter blocks by the number of connected agents. If provided, returns blocks that have less than this number of connected agents.
      */
-    connected_to_agents_count_lt?: number;
+    connectedToAgentsCountLt?: number;
     /**
      * Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents.
      */
-    connected_to_agents_count_eq?: number | number[];
+    connectedToAgentsCountEq?: number | number[];
 }

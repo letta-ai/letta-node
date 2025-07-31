@@ -1,1 +1,1 @@
-export { type AgentsCreateRequest } from "./AgentsCreateRequest.js";
+export { type AgentsCreateRequest } from "./AgentsCreateRequest";

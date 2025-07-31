@@ -1,1 +1,1 @@
-export { type StepsListRequest } from "./StepsListRequest.js";
+export { type StepsListRequest } from "./StepsListRequest";

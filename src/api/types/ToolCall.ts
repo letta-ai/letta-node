@@ -5,5 +5,5 @@
 export interface ToolCall {
     name: string;
     arguments: string;
-    tool_call_id: string;
+    toolCallId: string;
 }

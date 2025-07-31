@@ -8,5 +8,5 @@ export interface E2BSandboxConfig {
     /** The E2B template id (docker image). */
     template?: string;
     /** A list of pip packages to install on the E2B Sandbox */
-    pip_requirements?: string[];
+    pipRequirements?: string[];
 }

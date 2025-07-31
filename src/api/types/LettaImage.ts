@@ -5,9 +5,9 @@
 export interface LettaImage {
     type: "letta";
     /** The unique identifier of the image file persisted in storage. */
-    file_id: string;
+    fileId: string;
     /** The media type for the image. */
-    media_type?: string;
+    mediaType?: string;
     /** The base64 encoded image data. */
     data?: string;
     /** What level of detail to use when processing and understanding the image (low, high, or auto to let the model decide) */

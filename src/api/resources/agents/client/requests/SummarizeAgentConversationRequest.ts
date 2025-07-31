@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         max_message_length: 1
+ *         maxMessageLength: 1
  *     }
  */
 export interface SummarizeAgentConversationRequest {
     /**
      * Maximum number of messages to retain after summarization.
      */
-    max_message_length: number;
+    maxMessageLength: number;
 }

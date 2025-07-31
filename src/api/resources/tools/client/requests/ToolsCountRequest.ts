@@ -10,5 +10,5 @@ export interface ToolsCountRequest {
     /**
      * Include built-in Letta tools in the count
      */
-    include_base_tools?: boolean;
+    includeBaseTools?: boolean;
 }
