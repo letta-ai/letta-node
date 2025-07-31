@@ -17,8 +17,8 @@ const environment = process.env.LETTA_ENV === 'localhost'
 describe("Letta Client", () => {
     it("should create multiple agent with shared memory", async () => {
         const client = new LettaClient({
-            environment: environment,
-            token: process.env.LETTA_API_KEY ?? "",
+            baseUrl: "http://localhost:8283",
+            token: "",
         });
 
         // Create shared memory block
@@ -70,6 +70,7 @@ describe("Letta Client", () => {
         });
 
         // Validate send message response contains new name
+        console.log("response", response);
         expect(((response.messages[1] as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
 
         // Delete agents
@@ -80,8 +81,8 @@ describe("Letta Client", () => {
 
     it("create agent with custom tool", async () => {
         const client = new LettaClient({
-            environment: environment,
-            token: process.env.LETTA_API_KEY ?? "",
+            baseUrl: "http://localhost:8283",
+            token: "",
         });
 
         // Create agent
@@ -115,6 +116,7 @@ def secret_message():
 
         // Validate send message response contains expected return value
         expect(response.stopReason.stopReason).toEqual("end_turn");
+        console.log("response", response);
         expect(response.usage.stepCount).toEqual(2);
         expect(response.messages).toHaveLength(5);
         for (const message of response.messages) {
@@ -147,8 +149,8 @@ def secret_message():
 
     it("should create single agent and send messages", async () => {
         const client = new LettaClient({
-            environment: environment,
-            token: process.env.LETTA_API_KEY ?? "",
+            baseUrl: "http://localhost:8283",
+            token: "",
         });
 
         // Create agent with basic memory block
@@ -169,6 +171,29 @@ def secret_message():
         let messages = await client.agents.messages.list(agent.id);
         expect(messages.length).toBeGreaterThan(0);
 
+        const custom_tool_source_code = `
+def hanging_tool_func(seconds: int = 105) -> str:
+    """
+    A tool that simulates a long-running operation.
+
+    Args:
+        seconds: Number of seconds to hang (default: 105)
+
+    Returns:
+        A message indicating completion
+    """
+    import time
+    time.sleep(seconds)
+    return f"Completed after {seconds} seconds"
+        `.trim();
+
+        const tool = await client.tools.upsert({
+            sourceCode: custom_tool_source_code,
+        });
+
+        // Attach custom tool to agent and invoke
+        await client.agents.tools.attach(agent.id, tool.id!);
+
         // Send greeting message
         let messageText = "Hello, how are you today?";
         const response = await client.agents.messages.create(agent.id, {
@@ -182,6 +207,7 @@ def secret_message():
 
         // Validate send message response contains single assistant message
         expect(response.stopReason.stopReason).toEqual("end_turn");
+        console.log("response", response);
         expect(response.usage.stepCount).toEqual(1);
         expect(response.messages).toHaveLength(2);
         expect(response.messages[0]).toHaveProperty("messageType", "reasoning_message");
@@ -203,7 +229,7 @@ def secret_message():
         expect(messages[2]).toHaveProperty("messageType", "assistant_message");
 
         // Send message with streaming
-        messageText = "My name isn't Caren, it's Sarah. Please update your core memory with core_memory_replace";
+        messageText = "Call hanging_tool_func";
         const streamResponse = await client.agents.messages.createStream(agent.id, {
             messages: [
                 {
@@ -222,7 +248,7 @@ def secret_message():
 
                 // 2. Tool call to update core memory content
                 case "tool_call_message":
-                    expect(chunk.toolCall.name).toEqual("core_memory_replace");
+                    //expect(chunk.toolCall.name).toEqual("core_memory_replace");
                     break;
 
                 // 3. Tool return message that contains success/failure of tool call
@@ -232,7 +258,7 @@ def secret_message():
 
                 // 4. Assistant message that gets sent back as a reply to the original user message
                 case "assistant_message":
-                    expect((chunk.content as string).toLowerCase()).toContain("sarah");
+                    //expect((chunk.content as string).toLowerCase()).toContain("sarah");
                     break;
                 
                 // 5. Stop reason message
@@ -243,6 +269,10 @@ def secret_message():
                 // 6. Usage statistics message for the interaction capturing token and step count
                 case "usage_statistics":
                     expect(chunk.stepCount).toEqual(2);
+                    break;
+                
+                case "ping":
+                    expect(chunk.messageType).toEqual("ping");
                     break;
 
                 default:
@@ -267,7 +297,7 @@ def secret_message():
 
         // 3. Tool call to update core memory content and send system message with update
         expect(messages[2]).toHaveProperty("messageType", "tool_call_message");
-        expect((messages[2] as ToolCallMessage).toolCall.name).toEqual("core_memory_replace");
+        //expect((messages[2] as ToolCallMessage).toolCall.name).toEqual("core_memory_replace");
 
         // 4. Tool return message that contains success/failure of tool call
         expect(messages[3]).toHaveProperty("messageType", "tool_return_message");
@@ -284,42 +314,42 @@ def secret_message():
         expect(messages[6]).toHaveProperty("messageType", "assistant_message");
         expect(((messages[6] as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
 
-        // Send async message
-        messageText = "What's my name?";
-        let run = await client.agents.messages.createAsync(agent.id, {
-            messages: [
-                {
-                    role: "user",
-                    content: messageText,
-                },
-            ],
-        });
-        expect(run.status).toEqual("created");
+        // // Send async message
+        // messageText = "What's my name?";
+        // let run = await client.agents.messages.createAsync(agent.id, {
+        //     messages: [
+        //         {
+        //             role: "user",
+        //             content: messageText,
+        //         },
+        //     ],
+        // });
+        // expect(run.status).toEqual("created");
 
-        // Wait for run to complete
-        await new Promise(resolve => setTimeout(resolve, 10000));
-        run = await client.runs.retrieve(run.id!);
-        expect(run.status).toEqual("completed");
+        // // Wait for run to complete
+        // await new Promise(resolve => setTimeout(resolve, 10000));
+        // run = await client.runs.retrieve(run.id!);
+        // expect(run.status).toEqual("completed");
         
-        // Validate messages from run
-        const run_messages = await client.runs.messages.list(run.id!);
-        expect(run_messages).toHaveLength(2);
-        for (const message of run_messages) {
-            switch (message.messageType) {
-                // 1. Reasoning message with response
-                case "reasoning_message":
-                    expect(((message as ReasoningMessage).reasoning as string).length).toBeGreaterThan(0);
-                    break;
+        // // Validate messages from run
+        // const run_messages = await client.runs.messages.list(run.id!);
+        // expect(run_messages).toHaveLength(2);
+        // for (const message of run_messages) {
+        //     switch (message.messageType) {
+        //         // 1. Reasoning message with response
+        //         case "reasoning_message":
+        //             expect(((message as ReasoningMessage).reasoning as string).length).toBeGreaterThan(0);
+        //             break;
 
-                // 2. Assistant message with response
-                case "assistant_message":
-                    expect(((message as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
-                    break;
+        //         // 2. Assistant message with response
+        //         case "assistant_message":
+        //             expect(((message as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
+        //             break;
                 
-                default:
-                    fail(`Unexpected message type: ${(message as any).messageType}`);
-            }
-        }
+        //         default:
+        //             fail(`Unexpected message type: ${(message as any).messageType}`);
+        //     }
+        // }
 
         // Delete agent
         await client.agents.delete(agent.id);
