@@ -47,7 +47,7 @@ describe("Letta Client", () => {
             messages: [
                 {
                     role: "user",
-                    content: "My name isn't Caren, it's Sarah. Please update your core memory with core_memory_replace",
+                    content: "My name isn't Caren, it's Sarah. Please update your core memory with memory_replace",
                 },
             ],
         });
@@ -203,7 +203,7 @@ def secret_message():
         expect(messages[2]).toHaveProperty("messageType", "assistant_message");
 
         // Send message with streaming
-        messageText = "My name isn't Caren, it's Sarah. Please update your core memory with core_memory_replace";
+        messageText = "My name isn't Caren, it's Sarah. Please update your core memory with memory_replace";
         const streamResponse = await client.agents.messages.createStream(agent.id, {
             messages: [
                 {
@@ -222,7 +222,7 @@ def secret_message():
 
                 // 2. Tool call to update core memory content
                 case "tool_call_message":
-                    expect(chunk.toolCall.name).toEqual("core_memory_replace");
+                    expect(chunk.toolCall.name).toEqual("memory_replace");
                     break;
 
                 // 3. Tool return message that contains success/failure of tool call
@@ -267,7 +267,7 @@ def secret_message():
 
         // 3. Tool call to update core memory content and send system message with update
         expect(messages[2]).toHaveProperty("messageType", "tool_call_message");
-        expect((messages[2] as ToolCallMessage).toolCall.name).toEqual("core_memory_replace");
+        expect((messages[2] as ToolCallMessage).toolCall.name).toEqual("memory_replace");
 
         // 4. Tool return message that contains success/failure of tool call
         expect(messages[3]).toHaveProperty("messageType", "tool_return_message");
