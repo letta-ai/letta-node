@@ -7,20 +7,14 @@
  *     {}
  */
 export interface BodyImportAgentSerialized {
-    /**
-     * If set to True, appends "_copy" to the end of the agent name.
-     */
+    /** If set to True, appends "_copy" to the end of the agent name. */
     appendCopySuffix?: boolean;
-    /**
-     * If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.
-     */
+    /** If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally. */
     overrideExistingTools?: boolean;
-    /**
-     * The project ID to associate the uploaded agent with.
-     */
+    /** The project ID to associate the uploaded agent with. */
     projectId?: string;
-    /**
-     * If set to True, strips all messages from the agent before importing.
-     */
+    /** If set to True, strips all messages from the agent before importing. */
     stripMessages?: boolean;
+    /** Environment variables to pass to the agent for tool execution. */
+    envVars?: Record<string, unknown>;
 }
