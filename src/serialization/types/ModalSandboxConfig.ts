@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { ModalSandboxConfigLanguage } from "./ModalSandboxConfigLanguage";
 
 export const ModalSandboxConfig: core.serialization.ObjectSchema<
     serializers.ModalSandboxConfig.Raw,
@@ -15,11 +16,18 @@ export const ModalSandboxConfig: core.serialization.ObjectSchema<
         "pip_requirements",
         core.serialization.list(core.serialization.string()).optional(),
     ),
+    npmRequirements: core.serialization.property(
+        "npm_requirements",
+        core.serialization.list(core.serialization.string()).optional(),
+    ),
+    language: ModalSandboxConfigLanguage.optional(),
 });
 
 export declare namespace ModalSandboxConfig {
     export interface Raw {
         timeout?: number | null;
         pip_requirements?: string[] | null;
+        npm_requirements?: string[] | null;
+        language?: ModalSandboxConfigLanguage.Raw | null;
     }
 }

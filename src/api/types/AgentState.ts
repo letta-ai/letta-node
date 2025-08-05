@@ -83,4 +83,6 @@ export interface AgentState {
     maxFilesOpen?: number;
     /** The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent. */
     perFileViewWindowCharLimit?: number;
+    /** If set to True, the agent will be hidden. */
+    hidden?: boolean;
 }

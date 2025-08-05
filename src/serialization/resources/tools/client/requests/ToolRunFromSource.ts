@@ -6,6 +6,7 @@ import * as serializers from "../../../../index";
 import * as Letta from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { PipRequirement } from "../../../../types/PipRequirement";
+import { NpmRequirement } from "../../../../types/NpmRequirement";
 
 export const ToolRunFromSource: core.serialization.Schema<serializers.ToolRunFromSource.Raw, Letta.ToolRunFromSource> =
     core.serialization.object({
@@ -29,6 +30,10 @@ export const ToolRunFromSource: core.serialization.Schema<serializers.ToolRunFro
             "pip_requirements",
             core.serialization.list(PipRequirement).optional(),
         ),
+        npmRequirements: core.serialization.property(
+            "npm_requirements",
+            core.serialization.list(NpmRequirement).optional(),
+        ),
     });
 
 export declare namespace ToolRunFromSource {
@@ -41,5 +46,6 @@ export declare namespace ToolRunFromSource {
         args_json_schema?: Record<string, unknown> | null;
         json_schema?: Record<string, unknown> | null;
         pip_requirements?: PipRequirement.Raw[] | null;
+        npm_requirements?: NpmRequirement.Raw[] | null;
     }
 }

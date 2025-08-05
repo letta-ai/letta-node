@@ -37,6 +37,8 @@ export interface Tool {
     returnCharLimit?: number;
     /** Optional list of pip packages required by this tool. */
     pipRequirements?: Letta.PipRequirement[];
+    /** Optional list of npm packages required by this tool. */
+    npmRequirements?: Letta.NpmRequirement[];
     /** The id of the user that made this Tool. */
     createdById?: string;
     /** The id of the user that made this Tool. */

@@ -21,8 +21,8 @@ export interface PassageUpdate {
     updatedAt?: Date;
     /** Whether this passage is deleted or not. */
     isDeleted?: boolean;
-    /** The unique identifier of the agent associated with the passage. */
-    passageUpdateAgentId?: string;
+    /** The unique identifier of the archive containing this passage. */
+    archiveId?: string;
     /** The data source of the passage. */
     sourceId?: string;
     /** The unique identifier of the file associated with the passage. */

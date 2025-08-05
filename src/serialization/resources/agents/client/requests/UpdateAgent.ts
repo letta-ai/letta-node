@@ -66,6 +66,7 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
             "per_file_view_window_char_limit",
             core.serialization.number().optional(),
         ),
+        hidden: core.serialization.boolean().optional(),
     });
 
 export declare namespace UpdateAgent {
@@ -97,5 +98,6 @@ export declare namespace UpdateAgent {
         timezone?: string | null;
         max_files_open?: number | null;
         per_file_view_window_char_limit?: number | null;
+        hidden?: boolean | null;
     }
 }

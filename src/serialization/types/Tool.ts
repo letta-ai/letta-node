@@ -7,6 +7,7 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { ToolType } from "./ToolType";
 import { PipRequirement } from "./PipRequirement";
+import { NpmRequirement } from "./NpmRequirement";
 
 export const Tool: core.serialization.ObjectSchema<serializers.Tool.Raw, Letta.Tool> = core.serialization.object({
     id: core.serialization.string().optional(),
@@ -29,6 +30,10 @@ export const Tool: core.serialization.ObjectSchema<serializers.Tool.Raw, Letta.T
         "pip_requirements",
         core.serialization.list(PipRequirement).optional(),
     ),
+    npmRequirements: core.serialization.property(
+        "npm_requirements",
+        core.serialization.list(NpmRequirement).optional(),
+    ),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
     metadata: core.serialization.property(
@@ -50,6 +55,7 @@ export declare namespace Tool {
         args_json_schema?: Record<string, unknown> | null;
         return_char_limit?: number | null;
         pip_requirements?: PipRequirement.Raw[] | null;
+        npm_requirements?: NpmRequirement.Raw[] | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         metadata_?: Record<string, unknown> | null;

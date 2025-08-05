@@ -68,6 +68,7 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
             "per_file_view_window_char_limit",
             core.serialization.number().optional(),
         ),
+        hidden: core.serialization.boolean().optional(),
     });
 
 export declare namespace AgentState {
@@ -104,5 +105,6 @@ export declare namespace AgentState {
         timezone?: string | null;
         max_files_open?: number | null;
         per_file_view_window_char_limit?: number | null;
+        hidden?: boolean | null;
     }
 }

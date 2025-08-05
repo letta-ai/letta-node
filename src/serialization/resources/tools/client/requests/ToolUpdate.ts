@@ -6,6 +6,7 @@ import * as serializers from "../../../../index";
 import * as Letta from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { PipRequirement } from "../../../../types/PipRequirement";
+import { NpmRequirement } from "../../../../types/NpmRequirement";
 
 export const ToolUpdate: core.serialization.Schema<serializers.ToolUpdate.Raw, Letta.ToolUpdate> =
     core.serialization.object({
@@ -26,6 +27,10 @@ export const ToolUpdate: core.serialization.Schema<serializers.ToolUpdate.Raw, L
             "pip_requirements",
             core.serialization.list(PipRequirement).optional(),
         ),
+        npmRequirements: core.serialization.property(
+            "npm_requirements",
+            core.serialization.list(NpmRequirement).optional(),
+        ),
     });
 
 export declare namespace ToolUpdate {
@@ -38,5 +43,6 @@ export declare namespace ToolUpdate {
         args_json_schema?: Record<string, unknown> | null;
         return_char_limit?: number | null;
         pip_requirements?: PipRequirement.Raw[] | null;
+        npm_requirements?: NpmRequirement.Raw[] | null;
     }
 }

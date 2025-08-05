@@ -16,6 +16,7 @@ export const ToolType: core.serialization.Schema<serializers.ToolType.Raw, Letta
     "letta_builtin",
     "letta_files_core",
     "external_composio",
+    "external_langchain",
     "external_mcp",
 ]);
 
@@ -30,5 +31,6 @@ export declare namespace ToolType {
         | "letta_builtin"
         | "letta_files_core"
         | "external_composio"
+        | "external_langchain"
         | "external_mcp";
 }

@@ -30,4 +30,6 @@ export interface ToolRunFromSource {
     jsonSchema?: Record<string, unknown>;
     /** Optional list of pip packages required by this tool. */
     pipRequirements?: Letta.PipRequirement[];
+    /** Optional list of npm packages required by this tool. */
+    npmRequirements?: Letta.NpmRequirement[];
 }

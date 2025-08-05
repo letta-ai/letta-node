@@ -16,7 +16,7 @@ export const PassageUpdate: core.serialization.Schema<
     createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
     updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
     isDeleted: core.serialization.property("is_deleted", core.serialization.boolean().optional()),
-    passageUpdateAgentId: core.serialization.property("agent_id", core.serialization.string().optional()),
+    archiveId: core.serialization.property("archive_id", core.serialization.string().optional()),
     sourceId: core.serialization.property("source_id", core.serialization.string().optional()),
     fileId: core.serialization.property("file_id", core.serialization.string().optional()),
     fileName: core.serialization.property("file_name", core.serialization.string().optional()),
@@ -37,7 +37,7 @@ export declare namespace PassageUpdate {
         created_at?: string | null;
         updated_at?: string | null;
         is_deleted?: boolean | null;
-        agent_id?: string | null;
+        archive_id?: string | null;
         source_id?: string | null;
         file_id?: string | null;
         file_name?: string | null;

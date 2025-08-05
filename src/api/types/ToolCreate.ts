@@ -21,4 +21,6 @@ export interface ToolCreate {
     returnCharLimit?: number;
     /** Optional list of pip packages required by this tool. */
     pipRequirements?: Letta.PipRequirement[];
+    /** Optional list of npm packages required by this tool. */
+    npmRequirements?: Letta.NpmRequirement[];
 }
