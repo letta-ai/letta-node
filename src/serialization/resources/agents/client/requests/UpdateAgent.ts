@@ -56,6 +56,7 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
         ),
         model: core.serialization.string().optional(),
         embedding: core.serialization.string().optional(),
+        reasoning: core.serialization.boolean().optional(),
         enableSleeptime: core.serialization.property("enable_sleeptime", core.serialization.boolean().optional()),
         responseFormat: core.serialization.property("response_format", UpdateAgentResponseFormat.optional()),
         lastRunCompletion: core.serialization.property("last_run_completion", core.serialization.date().optional()),
@@ -91,6 +92,7 @@ export declare namespace UpdateAgent {
         message_buffer_autoclear?: boolean | null;
         model?: string | null;
         embedding?: string | null;
+        reasoning?: boolean | null;
         enable_sleeptime?: boolean | null;
         response_format?: UpdateAgentResponseFormat.Raw | null;
         last_run_completion?: string | null;

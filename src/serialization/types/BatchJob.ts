@@ -22,6 +22,8 @@ export const BatchJob: core.serialization.ObjectSchema<serializers.BatchJob.Raw,
         callbackSentAt: core.serialization.property("callback_sent_at", core.serialization.date().optional()),
         callbackStatusCode: core.serialization.property("callback_status_code", core.serialization.number().optional()),
         callbackError: core.serialization.property("callback_error", core.serialization.string().optional()),
+        ttftNs: core.serialization.property("ttft_ns", core.serialization.number().optional()),
+        totalDurationNs: core.serialization.property("total_duration_ns", core.serialization.number().optional()),
         id: core.serialization.string().optional(),
     });
 
@@ -39,6 +41,8 @@ export declare namespace BatchJob {
         callback_sent_at?: string | null;
         callback_status_code?: number | null;
         callback_error?: string | null;
+        ttft_ns?: number | null;
+        total_duration_ns?: number | null;
         id?: string | null;
     }
 }

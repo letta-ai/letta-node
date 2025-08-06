@@ -61,6 +61,7 @@ export const CreateAgentRequest: core.serialization.Schema<
     maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
     maxReasoningTokens: core.serialization.property("max_reasoning_tokens", core.serialization.number().optional()),
     enableReasoner: core.serialization.property("enable_reasoner", core.serialization.boolean().optional()),
+    reasoning: core.serialization.boolean().optional(),
     fromTemplate: core.serialization.property("from_template", core.serialization.string().optional()),
     template: core.serialization.boolean().optional(),
     project: core.serialization.string().optional(),
@@ -122,6 +123,7 @@ export declare namespace CreateAgentRequest {
         max_tokens?: number | null;
         max_reasoning_tokens?: number | null;
         enable_reasoner?: boolean | null;
+        reasoning?: boolean | null;
         from_template?: string | null;
         template?: boolean | null;
         project?: string | null;

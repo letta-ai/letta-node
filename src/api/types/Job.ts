@@ -39,6 +39,10 @@ export interface Job {
     callbackStatusCode?: number;
     /** Optional error message from attempting to POST the callback endpoint. */
     callbackError?: string;
+    /** Time to first token for a run in nanoseconds */
+    ttftNs?: number;
+    /** Total run duration in nanoseconds */
+    totalDurationNs?: number;
     /** The human-friendly ID of the Job */
     id?: string;
 }

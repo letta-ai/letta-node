@@ -61,6 +61,8 @@ export interface CreateAgentRequest {
     maxReasoningTokens?: number;
     /** Whether to enable internal extended thinking step for a reasoner model. */
     enableReasoner?: boolean;
+    /** Whether to enable reasoning for this agent. */
+    reasoning?: boolean;
     /** The template id used to configure the agent */
     fromTemplate?: string;
     /** Whether the agent is a template */
