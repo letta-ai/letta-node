@@ -8,6 +8,7 @@ import * as core from "../../core";
 import { StopReasonType } from "./StopReasonType";
 import { Message } from "./Message";
 import { StepFeedback } from "./StepFeedback";
+import { StepStatus } from "./StepStatus";
 
 export const Step: core.serialization.ObjectSchema<serializers.Step.Raw, Letta.Step> = core.serialization.object({
     id: core.serialization.string(),
@@ -34,6 +35,12 @@ export const Step: core.serialization.ObjectSchema<serializers.Step.Raw, Letta.S
     messages: core.serialization.list(Message).optional(),
     feedback: StepFeedback.optional(),
     projectId: core.serialization.property("project_id", core.serialization.string().optional()),
+    errorType: core.serialization.property("error_type", core.serialization.string().optional()),
+    errorData: core.serialization.property(
+        "error_data",
+        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    ),
+    status: StepStatus.optional(),
 });
 
 export declare namespace Step {
@@ -59,5 +66,8 @@ export declare namespace Step {
         messages?: Message.Raw[] | null;
         feedback?: StepFeedback.Raw | null;
         project_id?: string | null;
+        error_type?: string | null;
+        error_data?: Record<string, unknown> | null;
+        status?: StepStatus.Raw | null;
     }
 }

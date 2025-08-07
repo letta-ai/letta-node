@@ -47,4 +47,10 @@ export interface Step {
     feedback?: Letta.StepFeedback;
     /** The project that the agent that executed this step belongs to (cloud only). */
     projectId?: string;
+    /** The type/class of the error that occurred */
+    errorType?: string;
+    /** Error details including message, traceback, and additional context */
+    errorData?: Record<string, unknown>;
+    /** Step status: pending, success, or failed */
+    status?: Letta.StepStatus;
 }

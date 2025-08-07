@@ -205,6 +205,7 @@ export * from "./SourceUpdate";
 export * from "./StdioServerConfig";
 export * from "./StepFeedback";
 export * from "./Step";
+export * from "./StepStatus";
 export * from "./StopReasonType";
 export * from "./StreamableHttpServerConfig";
 export * from "./SupervisorManager";
