@@ -18,8 +18,7 @@ export type ProviderType =
     | "together"
     | "azure"
     | "vllm"
-    | "bedrock"
-    | "cohere";
+    | "bedrock";
 export const ProviderType = {
     Anthropic: "anthropic",
     GoogleAi: "google_ai",
@@ -37,5 +36,4 @@ export const ProviderType = {
     Azure: "azure",
     Vllm: "vllm",
     Bedrock: "bedrock",
-    Cohere: "cohere",
 } as const;

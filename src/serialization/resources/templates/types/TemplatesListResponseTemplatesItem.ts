@@ -12,11 +12,17 @@ export const TemplatesListResponseTemplatesItem: core.serialization.ObjectSchema
 > = core.serialization.object({
     name: core.serialization.string(),
     id: core.serialization.string(),
+    projectId: core.serialization.property("project_id", core.serialization.string()),
+    projectSlug: core.serialization.property("project_slug", core.serialization.string()),
+    templateDeploymentSlug: core.serialization.property("template_deployment_slug", core.serialization.string()),
 });
 
 export declare namespace TemplatesListResponseTemplatesItem {
     export interface Raw {
         name: string;
         id: string;
+        project_id: string;
+        project_slug: string;
+        template_deployment_slug: string;
     }
 }

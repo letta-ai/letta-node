@@ -34,7 +34,7 @@ export interface LlmConfig {
     enableReasoner?: boolean;
     /** The reasoning effort to use when generating text reasoning models */
     reasoningEffort?: Letta.LlmConfigReasoningEffort;
-    /** Configurable thinking budget for extended thinking, only used if enable_reasoner is True. Minimum value is 1024. */
+    /** Configurable thinking budget for extended thinking. Used for enable_reasoner and also for Google Vertex models like Gemini 2.5 Flash. Minimum value is 1024 when used with enable_reasoner. */
     maxReasoningTokens?: number;
     /** Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. From OpenAI: Number between -2.0 and 2.0. */
     frequencyPenalty?: number;

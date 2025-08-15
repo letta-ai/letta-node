@@ -21,8 +21,10 @@ export interface CompletionCreateParamsNonStreaming {
     parallelToolCalls?: boolean;
     prediction?: Letta.ChatCompletionPredictionContentParam;
     presencePenalty?: number;
+    promptCacheKey?: string;
     reasoningEffort?: Letta.CompletionCreateParamsNonStreamingReasoningEffort;
     responseFormat?: Letta.CompletionCreateParamsNonStreamingResponseFormat;
+    safetyIdentifier?: string;
     seed?: number;
     serviceTier?: Letta.CompletionCreateParamsNonStreamingServiceTier;
     stop?: Letta.CompletionCreateParamsNonStreamingStop;

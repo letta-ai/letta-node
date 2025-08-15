@@ -8,7 +8,6 @@
 export type LlmConfigModelEndpointType =
     | "openai"
     | "anthropic"
-    | "cohere"
     | "google_ai"
     | "google_vertex"
     | "azure"
@@ -31,7 +30,6 @@ export type LlmConfigModelEndpointType =
 export const LlmConfigModelEndpointType = {
     Openai: "openai",
     Anthropic: "anthropic",
-    Cohere: "cohere",
     GoogleAi: "google_ai",
     GoogleVertex: "google_vertex",
     Azure: "azure",

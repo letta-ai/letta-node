@@ -12,4 +12,6 @@ export interface TemplatesCreateVersionRequest {
     returnAgentState?: Letta.agents.TemplatesCreateVersionRequestReturnAgentState;
     migrateDeployedAgents?: boolean;
     message?: string;
+    /** If true, preserves the existing agent's tool environment variables when migrating deployed agents */
+    preserveToolVariables?: boolean;
 }

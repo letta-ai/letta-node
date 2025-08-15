@@ -5,13 +5,6 @@
 import * as serializers from "../../../../../index";
 import * as core from "../../../../../../core";
 
-export const Request: core.serialization.Schema<serializers.agents.messages.cancel.Request.Raw, string[] | undefined> =
-    core.serialization.list(core.serialization.string()).optional();
-
-export declare namespace Request {
-    export type Raw = string[] | null | undefined;
-}
-
 export const Response: core.serialization.Schema<
     serializers.agents.messages.cancel.Response.Raw,
     Record<string, unknown>

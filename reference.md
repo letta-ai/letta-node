@@ -1043,7 +1043,7 @@ await client.tools.addMcpTool("mcp_server_name", "mcp_tool_name");
 <dl>
 <dd>
 
-Add a new MCP server to the Letta MCP server config
+Delete a MCP server configuration
 
 </dd>
 </dl>
@@ -2707,7 +2707,7 @@ await client.agents.count();
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">exportFile</a>(agentId) -> string</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">exportFile</a>(agentId, { ...params }) -> string</code></summary>
 <dl>
 <dd>
 
@@ -2721,10 +2721,14 @@ await client.agents.count();
 
 Export the serialized JSON representation of an agent, formatted with indentation.
 
-</dd>
-</dl>
-</dd>
-</dl>
+Supports two export formats:
+
+- Legacy format (use_legacy_format=true): Single agent with inline tools/blocks
+- New format (default): Multi-entity format with separate agents, tools, blocks, files, etc.
+  </dd>
+  </dl>
+  </dd>
+  </dl>
 
 #### 🔌 Usage
 
@@ -2759,6 +2763,14 @@ await client.agents.exportFile("agent_id");
 <dl>
 <dd>
 
+**request:** `Letta.AgentsExportFileRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Agents.RequestOptions`
 
 </dd>
@@ -2770,7 +2782,7 @@ await client.agents.exportFile("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">importFile</a>(file, { ...params }) -> Letta.AgentState</code></summary>
+<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">importFile</a>(file, { ...params }) -> Letta.ImportedAgentsResponse</code></summary>
 <dl>
 <dd>
 
@@ -2782,7 +2794,8 @@ await client.agents.exportFile("agent_id");
 <dl>
 <dd>
 
-Import a serialized agent file and recreate the agent in the system.
+Import a serialized agent file and recreate the agent(s) in the system.
+Returns the IDs of all imported agents.
 
 </dd>
 </dl>
@@ -5022,7 +5035,7 @@ await client.providers.modify("provider_id", {
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">check</a>() -> unknown</code></summary>
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">check</a>() -> void</code></summary>
 <dl>
 <dd>
 
@@ -5047,6 +5060,57 @@ await client.providers.check();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Providers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">checkProvider</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.providers.checkProvider({
+    providerType: "anthropic",
+    apiKey: "api_key",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ProviderCheck`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -5411,6 +5475,69 @@ Get a step by ID.
 
 ```typescript
 await client.steps.retrieve("step_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**stepId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Steps.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">retrieveStepMetrics</a>(stepId) -> Letta.StepMetrics</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get step metrics by step ID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.steps.retrieveStepMetrics("step_id");
 ```
 
 </dd>
@@ -8286,7 +8413,9 @@ Note to cancel active runs associated with an agent, redis is required.
 <dd>
 
 ```typescript
-await client.agents.messages.cancel("agent_id", undefined);
+await client.agents.messages.cancel("agent_id", {
+    cancelAgentRunRequestAgentId: "agent_id",
+});
 ```
 
 </dd>
@@ -8310,7 +8439,7 @@ await client.agents.messages.cancel("agent_id", undefined);
 <dl>
 <dd>
 
-**request:** `string[]`
+**request:** `Letta.agents.CancelAgentRunRequest`
 
 </dd>
 </dl>

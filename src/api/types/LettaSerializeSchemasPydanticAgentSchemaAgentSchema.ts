@@ -4,7 +4,7 @@
 
 import * as Letta from "../index";
 
-export interface AgentSchema {
+export interface LettaSerializeSchemasPydanticAgentSchemaAgentSchema {
     agentType: string;
     coreMemory: Letta.CoreMemoryBlockSchema[];
     createdAt: string;
@@ -13,15 +13,15 @@ export interface AgentSchema {
     llmConfig: Letta.LlmConfig;
     messageBufferAutoclear: boolean;
     inContextMessageIndices: number[];
-    messages: Letta.MessageSchema[];
+    messages: Letta.LettaSerializeSchemasPydanticAgentSchemaMessageSchema[];
     metadata?: Record<string, unknown>;
     multiAgentGroup?: unknown;
     name: string;
     system: string;
     tags: Letta.TagSchema[];
     toolExecEnvironmentVariables: Letta.ToolEnvVarSchema[];
-    toolRules: Letta.AgentSchemaToolRulesItem[];
-    tools: Letta.ToolSchema[];
+    toolRules: Letta.LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem[];
+    tools: Letta.LettaSerializeSchemasPydanticAgentSchemaToolSchema[];
     updatedAt: string;
     version: string;
 }

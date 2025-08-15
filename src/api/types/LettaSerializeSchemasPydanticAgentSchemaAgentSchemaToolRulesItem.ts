@@ -4,7 +4,7 @@
 
 import * as Letta from "../index";
 
-export type AgentSchemaToolRulesItem =
+export type LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem =
     | Letta.BaseToolRuleSchema
     | Letta.ChildToolRuleSchema
     | Letta.MaxCountPerStepToolRuleSchema

@@ -5,4 +5,8 @@
 export interface TemplatesListResponseTemplatesItem {
     name: string;
     id: string;
+    projectId: string;
+    projectSlug: string;
+    /** The full name of the template, including version and project slug */
+    templateDeploymentSlug: string;
 }

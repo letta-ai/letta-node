@@ -21,6 +21,8 @@ export interface Provider {
     accessKey?: string;
     /** Region used for requests to the provider. */
     region?: string;
+    /** API version used for requests to the provider. */
+    apiVersion?: string;
     /** The last update timestamp of the provider. */
     updatedAt?: Date;
 }

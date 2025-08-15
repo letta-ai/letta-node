@@ -13,7 +13,6 @@ export const EmbeddingConfigEmbeddingEndpointType: core.serialization.Schema<
     "openai",
     "anthropic",
     "bedrock",
-    "cohere",
     "google_ai",
     "google_vertex",
     "azure",
@@ -37,7 +36,6 @@ export declare namespace EmbeddingConfigEmbeddingEndpointType {
         | "openai"
         | "anthropic"
         | "bedrock"
-        | "cohere"
         | "google_ai"
         | "google_vertex"
         | "azure"

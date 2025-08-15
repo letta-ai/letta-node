@@ -15,4 +15,8 @@ export interface ProviderUpdate {
     accessKey?: string;
     /** Region used for requests to the provider. */
     region?: string;
+    /** Base URL used for requests to the provider. */
+    baseUrl?: string;
+    /** API version used for requests to the provider. */
+    apiVersion?: string;
 }

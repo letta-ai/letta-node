@@ -4,7 +4,7 @@
 
 import * as Letta from "../index";
 
-export interface MessageSchema {
+export interface LettaSerializeSchemasPydanticAgentSchemaMessageSchema {
     createdAt: string;
     groupId?: string;
     model?: string;

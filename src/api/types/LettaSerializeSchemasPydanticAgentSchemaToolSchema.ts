@@ -4,7 +4,7 @@
 
 import * as Letta from "../index";
 
-export interface ToolSchema {
+export interface LettaSerializeSchemasPydanticAgentSchemaToolSchema {
     argsJsonSchema?: unknown;
     createdAt: string;
     description: string;

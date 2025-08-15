@@ -12,7 +12,6 @@ export const LlmConfigModelEndpointType: core.serialization.Schema<
 > = core.serialization.enum_([
     "openai",
     "anthropic",
-    "cohere",
     "google_ai",
     "google_vertex",
     "azure",
@@ -38,7 +37,6 @@ export declare namespace LlmConfigModelEndpointType {
     export type Raw =
         | "openai"
         | "anthropic"
-        | "cohere"
         | "google_ai"
         | "google_vertex"
         | "azure"

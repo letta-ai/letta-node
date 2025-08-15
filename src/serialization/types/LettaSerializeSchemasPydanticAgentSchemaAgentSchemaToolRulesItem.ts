@@ -10,9 +10,9 @@ import { ChildToolRuleSchema } from "./ChildToolRuleSchema";
 import { MaxCountPerStepToolRuleSchema } from "./MaxCountPerStepToolRuleSchema";
 import { ConditionalToolRuleSchema } from "./ConditionalToolRuleSchema";
 
-export const AgentSchemaToolRulesItem: core.serialization.Schema<
-    serializers.AgentSchemaToolRulesItem.Raw,
-    Letta.AgentSchemaToolRulesItem
+export const LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem: core.serialization.Schema<
+    serializers.LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem.Raw,
+    Letta.LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem
 > = core.serialization.undiscriminatedUnion([
     BaseToolRuleSchema,
     ChildToolRuleSchema,
@@ -20,7 +20,7 @@ export const AgentSchemaToolRulesItem: core.serialization.Schema<
     ConditionalToolRuleSchema,
 ]);
 
-export declare namespace AgentSchemaToolRulesItem {
+export declare namespace LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem {
     export type Raw =
         | BaseToolRuleSchema.Raw
         | ChildToolRuleSchema.Raw

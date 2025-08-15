@@ -44,6 +44,7 @@ export const CompletionCreateParamsStreaming: core.serialization.ObjectSchema<
     parallelToolCalls: core.serialization.property("parallel_tool_calls", core.serialization.boolean().optional()),
     prediction: ChatCompletionPredictionContentParam.optional(),
     presencePenalty: core.serialization.property("presence_penalty", core.serialization.number().optional()),
+    promptCacheKey: core.serialization.property("prompt_cache_key", core.serialization.string().optional()),
     reasoningEffort: core.serialization.property(
         "reasoning_effort",
         CompletionCreateParamsStreamingReasoningEffort.optional(),
@@ -52,6 +53,7 @@ export const CompletionCreateParamsStreaming: core.serialization.ObjectSchema<
         "response_format",
         CompletionCreateParamsStreamingResponseFormat.optional(),
     ),
+    safetyIdentifier: core.serialization.property("safety_identifier", core.serialization.string().optional()),
     seed: core.serialization.number().optional(),
     serviceTier: core.serialization.property("service_tier", CompletionCreateParamsStreamingServiceTier.optional()),
     stop: CompletionCreateParamsStreamingStop.optional(),
@@ -85,8 +87,10 @@ export declare namespace CompletionCreateParamsStreaming {
         parallel_tool_calls?: boolean | null;
         prediction?: ChatCompletionPredictionContentParam.Raw | null;
         presence_penalty?: number | null;
+        prompt_cache_key?: string | null;
         reasoning_effort?: CompletionCreateParamsStreamingReasoningEffort.Raw | null;
         response_format?: CompletionCreateParamsStreamingResponseFormat.Raw | null;
+        safety_identifier?: string | null;
         seed?: number | null;
         service_tier?: CompletionCreateParamsStreamingServiceTier.Raw | null;
         stop?: CompletionCreateParamsStreamingStop.Raw | null;

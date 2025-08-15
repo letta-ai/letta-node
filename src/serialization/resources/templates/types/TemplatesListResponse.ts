@@ -12,12 +12,12 @@ export const TemplatesListResponse: core.serialization.ObjectSchema<
     Letta.TemplatesListResponse
 > = core.serialization.object({
     templates: core.serialization.list(TemplatesListResponseTemplatesItem),
-    hasNextPage: core.serialization.boolean(),
+    hasNextPage: core.serialization.property("has_next_page", core.serialization.boolean()),
 });
 
 export declare namespace TemplatesListResponse {
     export interface Raw {
         templates: TemplatesListResponseTemplatesItem.Raw[];
-        hasNextPage: boolean;
+        has_next_page: boolean;
     }
 }

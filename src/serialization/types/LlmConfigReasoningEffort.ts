@@ -9,8 +9,8 @@ import * as core from "../../core";
 export const LlmConfigReasoningEffort: core.serialization.Schema<
     serializers.LlmConfigReasoningEffort.Raw,
     Letta.LlmConfigReasoningEffort
-> = core.serialization.enum_(["low", "medium", "high"]);
+> = core.serialization.enum_(["minimal", "low", "medium", "high"]);
 
 export declare namespace LlmConfigReasoningEffort {
-    export type Raw = "low" | "medium" | "high";
+    export type Raw = "minimal" | "low" | "medium" | "high";
 }

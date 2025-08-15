@@ -15,11 +15,16 @@ export const TemplatesCreateVersionRequest: core.serialization.Schema<
         core.serialization.boolean().optional(),
     ),
     message: core.serialization.string().optional(),
+    preserveToolVariables: core.serialization.property(
+        "preserve_tool_variables",
+        core.serialization.boolean().optional(),
+    ),
 });
 
 export declare namespace TemplatesCreateVersionRequest {
     export interface Raw {
         migrate_deployed_agents?: boolean | null;
         message?: string | null;
+        preserve_tool_variables?: boolean | null;
     }
 }

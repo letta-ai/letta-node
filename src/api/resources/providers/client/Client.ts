@@ -94,8 +94,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.176",
-                "User-Agent": "@letta-ai/letta-client/0.1.176",
+                "X-Fern-SDK-Version": "0.1.177",
+                "User-Agent": "@letta-ai/letta-client/0.1.177",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -201,8 +201,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.176",
-                "User-Agent": "@letta-ai/letta-client/0.1.176",
+                "X-Fern-SDK-Version": "0.1.177",
+                "User-Agent": "@letta-ai/letta-client/0.1.177",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -301,8 +301,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.176",
-                "User-Agent": "@letta-ai/letta-client/0.1.176",
+                "X-Fern-SDK-Version": "0.1.177",
+                "User-Agent": "@letta-ai/letta-client/0.1.177",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -399,8 +399,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.176",
-                "User-Agent": "@letta-ai/letta-client/0.1.176",
+                "X-Fern-SDK-Version": "0.1.177",
+                "User-Agent": "@letta-ai/letta-client/0.1.177",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -468,16 +468,14 @@ export class Providers {
     /**
      * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
      * @example
      *     await client.providers.check()
      */
-    public check(requestOptions?: Providers.RequestOptions): core.HttpResponsePromise<unknown> {
+    public check(requestOptions?: Providers.RequestOptions): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__check(requestOptions));
     }
 
-    private async __check(requestOptions?: Providers.RequestOptions): Promise<core.WithRawResponse<unknown>> {
+    private async __check(requestOptions?: Providers.RequestOptions): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -493,8 +491,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.176",
-                "User-Agent": "@letta-ai/letta-client/0.1.176",
+                "X-Fern-SDK-Version": "0.1.177",
+                "User-Agent": "@letta-ai/letta-client/0.1.177",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -502,6 +500,87 @@ export class Providers {
             },
             contentType: "application/json",
             requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: undefined, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/providers/check.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * @param {Letta.ProviderCheck} request
+     * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.providers.checkProvider({
+     *         providerType: "anthropic",
+     *         apiKey: "api_key"
+     *     })
+     */
+    public checkProvider(
+        request: Letta.ProviderCheck,
+        requestOptions?: Providers.RequestOptions,
+    ): core.HttpResponsePromise<unknown> {
+        return core.HttpResponsePromise.fromPromise(this.__checkProvider(request, requestOptions));
+    }
+
+    private async __checkProvider(
+        request: Letta.ProviderCheck,
+        requestOptions?: Providers.RequestOptions,
+    ): Promise<core.WithRawResponse<unknown>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/providers/check",
+            ),
+            method: "POST",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.177",
+                "User-Agent": "@letta-ai/letta-client/0.1.177",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.ProviderCheck.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -540,7 +619,7 @@ export class Providers {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/providers/check.");
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/providers/check.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

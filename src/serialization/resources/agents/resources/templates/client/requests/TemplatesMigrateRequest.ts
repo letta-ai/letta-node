@@ -13,6 +13,10 @@ export const TemplatesMigrateRequest: core.serialization.Schema<
     toTemplate: core.serialization.property("to_template", core.serialization.string()),
     variables: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
     preserveCoreMemories: core.serialization.property("preserve_core_memories", core.serialization.boolean()),
+    preserveToolVariables: core.serialization.property(
+        "preserve_tool_variables",
+        core.serialization.boolean().optional(),
+    ),
 });
 
 export declare namespace TemplatesMigrateRequest {
@@ -20,5 +24,6 @@ export declare namespace TemplatesMigrateRequest {
         to_template: string;
         variables?: Record<string, string> | null;
         preserve_core_memories: boolean;
+        preserve_tool_variables?: boolean | null;
     }
 }

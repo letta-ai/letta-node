@@ -18,6 +18,7 @@ export const Provider: core.serialization.ObjectSchema<serializers.Provider.Raw,
         baseUrl: core.serialization.property("base_url", core.serialization.string().optional()),
         accessKey: core.serialization.property("access_key", core.serialization.string().optional()),
         region: core.serialization.string().optional(),
+        apiVersion: core.serialization.property("api_version", core.serialization.string().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
     });
 
@@ -31,6 +32,7 @@ export declare namespace Provider {
         base_url?: string | null;
         access_key?: string | null;
         region?: string | null;
+        api_version?: string | null;
         updated_at?: string | null;
     }
 }
