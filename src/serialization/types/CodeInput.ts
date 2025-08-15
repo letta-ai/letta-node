@@ -9,10 +9,12 @@ import * as core from "../../core";
 export const CodeInput: core.serialization.ObjectSchema<serializers.CodeInput.Raw, Letta.CodeInput> =
     core.serialization.object({
         code: core.serialization.string(),
+        sourceType: core.serialization.property("source_type", core.serialization.string().optional()),
     });
 
 export declare namespace CodeInput {
     export interface Raw {
         code: string;
+        source_type?: string | null;
     }
 }

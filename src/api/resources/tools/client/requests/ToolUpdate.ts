@@ -27,4 +27,6 @@ export interface ToolUpdate {
     pipRequirements?: Letta.PipRequirement[];
     /** Optional list of npm packages required by this tool. */
     npmRequirements?: Letta.NpmRequirement[];
+    /** A dictionary of additional metadata for the tool. */
+    metadata?: Record<string, unknown>;
 }

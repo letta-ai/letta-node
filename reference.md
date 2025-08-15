@@ -8413,9 +8413,7 @@ Note to cancel active runs associated with an agent, redis is required.
 <dd>
 
 ```typescript
-await client.agents.messages.cancel("agent_id", {
-    cancelAgentRunRequestAgentId: "agent_id",
-});
+await client.agents.messages.cancel("agent_id");
 ```
 
 </dd>

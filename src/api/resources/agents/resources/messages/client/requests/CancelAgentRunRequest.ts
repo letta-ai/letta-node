@@ -4,13 +4,9 @@
 
 /**
  * @example
- *     {
- *         cancelAgentRunRequestAgentId: "agent_id"
- *     }
+ *     {}
  */
 export interface CancelAgentRunRequest {
-    /** ID of the agent to cancel runs for */
-    cancelAgentRunRequestAgentId: string;
     /** Optional list of run IDs to cancel */
     runIds?: string[];
 }

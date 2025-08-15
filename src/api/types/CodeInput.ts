@@ -3,6 +3,8 @@
  */
 
 export interface CodeInput {
-    /** Python source code to parse for JSON schema */
+    /** Source code to parse for JSON schema */
     code: string;
+    /** The source type of the code (python or typescript) */
+    sourceType?: string;
 }

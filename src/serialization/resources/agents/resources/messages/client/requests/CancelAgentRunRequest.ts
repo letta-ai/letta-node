@@ -10,13 +10,11 @@ export const CancelAgentRunRequest: core.serialization.Schema<
     serializers.agents.CancelAgentRunRequest.Raw,
     Letta.agents.CancelAgentRunRequest
 > = core.serialization.object({
-    cancelAgentRunRequestAgentId: core.serialization.property("agent_id", core.serialization.string()),
     runIds: core.serialization.property("run_ids", core.serialization.list(core.serialization.string()).optional()),
 });
 
 export declare namespace CancelAgentRunRequest {
     export interface Raw {
-        agent_id: string;
         run_ids?: string[] | null;
     }
 }

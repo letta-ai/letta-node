@@ -31,6 +31,10 @@ export const ToolUpdate: core.serialization.Schema<serializers.ToolUpdate.Raw, L
             "npm_requirements",
             core.serialization.list(NpmRequirement).optional(),
         ),
+        metadata: core.serialization.property(
+            "metadata_",
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        ),
     });
 
 export declare namespace ToolUpdate {
@@ -44,5 +48,6 @@ export declare namespace ToolUpdate {
         return_char_limit?: number | null;
         pip_requirements?: PipRequirement.Raw[] | null;
         npm_requirements?: NpmRequirement.Raw[] | null;
+        metadata_?: Record<string, unknown> | null;
     }
 }
