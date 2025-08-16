@@ -32,10 +32,11 @@ export interface CompletionCreateParamsStreaming {
     streamOptions?: Letta.ChatCompletionStreamOptionsParam;
     temperature?: number;
     toolChoice?: Letta.CompletionCreateParamsStreamingToolChoice;
-    tools?: Letta.ChatCompletionToolParam[];
+    tools?: Letta.CompletionCreateParamsStreamingToolsItem[];
     topLogprobs?: number;
     topP?: number;
     user?: string;
+    verbosity?: Letta.CompletionCreateParamsStreamingVerbosity;
     webSearchOptions?: Letta.WebSearchOptions;
     stream: boolean;
 }

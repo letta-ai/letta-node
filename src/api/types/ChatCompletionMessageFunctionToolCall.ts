@@ -4,7 +4,7 @@
 
 import * as Letta from "../index";
 
-export interface ChatCompletionMessageToolCall {
+export interface ChatCompletionMessageFunctionToolCall {
     id: string;
     function: Letta.FunctionOutput;
     type: "function";

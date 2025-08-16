@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { ToolAnnotations } from "./ToolAnnotations";
+import { McpToolHealth } from "./McpToolHealth";
 
 export const McpTool: core.serialization.ObjectSchema<serializers.McpTool.Raw, Letta.McpTool> = core.serialization
     .object({
@@ -19,6 +20,7 @@ export const McpTool: core.serialization.ObjectSchema<serializers.McpTool.Raw, L
             "_meta",
             core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
+        health: McpToolHealth.optional(),
     })
     .passthrough();
 
@@ -31,6 +33,7 @@ export declare namespace McpTool {
         outputSchema?: Record<string, unknown> | null;
         annotations?: ToolAnnotations.Raw | null;
         _meta?: Record<string, unknown> | null;
+        health?: McpToolHealth.Raw | null;
         [key: string]: any;
     }
 }

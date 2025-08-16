@@ -10,11 +10,13 @@ export const ChatCompletionStreamOptionsParam: core.serialization.ObjectSchema<
     serializers.ChatCompletionStreamOptionsParam.Raw,
     Letta.ChatCompletionStreamOptionsParam
 > = core.serialization.object({
+    includeObfuscation: core.serialization.property("include_obfuscation", core.serialization.boolean().optional()),
     includeUsage: core.serialization.property("include_usage", core.serialization.boolean().optional()),
 });
 
 export declare namespace ChatCompletionStreamOptionsParam {
     export interface Raw {
+        include_obfuscation?: boolean | null;
         include_usage?: boolean | null;
     }
 }

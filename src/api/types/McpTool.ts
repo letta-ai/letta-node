@@ -15,6 +15,8 @@ export interface McpTool {
     outputSchema?: Record<string, unknown>;
     annotations?: Letta.ToolAnnotations;
     meta?: Record<string, unknown>;
+    /** Schema health status for OpenAI strict mode */
+    health?: Letta.McpToolHealth;
     /** Accepts any additional properties */
     [key: string]: any;
 }

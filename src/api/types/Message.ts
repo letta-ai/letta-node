@@ -47,7 +47,7 @@ export interface Message {
     /** For role user/assistant: the (optional) name of the participant. For role tool/function: the name of the function called. */
     name?: string;
     /** The list of tool calls requested. Only applicable for role assistant. */
-    toolCalls?: Letta.ChatCompletionMessageToolCall[];
+    toolCalls?: Letta.ChatCompletionMessageFunctionToolCall[];
     /** The ID of the tool call. Only applicable for role tool. */
     toolCallId?: string;
     /** The id of the step that this message was created in. */

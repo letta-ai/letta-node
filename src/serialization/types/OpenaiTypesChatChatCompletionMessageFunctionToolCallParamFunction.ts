@@ -6,15 +6,15 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 
-export const OpenaiTypesChatChatCompletionMessageToolCallParamFunction: core.serialization.ObjectSchema<
-    serializers.OpenaiTypesChatChatCompletionMessageToolCallParamFunction.Raw,
-    Letta.OpenaiTypesChatChatCompletionMessageToolCallParamFunction
+export const OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction: core.serialization.ObjectSchema<
+    serializers.OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction.Raw,
+    Letta.OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction
 > = core.serialization.object({
     arguments: core.serialization.string(),
     name: core.serialization.string(),
 });
 
-export declare namespace OpenaiTypesChatChatCompletionMessageToolCallParamFunction {
+export declare namespace OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction {
     export interface Raw {
         arguments: string;
         name: string;

@@ -8,4 +8,6 @@ export type CompletionCreateParamsNonStreamingToolChoice =
     | "none"
     | "auto"
     | "required"
-    | Letta.ChatCompletionNamedToolChoiceParam;
+    | Letta.ChatCompletionAllowedToolChoiceParam
+    | Letta.ChatCompletionNamedToolChoiceParam
+    | Letta.ChatCompletionNamedToolChoiceCustomParam;

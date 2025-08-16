@@ -7,15 +7,15 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { FunctionDefinitionInput } from "./FunctionDefinitionInput";
 
-export const ChatCompletionToolParam: core.serialization.ObjectSchema<
-    serializers.ChatCompletionToolParam.Raw,
-    Letta.ChatCompletionToolParam
+export const ChatCompletionFunctionToolParam: core.serialization.ObjectSchema<
+    serializers.ChatCompletionFunctionToolParam.Raw,
+    Letta.ChatCompletionFunctionToolParam
 > = core.serialization.object({
     function: FunctionDefinitionInput,
     type: core.serialization.stringLiteral("function"),
 });
 
-export declare namespace ChatCompletionToolParam {
+export declare namespace ChatCompletionFunctionToolParam {
     export interface Raw {
         function: FunctionDefinitionInput.Raw;
         type: "function";

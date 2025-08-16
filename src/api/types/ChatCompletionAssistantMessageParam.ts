@@ -11,5 +11,5 @@ export interface ChatCompletionAssistantMessageParam {
     functionCall?: Letta.FunctionCall;
     name?: string;
     refusal?: string;
-    toolCalls?: Letta.ChatCompletionMessageToolCallParam[];
+    toolCalls?: Letta.ChatCompletionAssistantMessageParamToolCallsItem[];
 }

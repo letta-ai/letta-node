@@ -5,7 +5,9 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { ChatCompletionAllowedToolChoiceParam } from "./ChatCompletionAllowedToolChoiceParam";
 import { ChatCompletionNamedToolChoiceParam } from "./ChatCompletionNamedToolChoiceParam";
+import { ChatCompletionNamedToolChoiceCustomParam } from "./ChatCompletionNamedToolChoiceCustomParam";
 
 export const CompletionCreateParamsNonStreamingToolChoice: core.serialization.Schema<
     serializers.CompletionCreateParamsNonStreamingToolChoice.Raw,
@@ -14,9 +16,17 @@ export const CompletionCreateParamsNonStreamingToolChoice: core.serialization.Sc
     core.serialization.stringLiteral("none"),
     core.serialization.stringLiteral("auto"),
     core.serialization.stringLiteral("required"),
+    ChatCompletionAllowedToolChoiceParam,
     ChatCompletionNamedToolChoiceParam,
+    ChatCompletionNamedToolChoiceCustomParam,
 ]);
 
 export declare namespace CompletionCreateParamsNonStreamingToolChoice {
-    export type Raw = "none" | "auto" | "required" | ChatCompletionNamedToolChoiceParam.Raw;
+    export type Raw =
+        | "none"
+        | "auto"
+        | "required"
+        | ChatCompletionAllowedToolChoiceParam.Raw
+        | ChatCompletionNamedToolChoiceParam.Raw
+        | ChatCompletionNamedToolChoiceCustomParam.Raw;
 }

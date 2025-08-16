@@ -3,5 +3,6 @@
  */
 
 export interface ChatCompletionStreamOptionsParam {
+    includeObfuscation?: boolean;
     includeUsage?: boolean;
 }

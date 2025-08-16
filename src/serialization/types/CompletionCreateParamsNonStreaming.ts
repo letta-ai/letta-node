@@ -18,7 +18,8 @@ import { CompletionCreateParamsNonStreamingServiceTier } from "./CompletionCreat
 import { CompletionCreateParamsNonStreamingStop } from "./CompletionCreateParamsNonStreamingStop";
 import { ChatCompletionStreamOptionsParam } from "./ChatCompletionStreamOptionsParam";
 import { CompletionCreateParamsNonStreamingToolChoice } from "./CompletionCreateParamsNonStreamingToolChoice";
-import { ChatCompletionToolParam } from "./ChatCompletionToolParam";
+import { CompletionCreateParamsNonStreamingToolsItem } from "./CompletionCreateParamsNonStreamingToolsItem";
+import { CompletionCreateParamsNonStreamingVerbosity } from "./CompletionCreateParamsNonStreamingVerbosity";
 import { WebSearchOptions } from "./WebSearchOptions";
 
 export const CompletionCreateParamsNonStreaming: core.serialization.ObjectSchema<
@@ -64,10 +65,11 @@ export const CompletionCreateParamsNonStreaming: core.serialization.ObjectSchema
     streamOptions: core.serialization.property("stream_options", ChatCompletionStreamOptionsParam.optional()),
     temperature: core.serialization.number().optional(),
     toolChoice: core.serialization.property("tool_choice", CompletionCreateParamsNonStreamingToolChoice.optional()),
-    tools: core.serialization.list(ChatCompletionToolParam).optional(),
+    tools: core.serialization.list(CompletionCreateParamsNonStreamingToolsItem).optional(),
     topLogprobs: core.serialization.property("top_logprobs", core.serialization.number().optional()),
     topP: core.serialization.property("top_p", core.serialization.number().optional()),
     user: core.serialization.string().optional(),
+    verbosity: CompletionCreateParamsNonStreamingVerbosity.optional(),
     webSearchOptions: core.serialization.property("web_search_options", WebSearchOptions.optional()),
     stream: core.serialization.boolean().optional(),
 });
@@ -101,10 +103,11 @@ export declare namespace CompletionCreateParamsNonStreaming {
         stream_options?: ChatCompletionStreamOptionsParam.Raw | null;
         temperature?: number | null;
         tool_choice?: CompletionCreateParamsNonStreamingToolChoice.Raw | null;
-        tools?: ChatCompletionToolParam.Raw[] | null;
+        tools?: CompletionCreateParamsNonStreamingToolsItem.Raw[] | null;
         top_logprobs?: number | null;
         top_p?: number | null;
         user?: string | null;
+        verbosity?: CompletionCreateParamsNonStreamingVerbosity.Raw | null;
         web_search_options?: WebSearchOptions.Raw | null;
         stream?: boolean | null;
     }

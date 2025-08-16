@@ -8,7 +8,7 @@ import * as core from "../../core";
 import { Audio } from "./Audio";
 import { ChatCompletionAssistantMessageParamContent } from "./ChatCompletionAssistantMessageParamContent";
 import { FunctionCall } from "./FunctionCall";
-import { ChatCompletionMessageToolCallParam } from "./ChatCompletionMessageToolCallParam";
+import { ChatCompletionAssistantMessageParamToolCallsItem } from "./ChatCompletionAssistantMessageParamToolCallsItem";
 
 export const ChatCompletionAssistantMessageParam: core.serialization.ObjectSchema<
     serializers.ChatCompletionAssistantMessageParam.Raw,
@@ -22,7 +22,7 @@ export const ChatCompletionAssistantMessageParam: core.serialization.ObjectSchem
     refusal: core.serialization.string().optional(),
     toolCalls: core.serialization.property(
         "tool_calls",
-        core.serialization.list(ChatCompletionMessageToolCallParam).optional(),
+        core.serialization.list(ChatCompletionAssistantMessageParamToolCallsItem).optional(),
     ),
 });
 
@@ -34,6 +34,6 @@ export declare namespace ChatCompletionAssistantMessageParam {
         function_call?: FunctionCall.Raw | null;
         name?: string | null;
         refusal?: string | null;
-        tool_calls?: ChatCompletionMessageToolCallParam.Raw[] | null;
+        tool_calls?: ChatCompletionAssistantMessageParamToolCallsItem.Raw[] | null;
     }
 }

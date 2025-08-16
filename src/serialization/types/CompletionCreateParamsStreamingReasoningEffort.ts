@@ -9,8 +9,8 @@ import * as core from "../../core";
 export const CompletionCreateParamsStreamingReasoningEffort: core.serialization.Schema<
     serializers.CompletionCreateParamsStreamingReasoningEffort.Raw,
     Letta.CompletionCreateParamsStreamingReasoningEffort
-> = core.serialization.enum_(["low", "medium", "high"]);
+> = core.serialization.enum_(["minimal", "low", "medium", "high"]);
 
 export declare namespace CompletionCreateParamsStreamingReasoningEffort {
-    export type Raw = "low" | "medium" | "high";
+    export type Raw = "minimal" | "low" | "medium" | "high";
 }

@@ -4,7 +4,7 @@
 
 import * as Letta from "../index";
 
-export interface ChatCompletionToolParam {
+export interface ChatCompletionFunctionToolParam {
     function: Letta.FunctionDefinitionInput;
     type: "function";
 }

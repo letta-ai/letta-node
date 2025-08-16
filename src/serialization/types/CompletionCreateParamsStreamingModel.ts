@@ -11,6 +11,13 @@ export const CompletionCreateParamsStreamingModel: core.serialization.Schema<
     Letta.CompletionCreateParamsStreamingModel
 > = core.serialization.undiscriminatedUnion([
     core.serialization.string(),
+    core.serialization.stringLiteral("gpt-5"),
+    core.serialization.stringLiteral("gpt-5-mini"),
+    core.serialization.stringLiteral("gpt-5-nano"),
+    core.serialization.stringLiteral("gpt-5-2025-08-07"),
+    core.serialization.stringLiteral("gpt-5-mini-2025-08-07"),
+    core.serialization.stringLiteral("gpt-5-nano-2025-08-07"),
+    core.serialization.stringLiteral("gpt-5-chat-latest"),
     core.serialization.stringLiteral("gpt-4.1"),
     core.serialization.stringLiteral("gpt-4.1-mini"),
     core.serialization.stringLiteral("gpt-4.1-nano"),
@@ -71,6 +78,13 @@ export const CompletionCreateParamsStreamingModel: core.serialization.Schema<
 export declare namespace CompletionCreateParamsStreamingModel {
     export type Raw =
         | string
+        | "gpt-5"
+        | "gpt-5-mini"
+        | "gpt-5-nano"
+        | "gpt-5-2025-08-07"
+        | "gpt-5-mini-2025-08-07"
+        | "gpt-5-nano-2025-08-07"
+        | "gpt-5-chat-latest"
         | "gpt-4.1"
         | "gpt-4.1-mini"
         | "gpt-4.1-nano"
