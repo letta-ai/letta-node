@@ -153,6 +153,7 @@ export * from "./JsonSchemaResponseFormat";
 export * from "./LlmConfigModelEndpointType";
 export * from "./LlmConfigReasoningEffort";
 export * from "./LlmConfigCompatibilityType";
+export * from "./LlmConfigVerbosity";
 export * from "./LlmConfig";
 export * from "./LettaBatchMessages";
 export * from "./LettaBatchRequest";

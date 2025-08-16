@@ -40,4 +40,6 @@ export interface LlmConfig {
     frequencyPenalty?: number;
     /** The framework compatibility type for the model. */
     compatibilityType?: Letta.LlmConfigCompatibilityType;
+    /** Soft control for how verbose model output should be, used for GPT-5 models. */
+    verbosity?: Letta.LlmConfigVerbosity;
 }
