@@ -11,8 +11,6 @@
  */
 export interface TemplatesMigrateRequest {
     toTemplate: string;
-    /** If you chose to not preserve core memories, you should provide the new variables for the core memories */
-    variables?: Record<string, string>;
     preserveCoreMemories: boolean;
     /** If true, preserves the existing agent's tool environment variables instead of using the template's variables */
     preserveToolVariables?: boolean;

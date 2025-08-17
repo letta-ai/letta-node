@@ -6158,6 +6158,547 @@ await client.templates.list();
 </dl>
 </details>
 
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">savetemplateversion</a>(project, templateName, { ...params }) -> Letta.TemplatesSaveTemplateVersionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Saves the current version of the template as a new version
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.savetemplateversion("project", "template_name");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateName:** `string` — The template version, formatted as {template-name}, any version appended will be ignored
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesSaveTemplateVersionRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">deletetemplate</a>(project, templateName, { ...params }) -> Letta.TemplatesDeleteTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes all versions of a template with the specified name
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.deletetemplate("project", "template_name");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateName:** `string` — The template name (without version)
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesDeleteTemplateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">gettemplatesnapshot</a>(project, templateVersion) -> Letta.TemplatesGetTemplateSnapshotResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a snapshot of the template version, this will return the template state at a specific version
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.gettemplatesnapshot("project", "template_version");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateVersion:** `string` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">forktemplate</a>(project, templateVersion, { ...params }) -> Letta.TemplatesForkTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Forks a template version into a new template
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.forktemplate("project", "template_version");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateVersion:** `string` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesForkTemplateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">createtemplate</a>(project, { ...params }) -> Letta.TemplatesCreateTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new template from an existing agent
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.createtemplate("project", {
+    agentId: "agent_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesCreateTemplateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">renametemplate</a>(project, templateName, { ...params }) -> Letta.TemplatesRenameTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Renames all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.renametemplate("project", "template_name", {
+    newName: "new_name",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateName:** `string` — The current template name (version will be automatically stripped if included)
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesRenameTemplateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listtemplateversions</a>(projectSlug, name, { ...params }) -> Letta.TemplatesListTemplateVersionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all versions of a specific template
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.listtemplateversions("project_slug", "name");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**projectSlug:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `string` — The template name (without version)
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesListTemplateVersionsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## ClientSideAccessTokens
 
 <details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">clientSideAccessTokensListClientSideAccessTokens</a>({ ...params }) -> Letta.ClientSideAccessTokensListClientSideAccessTokensResponse</code></summary>
@@ -8776,79 +9317,6 @@ await client.agents.groups.list("agent_id");
 
 ## Agents Templates
 
-<details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">createVersion</a>(agentId, { ...params }) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Note>This endpoint is only available on Letta Cloud.</Note>
-
-Creates a new version of the template version of the agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.templates.createVersion("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string` — The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.agents.TemplatesCreateVersionRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Templates.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">migrate</a>(agentId, { ...params }) -> Letta.TemplatesMigrateResponse</code></summary>
 <dl>
 <dd>
@@ -8925,7 +9393,7 @@ await client.agents.templates.migrate("agent_id", {
 </dl>
 </details>
 
-<details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">create</a>(agentId, { ...params }) -> Letta.TemplatesCreateResponse</code></summary>
+<details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">create</a>(agentId) -> void</code></summary>
 <dl>
 <dd>
 
@@ -8979,7 +9447,64 @@ await client.agents.templates.create("agent_id");
 <dl>
 <dd>
 
-**request:** `Letta.agents.TemplatesCreateRequest`
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">createVersion</a>(agentId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+<Note>This endpoint is only available on Letta Cloud.</Note>
+
+Creates a new version of the template version of the agent.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.templates.createVersion("agent_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
 
 </dd>
 </dl>

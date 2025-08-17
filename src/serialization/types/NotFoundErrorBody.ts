@@ -10,11 +10,11 @@ export const NotFoundErrorBody: core.serialization.ObjectSchema<
     serializers.NotFoundErrorBody.Raw,
     Letta.NotFoundErrorBody
 > = core.serialization.object({
-    message: core.serialization.stringLiteral("Agent not found"),
+    message: core.serialization.string(),
 });
 
 export declare namespace NotFoundErrorBody {
     export interface Raw {
-        message: "Agent not found";
+        message: string;
     }
 }

@@ -11,7 +11,6 @@ export const TemplatesMigrateRequest: core.serialization.Schema<
     Letta.agents.TemplatesMigrateRequest
 > = core.serialization.object({
     toTemplate: core.serialization.property("to_template", core.serialization.string()),
-    variables: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
     preserveCoreMemories: core.serialization.property("preserve_core_memories", core.serialization.boolean()),
     preserveToolVariables: core.serialization.property(
         "preserve_tool_variables",
@@ -22,7 +21,6 @@ export const TemplatesMigrateRequest: core.serialization.Schema<
 export declare namespace TemplatesMigrateRequest {
     export interface Raw {
         to_template: string;
-        variables?: Record<string, string> | null;
         preserve_core_memories: boolean;
         preserve_tool_variables?: boolean | null;
     }

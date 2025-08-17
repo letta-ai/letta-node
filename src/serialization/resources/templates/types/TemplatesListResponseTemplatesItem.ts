@@ -14,6 +14,8 @@ export const TemplatesListResponseTemplatesItem: core.serialization.ObjectSchema
     id: core.serialization.string(),
     projectId: core.serialization.property("project_id", core.serialization.string()),
     projectSlug: core.serialization.property("project_slug", core.serialization.string()),
+    latestVersion: core.serialization.property("latest_version", core.serialization.string()),
+    description: core.serialization.string().optional(),
     templateDeploymentSlug: core.serialization.property("template_deployment_slug", core.serialization.string()),
 });
 
@@ -23,6 +25,8 @@ export declare namespace TemplatesListResponseTemplatesItem {
         id: string;
         project_id: string;
         project_slug: string;
+        latest_version: string;
+        description?: string | null;
         template_deployment_slug: string;
     }
 }

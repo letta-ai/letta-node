@@ -9,6 +9,9 @@
 export interface TemplatesListRequest {
     offset?: string;
     limit?: string;
+    templateId?: string;
     name?: string;
+    search?: string;
+    projectSlug?: string;
     projectId?: string;
 }

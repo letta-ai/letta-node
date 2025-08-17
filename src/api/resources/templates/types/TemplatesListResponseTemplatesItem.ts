@@ -3,10 +3,14 @@
  */
 
 export interface TemplatesListResponseTemplatesItem {
+    /** The exact name of the template */
     name: string;
     id: string;
     projectId: string;
     projectSlug: string;
+    /** The latest version of the template */
+    latestVersion: string;
+    description?: string;
     /** The full name of the template, including version and project slug */
     templateDeploymentSlug: string;
 }

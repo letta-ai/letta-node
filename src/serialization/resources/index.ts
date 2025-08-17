@@ -30,4 +30,5 @@ export * from "./groups/client/requests";
 export * from "./identities/client/requests";
 export * from "./providers/client/requests";
 export * from "./batches/client/requests";
+export * from "./templates/client/requests";
 export * from "./clientSideAccessTokens/client/requests";

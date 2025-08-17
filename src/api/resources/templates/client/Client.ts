@@ -64,7 +64,7 @@ export class Templates {
         request: Letta.TemplatesListRequest = {},
         requestOptions?: Templates.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.TemplatesListResponse>> {
-        const { offset, limit, name, projectId } = request;
+        const { offset, limit, templateId, name, search, projectSlug, projectId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (offset != null) {
             _queryParams["offset"] = offset;
@@ -74,12 +74,24 @@ export class Templates {
             _queryParams["limit"] = limit;
         }
 
+        if (templateId != null) {
+            _queryParams["template_id"] = templateId;
+        }
+
         if (name != null) {
             _queryParams["name"] = name;
         }
 
+        if (search != null) {
+            _queryParams["search"] = search;
+        }
+
+        if (projectSlug != null) {
+            _queryParams["project_slug"] = projectSlug;
+        }
+
         if (projectId != null) {
-            _queryParams["projectId"] = projectId;
+            _queryParams["project_id"] = projectId;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -97,8 +109,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.180",
-                "User-Agent": "@letta-ai/letta-client/0.1.180",
+                "X-Fern-SDK-Version": "0.1.181",
+                "User-Agent": "@letta-ai/letta-client/0.1.181",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -141,6 +153,750 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/templates.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Saves the current version of the template as a new version
+     *
+     * @param {string} project - The project slug
+     * @param {string} templateName - The template version, formatted as {template-name}, any version appended will be ignored
+     * @param {Letta.TemplatesSaveTemplateVersionRequest} request
+     * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.BadRequestError}
+     *
+     * @example
+     *     await client.templates.savetemplateversion("project", "template_name")
+     */
+    public savetemplateversion(
+        project: string,
+        templateName: string,
+        request: Letta.TemplatesSaveTemplateVersionRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): core.HttpResponsePromise<Letta.TemplatesSaveTemplateVersionResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__savetemplateversion(project, templateName, request, requestOptions),
+        );
+    }
+
+    private async __savetemplateversion(
+        project: string,
+        templateName: string,
+        request: Letta.TemplatesSaveTemplateVersionRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.TemplatesSaveTemplateVersionResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateName)}`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.181",
+                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.TemplatesSaveTemplateVersionRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.TemplatesSaveTemplateVersionResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Letta.BadRequestError(_response.error.body, _response.rawResponse);
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling POST /v1/templates/{project}/{template_name}.",
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Deletes all versions of a template with the specified name
+     *
+     * @param {string} project - The project slug
+     * @param {string} templateName - The template name (without version)
+     * @param {Letta.TemplatesDeleteTemplateRequest} request
+     * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.NotFoundError}
+     *
+     * @example
+     *     await client.templates.deletetemplate("project", "template_name")
+     */
+    public deletetemplate(
+        project: string,
+        templateName: string,
+        request: Letta.TemplatesDeleteTemplateRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): core.HttpResponsePromise<Letta.TemplatesDeleteTemplateResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__deletetemplate(project, templateName, request, requestOptions),
+        );
+    }
+
+    private async __deletetemplate(
+        project: string,
+        templateName: string,
+        request: Letta.TemplatesDeleteTemplateRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.TemplatesDeleteTemplateResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateName)}`,
+            ),
+            method: "DELETE",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.181",
+                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.TemplatesDeleteTemplateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.TemplatesDeleteTemplateResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Letta.NotFoundError(_response.error.body, _response.rawResponse);
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling DELETE /v1/templates/{project}/{template_name}.",
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Get a snapshot of the template version, this will return the template state at a specific version
+     *
+     * @param {string} project - The project slug
+     * @param {string} templateVersion - The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+     * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.templates.gettemplatesnapshot("project", "template_version")
+     */
+    public gettemplatesnapshot(
+        project: string,
+        templateVersion: string,
+        requestOptions?: Templates.RequestOptions,
+    ): core.HttpResponsePromise<Letta.TemplatesGetTemplateSnapshotResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__gettemplatesnapshot(project, templateVersion, requestOptions),
+        );
+    }
+
+    private async __gettemplatesnapshot(
+        project: string,
+        templateVersion: string,
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.TemplatesGetTemplateSnapshotResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateVersion)}/snapshot`,
+            ),
+            method: "GET",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.181",
+                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.TemplatesGetTemplateSnapshotResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling GET /v1/templates/{project}/{template_version}/snapshot.",
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Forks a template version into a new template
+     *
+     * @param {string} project - The project slug
+     * @param {string} templateVersion - The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+     * @param {Letta.TemplatesForkTemplateRequest} request
+     * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.BadRequestError}
+     *
+     * @example
+     *     await client.templates.forktemplate("project", "template_version")
+     */
+    public forktemplate(
+        project: string,
+        templateVersion: string,
+        request: Letta.TemplatesForkTemplateRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): core.HttpResponsePromise<Letta.TemplatesForkTemplateResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__forktemplate(project, templateVersion, request, requestOptions),
+        );
+    }
+
+    private async __forktemplate(
+        project: string,
+        templateVersion: string,
+        request: Letta.TemplatesForkTemplateRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.TemplatesForkTemplateResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateVersion)}/fork`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.181",
+                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.TemplatesForkTemplateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.TemplatesForkTemplateResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Letta.BadRequestError(_response.error.body, _response.rawResponse);
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling POST /v1/templates/{project}/{template_version}/fork.",
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Creates a new template from an existing agent
+     *
+     * @param {string} project - The project slug
+     * @param {Letta.TemplatesCreateTemplateRequest} request
+     * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.BadRequestError}
+     *
+     * @example
+     *     await client.templates.createtemplate("project", {
+     *         agentId: "agent_id"
+     *     })
+     */
+    public createtemplate(
+        project: string,
+        request: Letta.TemplatesCreateTemplateRequest,
+        requestOptions?: Templates.RequestOptions,
+    ): core.HttpResponsePromise<Letta.TemplatesCreateTemplateResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createtemplate(project, request, requestOptions));
+    }
+
+    private async __createtemplate(
+        project: string,
+        request: Letta.TemplatesCreateTemplateRequest,
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.TemplatesCreateTemplateResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/templates/${encodeURIComponent(project)}`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.181",
+                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: {
+                ...serializers.TemplatesCreateTemplateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                type: "agent",
+            },
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.TemplatesCreateTemplateResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Letta.BadRequestError(_response.error.body, _response.rawResponse);
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/templates/{project}.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Renames all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included.
+     *
+     * @param {string} project - The project slug
+     * @param {string} templateName - The current template name (version will be automatically stripped if included)
+     * @param {Letta.TemplatesRenameTemplateRequest} request
+     * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.BadRequestError}
+     * @throws {@link Letta.NotFoundError}
+     * @throws {@link Letta.ConflictError}
+     *
+     * @example
+     *     await client.templates.renametemplate("project", "template_name", {
+     *         newName: "new_name"
+     *     })
+     */
+    public renametemplate(
+        project: string,
+        templateName: string,
+        request: Letta.TemplatesRenameTemplateRequest,
+        requestOptions?: Templates.RequestOptions,
+    ): core.HttpResponsePromise<Letta.TemplatesRenameTemplateResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__renametemplate(project, templateName, request, requestOptions),
+        );
+    }
+
+    private async __renametemplate(
+        project: string,
+        templateName: string,
+        request: Letta.TemplatesRenameTemplateRequest,
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.TemplatesRenameTemplateResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateName)}/name`,
+            ),
+            method: "PATCH",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.181",
+                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.TemplatesRenameTemplateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.TemplatesRenameTemplateResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Letta.BadRequestError(_response.error.body, _response.rawResponse);
+                case 404:
+                    throw new Letta.NotFoundError(_response.error.body, _response.rawResponse);
+                case 409:
+                    throw new Letta.ConflictError(
+                        serializers.ConflictErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling PATCH /v1/templates/{project}/{template_name}/name.",
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * List all versions of a specific template
+     *
+     * @param {string} projectSlug - The project slug
+     * @param {string} name - The template name (without version)
+     * @param {Letta.TemplatesListTemplateVersionsRequest} request
+     * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.NotFoundError}
+     *
+     * @example
+     *     await client.templates.listtemplateversions("project_slug", "name")
+     */
+    public listtemplateversions(
+        projectSlug: string,
+        name: string,
+        request: Letta.TemplatesListTemplateVersionsRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): core.HttpResponsePromise<Letta.TemplatesListTemplateVersionsResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__listtemplateversions(projectSlug, name, request, requestOptions),
+        );
+    }
+
+    private async __listtemplateversions(
+        projectSlug: string,
+        name: string,
+        request: Letta.TemplatesListTemplateVersionsRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.TemplatesListTemplateVersionsResponse>> {
+        const { offset, limit } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (offset != null) {
+            _queryParams["offset"] = offset;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit;
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/templates/${encodeURIComponent(projectSlug)}/${encodeURIComponent(name)}/versions`,
+            ),
+            method: "GET",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.181",
+                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.TemplatesListTemplateVersionsResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Letta.NotFoundError(_response.error.body, _response.rawResponse);
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling GET /v1/templates/{project_slug}/{name}/versions.",
+                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

@@ -3,5 +3,5 @@
  */
 
 export interface ConflictErrorBody {
-    message: "You can only migrate agents to a new versioned agent template that belongs to the same project";
+    message: string;
 }

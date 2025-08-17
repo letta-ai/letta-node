@@ -3,5 +3,5 @@
  */
 
 export interface NotFoundErrorBody {
-    message: "Agent not found";
+    message: string;
 }
