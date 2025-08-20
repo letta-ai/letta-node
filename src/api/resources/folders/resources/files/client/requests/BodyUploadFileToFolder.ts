@@ -13,4 +13,8 @@ export interface BodyUploadFileToFolder {
      * How to handle duplicate filenames
      */
     duplicateHandling?: Letta.DuplicateFileHandling;
+    /**
+     * Optional custom name to override the uploaded file's name
+     */
+    name?: string;
 }

@@ -75,6 +75,10 @@ export class Files {
             );
         }
 
+        if (request.name != null) {
+            _queryParams["name"] = request.name;
+        }
+
         const _request = await core.newFormData();
         await _request.appendFile("file", file);
         const _maybeEncodedRequest = await _request.getRequest();
@@ -93,8 +97,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.181",
-                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-SDK-Version": "0.1.182",
+                "User-Agent": "@letta-ai/letta-client/0.1.182",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -217,8 +221,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.181",
-                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-SDK-Version": "0.1.182",
+                "User-Agent": "@letta-ai/letta-client/0.1.182",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -323,8 +327,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.181",
-                "User-Agent": "@letta-ai/letta-client/0.1.181",
+                "X-Fern-SDK-Version": "0.1.182",
+                "User-Agent": "@letta-ai/letta-client/0.1.182",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

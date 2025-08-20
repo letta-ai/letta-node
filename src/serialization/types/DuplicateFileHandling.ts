@@ -9,8 +9,8 @@ import * as core from "../../core";
 export const DuplicateFileHandling: core.serialization.Schema<
     serializers.DuplicateFileHandling.Raw,
     Letta.DuplicateFileHandling
-> = core.serialization.enum_(["skip", "error", "suffix"]);
+> = core.serialization.enum_(["skip", "error", "suffix", "replace"]);
 
 export declare namespace DuplicateFileHandling {
-    export type Raw = "skip" | "error" | "suffix";
+    export type Raw = "skip" | "error" | "suffix" | "replace";
 }

@@ -5,9 +5,10 @@
 /**
  * How to handle duplicate filenames when uploading files
  */
-export type DuplicateFileHandling = "skip" | "error" | "suffix";
+export type DuplicateFileHandling = "skip" | "error" | "suffix" | "replace";
 export const DuplicateFileHandling = {
     Skip: "skip",
     Error: "error",
     Suffix: "suffix",
+    Replace: "replace",
 } as const;
