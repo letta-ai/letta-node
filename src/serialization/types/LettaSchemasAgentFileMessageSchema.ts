@@ -7,6 +7,8 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { MessageRole } from "./MessageRole";
 import { LettaSchemasAgentFileMessageSchemaContent } from "./LettaSchemasAgentFileMessageSchemaContent";
+import { ChatCompletionMessageFunctionToolCallInput } from "./ChatCompletionMessageFunctionToolCallInput";
+import { ToolReturn } from "./ToolReturn";
 
 export const LettaSchemasAgentFileMessageSchema: core.serialization.ObjectSchema<
     serializers.LettaSchemasAgentFileMessageSchema.Raw,
@@ -22,6 +24,13 @@ export const LettaSchemasAgentFileMessageSchema: core.serialization.ObjectSchema
     id: core.serialization.string(),
     model: core.serialization.string().optional(),
     agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
+    toolCalls: core.serialization.property(
+        "tool_calls",
+        core.serialization.list(ChatCompletionMessageFunctionToolCallInput).optional(),
+    ),
+    toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
+    toolReturns: core.serialization.property("tool_returns", core.serialization.list(ToolReturn).optional()),
+    createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
 });
 
 export declare namespace LettaSchemasAgentFileMessageSchema {
@@ -36,5 +45,9 @@ export declare namespace LettaSchemasAgentFileMessageSchema {
         id: string;
         model?: string | null;
         agent_id?: string | null;
+        tool_calls?: ChatCompletionMessageFunctionToolCallInput.Raw[] | null;
+        tool_call_id?: string | null;
+        tool_returns?: ToolReturn.Raw[] | null;
+        created_at?: string | null;
     }
 }

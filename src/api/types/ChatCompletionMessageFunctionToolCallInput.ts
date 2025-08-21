@@ -4,9 +4,9 @@
 
 import * as Letta from "../index";
 
-export interface ChatCompletionMessageFunctionToolCall {
+export interface ChatCompletionMessageFunctionToolCallInput {
     id: string;
-    function: Letta.FunctionOutput;
+    function: Letta.OpenaiTypesChatChatCompletionMessageFunctionToolCallFunction;
     type: "function";
     /** Accepts any additional properties */
     [key: string]: any;

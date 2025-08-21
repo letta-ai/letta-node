@@ -10,6 +10,11 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItemProperties: core.seri
     serializers.TemplatesGetTemplateSnapshotResponseAgentsItemProperties.Raw,
     Letta.TemplatesGetTemplateSnapshotResponseAgentsItemProperties
 > = core.serialization.object({
+    enableReasoner: core.serialization.property("enable_reasoner", core.serialization.boolean().optional()),
+    putInnerThoughtsInKwargs: core.serialization.property(
+        "put_inner_thoughts_in_kwargs",
+        core.serialization.boolean().optional(),
+    ),
     contextWindowLimit: core.serialization.property("context_window_limit", core.serialization.number().optional()),
     maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
     maxReasoningTokens: core.serialization.property("max_reasoning_tokens", core.serialization.number().optional()),
@@ -26,6 +31,8 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItemProperties: core.seri
 
 export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItemProperties {
     export interface Raw {
+        enable_reasoner?: boolean | null;
+        put_inner_thoughts_in_kwargs?: boolean | null;
         context_window_limit?: number | null;
         max_tokens?: number | null;
         max_reasoning_tokens?: number | null;

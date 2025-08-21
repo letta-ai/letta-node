@@ -74,8 +74,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.182",
-                "User-Agent": "@letta-ai/letta-client/0.1.182",
+                "X-Fern-SDK-Version": "0.1.183",
+                "User-Agent": "@letta-ai/letta-client/0.1.183",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -185,8 +185,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.182",
-                "User-Agent": "@letta-ai/letta-client/0.1.182",
+                "X-Fern-SDK-Version": "0.1.183",
+                "User-Agent": "@letta-ai/letta-client/0.1.183",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -295,8 +295,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.182",
-                "User-Agent": "@letta-ai/letta-client/0.1.182",
+                "X-Fern-SDK-Version": "0.1.183",
+                "User-Agent": "@letta-ai/letta-client/0.1.183",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -345,6 +345,75 @@ export class Files {
                 throw new errors.LettaTimeoutError(
                     "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/files/{file_id}/close.",
                 );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * @param {string} agentId
+     * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.agents.files.list("agent_id")
+     */
+    public list(agentId: string, requestOptions?: Files.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__list(agentId, requestOptions));
+    }
+
+    private async __list(agentId: string, requestOptions?: Files.RequestOptions): Promise<core.WithRawResponse<void>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/files`,
+            ),
+            method: "PATCH",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.183",
+                "User-Agent": "@letta-ai/letta-client/0.1.183",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: undefined, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/agents/{agent_id}/files.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

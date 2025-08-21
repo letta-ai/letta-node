@@ -3,6 +3,8 @@
  */
 
 export interface TemplatesGetTemplateSnapshotResponseAgentsItemProperties {
+    enableReasoner?: boolean;
+    putInnerThoughtsInKwargs?: boolean;
     contextWindowLimit?: number;
     maxTokens?: number;
     maxReasoningTokens?: number;
