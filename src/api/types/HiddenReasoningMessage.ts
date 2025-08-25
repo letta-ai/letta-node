@@ -25,6 +25,7 @@ export interface HiddenReasoningMessage {
     senderId?: string;
     stepId?: string;
     isErr?: boolean;
+    seqId?: number;
     state: Letta.HiddenReasoningMessageState;
     hiddenReasoning?: string;
 }

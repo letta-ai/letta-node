@@ -20,6 +20,7 @@ export interface SystemMessage {
     senderId?: string;
     stepId?: string;
     isErr?: boolean;
+    seqId?: number;
     /** The message content sent by the system */
     content: string;
 }

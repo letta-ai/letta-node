@@ -26,6 +26,7 @@ export interface ToolReturnMessage {
     senderId?: string;
     stepId?: string;
     isErr?: boolean;
+    seqId?: number;
     toolReturn: string;
     status: Letta.ToolReturnMessageStatus;
     toolCallId: string;

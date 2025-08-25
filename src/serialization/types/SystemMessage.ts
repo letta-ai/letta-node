@@ -16,6 +16,7 @@ export const SystemMessage: core.serialization.ObjectSchema<serializers.SystemMe
         senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
         stepId: core.serialization.property("step_id", core.serialization.string().optional()),
         isErr: core.serialization.property("is_err", core.serialization.boolean().optional()),
+        seqId: core.serialization.property("seq_id", core.serialization.number().optional()),
         content: core.serialization.string(),
     });
 
@@ -29,6 +30,7 @@ export declare namespace SystemMessage {
         sender_id?: string | null;
         step_id?: string | null;
         is_err?: boolean | null;
+        seq_id?: number | null;
         content: string;
     }
 }

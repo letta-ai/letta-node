@@ -23,4 +23,6 @@ export interface LettaStreamingRequest {
     streamTokens?: boolean;
     /** Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts. */
     includePings?: boolean;
+    /** Whether to process the request in the background. */
+    background?: boolean;
 }

@@ -19,6 +19,7 @@ export const ReasoningMessage: core.serialization.ObjectSchema<
     senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
     stepId: core.serialization.property("step_id", core.serialization.string().optional()),
     isErr: core.serialization.property("is_err", core.serialization.boolean().optional()),
+    seqId: core.serialization.property("seq_id", core.serialization.number().optional()),
     source: ReasoningMessageSource.optional(),
     reasoning: core.serialization.string(),
     signature: core.serialization.string().optional(),
@@ -34,6 +35,7 @@ export declare namespace ReasoningMessage {
         sender_id?: string | null;
         step_id?: string | null;
         is_err?: boolean | null;
+        seq_id?: number | null;
         source?: ReasoningMessageSource.Raw | null;
         reasoning: string;
         signature?: string | null;

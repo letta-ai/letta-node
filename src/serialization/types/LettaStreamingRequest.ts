@@ -30,6 +30,7 @@ export const LettaStreamingRequest: core.serialization.ObjectSchema<
     enableThinking: core.serialization.property("enable_thinking", core.serialization.string().optional()),
     streamTokens: core.serialization.property("stream_tokens", core.serialization.boolean().optional()),
     includePings: core.serialization.property("include_pings", core.serialization.boolean().optional()),
+    background: core.serialization.boolean().optional(),
 });
 
 export declare namespace LettaStreamingRequest {
@@ -43,5 +44,6 @@ export declare namespace LettaStreamingRequest {
         enable_thinking?: string | null;
         stream_tokens?: boolean | null;
         include_pings?: boolean | null;
+        background?: boolean | null;
     }
 }
