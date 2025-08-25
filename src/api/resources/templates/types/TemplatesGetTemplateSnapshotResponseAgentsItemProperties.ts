@@ -11,4 +11,5 @@ export interface TemplatesGetTemplateSnapshotResponseAgentsItemProperties {
     maxFilesOpen?: number;
     messageBufferAutoclear?: boolean;
     perFileViewWindowCharLimit?: number;
+    temperature?: number;
 }

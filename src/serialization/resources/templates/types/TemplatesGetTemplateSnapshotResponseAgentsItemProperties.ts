@@ -27,6 +27,7 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItemProperties: core.seri
         "per_file_view_window_char_limit",
         core.serialization.number().optional(),
     ),
+    temperature: core.serialization.number().optional(),
 });
 
 export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItemProperties {
@@ -39,5 +40,6 @@ export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItemPropertie
         max_files_open?: number | null;
         message_buffer_autoclear?: boolean | null;
         per_file_view_window_char_limit?: number | null;
+        temperature?: number | null;
     }
 }
