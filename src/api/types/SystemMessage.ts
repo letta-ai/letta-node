@@ -21,6 +21,7 @@ export interface SystemMessage {
     stepId?: string;
     isErr?: boolean;
     seqId?: number;
+    runId?: string;
     /** The message content sent by the system */
     content: string;
 }

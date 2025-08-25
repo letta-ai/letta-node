@@ -18,6 +18,7 @@ export const UserMessage: core.serialization.ObjectSchema<serializers.UserMessag
         stepId: core.serialization.property("step_id", core.serialization.string().optional()),
         isErr: core.serialization.property("is_err", core.serialization.boolean().optional()),
         seqId: core.serialization.property("seq_id", core.serialization.number().optional()),
+        runId: core.serialization.property("run_id", core.serialization.string().optional()),
         content: UserMessageContent,
     });
 
@@ -32,6 +33,7 @@ export declare namespace UserMessage {
         step_id?: string | null;
         is_err?: boolean | null;
         seq_id?: number | null;
+        run_id?: string | null;
         content: UserMessageContent.Raw;
     }
 }
