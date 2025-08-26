@@ -15,4 +15,20 @@ export interface RunsListRequest {
      * If True, filters for runs that were created in background mode.
      */
     background?: boolean;
+    /**
+     * Cursor for pagination
+     */
+    after?: string;
+    /**
+     * Cursor for pagination
+     */
+    before?: string;
+    /**
+     * Maximum number of runs to return
+     */
+    limit?: number;
+    /**
+     * Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+     */
+    ascending?: boolean;
 }

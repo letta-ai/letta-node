@@ -79,7 +79,7 @@ export class Runs {
         request: Letta.RunsListRequest = {},
         requestOptions?: Runs.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.Run[]>> {
-        const { agentIds, background } = request;
+        const { agentIds, background, after, before, limit, ascending } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (agentIds != null) {
             if (Array.isArray(agentIds)) {
@@ -91,6 +91,22 @@ export class Runs {
 
         if (background != null) {
             _queryParams["background"] = background.toString();
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (ascending != null) {
+            _queryParams["ascending"] = ascending.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -108,8 +124,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.188",
-                "User-Agent": "@letta-ai/letta-client/0.1.188",
+                "X-Fern-SDK-Version": "0.1.189",
+                "User-Agent": "@letta-ai/letta-client/0.1.189",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -225,8 +241,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.188",
-                "User-Agent": "@letta-ai/letta-client/0.1.188",
+                "X-Fern-SDK-Version": "0.1.189",
+                "User-Agent": "@letta-ai/letta-client/0.1.189",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -325,8 +341,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.188",
-                "User-Agent": "@letta-ai/letta-client/0.1.188",
+                "X-Fern-SDK-Version": "0.1.189",
+                "User-Agent": "@letta-ai/letta-client/0.1.189",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -424,8 +440,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.188",
-                "User-Agent": "@letta-ai/letta-client/0.1.188",
+                "X-Fern-SDK-Version": "0.1.189",
+                "User-Agent": "@letta-ai/letta-client/0.1.189",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -517,8 +533,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.188",
-                "User-Agent": "@letta-ai/letta-client/0.1.188",
+                "X-Fern-SDK-Version": "0.1.189",
+                "User-Agent": "@letta-ai/letta-client/0.1.189",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
