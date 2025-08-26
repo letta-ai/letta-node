@@ -5,21 +5,20 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { AgentsSearchRequestSearchItemFieldOperator } from "./AgentsSearchRequestSearchItemFieldOperator";
 
 export const AgentsSearchRequestSearchItemField: core.serialization.ObjectSchema<
     serializers.AgentsSearchRequestSearchItemField.Raw,
     Letta.AgentsSearchRequestSearchItemField
 > = core.serialization.object({
     field: core.serialization.stringLiteral("templateName"),
-    operator: AgentsSearchRequestSearchItemFieldOperator,
+    operator: core.serialization.stringLiteral("eq"),
     value: core.serialization.string(),
 });
 
 export declare namespace AgentsSearchRequestSearchItemField {
     export interface Raw {
         field: "templateName";
-        operator: AgentsSearchRequestSearchItemFieldOperator.Raw;
+        operator: "eq";
         value: string;
     }
 }

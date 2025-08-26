@@ -15,6 +15,6 @@ export interface BodyImportAgentSerialized {
     projectId?: string;
     /** If set to True, strips all messages from the agent before importing. */
     stripMessages?: boolean;
-    /** Environment variables to pass to the agent for tool execution. */
-    envVars?: Record<string, unknown>;
+    /** Environment variables as a JSON string to pass to the agent for tool execution. */
+    envVarsJson?: string;
 }

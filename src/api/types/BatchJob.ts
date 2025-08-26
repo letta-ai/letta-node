@@ -9,7 +9,7 @@ export interface BatchJob {
     createdById?: string;
     /** The id of the user that made this object. */
     lastUpdatedById?: string;
-    /** The timestamp when the object was created. */
+    /** The unix timestamp of when the job was created. */
     createdAt?: Date;
     /** The timestamp when the object was last updated. */
     updatedAt?: Date;

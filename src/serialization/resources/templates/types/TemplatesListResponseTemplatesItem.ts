@@ -17,6 +17,7 @@ export const TemplatesListResponseTemplatesItem: core.serialization.ObjectSchema
     latestVersion: core.serialization.property("latest_version", core.serialization.string()),
     description: core.serialization.string().optional(),
     templateDeploymentSlug: core.serialization.property("template_deployment_slug", core.serialization.string()),
+    updatedAt: core.serialization.property("updated_at", core.serialization.string()),
 });
 
 export declare namespace TemplatesListResponseTemplatesItem {
@@ -28,5 +29,6 @@ export declare namespace TemplatesListResponseTemplatesItem {
         latest_version: string;
         description?: string | null;
         template_deployment_slug: string;
+        updated_at: string;
     }
 }

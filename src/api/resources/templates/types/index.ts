@@ -1,3 +1,4 @@
+export * from "./TemplatesListRequestSortBy";
 export * from "./TemplatesListResponseTemplatesItem";
 export * from "./TemplatesListResponse";
 export * from "./TemplatesSaveTemplateVersionResponse";

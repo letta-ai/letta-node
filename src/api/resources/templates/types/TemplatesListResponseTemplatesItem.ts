@@ -13,4 +13,6 @@ export interface TemplatesListResponseTemplatesItem {
     description?: string;
     /** The full name of the template, including version and project slug */
     templateDeploymentSlug: string;
+    /** When the template was last updated */
+    updatedAt: string;
 }
