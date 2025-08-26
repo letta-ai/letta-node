@@ -23,6 +23,7 @@ export * as blocks from "./blocks";
 export * as jobs from "./jobs";
 export * as providers from "./providers";
 export * as tags from "./tags";
+export * as telemetry from "./telemetry";
 export * as batches from "./batches";
 export * as voice from "./voice";
 export * from "./tools/client/requests";

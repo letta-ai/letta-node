@@ -49,14 +49,14 @@ export class Telemetry {
     public retrieveProviderTrace(
         stepId: string,
         requestOptions?: Telemetry.RequestOptions,
-    ): core.HttpResponsePromise<Letta.ProviderTrace> {
+    ): core.HttpResponsePromise<Letta.ProviderTrace | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__retrieveProviderTrace(stepId, requestOptions));
     }
 
     private async __retrieveProviderTrace(
         stepId: string,
         requestOptions?: Telemetry.RequestOptions,
-    ): Promise<core.WithRawResponse<Letta.ProviderTrace>> {
+    ): Promise<core.WithRawResponse<Letta.ProviderTrace | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -72,8 +72,8 @@ export class Telemetry {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.190",
-                "User-Agent": "@letta-ai/letta-client/0.1.190",
+                "X-Fern-SDK-Version": "0.1.191",
+                "User-Agent": "@letta-ai/letta-client/0.1.191",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -87,7 +87,7 @@ export class Telemetry {
         });
         if (_response.ok) {
             return {
-                data: serializers.ProviderTrace.parseOrThrow(_response.body, {
+                data: serializers.telemetry.retrieveProviderTrace.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

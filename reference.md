@@ -5769,7 +5769,7 @@ await client.tags.list();
 
 ## Telemetry
 
-<details><summary><code>client.telemetry.<a href="/src/api/resources/telemetry/client/Client.ts">retrieveProviderTrace</a>(stepId) -> Letta.ProviderTrace</code></summary>
+<details><summary><code>client.telemetry.<a href="/src/api/resources/telemetry/client/Client.ts">retrieveProviderTrace</a>(stepId) -> Letta.ProviderTrace | undefined</code></summary>
 <dl>
 <dd>
 
