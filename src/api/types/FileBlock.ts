@@ -9,10 +9,16 @@ export interface FileBlock {
     limit?: number;
     /** The associated project id. */
     projectId?: string;
-    /** Name of the block if it is a template. */
+    /** The id of the template. */
     name?: string;
     /** Whether the block is a template (e.g. saved human/persona options). */
     isTemplate?: boolean;
+    /** The base template id of the block. */
+    baseTemplateId?: string;
+    /** The id of the deployment. */
+    deploymentId?: string;
+    /** The id of the entity within the template. */
+    entityId?: string;
     /** Preserve the block on template migration. */
     preserveOnMigration?: boolean;
     /** Label of the block (e.g. 'human', 'persona') in the context window. */

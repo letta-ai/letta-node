@@ -15,6 +15,12 @@ export interface Group {
     description: string;
     /** The associated project id. */
     projectId?: string;
+    /** The id of the template. */
+    templateId?: string;
+    /** The base template id. */
+    baseTemplateId?: string;
+    /** The id of the deployment. */
+    deploymentId?: string;
     /** */
     sharedBlockIds?: string[];
     /** */

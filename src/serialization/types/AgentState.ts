@@ -50,6 +50,8 @@ export const AgentState: core.serialization.ObjectSchema<serializers.AgentState.
         projectId: core.serialization.property("project_id", core.serialization.string().optional()),
         templateId: core.serialization.property("template_id", core.serialization.string().optional()),
         baseTemplateId: core.serialization.property("base_template_id", core.serialization.string().optional()),
+        deploymentId: core.serialization.property("deployment_id", core.serialization.string().optional()),
+        entityId: core.serialization.property("entity_id", core.serialization.string().optional()),
         identityIds: core.serialization.property(
             "identity_ids",
             core.serialization.list(core.serialization.string()).optional(),
@@ -96,6 +98,8 @@ export declare namespace AgentState {
         project_id?: string | null;
         template_id?: string | null;
         base_template_id?: string | null;
+        deployment_id?: string | null;
+        entity_id?: string | null;
         identity_ids?: string[] | null;
         message_buffer_autoclear?: boolean | null;
         enable_sleeptime?: boolean | null;

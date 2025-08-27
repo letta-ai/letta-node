@@ -13,6 +13,9 @@ export const Group: core.serialization.ObjectSchema<serializers.Group.Raw, Letta
     agentIds: core.serialization.property("agent_ids", core.serialization.list(core.serialization.string())),
     description: core.serialization.string(),
     projectId: core.serialization.property("project_id", core.serialization.string().optional()),
+    templateId: core.serialization.property("template_id", core.serialization.string().optional()),
+    baseTemplateId: core.serialization.property("base_template_id", core.serialization.string().optional()),
+    deploymentId: core.serialization.property("deployment_id", core.serialization.string().optional()),
     sharedBlockIds: core.serialization.property(
         "shared_block_ids",
         core.serialization.list(core.serialization.string()).optional(),
@@ -46,6 +49,9 @@ export declare namespace Group {
         agent_ids: string[];
         description: string;
         project_id?: string | null;
+        template_id?: string | null;
+        base_template_id?: string | null;
+        deployment_id?: string | null;
         shared_block_ids?: string[] | null;
         manager_agent_id?: string | null;
         termination_token?: string | null;

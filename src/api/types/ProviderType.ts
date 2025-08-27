@@ -4,36 +4,38 @@
 
 export type ProviderType =
     | "anthropic"
+    | "azure"
+    | "bedrock"
+    | "cerebras"
+    | "deepseek"
     | "google_ai"
     | "google_vertex"
-    | "openai"
+    | "groq"
+    | "hugging-face"
     | "letta"
-    | "deepseek"
-    | "cerebras"
     | "lmstudio_openai"
-    | "xai"
     | "mistral"
     | "ollama"
-    | "groq"
+    | "openai"
     | "together"
-    | "azure"
     | "vllm"
-    | "bedrock";
+    | "xai";
 export const ProviderType = {
     Anthropic: "anthropic",
+    Azure: "azure",
+    Bedrock: "bedrock",
+    Cerebras: "cerebras",
+    Deepseek: "deepseek",
     GoogleAi: "google_ai",
     GoogleVertex: "google_vertex",
-    Openai: "openai",
+    Groq: "groq",
+    HuggingFace: "hugging-face",
     Letta: "letta",
-    Deepseek: "deepseek",
-    Cerebras: "cerebras",
     LmstudioOpenai: "lmstudio_openai",
-    Xai: "xai",
     Mistral: "mistral",
     Ollama: "ollama",
-    Groq: "groq",
+    Openai: "openai",
     Together: "together",
-    Azure: "azure",
     Vllm: "vllm",
-    Bedrock: "bedrock",
+    Xai: "xai",
 } as const;

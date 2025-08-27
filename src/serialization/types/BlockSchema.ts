@@ -13,6 +13,9 @@ export const BlockSchema: core.serialization.ObjectSchema<serializers.BlockSchem
         projectId: core.serialization.property("project_id", core.serialization.string().optional()),
         name: core.serialization.string().optional(),
         isTemplate: core.serialization.property("is_template", core.serialization.boolean().optional()),
+        baseTemplateId: core.serialization.property("base_template_id", core.serialization.string().optional()),
+        deploymentId: core.serialization.property("deployment_id", core.serialization.string().optional()),
+        entityId: core.serialization.property("entity_id", core.serialization.string().optional()),
         preserveOnMigration: core.serialization.property(
             "preserve_on_migration",
             core.serialization.boolean().optional(),
@@ -31,6 +34,9 @@ export declare namespace BlockSchema {
         project_id?: string | null;
         name?: string | null;
         is_template?: boolean | null;
+        base_template_id?: string | null;
+        deployment_id?: string | null;
+        entity_id?: string | null;
         preserve_on_migration?: boolean | null;
         label: string;
         read_only?: boolean | null;
