@@ -11,4 +11,8 @@
 export interface CreateArchivalMemory {
     /** Text to write to archival memory. */
     text: string;
+    /** Optional list of tags to attach to the memory. */
+    tags?: string[];
+    /** Optional timestamp for the memory (defaults to current UTC time). */
+    createdAt?: Date;
 }

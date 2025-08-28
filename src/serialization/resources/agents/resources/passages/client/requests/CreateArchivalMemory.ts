@@ -11,10 +11,14 @@ export const CreateArchivalMemory: core.serialization.Schema<
     Letta.agents.CreateArchivalMemory
 > = core.serialization.object({
     text: core.serialization.string(),
+    tags: core.serialization.list(core.serialization.string()).optional(),
+    createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
 });
 
 export declare namespace CreateArchivalMemory {
     export interface Raw {
         text: string;
+        tags?: string[] | null;
+        created_at?: string | null;
     }
 }

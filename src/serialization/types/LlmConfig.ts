@@ -33,6 +33,7 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
         frequencyPenalty: core.serialization.property("frequency_penalty", core.serialization.number().optional()),
         compatibilityType: core.serialization.property("compatibility_type", LlmConfigCompatibilityType.optional()),
         verbosity: LlmConfigVerbosity.optional(),
+        tier: core.serialization.string().optional(),
     });
 
 export declare namespace LlmConfig {
@@ -54,5 +55,6 @@ export declare namespace LlmConfig {
         frequency_penalty?: number | null;
         compatibility_type?: LlmConfigCompatibilityType.Raw | null;
         verbosity?: LlmConfigVerbosity.Raw | null;
+        tier?: string | null;
     }
 }

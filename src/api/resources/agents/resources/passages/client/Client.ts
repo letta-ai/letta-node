@@ -99,8 +99,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.193",
-                "User-Agent": "@letta-ai/letta-client/0.1.193",
+                "X-Fern-SDK-Version": "0.1.194",
+                "User-Agent": "@letta-ai/letta-client/0.1.194",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -209,8 +209,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.193",
-                "User-Agent": "@letta-ai/letta-client/0.1.193",
+                "X-Fern-SDK-Version": "0.1.194",
+                "User-Agent": "@letta-ai/letta-client/0.1.194",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -317,8 +317,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.193",
-                "User-Agent": "@letta-ai/letta-client/0.1.193",
+                "X-Fern-SDK-Version": "0.1.194",
+                "User-Agent": "@letta-ai/letta-client/0.1.194",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -376,35 +376,26 @@ export class Passages {
     }
 
     /**
-     * Modify a memory in the agent's archival memory store.
-     *
      * @param {string} agentId
      * @param {string} memoryId
-     * @param {Letta.agents.PassageUpdate} request
      * @param {Passages.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
      * @example
-     *     await client.agents.passages.modify("agent_id", "memory_id", {
-     *         id: "id"
-     *     })
+     *     await client.agents.passages.modify("agent_id", "memory_id")
      */
     public modify(
         agentId: string,
         memoryId: string,
-        request: Letta.agents.PassageUpdate,
         requestOptions?: Passages.RequestOptions,
-    ): core.HttpResponsePromise<Letta.Passage[]> {
-        return core.HttpResponsePromise.fromPromise(this.__modify(agentId, memoryId, request, requestOptions));
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__modify(agentId, memoryId, requestOptions));
     }
 
     private async __modify(
         agentId: string,
         memoryId: string,
-        request: Letta.agents.PassageUpdate,
         requestOptions?: Passages.RequestOptions,
-    ): Promise<core.WithRawResponse<Letta.Passage[]>> {
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -420,8 +411,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.193",
-                "User-Agent": "@letta-ai/letta-client/0.1.193",
+                "X-Fern-SDK-Version": "0.1.194",
+                "User-Agent": "@letta-ai/letta-client/0.1.194",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -429,44 +420,20 @@ export class Passages {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.agents.PassageUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.agents.passages.modify.Response.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         switch (_response.error.reason) {

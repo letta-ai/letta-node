@@ -4110,6 +4110,46 @@ await client.models.list();
 </dl>
 </details>
 
+<details><summary><code>client.models.<a href="/src/api/resources/models/client/Client.ts">listembeddingmodels</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.models.listembeddingmodels();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Models.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## EmbeddingModels
 
 <details><summary><code>client.embeddingModels.<a href="/src/api/resources/embeddingModels/client/Client.ts">list</a>() -> Letta.EmbeddingConfig[]</code></summary>
@@ -8695,24 +8735,9 @@ await client.agents.passages.delete("agent_id", "memory_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.passages.<a href="/src/api/resources/agents/resources/passages/client/Client.ts">modify</a>(agentId, memoryId, { ...params }) -> Letta.Passage[]</code></summary>
+<details><summary><code>client.agents.passages.<a href="/src/api/resources/agents/resources/passages/client/Client.ts">modify</a>(agentId, memoryId) -> void</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Modify a memory in the agent's archival memory store.
-
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -8723,9 +8748,7 @@ Modify a memory in the agent's archival memory store.
 <dd>
 
 ```typescript
-await client.agents.passages.modify("agent_id", "memory_id", {
-    id: "id",
-});
+await client.agents.passages.modify("agent_id", "memory_id");
 ```
 
 </dd>
@@ -8750,14 +8773,6 @@ await client.agents.passages.modify("agent_id", "memory_id", {
 <dd>
 
 **memoryId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.agents.PassageUpdate`
 
 </dd>
 </dl>

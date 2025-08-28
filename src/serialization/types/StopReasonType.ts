@@ -10,6 +10,7 @@ export const StopReasonType: core.serialization.Schema<serializers.StopReasonTyp
     core.serialization.enum_([
         "end_turn",
         "error",
+        "invalid_llm_response",
         "invalid_tool_call",
         "max_steps",
         "no_tool_call",
@@ -21,6 +22,7 @@ export declare namespace StopReasonType {
     export type Raw =
         | "end_turn"
         | "error"
+        | "invalid_llm_response"
         | "invalid_tool_call"
         | "max_steps"
         | "no_tool_call"

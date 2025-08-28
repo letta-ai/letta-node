@@ -42,4 +42,6 @@ export interface LlmConfig {
     compatibilityType?: Letta.LlmConfigCompatibilityType;
     /** Soft control for how verbose model output should be, used for GPT-5 models. */
     verbosity?: Letta.LlmConfigVerbosity;
+    /** The cost tier for the model (cloud only). */
+    tier?: string;
 }

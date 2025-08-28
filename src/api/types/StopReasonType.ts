@@ -5,6 +5,7 @@
 export type StopReasonType =
     | "end_turn"
     | "error"
+    | "invalid_llm_response"
     | "invalid_tool_call"
     | "max_steps"
     | "no_tool_call"
@@ -13,6 +14,7 @@ export type StopReasonType =
 export const StopReasonType = {
     EndTurn: "end_turn",
     Error: "error",
+    InvalidLlmResponse: "invalid_llm_response",
     InvalidToolCall: "invalid_tool_call",
     MaxSteps: "max_steps",
     NoToolCall: "no_tool_call",
