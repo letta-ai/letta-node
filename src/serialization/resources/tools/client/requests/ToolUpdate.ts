@@ -35,6 +35,10 @@ export const ToolUpdate: core.serialization.Schema<serializers.ToolUpdate.Raw, L
             "metadata_",
             core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
+        defaultRequiresApproval: core.serialization.property(
+            "default_requires_approval",
+            core.serialization.boolean().optional(),
+        ),
     });
 
 export declare namespace ToolUpdate {
@@ -49,5 +53,6 @@ export declare namespace ToolUpdate {
         pip_requirements?: PipRequirement.Raw[] | null;
         npm_requirements?: NpmRequirement.Raw[] | null;
         metadata_?: Record<string, unknown> | null;
+        default_requires_approval?: boolean | null;
     }
 }

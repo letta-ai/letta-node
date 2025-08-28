@@ -31,6 +31,10 @@ export const ToolCreate: core.serialization.ObjectSchema<serializers.ToolCreate.
             "npm_requirements",
             core.serialization.list(NpmRequirement).optional(),
         ),
+        defaultRequiresApproval: core.serialization.property(
+            "default_requires_approval",
+            core.serialization.boolean().optional(),
+        ),
     });
 
 export declare namespace ToolCreate {
@@ -44,5 +48,6 @@ export declare namespace ToolCreate {
         return_char_limit?: number | null;
         pip_requirements?: PipRequirement.Raw[] | null;
         npm_requirements?: NpmRequirement.Raw[] | null;
+        default_requires_approval?: boolean | null;
     }
 }

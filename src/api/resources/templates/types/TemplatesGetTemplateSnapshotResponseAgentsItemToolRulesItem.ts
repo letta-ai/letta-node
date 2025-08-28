@@ -12,4 +12,5 @@ export type TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem =
     | Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour
     | Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFive
     | Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemMaxCountLimit
-    | Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven;
+    | Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven
+    | Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate;

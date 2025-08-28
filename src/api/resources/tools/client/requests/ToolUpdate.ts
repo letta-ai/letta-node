@@ -29,4 +29,6 @@ export interface ToolUpdate {
     npmRequirements?: Letta.NpmRequirement[];
     /** A dictionary of additional metadata for the tool. */
     metadata?: Record<string, unknown>;
+    /** Whether or not to require approval before executing this tool. */
+    defaultRequiresApproval?: boolean;
 }

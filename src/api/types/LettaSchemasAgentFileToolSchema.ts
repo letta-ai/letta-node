@@ -32,6 +32,8 @@ export interface LettaSchemasAgentFileToolSchema {
     pipRequirements?: Letta.PipRequirement[];
     /** Optional list of npm packages required by this tool. */
     npmRequirements?: Letta.NpmRequirement[];
+    /** Default value for whether or not executing this tool requires approval. */
+    defaultRequiresApproval?: boolean;
     /** The id of the user that made this Tool. */
     createdById?: string;
     /** The id of the user that made this Tool. */

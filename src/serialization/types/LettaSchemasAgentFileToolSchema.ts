@@ -37,6 +37,10 @@ export const LettaSchemasAgentFileToolSchema: core.serialization.ObjectSchema<
         "npm_requirements",
         core.serialization.list(NpmRequirement).optional(),
     ),
+    defaultRequiresApproval: core.serialization.property(
+        "default_requires_approval",
+        core.serialization.boolean().optional(),
+    ),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
     metadata: core.serialization.property(
@@ -59,6 +63,7 @@ export declare namespace LettaSchemasAgentFileToolSchema {
         return_char_limit?: number | null;
         pip_requirements?: PipRequirement.Raw[] | null;
         npm_requirements?: NpmRequirement.Raw[] | null;
+        default_requires_approval?: boolean | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         metadata_?: Record<string, unknown> | null;

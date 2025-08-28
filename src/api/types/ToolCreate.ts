@@ -23,4 +23,6 @@ export interface ToolCreate {
     pipRequirements?: Letta.PipRequirement[];
     /** Optional list of npm packages required by this tool. */
     npmRequirements?: Letta.NpmRequirement[];
+    /** Whether or not to require approval before executing this tool. */
+    defaultRequiresApproval?: boolean;
 }

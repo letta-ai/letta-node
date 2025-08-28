@@ -204,6 +204,7 @@ export * from "./ReasoningMessageSource";
 export * from "./ReasoningMessage";
 export * from "./RedactedReasoningContent";
 export * from "./RequiredBeforeExitToolRule";
+export * from "./RequiresApprovalToolRule";
 export * from "./ResponseFormatJsonObject";
 export * from "./ResponseFormatJsonSchema";
 export * from "./ResponseFormatText";

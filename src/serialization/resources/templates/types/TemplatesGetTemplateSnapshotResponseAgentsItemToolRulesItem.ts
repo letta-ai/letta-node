@@ -13,6 +13,7 @@ import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour } from 
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFive } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFive";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemMaxCountLimit } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemMaxCountLimit";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven";
+import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate";
 
 export const TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem: core.serialization.Schema<
     serializers.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem.Raw,
@@ -26,6 +27,7 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem: core.s
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFive,
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemMaxCountLimit,
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven,
+    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate,
 ]);
 
 export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem {
@@ -37,5 +39,6 @@ export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItemToolRules
         | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour.Raw
         | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFive.Raw
         | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemMaxCountLimit.Raw
-        | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven.Raw;
+        | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven.Raw
+        | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate.Raw;
 }

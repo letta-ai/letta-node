@@ -16,6 +16,7 @@ export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFive";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemMaxCountLimit";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven";
+export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItem";
 export * from "./TemplatesGetTemplateSnapshotResponseBlocksItem";
