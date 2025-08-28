@@ -9,7 +9,9 @@ export type MessageType =
     | "reasoning_message"
     | "hidden_reasoning_message"
     | "tool_call_message"
-    | "tool_return_message";
+    | "tool_return_message"
+    | "approval_request_message"
+    | "approval_response_message";
 export const MessageType = {
     SystemMessage: "system_message",
     UserMessage: "user_message",
@@ -18,4 +20,6 @@ export const MessageType = {
     HiddenReasoningMessage: "hidden_reasoning_message",
     ToolCallMessage: "tool_call_message",
     ToolReturnMessage: "tool_return_message",
+    ApprovalRequestMessage: "approval_request_message",
+    ApprovalResponseMessage: "approval_response_message",
 } as const;

@@ -15,6 +15,8 @@ export const MessageType: core.serialization.Schema<serializers.MessageType.Raw,
         "hidden_reasoning_message",
         "tool_call_message",
         "tool_return_message",
+        "approval_request_message",
+        "approval_response_message",
     ]);
 
 export declare namespace MessageType {
@@ -25,5 +27,7 @@ export declare namespace MessageType {
         | "reasoning_message"
         | "hidden_reasoning_message"
         | "tool_call_message"
-        | "tool_return_message";
+        | "tool_return_message"
+        | "approval_request_message"
+        | "approval_response_message";
 }

@@ -4,6 +4,7 @@ export { type AgentsExportFileRequest } from "./AgentsExportFileRequest";
 export { type BodyImportAgentSerialized } from "./BodyImportAgentSerialized";
 export { type AgentsRetrieveRequest } from "./AgentsRetrieveRequest";
 export { type UpdateAgent } from "./UpdateAgent";
+export { type ModifyApprovalRequest } from "./ModifyApprovalRequest";
 export { type ListAgentFilesRequest } from "./ListAgentFilesRequest";
 export { type SummarizeAgentConversationRequest } from "./SummarizeAgentConversationRequest";
 export { type AgentsSearchRequest } from "./AgentsSearchRequest";

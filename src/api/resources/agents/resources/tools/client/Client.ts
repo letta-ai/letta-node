@@ -71,8 +71,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.196",
-                "User-Agent": "@letta-ai/letta-client/0.1.196",
+                "X-Fern-SDK-Version": "0.1.197",
+                "User-Agent": "@letta-ai/letta-client/0.1.197",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -176,8 +176,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.196",
-                "User-Agent": "@letta-ai/letta-client/0.1.196",
+                "X-Fern-SDK-Version": "0.1.197",
+                "User-Agent": "@letta-ai/letta-client/0.1.197",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -283,8 +283,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.196",
-                "User-Agent": "@letta-ai/letta-client/0.1.196",
+                "X-Fern-SDK-Version": "0.1.197",
+                "User-Agent": "@letta-ai/letta-client/0.1.197",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -341,6 +341,86 @@ export class Tools {
             case "timeout":
                 throw new errors.LettaTimeoutError(
                     "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/tools/detach/{tool_id}.",
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * @param {string} agentId
+     * @param {string} toolId
+     * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.agents.tools.modifyApproval("agent_id", "tool_id")
+     */
+    public modifyApproval(
+        agentId: string,
+        toolId: string,
+        requestOptions?: Tools.RequestOptions,
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__modifyApproval(agentId, toolId, requestOptions));
+    }
+
+    private async __modifyApproval(
+        agentId: string,
+        toolId: string,
+        requestOptions?: Tools.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/tools/approval/${encodeURIComponent(toolId)}`,
+            ),
+            method: "PATCH",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.197",
+                "User-Agent": "@letta-ai/letta-client/0.1.197",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: undefined, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/tools/approval/{tool_id}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
