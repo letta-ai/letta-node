@@ -19,6 +19,7 @@ export const Passage: core.serialization.ObjectSchema<serializers.Passage.Raw, L
         fileId: core.serialization.property("file_id", core.serialization.string().optional()),
         fileName: core.serialization.property("file_name", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        tags: core.serialization.list(core.serialization.string()).optional(),
         id: core.serialization.string().optional(),
         text: core.serialization.string(),
         embedding: core.serialization.list(core.serialization.number()).optional(),
@@ -37,6 +38,7 @@ export declare namespace Passage {
         file_id?: string | null;
         file_name?: string | null;
         metadata?: Record<string, unknown> | null;
+        tags?: string[] | null;
         id?: string | null;
         text: string;
         embedding?: number[] | null;

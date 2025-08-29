@@ -19,7 +19,7 @@ export interface LettaStreamingRequest {
     includeReturnMessageTypes?: Letta.MessageType[];
     /** If set to True, enables reasoning before responses or tool calls from the agent. */
     enableThinking?: string;
-    /** Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True). */
+    /** Flag to determine if individual tokens should be streamed, rather than streaming per step. */
     streamTokens?: boolean;
     /** Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts. */
     includePings?: boolean;

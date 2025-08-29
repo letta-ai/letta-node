@@ -38,6 +38,8 @@ export interface Passage {
     fileName?: string;
     /** The metadata of the passage. */
     metadata?: Record<string, unknown>;
+    /** Tags associated with this passage. */
+    tags?: string[];
     /** The human-friendly ID of the Passage */
     id?: string;
     /** The text of the passage. */
