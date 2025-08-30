@@ -12,6 +12,8 @@ import { HiddenReasoningMessage } from "../../../../../types/HiddenReasoningMess
 import { ToolCallMessage } from "../../../../../types/ToolCallMessage";
 import { ToolReturnMessage } from "../../../../../types/ToolReturnMessage";
 import { AssistantMessage } from "../../../../../types/AssistantMessage";
+import { ApprovalRequestMessage } from "../../../../../types/ApprovalRequestMessage";
+import { ApprovalResponseMessage } from "../../../../../types/ApprovalResponseMessage";
 
 export const MessagesModifyResponse: core.serialization.Schema<
     serializers.agents.MessagesModifyResponse.Raw,
@@ -24,6 +26,8 @@ export const MessagesModifyResponse: core.serialization.Schema<
     ToolCallMessage,
     ToolReturnMessage,
     AssistantMessage,
+    ApprovalRequestMessage,
+    ApprovalResponseMessage,
 ]);
 
 export declare namespace MessagesModifyResponse {
@@ -34,5 +38,7 @@ export declare namespace MessagesModifyResponse {
         | HiddenReasoningMessage.Raw
         | ToolCallMessage.Raw
         | ToolReturnMessage.Raw
-        | AssistantMessage.Raw;
+        | AssistantMessage.Raw
+        | ApprovalRequestMessage.Raw
+        | ApprovalResponseMessage.Raw;
 }

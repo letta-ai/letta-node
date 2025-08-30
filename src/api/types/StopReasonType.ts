@@ -10,7 +10,8 @@ export type StopReasonType =
     | "max_steps"
     | "no_tool_call"
     | "tool_rule"
-    | "cancelled";
+    | "cancelled"
+    | "requires_approval";
 export const StopReasonType = {
     EndTurn: "end_turn",
     Error: "error",
@@ -20,4 +21,5 @@ export const StopReasonType = {
     NoToolCall: "no_tool_call",
     ToolRule: "tool_rule",
     Cancelled: "cancelled",
+    RequiresApproval: "requires_approval",
 } as const;

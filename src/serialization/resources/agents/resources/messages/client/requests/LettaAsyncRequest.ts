@@ -5,14 +5,14 @@
 import * as serializers from "../../../../../../index";
 import * as Letta from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
-import { MessageCreate } from "../../../../../../types/MessageCreate";
+import { LettaAsyncRequestMessagesItem } from "../../types/LettaAsyncRequestMessagesItem";
 import { MessageType } from "../../../../../../types/MessageType";
 
 export const LettaAsyncRequest: core.serialization.Schema<
     serializers.agents.LettaAsyncRequest.Raw,
     Letta.agents.LettaAsyncRequest
 > = core.serialization.object({
-    messages: core.serialization.list(MessageCreate),
+    messages: core.serialization.list(LettaAsyncRequestMessagesItem),
     maxSteps: core.serialization.property("max_steps", core.serialization.number().optional()),
     useAssistantMessage: core.serialization.property("use_assistant_message", core.serialization.boolean().optional()),
     assistantMessageToolName: core.serialization.property(
@@ -33,7 +33,7 @@ export const LettaAsyncRequest: core.serialization.Schema<
 
 export declare namespace LettaAsyncRequest {
     export interface Raw {
-        messages: MessageCreate.Raw[];
+        messages: LettaAsyncRequestMessagesItem.Raw[];
         max_steps?: number | null;
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;

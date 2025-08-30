@@ -13,6 +13,7 @@ export * as coreMemory from "./coreMemory";
 export * as blocks from "./blocks";
 export * as passages from "./passages";
 export * as groups from "./groups";
+export * from "./tools/client/requests";
 export * from "./passages/client/requests";
 export * from "./messages/client/requests";
 export * from "./groups/client/requests";

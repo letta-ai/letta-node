@@ -5,12 +5,12 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { MessageCreate } from "./MessageCreate";
+import { LettaRequestMessagesItem } from "./LettaRequestMessagesItem";
 import { MessageType } from "./MessageType";
 
 export const LettaRequest: core.serialization.ObjectSchema<serializers.LettaRequest.Raw, Letta.LettaRequest> =
     core.serialization.object({
-        messages: core.serialization.list(MessageCreate),
+        messages: core.serialization.list(LettaRequestMessagesItem),
         maxSteps: core.serialization.property("max_steps", core.serialization.number().optional()),
         useAssistantMessage: core.serialization.property(
             "use_assistant_message",
@@ -33,7 +33,7 @@ export const LettaRequest: core.serialization.ObjectSchema<serializers.LettaRequ
 
 export declare namespace LettaRequest {
     export interface Raw {
-        messages: MessageCreate.Raw[];
+        messages: LettaRequestMessagesItem.Raw[];
         max_steps?: number | null;
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;

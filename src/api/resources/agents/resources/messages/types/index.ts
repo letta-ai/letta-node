@@ -1,4 +1,5 @@
 export * from "./MessagesModifyRequest";
 export * from "./MessagesModifyResponse";
 export * from "./LettaStreamingResponse";
+export * from "./LettaAsyncRequestMessagesItem";
 export * from "./MessagesPreviewRawPayloadRequest";

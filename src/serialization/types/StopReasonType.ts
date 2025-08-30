@@ -16,6 +16,7 @@ export const StopReasonType: core.serialization.Schema<serializers.StopReasonTyp
         "no_tool_call",
         "tool_rule",
         "cancelled",
+        "requires_approval",
     ]);
 
 export declare namespace StopReasonType {
@@ -27,5 +28,6 @@ export declare namespace StopReasonType {
         | "max_steps"
         | "no_tool_call"
         | "tool_rule"
-        | "cancelled";
+        | "cancelled"
+        | "requires_approval";
 }

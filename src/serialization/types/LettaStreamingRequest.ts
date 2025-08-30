@@ -5,14 +5,14 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { MessageCreate } from "./MessageCreate";
+import { LettaStreamingRequestMessagesItem } from "./LettaStreamingRequestMessagesItem";
 import { MessageType } from "./MessageType";
 
 export const LettaStreamingRequest: core.serialization.ObjectSchema<
     serializers.LettaStreamingRequest.Raw,
     Letta.LettaStreamingRequest
 > = core.serialization.object({
-    messages: core.serialization.list(MessageCreate),
+    messages: core.serialization.list(LettaStreamingRequestMessagesItem),
     maxSteps: core.serialization.property("max_steps", core.serialization.number().optional()),
     useAssistantMessage: core.serialization.property("use_assistant_message", core.serialization.boolean().optional()),
     assistantMessageToolName: core.serialization.property(
@@ -35,7 +35,7 @@ export const LettaStreamingRequest: core.serialization.ObjectSchema<
 
 export declare namespace LettaStreamingRequest {
     export interface Raw {
-        messages: MessageCreate.Raw[];
+        messages: LettaStreamingRequestMessagesItem.Raw[];
         max_steps?: number | null;
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;

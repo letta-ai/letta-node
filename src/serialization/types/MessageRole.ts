@@ -7,8 +7,8 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 
 export const MessageRole: core.serialization.Schema<serializers.MessageRole.Raw, Letta.MessageRole> =
-    core.serialization.enum_(["assistant", "user", "tool", "function", "system"]);
+    core.serialization.enum_(["assistant", "user", "tool", "function", "system", "approval"]);
 
 export declare namespace MessageRole {
-    export type Raw = "assistant" | "user" | "tool" | "function" | "system";
+    export type Raw = "assistant" | "user" | "tool" | "function" | "system" | "approval";
 }

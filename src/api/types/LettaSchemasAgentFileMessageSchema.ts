@@ -8,6 +8,8 @@ import * as Letta from "../index";
  * Message with human-readable ID for agent file
  */
 export interface LettaSchemasAgentFileMessageSchema {
+    /** The message type to be created. */
+    type?: "message";
     /** The role of the participant. */
     role: Letta.MessageRole;
     /** The content of the message. */

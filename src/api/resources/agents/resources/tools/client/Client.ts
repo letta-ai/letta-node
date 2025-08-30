@@ -71,8 +71,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.198",
-                "User-Agent": "@letta-ai/letta-client/0.1.198",
+                "X-Fern-SDK-Version": "0.1.199",
+                "User-Agent": "@letta-ai/letta-client/0.1.199",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -176,8 +176,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.198",
-                "User-Agent": "@letta-ai/letta-client/0.1.198",
+                "X-Fern-SDK-Version": "0.1.199",
+                "User-Agent": "@letta-ai/letta-client/0.1.199",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -283,8 +283,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.198",
-                "User-Agent": "@letta-ai/letta-client/0.1.198",
+                "X-Fern-SDK-Version": "0.1.199",
+                "User-Agent": "@letta-ai/letta-client/0.1.199",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -351,32 +351,44 @@ export class Tools {
     }
 
     /**
+     * Attach a tool to an agent.
+     *
      * @param {string} agentId
-     * @param {string} toolId
+     * @param {string} toolName
+     * @param {Letta.agents.ToolsModifyApprovalRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
      * @example
-     *     await client.agents.tools.modifyApproval("agent_id", "tool_id")
+     *     await client.agents.tools.modifyApproval("agent_id", "tool_name", {
+     *         requiresApproval: true
+     *     })
      */
     public modifyApproval(
         agentId: string,
-        toolId: string,
+        toolName: string,
+        request: Letta.agents.ToolsModifyApprovalRequest,
         requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__modifyApproval(agentId, toolId, requestOptions));
+    ): core.HttpResponsePromise<Letta.AgentState> {
+        return core.HttpResponsePromise.fromPromise(this.__modifyApproval(agentId, toolName, request, requestOptions));
     }
 
     private async __modifyApproval(
         agentId: string,
-        toolId: string,
+        toolName: string,
+        request: Letta.agents.ToolsModifyApprovalRequest,
         requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<void>> {
+    ): Promise<core.WithRawResponse<Letta.AgentState>> {
+        const { requiresApproval } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["requires_approval"] = requiresApproval.toString();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/tools/approval/${encodeURIComponent(toolId)}`,
+                `v1/agents/${encodeURIComponent(agentId)}/tools/approval/${encodeURIComponent(toolName)}`,
             ),
             method: "PATCH",
             headers: {
@@ -386,29 +398,53 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.198",
-                "User-Agent": "@letta-ai/letta-client/0.1.198",
+                "X-Fern-SDK-Version": "0.1.199",
+                "User-Agent": "@letta-ai/letta-client/0.1.199",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: undefined, rawResponse: _response.rawResponse };
+            return {
+                data: serializers.AgentState.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.LettaError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-                rawResponse: _response.rawResponse,
-            });
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -420,7 +456,7 @@ export class Tools {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/tools/approval/{tool_id}.",
+                    "Timeout exceeded when calling PATCH /v1/agents/{agent_id}/tools/approval/{tool_name}.",
                 );
             case "unknown":
                 throw new errors.LettaError({

@@ -8,6 +8,6 @@
  *         requiresApproval: true
  *     }
  */
-export interface ModifyApprovalRequest {
+export interface ToolsModifyApprovalRequest {
     requiresApproval: boolean;
 }

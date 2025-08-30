@@ -12,6 +12,8 @@ import { HiddenReasoningMessage } from "./HiddenReasoningMessage";
 import { ToolCallMessage } from "./ToolCallMessage";
 import { ToolReturnMessage } from "./ToolReturnMessage";
 import { AssistantMessage } from "./AssistantMessage";
+import { ApprovalRequestMessage } from "./ApprovalRequestMessage";
+import { ApprovalResponseMessage } from "./ApprovalResponseMessage";
 
 export const LettaMessageUnion: core.serialization.Schema<serializers.LettaMessageUnion.Raw, Letta.LettaMessageUnion> =
     core.serialization.undiscriminatedUnion([
@@ -22,6 +24,8 @@ export const LettaMessageUnion: core.serialization.Schema<serializers.LettaMessa
         ToolCallMessage,
         ToolReturnMessage,
         AssistantMessage,
+        ApprovalRequestMessage,
+        ApprovalResponseMessage,
     ]);
 
 export declare namespace LettaMessageUnion {
@@ -32,5 +36,7 @@ export declare namespace LettaMessageUnion {
         | HiddenReasoningMessage.Raw
         | ToolCallMessage.Raw
         | ToolReturnMessage.Raw
-        | AssistantMessage.Raw;
+        | AssistantMessage.Raw
+        | ApprovalRequestMessage.Raw
+        | ApprovalResponseMessage.Raw;
 }

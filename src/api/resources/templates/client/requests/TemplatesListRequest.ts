@@ -10,7 +10,15 @@ import * as Letta from "../../../../index";
  */
 export interface TemplatesListRequest {
     offset?: string;
+    /**
+     * Whether to search for an exact name match
+     */
+    exact?: string;
     limit?: string;
+    /**
+     * Specify the version you want to return, otherwise will return the latest version
+     */
+    version?: string;
     templateId?: string;
     name?: string;
     search?: string;

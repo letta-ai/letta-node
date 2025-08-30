@@ -11,4 +11,6 @@ export type MessagesModifyResponse =
     | Letta.HiddenReasoningMessage
     | Letta.ToolCallMessage
     | Letta.ToolReturnMessage
-    | Letta.AssistantMessage;
+    | Letta.AssistantMessage
+    | Letta.ApprovalRequestMessage
+    | Letta.ApprovalResponseMessage;

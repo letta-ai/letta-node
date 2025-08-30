@@ -14,6 +14,7 @@ export const LettaSchemasAgentFileMessageSchema: core.serialization.ObjectSchema
     serializers.LettaSchemasAgentFileMessageSchema.Raw,
     Letta.LettaSchemasAgentFileMessageSchema
 > = core.serialization.object({
+    type: core.serialization.stringLiteral("message").optional(),
     role: MessageRole,
     content: LettaSchemasAgentFileMessageSchemaContent,
     name: core.serialization.string().optional(),
@@ -35,6 +36,7 @@ export const LettaSchemasAgentFileMessageSchema: core.serialization.ObjectSchema
 
 export declare namespace LettaSchemasAgentFileMessageSchema {
     export interface Raw {
+        type?: "message" | null;
         role: MessageRole.Raw;
         content: LettaSchemasAgentFileMessageSchemaContent.Raw;
         name?: string | null;

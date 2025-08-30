@@ -5,14 +5,14 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { MessageCreate } from "./MessageCreate";
+import { LettaBatchRequestMessagesItem } from "./LettaBatchRequestMessagesItem";
 import { MessageType } from "./MessageType";
 
 export const LettaBatchRequest: core.serialization.ObjectSchema<
     serializers.LettaBatchRequest.Raw,
     Letta.LettaBatchRequest
 > = core.serialization.object({
-    messages: core.serialization.list(MessageCreate),
+    messages: core.serialization.list(LettaBatchRequestMessagesItem),
     maxSteps: core.serialization.property("max_steps", core.serialization.number().optional()),
     useAssistantMessage: core.serialization.property("use_assistant_message", core.serialization.boolean().optional()),
     assistantMessageToolName: core.serialization.property(
@@ -33,7 +33,7 @@ export const LettaBatchRequest: core.serialization.ObjectSchema<
 
 export declare namespace LettaBatchRequest {
     export interface Raw {
-        messages: MessageCreate.Raw[];
+        messages: LettaBatchRequestMessagesItem.Raw[];
         max_steps?: number | null;
         use_assistant_message?: boolean | null;
         assistant_message_tool_name?: string | null;

@@ -6,7 +6,7 @@ import * as Letta from "../index";
 
 export interface LettaBatchRequest {
     /** The messages to be sent to the agent. */
-    messages: Letta.MessageCreate[];
+    messages: Letta.LettaBatchRequestMessagesItem[];
     /** Maximum number of steps the agent should take to process the request. */
     maxSteps?: number;
     /** Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects. */

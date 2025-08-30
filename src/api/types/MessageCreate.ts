@@ -8,6 +8,8 @@ import * as Letta from "../index";
  * Request to create a message
  */
 export interface MessageCreate {
+    /** The message type to be created. */
+    type?: "message";
     /** The role of the participant. */
     role: Letta.MessageCreateRole;
     /** The content of the message. */

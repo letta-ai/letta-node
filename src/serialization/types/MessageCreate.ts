@@ -10,6 +10,7 @@ import { MessageCreateContent } from "./MessageCreateContent";
 
 export const MessageCreate: core.serialization.ObjectSchema<serializers.MessageCreate.Raw, Letta.MessageCreate> =
     core.serialization.object({
+        type: core.serialization.stringLiteral("message").optional(),
         role: MessageCreateRole,
         content: MessageCreateContent,
         name: core.serialization.string().optional(),
@@ -21,6 +22,7 @@ export const MessageCreate: core.serialization.ObjectSchema<serializers.MessageC
 
 export declare namespace MessageCreate {
     export interface Raw {
+        type?: "message" | null;
         role: MessageCreateRole.Raw;
         content: MessageCreateContent.Raw;
         name?: string | null;

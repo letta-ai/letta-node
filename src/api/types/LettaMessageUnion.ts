@@ -11,4 +11,6 @@ export type LettaMessageUnion =
     | Letta.HiddenReasoningMessage
     | Letta.ToolCallMessage
     | Letta.ToolReturnMessage
-    | Letta.AssistantMessage;
+    | Letta.AssistantMessage
+    | Letta.ApprovalRequestMessage
+    | Letta.ApprovalResponseMessage;
