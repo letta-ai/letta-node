@@ -34,6 +34,9 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
         batchItemId: core.serialization.property("batch_item_id", core.serialization.string().optional()),
         isErr: core.serialization.property("is_err", core.serialization.boolean().optional()),
+        approvalRequestId: core.serialization.property("approval_request_id", core.serialization.string().optional()),
+        approve: core.serialization.boolean().optional(),
+        denialReason: core.serialization.property("denial_reason", core.serialization.string().optional()),
     });
 
 export declare namespace Message {
@@ -57,5 +60,8 @@ export declare namespace Message {
         sender_id?: string | null;
         batch_item_id?: string | null;
         is_err?: boolean | null;
+        approval_request_id?: string | null;
+        approve?: boolean | null;
+        denial_reason?: string | null;
     }
 }

@@ -64,4 +64,10 @@ export interface Message {
     batchItemId?: string;
     /** Whether this message is part of an error step. Used only for debugging purposes. */
     isErr?: boolean;
+    /** The id of the approval request if this message is associated with a tool call request. */
+    approvalRequestId?: string;
+    /** Whether tool call is approved. */
+    approve?: boolean;
+    /** The reason the tool call request was denied. */
+    denialReason?: string;
 }
