@@ -8745,6 +8745,83 @@ await client.agents.passages.create("agent_id", {
 </dl>
 </details>
 
+<details><summary><code>client.agents.passages.<a href="/src/api/resources/agents/resources/passages/client/Client.ts">search</a>(agentId, { ...params }) -> Letta.ArchivalMemorySearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search archival memory using semantic (embedding-based) search with optional temporal filtering.
+
+This endpoint allows manual triggering of archival memory searches, enabling users to query
+an agent's archival memory store directly via the API. The search uses the same functionality
+as the agent's archival_memory_search tool but is accessible for external API usage.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agents.passages.search("agent_id", {
+    query: "query",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.PassagesSearchRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Passages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.passages.<a href="/src/api/resources/agents/resources/passages/client/Client.ts">delete</a>(agentId, memoryId) -> unknown</code></summary>
 <dl>
 <dd>

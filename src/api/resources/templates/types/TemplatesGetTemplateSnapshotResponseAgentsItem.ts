@@ -15,6 +15,7 @@ export interface TemplatesGetTemplateSnapshotResponseAgentsItem {
     tags?: string[];
     identityIds?: string[];
     toolRules?: Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem[];
+    agentType: Letta.TemplatesGetTemplateSnapshotResponseAgentsItemAgentType;
     entityId: string;
     name: string;
 }

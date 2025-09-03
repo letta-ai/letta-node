@@ -9,6 +9,7 @@ import { TemplatesGetTemplateSnapshotResponseAgentsItemProperties } from "./Temp
 import { TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables } from "./TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolVariables } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolVariables";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem";
+import { TemplatesGetTemplateSnapshotResponseAgentsItemAgentType } from "./TemplatesGetTemplateSnapshotResponseAgentsItemAgentType";
 
 export const TemplatesGetTemplateSnapshotResponseAgentsItem: core.serialization.ObjectSchema<
     serializers.TemplatesGetTemplateSnapshotResponseAgentsItem.Raw,
@@ -24,6 +25,7 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItem: core.serialization.
     tags: core.serialization.list(core.serialization.string()).optional(),
     identityIds: core.serialization.list(core.serialization.string()).optional(),
     toolRules: core.serialization.list(TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem).optional(),
+    agentType: TemplatesGetTemplateSnapshotResponseAgentsItemAgentType,
     entityId: core.serialization.string(),
     name: core.serialization.string(),
 });
@@ -40,6 +42,7 @@ export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItem {
         tags?: string[] | null;
         identityIds?: string[] | null;
         toolRules?: TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem.Raw[] | null;
+        agentType: TemplatesGetTemplateSnapshotResponseAgentsItemAgentType.Raw;
         entityId: string;
         name: string;
     }

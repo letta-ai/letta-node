@@ -10,7 +10,7 @@ export const TemplatesGetTemplateSnapshotResponseConfiguration: core.serializati
     serializers.TemplatesGetTemplateSnapshotResponseConfiguration.Raw,
     Letta.TemplatesGetTemplateSnapshotResponseConfiguration
 > = core.serialization.object({
-    managerAgentId: core.serialization.string().optional(),
+    managerAgentEntityId: core.serialization.string().optional(),
     managerType: core.serialization.string().optional(),
     terminationToken: core.serialization.string().optional(),
     maxTurns: core.serialization.number().optional(),
@@ -21,7 +21,7 @@ export const TemplatesGetTemplateSnapshotResponseConfiguration: core.serializati
 
 export declare namespace TemplatesGetTemplateSnapshotResponseConfiguration {
     export interface Raw {
-        managerAgentId?: string | null;
+        managerAgentEntityId?: string | null;
         managerType?: string | null;
         terminationToken?: string | null;
         maxTurns?: number | null;

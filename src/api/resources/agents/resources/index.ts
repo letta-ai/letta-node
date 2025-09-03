@@ -1,3 +1,5 @@
+export * as passages from "./passages";
+export * from "./passages/types";
 export * as messages from "./messages";
 export * from "./messages/types";
 export * as templates from "./templates";
@@ -11,7 +13,6 @@ export * as folders from "./folders";
 export * as files from "./files";
 export * as coreMemory from "./coreMemory";
 export * as blocks from "./blocks";
-export * as passages from "./passages";
 export * as groups from "./groups";
 export * from "./tools/client/requests";
 export * from "./passages/client/requests";

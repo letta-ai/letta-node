@@ -99,8 +99,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.201",
-                "User-Agent": "@letta-ai/letta-client/0.1.201",
+                "X-Fern-SDK-Version": "0.1.202",
+                "User-Agent": "@letta-ai/letta-client/0.1.202",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -209,8 +209,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.201",
-                "User-Agent": "@letta-ai/letta-client/0.1.201",
+                "X-Fern-SDK-Version": "0.1.202",
+                "User-Agent": "@letta-ai/letta-client/0.1.202",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -278,6 +278,150 @@ export class Passages {
     }
 
     /**
+     * Search archival memory using semantic (embedding-based) search with optional temporal filtering.
+     *
+     * This endpoint allows manual triggering of archival memory searches, enabling users to query
+     * an agent's archival memory store directly via the API. The search uses the same functionality
+     * as the agent's archival_memory_search tool but is accessible for external API usage.
+     *
+     * @param {string} agentId
+     * @param {Letta.agents.PassagesSearchRequest} request
+     * @param {Passages.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.agents.passages.search("agent_id", {
+     *         query: "query"
+     *     })
+     */
+    public search(
+        agentId: string,
+        request: Letta.agents.PassagesSearchRequest,
+        requestOptions?: Passages.RequestOptions,
+    ): core.HttpResponsePromise<Letta.ArchivalMemorySearchResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__search(agentId, request, requestOptions));
+    }
+
+    private async __search(
+        agentId: string,
+        request: Letta.agents.PassagesSearchRequest,
+        requestOptions?: Passages.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.ArchivalMemorySearchResponse>> {
+        const { query, tags, tagMatchMode, topK, startDatetime, endDatetime } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["query"] = query;
+        if (tags != null) {
+            if (Array.isArray(tags)) {
+                _queryParams["tags"] = tags.map((item) => item);
+            } else {
+                _queryParams["tags"] = tags;
+            }
+        }
+
+        if (tagMatchMode != null) {
+            _queryParams["tag_match_mode"] = serializers.agents.PassagesSearchRequestTagMatchMode.jsonOrThrow(
+                tagMatchMode,
+                { unrecognizedObjectKeys: "strip" },
+            );
+        }
+
+        if (topK != null) {
+            _queryParams["top_k"] = topK.toString();
+        }
+
+        if (startDatetime != null) {
+            _queryParams["start_datetime"] = startDatetime;
+        }
+
+        if (endDatetime != null) {
+            _queryParams["end_datetime"] = endDatetime;
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/agents/${encodeURIComponent(agentId)}/archival-memory/search`,
+            ),
+            method: "GET",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.202",
+                "User-Agent": "@letta-ai/letta-client/0.1.202",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.ArchivalMemorySearchResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling GET /v1/agents/{agent_id}/archival-memory/search.",
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Delete a memory from an agent's archival memory store.
      *
      * @param {string} agentId
@@ -317,8 +461,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.201",
-                "User-Agent": "@letta-ai/letta-client/0.1.201",
+                "X-Fern-SDK-Version": "0.1.202",
+                "User-Agent": "@letta-ai/letta-client/0.1.202",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -411,8 +555,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.201",
-                "User-Agent": "@letta-ai/letta-client/0.1.201",
+                "X-Fern-SDK-Version": "0.1.202",
+                "User-Agent": "@letta-ai/letta-client/0.1.202",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

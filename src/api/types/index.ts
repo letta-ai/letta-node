@@ -18,6 +18,8 @@ export * from "./AppModel";
 export * from "./ApprovalCreate";
 export * from "./ApprovalRequestMessage";
 export * from "./ApprovalResponseMessage";
+export * from "./ArchivalMemorySearchResponse";
+export * from "./ArchivalMemorySearchResult";
 export * from "./AssistantMessageContent";
 export * from "./AssistantMessage";
 export * from "./Audio";

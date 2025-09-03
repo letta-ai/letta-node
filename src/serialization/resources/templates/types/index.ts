@@ -18,6 +18,7 @@ export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemMaxC
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem";
+export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemAgentType";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItem";
 export * from "./TemplatesGetTemplateSnapshotResponseBlocksItem";
 export * from "./TemplatesGetTemplateSnapshotResponseConfiguration";

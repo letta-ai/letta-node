@@ -3,7 +3,7 @@
  */
 
 export interface TemplatesGetTemplateSnapshotResponseConfiguration {
-    managerAgentId?: string;
+    managerAgentEntityId?: string;
     managerType?: string;
     terminationToken?: string;
     maxTurns?: number;
