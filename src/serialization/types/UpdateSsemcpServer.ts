@@ -10,7 +10,6 @@ export const UpdateSsemcpServer: core.serialization.ObjectSchema<
     serializers.UpdateSsemcpServer.Raw,
     Letta.UpdateSsemcpServer
 > = core.serialization.object({
-    serverName: core.serialization.property("server_name", core.serialization.string().optional()),
     serverUrl: core.serialization.property("server_url", core.serialization.string().optional()),
     token: core.serialization.string().optional(),
     customHeaders: core.serialization.property(
@@ -21,7 +20,6 @@ export const UpdateSsemcpServer: core.serialization.ObjectSchema<
 
 export declare namespace UpdateSsemcpServer {
     export interface Raw {
-        server_name?: string | null;
         server_url?: string | null;
         token?: string | null;
         custom_headers?: Record<string, string | null | undefined> | null;

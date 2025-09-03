@@ -10,7 +10,6 @@ export const UpdateStreamableHttpmcpServer: core.serialization.ObjectSchema<
     serializers.UpdateStreamableHttpmcpServer.Raw,
     Letta.UpdateStreamableHttpmcpServer
 > = core.serialization.object({
-    serverName: core.serialization.property("server_name", core.serialization.string().optional()),
     serverUrl: core.serialization.property("server_url", core.serialization.string().optional()),
     authHeader: core.serialization.property("auth_header", core.serialization.string().optional()),
     authToken: core.serialization.property("auth_token", core.serialization.string().optional()),
@@ -22,7 +21,6 @@ export const UpdateStreamableHttpmcpServer: core.serialization.ObjectSchema<
 
 export declare namespace UpdateStreamableHttpmcpServer {
     export interface Raw {
-        server_name?: string | null;
         server_url?: string | null;
         auth_header?: string | null;
         auth_token?: string | null;

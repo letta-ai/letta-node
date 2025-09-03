@@ -11,13 +11,11 @@ export const UpdateStdioMcpServer: core.serialization.ObjectSchema<
     serializers.UpdateStdioMcpServer.Raw,
     Letta.UpdateStdioMcpServer
 > = core.serialization.object({
-    serverName: core.serialization.property("server_name", core.serialization.string().optional()),
     stdioConfig: core.serialization.property("stdio_config", StdioServerConfig.optional()),
 });
 
 export declare namespace UpdateStdioMcpServer {
     export interface Raw {
-        server_name?: string | null;
         stdio_config?: StdioServerConfig.Raw | null;
     }
 }

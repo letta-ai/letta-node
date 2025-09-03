@@ -8,8 +8,6 @@ import * as Letta from "../index";
  * Update a Stdio MCP server
  */
 export interface UpdateStdioMcpServer {
-    /** The name of the server */
-    serverName?: string;
     /** The configuration for the server (MCP 'local' client will run this command) */
     stdioConfig?: Letta.StdioServerConfig;
 }

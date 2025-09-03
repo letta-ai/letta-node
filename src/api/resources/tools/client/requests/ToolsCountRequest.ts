@@ -7,8 +7,33 @@
  *     {}
  */
 export interface ToolsCountRequest {
+    name?: string;
     /**
-     * Include built-in Letta tools in the count
+     * Filter by specific tool names
      */
-    includeBaseTools?: boolean;
+    names?: string | string[];
+    /**
+     * Filter by specific tool IDs - accepts repeated params or comma-separated values
+     */
+    toolIds?: string | string[];
+    /**
+     * Search tool names (case-insensitive partial match)
+     */
+    search?: string;
+    /**
+     * Filter by tool type(s) - accepts repeated params or comma-separated values
+     */
+    toolTypes?: string | string[];
+    /**
+     * Tool type(s) to exclude - accepts repeated params or comma-separated values
+     */
+    excludeToolTypes?: string | string[];
+    /**
+     * Count only tools with tool_type starting with 'letta_'
+     */
+    returnOnlyLettaTools?: boolean;
+    /**
+     * Exclude built-in Letta tools from the count
+     */
+    excludeLettaTools?: boolean;
 }

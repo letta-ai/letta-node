@@ -6,8 +6,6 @@
  * Update an SSE MCP server
  */
 export interface UpdateSsemcpServer {
-    /** The name of the server */
-    serverName?: string;
     /** The URL of the server (MCP SSE client will connect to this URL) */
     serverUrl?: string;
     /** The access token or API key for the MCP server (used for SSE authentication) */

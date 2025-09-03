@@ -6,8 +6,6 @@
  * Update a Streamable HTTP MCP server
  */
 export interface UpdateStreamableHttpmcpServer {
-    /** The name of the server */
-    serverName?: string;
     /** The URL path for the streamable HTTP server (e.g., 'example/mcp') */
     serverUrl?: string;
     /** The name of the authentication header (e.g., 'Authorization') */
