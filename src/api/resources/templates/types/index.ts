@@ -27,5 +27,6 @@ export * from "./TemplatesGetTemplateSnapshotResponse";
 export * from "./TemplatesForkTemplateResponse";
 export * from "./TemplatesCreateTemplateResponse";
 export * from "./TemplatesRenameTemplateResponse";
+export * from "./TemplatesUpdateTemplateDescriptionResponse";
 export * from "./TemplatesListTemplateVersionsResponseVersionsItem";
 export * from "./TemplatesListTemplateVersionsResponse";

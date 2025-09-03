@@ -4,4 +4,5 @@ export { type TemplatesDeleteTemplateRequest } from "./TemplatesDeleteTemplateRe
 export { type TemplatesForkTemplateRequest } from "./TemplatesForkTemplateRequest";
 export { type TemplatesCreateTemplateRequest } from "./TemplatesCreateTemplateRequest";
 export { type TemplatesRenameTemplateRequest } from "./TemplatesRenameTemplateRequest";
+export { type TemplatesUpdateTemplateDescriptionRequest } from "./TemplatesUpdateTemplateDescriptionRequest";
 export { type TemplatesListTemplateVersionsRequest } from "./TemplatesListTemplateVersionsRequest";

@@ -6790,6 +6790,85 @@ await client.templates.renametemplate("project", "template_name", {
 </dl>
 </details>
 
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">updatetemplatedescription</a>(project, templateName, { ...params }) -> Letta.TemplatesUpdateTemplateDescriptionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the description for all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.updatetemplatedescription("project", "template_name");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateName:** `string` — The template name (version will be automatically stripped if included)
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesUpdateTemplateDescriptionRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listtemplateversions</a>(projectSlug, name, { ...params }) -> Letta.TemplatesListTemplateVersionsResponse</code></summary>
 <dl>
 <dd>
