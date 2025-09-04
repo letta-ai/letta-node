@@ -3,12 +3,10 @@
  */
 
 /**
- * @example
- *     {
- *         agentId: "agent_id"
- *     }
+ * Create a template from an existing agent
  */
-export interface TemplatesCreateTemplateRequest {
+export interface TemplatesCreateTemplateRequestAgentId {
+    type: "agent";
     /** The ID of the agent to use as a template, can be from any project */
     agentId: string;
     /** Optional custom name for the template. If not provided, a random name will be generated. */

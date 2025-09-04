@@ -6648,7 +6648,7 @@ await client.templates.forktemplate("project", "template_version");
 <dl>
 <dd>
 
-Creates a new template from an existing agent
+Creates a new template from an existing agent or agent file
 
 </dd>
 </dl>
@@ -6665,6 +6665,7 @@ Creates a new template from an existing agent
 
 ```typescript
 await client.templates.createtemplate("project", {
+    type: "agent",
     agentId: "agent_id",
 });
 ```
