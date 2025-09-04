@@ -43,6 +43,8 @@ export interface Block {
     description?: string;
     /** Metadata of the block. */
     metadata?: Record<string, unknown>;
+    /** If set to True, the block will be hidden. */
+    hidden?: boolean;
     /** The human-friendly ID of the Block */
     id?: string;
     /** The id of the user that made this Block. */

@@ -24,6 +24,7 @@ export const BlockSchema: core.serialization.ObjectSchema<serializers.BlockSchem
         readOnly: core.serialization.property("read_only", core.serialization.boolean().optional()),
         description: core.serialization.string().optional(),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        hidden: core.serialization.boolean().optional(),
         id: core.serialization.string(),
     });
 
@@ -42,6 +43,7 @@ export declare namespace BlockSchema {
         read_only?: boolean | null;
         description?: string | null;
         metadata?: Record<string, unknown> | null;
+        hidden?: boolean | null;
         id: string;
     }
 }

@@ -24,6 +24,7 @@ export const InternalTemplateBlockCreate: core.serialization.ObjectSchema<
     readOnly: core.serialization.property("read_only", core.serialization.boolean().optional()),
     description: core.serialization.string().optional(),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    hidden: core.serialization.boolean().optional(),
 });
 
 export declare namespace InternalTemplateBlockCreate {
@@ -42,5 +43,6 @@ export declare namespace InternalTemplateBlockCreate {
         read_only?: boolean | null;
         description?: string | null;
         metadata?: Record<string, unknown> | null;
+        hidden?: boolean | null;
     }
 }

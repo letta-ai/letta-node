@@ -24,6 +24,7 @@ export const FileBlock: core.serialization.ObjectSchema<serializers.FileBlock.Ra
         readOnly: core.serialization.property("read_only", core.serialization.boolean().optional()),
         description: core.serialization.string().optional(),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        hidden: core.serialization.boolean().optional(),
         id: core.serialization.string().optional(),
         createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
         lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
@@ -48,6 +49,7 @@ export declare namespace FileBlock {
         read_only?: boolean | null;
         description?: string | null;
         metadata?: Record<string, unknown> | null;
+        hidden?: boolean | null;
         id?: string | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;

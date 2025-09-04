@@ -18,6 +18,8 @@ export interface GroupSchema {
     projectId?: string;
     /** */
     sharedBlockIds?: string[];
+    /** If set to True, the group will be hidden. */
+    hidden?: boolean;
     /** Human-readable identifier for this group in the file */
     id: string;
 }

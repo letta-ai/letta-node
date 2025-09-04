@@ -40,6 +40,7 @@ export const Group: core.serialization.ObjectSchema<serializers.Group.Raw, Letta
         "min_message_buffer_length",
         core.serialization.number().optional(),
     ),
+    hidden: core.serialization.boolean().optional(),
 });
 
 export declare namespace Group {
@@ -61,5 +62,6 @@ export declare namespace Group {
         last_processed_message_id?: string | null;
         max_message_buffer_length?: number | null;
         min_message_buffer_length?: number | null;
+        hidden?: boolean | null;
     }
 }

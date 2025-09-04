@@ -17,6 +17,7 @@ export const GroupSchema: core.serialization.ObjectSchema<serializers.GroupSchem
             "shared_block_ids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        hidden: core.serialization.boolean().optional(),
         id: core.serialization.string(),
     });
 
@@ -27,6 +28,7 @@ export declare namespace GroupSchema {
         manager_config?: GroupSchemaManagerConfig.Raw | null;
         project_id?: string | null;
         shared_block_ids?: string[] | null;
+        hidden?: boolean | null;
         id: string;
     }
 }

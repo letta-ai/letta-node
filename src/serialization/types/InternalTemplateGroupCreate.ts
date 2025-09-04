@@ -19,6 +19,7 @@ export const InternalTemplateGroupCreate: core.serialization.ObjectSchema<
         "shared_block_ids",
         core.serialization.list(core.serialization.string()).optional(),
     ),
+    hidden: core.serialization.boolean().optional(),
     baseTemplateId: core.serialization.property("base_template_id", core.serialization.string()),
     templateId: core.serialization.property("template_id", core.serialization.string()),
     deploymentId: core.serialization.property("deployment_id", core.serialization.string()),
@@ -31,6 +32,7 @@ export declare namespace InternalTemplateGroupCreate {
         manager_config?: InternalTemplateGroupCreateManagerConfig.Raw | null;
         project_id?: string | null;
         shared_block_ids?: string[] | null;
+        hidden?: boolean | null;
         base_template_id: string;
         template_id: string;
         deployment_id: string;

@@ -31,6 +31,8 @@ export interface BlockSchema {
     description?: string;
     /** Metadata of the block. */
     metadata?: Record<string, unknown>;
+    /** If set to True, the block will be hidden. */
+    hidden?: boolean;
     /** Human-readable identifier for this block in the file */
     id: string;
 }

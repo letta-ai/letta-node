@@ -18,6 +18,8 @@ export interface InternalTemplateGroupCreate {
     projectId?: string;
     /** */
     sharedBlockIds?: string[];
+    /** If set to True, the group will be hidden. */
+    hidden?: boolean;
     /** The id of the base template. */
     baseTemplateId: string;
     /** The id of the template. */

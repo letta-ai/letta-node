@@ -17,6 +17,7 @@ export const GroupCreate: core.serialization.Schema<serializers.GroupCreate.Raw,
             "shared_block_ids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        hidden: core.serialization.boolean().optional(),
     });
 
 export declare namespace GroupCreate {
@@ -26,5 +27,6 @@ export declare namespace GroupCreate {
         manager_config?: GroupCreateManagerConfig.Raw | null;
         project_id?: string | null;
         shared_block_ids?: string[] | null;
+        hidden?: boolean | null;
     }
 }

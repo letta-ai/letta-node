@@ -22,4 +22,6 @@ export interface GroupCreate {
     projectId?: string;
     /** */
     sharedBlockIds?: string[];
+    /** If set to True, the group will be hidden. */
+    hidden?: boolean;
 }

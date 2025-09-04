@@ -33,4 +33,6 @@ export interface InternalTemplateBlockCreate {
     description?: string;
     /** Metadata of the block. */
     metadata?: Record<string, unknown>;
+    /** If set to True, the block will be hidden. */
+    hidden?: boolean;
 }
