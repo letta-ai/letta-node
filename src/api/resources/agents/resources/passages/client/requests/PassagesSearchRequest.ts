@@ -28,11 +28,11 @@ export interface PassagesSearchRequest {
      */
     topK?: number;
     /**
-     * Filter results to passages created after this datetime. ISO 8601 format
+     * Filter results to passages created after this datetime
      */
-    startDatetime?: string;
+    startDatetime?: Date;
     /**
-     * Filter results to passages created before this datetime. ISO 8601 format
+     * Filter results to passages created before this datetime
      */
-    endDatetime?: string;
+    endDatetime?: Date;
 }
