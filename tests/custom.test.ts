@@ -108,7 +108,7 @@ def secret_message():
             messages: [
                 {
                     role: "user",
-                    content: "Run secret message tool and tell me what it returns",
+                    content: "This is an automated test message. Run secret message tool and tell me what it returns",
                 },
             ],
         });
@@ -203,7 +203,7 @@ def secret_message():
         expect(messages[2]).toHaveProperty("messageType", "assistant_message");
 
         // Send message with streaming
-        messageText = "My name isn't Caren, it's Sarah. Please update your core memory with memory_replace";
+        messageText = "This is an automated test. Please update your core memory with my new name Sarah using the memory_replace tool";
         const streamResponse = await client.agents.messages.createStream(agent.id, {
             messages: [
                 {
