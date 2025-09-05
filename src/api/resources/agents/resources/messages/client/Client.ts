@@ -121,8 +121,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.207",
-                "User-Agent": "@letta-ai/letta-client/0.1.207",
+                "X-Fern-SDK-Version": "0.1.208",
+                "User-Agent": "@letta-ai/letta-client/0.1.208",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -236,8 +236,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.207",
-                "User-Agent": "@letta-ai/letta-client/0.1.207",
+                "X-Fern-SDK-Version": "0.1.208",
+                "User-Agent": "@letta-ai/letta-client/0.1.208",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -349,8 +349,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.207",
-                "User-Agent": "@letta-ai/letta-client/0.1.207",
+                "X-Fern-SDK-Version": "0.1.208",
+                "User-Agent": "@letta-ai/letta-client/0.1.208",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -450,8 +450,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.207",
-                "User-Agent": "@letta-ai/letta-client/0.1.207",
+                "X-Fern-SDK-Version": "0.1.208",
+                "User-Agent": "@letta-ai/letta-client/0.1.208",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -571,8 +571,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.207",
-                "User-Agent": "@letta-ai/letta-client/0.1.207",
+                "X-Fern-SDK-Version": "0.1.208",
+                "User-Agent": "@letta-ai/letta-client/0.1.208",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -640,6 +640,112 @@ export class Messages {
     }
 
     /**
+     * Search messages across the entire organization with optional project filtering.
+     * Returns messages with FTS/vector ranks and total RRF score.
+     *
+     * Requires message embedding and Turbopuffer to be enabled.
+     *
+     * @param {Letta.agents.MessageSearchRequest} request
+     * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.agents.messages.search()
+     */
+    public search(
+        request: Letta.agents.MessageSearchRequest = {},
+        requestOptions?: Messages.RequestOptions,
+    ): core.HttpResponsePromise<Letta.MessageSearchResult[]> {
+        return core.HttpResponsePromise.fromPromise(this.__search(request, requestOptions));
+    }
+
+    private async __search(
+        request: Letta.agents.MessageSearchRequest = {},
+        requestOptions?: Messages.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.MessageSearchResult[]>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                "v1/agents/messages/search",
+            ),
+            method: "POST",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.1.208",
+                "User-Agent": "@letta-ai/letta-client/0.1.208",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.agents.MessageSearchRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.agents.messages.search.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/agents/messages/search.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Asynchronously process a user message and return a run object.
      * The actual processing happens in the background, and the status can be checked using the run ID.
      *
@@ -691,8 +797,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.207",
-                "User-Agent": "@letta-ai/letta-client/0.1.207",
+                "X-Fern-SDK-Version": "0.1.208",
+                "User-Agent": "@letta-ai/letta-client/0.1.208",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -805,8 +911,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.207",
-                "User-Agent": "@letta-ai/letta-client/0.1.207",
+                "X-Fern-SDK-Version": "0.1.208",
+                "User-Agent": "@letta-ai/letta-client/0.1.208",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -925,8 +1031,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.1.207",
-                "User-Agent": "@letta-ai/letta-client/0.1.207",
+                "X-Fern-SDK-Version": "0.1.208",
+                "User-Agent": "@letta-ai/letta-client/0.1.208",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

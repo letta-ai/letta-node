@@ -197,6 +197,7 @@ export * from "./MessageCreateRole";
 export * from "./MessageCreateContent";
 export * from "./MessageCreate";
 export * from "./MessageRole";
+export * from "./MessageSearchResult";
 export * from "./MessageType";
 export * from "./ModalSandboxConfigLanguage";
 export * from "./ModalSandboxConfig";
