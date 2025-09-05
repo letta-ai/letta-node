@@ -9,13 +9,13 @@ export interface TemplatesGetTemplateSnapshotResponseAgentsItem {
     systemPrompt: string;
     toolIds?: string[];
     sourceIds?: string[];
-    properties?: Letta.TemplatesGetTemplateSnapshotResponseAgentsItemProperties;
     memoryVariables?: Letta.TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables;
     toolVariables?: Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolVariables;
     tags?: string[];
     identityIds?: string[];
     toolRules?: Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem[];
     agentType: Letta.TemplatesGetTemplateSnapshotResponseAgentsItemAgentType;
+    properties?: Letta.TemplatesGetTemplateSnapshotResponseAgentsItemProperties;
     entityId: string;
     name: string;
 }

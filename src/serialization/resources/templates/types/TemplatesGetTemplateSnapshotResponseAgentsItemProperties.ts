@@ -5,6 +5,8 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
+import { TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesVerbosityLevel } from "./TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesVerbosityLevel";
+import { TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoningEffort } from "./TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoningEffort";
 
 export const TemplatesGetTemplateSnapshotResponseAgentsItemProperties: core.serialization.ObjectSchema<
     serializers.TemplatesGetTemplateSnapshotResponseAgentsItemProperties.Raw,
@@ -23,6 +25,14 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItemProperties: core.seri
         "message_buffer_autoclear",
         core.serialization.boolean().optional(),
     ),
+    verbosityLevel: core.serialization.property(
+        "verbosity_level",
+        TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesVerbosityLevel.optional(),
+    ),
+    reasoningEffort: core.serialization.property(
+        "reasoning_effort",
+        TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoningEffort.optional(),
+    ),
     perFileViewWindowCharLimit: core.serialization.property(
         "per_file_view_window_char_limit",
         core.serialization.number().optional(),
@@ -39,6 +49,8 @@ export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItemPropertie
         max_reasoning_tokens?: number | null;
         max_files_open?: number | null;
         message_buffer_autoclear?: boolean | null;
+        verbosity_level?: TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesVerbosityLevel.Raw | null;
+        reasoning_effort?: TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoningEffort.Raw | null;
         per_file_view_window_char_limit?: number | null;
         temperature?: number | null;
     }

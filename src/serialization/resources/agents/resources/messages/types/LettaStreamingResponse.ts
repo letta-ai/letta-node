@@ -8,9 +8,12 @@ import * as core from "../../../../../../core";
 import { SystemMessage } from "../../../../../types/SystemMessage";
 import { UserMessage } from "../../../../../types/UserMessage";
 import { ReasoningMessage } from "../../../../../types/ReasoningMessage";
+import { HiddenReasoningMessage } from "../../../../../types/HiddenReasoningMessage";
 import { ToolCallMessage } from "../../../../../types/ToolCallMessage";
 import { ToolReturnMessage } from "../../../../../types/ToolReturnMessage";
 import { AssistantMessage } from "../../../../../types/AssistantMessage";
+import { ApprovalRequestMessage } from "../../../../../types/ApprovalRequestMessage";
+import { ApprovalResponseMessage } from "../../../../../types/ApprovalResponseMessage";
 import { LettaPing } from "../../../../../types/LettaPing";
 import { LettaStopReason } from "../../../../../types/LettaStopReason";
 import { LettaUsageStatistics } from "../../../../../types/LettaUsageStatistics";
@@ -22,9 +25,12 @@ export const LettaStreamingResponse: core.serialization.Schema<
     SystemMessage,
     UserMessage,
     ReasoningMessage,
+    HiddenReasoningMessage,
     ToolCallMessage,
     ToolReturnMessage,
     AssistantMessage,
+    ApprovalRequestMessage,
+    ApprovalResponseMessage,
     LettaPing,
     LettaStopReason,
     LettaUsageStatistics,
@@ -35,9 +41,12 @@ export declare namespace LettaStreamingResponse {
         | SystemMessage.Raw
         | UserMessage.Raw
         | ReasoningMessage.Raw
+        | HiddenReasoningMessage.Raw
         | ToolCallMessage.Raw
         | ToolReturnMessage.Raw
         | AssistantMessage.Raw
+        | ApprovalRequestMessage.Raw
+        | ApprovalResponseMessage.Raw
         | LettaPing.Raw
         | LettaStopReason.Raw
         | LettaUsageStatistics.Raw;

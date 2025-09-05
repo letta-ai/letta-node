@@ -3,7 +3,6 @@ export * from "./TemplatesListResponseTemplatesItem";
 export * from "./TemplatesListResponse";
 export * from "./TemplatesSaveTemplateVersionResponse";
 export * from "./TemplatesDeleteTemplateResponse";
-export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemProperties";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariablesDataItem";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolVariablesDataItem";
@@ -19,6 +18,9 @@ export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeve
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemAgentType";
+export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesVerbosityLevel";
+export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoningEffort";
+export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemProperties";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItem";
 export * from "./TemplatesGetTemplateSnapshotResponseBlocksItem";
 export * from "./TemplatesGetTemplateSnapshotResponseConfiguration";

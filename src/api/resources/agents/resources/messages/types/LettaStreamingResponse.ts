@@ -8,9 +8,12 @@ export type LettaStreamingResponse =
     | Letta.SystemMessage
     | Letta.UserMessage
     | Letta.ReasoningMessage
+    | Letta.HiddenReasoningMessage
     | Letta.ToolCallMessage
     | Letta.ToolReturnMessage
     | Letta.AssistantMessage
+    | Letta.ApprovalRequestMessage
+    | Letta.ApprovalResponseMessage
     | Letta.LettaPing
     | Letta.LettaStopReason
     | Letta.LettaUsageStatistics;

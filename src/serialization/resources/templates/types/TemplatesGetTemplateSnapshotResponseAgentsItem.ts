@@ -5,11 +5,11 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { TemplatesGetTemplateSnapshotResponseAgentsItemProperties } from "./TemplatesGetTemplateSnapshotResponseAgentsItemProperties";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables } from "./TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolVariables } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolVariables";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemAgentType } from "./TemplatesGetTemplateSnapshotResponseAgentsItemAgentType";
+import { TemplatesGetTemplateSnapshotResponseAgentsItemProperties } from "./TemplatesGetTemplateSnapshotResponseAgentsItemProperties";
 
 export const TemplatesGetTemplateSnapshotResponseAgentsItem: core.serialization.ObjectSchema<
     serializers.TemplatesGetTemplateSnapshotResponseAgentsItem.Raw,
@@ -19,13 +19,13 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItem: core.serialization.
     systemPrompt: core.serialization.string(),
     toolIds: core.serialization.list(core.serialization.string()).optional(),
     sourceIds: core.serialization.list(core.serialization.string()).optional(),
-    properties: TemplatesGetTemplateSnapshotResponseAgentsItemProperties.optional(),
     memoryVariables: TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables.optional(),
     toolVariables: TemplatesGetTemplateSnapshotResponseAgentsItemToolVariables.optional(),
     tags: core.serialization.list(core.serialization.string()).optional(),
     identityIds: core.serialization.list(core.serialization.string()).optional(),
     toolRules: core.serialization.list(TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem).optional(),
     agentType: TemplatesGetTemplateSnapshotResponseAgentsItemAgentType,
+    properties: TemplatesGetTemplateSnapshotResponseAgentsItemProperties.optional(),
     entityId: core.serialization.string(),
     name: core.serialization.string(),
 });
@@ -36,13 +36,13 @@ export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItem {
         systemPrompt: string;
         toolIds?: string[] | null;
         sourceIds?: string[] | null;
-        properties?: TemplatesGetTemplateSnapshotResponseAgentsItemProperties.Raw | null;
         memoryVariables?: TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables.Raw | null;
         toolVariables?: TemplatesGetTemplateSnapshotResponseAgentsItemToolVariables.Raw | null;
         tags?: string[] | null;
         identityIds?: string[] | null;
         toolRules?: TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem.Raw[] | null;
         agentType: TemplatesGetTemplateSnapshotResponseAgentsItemAgentType.Raw;
+        properties?: TemplatesGetTemplateSnapshotResponseAgentsItemProperties.Raw | null;
         entityId: string;
         name: string;
     }
