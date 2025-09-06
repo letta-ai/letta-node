@@ -10,7 +10,7 @@ import * as Letta from "../../../../../../index";
  */
 export interface MessageSearchRequest {
     /** Text query for full-text search */
-    queryText?: string;
+    query?: string;
     /** Search mode to use */
     searchMode?: Letta.agents.MessageSearchRequestSearchMode;
     /** Filter messages by role */

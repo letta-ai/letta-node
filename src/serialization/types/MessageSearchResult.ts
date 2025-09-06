@@ -11,20 +11,18 @@ export const MessageSearchResult: core.serialization.ObjectSchema<
     serializers.MessageSearchResult.Raw,
     Letta.MessageSearchResult
 > = core.serialization.object({
+    embeddedText: core.serialization.property("embedded_text", core.serialization.string()),
     message: Message,
-    ftsScore: core.serialization.property("fts_score", core.serialization.number().optional()),
     ftsRank: core.serialization.property("fts_rank", core.serialization.number().optional()),
-    vectorScore: core.serialization.property("vector_score", core.serialization.number().optional()),
     vectorRank: core.serialization.property("vector_rank", core.serialization.number().optional()),
     rrfScore: core.serialization.property("rrf_score", core.serialization.number()),
 });
 
 export declare namespace MessageSearchResult {
     export interface Raw {
+        embedded_text: string;
         message: Message.Raw;
-        fts_score?: number | null;
         fts_rank?: number | null;
-        vector_score?: number | null;
         vector_rank?: number | null;
         rrf_score: number;
     }

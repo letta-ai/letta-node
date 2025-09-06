@@ -8,14 +8,12 @@ import * as Letta from "../index";
  * Result from a message search operation with scoring details.
  */
 export interface MessageSearchResult {
-    /** The message content and metadata */
+    /** The embedded content (LLM-friendly) */
+    embeddedText: string;
+    /** The raw message object */
     message: Letta.Message;
-    /** Full-text search (BM25) score if FTS was used */
-    ftsScore?: number;
     /** Full-text search rank position if FTS was used */
     ftsRank?: number;
-    /** Vector similarity score if vector search was used */
-    vectorScore?: number;
     /** Vector search rank position if vector search was used */
     vectorRank?: number;
     /** Reciprocal Rank Fusion combined score */

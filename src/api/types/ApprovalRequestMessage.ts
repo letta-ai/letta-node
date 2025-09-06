@@ -25,5 +25,5 @@ export interface ApprovalRequestMessage {
     seqId?: number;
     runId?: string;
     /** The tool call that has been requested by the llm to run */
-    toolCall: Letta.ToolCall;
+    toolCall: Letta.ApprovalRequestMessageToolCall;
 }

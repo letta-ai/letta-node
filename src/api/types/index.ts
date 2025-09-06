@@ -16,6 +16,7 @@ export * from "./AppAuthSchemeAuthMode";
 export * from "./AppAuthScheme";
 export * from "./AppModel";
 export * from "./ApprovalCreate";
+export * from "./ApprovalRequestMessageToolCall";
 export * from "./ApprovalRequestMessage";
 export * from "./ApprovalResponseMessage";
 export * from "./ArchivalMemorySearchResponse";

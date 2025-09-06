@@ -5,7 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { ToolCall } from "./ToolCall";
+import { ApprovalRequestMessageToolCall } from "./ApprovalRequestMessageToolCall";
 
 export const ApprovalRequestMessage: core.serialization.ObjectSchema<
     serializers.ApprovalRequestMessage.Raw,
@@ -24,7 +24,7 @@ export const ApprovalRequestMessage: core.serialization.ObjectSchema<
     isErr: core.serialization.property("is_err", core.serialization.boolean().optional()),
     seqId: core.serialization.property("seq_id", core.serialization.number().optional()),
     runId: core.serialization.property("run_id", core.serialization.string().optional()),
-    toolCall: core.serialization.property("tool_call", ToolCall),
+    toolCall: core.serialization.property("tool_call", ApprovalRequestMessageToolCall),
 });
 
 export declare namespace ApprovalRequestMessage {
@@ -39,6 +39,6 @@ export declare namespace ApprovalRequestMessage {
         is_err?: boolean | null;
         seq_id?: number | null;
         run_id?: string | null;
-        tool_call: ToolCall.Raw;
+        tool_call: ApprovalRequestMessageToolCall.Raw;
     }
 }

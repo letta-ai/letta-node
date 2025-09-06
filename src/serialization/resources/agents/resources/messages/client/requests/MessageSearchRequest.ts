@@ -12,7 +12,7 @@ export const MessageSearchRequest: core.serialization.Schema<
     serializers.agents.MessageSearchRequest.Raw,
     Letta.agents.MessageSearchRequest
 > = core.serialization.object({
-    queryText: core.serialization.property("query_text", core.serialization.string().optional()),
+    query: core.serialization.string().optional(),
     searchMode: core.serialization.property("search_mode", MessageSearchRequestSearchMode.optional()),
     roles: core.serialization.list(MessageRole).optional(),
     projectId: core.serialization.property("project_id", core.serialization.string().optional()),
@@ -23,7 +23,7 @@ export const MessageSearchRequest: core.serialization.Schema<
 
 export declare namespace MessageSearchRequest {
     export interface Raw {
-        query_text?: string | null;
+        query?: string | null;
         search_mode?: MessageSearchRequestSearchMode.Raw | null;
         roles?: MessageRole.Raw[] | null;
         project_id?: string | null;
