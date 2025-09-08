@@ -12,6 +12,8 @@ export const StepMetrics: core.serialization.ObjectSchema<serializers.StepMetric
         providerId: core.serialization.property("provider_id", core.serialization.string().optional()),
         jobId: core.serialization.property("job_id", core.serialization.string().optional()),
         agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
+        stepStartNs: core.serialization.property("step_start_ns", core.serialization.number().optional()),
+        llmRequestStartNs: core.serialization.property("llm_request_start_ns", core.serialization.number().optional()),
         llmRequestNs: core.serialization.property("llm_request_ns", core.serialization.number().optional()),
         toolExecutionNs: core.serialization.property("tool_execution_ns", core.serialization.number().optional()),
         stepNs: core.serialization.property("step_ns", core.serialization.number().optional()),
@@ -26,6 +28,8 @@ export declare namespace StepMetrics {
         provider_id?: string | null;
         job_id?: string | null;
         agent_id?: string | null;
+        step_start_ns?: number | null;
+        llm_request_start_ns?: number | null;
         llm_request_ns?: number | null;
         tool_execution_ns?: number | null;
         step_ns?: number | null;

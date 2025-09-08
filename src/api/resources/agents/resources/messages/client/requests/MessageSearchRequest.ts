@@ -17,6 +17,8 @@ export interface MessageSearchRequest {
     roles?: Letta.MessageRole[];
     /** Filter messages by project ID */
     projectId?: string;
+    /** Filter messages by template ID */
+    templateId?: string;
     /** Maximum number of results to return */
     limit?: number;
     /** Filter messages created after this date */

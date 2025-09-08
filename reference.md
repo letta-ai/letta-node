@@ -9440,7 +9440,7 @@ await client.agents.messages.cancel("agent_id");
 <dl>
 <dd>
 
-Search messages across the entire organization with optional project filtering. Returns messages with FTS/vector ranks and total RRF score.
+Search messages across the entire organization with optional project and template filtering. Returns messages with FTS/vector ranks and total RRF score.
 
 This is a cloud-only feature.
 

@@ -11,6 +11,10 @@ export interface StepMetrics {
     jobId?: string;
     /** The unique identifier of the agent. */
     agentId?: string;
+    /** The timestamp of the start of the step in nanoseconds. */
+    stepStartNs?: number;
+    /** The timestamp of the start of the llm request in nanoseconds. */
+    llmRequestStartNs?: number;
     /** Time spent on LLM requests in nanoseconds. */
     llmRequestNs?: number;
     /** Time spent on tool execution in nanoseconds. */

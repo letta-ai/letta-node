@@ -16,6 +16,7 @@ export const MessageSearchRequest: core.serialization.Schema<
     searchMode: core.serialization.property("search_mode", MessageSearchRequestSearchMode.optional()),
     roles: core.serialization.list(MessageRole).optional(),
     projectId: core.serialization.property("project_id", core.serialization.string().optional()),
+    templateId: core.serialization.property("template_id", core.serialization.string().optional()),
     limit: core.serialization.number().optional(),
     startDate: core.serialization.property("start_date", core.serialization.date().optional()),
     endDate: core.serialization.property("end_date", core.serialization.date().optional()),
@@ -27,6 +28,7 @@ export declare namespace MessageSearchRequest {
         search_mode?: MessageSearchRequestSearchMode.Raw | null;
         roles?: MessageRole.Raw[] | null;
         project_id?: string | null;
+        template_id?: string | null;
         limit?: number | null;
         start_date?: string | null;
         end_date?: string | null;
