@@ -21,7 +21,6 @@ import { Steps } from "./api/resources/steps/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
 import { Telemetry } from "./api/resources/telemetry/client/Client";
 import { Batches } from "./api/resources/batches/client/Client";
-import { Messages } from "./api/resources/messages/client/Client";
 import { Voice } from "./api/resources/voice/client/Client";
 import { Templates } from "./api/resources/templates/client/Client";
 import { ClientSideAccessTokens } from "./api/resources/clientSideAccessTokens/client/Client";
@@ -70,7 +69,6 @@ export class LettaClient {
     protected _tags: Tags | undefined;
     protected _telemetry: Telemetry | undefined;
     protected _batches: Batches | undefined;
-    protected _messages: Messages | undefined;
     protected _voice: Voice | undefined;
     protected _templates: Templates | undefined;
     protected _clientSideAccessTokens: ClientSideAccessTokens | undefined;
@@ -144,10 +142,6 @@ export class LettaClient {
 
     public get batches(): Batches {
         return (this._batches ??= new Batches(this._options));
-    }
-
-    public get messages(): Messages {
-        return (this._messages ??= new Messages(this._options));
     }
 
     public get voice(): Voice {

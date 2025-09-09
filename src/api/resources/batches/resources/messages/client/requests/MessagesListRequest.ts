@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ListBatchMessagesRequest {
+export interface MessagesListRequest {
     /**
      * Maximum number of messages to return
      */

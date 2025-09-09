@@ -8,6 +8,7 @@ import * as Letta from "../../../index";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
+import { Messages } from "../resources/messages/client/Client";
 
 export declare namespace Batches {
     export interface Options {
@@ -35,7 +36,13 @@ export declare namespace Batches {
 }
 
 export class Batches {
+    protected _messages: Messages | undefined;
+
     constructor(protected readonly _options: Batches.Options = {}) {}
+
+    public get messages(): Messages {
+        return (this._messages ??= new Messages(this._options));
+    }
 
     /**
      * List all batch runs.
@@ -67,8 +74,8 @@ export class Batches {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68636",
-                "User-Agent": "@letta-ai/letta-client/0.1.212",
+                "X-Fern-SDK-Version": "0.0.68637",
+                "User-Agent": "@letta-ai/letta-client/0.0.68637",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -181,8 +188,8 @@ export class Batches {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68636",
-                "User-Agent": "@letta-ai/letta-client/0.1.212",
+                "X-Fern-SDK-Version": "0.0.68637",
+                "User-Agent": "@letta-ai/letta-client/0.0.68637",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -284,8 +291,8 @@ export class Batches {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68636",
-                "User-Agent": "@letta-ai/letta-client/0.1.212",
+                "X-Fern-SDK-Version": "0.0.68637",
+                "User-Agent": "@letta-ai/letta-client/0.0.68637",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -385,8 +392,8 @@ export class Batches {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68636",
-                "User-Agent": "@letta-ai/letta-client/0.1.212",
+                "X-Fern-SDK-Version": "0.0.68637",
+                "User-Agent": "@letta-ai/letta-client/0.0.68637",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

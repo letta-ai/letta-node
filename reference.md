@@ -6121,86 +6121,6 @@ await client.batches.cancel("batch_id");
 </dl>
 </details>
 
-## Messages
-
-<details><summary><code>client.messages.<a href="/src/api/resources/messages/client/Client.ts">listBatchMessages</a>(batchId, { ...params }) -> Letta.LettaBatchMessages</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get messages for a specific batch job.
-
-Returns messages associated with the batch in chronological order.
-
-Pagination:
-
-- For the first page, omit the cursor parameter
-- For subsequent pages, use the ID of the last message from the previous response as the cursor
-- Results will include messages before/after the cursor based on sort_descending
-  </dd>
-  </dl>
-  </dd>
-  </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.messages.listBatchMessages("batch_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**batchId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListBatchMessagesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Messages.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Voice
 
 <details><summary><code>client.voice.<a href="/src/api/resources/voice/client/Client.ts">createVoiceChatCompletions</a>(agentId, { ...params }) -> unknown</code></summary>
@@ -10076,6 +9996,86 @@ await client.agents.memoryVariables.list("agent_id");
 <dd>
 
 **requestOptions:** `MemoryVariables.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Batches Messages
+
+<details><summary><code>client.batches.messages.<a href="/src/api/resources/batches/resources/messages/client/Client.ts">list</a>(batchId, { ...params }) -> Letta.LettaBatchMessages</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get messages for a specific batch job.
+
+Returns messages associated with the batch in chronological order.
+
+Pagination:
+
+- For the first page, omit the cursor parameter
+- For subsequent pages, use the ID of the last message from the previous response as the cursor
+- Results will include messages before/after the cursor based on sort_descending
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.batches.messages.list("batch_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batchId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.batches.MessagesListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
 
 </dd>
 </dl>
