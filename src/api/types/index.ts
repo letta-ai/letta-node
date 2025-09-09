@@ -297,6 +297,7 @@ export * from "./UserMessage";
 export * from "./UserUpdate";
 export * from "./ValidationErrorLocItem";
 export * from "./ValidationError";
+export * from "./VectorDbProvider";
 export * from "./VoiceSleeptimeManager";
 export * from "./VoiceSleeptimeManagerUpdate";
 export * from "./WebSearchOptionsSearchContextSize";

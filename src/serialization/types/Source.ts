@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { EmbeddingConfig } from "./EmbeddingConfig";
+import { VectorDbProvider } from "./VectorDbProvider";
 
 export const Source: core.serialization.ObjectSchema<serializers.Source.Raw, Letta.Source> = core.serialization.object({
     name: core.serialization.string(),
@@ -14,6 +15,7 @@ export const Source: core.serialization.ObjectSchema<serializers.Source.Raw, Let
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     id: core.serialization.string().optional(),
     embeddingConfig: core.serialization.property("embedding_config", EmbeddingConfig),
+    vectorDbProvider: core.serialization.property("vector_db_provider", VectorDbProvider.optional()),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
@@ -28,6 +30,7 @@ export declare namespace Source {
         metadata?: Record<string, unknown> | null;
         id?: string | null;
         embedding_config: EmbeddingConfig.Raw;
+        vector_db_provider?: VectorDbProvider.Raw | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         created_at?: string | null;

@@ -28,6 +28,8 @@ export interface Source {
     id?: string;
     /** The embedding configuration used by the source. */
     embeddingConfig: Letta.EmbeddingConfig;
+    /** The vector database provider used for this source's passages */
+    vectorDbProvider?: Letta.VectorDbProvider;
     /** The id of the user that made this Tool. */
     createdById?: string;
     /** The id of the user that made this Tool. */
