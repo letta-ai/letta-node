@@ -1,4 +1,5 @@
 export * as messages from "./messages";
+export * from "./messages/types";
 export * as usage from "./usage";
 export * as steps from "./steps";
 export * from "./messages/client/requests";

@@ -5,8 +5,8 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Letta from "../../../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Messages {
@@ -38,14 +38,7 @@ export class Messages {
     constructor(protected readonly _options: Messages.Options = {}) {}
 
     /**
-     * Get messages for a specific batch job.
-     *
-     * Returns messages associated with the batch in chronological order.
-     *
-     * Pagination:
-     * - For the first page, omit the cursor parameter
-     * - For subsequent pages, use the ID of the last message from the previous response as the cursor
-     * - Results will include messages before/after the cursor based on sort_descending
+     * Get response messages for a specific batch job.
      *
      * @param {string} batchId
      * @param {Letta.batches.MessagesListRequest} request
@@ -69,22 +62,28 @@ export class Messages {
         request: Letta.batches.MessagesListRequest = {},
         requestOptions?: Messages.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.LettaBatchMessages>> {
-        const { limit, cursor, agentId, sortDescending } = request;
+        const { before, after, limit, order, agentId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
         }
 
-        if (cursor != null) {
-            _queryParams["cursor"] = cursor;
+        if (order != null) {
+            _queryParams["order"] = serializers.batches.MessagesListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
         }
 
         if (agentId != null) {
             _queryParams["agent_id"] = agentId;
-        }
-
-        if (sortDescending != null) {
-            _queryParams["sort_descending"] = sortDescending.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -102,8 +101,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68637",
-                "User-Agent": "@letta-ai/letta-client/0.0.68637",
+                "X-Fern-SDK-Version": "0.0.68638",
+                "User-Agent": "@letta-ai/letta-client/0.0.68638",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

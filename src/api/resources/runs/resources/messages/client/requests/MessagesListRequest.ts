@@ -10,11 +10,11 @@ import * as Letta from "../../../../../../index";
  */
 export interface MessagesListRequest {
     /**
-     * Cursor for pagination
+     * Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
      */
     before?: string;
     /**
-     * Cursor for pagination
+     * Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
      */
     after?: string;
     /**
@@ -22,11 +22,7 @@ export interface MessagesListRequest {
      */
     limit?: number;
     /**
-     * Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+     * Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
      */
-    order?: string;
-    /**
-     * Filter by role
-     */
-    role?: Letta.MessageRole;
+    order?: Letta.runs.MessagesListRequestOrder;
 }

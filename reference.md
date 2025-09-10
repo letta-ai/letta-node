@@ -10020,19 +10020,12 @@ await client.agents.memoryVariables.list("agent_id");
 <dl>
 <dd>
 
-Get messages for a specific batch job.
+Get response messages for a specific batch job.
 
-Returns messages associated with the batch in chronological order.
-
-Pagination:
-
-- For the first page, omit the cursor parameter
-- For subsequent pages, use the ID of the last message from the previous response as the cursor
-- Results will include messages before/after the cursor based on sort_descending
-  </dd>
-  </dl>
-  </dd>
-  </dl>
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -10923,20 +10916,7 @@ await client.identities.properties.upsert("identity_id", [
 <dl>
 <dd>
 
-Get messages associated with a run with filtering options.
-
-Args:
-run_id: ID of the run
-before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-limit: Maximum number of messages to return
-order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-role: Filter by role (user/assistant/system/tool)
-return_message_object: Whether to return Message objects or LettaMessage objects
-user_id: ID of the user making the request
-
-Returns:
-A list of messages associated with the run. Default is List[LettaMessage].
+Get response messages associated with a run.
 
 </dd>
 </dl>

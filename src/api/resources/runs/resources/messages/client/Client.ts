@@ -38,20 +38,7 @@ export class Messages {
     constructor(protected readonly _options: Messages.Options = {}) {}
 
     /**
-     * Get messages associated with a run with filtering options.
-     *
-     * Args:
-     *     run_id: ID of the run
-     *     before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-     *     after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-     *     limit: Maximum number of messages to return
-     *     order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-     *     role: Filter by role (user/assistant/system/tool)
-     *     return_message_object: Whether to return Message objects or LettaMessage objects
-     *     user_id: ID of the user making the request
-     *
-     * Returns:
-     *     A list of messages associated with the run. Default is List[LettaMessage].
+     * Get response messages associated with a run.
      *
      * @param {string} runId
      * @param {Letta.runs.MessagesListRequest} request
@@ -75,7 +62,7 @@ export class Messages {
         request: Letta.runs.MessagesListRequest = {},
         requestOptions?: Messages.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.LettaMessageUnion[]>> {
-        const { before, after, limit, order, role } = request;
+        const { before, after, limit, order } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (before != null) {
             _queryParams["before"] = before;
@@ -90,11 +77,9 @@ export class Messages {
         }
 
         if (order != null) {
-            _queryParams["order"] = order;
-        }
-
-        if (role != null) {
-            _queryParams["role"] = serializers.MessageRole.jsonOrThrow(role, { unrecognizedObjectKeys: "strip" });
+            _queryParams["order"] = serializers.runs.MessagesListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -112,8 +97,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68637",
-                "User-Agent": "@letta-ai/letta-client/0.0.68637",
+                "X-Fern-SDK-Version": "0.0.68638",
+                "User-Agent": "@letta-ai/letta-client/0.0.68638",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
