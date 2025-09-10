@@ -9058,7 +9058,7 @@ await client.agents.messages.create("agent_id", {
             content: [
                 {
                     type: "text",
-                    text: "text",
+                    text: "The sky above the port was the color of television, tuned to a dead channel.",
                 },
             ],
         },
@@ -9224,7 +9224,7 @@ const response = await client.agents.messages.createStream("agent_id", {
             content: [
                 {
                     type: "text",
-                    text: "text",
+                    text: "The sky above the port was the color of television, tuned to a dead channel.",
                 },
             ],
         },
@@ -10558,7 +10558,7 @@ await client.groups.messages.create("group_id", {
             content: [
                 {
                     type: "text",
-                    text: "text",
+                    text: "The sky above the port was the color of television, tuned to a dead channel.",
                 },
             ],
         },
@@ -10643,7 +10643,7 @@ const response = await client.groups.messages.createStream("group_id", {
             content: [
                 {
                     type: "text",
-                    text: "text",
+                    text: "The sky above the port was the color of television, tuned to a dead channel.",
                 },
             ],
         },
