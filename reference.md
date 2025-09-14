@@ -5146,7 +5146,7 @@ await client.providers.modify("provider_id", {
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">check</a>() -> void</code></summary>
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">check</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -5159,47 +5159,7 @@ await client.providers.modify("provider_id", {
 <dd>
 
 ```typescript
-await client.providers.check();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `Providers.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">checkProvider</a>({ ...params }) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.providers.checkProvider({
+await client.providers.check({
     providerType: "anthropic",
     apiKey: "api_key",
 });
