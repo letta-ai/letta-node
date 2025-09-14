@@ -4,7 +4,9 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
+import * as Letta from "../../../../../index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Trace {
@@ -39,17 +41,22 @@ export class Trace {
      * @param {string} stepId
      * @param {Trace.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
      * @example
      *     await client.steps.trace.retrieve("step_id")
      */
-    public retrieve(stepId: string, requestOptions?: Trace.RequestOptions): core.HttpResponsePromise<void> {
+    public retrieve(
+        stepId: string,
+        requestOptions?: Trace.RequestOptions,
+    ): core.HttpResponsePromise<Letta.ProviderTrace | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__retrieve(stepId, requestOptions));
     }
 
     private async __retrieve(
         stepId: string,
         requestOptions?: Trace.RequestOptions,
-    ): Promise<core.WithRawResponse<void>> {
+    ): Promise<core.WithRawResponse<Letta.ProviderTrace | undefined>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -65,8 +72,8 @@ export class Trace {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68642",
-                "User-Agent": "@letta-ai/letta-client/0.0.68642",
+                "X-Fern-SDK-Version": "0.0.68643",
+                "User-Agent": "@letta-ai/letta-client/0.0.68643",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -79,15 +86,38 @@ export class Trace {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: undefined, rawResponse: _response.rawResponse };
+            return {
+                data: serializers.steps.trace.retrieve.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.LettaError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-                rawResponse: _response.rawResponse,
-            });
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

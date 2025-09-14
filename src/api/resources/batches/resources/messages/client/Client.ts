@@ -62,7 +62,7 @@ export class Messages {
         request: Letta.batches.MessagesListRequest = {},
         requestOptions?: Messages.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.LettaBatchMessages>> {
-        const { before, after, limit, order, agentId } = request;
+        const { before, after, limit, order, orderBy, agentId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (before != null) {
             _queryParams["before"] = before;
@@ -80,6 +80,10 @@ export class Messages {
             _queryParams["order"] = serializers.batches.MessagesListRequestOrder.jsonOrThrow(order, {
                 unrecognizedObjectKeys: "strip",
             });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
         }
 
         if (agentId != null) {
@@ -101,8 +105,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68642",
-                "User-Agent": "@letta-ai/letta-client/0.0.68642",
+                "X-Fern-SDK-Version": "0.0.68643",
+                "User-Agent": "@letta-ai/letta-client/0.0.68643",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -4892,7 +4892,7 @@ await client.health.check();
 <dl>
 <dd>
 
-Get a list of all custom providers in the database
+Get a list of all custom providers.
 
 </dd>
 </dl>
@@ -4955,7 +4955,7 @@ await client.providers.list();
 <dl>
 <dd>
 
-Create a new custom provider
+Create a new custom provider.
 
 </dd>
 </dl>
@@ -5022,7 +5022,7 @@ await client.providers.create({
 <dl>
 <dd>
 
-Delete an existing custom provider
+Delete an existing custom provider.
 
 </dd>
 </dl>
@@ -5085,7 +5085,7 @@ await client.providers.delete("provider_id");
 <dl>
 <dd>
 
-Update an existing custom provider
+Update an existing custom provider.
 
 </dd>
 </dl>
@@ -5149,6 +5149,21 @@ await client.providers.modify("provider_id", {
 <details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">check</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Verify the API key and additional parameters for a provider.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5653,7 +5668,7 @@ await client.steps.retrieve("step_id");
 <dl>
 <dd>
 
-Get a list of all tags in the database
+Get a list of all agent tags in the database.
 
 </dd>
 </dl>
@@ -5756,7 +5771,7 @@ await client.telemetry.retrieveProviderTrace("step_id");
 
 ## Batches
 
-<details><summary><code>client.batches.<a href="/src/api/resources/batches/client/Client.ts">list</a>() -> Letta.BatchJob[]</code></summary>
+<details><summary><code>client.batches.<a href="/src/api/resources/batches/client/Client.ts">list</a>({ ...params }) -> Letta.BatchJob[]</code></summary>
 <dl>
 <dd>
 
@@ -5800,6 +5815,14 @@ await client.batches.list();
 <dl>
 <dd>
 
+**request:** `Letta.BatchesListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Batches.RequestOptions`
 
 </dd>
@@ -5823,8 +5846,10 @@ await client.batches.list();
 <dl>
 <dd>
 
-Submit a batch of agent messages for asynchronous processing.
+Submit a batch of agent runs for asynchronous processing.
+
 Creates a job that will fan out messages to all listed agents and process them in parallel.
+The request will be rejected if it exceeds 256MB.
 
 </dd>
 </dl>
@@ -5904,7 +5929,7 @@ await client.batches.create({
 <dl>
 <dd>
 
-Get the status of a batch run.
+Retrieve the status and details of a batch run.
 
 </dd>
 </dl>
@@ -11381,6 +11406,56 @@ await client.steps.metrics.retrieve("step_id");
 </dl>
 </details>
 
+## Steps Trace
+
+<details><summary><code>client.steps.trace.<a href="/src/api/resources/steps/resources/trace/client/Client.ts">retrieve</a>(stepId) -> Letta.ProviderTrace | undefined</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.steps.trace.retrieve("step_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**stepId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Trace.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Steps Feedback
 
 <details><summary><code>client.steps.feedback.<a href="/src/api/resources/steps/resources/feedback/client/Client.ts">create</a>(stepId, { ...params }) -> Letta.Step</code></summary>
@@ -11435,7 +11510,7 @@ await client.steps.feedback.create("step_id");
 <dl>
 <dd>
 
-**request:** `Letta.steps.FeedbackCreateRequest`
+**request:** `Letta.steps.AddFeedbackRequest`
 
 </dd>
 </dl>
@@ -11444,56 +11519,6 @@ await client.steps.feedback.create("step_id");
 <dd>
 
 **requestOptions:** `Feedback.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Steps Trace
-
-<details><summary><code>client.steps.trace.<a href="/src/api/resources/steps/resources/trace/client/Client.ts">retrieve</a>(stepId) -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.steps.trace.retrieve("step_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**stepId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Trace.RequestOptions`
 
 </dd>
 </dl>

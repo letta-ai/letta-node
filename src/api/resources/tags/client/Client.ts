@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Letta from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Tags {
@@ -38,7 +38,7 @@ export class Tags {
     constructor(protected readonly _options: Tags.Options = {}) {}
 
     /**
-     * Get a list of all tags in the database
+     * Get a list of all agent tags in the database.
      *
      * @param {Letta.TagsListRequest} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
@@ -59,14 +59,28 @@ export class Tags {
         request: Letta.TagsListRequest = {},
         requestOptions?: Tags.RequestOptions,
     ): Promise<core.WithRawResponse<string[]>> {
-        const { after, limit, queryText } = request;
+        const { before, after, limit, order, orderBy, queryText } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
         if (after != null) {
             _queryParams["after"] = after;
         }
 
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
+        }
+
+        if (order != null) {
+            _queryParams["order"] = serializers.TagsListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
         }
 
         if (queryText != null) {
@@ -88,8 +102,8 @@ export class Tags {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68642",
-                "User-Agent": "@letta-ai/letta-client/0.0.68642",
+                "X-Fern-SDK-Version": "0.0.68643",
+                "User-Agent": "@letta-ai/letta-client/0.0.68643",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

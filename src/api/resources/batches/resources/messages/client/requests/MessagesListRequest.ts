@@ -26,6 +26,10 @@ export interface MessagesListRequest {
      */
     order?: Letta.batches.MessagesListRequestOrder;
     /**
+     * Field to sort by
+     */
+    orderBy?: "created_at";
+    /**
      * Filter messages by agent ID
      */
     agentId?: string;

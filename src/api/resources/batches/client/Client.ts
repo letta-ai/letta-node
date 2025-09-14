@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Letta from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 import { Messages } from "../resources/messages/client/Client";
 
@@ -47,6 +47,7 @@ export class Batches {
     /**
      * List all batch runs.
      *
+     * @param {Letta.BatchesListRequest} request
      * @param {Batches.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
@@ -54,11 +55,41 @@ export class Batches {
      * @example
      *     await client.batches.list()
      */
-    public list(requestOptions?: Batches.RequestOptions): core.HttpResponsePromise<Letta.BatchJob[]> {
-        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
+    public list(
+        request: Letta.BatchesListRequest = {},
+        requestOptions?: Batches.RequestOptions,
+    ): core.HttpResponsePromise<Letta.BatchJob[]> {
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
-    private async __list(requestOptions?: Batches.RequestOptions): Promise<core.WithRawResponse<Letta.BatchJob[]>> {
+    private async __list(
+        request: Letta.BatchesListRequest = {},
+        requestOptions?: Batches.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.BatchJob[]>> {
+        const { before, after, limit, order, orderBy } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (order != null) {
+            _queryParams["order"] = serializers.BatchesListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -74,14 +105,15 @@ export class Batches {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68642",
-                "User-Agent": "@letta-ai/letta-client/0.0.68642",
+                "X-Fern-SDK-Version": "0.0.68643",
+                "User-Agent": "@letta-ai/letta-client/0.0.68643",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -140,8 +172,10 @@ export class Batches {
     }
 
     /**
-     * Submit a batch of agent messages for asynchronous processing.
+     * Submit a batch of agent runs for asynchronous processing.
+     *
      * Creates a job that will fan out messages to all listed agents and process them in parallel.
+     * The request will be rejected if it exceeds 256MB.
      *
      * @param {Letta.CreateBatch} request
      * @param {Batches.RequestOptions} requestOptions - Request-specific configuration.
@@ -188,8 +222,8 @@ export class Batches {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68642",
-                "User-Agent": "@letta-ai/letta-client/0.0.68642",
+                "X-Fern-SDK-Version": "0.0.68643",
+                "User-Agent": "@letta-ai/letta-client/0.0.68643",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -255,7 +289,7 @@ export class Batches {
     }
 
     /**
-     * Get the status of a batch run.
+     * Retrieve the status and details of a batch run.
      *
      * @param {string} batchId
      * @param {Batches.RequestOptions} requestOptions - Request-specific configuration.
@@ -291,8 +325,8 @@ export class Batches {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68642",
-                "User-Agent": "@letta-ai/letta-client/0.0.68642",
+                "X-Fern-SDK-Version": "0.0.68643",
+                "User-Agent": "@letta-ai/letta-client/0.0.68643",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -392,8 +426,8 @@ export class Batches {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68642",
-                "User-Agent": "@letta-ai/letta-client/0.0.68642",
+                "X-Fern-SDK-Version": "0.0.68643",
+                "User-Agent": "@letta-ai/letta-client/0.0.68643",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
