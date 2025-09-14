@@ -4,12 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Letta from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
-export declare namespace Passages {
+export declare namespace Trace {
     export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -34,54 +32,30 @@ export declare namespace Passages {
     }
 }
 
-export class Passages {
-    constructor(protected readonly _options: Passages.Options = {}) {}
+export class Trace {
+    constructor(protected readonly _options: Trace.Options = {}) {}
 
     /**
-     * List all passages associated with a data folder.
-     *
-     * @param {string} folderId
-     * @param {Letta.folders.PassagesListRequest} request
-     * @param {Passages.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
+     * @param {string} stepId
+     * @param {Trace.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.folders.passages.list("folder_id")
+     *     await client.steps.trace.retrieve("step_id")
      */
-    public list(
-        folderId: string,
-        request: Letta.folders.PassagesListRequest = {},
-        requestOptions?: Passages.RequestOptions,
-    ): core.HttpResponsePromise<Letta.Passage[]> {
-        return core.HttpResponsePromise.fromPromise(this.__list(folderId, request, requestOptions));
+    public retrieve(stepId: string, requestOptions?: Trace.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__retrieve(stepId, requestOptions));
     }
 
-    private async __list(
-        folderId: string,
-        request: Letta.folders.PassagesListRequest = {},
-        requestOptions?: Passages.RequestOptions,
-    ): Promise<core.WithRawResponse<Letta.Passage[]>> {
-        const { after, before, limit } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (after != null) {
-            _queryParams["after"] = after;
-        }
-
-        if (before != null) {
-            _queryParams["before"] = before;
-        }
-
-        if (limit != null) {
-            _queryParams["limit"] = limit.toString();
-        }
-
+    private async __retrieve(
+        stepId: string,
+        requestOptions?: Trace.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/folders/${encodeURIComponent(folderId)}/passages`,
+                `v1/steps/${encodeURIComponent(stepId)}/trace`,
             ),
             method: "GET",
             headers: {
@@ -99,45 +73,21 @@ export class Passages {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
-            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.folders.passages.list.Response.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         switch (_response.error.reason) {
@@ -148,9 +98,7 @@ export class Passages {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/folders/{folder_id}/passages.",
-                );
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/steps/{step_id}/trace.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

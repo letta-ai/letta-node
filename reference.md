@@ -5639,69 +5639,6 @@ await client.steps.retrieve("step_id");
 </dl>
 </details>
 
-<details><summary><code>client.steps.<a href="/src/api/resources/steps/client/Client.ts">retrieveStepMetrics</a>(stepId) -> Letta.StepMetrics</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get step metrics by step ID.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.steps.retrieveStepMetrics("step_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**stepId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Steps.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Tags
 
 <details><summary><code>client.tags.<a href="/src/api/resources/tags/client/Client.ts">list</a>({ ...params }) -> string[]</code></summary>
@@ -11379,6 +11316,71 @@ await client.sources.passages.list("source_id");
 </dl>
 </details>
 
+## Steps Metrics
+
+<details><summary><code>client.steps.metrics.<a href="/src/api/resources/steps/resources/metrics/client/Client.ts">retrieve</a>(stepId) -> Letta.StepMetrics</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get step metrics by step ID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.steps.metrics.retrieve("step_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**stepId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Metrics.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Steps Feedback
 
 <details><summary><code>client.steps.feedback.<a href="/src/api/resources/steps/resources/feedback/client/Client.ts">create</a>(stepId, { ...params }) -> Letta.Step</code></summary>
@@ -11442,6 +11444,56 @@ await client.steps.feedback.create("step_id");
 <dd>
 
 **requestOptions:** `Feedback.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Steps Trace
+
+<details><summary><code>client.steps.trace.<a href="/src/api/resources/steps/resources/trace/client/Client.ts">retrieve</a>(stepId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.steps.trace.retrieve("step_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**stepId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Trace.RequestOptions`
 
 </dd>
 </dl>

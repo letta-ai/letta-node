@@ -5,11 +5,11 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Letta from "../../../../../index";
-import * as serializers from "../../../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
-export declare namespace Messages {
+export declare namespace Metrics {
     export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -34,64 +34,37 @@ export declare namespace Messages {
     }
 }
 
-export class Messages {
-    constructor(protected readonly _options: Messages.Options = {}) {}
+export class Metrics {
+    constructor(protected readonly _options: Metrics.Options = {}) {}
 
     /**
-     * Get response messages for a specific batch job.
+     * Get step metrics by step ID.
      *
-     * @param {string} batchId
-     * @param {Letta.batches.MessagesListRequest} request
-     * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} stepId
+     * @param {Metrics.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.batches.messages.list("batch_id")
+     *     await client.steps.metrics.retrieve("step_id")
      */
-    public list(
-        batchId: string,
-        request: Letta.batches.MessagesListRequest = {},
-        requestOptions?: Messages.RequestOptions,
-    ): core.HttpResponsePromise<Letta.LettaBatchMessages> {
-        return core.HttpResponsePromise.fromPromise(this.__list(batchId, request, requestOptions));
+    public retrieve(
+        stepId: string,
+        requestOptions?: Metrics.RequestOptions,
+    ): core.HttpResponsePromise<Letta.StepMetrics> {
+        return core.HttpResponsePromise.fromPromise(this.__retrieve(stepId, requestOptions));
     }
 
-    private async __list(
-        batchId: string,
-        request: Letta.batches.MessagesListRequest = {},
-        requestOptions?: Messages.RequestOptions,
-    ): Promise<core.WithRawResponse<Letta.LettaBatchMessages>> {
-        const { before, after, limit, order, agentId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (before != null) {
-            _queryParams["before"] = before;
-        }
-
-        if (after != null) {
-            _queryParams["after"] = after;
-        }
-
-        if (limit != null) {
-            _queryParams["limit"] = limit.toString();
-        }
-
-        if (order != null) {
-            _queryParams["order"] = serializers.batches.MessagesListRequestOrder.jsonOrThrow(order, {
-                unrecognizedObjectKeys: "strip",
-            });
-        }
-
-        if (agentId != null) {
-            _queryParams["agent_id"] = agentId;
-        }
-
+    private async __retrieve(
+        stepId: string,
+        requestOptions?: Metrics.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.StepMetrics>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/messages/batches/${encodeURIComponent(batchId)}/messages`,
+                `v1/steps/${encodeURIComponent(stepId)}/metrics`,
             ),
             method: "GET",
             headers: {
@@ -109,7 +82,6 @@ export class Messages {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
-            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -117,7 +89,7 @@ export class Messages {
         });
         if (_response.ok) {
             return {
-                data: serializers.LettaBatchMessages.parseOrThrow(_response.body, {
+                data: serializers.StepMetrics.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -158,9 +130,7 @@ export class Messages {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/messages/batches/{batch_id}/messages.",
-                );
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/steps/{step_id}/metrics.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,
