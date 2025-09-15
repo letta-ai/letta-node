@@ -46,7 +46,6 @@ export * from "./runs/client/requests";
 export * from "./steps/client/requests";
 export * from "./tags/client/requests";
 export * from "./batches/client/requests";
-export * from "./voice/client/requests";
 export * from "./templates/client/requests";
 export * from "./clientSideAccessTokens/client/requests";
 export * from "./projects/client/requests";

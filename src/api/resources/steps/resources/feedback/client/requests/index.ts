@@ -1,1 +1,1 @@
-export { type AddFeedbackRequest } from "./AddFeedbackRequest";
+export { type ModifyFeedbackRequest } from "./ModifyFeedbackRequest";

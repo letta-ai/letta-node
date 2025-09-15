@@ -8,7 +8,7 @@ import * as Letta from "../../../../../../index";
  * @example
  *     {}
  */
-export interface AddFeedbackRequest {
+export interface ModifyFeedbackRequest {
     /** Whether this feedback is positive or negative */
     feedback?: Letta.FeedbackType;
     /** Feedback tags to add to the step */

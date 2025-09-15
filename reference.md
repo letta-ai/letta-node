@@ -578,7 +578,7 @@ await client.tools.runToolFromSource({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listComposioApps</a>({ ...params }) -> Letta.AppModel[]</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listComposioApps</a>() -> Letta.AppModel[]</code></summary>
 <dl>
 <dd>
 
@@ -618,14 +618,6 @@ await client.tools.listComposioApps();
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListComposioAppsRequest`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -767,7 +759,7 @@ await client.tools.addComposioTool("composio_action_name");
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listMcpServers</a>({ ...params }) -> Record<string, Letta.ListMcpServersResponseValue></code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listMcpServers</a>() -> Record<string, Letta.ListMcpServersResponseValue></code></summary>
 <dl>
 <dd>
 
@@ -807,14 +799,6 @@ await client.tools.listMcpServers();
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListMcpServersRequest`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -4890,6 +4874,69 @@ await client.providers.create({
 </dl>
 </details>
 
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">retrieveProvider</a>(providerId) -> Letta.Provider</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a provider by ID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.providers.retrieveProvider("provider_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**providerId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Providers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">delete</a>(providerId) -> unknown</code></summary>
 <dl>
 <dd>
@@ -5604,6 +5651,23 @@ await client.tags.list();
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**DEPRECATED**: Use `GET /steps/{step_id}/trace` instead.
+
+Retrieve provider trace by step ID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5938,9 +6002,7 @@ await client.batches.cancel("batch_id");
 
 ```typescript
 await client.voice.createVoiceChatCompletions("agent_id", {
-    body: {
-        key: "value",
-    },
+    key: "value",
 });
 ```
 
@@ -5965,7 +6027,7 @@ await client.voice.createVoiceChatCompletions("agent_id", {
 <dl>
 <dd>
 
-**request:** `Letta.CreateVoiceChatCompletionsRequest`
+**request:** `Record<string, unknown>`
 
 </dd>
 </dl>
@@ -11429,7 +11491,7 @@ await client.steps.trace.retrieve("step_id");
 <dl>
 <dd>
 
-Add feedback to a step.
+Modify feedback for a given step.
 
 </dd>
 </dl>
@@ -11469,7 +11531,7 @@ await client.steps.feedback.create("step_id");
 <dl>
 <dd>
 
-**request:** `Letta.steps.AddFeedbackRequest`
+**request:** `Letta.steps.ModifyFeedbackRequest`
 
 </dd>
 </dl>

@@ -39,21 +39,19 @@ export class Voice {
 
     /**
      * @param {string} agentId
-     * @param {Letta.CreateVoiceChatCompletionsRequest} request
+     * @param {Record<string, unknown>} request
      * @param {Voice.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
      *     await client.voice.createVoiceChatCompletions("agent_id", {
-     *         body: {
-     *             "key": "value"
-     *         }
+     *         "key": "value"
      *     })
      */
     public createVoiceChatCompletions(
         agentId: string,
-        request: Letta.CreateVoiceChatCompletionsRequest,
+        request: Record<string, unknown>,
         requestOptions?: Voice.RequestOptions,
     ): core.HttpResponsePromise<unknown> {
         return core.HttpResponsePromise.fromPromise(
@@ -63,10 +61,9 @@ export class Voice {
 
     private async __createVoiceChatCompletions(
         agentId: string,
-        request: Letta.CreateVoiceChatCompletionsRequest,
+        request: Record<string, unknown>,
         requestOptions?: Voice.RequestOptions,
     ): Promise<core.WithRawResponse<unknown>> {
-        const { userId, body: _body } = request;
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -82,17 +79,16 @@ export class Voice {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68649",
-                "User-Agent": "@letta-ai/letta-client/0.0.68649",
+                "X-Fern-SDK-Version": "0.0.68650",
+                "User-Agent": "@letta-ai/letta-client/0.0.68650",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "user-id": userId != null ? userId : undefined,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.voice.createVoiceChatCompletions.Request.jsonOrThrow(_body, {
+            body: serializers.voice.createVoiceChatCompletions.Request.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,

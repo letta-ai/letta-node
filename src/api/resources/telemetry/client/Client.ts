@@ -38,6 +38,10 @@ export class Telemetry {
     constructor(protected readonly _options: Telemetry.Options = {}) {}
 
     /**
+     * **DEPRECATED**: Use `GET /steps/{step_id}/trace` instead.
+     *
+     * Retrieve provider trace by step ID.
+     *
      * @param {string} stepId
      * @param {Telemetry.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -72,8 +76,8 @@ export class Telemetry {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68649",
-                "User-Agent": "@letta-ai/letta-client/0.0.68649",
+                "X-Fern-SDK-Version": "0.0.68650",
+                "User-Agent": "@letta-ai/letta-client/0.0.68650",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

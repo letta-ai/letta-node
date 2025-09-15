@@ -7,15 +7,15 @@ import * as Letta from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
 import { FeedbackType } from "../../../../../../types/FeedbackType";
 
-export const AddFeedbackRequest: core.serialization.Schema<
-    serializers.steps.AddFeedbackRequest.Raw,
-    Letta.steps.AddFeedbackRequest
+export const ModifyFeedbackRequest: core.serialization.Schema<
+    serializers.steps.ModifyFeedbackRequest.Raw,
+    Letta.steps.ModifyFeedbackRequest
 > = core.serialization.object({
     feedback: FeedbackType.optional(),
     tags: core.serialization.list(core.serialization.string()).optional(),
 });
 
-export declare namespace AddFeedbackRequest {
+export declare namespace ModifyFeedbackRequest {
     export interface Raw {
         feedback?: FeedbackType.Raw | null;
         tags?: string[] | null;

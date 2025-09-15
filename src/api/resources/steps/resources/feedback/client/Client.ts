@@ -38,10 +38,10 @@ export class Feedback {
     constructor(protected readonly _options: Feedback.Options = {}) {}
 
     /**
-     * Add feedback to a step.
+     * Modify feedback for a given step.
      *
      * @param {string} stepId
-     * @param {Letta.steps.AddFeedbackRequest} request
+     * @param {Letta.steps.ModifyFeedbackRequest} request
      * @param {Feedback.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
@@ -51,7 +51,7 @@ export class Feedback {
      */
     public create(
         stepId: string,
-        request: Letta.steps.AddFeedbackRequest = {},
+        request: Letta.steps.ModifyFeedbackRequest = {},
         requestOptions?: Feedback.RequestOptions,
     ): core.HttpResponsePromise<Letta.Step> {
         return core.HttpResponsePromise.fromPromise(this.__create(stepId, request, requestOptions));
@@ -59,7 +59,7 @@ export class Feedback {
 
     private async __create(
         stepId: string,
-        request: Letta.steps.AddFeedbackRequest = {},
+        request: Letta.steps.ModifyFeedbackRequest = {},
         requestOptions?: Feedback.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.Step>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -77,8 +77,8 @@ export class Feedback {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68649",
-                "User-Agent": "@letta-ai/letta-client/0.0.68649",
+                "X-Fern-SDK-Version": "0.0.68650",
+                "User-Agent": "@letta-ai/letta-client/0.0.68650",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -86,7 +86,7 @@ export class Feedback {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.steps.AddFeedbackRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.steps.ModifyFeedbackRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

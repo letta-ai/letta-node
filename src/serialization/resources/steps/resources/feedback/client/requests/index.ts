@@ -1,1 +1,1 @@
-export { AddFeedbackRequest } from "./AddFeedbackRequest";
+export { ModifyFeedbackRequest } from "./ModifyFeedbackRequest";
