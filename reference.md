@@ -9445,7 +9445,7 @@ await client.agents.messages.reset("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">previewRawPayload</a>(agentId, { ...params }) -> Record<string, unknown></code></summary>
+<details><summary><code>client.agents.messages.<a href="/src/api/resources/agents/resources/messages/client/Client.ts">preview</a>(agentId, { ...params }) -> Record<string, unknown></code></summary>
 <dl>
 <dd>
 
@@ -9477,7 +9477,7 @@ be sent to the LLM provider. Useful for debugging and inspection.
 <dd>
 
 ```typescript
-await client.agents.messages.previewRawPayload("agent_id", {
+await client.agents.messages.preview("agent_id", {
     messages: [
         {
             role: "user",
@@ -9513,7 +9513,7 @@ await client.agents.messages.previewRawPayload("agent_id", {
 <dl>
 <dd>
 
-**request:** `Letta.MessagesPreviewRawPayloadRequest`
+**request:** `Letta.MessagesPreviewRequest`
 
 </dd>
 </dl>

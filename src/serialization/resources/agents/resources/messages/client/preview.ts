@@ -6,7 +6,7 @@ import * as serializers from "../../../../../index";
 import * as core from "../../../../../../core";
 
 export const Response: core.serialization.Schema<
-    serializers.agents.messages.previewRawPayload.Response.Raw,
+    serializers.agents.messages.preview.Response.Raw,
     Record<string, unknown>
 > = core.serialization.record(core.serialization.string(), core.serialization.unknown());
 

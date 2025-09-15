@@ -8,11 +8,11 @@ import * as core from "../../../../../../core";
 import { LettaRequest } from "../../../../../types/LettaRequest";
 import { LettaStreamingRequest } from "../../../../../types/LettaStreamingRequest";
 
-export const MessagesPreviewRawPayloadRequest: core.serialization.Schema<
-    serializers.agents.MessagesPreviewRawPayloadRequest.Raw,
-    Letta.agents.MessagesPreviewRawPayloadRequest
+export const MessagesPreviewRequest: core.serialization.Schema<
+    serializers.agents.MessagesPreviewRequest.Raw,
+    Letta.agents.MessagesPreviewRequest
 > = core.serialization.undiscriminatedUnion([LettaRequest, LettaStreamingRequest]);
 
-export declare namespace MessagesPreviewRawPayloadRequest {
+export declare namespace MessagesPreviewRequest {
     export type Raw = LettaRequest.Raw | LettaStreamingRequest.Raw;
 }

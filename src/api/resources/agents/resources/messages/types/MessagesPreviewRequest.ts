@@ -4,4 +4,4 @@
 
 import * as Letta from "../../../../../index";
 
-export type MessagesPreviewRawPayloadRequest = Letta.LettaRequest | Letta.LettaStreamingRequest;
+export type MessagesPreviewRequest = Letta.LettaRequest | Letta.LettaStreamingRequest;
