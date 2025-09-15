@@ -8,7 +8,7 @@
  *         maxMessageLength: 1
  *     }
  */
-export interface SummarizeAgentConversationRequest {
+export interface MessagesSummarizeRequest {
     /**
      * Maximum number of messages to retain after summarization.
      */
