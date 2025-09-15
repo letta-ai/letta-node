@@ -10,4 +10,6 @@ export interface DeploymentEntity {
     type: string;
     name?: string;
     description?: string;
+    entityId?: string;
+    projectId?: string;
 }

@@ -8,18 +8,16 @@ import * as core from "../../core";
 import { AgentFileSchema } from "./AgentFileSchema";
 import { LettaSerializeSchemasPydanticAgentSchemaAgentSchema } from "./LettaSerializeSchemasPydanticAgentSchemaAgentSchema";
 
-export const BodyExportAgentSerialized: core.serialization.ObjectSchema<
-    serializers.BodyExportAgentSerialized.Raw,
-    Letta.BodyExportAgentSerialized
-> = core.serialization.object({
-    spec: AgentFileSchema.optional(),
-    legacySpec: core.serialization.property(
-        "legacy_spec",
-        LettaSerializeSchemasPydanticAgentSchemaAgentSchema.optional(),
-    ),
-});
+export const BodyExportAgent: core.serialization.ObjectSchema<serializers.BodyExportAgent.Raw, Letta.BodyExportAgent> =
+    core.serialization.object({
+        spec: AgentFileSchema.optional(),
+        legacySpec: core.serialization.property(
+            "legacy_spec",
+            LettaSerializeSchemasPydanticAgentSchemaAgentSchema.optional(),
+        ),
+    });
 
-export declare namespace BodyExportAgentSerialized {
+export declare namespace BodyExportAgent {
     export interface Raw {
         spec?: AgentFileSchema.Raw | null;
         legacy_spec?: LettaSerializeSchemasPydanticAgentSchemaAgentSchema.Raw | null;

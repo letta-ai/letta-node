@@ -80,8 +80,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -179,8 +179,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -278,8 +278,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -374,8 +374,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -477,8 +477,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -591,8 +591,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -660,6 +660,7 @@ export class Folders {
     /**
      * List all data folders created by a user.
      *
+     * @param {Letta.FoldersListRequest} request
      * @param {Folders.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
@@ -667,11 +668,41 @@ export class Folders {
      * @example
      *     await client.folders.list()
      */
-    public list(requestOptions?: Folders.RequestOptions): core.HttpResponsePromise<Letta.Folder[]> {
-        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
+    public list(
+        request: Letta.FoldersListRequest = {},
+        requestOptions?: Folders.RequestOptions,
+    ): core.HttpResponsePromise<Letta.Folder[]> {
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
-    private async __list(requestOptions?: Folders.RequestOptions): Promise<core.WithRawResponse<Letta.Folder[]>> {
+    private async __list(
+        request: Letta.FoldersListRequest = {},
+        requestOptions?: Folders.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.Folder[]>> {
+        const { before, after, limit, order, orderBy } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (order != null) {
+            _queryParams["order"] = serializers.FoldersListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -687,14 +718,15 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -791,8 +823,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -894,8 +926,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

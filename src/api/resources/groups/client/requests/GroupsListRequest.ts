@@ -14,17 +14,25 @@ export interface GroupsListRequest {
      */
     managerType?: Letta.ManagerType;
     /**
-     * Cursor for pagination
+     * Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order
      */
     before?: string;
     /**
-     * Cursor for pagination
+     * Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order
      */
     after?: string;
     /**
-     * Limit for pagination
+     * Maximum number of groups to return
      */
     limit?: number;
+    /**
+     * Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first
+     */
+    order?: Letta.GroupsListRequestOrder;
+    /**
+     * Field to sort by
+     */
+    orderBy?: "created_at";
     /**
      * Search groups by project id
      */

@@ -12,10 +12,12 @@ export const AddFeedbackRequest: core.serialization.Schema<
     Letta.steps.AddFeedbackRequest
 > = core.serialization.object({
     feedback: FeedbackType.optional(),
+    tags: core.serialization.list(core.serialization.string()).optional(),
 });
 
 export declare namespace AddFeedbackRequest {
     export interface Raw {
         feedback?: FeedbackType.Raw | null;
+        tags?: string[] | null;
     }
 }

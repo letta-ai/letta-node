@@ -14,6 +14,8 @@ export const DeploymentEntity: core.serialization.ObjectSchema<
     type: core.serialization.string(),
     name: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
+    entityId: core.serialization.property("entity_id", core.serialization.string().optional()),
+    projectId: core.serialization.property("project_id", core.serialization.string().optional()),
 });
 
 export declare namespace DeploymentEntity {
@@ -22,5 +24,7 @@ export declare namespace DeploymentEntity {
         type: string;
         name?: string | null;
         description?: string | null;
+        entity_id?: string | null;
+        project_id?: string | null;
     }
 }

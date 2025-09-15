@@ -1,3 +1,5 @@
+export * from "./AgentsListRequestOrder";
+export * from "./AgentsListRequestOrderBy";
 export * from "./CreateAgentRequestToolRulesItem";
 export * from "./CreateAgentRequestResponseFormat";
 export * from "./UpdateAgentToolRulesItem";

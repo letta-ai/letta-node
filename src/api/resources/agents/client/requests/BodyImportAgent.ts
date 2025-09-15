@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface BodyImportAgentSerialized {
+export interface BodyImportAgent {
     overrideEmbeddingModel?: string;
     /** If set to True, appends "_copy" to the end of the agent name. */
     appendCopySuffix?: boolean;

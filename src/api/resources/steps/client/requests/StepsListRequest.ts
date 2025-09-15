@@ -22,9 +22,13 @@ export interface StepsListRequest {
      */
     limit?: number;
     /**
-     * Sort order (asc or desc)
+     * Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
      */
-    order?: string;
+    order?: Letta.StepsListRequestOrder;
+    /**
+     * Field to sort by
+     */
+    orderBy?: "created_at";
     /**
      * Return steps after this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
      */

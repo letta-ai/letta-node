@@ -9,8 +9,32 @@ import * as Letta from "../../../../index";
  *     {}
  */
 export interface ProvidersListRequest {
-    name?: string;
-    providerType?: Letta.ProviderType;
+    /**
+     * Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order
+     */
+    before?: string;
+    /**
+     * Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order
+     */
     after?: string;
+    /**
+     * Maximum number of providers to return
+     */
     limit?: number;
+    /**
+     * Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first
+     */
+    order?: Letta.ProvidersListRequestOrder;
+    /**
+     * Field to sort by
+     */
+    orderBy?: "created_at";
+    /**
+     * Filter providers by name
+     */
+    name?: string;
+    /**
+     * Filter providers by type
+     */
+    providerType?: Letta.ProviderType;
 }

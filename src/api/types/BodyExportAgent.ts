@@ -4,7 +4,7 @@
 
 import * as Letta from "../index";
 
-export interface BodyExportAgentSerialized {
+export interface BodyExportAgent {
     spec?: Letta.AgentFileSchema;
     legacySpec?: Letta.LettaSerializeSchemasPydanticAgentSchemaAgentSchema;
 }

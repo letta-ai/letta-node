@@ -59,16 +59,10 @@ export class Providers {
         request: Letta.ProvidersListRequest = {},
         requestOptions?: Providers.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.Provider[]>> {
-        const { name, providerType, after, limit } = request;
+        const { before, after, limit, order, orderBy, name, providerType } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (name != null) {
-            _queryParams["name"] = name;
-        }
-
-        if (providerType != null) {
-            _queryParams["provider_type"] = serializers.ProviderType.jsonOrThrow(providerType, {
-                unrecognizedObjectKeys: "strip",
-            });
+        if (before != null) {
+            _queryParams["before"] = before;
         }
 
         if (after != null) {
@@ -77,6 +71,26 @@ export class Providers {
 
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
+        }
+
+        if (order != null) {
+            _queryParams["order"] = serializers.ProvidersListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
+        }
+
+        if (name != null) {
+            _queryParams["name"] = name;
+        }
+
+        if (providerType != null) {
+            _queryParams["provider_type"] = serializers.ProviderType.jsonOrThrow(providerType, {
+                unrecognizedObjectKeys: "strip",
+            });
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -94,8 +108,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -201,8 +215,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -301,8 +315,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -399,8 +413,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -505,8 +519,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

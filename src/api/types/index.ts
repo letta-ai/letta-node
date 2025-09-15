@@ -33,7 +33,7 @@ export * from "./BatchJob";
 export * from "./Block";
 export * from "./BlockSchema";
 export * from "./BlockUpdate";
-export * from "./BodyExportAgentSerialized";
+export * from "./BodyExportAgent";
 export * from "./ChatCompletionAllowedToolChoiceParam";
 export * from "./ChatCompletionAllowedToolsParamMode";
 export * from "./ChatCompletionAllowedToolsParam";

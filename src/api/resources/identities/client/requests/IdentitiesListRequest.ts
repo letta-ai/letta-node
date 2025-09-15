@@ -13,7 +13,24 @@ export interface IdentitiesListRequest {
     projectId?: string;
     identifierKey?: string;
     identityType?: Letta.IdentityType;
+    /**
+     * Identity ID cursor for pagination. Returns identities that come before this identity ID in the specified sort order
+     */
     before?: string;
+    /**
+     * Identity ID cursor for pagination. Returns identities that come after this identity ID in the specified sort order
+     */
     after?: string;
+    /**
+     * Maximum number of identities to return
+     */
     limit?: number;
+    /**
+     * Sort order for identities by creation time. 'asc' for oldest first, 'desc' for newest first
+     */
+    order?: Letta.IdentitiesListRequestOrder;
+    /**
+     * Field to sort by
+     */
+    orderBy?: "created_at";
 }

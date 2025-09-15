@@ -38,7 +38,7 @@ export class Tags {
     constructor(protected readonly _options: Tags.Options = {}) {}
 
     /**
-     * Get a list of all agent tags in the database.
+     * Get the list of all agent tags that have been created.
      *
      * @param {Letta.TagsListRequest} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
@@ -102,8 +102,8 @@ export class Tags {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68646",
-                "User-Agent": "@letta-ai/letta-client/0.0.68646",
+                "X-Fern-SDK-Version": "0.0.68647",
+                "User-Agent": "@letta-ai/letta-client/0.0.68647",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

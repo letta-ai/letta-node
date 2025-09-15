@@ -274,7 +274,7 @@ await client.tools.count();
 <dl>
 <dd>
 
-Get a list of all tools available to agents belonging to the org of the user
+Get a list of all tools available to agents.
 
 </dd>
 </dl>
@@ -2338,7 +2338,7 @@ await client.folders.getFoldersMetadata();
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">list</a>() -> Letta.Folder[]</code></summary>
+<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">list</a>({ ...params }) -> Letta.Folder[]</code></summary>
 <dl>
 <dd>
 
@@ -2378,6 +2378,14 @@ await client.folders.list();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.FoldersListRequest`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -2835,7 +2843,7 @@ await client.agents.importFile(fs.createReadStream("/path/to/your/file"), {});
 <dl>
 <dd>
 
-**request:** `Letta.BodyImportAgentSerialized`
+**request:** `Letta.BodyImportAgent`
 
 </dd>
 </dl>
@@ -5412,7 +5420,6 @@ for await (const item of response) {
 <dd>
 
 List steps with optional pagination and date filters.
-Dates should be provided in ISO 8601 format (e.g. 2025-01-29T15:01:19-08:00)
 
 </dd>
 </dl>
@@ -5540,7 +5547,7 @@ await client.steps.retrieve("step_id");
 <dl>
 <dd>
 
-Get a list of all agent tags in the database.
+Get the list of all agent tags that have been created.
 
 </dd>
 </dl>

@@ -11,4 +11,6 @@ import * as Letta from "../../../../../../index";
 export interface AddFeedbackRequest {
     /** Whether this feedback is positive or negative */
     feedback?: Letta.FeedbackType;
+    /** Feedback tags to add to the step */
+    tags?: string[];
 }
