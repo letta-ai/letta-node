@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ListAgentFilesRequest {
+export interface FilesListRequest {
     /**
      * Pagination cursor from previous response
      */

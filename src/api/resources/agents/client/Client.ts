@@ -242,8 +242,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -345,8 +345,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -441,8 +441,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -560,8 +560,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -694,8 +694,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "x-override-embedding-model":
@@ -813,8 +813,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -913,8 +913,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1009,8 +1009,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1076,126 +1076,6 @@ export class Agents {
     }
 
     /**
-     * Get the files attached to an agent with their open/closed status (paginated).
-     *
-     * @param {string} agentId
-     * @param {Letta.ListAgentFilesRequest} request
-     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.agents.listAgentFiles("agent_id")
-     */
-    public listAgentFiles(
-        agentId: string,
-        request: Letta.ListAgentFilesRequest = {},
-        requestOptions?: Agents.RequestOptions,
-    ): core.HttpResponsePromise<Letta.PaginatedAgentFiles> {
-        return core.HttpResponsePromise.fromPromise(this.__listAgentFiles(agentId, request, requestOptions));
-    }
-
-    private async __listAgentFiles(
-        agentId: string,
-        request: Letta.ListAgentFilesRequest = {},
-        requestOptions?: Agents.RequestOptions,
-    ): Promise<core.WithRawResponse<Letta.PaginatedAgentFiles>> {
-        const { cursor, limit, isOpen } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (cursor != null) {
-            _queryParams["cursor"] = cursor;
-        }
-
-        if (limit != null) {
-            _queryParams["limit"] = limit.toString();
-        }
-
-        if (isOpen != null) {
-            _queryParams["is_open"] = isOpen.toString();
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/agents/${encodeURIComponent(agentId)}/files`,
-            ),
-            method: "GET",
-            headers: {
-                "X-Project":
-                    (await core.Supplier.get(this._options.project)) != null
-                        ? await core.Supplier.get(this._options.project)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.PaginatedAgentFiles.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/agents/{agent_id}/files.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
      * Summarize an agent's conversation history to a target message length.
      *
      * This endpoint summarizes the current message history for a given agent,
@@ -1245,8 +1125,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1341,8 +1221,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

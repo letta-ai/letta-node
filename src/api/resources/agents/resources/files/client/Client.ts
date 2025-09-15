@@ -74,8 +74,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -185,8 +185,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -295,8 +295,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -354,17 +354,44 @@ export class Files {
     }
 
     /**
+     * Get the files attached to an agent with their open/closed status (paginated).
+     *
      * @param {string} agentId
+     * @param {Letta.agents.FilesListRequest} request
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
      *     await client.agents.files.list("agent_id")
      */
-    public list(agentId: string, requestOptions?: Files.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__list(agentId, requestOptions));
+    public list(
+        agentId: string,
+        request: Letta.agents.FilesListRequest = {},
+        requestOptions?: Files.RequestOptions,
+    ): core.HttpResponsePromise<Letta.PaginatedAgentFiles> {
+        return core.HttpResponsePromise.fromPromise(this.__list(agentId, request, requestOptions));
     }
 
-    private async __list(agentId: string, requestOptions?: Files.RequestOptions): Promise<core.WithRawResponse<void>> {
+    private async __list(
+        agentId: string,
+        request: Letta.agents.FilesListRequest = {},
+        requestOptions?: Files.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.PaginatedAgentFiles>> {
+        const { cursor, limit, isOpen } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (cursor != null) {
+            _queryParams["cursor"] = cursor;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (isOpen != null) {
+            _queryParams["is_open"] = isOpen.toString();
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -372,7 +399,7 @@ export class Files {
                     environments.LettaEnvironment.LettaCloud,
                 `v1/agents/${encodeURIComponent(agentId)}/files`,
             ),
-            method: "PATCH",
+            method: "GET",
             headers: {
                 "X-Project":
                     (await core.Supplier.get(this._options.project)) != null
@@ -380,29 +407,53 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68643",
-                "User-Agent": "@letta-ai/letta-client/0.0.68643",
+                "X-Fern-SDK-Version": "0.0.68644",
+                "User-Agent": "@letta-ai/letta-client/0.0.68644",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: undefined, rawResponse: _response.rawResponse };
+            return {
+                data: serializers.PaginatedAgentFiles.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.LettaError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-                rawResponse: _response.rawResponse,
-            });
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -413,7 +464,7 @@ export class Files {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling PATCH /v1/agents/{agent_id}/files.");
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/agents/{agent_id}/files.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

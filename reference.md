@@ -3059,77 +3059,6 @@ await client.agents.modify("agent_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">listAgentFiles</a>(agentId, { ...params }) -> Letta.PaginatedAgentFiles</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get the files attached to an agent with their open/closed status (paginated).
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.listAgentFiles("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.ListAgentFilesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Agents.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.agents.<a href="/src/api/resources/agents/client/Client.ts">summarizeAgentConversation</a>(agentId, { ...params }) -> void</code></summary>
 <dl>
 <dd>
@@ -8050,9 +7979,24 @@ await client.agents.files.close("agent_id", "file_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.files.<a href="/src/api/resources/agents/resources/files/client/Client.ts">list</a>(agentId) -> void</code></summary>
+<details><summary><code>client.agents.files.<a href="/src/api/resources/agents/resources/files/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.PaginatedAgentFiles</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the files attached to an agent with their open/closed status (paginated).
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -8080,6 +8024,14 @@ await client.agents.files.list("agent_id");
 <dd>
 
 **agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.FilesListRequest`
 
 </dd>
 </dl>
