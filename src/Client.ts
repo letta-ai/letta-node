@@ -11,7 +11,6 @@ import { Agents } from "./api/resources/agents/client/Client";
 import { Groups } from "./api/resources/groups/client/Client";
 import { Identities } from "./api/resources/identities/client/Client";
 import { Models } from "./api/resources/models/client/Client";
-import { EmbeddingModels } from "./api/resources/embeddingModels/client/Client";
 import { Blocks } from "./api/resources/blocks/client/Client";
 import { Jobs } from "./api/resources/jobs/client/Client";
 import { Health } from "./api/resources/health/client/Client";
@@ -59,7 +58,6 @@ export class LettaClient {
     protected _groups: Groups | undefined;
     protected _identities: Identities | undefined;
     protected _models: Models | undefined;
-    protected _embeddingModels: EmbeddingModels | undefined;
     protected _blocks: Blocks | undefined;
     protected _jobs: Jobs | undefined;
     protected _health: Health | undefined;
@@ -102,10 +100,6 @@ export class LettaClient {
 
     public get models(): Models {
         return (this._models ??= new Models(this._options));
-    }
-
-    public get embeddingModels(): EmbeddingModels {
-        return (this._embeddingModels ??= new EmbeddingModels(this._options));
     }
 
     public get blocks(): Blocks {

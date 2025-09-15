@@ -22,7 +22,6 @@ export * as sources from "./sources";
 export * as folders from "./folders";
 export * as identities from "./identities";
 export * as models from "./models";
-export * as embeddingModels from "./embeddingModels";
 export * as blocks from "./blocks";
 export * as jobs from "./jobs";
 export * as health from "./health";

@@ -4079,63 +4079,6 @@ await client.models.listembeddingmodels();
 </dl>
 </details>
 
-## EmbeddingModels
-
-<details><summary><code>client.embeddingModels.<a href="/src/api/resources/embeddingModels/client/Client.ts">list</a>() -> Letta.EmbeddingConfig[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List available embedding models using the asynchronous implementation for improved performance
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.embeddingModels.list();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `EmbeddingModels.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Blocks
 
 <details><summary><code>client.blocks.<a href="/src/api/resources/blocks/client/Client.ts">list</a>({ ...params }) -> Letta.Block[]</code></summary>
@@ -10766,6 +10709,63 @@ await client.identities.properties.upsert("identity_id", [
 <dd>
 
 **requestOptions:** `Properties.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Models Embeddings
+
+<details><summary><code>client.models.embeddings.<a href="/src/api/resources/models/resources/embeddings/client/Client.ts">list</a>() -> Letta.EmbeddingConfig[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List available embedding models using the asynchronous implementation for improved performance
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.models.embeddings.list();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Embeddings.RequestOptions`
 
 </dd>
 </dl>

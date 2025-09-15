@@ -8,6 +8,7 @@ import * as Letta from "../../../index";
 import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
+import { Embeddings } from "../resources/embeddings/client/Client";
 
 export declare namespace Models {
     export interface Options {
@@ -35,7 +36,13 @@ export declare namespace Models {
 }
 
 export class Models {
+    protected _embeddings: Embeddings | undefined;
+
     constructor(protected readonly _options: Models.Options = {}) {}
+
+    public get embeddings(): Embeddings {
+        return (this._embeddings ??= new Embeddings(this._options));
+    }
 
     /**
      * List available LLM models using the asynchronous implementation for improved performance
@@ -98,8 +105,8 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68645",
-                "User-Agent": "@letta-ai/letta-client/0.0.68645",
+                "X-Fern-SDK-Version": "0.0.68646",
+                "User-Agent": "@letta-ai/letta-client/0.0.68646",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -190,8 +197,8 @@ export class Models {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68645",
-                "User-Agent": "@letta-ai/letta-client/0.0.68645",
+                "X-Fern-SDK-Version": "0.0.68646",
+                "User-Agent": "@letta-ai/letta-client/0.0.68646",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
