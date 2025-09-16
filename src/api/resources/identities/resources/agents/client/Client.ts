@@ -4,12 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Letta from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
-export declare namespace Usage {
+export declare namespace Agents {
     export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -34,37 +32,30 @@ export declare namespace Usage {
     }
 }
 
-export class Usage {
-    constructor(protected readonly _options: Usage.Options = {}) {}
+export class Agents {
+    constructor(protected readonly _options: Agents.Options = {}) {}
 
     /**
-     * Get usage statistics for a run.
-     *
-     * @param {string} runId
-     * @param {Usage.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
+     * @param {string} identityId
+     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.runs.usage.retrieve("run_id")
+     *     await client.identities.agents.list("identity_id")
      */
-    public retrieve(
-        runId: string,
-        requestOptions?: Usage.RequestOptions,
-    ): core.HttpResponsePromise<Letta.UsageStatistics> {
-        return core.HttpResponsePromise.fromPromise(this.__retrieve(runId, requestOptions));
+    public list(identityId: string, requestOptions?: Agents.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__list(identityId, requestOptions));
     }
 
-    private async __retrieve(
-        runId: string,
-        requestOptions?: Usage.RequestOptions,
-    ): Promise<core.WithRawResponse<Letta.UsageStatistics>> {
+    private async __list(
+        identityId: string,
+        requestOptions?: Agents.RequestOptions,
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/runs/${encodeURIComponent(runId)}/usage`,
+                `v1/identities/${encodeURIComponent(identityId)}/agents`,
             ),
             method: "GET",
             headers: {
@@ -88,38 +79,15 @@ export class Usage {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.UsageStatistics.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         switch (_response.error.reason) {
@@ -130,7 +98,9 @@ export class Usage {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/runs/{run_id}/usage.");
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling GET /v1/identities/{identity_id}/agents.",
+                );
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

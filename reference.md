@@ -10788,6 +10788,106 @@ await client.identities.properties.upsert("identity_id", [
 </dl>
 </details>
 
+## Identities Agents
+
+<details><summary><code>client.identities.agents.<a href="/src/api/resources/identities/resources/agents/client/Client.ts">list</a>(identityId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.identities.agents.list("identity_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identityId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agents.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Identities Blocks
+
+<details><summary><code>client.identities.blocks.<a href="/src/api/resources/identities/resources/blocks/client/Client.ts">list</a>(identityId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.identities.blocks.list("identity_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identityId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Blocks.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Models Embeddings
 
 <details><summary><code>client.models.embeddings.<a href="/src/api/resources/models/resources/embeddings/client/Client.ts">list</a>() -> Letta.EmbeddingConfig[]</code></summary>
