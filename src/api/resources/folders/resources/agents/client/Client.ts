@@ -9,7 +9,7 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
-export declare namespace Embeddings {
+export declare namespace Agents {
     export interface Options {
         environment?: core.Supplier<environments.LettaEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -34,32 +34,34 @@ export declare namespace Embeddings {
     }
 }
 
-export class Embeddings {
-    constructor(protected readonly _options: Embeddings.Options = {}) {}
+export class Agents {
+    constructor(protected readonly _options: Agents.Options = {}) {}
 
     /**
-     * List available embedding models using the asynchronous implementation for improved performance
+     * Get all agent IDs that have the specified folder attached.
      *
-     * @param {Embeddings.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} folderId
+     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.models.embeddings.list()
+     *     await client.folders.agents.list("folder_id")
      */
-    public list(requestOptions?: Embeddings.RequestOptions): core.HttpResponsePromise<Letta.EmbeddingConfig[]> {
-        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
+    public list(folderId: string, requestOptions?: Agents.RequestOptions): core.HttpResponsePromise<string[]> {
+        return core.HttpResponsePromise.fromPromise(this.__list(folderId, requestOptions));
     }
 
     private async __list(
-        requestOptions?: Embeddings.RequestOptions,
-    ): Promise<core.WithRawResponse<Letta.EmbeddingConfig[]>> {
+        folderId: string,
+        requestOptions?: Agents.RequestOptions,
+    ): Promise<core.WithRawResponse<string[]>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                "v1/models/embedding",
+                `v1/folders/${encodeURIComponent(folderId)}/agents`,
             ),
             method: "GET",
             headers: {
@@ -84,7 +86,7 @@ export class Embeddings {
         });
         if (_response.ok) {
             return {
-                data: serializers.models.embeddings.list.Response.parseOrThrow(_response.body, {
+                data: serializers.folders.agents.list.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -125,7 +127,7 @@ export class Embeddings {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/models/embedding.");
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/folders/{folder_id}/agents.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,

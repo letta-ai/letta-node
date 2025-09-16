@@ -9,6 +9,7 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 import { Files } from "../resources/files/client/Client";
+import { Agents } from "../resources/agents/client/Client";
 import { Passages } from "../resources/passages/client/Client";
 
 export declare namespace Folders {
@@ -38,12 +39,17 @@ export declare namespace Folders {
 
 export class Folders {
     protected _files: Files | undefined;
+    protected _agents: Agents | undefined;
     protected _passages: Passages | undefined;
 
     constructor(protected readonly _options: Folders.Options = {}) {}
 
     public get files(): Files {
         return (this._files ??= new Files(this._options));
+    }
+
+    public get agents(): Agents {
+        return (this._agents ??= new Agents(this._options));
     }
 
     public get passages(): Passages {
@@ -80,8 +86,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68653",
-                "User-Agent": "@letta-ai/letta-client/0.0.68653",
+                "X-Fern-SDK-Version": "0.0.68654",
+                "User-Agent": "@letta-ai/letta-client/0.0.68654",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -179,8 +185,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68653",
-                "User-Agent": "@letta-ai/letta-client/0.0.68653",
+                "X-Fern-SDK-Version": "0.0.68654",
+                "User-Agent": "@letta-ai/letta-client/0.0.68654",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -278,8 +284,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68653",
-                "User-Agent": "@letta-ai/letta-client/0.0.68653",
+                "X-Fern-SDK-Version": "0.0.68654",
+                "User-Agent": "@letta-ai/letta-client/0.0.68654",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -374,8 +380,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68653",
-                "User-Agent": "@letta-ai/letta-client/0.0.68653",
+                "X-Fern-SDK-Version": "0.0.68654",
+                "User-Agent": "@letta-ai/letta-client/0.0.68654",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -477,8 +483,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68653",
-                "User-Agent": "@letta-ai/letta-client/0.0.68653",
+                "X-Fern-SDK-Version": "0.0.68654",
+                "User-Agent": "@letta-ai/letta-client/0.0.68654",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -591,8 +597,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68653",
-                "User-Agent": "@letta-ai/letta-client/0.0.68653",
+                "X-Fern-SDK-Version": "0.0.68654",
+                "User-Agent": "@letta-ai/letta-client/0.0.68654",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -718,8 +724,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68653",
-                "User-Agent": "@letta-ai/letta-client/0.0.68653",
+                "X-Fern-SDK-Version": "0.0.68654",
+                "User-Agent": "@letta-ai/letta-client/0.0.68654",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -823,8 +829,8 @@ export class Folders {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68653",
-                "User-Agent": "@letta-ai/letta-client/0.0.68653",
+                "X-Fern-SDK-Version": "0.0.68654",
+                "User-Agent": "@letta-ai/letta-client/0.0.68654",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -881,108 +887,6 @@ export class Folders {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/folders/.");
-            case "unknown":
-                throw new errors.LettaError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Get all agent IDs that have the specified folder attached.
-     *
-     * @param {string} folderId
-     * @param {Folders.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.folders.getAgentsForFolder("folder_id")
-     */
-    public getAgentsForFolder(
-        folderId: string,
-        requestOptions?: Folders.RequestOptions,
-    ): core.HttpResponsePromise<string[]> {
-        return core.HttpResponsePromise.fromPromise(this.__getAgentsForFolder(folderId, requestOptions));
-    }
-
-    private async __getAgentsForFolder(
-        folderId: string,
-        requestOptions?: Folders.RequestOptions,
-    ): Promise<core.WithRawResponse<string[]>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.LettaEnvironment.LettaCloud,
-                `v1/folders/${encodeURIComponent(folderId)}/agents`,
-            ),
-            method: "GET",
-            headers: {
-                "X-Project":
-                    (await core.Supplier.get(this._options.project)) != null
-                        ? await core.Supplier.get(this._options.project)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68653",
-                "User-Agent": "@letta-ai/letta-client/0.0.68653",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.folders.getAgentsForFolder.Response.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Letta.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.LettaError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/folders/{folder_id}/agents.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,
