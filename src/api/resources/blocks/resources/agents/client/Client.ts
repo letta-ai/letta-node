@@ -5,8 +5,8 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Letta from "../../../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Agents {
@@ -63,8 +63,30 @@ export class Agents {
         request: Letta.blocks.AgentsListRequest = {},
         requestOptions?: Agents.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.AgentState[]>> {
-        const { includeRelationships } = request;
+        const { before, after, limit, order, orderBy, includeRelationships } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (order != null) {
+            _queryParams["order"] = serializers.blocks.AgentsListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
+        }
+
         if (includeRelationships != null) {
             if (Array.isArray(includeRelationships)) {
                 _queryParams["include_relationships"] = includeRelationships.map((item) => item);
@@ -88,8 +110,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68654",
-                "User-Agent": "@letta-ai/letta-client/0.0.68654",
+                "X-Fern-SDK-Version": "0.0.68655",
+                "User-Agent": "@letta-ai/letta-client/0.0.68655",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

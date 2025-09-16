@@ -5,8 +5,8 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Letta from "../../../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Passages {
@@ -62,18 +62,28 @@ export class Passages {
         request: Letta.folders.PassagesListRequest = {},
         requestOptions?: Passages.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.Passage[]>> {
-        const { after, before, limit } = request;
+        const { before, after, limit, order, orderBy } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (after != null) {
-            _queryParams["after"] = after;
-        }
-
         if (before != null) {
             _queryParams["before"] = before;
         }
 
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
+        }
+
+        if (order != null) {
+            _queryParams["order"] = serializers.folders.PassagesListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -91,8 +101,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68654",
-                "User-Agent": "@letta-ai/letta-client/0.0.68654",
+                "X-Fern-SDK-Version": "0.0.68655",
+                "User-Agent": "@letta-ai/letta-client/0.0.68655",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

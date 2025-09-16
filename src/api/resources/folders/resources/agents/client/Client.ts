@@ -5,8 +5,8 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Letta from "../../../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Agents {
@@ -41,6 +41,7 @@ export class Agents {
      * Get all agent IDs that have the specified folder attached.
      *
      * @param {string} folderId
+     * @param {Letta.folders.AgentsListRequest} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
@@ -48,14 +49,43 @@ export class Agents {
      * @example
      *     await client.folders.agents.list("folder_id")
      */
-    public list(folderId: string, requestOptions?: Agents.RequestOptions): core.HttpResponsePromise<string[]> {
-        return core.HttpResponsePromise.fromPromise(this.__list(folderId, requestOptions));
+    public list(
+        folderId: string,
+        request: Letta.folders.AgentsListRequest = {},
+        requestOptions?: Agents.RequestOptions,
+    ): core.HttpResponsePromise<string[]> {
+        return core.HttpResponsePromise.fromPromise(this.__list(folderId, request, requestOptions));
     }
 
     private async __list(
         folderId: string,
+        request: Letta.folders.AgentsListRequest = {},
         requestOptions?: Agents.RequestOptions,
     ): Promise<core.WithRawResponse<string[]>> {
+        const { before, after, limit, order, orderBy } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (order != null) {
+            _queryParams["order"] = serializers.folders.AgentsListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -71,14 +101,15 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68654",
-                "User-Agent": "@letta-ai/letta-client/0.0.68654",
+                "X-Fern-SDK-Version": "0.0.68655",
+                "User-Agent": "@letta-ai/letta-client/0.0.68655",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,

@@ -30,7 +30,11 @@ export interface TagsListRequest {
      */
     orderBy?: "name";
     /**
-     * Filter tags by text search
+     * Filter tags by text search. Deprecated, please use name field instead
      */
     queryText?: string;
+    /**
+     * Filter tags by name
+     */
+    name?: string;
 }

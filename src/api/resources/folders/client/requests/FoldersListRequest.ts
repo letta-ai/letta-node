@@ -29,4 +29,8 @@ export interface FoldersListRequest {
      * Field to sort by
      */
     orderBy?: "created_at";
+    /**
+     * Folder name to filter by
+     */
+    name?: string;
 }

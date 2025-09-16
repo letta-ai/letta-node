@@ -1,2 +1,2 @@
-export { type GetFoldersMetadataRequest } from "./GetFoldersMetadataRequest";
+export { type RetrieveMetadataRequest } from "./RetrieveMetadataRequest";
 export { type FoldersListRequest } from "./FoldersListRequest";

@@ -6,6 +6,6 @@
  * @example
  *     {}
  */
-export interface GetFoldersMetadataRequest {
+export interface RetrieveMetadataRequest {
     includeDetailedPerSourceMetadata?: boolean;
 }

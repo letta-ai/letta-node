@@ -59,7 +59,7 @@ export class Tags {
         request: Letta.TagsListRequest = {},
         requestOptions?: Tags.RequestOptions,
     ): Promise<core.WithRawResponse<string[]>> {
-        const { before, after, limit, order, orderBy, queryText } = request;
+        const { before, after, limit, order, orderBy, queryText, name } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (before != null) {
             _queryParams["before"] = before;
@@ -87,6 +87,10 @@ export class Tags {
             _queryParams["query_text"] = queryText;
         }
 
+        if (name != null) {
+            _queryParams["name"] = name;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -102,8 +106,8 @@ export class Tags {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68654",
-                "User-Agent": "@letta-ai/letta-client/0.0.68654",
+                "X-Fern-SDK-Version": "0.0.68655",
+                "User-Agent": "@letta-ai/letta-client/0.0.68655",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

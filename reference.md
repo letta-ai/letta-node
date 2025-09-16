@@ -2202,7 +2202,9 @@ await client.folders.modify("folder_id", {});
 <dl>
 <dd>
 
-Get a folder by name
+**Deprecated**: Please use the list endpoint `/GET v1/folders?name=` instead.
+
+Get a folder by name.
 
 </dd>
 </dl>
@@ -2253,7 +2255,7 @@ await client.folders.retrieveByName("folder_name");
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">getFoldersMetadata</a>({ ...params }) -> Letta.OrganizationSourcesStats</code></summary>
+<details><summary><code>client.folders.<a href="/src/api/resources/folders/client/Client.ts">retrieveMetadata</a>({ ...params }) -> Letta.OrganizationSourcesStats</code></summary>
 <dl>
 <dd>
 
@@ -2287,7 +2289,7 @@ Returns structured metadata including:
 <dd>
 
 ```typescript
-await client.folders.getFoldersMetadata();
+await client.folders.retrieveMetadata();
 ```
 
 </dd>
@@ -2303,7 +2305,7 @@ await client.folders.getFoldersMetadata();
 <dl>
 <dd>
 
-**request:** `Letta.GetFoldersMetadataRequest`
+**request:** `Letta.RetrieveMetadataRequest`
 
 </dd>
 </dl>
@@ -2464,10 +2466,7 @@ await client.folders.create({
 <dl>
 <dd>
 
-List all agents associated with a given user.
-
-This endpoint retrieves a list of all agents and their configurations
-associated with the specified user ID.
+Get a list of all agents.
 
 </dd>
 </dl>
@@ -2530,7 +2529,7 @@ await client.agents.list();
 <dl>
 <dd>
 
-Create a new agent with the specified configuration.
+Create an agent.
 
 </dd>
 </dl>
@@ -2593,7 +2592,7 @@ await client.agents.create();
 <dl>
 <dd>
 
-Get the count of all agents associated with a given user.
+Get the total number of agents.
 
 </dd>
 </dl>
@@ -2929,7 +2928,7 @@ await client.agents.delete("agent_id");
 <dl>
 <dd>
 
-Update an existing agent
+Update an existing agent.
 
 </dd>
 </dl>
@@ -10201,7 +10200,7 @@ await client.folders.files.delete("folder_id", "file_id");
 
 ## Folders Agents
 
-<details><summary><code>client.folders.agents.<a href="/src/api/resources/folders/resources/agents/client/Client.ts">list</a>(folderId) -> string[]</code></summary>
+<details><summary><code>client.folders.agents.<a href="/src/api/resources/folders/resources/agents/client/Client.ts">list</a>(folderId, { ...params }) -> string[]</code></summary>
 <dl>
 <dd>
 
@@ -10246,6 +10245,14 @@ await client.folders.agents.list("folder_id");
 <dd>
 
 **folderId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.folders.AgentsListRequest`
 
 </dd>
 </dl>
@@ -10792,9 +10799,24 @@ await client.identities.properties.upsert("identity_id", [
 
 ## Identities Agents
 
-<details><summary><code>client.identities.agents.<a href="/src/api/resources/identities/resources/agents/client/Client.ts">list</a>(identityId) -> void</code></summary>
+<details><summary><code>client.identities.agents.<a href="/src/api/resources/identities/resources/agents/client/Client.ts">list</a>(identityId, { ...params }) -> Letta.AgentState[]</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all agents associated with the specified identity.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -10829,6 +10851,14 @@ await client.identities.agents.list("identity_id");
 <dl>
 <dd>
 
+**request:** `Letta.identities.AgentsListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Agents.RequestOptions`
 
 </dd>
@@ -10842,9 +10872,24 @@ await client.identities.agents.list("identity_id");
 
 ## Identities Blocks
 
-<details><summary><code>client.identities.blocks.<a href="/src/api/resources/identities/resources/blocks/client/Client.ts">list</a>(identityId) -> void</code></summary>
+<details><summary><code>client.identities.blocks.<a href="/src/api/resources/identities/resources/blocks/client/Client.ts">list</a>(identityId, { ...params }) -> Letta.Block[]</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all blocks associated with the specified identity.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -10872,6 +10917,14 @@ await client.identities.blocks.list("identity_id");
 <dd>
 
 **identityId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.identities.BlocksListRequest`
 
 </dd>
 </dl>
