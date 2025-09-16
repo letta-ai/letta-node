@@ -57,8 +57,10 @@ export interface AgentState {
     sources: Letta.Source[];
     /** The tags associated with the agent. */
     tags: string[];
-    /** The environment variables for tool execution specific to this agent. */
+    /** Deprecated: use `secrets` field instead. */
     toolExecEnvironmentVariables?: Letta.AgentEnvironmentVariable[];
+    /** The environment variables for tool execution specific to this agent. */
+    secrets?: Letta.AgentEnvironmentVariable[];
     /** The id of the project the agent belongs to. */
     projectId?: string;
     /** The id of the template the agent belongs to. */

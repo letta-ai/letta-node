@@ -68,8 +68,10 @@ export interface InternalTemplateAgentCreate {
     template?: boolean;
     /** Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below. */
     project?: string;
-    /** The environment variables for tool execution specific to this agent. */
+    /** Deprecated: use `secrets` field instead. */
     toolExecEnvironmentVariables?: Record<string, string | undefined>;
+    /** The environment variables for tool execution specific to this agent. */
+    secrets?: Record<string, string | undefined>;
     /** The variables that should be set for the agent. */
     memoryVariables?: Record<string, string | undefined>;
     /** The id of the project the agent belongs to. */

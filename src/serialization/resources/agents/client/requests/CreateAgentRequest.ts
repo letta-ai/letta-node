@@ -69,6 +69,7 @@ export const CreateAgentRequest: core.serialization.Schema<
         "tool_exec_environment_variables",
         core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
     ),
+    secrets: core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
     memoryVariables: core.serialization.property(
         "memory_variables",
         core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
@@ -128,6 +129,7 @@ export declare namespace CreateAgentRequest {
         template?: boolean | null;
         project?: string | null;
         tool_exec_environment_variables?: Record<string, string | null | undefined> | null;
+        secrets?: Record<string, string | null | undefined> | null;
         memory_variables?: Record<string, string | null | undefined> | null;
         project_id?: string | null;
         template_id?: string | null;

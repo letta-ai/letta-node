@@ -33,8 +33,10 @@ export interface UpdateAgent {
     description?: string;
     /** The metadata of the agent. */
     metadata?: Record<string, unknown>;
-    /** The environment variables for tool execution specific to this agent. */
+    /** Deprecated: use `secrets` field instead */
     toolExecEnvironmentVariables?: Record<string, string | undefined>;
+    /** The environment variables for tool execution specific to this agent. */
+    secrets?: Record<string, string | undefined>;
     /** The id of the project the agent belongs to. */
     projectId?: string;
     /** The id of the template the agent belongs to. */
