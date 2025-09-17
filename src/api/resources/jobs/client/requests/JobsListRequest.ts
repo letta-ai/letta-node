@@ -24,6 +24,10 @@ export interface JobsListRequest {
      */
     limit?: number;
     /**
+     * Filter for active jobs.
+     */
+    active?: boolean;
+    /**
      * Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
      */
     ascending?: boolean;

@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { JobStatus } from "./JobStatus";
+import { StopReasonType } from "./StopReasonType";
 import { JobType } from "./JobType";
 import { LettaRequestConfig } from "./LettaRequestConfig";
 
@@ -16,6 +17,7 @@ export const Run: core.serialization.ObjectSchema<serializers.Run.Raw, Letta.Run
     updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
     status: JobStatus.optional(),
     completedAt: core.serialization.property("completed_at", core.serialization.date().optional()),
+    stopReason: core.serialization.property("stop_reason", StopReasonType.optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     jobType: core.serialization.property("job_type", JobType.optional()),
     callbackUrl: core.serialization.property("callback_url", core.serialization.string().optional()),
@@ -36,6 +38,7 @@ export declare namespace Run {
         updated_at?: string | null;
         status?: JobStatus.Raw | null;
         completed_at?: string | null;
+        stop_reason?: StopReasonType.Raw | null;
         metadata?: Record<string, unknown> | null;
         job_type?: JobType.Raw | null;
         callback_url?: string | null;

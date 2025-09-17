@@ -28,6 +28,8 @@ export interface Run {
     status?: Letta.JobStatus;
     /** The unix timestamp of when the job was completed. */
     completedAt?: Date;
+    /** The reason why the run was stopped. */
+    stopReason?: Letta.StopReasonType;
     /** The metadata of the job. */
     metadata?: Record<string, unknown>;
     jobType?: Letta.JobType;

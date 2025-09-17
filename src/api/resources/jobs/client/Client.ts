@@ -39,7 +39,6 @@ export class Jobs {
 
     /**
      * List all jobs.
-     * TODO (cliandy): implementation for pagination
      *
      * @param {Letta.JobsListRequest} request
      * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
@@ -60,7 +59,7 @@ export class Jobs {
         request: Letta.JobsListRequest = {},
         requestOptions?: Jobs.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.Job[]>> {
-        const { sourceId, before, after, limit, ascending } = request;
+        const { sourceId, before, after, limit, active, ascending } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (sourceId != null) {
             _queryParams["source_id"] = sourceId;
@@ -76,6 +75,10 @@ export class Jobs {
 
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
+        }
+
+        if (active != null) {
+            _queryParams["active"] = active.toString();
         }
 
         if (ascending != null) {
@@ -97,8 +100,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68656",
-                "User-Agent": "@letta-ai/letta-client/0.0.68656",
+                "X-Fern-SDK-Version": "0.0.68657",
+                "User-Agent": "@letta-ai/letta-client/0.0.68657",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -222,8 +225,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68656",
-                "User-Agent": "@letta-ai/letta-client/0.0.68656",
+                "X-Fern-SDK-Version": "0.0.68657",
+                "User-Agent": "@letta-ai/letta-client/0.0.68657",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -322,8 +325,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68656",
-                "User-Agent": "@letta-ai/letta-client/0.0.68656",
+                "X-Fern-SDK-Version": "0.0.68657",
+                "User-Agent": "@letta-ai/letta-client/0.0.68657",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -421,8 +424,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68656",
-                "User-Agent": "@letta-ai/letta-client/0.0.68656",
+                "X-Fern-SDK-Version": "0.0.68657",
+                "User-Agent": "@letta-ai/letta-client/0.0.68657",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -523,8 +526,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68656",
-                "User-Agent": "@letta-ai/letta-client/0.0.68656",
+                "X-Fern-SDK-Version": "0.0.68657",
+                "User-Agent": "@letta-ai/letta-client/0.0.68657",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

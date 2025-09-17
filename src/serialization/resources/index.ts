@@ -1,3 +1,5 @@
+export * as archives from "./archives";
+export * from "./archives/types";
 export * as tools from "./tools";
 export * from "./tools/types";
 export * as folders from "./folders";
@@ -31,6 +33,7 @@ export * as models from "./models";
 export * as jobs from "./jobs";
 export * as telemetry from "./telemetry";
 export * as voice from "./voice";
+export * from "./archives/client/requests";
 export * from "./tools/client/requests";
 export * from "./agents/client/requests";
 export * from "./groups/client/requests";

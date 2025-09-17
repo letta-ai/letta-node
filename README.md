@@ -23,8 +23,8 @@ Instantiate and use the client with the following:
 import { LettaClient } from "@letta-ai/letta-client";
 
 const client = new LettaClient({ token: "YOUR_TOKEN", project: "YOUR_PROJECT" });
-await client.tools.create({
-    sourceCode: "source_code",
+await client.archives.createArchive({
+    name: "name",
 });
 ```
 
@@ -36,7 +36,7 @@ following namespace:
 ```typescript
 import { Letta } from "@letta-ai/letta-client";
 
-const request: Letta.ToolUpdate = {
+const request: Letta.ListArchivesRequest = {
     ...
 };
 ```
@@ -50,7 +50,7 @@ will be thrown.
 import { LettaError } from "@letta-ai/letta-client";
 
 try {
-    await client.tools.create(...);
+    await client.archives.createArchive(...);
 } catch (err) {
     if (err instanceof LettaError) {
         console.log(err.statusCode);
@@ -68,7 +68,7 @@ try {
 If you would like to send additional headers as part of the request, use the `headers` request option.
 
 ```typescript
-const response = await client.tools.create(..., {
+const response = await client.archives.createArchive(..., {
     headers: {
         'X-Custom-Header': 'custom value'
     }
@@ -90,7 +90,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.tools.create(..., {
+const response = await client.archives.createArchive(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -100,7 +100,7 @@ const response = await client.tools.create(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.tools.create(..., {
+const response = await client.archives.createArchive(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -111,7 +111,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.tools.create(..., {
+const response = await client.archives.createArchive(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request
@@ -123,7 +123,7 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property.
 
 ```typescript
-const { data, rawResponse } = await client.tools.create(...).withRawResponse();
+const { data, rawResponse } = await client.archives.createArchive(...).withRawResponse();
 
 console.log(data);
 console.log(rawResponse.headers['X-My-Header']);

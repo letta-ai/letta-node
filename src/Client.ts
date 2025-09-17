@@ -4,6 +4,7 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
+import { Archives } from "./api/resources/archives/client/Client";
 import { Tools } from "./api/resources/tools/client/Client";
 import { Sources } from "./api/resources/sources/client/Client";
 import { Folders } from "./api/resources/folders/client/Client";
@@ -51,6 +52,7 @@ export declare namespace LettaClient {
 }
 
 export class LettaClient {
+    protected _archives: Archives | undefined;
     protected _tools: Tools | undefined;
     protected _sources: Sources | undefined;
     protected _folders: Folders | undefined;
@@ -73,6 +75,10 @@ export class LettaClient {
     protected _projects: Projects | undefined;
 
     constructor(protected readonly _options: LettaClient.Options = {}) {}
+
+    public get archives(): Archives {
+        return (this._archives ??= new Archives(this._options));
+    }
 
     public get tools(): Tools {
         return (this._tools ??= new Tools(this._options));
