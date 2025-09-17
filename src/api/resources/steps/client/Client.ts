@@ -11,6 +11,7 @@ import * as errors from "../../../../errors/index";
 import { Metrics } from "../resources/metrics/client/Client";
 import { Trace } from "../resources/trace/client/Client";
 import { Feedback } from "../resources/feedback/client/Client";
+import { Messages } from "../resources/messages/client/Client";
 
 export declare namespace Steps {
     export interface Options {
@@ -41,6 +42,7 @@ export class Steps {
     protected _metrics: Metrics | undefined;
     protected _trace: Trace | undefined;
     protected _feedback: Feedback | undefined;
+    protected _messages: Messages | undefined;
 
     constructor(protected readonly _options: Steps.Options = {}) {}
 
@@ -54,6 +56,10 @@ export class Steps {
 
     public get feedback(): Feedback {
         return (this._feedback ??= new Feedback(this._options));
+    }
+
+    public get messages(): Messages {
+        return (this._messages ??= new Messages(this._options));
     }
 
     /**
@@ -178,8 +184,8 @@ export class Steps {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68657",
-                "User-Agent": "@letta-ai/letta-client/0.0.68657",
+                "X-Fern-SDK-Version": "0.0.68658",
+                "User-Agent": "@letta-ai/letta-client/0.0.68658",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -278,8 +284,8 @@ export class Steps {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68657",
-                "User-Agent": "@letta-ai/letta-client/0.0.68657",
+                "X-Fern-SDK-Version": "0.0.68658",
+                "User-Agent": "@letta-ai/letta-client/0.0.68658",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

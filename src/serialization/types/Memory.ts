@@ -5,10 +5,12 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { MemoryAgentType } from "./MemoryAgentType";
 import { Block } from "./Block";
 import { FileBlock } from "./FileBlock";
 
 export const Memory: core.serialization.ObjectSchema<serializers.Memory.Raw, Letta.Memory> = core.serialization.object({
+    agentType: core.serialization.property("agent_type", MemoryAgentType.optional()),
     blocks: core.serialization.list(Block),
     fileBlocks: core.serialization.property("file_blocks", core.serialization.list(FileBlock).optional()),
     promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
@@ -16,6 +18,7 @@ export const Memory: core.serialization.ObjectSchema<serializers.Memory.Raw, Let
 
 export declare namespace Memory {
     export interface Raw {
+        agent_type?: MemoryAgentType.Raw | null;
         blocks: Block.Raw[];
         file_blocks?: FileBlock.Raw[] | null;
         prompt_template?: string | null;

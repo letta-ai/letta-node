@@ -192,6 +192,7 @@ export * from "./McpToolHealth";
 export * from "./ManagerType";
 export * from "./MaxCountPerStepToolRule";
 export * from "./MaxCountPerStepToolRuleSchema";
+export * from "./MemoryAgentType";
 export * from "./Memory";
 export * from "./MessageContentItem";
 export * from "./Message";

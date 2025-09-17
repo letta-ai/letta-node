@@ -9,7 +9,7 @@ export interface ChildToolRule {
     /** The name of the tool. Must exist in the database for the user's organization. */
     toolName: string;
     type: "constrain_child_tools";
-    /** Optional Jinja2 template for generating agent prompt about this tool rule. */
+    /** Optional template string (ignored). */
     promptTemplate?: string;
     /** The children tools that can be invoked. */
     children: string[];

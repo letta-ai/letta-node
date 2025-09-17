@@ -11905,6 +11905,79 @@ await client.steps.feedback.create("step_id");
 </dl>
 </details>
 
+## Steps Messages
+
+<details><summary><code>client.steps.messages.<a href="/src/api/resources/steps/resources/messages/client/Client.ts">list</a>(stepId, { ...params }) -> Letta.MessagesListResponseItem[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List messages for a given step.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.steps.messages.list("step_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**stepId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.steps.MessagesListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Templates Agents
 
 <details><summary><code>client.templates.agents.<a href="/src/api/resources/templates/resources/agents/client/Client.ts">create</a>(project, templateVersion, { ...params }) -> Letta.AgentsCreateResponse</code></summary>

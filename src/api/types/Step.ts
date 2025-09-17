@@ -41,7 +41,7 @@ export interface Step {
     tid?: string;
     /** The trace id of the agent step. */
     traceId?: string;
-    /** The messages generated during this step. */
+    /** The messages generated during this step. Deprecated: use `GET /v1/steps/{step_id}/messages` endpoint instead */
     messages?: Letta.Message[];
     /** The feedback for this step. Must be either 'positive' or 'negative'. */
     feedback?: Letta.StepFeedback;

@@ -8,10 +8,12 @@ import * as Letta from "../index";
  * Represents the in-context memory (i.e. Core memory) of the agent. This includes both the `Block` objects (labelled by sections), as well as tools to edit the blocks.
  */
 export interface Memory {
+    /** Agent type controlling prompt rendering. */
+    agentType?: Letta.MemoryAgentType;
     /** Memory blocks contained in the agent's in-context memory */
     blocks: Letta.Block[];
     /** Special blocks representing the agent's in-context memory of an attached file */
     fileBlocks?: Letta.FileBlock[];
-    /** Jinja2 template for compiling memory blocks into a prompt string */
+    /** Deprecated. Ignored for performance. */
     promptTemplate?: string;
 }
