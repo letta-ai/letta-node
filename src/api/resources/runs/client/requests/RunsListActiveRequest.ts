@@ -10,7 +10,7 @@ export interface RunsListActiveRequest {
     /**
      * The unique identifier of the agent associated with the run.
      */
-    agentIds?: string | string[];
+    agentId?: string;
     /**
      * If True, filters for runs that were created in background mode.
      */

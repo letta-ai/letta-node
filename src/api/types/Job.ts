@@ -33,6 +33,10 @@ export interface Job {
     metadata?: Record<string, unknown>;
     /** The type of the job. */
     jobType?: Letta.JobType;
+    /** Whether the job was created in background mode. */
+    background?: boolean;
+    /** The agent associated with this job/run. */
+    agentId?: string;
     /** If set, POST to this URL when the job completes. */
     callbackUrl?: string;
     /** Timestamp when the callback was last attempted. */
