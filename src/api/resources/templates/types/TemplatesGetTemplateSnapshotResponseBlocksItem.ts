@@ -3,6 +3,7 @@
  */
 
 export interface TemplatesGetTemplateSnapshotResponseBlocksItem {
+    entityId: string;
     label: string;
     value: string;
     limit: number;

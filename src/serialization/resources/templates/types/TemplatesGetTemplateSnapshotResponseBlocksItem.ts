@@ -10,6 +10,7 @@ export const TemplatesGetTemplateSnapshotResponseBlocksItem: core.serialization.
     serializers.TemplatesGetTemplateSnapshotResponseBlocksItem.Raw,
     Letta.TemplatesGetTemplateSnapshotResponseBlocksItem
 > = core.serialization.object({
+    entityId: core.serialization.string(),
     label: core.serialization.string(),
     value: core.serialization.string(),
     limit: core.serialization.number(),
@@ -20,6 +21,7 @@ export const TemplatesGetTemplateSnapshotResponseBlocksItem: core.serialization.
 
 export declare namespace TemplatesGetTemplateSnapshotResponseBlocksItem {
     export interface Raw {
+        entityId: string;
         label: string;
         value: string;
         limit: number;

@@ -23,9 +23,11 @@ export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoni
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItemProperties";
 export * from "./TemplatesGetTemplateSnapshotResponseAgentsItem";
 export * from "./TemplatesGetTemplateSnapshotResponseBlocksItem";
+export * from "./TemplatesGetTemplateSnapshotResponseRelationshipsItem";
 export * from "./TemplatesGetTemplateSnapshotResponseConfiguration";
 export * from "./TemplatesGetTemplateSnapshotResponseType";
 export * from "./TemplatesGetTemplateSnapshotResponse";
+export * from "./TemplatesSetCurrentTemplateFromSnapshotResponse";
 export * from "./TemplatesForkTemplateResponse";
 export * from "./TemplatesCreateTemplateRequestAgentId";
 export * from "./TemplatesCreateTemplateRequestAgentFile";
@@ -35,3 +37,4 @@ export * from "./TemplatesRenameTemplateResponse";
 export * from "./TemplatesUpdateTemplateDescriptionResponse";
 export * from "./TemplatesListTemplateVersionsResponseVersionsItem";
 export * from "./TemplatesListTemplateVersionsResponse";
+export * from "./TemplatesMigrateDeploymentResponse";

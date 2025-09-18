@@ -7,6 +7,7 @@ import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
 import { TemplatesGetTemplateSnapshotResponseAgentsItem } from "./TemplatesGetTemplateSnapshotResponseAgentsItem";
 import { TemplatesGetTemplateSnapshotResponseBlocksItem } from "./TemplatesGetTemplateSnapshotResponseBlocksItem";
+import { TemplatesGetTemplateSnapshotResponseRelationshipsItem } from "./TemplatesGetTemplateSnapshotResponseRelationshipsItem";
 import { TemplatesGetTemplateSnapshotResponseConfiguration } from "./TemplatesGetTemplateSnapshotResponseConfiguration";
 import { TemplatesGetTemplateSnapshotResponseType } from "./TemplatesGetTemplateSnapshotResponseType";
 
@@ -16,6 +17,7 @@ export const TemplatesGetTemplateSnapshotResponse: core.serialization.ObjectSche
 > = core.serialization.object({
     agents: core.serialization.list(TemplatesGetTemplateSnapshotResponseAgentsItem),
     blocks: core.serialization.list(TemplatesGetTemplateSnapshotResponseBlocksItem),
+    relationships: core.serialization.list(TemplatesGetTemplateSnapshotResponseRelationshipsItem),
     configuration: TemplatesGetTemplateSnapshotResponseConfiguration,
     type: TemplatesGetTemplateSnapshotResponseType,
     version: core.serialization.string(),
@@ -25,6 +27,7 @@ export declare namespace TemplatesGetTemplateSnapshotResponse {
     export interface Raw {
         agents: TemplatesGetTemplateSnapshotResponseAgentsItem.Raw[];
         blocks: TemplatesGetTemplateSnapshotResponseBlocksItem.Raw[];
+        relationships: TemplatesGetTemplateSnapshotResponseRelationshipsItem.Raw[];
         configuration: TemplatesGetTemplateSnapshotResponseConfiguration.Raw;
         type: TemplatesGetTemplateSnapshotResponseType.Raw;
         version: string;

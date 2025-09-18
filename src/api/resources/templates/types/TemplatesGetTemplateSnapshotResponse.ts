@@ -7,6 +7,7 @@ import * as Letta from "../../../index";
 export interface TemplatesGetTemplateSnapshotResponse {
     agents: Letta.TemplatesGetTemplateSnapshotResponseAgentsItem[];
     blocks: Letta.TemplatesGetTemplateSnapshotResponseBlocksItem[];
+    relationships: Letta.TemplatesGetTemplateSnapshotResponseRelationshipsItem[];
     configuration: Letta.TemplatesGetTemplateSnapshotResponseConfiguration;
     type: Letta.TemplatesGetTemplateSnapshotResponseType;
     version: string;

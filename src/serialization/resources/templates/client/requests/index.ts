@@ -3,3 +3,4 @@ export { TemplatesDeleteTemplateRequest } from "./TemplatesDeleteTemplateRequest
 export { TemplatesForkTemplateRequest } from "./TemplatesForkTemplateRequest";
 export { TemplatesRenameTemplateRequest } from "./TemplatesRenameTemplateRequest";
 export { TemplatesUpdateTemplateDescriptionRequest } from "./TemplatesUpdateTemplateDescriptionRequest";
+export { TemplatesMigrateDeploymentRequest } from "./TemplatesMigrateDeploymentRequest";

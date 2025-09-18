@@ -6,4 +6,7 @@ import * as Letta from "../../../../../index";
 
 export interface AgentsCreateResponse {
     agents: Letta.AgentState[];
+    group?: Letta.templates.AgentsCreateResponseGroup;
+    /** The deployment ID of the created agents, group and blocks, can be used to identify from a specific invokation */
+    deploymentId: string;
 }

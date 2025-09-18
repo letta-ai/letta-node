@@ -1,6 +1,7 @@
 export * from "./NotFoundErrorBody";
 export * from "./PaymentRequiredErrorBody";
 export * from "./BadRequestErrorBody";
+export * from "./InternalServerErrorBody";
 export * from "./ConflictErrorBody";
 export * from "./ActionModel";
 export * from "./ActionParametersModel";

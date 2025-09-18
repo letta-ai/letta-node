@@ -6400,6 +6400,87 @@ await client.templates.gettemplatesnapshot("project", "template_version");
 </dl>
 </details>
 
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">setcurrenttemplatefromsnapshot</a>(project, templateVersion, { ...params }) -> Letta.TemplatesSetCurrentTemplateFromSnapshotResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the current working version of a template from a snapshot
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.setcurrenttemplatefromsnapshot("project", "template_version", {
+    key: "value",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateVersion:** `string` — The template name with :current version (e.g., my-template:current)
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `unknown`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">forktemplate</a>(project, templateVersion, { ...params }) -> Letta.TemplatesForkTemplateResponse</code></summary>
 <dl>
 <dd>
@@ -6774,6 +6855,95 @@ await client.templates.listtemplateversions("project_slug", "name");
 <dd>
 
 **request:** `Letta.TemplatesListTemplateVersionsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">migratedeployment</a>(project, templateName, deploymentId, { ...params }) -> Letta.TemplatesMigrateDeploymentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Migrates a deployment to a specific template version
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.migratedeployment("project", "template_name", "deployment_id", {
+    version: "version",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `string` — The project slug
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateName:** `string` — The template name (without version)
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**deploymentId:** `string` — The deployment ID to migrate
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesMigrateDeploymentRequest`
 
 </dd>
 </dl>

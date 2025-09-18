@@ -5,3 +5,4 @@ export { type TemplatesForkTemplateRequest } from "./TemplatesForkTemplateReques
 export { type TemplatesRenameTemplateRequest } from "./TemplatesRenameTemplateRequest";
 export { type TemplatesUpdateTemplateDescriptionRequest } from "./TemplatesUpdateTemplateDescriptionRequest";
 export { type TemplatesListTemplateVersionsRequest } from "./TemplatesListTemplateVersionsRequest";
+export { type TemplatesMigrateDeploymentRequest } from "./TemplatesMigrateDeploymentRequest";
