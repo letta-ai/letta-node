@@ -31,7 +31,7 @@ export interface LettaSchemasAgentFileMessageSchema {
     /** The unique identifier of the agent */
     agentId?: string;
     /** The list of tool calls requested. Only applicable for role assistant. */
-    toolCalls?: Letta.ChatCompletionMessageFunctionToolCallInput[];
+    toolCalls?: Letta.ChatCompletionMessageFunctionToolCall[];
     /** The ID of the tool call. Only applicable for role tool. */
     toolCallId?: string;
     /** Tool execution return information for prior tool calls */

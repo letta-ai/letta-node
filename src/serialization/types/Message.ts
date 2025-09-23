@@ -7,7 +7,7 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { MessageRole } from "./MessageRole";
 import { MessageContentItem } from "./MessageContentItem";
-import { ChatCompletionMessageFunctionToolCallOutput } from "./ChatCompletionMessageFunctionToolCallOutput";
+import { ChatCompletionMessageFunctionToolCall } from "./ChatCompletionMessageFunctionToolCall";
 import { ToolReturn } from "./ToolReturn";
 
 export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Letta.Message> =
@@ -24,7 +24,7 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         name: core.serialization.string().optional(),
         toolCalls: core.serialization.property(
             "tool_calls",
-            core.serialization.list(ChatCompletionMessageFunctionToolCallOutput).optional(),
+            core.serialization.list(ChatCompletionMessageFunctionToolCall).optional(),
         ),
         toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
         stepId: core.serialization.property("step_id", core.serialization.string().optional()),
@@ -51,7 +51,7 @@ export declare namespace Message {
         role: MessageRole.Raw;
         content?: MessageContentItem.Raw[] | null;
         name?: string | null;
-        tool_calls?: ChatCompletionMessageFunctionToolCallOutput.Raw[] | null;
+        tool_calls?: ChatCompletionMessageFunctionToolCall.Raw[] | null;
         tool_call_id?: string | null;
         step_id?: string | null;
         otid?: string | null;
