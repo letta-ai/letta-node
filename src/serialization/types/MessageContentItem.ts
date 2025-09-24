@@ -9,6 +9,7 @@ import { ImageContent } from "./ImageContent";
 import { OmittedReasoningContent } from "./OmittedReasoningContent";
 import { ReasoningContent } from "./ReasoningContent";
 import { RedactedReasoningContent } from "./RedactedReasoningContent";
+import { SummarizedReasoningContent } from "./SummarizedReasoningContent";
 import { TextContent } from "./TextContent";
 import { ToolCallContent } from "./ToolCallContent";
 import { ToolReturnContent } from "./ToolReturnContent";
@@ -21,6 +22,7 @@ export const MessageContentItem: core.serialization.Schema<
     OmittedReasoningContent,
     ReasoningContent,
     RedactedReasoningContent,
+    SummarizedReasoningContent,
     TextContent,
     ToolCallContent,
     ToolReturnContent,
@@ -32,6 +34,7 @@ export declare namespace MessageContentItem {
         | OmittedReasoningContent.Raw
         | ReasoningContent.Raw
         | RedactedReasoningContent.Raw
+        | SummarizedReasoningContent.Raw
         | TextContent.Raw
         | ToolCallContent.Raw
         | ToolReturnContent.Raw;

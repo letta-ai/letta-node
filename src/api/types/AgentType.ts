@@ -8,6 +8,7 @@
 export type AgentType =
     | "memgpt_agent"
     | "memgpt_v2_agent"
+    | "letta_v1_agent"
     | "react_agent"
     | "workflow_agent"
     | "split_thread_agent"
@@ -17,6 +18,7 @@ export type AgentType =
 export const AgentType = {
     MemgptAgent: "memgpt_agent",
     MemgptV2Agent: "memgpt_v2_agent",
+    LettaV1Agent: "letta_v1_agent",
     ReactAgent: "react_agent",
     WorkflowAgent: "workflow_agent",
     SplitThreadAgent: "split_thread_agent",

@@ -181,6 +181,8 @@ export * from "./StepMetrics";
 export * from "./StepStatus";
 export * from "./StopReasonType";
 export * from "./StreamableHttpServerConfig";
+export * from "./SummarizedReasoningContent";
+export * from "./SummarizedReasoningContentPart";
 export * from "./SupervisorManager";
 export * from "./SupervisorManagerUpdate";
 export * from "./SystemMessage";

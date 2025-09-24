@@ -10,6 +10,7 @@ export const AgentType: core.serialization.Schema<serializers.AgentType.Raw, Let
     core.serialization.enum_([
         "memgpt_agent",
         "memgpt_v2_agent",
+        "letta_v1_agent",
         "react_agent",
         "workflow_agent",
         "split_thread_agent",
@@ -22,6 +23,7 @@ export declare namespace AgentType {
     export type Raw =
         | "memgpt_agent"
         | "memgpt_v2_agent"
+        | "letta_v1_agent"
         | "react_agent"
         | "workflow_agent"
         | "split_thread_agent"

@@ -10,6 +10,7 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItemAgentType: core.seria
     serializers.TemplatesGetTemplateSnapshotResponseAgentsItemAgentType.Raw,
     Letta.TemplatesGetTemplateSnapshotResponseAgentsItemAgentType
 > = core.serialization.enum_([
+    "letta_v1_agent",
     "memgpt_agent",
     "memgpt_v2_agent",
     "react_agent",
@@ -22,6 +23,7 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItemAgentType: core.seria
 
 export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItemAgentType {
     export type Raw =
+        | "letta_v1_agent"
         | "memgpt_agent"
         | "memgpt_v2_agent"
         | "react_agent"

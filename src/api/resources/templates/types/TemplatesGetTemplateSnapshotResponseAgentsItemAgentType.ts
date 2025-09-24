@@ -3,6 +3,7 @@
  */
 
 export type TemplatesGetTemplateSnapshotResponseAgentsItemAgentType =
+    | "letta_v1_agent"
     | "memgpt_agent"
     | "memgpt_v2_agent"
     | "react_agent"
@@ -12,6 +13,7 @@ export type TemplatesGetTemplateSnapshotResponseAgentsItemAgentType =
     | "voice_convo_agent"
     | "voice_sleeptime_agent";
 export const TemplatesGetTemplateSnapshotResponseAgentsItemAgentType = {
+    LettaV1Agent: "letta_v1_agent",
     MemgptAgent: "memgpt_agent",
     MemgptV2Agent: "memgpt_v2_agent",
     ReactAgent: "react_agent",

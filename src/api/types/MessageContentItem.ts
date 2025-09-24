@@ -9,6 +9,7 @@ export type MessageContentItem =
     | Letta.OmittedReasoningContent
     | Letta.ReasoningContent
     | Letta.RedactedReasoningContent
+    | Letta.SummarizedReasoningContent
     | Letta.TextContent
     | Letta.ToolCallContent
     | Letta.ToolReturnContent;
