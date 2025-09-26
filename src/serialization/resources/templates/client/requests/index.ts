@@ -1,3 +1,4 @@
+export { TemplatesCreateAgentsFromTemplateRequest } from "./TemplatesCreateAgentsFromTemplateRequest";
 export { TemplatesSaveTemplateVersionRequest } from "./TemplatesSaveTemplateVersionRequest";
 export { TemplatesDeleteTemplateRequest } from "./TemplatesDeleteTemplateRequest";
 export { TemplatesForkTemplateRequest } from "./TemplatesForkTemplateRequest";

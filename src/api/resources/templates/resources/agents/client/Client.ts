@@ -4,8 +4,6 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Letta from "../../../../../index";
-import * as serializers from "../../../../../../serialization/index";
 import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
@@ -38,14 +36,9 @@ export class Agents {
     constructor(protected readonly _options: Agents.Options = {}) {}
 
     /**
-     * Creates an Agent or multiple Agents from a template
-     *
-     * @param {string} project - The project slug
-     * @param {string} templateVersion - The template version, formatted as {template-name}:{version-number} or {template-name}:latest
-     * @param {Letta.templates.AgentsCreateRequest} request
+     * @param {string} project
+     * @param {string} templateVersion
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Letta.PaymentRequiredError}
      *
      * @example
      *     await client.templates.agents.create("project", "template_version")
@@ -53,18 +46,16 @@ export class Agents {
     public create(
         project: string,
         templateVersion: string,
-        request: Letta.templates.AgentsCreateRequest = {},
         requestOptions?: Agents.RequestOptions,
-    ): core.HttpResponsePromise<Letta.templates.AgentsCreateResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__create(project, templateVersion, request, requestOptions));
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__create(project, templateVersion, requestOptions));
     }
 
     private async __create(
         project: string,
         templateVersion: string,
-        request: Letta.templates.AgentsCreateRequest = {},
         requestOptions?: Agents.RequestOptions,
-    ): Promise<core.WithRawResponse<Letta.templates.AgentsCreateResponse>> {
+    ): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -80,8 +71,8 @@ export class Agents {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -89,44 +80,20 @@ export class Agents {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.templates.AgentsCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.templates.AgentsCreateResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 402:
-                    throw new Letta.PaymentRequiredError(
-                        serializers.PaymentRequiredErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.LettaError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.LettaError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         switch (_response.error.reason) {

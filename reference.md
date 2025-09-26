@@ -6108,6 +6108,85 @@ await client.voice.createVoiceChatCompletions("agent_id", {
 
 ## Templates
 
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">createagentsfromtemplate</a>(projectId, templateVersion, { ...params }) -> Letta.TemplatesCreateAgentsFromTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an Agent or multiple Agents from a template
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.createagentsfromtemplate("project_id", "template_version");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**projectId:** `string` — The project id
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateVersion:** `string` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesCreateAgentsFromTemplateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">list</a>({ ...params }) -> Letta.TemplatesListResponse</code></summary>
 <dl>
 <dd>
@@ -6171,7 +6250,7 @@ await client.templates.list();
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">savetemplateversion</a>(project, templateName, { ...params }) -> Letta.TemplatesSaveTemplateVersionResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">savetemplateversion</a>(projectId, templateName, { ...params }) -> Letta.TemplatesSaveTemplateVersionResponse</code></summary>
 <dl>
 <dd>
 
@@ -6199,7 +6278,7 @@ Saves the current version of the template as a new version
 <dd>
 
 ```typescript
-await client.templates.savetemplateversion("project", "template_name");
+await client.templates.savetemplateversion("project_id", "template_name");
 ```
 
 </dd>
@@ -6215,7 +6294,7 @@ await client.templates.savetemplateversion("project", "template_name");
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -6250,7 +6329,7 @@ await client.templates.savetemplateversion("project", "template_name");
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">deletetemplate</a>(project, templateName, { ...params }) -> Letta.TemplatesDeleteTemplateResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">deletetemplate</a>(projectId, templateName, { ...params }) -> Letta.TemplatesDeleteTemplateResponse</code></summary>
 <dl>
 <dd>
 
@@ -6278,7 +6357,7 @@ Deletes all versions of a template with the specified name
 <dd>
 
 ```typescript
-await client.templates.deletetemplate("project", "template_name");
+await client.templates.deletetemplate("project_id", "template_name");
 ```
 
 </dd>
@@ -6294,7 +6373,7 @@ await client.templates.deletetemplate("project", "template_name");
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -6329,7 +6408,7 @@ await client.templates.deletetemplate("project", "template_name");
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">gettemplatesnapshot</a>(project, templateVersion) -> Letta.TemplatesGetTemplateSnapshotResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">gettemplatesnapshot</a>(projectId, templateVersion) -> Letta.TemplatesGetTemplateSnapshotResponse</code></summary>
 <dl>
 <dd>
 
@@ -6357,7 +6436,7 @@ Get a snapshot of the template version, this will return the template state at a
 <dd>
 
 ```typescript
-await client.templates.gettemplatesnapshot("project", "template_version");
+await client.templates.gettemplatesnapshot("project_id", "template_version");
 ```
 
 </dd>
@@ -6373,7 +6452,7 @@ await client.templates.gettemplatesnapshot("project", "template_version");
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -6400,7 +6479,7 @@ await client.templates.gettemplatesnapshot("project", "template_version");
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">setcurrenttemplatefromsnapshot</a>(project, templateVersion, { ...params }) -> Letta.TemplatesSetCurrentTemplateFromSnapshotResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">setcurrenttemplatefromsnapshot</a>(projectId, templateVersion, { ...params }) -> Letta.TemplatesSetCurrentTemplateFromSnapshotResponse</code></summary>
 <dl>
 <dd>
 
@@ -6428,7 +6507,7 @@ Updates the current working version of a template from a snapshot
 <dd>
 
 ```typescript
-await client.templates.setcurrenttemplatefromsnapshot("project", "template_version", {
+await client.templates.setcurrenttemplatefromsnapshot("project_id", "template_version", {
     key: "value",
 });
 ```
@@ -6446,7 +6525,7 @@ await client.templates.setcurrenttemplatefromsnapshot("project", "template_versi
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -6481,7 +6560,7 @@ await client.templates.setcurrenttemplatefromsnapshot("project", "template_versi
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">forktemplate</a>(project, templateVersion, { ...params }) -> Letta.TemplatesForkTemplateResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">forktemplate</a>(projectId, templateVersion, { ...params }) -> Letta.TemplatesForkTemplateResponse</code></summary>
 <dl>
 <dd>
 
@@ -6509,7 +6588,7 @@ Forks a template version into a new template
 <dd>
 
 ```typescript
-await client.templates.forktemplate("project", "template_version");
+await client.templates.forktemplate("project_id", "template_version");
 ```
 
 </dd>
@@ -6525,7 +6604,7 @@ await client.templates.forktemplate("project", "template_version");
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -6560,7 +6639,7 @@ await client.templates.forktemplate("project", "template_version");
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">createtemplate</a>(project, { ...params }) -> Letta.TemplatesCreateTemplateResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">createtemplate</a>(projectId, { ...params }) -> Letta.TemplatesCreateTemplateResponse</code></summary>
 <dl>
 <dd>
 
@@ -6588,7 +6667,7 @@ Creates a new template from an existing agent or agent file
 <dd>
 
 ```typescript
-await client.templates.createtemplate("project", {
+await client.templates.createtemplate("project_id", {
     type: "agent",
     agentId: "agent_id",
 });
@@ -6607,7 +6686,7 @@ await client.templates.createtemplate("project", {
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -6634,7 +6713,7 @@ await client.templates.createtemplate("project", {
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">renametemplate</a>(project, templateName, { ...params }) -> Letta.TemplatesRenameTemplateResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">renametemplate</a>(projectId, templateName, { ...params }) -> Letta.TemplatesRenameTemplateResponse</code></summary>
 <dl>
 <dd>
 
@@ -6662,7 +6741,7 @@ Renames all versions of a template with the specified name. Versions are automat
 <dd>
 
 ```typescript
-await client.templates.renametemplate("project", "template_name", {
+await client.templates.renametemplate("project_id", "template_name", {
     newName: "new_name",
 });
 ```
@@ -6680,7 +6759,7 @@ await client.templates.renametemplate("project", "template_name", {
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -6715,7 +6794,7 @@ await client.templates.renametemplate("project", "template_name", {
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">updatetemplatedescription</a>(project, templateName, { ...params }) -> Letta.TemplatesUpdateTemplateDescriptionResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">updatetemplatedescription</a>(projectId, templateName, { ...params }) -> Letta.TemplatesUpdateTemplateDescriptionResponse</code></summary>
 <dl>
 <dd>
 
@@ -6743,7 +6822,7 @@ Updates the description for all versions of a template with the specified name. 
 <dd>
 
 ```typescript
-await client.templates.updatetemplatedescription("project", "template_name");
+await client.templates.updatetemplatedescription("project_id", "template_name");
 ```
 
 </dd>
@@ -6759,7 +6838,7 @@ await client.templates.updatetemplatedescription("project", "template_name");
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -6794,7 +6873,7 @@ await client.templates.updatetemplatedescription("project", "template_name");
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listtemplateversions</a>(projectSlug, name, { ...params }) -> Letta.TemplatesListTemplateVersionsResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listtemplateversions</a>(projectId, name, { ...params }) -> Letta.TemplatesListTemplateVersionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -6822,7 +6901,7 @@ List all versions of a specific template
 <dd>
 
 ```typescript
-await client.templates.listtemplateversions("project_slug", "name");
+await client.templates.listtemplateversions("project_id", "name");
 ```
 
 </dd>
@@ -6838,7 +6917,7 @@ await client.templates.listtemplateversions("project_slug", "name");
 <dl>
 <dd>
 
-**projectSlug:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -6873,7 +6952,7 @@ await client.templates.listtemplateversions("project_slug", "name");
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">migratedeployment</a>(project, templateName, deploymentId, { ...params }) -> Letta.TemplatesMigrateDeploymentResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">migratedeployment</a>(projectId, templateName, deploymentId, { ...params }) -> Letta.TemplatesMigrateDeploymentResponse</code></summary>
 <dl>
 <dd>
 
@@ -6901,7 +6980,7 @@ Migrates a deployment to a specific template version
 <dd>
 
 ```typescript
-await client.templates.migratedeployment("project", "template_name", "deployment_id", {
+await client.templates.migratedeployment("project_id", "template_name", "deployment_id", {
     version: "version",
 });
 ```
@@ -6919,7 +6998,7 @@ await client.templates.migratedeployment("project", "template_name", "deployment
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**projectId:** `string` — The project id
 
 </dd>
 </dl>
@@ -12150,24 +12229,9 @@ await client.steps.messages.list("step_id");
 
 ## Templates Agents
 
-<details><summary><code>client.templates.agents.<a href="/src/api/resources/templates/resources/agents/client/Client.ts">create</a>(project, templateVersion, { ...params }) -> Letta.AgentsCreateResponse</code></summary>
+<details><summary><code>client.templates.agents.<a href="/src/api/resources/templates/resources/agents/client/Client.ts">create</a>(project, templateVersion) -> void</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an Agent or multiple Agents from a template
-
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -12194,7 +12258,7 @@ await client.templates.agents.create("project", "template_version");
 <dl>
 <dd>
 
-**project:** `string` — The project slug
+**project:** `string`
 
 </dd>
 </dl>
@@ -12202,15 +12266,7 @@ await client.templates.agents.create("project", "template_version");
 <dl>
 <dd>
 
-**templateVersion:** `string` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.templates.AgentsCreateRequest`
+**templateVersion:** `string`
 
 </dd>
 </dl>

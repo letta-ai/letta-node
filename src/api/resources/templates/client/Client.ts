@@ -45,6 +45,121 @@ export class Templates {
     }
 
     /**
+     * Creates an Agent or multiple Agents from a template
+     *
+     * @param {string} projectId - The project id
+     * @param {string} templateVersion - The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+     * @param {Letta.TemplatesCreateAgentsFromTemplateRequest} request
+     * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.PaymentRequiredError}
+     *
+     * @example
+     *     await client.templates.createagentsfromtemplate("project_id", "template_version")
+     */
+    public createagentsfromtemplate(
+        projectId: string,
+        templateVersion: string,
+        request: Letta.TemplatesCreateAgentsFromTemplateRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): core.HttpResponsePromise<Letta.TemplatesCreateAgentsFromTemplateResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__createagentsfromtemplate(projectId, templateVersion, request, requestOptions),
+        );
+    }
+
+    private async __createagentsfromtemplate(
+        projectId: string,
+        templateVersion: string,
+        request: Letta.TemplatesCreateAgentsFromTemplateRequest = {},
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.TemplatesCreateAgentsFromTemplateResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateVersion)}/agents`,
+            ),
+            method: "POST",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.TemplatesCreateAgentsFromTemplateRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.TemplatesCreateAgentsFromTemplateResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 402:
+                    throw new Letta.PaymentRequiredError(
+                        serializers.PaymentRequiredErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling POST /v1/templates/{project_id}/{template_version}/agents.",
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * List all templates
      *
      * @param {Letta.TemplatesListRequest} request
@@ -123,8 +238,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -178,7 +293,7 @@ export class Templates {
     /**
      * Saves the current version of the template as a new version
      *
-     * @param {string} project - The project slug
+     * @param {string} projectId - The project id
      * @param {string} templateName - The template version, formatted as {template-name}, any version appended will be ignored
      * @param {Letta.TemplatesSaveTemplateVersionRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
@@ -186,21 +301,21 @@ export class Templates {
      * @throws {@link Letta.BadRequestError}
      *
      * @example
-     *     await client.templates.savetemplateversion("project", "template_name")
+     *     await client.templates.savetemplateversion("project_id", "template_name")
      */
     public savetemplateversion(
-        project: string,
+        projectId: string,
         templateName: string,
         request: Letta.TemplatesSaveTemplateVersionRequest = {},
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesSaveTemplateVersionResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__savetemplateversion(project, templateName, request, requestOptions),
+            this.__savetemplateversion(projectId, templateName, request, requestOptions),
         );
     }
 
     private async __savetemplateversion(
-        project: string,
+        projectId: string,
         templateName: string,
         request: Letta.TemplatesSaveTemplateVersionRequest = {},
         requestOptions?: Templates.RequestOptions,
@@ -210,7 +325,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateName)}`,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateName)}`,
             ),
             method: "POST",
             headers: {
@@ -220,8 +335,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -271,7 +386,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/templates/{project}/{template_name}.",
+                    "Timeout exceeded when calling POST /v1/templates/{project_id}/{template_name}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -284,7 +399,7 @@ export class Templates {
     /**
      * Deletes all versions of a template with the specified name
      *
-     * @param {string} project - The project slug
+     * @param {string} projectId - The project id
      * @param {string} templateName - The template name (without version)
      * @param {Letta.TemplatesDeleteTemplateRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
@@ -292,21 +407,21 @@ export class Templates {
      * @throws {@link Letta.NotFoundError}
      *
      * @example
-     *     await client.templates.deletetemplate("project", "template_name")
+     *     await client.templates.deletetemplate("project_id", "template_name")
      */
     public deletetemplate(
-        project: string,
+        projectId: string,
         templateName: string,
         request: Letta.TemplatesDeleteTemplateRequest = {},
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesDeleteTemplateResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__deletetemplate(project, templateName, request, requestOptions),
+            this.__deletetemplate(projectId, templateName, request, requestOptions),
         );
     }
 
     private async __deletetemplate(
-        project: string,
+        projectId: string,
         templateName: string,
         request: Letta.TemplatesDeleteTemplateRequest = {},
         requestOptions?: Templates.RequestOptions,
@@ -316,7 +431,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateName)}`,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateName)}`,
             ),
             method: "DELETE",
             headers: {
@@ -326,8 +441,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -375,7 +490,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling DELETE /v1/templates/{project}/{template_name}.",
+                    "Timeout exceeded when calling DELETE /v1/templates/{project_id}/{template_name}.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -388,25 +503,25 @@ export class Templates {
     /**
      * Get a snapshot of the template version, this will return the template state at a specific version
      *
-     * @param {string} project - The project slug
+     * @param {string} projectId - The project id
      * @param {string} templateVersion - The template version, formatted as {template-name}:{version-number} or {template-name}:latest
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.templates.gettemplatesnapshot("project", "template_version")
+     *     await client.templates.gettemplatesnapshot("project_id", "template_version")
      */
     public gettemplatesnapshot(
-        project: string,
+        projectId: string,
         templateVersion: string,
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesGetTemplateSnapshotResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__gettemplatesnapshot(project, templateVersion, requestOptions),
+            this.__gettemplatesnapshot(projectId, templateVersion, requestOptions),
         );
     }
 
     private async __gettemplatesnapshot(
-        project: string,
+        projectId: string,
         templateVersion: string,
         requestOptions?: Templates.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.TemplatesGetTemplateSnapshotResponse>> {
@@ -415,7 +530,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateVersion)}/snapshot`,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateVersion)}/snapshot`,
             ),
             method: "GET",
             headers: {
@@ -425,8 +540,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -468,7 +583,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/templates/{project}/{template_version}/snapshot.",
+                    "Timeout exceeded when calling GET /v1/templates/{project_id}/{template_version}/snapshot.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -481,7 +596,7 @@ export class Templates {
     /**
      * Updates the current working version of a template from a snapshot
      *
-     * @param {string} project - The project slug
+     * @param {string} projectId - The project id
      * @param {string} templateVersion - The template name with :current version (e.g., my-template:current)
      * @param {unknown} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
@@ -491,23 +606,23 @@ export class Templates {
      * @throws {@link Letta.InternalServerError}
      *
      * @example
-     *     await client.templates.setcurrenttemplatefromsnapshot("project", "template_version", {
+     *     await client.templates.setcurrenttemplatefromsnapshot("project_id", "template_version", {
      *         "key": "value"
      *     })
      */
     public setcurrenttemplatefromsnapshot(
-        project: string,
+        projectId: string,
         templateVersion: string,
         request?: unknown,
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesSetCurrentTemplateFromSnapshotResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__setcurrenttemplatefromsnapshot(project, templateVersion, request, requestOptions),
+            this.__setcurrenttemplatefromsnapshot(projectId, templateVersion, request, requestOptions),
         );
     }
 
     private async __setcurrenttemplatefromsnapshot(
-        project: string,
+        projectId: string,
         templateVersion: string,
         request?: unknown,
         requestOptions?: Templates.RequestOptions,
@@ -517,7 +632,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateVersion)}/snapshot`,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateVersion)}/snapshot`,
             ),
             method: "PUT",
             headers: {
@@ -527,8 +642,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -580,7 +695,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PUT /v1/templates/{project}/{template_version}/snapshot.",
+                    "Timeout exceeded when calling PUT /v1/templates/{project_id}/{template_version}/snapshot.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -593,7 +708,7 @@ export class Templates {
     /**
      * Forks a template version into a new template
      *
-     * @param {string} project - The project slug
+     * @param {string} projectId - The project id
      * @param {string} templateVersion - The template version, formatted as {template-name}:{version-number} or {template-name}:latest
      * @param {Letta.TemplatesForkTemplateRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
@@ -601,21 +716,21 @@ export class Templates {
      * @throws {@link Letta.BadRequestError}
      *
      * @example
-     *     await client.templates.forktemplate("project", "template_version")
+     *     await client.templates.forktemplate("project_id", "template_version")
      */
     public forktemplate(
-        project: string,
+        projectId: string,
         templateVersion: string,
         request: Letta.TemplatesForkTemplateRequest = {},
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesForkTemplateResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__forktemplate(project, templateVersion, request, requestOptions),
+            this.__forktemplate(projectId, templateVersion, request, requestOptions),
         );
     }
 
     private async __forktemplate(
-        project: string,
+        projectId: string,
         templateVersion: string,
         request: Letta.TemplatesForkTemplateRequest = {},
         requestOptions?: Templates.RequestOptions,
@@ -625,7 +740,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateVersion)}/fork`,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateVersion)}/fork`,
             ),
             method: "POST",
             headers: {
@@ -635,8 +750,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -684,7 +799,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/templates/{project}/{template_version}/fork.",
+                    "Timeout exceeded when calling POST /v1/templates/{project_id}/{template_version}/fork.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -697,28 +812,28 @@ export class Templates {
     /**
      * Creates a new template from an existing agent or agent file
      *
-     * @param {string} project - The project slug
+     * @param {string} projectId - The project id
      * @param {Letta.TemplatesCreateTemplateRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.BadRequestError}
      *
      * @example
-     *     await client.templates.createtemplate("project", {
+     *     await client.templates.createtemplate("project_id", {
      *         type: "agent",
      *         agentId: "agent_id"
      *     })
      */
     public createtemplate(
-        project: string,
+        projectId: string,
         request: Letta.TemplatesCreateTemplateRequest,
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesCreateTemplateResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createtemplate(project, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__createtemplate(projectId, request, requestOptions));
     }
 
     private async __createtemplate(
-        project: string,
+        projectId: string,
         request: Letta.TemplatesCreateTemplateRequest,
         requestOptions?: Templates.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.TemplatesCreateTemplateResponse>> {
@@ -727,7 +842,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(project)}`,
+                `v1/templates/${encodeURIComponent(projectId)}`,
             ),
             method: "POST",
             headers: {
@@ -737,8 +852,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -785,7 +900,7 @@ export class Templates {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/templates/{project}.");
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling POST /v1/templates/{project_id}.");
             case "unknown":
                 throw new errors.LettaError({
                     message: _response.error.errorMessage,
@@ -797,7 +912,7 @@ export class Templates {
     /**
      * Renames all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included.
      *
-     * @param {string} project - The project slug
+     * @param {string} projectId - The project id
      * @param {string} templateName - The current template name (version will be automatically stripped if included)
      * @param {Letta.TemplatesRenameTemplateRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
@@ -807,23 +922,23 @@ export class Templates {
      * @throws {@link Letta.ConflictError}
      *
      * @example
-     *     await client.templates.renametemplate("project", "template_name", {
+     *     await client.templates.renametemplate("project_id", "template_name", {
      *         newName: "new_name"
      *     })
      */
     public renametemplate(
-        project: string,
+        projectId: string,
         templateName: string,
         request: Letta.TemplatesRenameTemplateRequest,
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesRenameTemplateResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__renametemplate(project, templateName, request, requestOptions),
+            this.__renametemplate(projectId, templateName, request, requestOptions),
         );
     }
 
     private async __renametemplate(
-        project: string,
+        projectId: string,
         templateName: string,
         request: Letta.TemplatesRenameTemplateRequest,
         requestOptions?: Templates.RequestOptions,
@@ -833,7 +948,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateName)}/name`,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateName)}/name`,
             ),
             method: "PATCH",
             headers: {
@@ -843,8 +958,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -905,7 +1020,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/templates/{project}/{template_name}/name.",
+                    "Timeout exceeded when calling PATCH /v1/templates/{project_id}/{template_name}/name.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -918,7 +1033,7 @@ export class Templates {
     /**
      * Updates the description for all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included.
      *
-     * @param {string} project - The project slug
+     * @param {string} projectId - The project id
      * @param {string} templateName - The template name (version will be automatically stripped if included)
      * @param {Letta.TemplatesUpdateTemplateDescriptionRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
@@ -927,21 +1042,21 @@ export class Templates {
      * @throws {@link Letta.NotFoundError}
      *
      * @example
-     *     await client.templates.updatetemplatedescription("project", "template_name")
+     *     await client.templates.updatetemplatedescription("project_id", "template_name")
      */
     public updatetemplatedescription(
-        project: string,
+        projectId: string,
         templateName: string,
         request: Letta.TemplatesUpdateTemplateDescriptionRequest = {},
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesUpdateTemplateDescriptionResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__updatetemplatedescription(project, templateName, request, requestOptions),
+            this.__updatetemplatedescription(projectId, templateName, request, requestOptions),
         );
     }
 
     private async __updatetemplatedescription(
-        project: string,
+        projectId: string,
         templateName: string,
         request: Letta.TemplatesUpdateTemplateDescriptionRequest = {},
         requestOptions?: Templates.RequestOptions,
@@ -951,7 +1066,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateName)}/description`,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateName)}/description`,
             ),
             method: "PATCH",
             headers: {
@@ -961,8 +1076,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1014,7 +1129,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling PATCH /v1/templates/{project}/{template_name}/description.",
+                    "Timeout exceeded when calling PATCH /v1/templates/{project_id}/{template_name}/description.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -1027,7 +1142,7 @@ export class Templates {
     /**
      * List all versions of a specific template
      *
-     * @param {string} projectSlug - The project slug
+     * @param {string} projectId - The project id
      * @param {string} name - The template name (without version)
      * @param {Letta.TemplatesListTemplateVersionsRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
@@ -1035,21 +1150,21 @@ export class Templates {
      * @throws {@link Letta.NotFoundError}
      *
      * @example
-     *     await client.templates.listtemplateversions("project_slug", "name")
+     *     await client.templates.listtemplateversions("project_id", "name")
      */
     public listtemplateversions(
-        projectSlug: string,
+        projectId: string,
         name: string,
         request: Letta.TemplatesListTemplateVersionsRequest = {},
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesListTemplateVersionsResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__listtemplateversions(projectSlug, name, request, requestOptions),
+            this.__listtemplateversions(projectId, name, request, requestOptions),
         );
     }
 
     private async __listtemplateversions(
-        projectSlug: string,
+        projectId: string,
         name: string,
         request: Letta.TemplatesListTemplateVersionsRequest = {},
         requestOptions?: Templates.RequestOptions,
@@ -1069,7 +1184,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(projectSlug)}/${encodeURIComponent(name)}/versions`,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(name)}/versions`,
             ),
             method: "GET",
             headers: {
@@ -1079,8 +1194,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1128,7 +1243,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling GET /v1/templates/{project_slug}/{name}/versions.",
+                    "Timeout exceeded when calling GET /v1/templates/{project_id}/{name}/versions.",
                 );
             case "unknown":
                 throw new errors.LettaError({
@@ -1141,7 +1256,7 @@ export class Templates {
     /**
      * Migrates a deployment to a specific template version
      *
-     * @param {string} project - The project slug
+     * @param {string} projectId - The project id
      * @param {string} templateName - The template name (without version)
      * @param {string} deploymentId - The deployment ID to migrate
      * @param {Letta.TemplatesMigrateDeploymentRequest} request
@@ -1152,24 +1267,24 @@ export class Templates {
      * @throws {@link Letta.InternalServerError}
      *
      * @example
-     *     await client.templates.migratedeployment("project", "template_name", "deployment_id", {
+     *     await client.templates.migratedeployment("project_id", "template_name", "deployment_id", {
      *         version: "version"
      *     })
      */
     public migratedeployment(
-        project: string,
+        projectId: string,
         templateName: string,
         deploymentId: string,
         request: Letta.TemplatesMigrateDeploymentRequest,
         requestOptions?: Templates.RequestOptions,
     ): core.HttpResponsePromise<Letta.TemplatesMigrateDeploymentResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__migratedeployment(project, templateName, deploymentId, request, requestOptions),
+            this.__migratedeployment(projectId, templateName, deploymentId, request, requestOptions),
         );
     }
 
     private async __migratedeployment(
-        project: string,
+        projectId: string,
         templateName: string,
         deploymentId: string,
         request: Letta.TemplatesMigrateDeploymentRequest,
@@ -1180,7 +1295,7 @@ export class Templates {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.LettaEnvironment.LettaCloud,
-                `v1/templates/${encodeURIComponent(project)}/${encodeURIComponent(templateName)}/deployments/${encodeURIComponent(deploymentId)}/migrate`,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateName)}/deployments/${encodeURIComponent(deploymentId)}/migrate`,
             ),
             method: "POST",
             headers: {
@@ -1190,8 +1305,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68662",
-                "User-Agent": "@letta-ai/letta-client/0.0.68662",
+                "X-Fern-SDK-Version": "0.0.68663",
+                "User-Agent": "@letta-ai/letta-client/0.0.68663",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1245,7 +1360,7 @@ export class Templates {
                 });
             case "timeout":
                 throw new errors.LettaTimeoutError(
-                    "Timeout exceeded when calling POST /v1/templates/{project}/{template_name}/deployments/{deployment_id}/migrate.",
+                    "Timeout exceeded when calling POST /v1/templates/{project_id}/{template_name}/deployments/{deployment_id}/migrate.",
                 );
             case "unknown":
                 throw new errors.LettaError({
