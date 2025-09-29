@@ -7041,6 +7041,89 @@ await client.templates.migratedeployment("project_id", "template_name", "deploym
 </dl>
 </details>
 
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">updatecurrenttemplatefromagentfile</a>(projectId, templateName, { ...params }) -> Letta.TemplatesUpdateCurrentTemplateFromAgentFileResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the current working version of a template from an agent file
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.templates.updatecurrenttemplatefromagentfile("project_id", "template_name", {
+    agentFileJson: {
+        key: "value",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**projectId:** `string` — The project id
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateName:** `string` — The template name (without version)
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.TemplatesUpdateCurrentTemplateFromAgentFileRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Templates.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## ClientSideAccessTokens
 
 <details><summary><code>client.clientSideAccessTokens.<a href="/src/api/resources/clientSideAccessTokens/client/Client.ts">clientSideAccessTokensListClientSideAccessTokens</a>({ ...params }) -> Letta.ClientSideAccessTokensListClientSideAccessTokensResponse</code></summary>

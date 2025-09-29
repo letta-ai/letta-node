@@ -89,8 +89,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -238,8 +238,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -335,8 +335,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -441,8 +441,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -540,8 +540,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -642,8 +642,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -750,8 +750,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -852,8 +852,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -958,8 +958,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1076,8 +1076,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1194,8 +1194,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1305,8 +1305,8 @@ export class Templates {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "0.0.68663",
-                "User-Agent": "@letta-ai/letta-client/0.0.68663",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1361,6 +1361,122 @@ export class Templates {
             case "timeout":
                 throw new errors.LettaTimeoutError(
                     "Timeout exceeded when calling POST /v1/templates/{project_id}/{template_name}/deployments/{deployment_id}/migrate.",
+                );
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Updates the current working version of a template from an agent file
+     *
+     * @param {string} projectId - The project id
+     * @param {string} templateName - The template name (without version)
+     * @param {Letta.TemplatesUpdateCurrentTemplateFromAgentFileRequest} request
+     * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.BadRequestError}
+     * @throws {@link Letta.NotFoundError}
+     * @throws {@link Letta.InternalServerError}
+     *
+     * @example
+     *     await client.templates.updatecurrenttemplatefromagentfile("project_id", "template_name", {
+     *         agentFileJson: {
+     *             "key": "value"
+     *         }
+     *     })
+     */
+    public updatecurrenttemplatefromagentfile(
+        projectId: string,
+        templateName: string,
+        request: Letta.TemplatesUpdateCurrentTemplateFromAgentFileRequest,
+        requestOptions?: Templates.RequestOptions,
+    ): core.HttpResponsePromise<Letta.TemplatesUpdateCurrentTemplateFromAgentFileResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__updatecurrenttemplatefromagentfile(projectId, templateName, request, requestOptions),
+        );
+    }
+
+    private async __updatecurrenttemplatefromagentfile(
+        projectId: string,
+        templateName: string,
+        request: Letta.TemplatesUpdateCurrentTemplateFromAgentFileRequest,
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.TemplatesUpdateCurrentTemplateFromAgentFileResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/templates/${encodeURIComponent(projectId)}/${encodeURIComponent(templateName)}/agent-file`,
+            ),
+            method: "PUT",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "0.0.68664",
+                "User-Agent": "@letta-ai/letta-client/0.0.68664",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.TemplatesUpdateCurrentTemplateFromAgentFileRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.TemplatesUpdateCurrentTemplateFromAgentFileResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Letta.BadRequestError(_response.error.body, _response.rawResponse);
+                case 404:
+                    throw new Letta.NotFoundError(_response.error.body, _response.rawResponse);
+                case 500:
+                    throw new Letta.InternalServerError(_response.error.body, _response.rawResponse);
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError(
+                    "Timeout exceeded when calling PUT /v1/templates/{project_id}/{template_name}/agent-file.",
                 );
             case "unknown":
                 throw new errors.LettaError({

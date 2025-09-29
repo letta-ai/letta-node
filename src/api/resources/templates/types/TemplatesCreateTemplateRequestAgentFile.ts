@@ -11,4 +11,6 @@ export interface TemplatesCreateTemplateRequestAgentFile {
     agentFile: Record<string, unknown>;
     /** Optional custom name for the template. If not provided, a random name will be generated. */
     name?: string;
+    /** If true, update existing custom tools source_code and json_schema (source_type cannot be changed) */
+    updateExistingTools?: boolean;
 }

@@ -7,3 +7,4 @@ export { type TemplatesRenameTemplateRequest } from "./TemplatesRenameTemplateRe
 export { type TemplatesUpdateTemplateDescriptionRequest } from "./TemplatesUpdateTemplateDescriptionRequest";
 export { type TemplatesListTemplateVersionsRequest } from "./TemplatesListTemplateVersionsRequest";
 export { type TemplatesMigrateDeploymentRequest } from "./TemplatesMigrateDeploymentRequest";
+export { type TemplatesUpdateCurrentTemplateFromAgentFileRequest } from "./TemplatesUpdateCurrentTemplateFromAgentFileRequest";

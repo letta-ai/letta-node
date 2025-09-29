@@ -472,3 +472,4 @@ export * from "./TemplatesUpdateTemplateDescriptionResponse";
 export * from "./TemplatesListTemplateVersionsResponseVersionsItem";
 export * from "./TemplatesListTemplateVersionsResponse";
 export * from "./TemplatesMigrateDeploymentResponse";
+export * from "./TemplatesUpdateCurrentTemplateFromAgentFileResponse";

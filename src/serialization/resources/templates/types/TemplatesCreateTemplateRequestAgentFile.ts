@@ -16,6 +16,7 @@ export const TemplatesCreateTemplateRequestAgentFile: core.serialization.ObjectS
         core.serialization.record(core.serialization.string(), core.serialization.unknown()),
     ),
     name: core.serialization.string().optional(),
+    updateExistingTools: core.serialization.property("update_existing_tools", core.serialization.boolean().optional()),
 });
 
 export declare namespace TemplatesCreateTemplateRequestAgentFile {
@@ -23,5 +24,6 @@ export declare namespace TemplatesCreateTemplateRequestAgentFile {
         type: "agent_file";
         agent_file: Record<string, unknown>;
         name?: string | null;
+        update_existing_tools?: boolean | null;
     }
 }

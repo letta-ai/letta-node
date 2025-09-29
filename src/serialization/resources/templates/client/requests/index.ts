@@ -5,3 +5,4 @@ export { TemplatesForkTemplateRequest } from "./TemplatesForkTemplateRequest";
 export { TemplatesRenameTemplateRequest } from "./TemplatesRenameTemplateRequest";
 export { TemplatesUpdateTemplateDescriptionRequest } from "./TemplatesUpdateTemplateDescriptionRequest";
 export { TemplatesMigrateDeploymentRequest } from "./TemplatesMigrateDeploymentRequest";
+export { TemplatesUpdateCurrentTemplateFromAgentFileRequest } from "./TemplatesUpdateCurrentTemplateFromAgentFileRequest";
