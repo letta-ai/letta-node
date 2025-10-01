@@ -5,8 +5,8 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemZero } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemZero";
-import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemOne } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemOne";
+import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildArgNodes } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildArgNodes";
+import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemArgs } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemArgs";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemTwo } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemTwo";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildOutputMapping } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildOutputMapping";
 import { TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour } from "./TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour";
@@ -19,8 +19,8 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem: core.s
     serializers.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem.Raw,
     Letta.TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem
 > = core.serialization.undiscriminatedUnion([
-    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemZero,
-    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemOne,
+    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildArgNodes,
+    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemArgs,
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemTwo,
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildOutputMapping,
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour,
@@ -32,8 +32,8 @@ export const TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem: core.s
 
 export declare namespace TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem {
     export type Raw =
-        | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemZero.Raw
-        | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemOne.Raw
+        | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildArgNodes.Raw
+        | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemArgs.Raw
         | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemTwo.Raw
         | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildOutputMapping.Raw
         | TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour.Raw

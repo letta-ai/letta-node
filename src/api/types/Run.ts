@@ -5,39 +5,40 @@
 import * as Letta from "../index";
 
 /**
- * Representation of a run, which is a job with a 'run' prefix in its ID.
- * Inherits all fields and behavior from Job except for the ID prefix.
+ * Representation of a run - a conversation or processing session for an agent.
+ * Runs track when agents process messages and maintain the relationship between agents, steps, and messages.
  *
  * Parameters:
  *     id (str): The unique identifier of the run (prefixed with 'run-').
- *     status (JobStatus): The status of the run.
- *     created_at (datetime): The unix timestamp of when the run was created.
- *     completed_at (datetime): The unix timestamp of when the run was completed.
- *     user_id (str): The unique identifier of the user associated with the run.
+ *     status (JobStatus): The current status of the run.
+ *     created_at (datetime): The timestamp when the run was created.
+ *     completed_at (datetime): The timestamp when the run was completed.
+ *     agent_id (str): The unique identifier of the agent associated with the run.
+ *     stop_reason (StopReasonType): The reason why the run was stopped.
+ *     background (bool): Whether the run was created in background mode.
+ *     metadata (dict): Additional metadata for the run.
+ *     request_config (LettaRequestConfig): The request configuration for the run.
  */
 export interface Run {
-    /** The id of the user that made this object. */
-    createdById?: string;
-    /** The id of the user that made this object. */
-    lastUpdatedById?: string;
-    /** The unix timestamp of when the job was created. */
+    /** The human-friendly ID of the Run */
+    id?: string;
+    /** The current status of the run. */
+    status?: Letta.RunStatus;
+    /** The timestamp when the run was created. */
     createdAt?: Date;
-    /** The timestamp when the object was last updated. */
-    updatedAt?: Date;
-    /** The status of the job. */
-    status?: Letta.JobStatus;
-    /** The unix timestamp of when the job was completed. */
+    /** The timestamp when the run was completed. */
     completedAt?: Date;
+    /** The unique identifier of the agent associated with the run. */
+    agentId: string;
+    /** Whether the run was created in background mode. */
+    background?: boolean;
+    /** Additional metadata for the run. */
+    metadata?: Record<string, unknown>;
+    /** The request configuration for the run. */
+    requestConfig?: Letta.LettaRequestConfig;
     /** The reason why the run was stopped. */
     stopReason?: Letta.StopReasonType;
-    /** The metadata of the job. */
-    metadata?: Record<string, unknown>;
-    jobType?: Letta.JobType;
-    /** Whether the job was created in background mode. */
-    background?: boolean;
-    /** The agent associated with this job/run. */
-    agentId?: string;
-    /** If set, POST to this URL when the job completes. */
+    /** If set, POST to this URL when the run completes. */
     callbackUrl?: string;
     /** Timestamp when the callback was last attempted. */
     callbackSentAt?: Date;
@@ -49,8 +50,4 @@ export interface Run {
     ttftNs?: number;
     /** Total run duration in nanoseconds */
     totalDurationNs?: number;
-    /** The human-friendly ID of the Run */
-    id?: string;
-    /** The request configuration for the run. */
-    requestConfig?: Letta.LettaRequestConfig;
 }

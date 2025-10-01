@@ -5,53 +5,44 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
-import { JobStatus } from "./JobStatus";
-import { StopReasonType } from "./StopReasonType";
-import { JobType } from "./JobType";
+import { RunStatus } from "./RunStatus";
 import { LettaRequestConfig } from "./LettaRequestConfig";
+import { StopReasonType } from "./StopReasonType";
 
 export const Run: core.serialization.ObjectSchema<serializers.Run.Raw, Letta.Run> = core.serialization.object({
-    createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
-    lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
+    id: core.serialization.string().optional(),
+    status: RunStatus.optional(),
     createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
-    updatedAt: core.serialization.property("updated_at", core.serialization.date().optional()),
-    status: JobStatus.optional(),
     completedAt: core.serialization.property("completed_at", core.serialization.date().optional()),
-    stopReason: core.serialization.property("stop_reason", StopReasonType.optional()),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    jobType: core.serialization.property("job_type", JobType.optional()),
+    agentId: core.serialization.property("agent_id", core.serialization.string()),
     background: core.serialization.boolean().optional(),
-    agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    requestConfig: core.serialization.property("request_config", LettaRequestConfig.optional()),
+    stopReason: core.serialization.property("stop_reason", StopReasonType.optional()),
     callbackUrl: core.serialization.property("callback_url", core.serialization.string().optional()),
     callbackSentAt: core.serialization.property("callback_sent_at", core.serialization.date().optional()),
     callbackStatusCode: core.serialization.property("callback_status_code", core.serialization.number().optional()),
     callbackError: core.serialization.property("callback_error", core.serialization.string().optional()),
     ttftNs: core.serialization.property("ttft_ns", core.serialization.number().optional()),
     totalDurationNs: core.serialization.property("total_duration_ns", core.serialization.number().optional()),
-    id: core.serialization.string().optional(),
-    requestConfig: core.serialization.property("request_config", LettaRequestConfig.optional()),
 });
 
 export declare namespace Run {
     export interface Raw {
-        created_by_id?: string | null;
-        last_updated_by_id?: string | null;
+        id?: string | null;
+        status?: RunStatus.Raw | null;
         created_at?: string | null;
-        updated_at?: string | null;
-        status?: JobStatus.Raw | null;
         completed_at?: string | null;
-        stop_reason?: StopReasonType.Raw | null;
-        metadata?: Record<string, unknown> | null;
-        job_type?: JobType.Raw | null;
+        agent_id: string;
         background?: boolean | null;
-        agent_id?: string | null;
+        metadata?: Record<string, unknown> | null;
+        request_config?: LettaRequestConfig.Raw | null;
+        stop_reason?: StopReasonType.Raw | null;
         callback_url?: string | null;
         callback_sent_at?: string | null;
         callback_status_code?: number | null;
         callback_error?: string | null;
         ttft_ns?: number | null;
         total_duration_ns?: number | null;
-        id?: string | null;
-        request_config?: LettaRequestConfig.Raw | null;
     }
 }

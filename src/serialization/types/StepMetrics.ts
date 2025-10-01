@@ -10,7 +10,7 @@ export const StepMetrics: core.serialization.ObjectSchema<serializers.StepMetric
     core.serialization.object({
         id: core.serialization.string(),
         providerId: core.serialization.property("provider_id", core.serialization.string().optional()),
-        jobId: core.serialization.property("job_id", core.serialization.string().optional()),
+        runId: core.serialization.property("run_id", core.serialization.string().optional()),
         agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
         stepStartNs: core.serialization.property("step_start_ns", core.serialization.number().optional()),
         llmRequestStartNs: core.serialization.property("llm_request_start_ns", core.serialization.number().optional()),
@@ -26,7 +26,7 @@ export declare namespace StepMetrics {
     export interface Raw {
         id: string;
         provider_id?: string | null;
-        job_id?: string | null;
+        run_id?: string | null;
         agent_id?: string | null;
         step_start_ns?: number | null;
         llm_request_start_ns?: number | null;

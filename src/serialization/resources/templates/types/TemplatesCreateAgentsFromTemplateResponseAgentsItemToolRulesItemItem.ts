@@ -5,8 +5,8 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
-import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemZero } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemZero";
-import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildArgNodes } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildArgNodes";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemArgs } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemArgs";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemFour } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemFour";
@@ -19,8 +19,8 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemIte
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem.Raw,
     Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem
 > = core.serialization.undiscriminatedUnion([
-    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemZero,
-    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne,
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildArgNodes,
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemArgs,
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo,
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping,
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemFour,
@@ -32,8 +32,8 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemIte
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem {
     export type Raw =
-        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemZero.Raw
-        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne.Raw
+        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildArgNodes.Raw
+        | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemArgs.Raw
         | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo.Raw
         | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping.Raw
         | TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemFour.Raw

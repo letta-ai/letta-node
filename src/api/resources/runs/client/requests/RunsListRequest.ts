@@ -14,7 +14,7 @@ export interface RunsListRequest {
      */
     agentId?: string;
     /**
-     * (DEPRECATED) The unique identifiers of the agents associated with the run.
+     * The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
      */
     agentIds?: string | string[];
     /**

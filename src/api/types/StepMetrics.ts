@@ -7,8 +7,8 @@ export interface StepMetrics {
     id: string;
     /** The unique identifier of the provider. */
     providerId?: string;
-    /** The unique identifier of the job. */
-    jobId?: string;
+    /** The unique identifier of the run. */
+    runId?: string;
     /** The unique identifier of the agent. */
     agentId?: string;
     /** The timestamp of the start of the step in nanoseconds. */

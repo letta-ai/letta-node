@@ -11,6 +11,7 @@ export const InitToolRule: core.serialization.ObjectSchema<serializers.InitToolR
         toolName: core.serialization.property("tool_name", core.serialization.string()),
         type: core.serialization.stringLiteral("run_first"),
         promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
+        args: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     });
 
 export declare namespace InitToolRule {
@@ -18,5 +19,6 @@ export declare namespace InitToolRule {
         tool_name: string;
         type: "run_first";
         prompt_template?: string | null;
+        args?: Record<string, unknown> | null;
     }
 }

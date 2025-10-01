@@ -11,8 +11,8 @@ export interface Step {
     origin?: string;
     /** The unique identifier of the provider that was configured for this step */
     providerId?: string;
-    /** The unique identifier of the job that this step belongs to. Only included for async calls. */
-    jobId?: string;
+    /** The unique identifier of the run that this step belongs to. Only included for async calls. */
+    runId?: string;
     /** The ID of the agent that performed the step. */
     agentId?: string;
     /** The name of the provider used for this step. */

@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { ToolCallNode } from "./ToolCallNode";
 
 export const ChildToolRule: core.serialization.ObjectSchema<serializers.ChildToolRule.Raw, Letta.ChildToolRule> =
     core.serialization.object({
@@ -12,6 +13,7 @@ export const ChildToolRule: core.serialization.ObjectSchema<serializers.ChildToo
         type: core.serialization.stringLiteral("constrain_child_tools"),
         promptTemplate: core.serialization.property("prompt_template", core.serialization.string().optional()),
         children: core.serialization.list(core.serialization.string()),
+        childArgNodes: core.serialization.property("child_arg_nodes", core.serialization.list(ToolCallNode).optional()),
     });
 
 export declare namespace ChildToolRule {
@@ -20,5 +22,6 @@ export declare namespace ChildToolRule {
         type: "constrain_child_tools";
         prompt_template?: string | null;
         children: string[];
+        child_arg_nodes?: ToolCallNode.Raw[] | null;
     }
 }

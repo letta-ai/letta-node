@@ -5,8 +5,8 @@
 import * as Letta from "../../../index";
 
 export type TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItem =
-    | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemZero
-    | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne
+    | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildArgNodes
+    | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemArgs
     | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo
     | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildOutputMapping
     | Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemFour
