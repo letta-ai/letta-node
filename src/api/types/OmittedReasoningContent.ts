@@ -7,4 +7,6 @@
  */
 export interface OmittedReasoningContent {
     type: "omitted_reasoning";
+    /** A unique identifier for this reasoning step. */
+    signature?: string;
 }

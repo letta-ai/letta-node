@@ -25,4 +25,8 @@ export interface Provider {
     apiVersion?: string;
     /** The last update timestamp of the provider. */
     updatedAt?: Date;
+    /** Encrypted API key as Secret object */
+    apiKeyEnc?: string;
+    /** Encrypted access key as Secret object */
+    accessKeyEnc?: string;
 }

@@ -6,7 +6,10 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         providerName: "provider_name",
+ *         providerType: "anthropic"
+ *     }
  */
 export interface ModelsListRequest {
     providerCategory?: Letta.ProviderCategory | Letta.ProviderCategory[];

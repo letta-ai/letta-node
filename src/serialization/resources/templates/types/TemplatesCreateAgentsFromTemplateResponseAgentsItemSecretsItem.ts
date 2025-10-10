@@ -12,6 +12,7 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemUpdatedAt
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemId";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemDescription } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemDescription";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemOrganizationId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemOrganizationId";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc";
 
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItem: core.serialization.ObjectSchema<
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItem.Raw,
@@ -41,6 +42,10 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItem: cor
         "organization_id",
         TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemOrganizationId.optional(),
     ),
+    valueEnc: core.serialization.property(
+        "value_enc",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc.optional(),
+    ),
     agentId: core.serialization.property("agent_id", core.serialization.string()),
 });
 
@@ -55,6 +60,7 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemSecr
         value: string;
         description?: TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemDescription.Raw | null;
         organization_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemOrganizationId.Raw | null;
+        value_enc?: TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc.Raw | null;
         agent_id: string;
     }
 }

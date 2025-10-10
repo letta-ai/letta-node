@@ -4,7 +4,9 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         includeContent: true
+ *     }
  */
 export interface GetFileMetadataRequest {
     /**

@@ -4,7 +4,9 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         overrideEmbeddingModel: "x-override-embedding-model"
+ *     }
  */
 export interface BodyImportAgent {
     overrideEmbeddingModel?: string;

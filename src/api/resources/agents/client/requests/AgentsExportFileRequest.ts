@@ -4,7 +4,10 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         maxSteps: 1,
+ *         useLegacyFormat: true
+ *     }
  */
 export interface AgentsExportFileRequest {
     maxSteps?: number;

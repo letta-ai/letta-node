@@ -4,7 +4,10 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         agentId: "agent_id",
+ *         background: true
+ *     }
  */
 export interface RunsListActiveRequest {
     /**

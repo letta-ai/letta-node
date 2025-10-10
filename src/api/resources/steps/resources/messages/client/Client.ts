@@ -47,7 +47,13 @@ export class Messages {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.steps.messages.list("step_id")
+     *     await client.steps.messages.list("step_id", {
+     *         before: "before",
+     *         after: "after",
+     *         limit: 1,
+     *         order: "asc",
+     *         orderBy: "created_at"
+     *     })
      */
     public list(
         stepId: string,
@@ -101,8 +107,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

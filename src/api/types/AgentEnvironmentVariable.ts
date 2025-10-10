@@ -19,6 +19,8 @@ export interface AgentEnvironmentVariable {
     value: string;
     /** An optional description of the environment variable. */
     description?: string;
+    /** Encrypted value as Secret object */
+    valueEnc?: string;
     /** The ID of the agent this environment variable belongs to. */
     agentId: string;
 }

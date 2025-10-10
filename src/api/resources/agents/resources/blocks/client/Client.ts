@@ -77,8 +77,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -187,8 +187,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -259,21 +259,57 @@ export class Blocks {
      * Retrieve the core memory blocks of a specific agent.
      *
      * @param {string} agentId
+     * @param {Letta.agents.BlocksListRequest} request
      * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.blocks.list("agent_id")
+     *     await client.agents.blocks.list("agent_id", {
+     *         before: "before",
+     *         after: "after",
+     *         limit: 1,
+     *         order: "asc",
+     *         orderBy: "created_at"
+     *     })
      */
-    public list(agentId: string, requestOptions?: Blocks.RequestOptions): core.HttpResponsePromise<Letta.Block[]> {
-        return core.HttpResponsePromise.fromPromise(this.__list(agentId, requestOptions));
+    public list(
+        agentId: string,
+        request: Letta.agents.BlocksListRequest = {},
+        requestOptions?: Blocks.RequestOptions,
+    ): core.HttpResponsePromise<Letta.Block[]> {
+        return core.HttpResponsePromise.fromPromise(this.__list(agentId, request, requestOptions));
     }
 
     private async __list(
         agentId: string,
+        request: Letta.agents.BlocksListRequest = {},
         requestOptions?: Blocks.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.Block[]>> {
+        const { before, after, limit, order, orderBy } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (before != null) {
+            _queryParams["before"] = before;
+        }
+
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (order != null) {
+            _queryParams["order"] = serializers.agents.BlocksListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -289,14 +325,15 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -396,8 +433,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -503,8 +540,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

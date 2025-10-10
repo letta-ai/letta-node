@@ -4,7 +4,12 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         limit: 1,
+ *         after: "after",
+ *         includeContent: true,
+ *         checkStatusUpdates: true
+ *     }
  */
 export interface FilesListRequest {
     /**

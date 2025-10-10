@@ -8,7 +8,7 @@ import * as core from "../../core";
 import { MessageRole } from "./MessageRole";
 import { LettaSchemasAgentFileMessageSchemaContent } from "./LettaSchemasAgentFileMessageSchemaContent";
 import { ChatCompletionMessageFunctionToolCall } from "./ChatCompletionMessageFunctionToolCall";
-import { ToolReturn } from "./ToolReturn";
+import { LettaSchemasMessageToolReturn } from "./LettaSchemasMessageToolReturn";
 
 export const LettaSchemasAgentFileMessageSchema: core.serialization.ObjectSchema<
     serializers.LettaSchemasAgentFileMessageSchema.Raw,
@@ -30,8 +30,14 @@ export const LettaSchemasAgentFileMessageSchema: core.serialization.ObjectSchema
         core.serialization.list(ChatCompletionMessageFunctionToolCall).optional(),
     ),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
-    toolReturns: core.serialization.property("tool_returns", core.serialization.list(ToolReturn).optional()),
+    toolReturns: core.serialization.property(
+        "tool_returns",
+        core.serialization.list(LettaSchemasMessageToolReturn).optional(),
+    ),
     createdAt: core.serialization.property("created_at", core.serialization.date().optional()),
+    approve: core.serialization.boolean().optional(),
+    approvalRequestId: core.serialization.property("approval_request_id", core.serialization.string().optional()),
+    denialReason: core.serialization.property("denial_reason", core.serialization.string().optional()),
 });
 
 export declare namespace LettaSchemasAgentFileMessageSchema {
@@ -49,7 +55,10 @@ export declare namespace LettaSchemasAgentFileMessageSchema {
         agent_id?: string | null;
         tool_calls?: ChatCompletionMessageFunctionToolCall.Raw[] | null;
         tool_call_id?: string | null;
-        tool_returns?: ToolReturn.Raw[] | null;
+        tool_returns?: LettaSchemasMessageToolReturn.Raw[] | null;
         created_at?: string | null;
+        approve?: boolean | null;
+        approval_request_id?: string | null;
+        denial_reason?: string | null;
     }
 }

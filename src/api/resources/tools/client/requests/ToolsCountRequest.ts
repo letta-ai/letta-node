@@ -4,7 +4,12 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         name: "name",
+ *         search: "search",
+ *         returnOnlyLettaTools: true,
+ *         excludeLettaTools: true
+ *     }
  */
 export interface ToolsCountRequest {
     name?: string;

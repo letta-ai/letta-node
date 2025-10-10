@@ -10,11 +10,13 @@ export const TextContent: core.serialization.ObjectSchema<serializers.TextConten
     core.serialization.object({
         type: core.serialization.stringLiteral("text"),
         text: core.serialization.string(),
+        signature: core.serialization.string().optional(),
     });
 
 export declare namespace TextContent {
     export interface Raw {
         type: "text";
         text: string;
+        signature?: string | null;
     }
 }

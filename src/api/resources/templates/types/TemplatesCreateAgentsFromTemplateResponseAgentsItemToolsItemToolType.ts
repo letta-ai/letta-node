@@ -11,8 +11,8 @@ export type TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemToolType
     | "letta_voice_sleeptime_core"
     | "letta_builtin"
     | "letta_files_core"
-    | "external_composio"
     | "external_langchain"
+    | "external_composio"
     | "external_mcp";
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemToolType = {
     Custom: "custom",
@@ -23,7 +23,7 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemToolTyp
     LettaVoiceSleeptimeCore: "letta_voice_sleeptime_core",
     LettaBuiltin: "letta_builtin",
     LettaFilesCore: "letta_files_core",
-    ExternalComposio: "external_composio",
     ExternalLangchain: "external_langchain",
+    ExternalComposio: "external_composio",
     ExternalMcp: "external_mcp",
 } as const;

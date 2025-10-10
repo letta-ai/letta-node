@@ -62,9 +62,9 @@ export interface InternalTemplateAgentCreate {
     enableReasoner?: boolean;
     /** Whether to enable reasoning for this agent. */
     reasoning?: boolean;
-    /** The template id used to configure the agent */
+    /** Deprecated: please use the 'create agents from a template' endpoint instead. */
     fromTemplate?: string;
-    /** Whether the agent is a template */
+    /** Deprecated: No longer used */
     template?: boolean;
     /** Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below. */
     project?: string;

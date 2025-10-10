@@ -6,7 +6,16 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         order: "asc",
+ *         orderBy: "created_at",
+ *         name: "name",
+ *         search: "search",
+ *         returnOnlyLettaTools: true
+ *     }
  */
 export interface ToolsListRequest {
     /**

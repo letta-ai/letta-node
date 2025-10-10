@@ -8,7 +8,8 @@ import * as core from "../../core";
 import { MessageRole } from "./MessageRole";
 import { MessageContentItem } from "./MessageContentItem";
 import { ChatCompletionMessageFunctionToolCall } from "./ChatCompletionMessageFunctionToolCall";
-import { ToolReturn } from "./ToolReturn";
+import { LettaSchemasMessageToolReturn } from "./LettaSchemasMessageToolReturn";
+import { MessageApprovalsItem } from "./MessageApprovalsItem";
 
 export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Letta.Message> =
     core.serialization.object({
@@ -30,7 +31,10 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         stepId: core.serialization.property("step_id", core.serialization.string().optional()),
         runId: core.serialization.property("run_id", core.serialization.string().optional()),
         otid: core.serialization.string().optional(),
-        toolReturns: core.serialization.property("tool_returns", core.serialization.list(ToolReturn).optional()),
+        toolReturns: core.serialization.property(
+            "tool_returns",
+            core.serialization.list(LettaSchemasMessageToolReturn).optional(),
+        ),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
         senderId: core.serialization.property("sender_id", core.serialization.string().optional()),
         batchItemId: core.serialization.property("batch_item_id", core.serialization.string().optional()),
@@ -38,6 +42,7 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, L
         approvalRequestId: core.serialization.property("approval_request_id", core.serialization.string().optional()),
         approve: core.serialization.boolean().optional(),
         denialReason: core.serialization.property("denial_reason", core.serialization.string().optional()),
+        approvals: core.serialization.list(MessageApprovalsItem).optional(),
     });
 
 export declare namespace Message {
@@ -57,7 +62,7 @@ export declare namespace Message {
         step_id?: string | null;
         run_id?: string | null;
         otid?: string | null;
-        tool_returns?: ToolReturn.Raw[] | null;
+        tool_returns?: LettaSchemasMessageToolReturn.Raw[] | null;
         group_id?: string | null;
         sender_id?: string | null;
         batch_item_id?: string | null;
@@ -65,5 +70,6 @@ export declare namespace Message {
         approval_request_id?: string | null;
         approve?: boolean | null;
         denial_reason?: string | null;
+        approvals?: MessageApprovalsItem.Raw[] | null;
     }
 }

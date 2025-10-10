@@ -14,5 +14,6 @@ export interface TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItem 
     value: string;
     description?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemDescription;
     organizationId?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemOrganizationId;
+    valueEnc?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc;
     agentId: string;
 }

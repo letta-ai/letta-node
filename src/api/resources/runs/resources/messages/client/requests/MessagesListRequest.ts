@@ -6,7 +6,13 @@ import * as Letta from "../../../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         order: "asc",
+ *         orderBy: "created_at"
+ *     }
  */
 export interface MessagesListRequest {
     /**
@@ -25,4 +31,8 @@ export interface MessagesListRequest {
      * Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
      */
     order?: Letta.runs.MessagesListRequestOrder;
+    /**
+     * Field to sort by
+     */
+    orderBy?: "created_at";
 }

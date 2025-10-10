@@ -4,7 +4,9 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         includeDetailedPerSourceMetadata: true
+ *     }
  */
 export interface RetrieveMetadataRequest {
     includeDetailedPerSourceMetadata?: boolean;

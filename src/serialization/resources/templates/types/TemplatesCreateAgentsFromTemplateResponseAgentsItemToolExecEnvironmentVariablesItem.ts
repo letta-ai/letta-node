@@ -12,6 +12,7 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentV
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemId";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemDescription } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemDescription";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemOrganizationId } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemOrganizationId";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc";
 
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItem: core.serialization.ObjectSchema<
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItem.Raw,
@@ -42,6 +43,10 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironm
         "organization_id",
         TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemOrganizationId.optional(),
     ),
+    valueEnc: core.serialization.property(
+        "value_enc",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc.optional(),
+    ),
     agentId: core.serialization.property("agent_id", core.serialization.string()),
 });
 
@@ -56,6 +61,7 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemTool
         value: string;
         description?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemDescription.Raw | null;
         organization_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemOrganizationId.Raw | null;
+        value_enc?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc.Raw | null;
         agent_id: string;
     }
 }

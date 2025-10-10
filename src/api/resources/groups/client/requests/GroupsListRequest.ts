@@ -6,7 +6,15 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         managerType: "round_robin",
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         order: "asc",
+ *         orderBy: "created_at",
+ *         projectId: "project_id"
+ *     }
  */
 export interface GroupsListRequest {
     /**

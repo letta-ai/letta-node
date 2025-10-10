@@ -6,7 +6,18 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         agentId: "agent_id",
+ *         background: true,
+ *         stopReason: "end_turn",
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         order: "asc",
+ *         orderBy: "created_at",
+ *         active: true,
+ *         ascending: true
+ *     }
  */
 export interface RunsListRequest {
     /**
@@ -18,6 +29,10 @@ export interface RunsListRequest {
      */
     agentIds?: string | string[];
     /**
+     * Filter runs by status. Can specify multiple statuses.
+     */
+    statuses?: string | string[];
+    /**
      * If True, filters for runs that were created in background mode.
      */
     background?: boolean;
@@ -26,23 +41,31 @@ export interface RunsListRequest {
      */
     stopReason?: Letta.StopReasonType;
     /**
-     * Cursor for pagination
-     */
-    after?: string;
-    /**
-     * Cursor for pagination
+     * Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order
      */
     before?: string;
+    /**
+     * Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order
+     */
+    after?: string;
     /**
      * Maximum number of runs to return
      */
     limit?: number;
     /**
+     * Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first
+     */
+    order?: Letta.RunsListRequestOrder;
+    /**
+     * Field to sort by
+     */
+    orderBy?: "created_at";
+    /**
      * Filter for active runs.
      */
     active?: boolean;
     /**
-     * Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+     * Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.
      */
     ascending?: boolean;
 }

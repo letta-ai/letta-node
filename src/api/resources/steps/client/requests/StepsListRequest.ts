@@ -6,7 +6,20 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         order: "asc",
+ *         orderBy: "created_at",
+ *         startDate: "start_date",
+ *         endDate: "end_date",
+ *         model: "model",
+ *         agentId: "agent_id",
+ *         feedback: "positive",
+ *         hasFeedback: true,
+ *         projectId: "project_id"
+ *     }
  */
 export interface StepsListRequest {
     /**

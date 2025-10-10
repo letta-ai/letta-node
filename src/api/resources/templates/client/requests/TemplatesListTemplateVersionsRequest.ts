@@ -4,7 +4,10 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         offset: "offset",
+ *         limit: "limit"
+ *     }
  */
 export interface TemplatesListTemplateVersionsRequest {
     offset?: string;

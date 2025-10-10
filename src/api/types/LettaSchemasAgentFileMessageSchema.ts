@@ -35,7 +35,13 @@ export interface LettaSchemasAgentFileMessageSchema {
     /** The ID of the tool call. Only applicable for role tool. */
     toolCallId?: string;
     /** Tool execution return information for prior tool calls */
-    toolReturns?: Letta.ToolReturn[];
+    toolReturns?: Letta.LettaSchemasMessageToolReturn[];
     /** The timestamp when the object was created. */
     createdAt?: Date;
+    /** Whether the tool has been approved */
+    approve?: boolean;
+    /** The message ID of the approval request */
+    approvalRequestId?: string;
+    /** An optional explanation for the provided approval status */
+    denialReason?: string;
 }

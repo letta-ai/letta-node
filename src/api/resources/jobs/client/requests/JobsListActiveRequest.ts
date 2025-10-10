@@ -4,7 +4,13 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         sourceId: "source_id",
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         ascending: true
+ *     }
  */
 export interface JobsListActiveRequest {
     /**

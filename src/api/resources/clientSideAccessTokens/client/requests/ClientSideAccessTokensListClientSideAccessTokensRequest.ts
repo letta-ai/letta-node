@@ -4,7 +4,11 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         agentId: "agentId",
+ *         offset: 1.1,
+ *         limit: 1.1
+ *     }
  */
 export interface ClientSideAccessTokensListClientSideAccessTokensRequest {
     /**

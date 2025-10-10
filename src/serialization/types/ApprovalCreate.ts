@@ -5,20 +5,23 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { ApprovalCreateApprovalsItem } from "./ApprovalCreateApprovalsItem";
 
 export const ApprovalCreate: core.serialization.ObjectSchema<serializers.ApprovalCreate.Raw, Letta.ApprovalCreate> =
     core.serialization.object({
         type: core.serialization.stringLiteral("approval").optional(),
-        approve: core.serialization.boolean(),
-        approvalRequestId: core.serialization.property("approval_request_id", core.serialization.string()),
+        approvals: core.serialization.list(ApprovalCreateApprovalsItem).optional(),
+        approve: core.serialization.boolean().optional(),
+        approvalRequestId: core.serialization.property("approval_request_id", core.serialization.string().optional()),
         reason: core.serialization.string().optional(),
     });
 
 export declare namespace ApprovalCreate {
     export interface Raw {
         type?: "approval" | null;
-        approve: boolean;
-        approval_request_id: string;
+        approvals?: ApprovalCreateApprovalsItem.Raw[] | null;
+        approve?: boolean | null;
+        approval_request_id?: string | null;
         reason?: string | null;
     }
 }

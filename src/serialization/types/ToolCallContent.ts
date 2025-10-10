@@ -12,6 +12,7 @@ export const ToolCallContent: core.serialization.ObjectSchema<serializers.ToolCa
         id: core.serialization.string(),
         name: core.serialization.string(),
         input: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
+        signature: core.serialization.string().optional(),
     });
 
 export declare namespace ToolCallContent {
@@ -20,5 +21,6 @@ export declare namespace ToolCallContent {
         id: string;
         name: string;
         input: Record<string, unknown>;
+        signature?: string | null;
     }
 }

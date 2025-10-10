@@ -30,7 +30,14 @@ Get a list of all archives for the current organization with optional filters an
 <dd>
 
 ```typescript
-await client.archives.listArchives();
+await client.archives.listArchives({
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    name: "name",
+    agentId: "agent_id",
+});
 ```
 
 </dd>
@@ -428,7 +435,12 @@ Get a count of all tools available to agents belonging to the org of the user.
 <dd>
 
 ```typescript
-await client.tools.count();
+await client.tools.count({
+    name: "name",
+    search: "search",
+    returnOnlyLettaTools: true,
+    excludeLettaTools: true,
+});
 ```
 
 </dd>
@@ -491,7 +503,16 @@ Get a list of all tools available to agents.
 <dd>
 
 ```typescript
-await client.tools.list();
+await client.tools.list({
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    name: "name",
+    search: "search",
+    returnOnlyLettaTools: true,
+});
 ```
 
 </dd>
@@ -761,187 +782,6 @@ await client.tools.runToolFromSource({
 <dd>
 
 **request:** `Letta.ToolRunFromSource`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listComposioApps</a>() -> Letta.AppModel[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get a list of all Composio apps
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tools.listComposioApps();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">listComposioActionsByApp</a>(composioAppName) -> Letta.ActionModel[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get a list of all Composio actions for a specific app
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tools.listComposioActionsByApp("composio_app_name");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**composioAppName:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Tools.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">addComposioTool</a>(composioActionName) -> Letta.Tool</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.tools.addComposioTool("composio_action_name");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**composioActionName:** `string`
 
 </dd>
 </dl>
@@ -1840,7 +1680,9 @@ Returns structured metadata including:
 <dd>
 
 ```typescript
-await client.sources.getSourcesMetadata();
+await client.sources.getSourcesMetadata({
+    includeDetailedPerSourceMetadata: true,
+});
 ```
 
 </dd>
@@ -2086,7 +1928,9 @@ Retrieve metadata for a specific file by its ID.
 <dd>
 
 ```typescript
-await client.sources.getFileMetadata("source_id", "file_id");
+await client.sources.getFileMetadata("source_id", "file_id", {
+    includeContent: true,
+});
 ```
 
 </dd>
@@ -2490,7 +2334,9 @@ Returns structured metadata including:
 <dd>
 
 ```typescript
-await client.folders.retrieveMetadata();
+await client.folders.retrieveMetadata({
+    includeDetailedPerSourceMetadata: true,
+});
 ```
 
 </dd>
@@ -2553,7 +2399,14 @@ List all data folders created by a user.
 <dd>
 
 ```typescript
-await client.folders.list();
+await client.folders.list({
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    name: "name",
+});
 ```
 
 </dd>
@@ -2683,7 +2536,22 @@ Get a list of all agents.
 <dd>
 
 ```typescript
-await client.agents.list();
+await client.agents.list({
+    name: "name",
+    matchAllTags: true,
+    before: "before",
+    after: "after",
+    limit: 1,
+    queryText: "query_text",
+    projectId: "project_id",
+    templateId: "template_id",
+    baseTemplateId: "base_template_id",
+    identityId: "identity_id",
+    order: "asc",
+    orderBy: "created_at",
+    ascending: true,
+    sortBy: "sort_by",
+});
 ```
 
 </dd>
@@ -2868,7 +2736,10 @@ Supports two export formats:
 <dd>
 
 ```typescript
-await client.agents.exportFile("agent_id");
+await client.agents.exportFile("agent_id", {
+    maxSteps: 1,
+    useLegacyFormat: true,
+});
 ```
 
 </dd>
@@ -2940,7 +2811,9 @@ Returns the IDs of all imported agents.
 <dd>
 
 ```typescript
-await client.agents.importFile(fs.createReadStream("/path/to/your/file"), {});
+await client.agents.importFile(fs.createReadStream("/path/to/your/file"), {
+    overrideEmbeddingModel: "x-override-embedding-model",
+});
 ```
 
 </dd>
@@ -3283,7 +3156,15 @@ Fetch all multi-agent groups matching query.
 <dd>
 
 ```typescript
-await client.groups.list();
+await client.groups.list({
+    managerType: "round_robin",
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    projectId: "project_id",
+});
 ```
 
 </dd>
@@ -3666,7 +3547,17 @@ Get a list of all identities in the database
 <dd>
 
 ```typescript
-await client.identities.list();
+await client.identities.list({
+    name: "name",
+    projectId: "project_id",
+    identifierKey: "identifier_key",
+    identityType: "org",
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -4057,7 +3948,10 @@ List available LLM models using the asynchronous implementation for improved per
 <dd>
 
 ```typescript
-await client.models.list();
+await client.models.list({
+    providerName: "provider_name",
+    providerType: "anthropic",
+});
 ```
 
 </dd>
@@ -4147,7 +4041,23 @@ await client.models.listembeddingmodels();
 <dd>
 
 ```typescript
-await client.blocks.list();
+await client.blocks.list({
+    label: "label",
+    templatesOnly: true,
+    name: "name",
+    identityId: "identity_id",
+    projectId: "project_id",
+    limit: 1,
+    before: "before",
+    after: "after",
+    order: "asc",
+    orderBy: "created_at",
+    labelSearch: "label_search",
+    descriptionSearch: "description_search",
+    valueSearch: "value_search",
+    connectedToAgentsCountGt: 1,
+    connectedToAgentsCountLt: 1,
+});
 ```
 
 </dd>
@@ -4470,7 +4380,16 @@ List all jobs.
 <dd>
 
 ```typescript
-await client.jobs.list();
+await client.jobs.list({
+    sourceId: "source_id",
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    active: true,
+    ascending: true,
+});
 ```
 
 </dd>
@@ -4533,7 +4452,13 @@ List all active jobs.
 <dd>
 
 ```typescript
-await client.jobs.listActive();
+await client.jobs.listActive({
+    sourceId: "source_id",
+    before: "before",
+    after: "after",
+    limit: 1,
+    ascending: true,
+});
 ```
 
 </dd>
@@ -4832,7 +4757,15 @@ Get a list of all custom providers.
 <dd>
 
 ```typescript
-await client.providers.list();
+await client.providers.list({
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    name: "name",
+    providerType: "anthropic",
+});
 ```
 
 </dd>
@@ -5199,6 +5132,69 @@ await client.providers.check({
 </dl>
 </details>
 
+<details><summary><code>client.providers.<a href="/src/api/resources/providers/client/Client.ts">checkExistingProvider</a>(providerId) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Verify the API key and additional parameters for an existing provider.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.providers.checkExistingProvider("provider_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**providerId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Providers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Runs
 
 <details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">list</a>({ ...params }) -> Letta.Run[]</code></summary>
@@ -5229,7 +5225,18 @@ List all runs.
 <dd>
 
 ```typescript
-await client.runs.list();
+await client.runs.list({
+    agentId: "agent_id",
+    background: true,
+    stopReason: "end_turn",
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    active: true,
+    ascending: true,
+});
 ```
 
 </dd>
@@ -5292,7 +5299,10 @@ List all active runs.
 <dd>
 
 ```typescript
-await client.runs.listActive();
+await client.runs.listActive({
+    agentId: "agent_id",
+    background: true,
+});
 ```
 
 </dd>
@@ -5453,6 +5463,69 @@ await client.runs.delete("run_id");
 </dl>
 </details>
 
+<details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">retrieveMetricsForRun</a>(runId) -> Letta.RunMetrics</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get run metrics by run ID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.runs.retrieveMetricsForRun("run_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**runId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Runs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.runs.<a href="/src/api/resources/runs/client/Client.ts">stream</a>(runId, { ...params }) -> core.Stream<Letta.LettaStreamingResponse></code></summary>
 <dl>
 <dd>
@@ -5542,7 +5615,20 @@ List steps with optional pagination and date filters.
 <dd>
 
 ```typescript
-await client.steps.list();
+await client.steps.list({
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    startDate: "start_date",
+    endDate: "end_date",
+    model: "model",
+    agentId: "agent_id",
+    feedback: "positive",
+    hasFeedback: true,
+    projectId: "project_id",
+});
 ```
 
 </dd>
@@ -5670,7 +5756,15 @@ Get the list of all agent tags that have been created.
 <dd>
 
 ```typescript
-await client.tags.list();
+await client.tags.list({
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "name",
+    queryText: "query_text",
+    name: "name",
+});
 ```
 
 </dd>
@@ -5802,7 +5896,13 @@ List all batch runs.
 <dd>
 
 ```typescript
-await client.batches.list();
+await client.batches.list({
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -6215,7 +6315,18 @@ List all templates
 <dd>
 
 ```typescript
-await client.templates.list();
+await client.templates.list({
+    offset: "offset",
+    exact: "exact",
+    limit: "limit",
+    version: "version",
+    templateId: "template_id",
+    name: "name",
+    search: "search",
+    projectSlug: "project_slug",
+    projectId: "project_id",
+    sortBy: "updated_at",
+});
 ```
 
 </dd>
@@ -6901,7 +7012,10 @@ List all versions of a specific template
 <dd>
 
 ```typescript
-await client.templates.listtemplateversions("project_id", "name");
+await client.templates.listtemplateversions("project_id", "name", {
+    offset: "offset",
+    limit: "limit",
+});
 ```
 
 </dd>
@@ -7154,7 +7268,11 @@ List all client side access tokens for the current account. This is only availab
 <dd>
 
 ```typescript
-await client.clientSideAccessTokens.clientSideAccessTokensListClientSideAccessTokens();
+await client.clientSideAccessTokens.clientSideAccessTokensListClientSideAccessTokens({
+    agentId: "agentId",
+    offset: 1.1,
+    limit: 1.1,
+});
 ```
 
 </dd>
@@ -7364,7 +7482,11 @@ List all projects
 <dd>
 
 ```typescript
-await client.projects.list();
+await client.projects.list({
+    name: "name",
+    offset: "offset",
+    limit: "limit",
+});
 ```
 
 </dd>
@@ -7466,7 +7588,7 @@ await client.agents.context.retrieve("agent_id");
 
 ## Agents Tools
 
-<details><summary><code>client.agents.tools.<a href="/src/api/resources/agents/resources/tools/client/Client.ts">list</a>(agentId) -> Letta.Tool[]</code></summary>
+<details><summary><code>client.agents.tools.<a href="/src/api/resources/agents/resources/tools/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.Tool[]</code></summary>
 <dl>
 <dd>
 
@@ -7494,7 +7616,13 @@ Get tools from an existing agent
 <dd>
 
 ```typescript
-await client.agents.tools.list("agent_id");
+await client.agents.tools.list("agent_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -7511,6 +7639,14 @@ await client.agents.tools.list("agent_id");
 <dd>
 
 **agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.ToolsListRequest`
 
 </dd>
 </dl>
@@ -7896,7 +8032,7 @@ await client.agents.sources.detach("agent_id", "source_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.sources.<a href="/src/api/resources/agents/resources/sources/client/Client.ts">list</a>(agentId) -> Letta.Source[]</code></summary>
+<details><summary><code>client.agents.sources.<a href="/src/api/resources/agents/resources/sources/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.Source[]</code></summary>
 <dl>
 <dd>
 
@@ -7924,7 +8060,13 @@ Get the sources associated with an agent.
 <dd>
 
 ```typescript
-await client.agents.sources.list("agent_id");
+await client.agents.sources.list("agent_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -7941,6 +8083,14 @@ await client.agents.sources.list("agent_id");
 <dd>
 
 **agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.SourcesListRequest`
 
 </dd>
 </dl>
@@ -8103,7 +8253,7 @@ await client.agents.folders.detach("agent_id", "folder_id");
 </dl>
 </details>
 
-<details><summary><code>client.agents.folders.<a href="/src/api/resources/agents/resources/folders/client/Client.ts">list</a>(agentId) -> Letta.Source[]</code></summary>
+<details><summary><code>client.agents.folders.<a href="/src/api/resources/agents/resources/folders/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.Source[]</code></summary>
 <dl>
 <dd>
 
@@ -8131,7 +8281,13 @@ Get the folders associated with an agent.
 <dd>
 
 ```typescript
-await client.agents.folders.list("agent_id");
+await client.agents.folders.list("agent_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -8148,6 +8304,14 @@ await client.agents.folders.list("agent_id");
 <dd>
 
 **agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.FoldersListRequest`
 
 </dd>
 </dl>
@@ -8411,7 +8575,15 @@ Get the files attached to an agent with their open/closed status (paginated).
 <dd>
 
 ```typescript
-await client.agents.files.list("agent_id");
+await client.agents.files.list("agent_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    cursor: "cursor",
+    isOpen: true,
+});
 ```
 
 </dd>
@@ -8672,7 +8844,7 @@ await client.agents.blocks.modify("agent_id", "block_label", {});
 </dl>
 </details>
 
-<details><summary><code>client.agents.blocks.<a href="/src/api/resources/agents/resources/blocks/client/Client.ts">list</a>(agentId) -> Letta.Block[]</code></summary>
+<details><summary><code>client.agents.blocks.<a href="/src/api/resources/agents/resources/blocks/client/Client.ts">list</a>(agentId, { ...params }) -> Letta.Block[]</code></summary>
 <dl>
 <dd>
 
@@ -8700,7 +8872,13 @@ Retrieve the core memory blocks of a specific agent.
 <dd>
 
 ```typescript
-await client.agents.blocks.list("agent_id");
+await client.agents.blocks.list("agent_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -8717,6 +8895,14 @@ await client.agents.blocks.list("agent_id");
 <dd>
 
 **agentId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Letta.agents.BlocksListRequest`
 
 </dd>
 </dl>
@@ -8907,7 +9093,13 @@ Retrieve the memories in an agent's archival memory store (paginated query).
 <dd>
 
 ```typescript
-await client.agents.passages.list("agent_id");
+await client.agents.passages.list("agent_id", {
+    after: "after",
+    before: "before",
+    limit: 1,
+    search: "search",
+    ascending: true,
+});
 ```
 
 </dd>
@@ -9057,6 +9249,10 @@ as the agent's archival_memory_search tool but is accessible for external API us
 ```typescript
 await client.agents.passages.search("agent_id", {
     query: "query",
+    tagMatchMode: "any",
+    topK: 1,
+    startDatetime: "2024-01-15T09:30:00Z",
+    endDatetime: "2024-01-15T09:30:00Z",
 });
 ```
 
@@ -9257,7 +9453,18 @@ Retrieve message history for an agent.
 <dd>
 
 ```typescript
-await client.agents.messages.list("agent_id");
+await client.agents.messages.list("agent_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    groupId: "group_id",
+    useAssistantMessage: true,
+    assistantMessageToolName: "assistant_message_tool_name",
+    assistantMessageToolKwarg: "assistant_message_tool_kwarg",
+    includeErr: true,
+});
 ```
 
 </dd>
@@ -9805,7 +10012,9 @@ Resets the messages for an agent
 <dd>
 
 ```typescript
-await client.agents.messages.reset("agent_id");
+await client.agents.messages.reset("agent_id", {
+    addDefaultInitialMessages: true,
+});
 ```
 
 </dd>
@@ -10041,7 +10250,14 @@ Lists the groups for an agent
 <dd>
 
 ```typescript
-await client.agents.groups.list("agent_id");
+await client.agents.groups.list("agent_id", {
+    managerType: "manager_type",
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -10389,7 +10605,14 @@ Get response messages for a specific batch job.
 <dd>
 
 ```typescript
-await client.batches.messages.list("batch_id");
+await client.batches.messages.list("batch_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    agentId: "agent_id",
+});
 ```
 
 </dd>
@@ -10463,7 +10686,13 @@ Raises a 404 if the block does not exist.
 <dd>
 
 ```typescript
-await client.blocks.agents.list("block_id");
+await client.blocks.agents.list("block_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -10536,7 +10765,10 @@ Upload a file to a data folder.
 <dd>
 
 ```typescript
-await client.folders.files.upload(fs.createReadStream("/path/to/your/file"), "folder_id", {});
+await client.folders.files.upload(fs.createReadStream("/path/to/your/file"), "folder_id", {
+    duplicateHandling: "skip",
+    name: "name",
+});
 ```
 
 </dd>
@@ -10615,7 +10847,14 @@ List paginated files associated with a data folder.
 <dd>
 
 ```typescript
-await client.folders.files.list("folder_id");
+await client.folders.files.list("folder_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    includeContent: true,
+});
 ```
 
 </dd>
@@ -10759,7 +10998,13 @@ Get all agent IDs that have the specified folder attached.
 <dd>
 
 ```typescript
-await client.folders.agents.list("folder_id");
+await client.folders.agents.list("folder_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -10832,7 +11077,13 @@ List all passages associated with a data folder.
 <dd>
 
 ```typescript
-await client.folders.passages.list("folder_id");
+await client.folders.passages.list("folder_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -10905,7 +11156,16 @@ Retrieve message history for an agent.
 <dd>
 
 ```typescript
-await client.groups.messages.list("group_id");
+await client.groups.messages.list("group_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+    useAssistantMessage: true,
+    assistantMessageToolName: "assistant_message_tool_name",
+    assistantMessageToolKwarg: "assistant_message_tool_kwarg",
+});
 ```
 
 </dd>
@@ -11358,7 +11618,13 @@ Get all agents associated with the specified identity.
 <dd>
 
 ```typescript
-await client.identities.agents.list("identity_id");
+await client.identities.agents.list("identity_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -11431,7 +11697,13 @@ Get all blocks associated with the specified identity.
 <dd>
 
 ```typescript
-await client.identities.blocks.list("identity_id");
+await client.identities.blocks.list("identity_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -11561,7 +11833,13 @@ Get response messages associated with a run.
 <dd>
 
 ```typescript
-await client.runs.messages.list("run_id");
+await client.runs.messages.list("run_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -11683,17 +11961,7 @@ await client.runs.usage.retrieve("run_id");
 <dl>
 <dd>
 
-Get messages associated with a run with filtering options.
-
-Args:
-run_id: ID of the run
-before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-limit: Maximum number of steps to return
-order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-
-Returns:
-A list of steps associated with the run.
+Get steps associated with a run with filtering options.
 
 </dd>
 </dl>
@@ -11709,7 +11977,13 @@ A list of steps associated with the run.
 <dd>
 
 ```typescript
-await client.runs.steps.list("run_id");
+await client.runs.steps.list("run_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>
@@ -11782,7 +12056,10 @@ Upload a file to a data source.
 <dd>
 
 ```typescript
-await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id", {});
+await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id", {
+    duplicateHandling: "skip",
+    name: "name",
+});
 ```
 
 </dd>
@@ -11861,7 +12138,12 @@ List paginated files associated with a data source.
 <dd>
 
 ```typescript
-await client.sources.files.list("source_id");
+await client.sources.files.list("source_id", {
+    limit: 1,
+    after: "after",
+    includeContent: true,
+    checkStatusUpdates: true,
+});
 ```
 
 </dd>
@@ -12005,7 +12287,11 @@ List all passages associated with a data source.
 <dd>
 
 ```typescript
-await client.sources.passages.list("source_id");
+await client.sources.passages.list("source_id", {
+    after: "after",
+    before: "before",
+    limit: 1,
+});
 ```
 
 </dd>
@@ -12266,7 +12552,13 @@ List messages for a given step.
 <dd>
 
 ```typescript
-await client.steps.messages.list("step_id");
+await client.steps.messages.list("step_id", {
+    before: "before",
+    after: "after",
+    limit: 1,
+    order: "asc",
+    orderBy: "created_at",
+});
 ```
 
 </dd>

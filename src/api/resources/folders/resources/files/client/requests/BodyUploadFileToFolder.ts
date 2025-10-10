@@ -6,7 +6,10 @@ import * as Letta from "../../../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         duplicateHandling: "skip",
+ *         name: "name"
+ *     }
  */
 export interface BodyUploadFileToFolder {
     /**

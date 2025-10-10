@@ -4,7 +4,11 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         name: "name",
+ *         offset: "offset",
+ *         limit: "limit"
+ *     }
  */
 export interface ProjectsListRequest {
     name?: string;

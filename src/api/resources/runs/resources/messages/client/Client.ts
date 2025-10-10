@@ -47,7 +47,13 @@ export class Messages {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.runs.messages.list("run_id")
+     *     await client.runs.messages.list("run_id", {
+     *         before: "before",
+     *         after: "after",
+     *         limit: 1,
+     *         order: "asc",
+     *         orderBy: "created_at"
+     *     })
      */
     public list(
         runId: string,
@@ -62,7 +68,7 @@ export class Messages {
         request: Letta.runs.MessagesListRequest = {},
         requestOptions?: Messages.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.LettaMessageUnion[]>> {
-        const { before, after, limit, order } = request;
+        const { before, after, limit, order, orderBy } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (before != null) {
             _queryParams["before"] = before;
@@ -82,6 +88,10 @@ export class Messages {
             });
         }
 
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -97,8 +107,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

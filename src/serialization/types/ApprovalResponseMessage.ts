@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
+import { ApprovalResponseMessageApprovalsItem } from "./ApprovalResponseMessageApprovalsItem";
 
 export const ApprovalResponseMessage: core.serialization.ObjectSchema<
     serializers.ApprovalResponseMessage.Raw,
@@ -23,8 +24,9 @@ export const ApprovalResponseMessage: core.serialization.ObjectSchema<
     isErr: core.serialization.property("is_err", core.serialization.boolean().optional()),
     seqId: core.serialization.property("seq_id", core.serialization.number().optional()),
     runId: core.serialization.property("run_id", core.serialization.string().optional()),
-    approve: core.serialization.boolean(),
-    approvalRequestId: core.serialization.property("approval_request_id", core.serialization.string()),
+    approvals: core.serialization.list(ApprovalResponseMessageApprovalsItem).optional(),
+    approve: core.serialization.boolean().optional(),
+    approvalRequestId: core.serialization.property("approval_request_id", core.serialization.string().optional()),
     reason: core.serialization.string().optional(),
 });
 
@@ -40,8 +42,9 @@ export declare namespace ApprovalResponseMessage {
         is_err?: boolean | null;
         seq_id?: number | null;
         run_id?: string | null;
-        approve: boolean;
-        approval_request_id: string;
+        approvals?: ApprovalResponseMessageApprovalsItem.Raw[] | null;
+        approve?: boolean | null;
+        approval_request_id?: string | null;
         reason?: string | null;
     }
 }

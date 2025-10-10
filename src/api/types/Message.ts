@@ -57,7 +57,7 @@ export interface Message {
     /** The offline threading id associated with this message */
     otid?: string;
     /** Tool execution return information for prior tool calls */
-    toolReturns?: Letta.ToolReturn[];
+    toolReturns?: Letta.LettaSchemasMessageToolReturn[];
     /** The multi-agent group that the message was sent in */
     groupId?: string;
     /** The id of the sender of the message, can be an identity id or agent id */
@@ -72,4 +72,6 @@ export interface Message {
     approve?: boolean;
     /** The reason the tool call request was denied. */
     denialReason?: string;
+    /** The list of approvals for this message. */
+    approvals?: Letta.MessageApprovalsItem[];
 }

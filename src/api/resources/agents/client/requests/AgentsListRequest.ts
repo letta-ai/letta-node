@@ -6,7 +6,22 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         name: "name",
+ *         matchAllTags: true,
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         queryText: "query_text",
+ *         projectId: "project_id",
+ *         templateId: "template_id",
+ *         baseTemplateId: "base_template_id",
+ *         identityId: "identity_id",
+ *         order: "asc",
+ *         orderBy: "created_at",
+ *         ascending: true,
+ *         sortBy: "sort_by"
+ *     }
  */
 export interface AgentsListRequest {
     /**

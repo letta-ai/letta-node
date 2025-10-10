@@ -11,11 +11,12 @@ import * as Letta from "../index";
  *     id (str): The ID of the message
  *     date (datetime): The date the message was created in ISO format
  *     name (Optional[str]): The name of the sender of the message
- *     tool_return (str): The return value of the tool
- *     status (Literal["success", "error"]): The status of the tool call
- *     tool_call_id (str): A unique identifier for the tool call that generated this message
- *     stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs) from the tool invocation
- *     stderr (Optional[List(str)]): Captured stderr from the tool invocation
+ *     tool_return (str): The return value of the tool (deprecated, use tool_returns)
+ *     status (Literal["success", "error"]): The status of the tool call (deprecated, use tool_returns)
+ *     tool_call_id (str): A unique identifier for the tool call that generated this message (deprecated, use tool_returns)
+ *     stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs) from the tool invocation (deprecated, use tool_returns)
+ *     stderr (Optional[List(str)]): Captured stderr from the tool invocation (deprecated, use tool_returns)
+ *     tool_returns (Optional[List[ToolReturn]]): List of tool returns for multi-tool support
  */
 export interface ToolReturnMessage {
     id: string;
@@ -33,4 +34,5 @@ export interface ToolReturnMessage {
     toolCallId: string;
     stdout?: string[];
     stderr?: string[];
+    toolReturns?: Letta.LettaSchemasLettaMessageToolReturn[];
 }

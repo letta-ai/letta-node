@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { ToolCallMessageToolCall } from "./ToolCallMessageToolCall";
+import { ToolCallMessageToolCalls } from "./ToolCallMessageToolCalls";
 
 export const ToolCallMessage: core.serialization.ObjectSchema<serializers.ToolCallMessage.Raw, Letta.ToolCallMessage> =
     core.serialization.object({
@@ -20,6 +21,7 @@ export const ToolCallMessage: core.serialization.ObjectSchema<serializers.ToolCa
         seqId: core.serialization.property("seq_id", core.serialization.number().optional()),
         runId: core.serialization.property("run_id", core.serialization.string().optional()),
         toolCall: core.serialization.property("tool_call", ToolCallMessageToolCall),
+        toolCalls: core.serialization.property("tool_calls", ToolCallMessageToolCalls.optional()),
     });
 
 export declare namespace ToolCallMessage {
@@ -35,5 +37,6 @@ export declare namespace ToolCallMessage {
         seq_id?: number | null;
         run_id?: string | null;
         tool_call: ToolCallMessageToolCall.Raw;
+        tool_calls?: ToolCallMessageToolCalls.Raw | null;
     }
 }

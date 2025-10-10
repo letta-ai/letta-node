@@ -6,6 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { ToolReturnMessageStatus } from "./ToolReturnMessageStatus";
+import { LettaSchemasLettaMessageToolReturn } from "./LettaSchemasLettaMessageToolReturn";
 
 export const ToolReturnMessage: core.serialization.ObjectSchema<
     serializers.ToolReturnMessage.Raw,
@@ -26,6 +27,10 @@ export const ToolReturnMessage: core.serialization.ObjectSchema<
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string()),
     stdout: core.serialization.list(core.serialization.string()).optional(),
     stderr: core.serialization.list(core.serialization.string()).optional(),
+    toolReturns: core.serialization.property(
+        "tool_returns",
+        core.serialization.list(LettaSchemasLettaMessageToolReturn).optional(),
+    ),
 });
 
 export declare namespace ToolReturnMessage {
@@ -45,5 +50,6 @@ export declare namespace ToolReturnMessage {
         tool_call_id: string;
         stdout?: string[] | null;
         stderr?: string[] | null;
+        tool_returns?: LettaSchemasLettaMessageToolReturn.Raw[] | null;
     }
 }

@@ -18,6 +18,7 @@ export const SandboxEnvironmentVariable: core.serialization.ObjectSchema<
     key: core.serialization.string(),
     value: core.serialization.string(),
     description: core.serialization.string().optional(),
+    valueEnc: core.serialization.property("value_enc", core.serialization.string().optional()),
     sandboxConfigId: core.serialization.property("sandbox_config_id", core.serialization.string()),
 });
 
@@ -31,6 +32,7 @@ export declare namespace SandboxEnvironmentVariable {
         key: string;
         value: string;
         description?: string | null;
+        value_enc?: string | null;
         sandbox_config_id: string;
     }
 }

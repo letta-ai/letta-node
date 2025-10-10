@@ -50,7 +50,10 @@ export class Files {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id", {})
+     *     await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id", {
+     *         duplicateHandling: "skip",
+     *         name: "name"
+     *     })
      */
     public upload(
         file: File | fs.ReadStream | Blob,
@@ -97,8 +100,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -177,7 +180,12 @@ export class Files {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.sources.files.list("source_id")
+     *     await client.sources.files.list("source_id", {
+     *         limit: 1,
+     *         after: "after",
+     *         includeContent: true,
+     *         checkStatusUpdates: true
+     *     })
      */
     public list(
         sourceId: string,
@@ -225,8 +233,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -331,8 +339,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

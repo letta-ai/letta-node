@@ -6,4 +6,6 @@ export interface TextContent {
     type: "text";
     /** The text content of the message. */
     text: string;
+    /** Stores a unique identifier for any reasoning associated with this text content. */
+    signature?: string;
 }

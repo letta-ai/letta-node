@@ -6,7 +6,17 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         name: "name",
+ *         projectId: "project_id",
+ *         identifierKey: "identifier_key",
+ *         identityType: "org",
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         order: "asc",
+ *         orderBy: "created_at"
+ *     }
  */
 export interface IdentitiesListRequest {
     name?: string;

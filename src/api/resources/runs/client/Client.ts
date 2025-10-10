@@ -66,7 +66,18 @@ export class Runs {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.runs.list()
+     *     await client.runs.list({
+     *         agentId: "agent_id",
+     *         background: true,
+     *         stopReason: "end_turn",
+     *         before: "before",
+     *         after: "after",
+     *         limit: 1,
+     *         order: "asc",
+     *         orderBy: "created_at",
+     *         active: true,
+     *         ascending: true
+     *     })
      */
     public list(
         request: Letta.RunsListRequest = {},
@@ -79,7 +90,20 @@ export class Runs {
         request: Letta.RunsListRequest = {},
         requestOptions?: Runs.RequestOptions,
     ): Promise<core.WithRawResponse<Letta.Run[]>> {
-        const { agentId, agentIds, background, stopReason, after, before, limit, active, ascending } = request;
+        const {
+            agentId,
+            agentIds,
+            statuses,
+            background,
+            stopReason,
+            before,
+            after,
+            limit,
+            order,
+            orderBy,
+            active,
+            ascending,
+        } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (agentId != null) {
             _queryParams["agent_id"] = agentId;
@@ -93,6 +117,14 @@ export class Runs {
             }
         }
 
+        if (statuses != null) {
+            if (Array.isArray(statuses)) {
+                _queryParams["statuses"] = statuses.map((item) => item);
+            } else {
+                _queryParams["statuses"] = statuses;
+            }
+        }
+
         if (background != null) {
             _queryParams["background"] = background.toString();
         }
@@ -103,16 +135,26 @@ export class Runs {
             });
         }
 
-        if (after != null) {
-            _queryParams["after"] = after;
-        }
-
         if (before != null) {
             _queryParams["before"] = before;
         }
 
+        if (after != null) {
+            _queryParams["after"] = after;
+        }
+
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
+        }
+
+        if (order != null) {
+            _queryParams["order"] = serializers.RunsListRequestOrder.jsonOrThrow(order, {
+                unrecognizedObjectKeys: "strip",
+            });
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
         }
 
         if (active != null) {
@@ -138,8 +180,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -213,7 +255,10 @@ export class Runs {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.runs.listActive()
+     *     await client.runs.listActive({
+     *         agentId: "agent_id",
+     *         background: true
+     *     })
      */
     public listActive(
         request: Letta.RunsListActiveRequest = {},
@@ -251,8 +296,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -351,8 +396,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -450,8 +495,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -515,6 +560,108 @@ export class Runs {
         }
     }
 
+    /**
+     * Get run metrics by run ID.
+     *
+     * @param {string} runId
+     * @param {Runs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Letta.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.runs.retrieveMetricsForRun("run_id")
+     */
+    public retrieveMetricsForRun(
+        runId: string,
+        requestOptions?: Runs.RequestOptions,
+    ): core.HttpResponsePromise<Letta.RunMetrics> {
+        return core.HttpResponsePromise.fromPromise(this.__retrieveMetricsForRun(runId, requestOptions));
+    }
+
+    private async __retrieveMetricsForRun(
+        runId: string,
+        requestOptions?: Runs.RequestOptions,
+    ): Promise<core.WithRawResponse<Letta.RunMetrics>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.LettaEnvironment.LettaCloud,
+                `v1/runs/${encodeURIComponent(runId)}/metrics`,
+            ),
+            method: "GET",
+            headers: {
+                "X-Project":
+                    (await core.Supplier.get(this._options.project)) != null
+                        ? await core.Supplier.get(this._options.project)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@letta-ai/letta-client",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.RunMetrics.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Letta.UnprocessableEntityError(
+                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.LettaError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.LettaError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.LettaTimeoutError("Timeout exceeded when calling GET /v1/runs/{run_id}/metrics.");
+            case "unknown":
+                throw new errors.LettaError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     public stream(
         runId: string,
         request: Letta.RetrieveStreamRequest = {},
@@ -543,8 +690,8 @@ export class Runs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.1",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.1",
+                "X-Fern-SDK-Version": "1.0.0-alpha.2",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

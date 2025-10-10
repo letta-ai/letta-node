@@ -6,7 +6,13 @@ import * as Letta from "../../../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         order: "asc",
+ *         orderBy: "created_at"
+ *     }
  */
 export interface PassagesListRequest {
     /**

@@ -7,7 +7,11 @@ import * as Letta from "../../../../../../index";
 /**
  * @example
  *     {
- *         query: "query"
+ *         query: "query",
+ *         tagMatchMode: "any",
+ *         topK: 1,
+ *         startDatetime: "2024-01-15T09:30:00Z",
+ *         endDatetime: "2024-01-15T09:30:00Z"
  *     }
  */
 export interface PassagesSearchRequest {

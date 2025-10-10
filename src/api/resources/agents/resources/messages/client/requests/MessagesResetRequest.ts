@@ -4,7 +4,9 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         addDefaultInitialMessages: true
+ *     }
  */
 export interface MessagesResetRequest {
     /**

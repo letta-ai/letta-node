@@ -4,7 +4,11 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         after: "after",
+ *         before: "before",
+ *         limit: 1
+ *     }
  */
 export interface PassagesListRequest {
     /**

@@ -10,4 +10,6 @@ export interface ToolCallContent {
     name: string;
     /** The parameters being passed to the tool, structured as a dictionary of parameter names to values. */
     input: Record<string, unknown>;
+    /** Stores a unique identifier for any reasoning associated with this tool call. */
+    signature?: string;
 }

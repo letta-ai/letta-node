@@ -6,7 +6,18 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         offset: "offset",
+ *         exact: "exact",
+ *         limit: "limit",
+ *         version: "version",
+ *         templateId: "template_id",
+ *         name: "name",
+ *         search: "search",
+ *         projectSlug: "project_slug",
+ *         projectId: "project_id",
+ *         sortBy: "updated_at"
+ *     }
  */
 export interface TemplatesListRequest {
     offset?: string;

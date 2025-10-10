@@ -6,7 +6,23 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         label: "label",
+ *         templatesOnly: true,
+ *         name: "name",
+ *         identityId: "identity_id",
+ *         projectId: "project_id",
+ *         limit: 1,
+ *         before: "before",
+ *         after: "after",
+ *         order: "asc",
+ *         orderBy: "created_at",
+ *         labelSearch: "label_search",
+ *         descriptionSearch: "description_search",
+ *         valueSearch: "value_search",
+ *         connectedToAgentsCountGt: 1,
+ *         connectedToAgentsCountLt: 1
+ *     }
  */
 export interface BlocksListRequest {
     /**

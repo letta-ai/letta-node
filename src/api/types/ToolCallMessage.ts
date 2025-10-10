@@ -25,4 +25,5 @@ export interface ToolCallMessage {
     seqId?: number;
     runId?: string;
     toolCall: Letta.ToolCallMessageToolCall;
+    toolCalls?: Letta.ToolCallMessageToolCalls;
 }

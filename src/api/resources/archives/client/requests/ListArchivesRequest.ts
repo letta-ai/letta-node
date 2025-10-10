@@ -6,7 +6,14 @@ import * as Letta from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         before: "before",
+ *         after: "after",
+ *         limit: 1,
+ *         order: "asc",
+ *         name: "name",
+ *         agentId: "agent_id"
+ *     }
  */
 export interface ListArchivesRequest {
     /**
