@@ -1,5 +1,7 @@
 # Specify files that shouldn't be modified by Fern
 
+README.md
 tests/custom.test.ts
+tests/readme-examples/
 .github/workflows/ci.yml
 .github/workflows/tests.yml
