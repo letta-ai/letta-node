@@ -303,15 +303,20 @@ def secret_message():
         
         // Validate messages from run
         const run_messages = await client.runs.messages.list(run.id!);
-        expect(run_messages).toHaveLength(2);
+        expect(run_messages).toHaveLength(3);
         for (const message of run_messages) {
             switch (message.messageType) {
-                // 1. Reasoning message with response
+                // 1. User message initiating run
+                case "user_message":
+                    expect(((message as UserMessage).content as string).length).toBeGreaterThan(0);
+                    break;
+
+                // 2. Reasoning message with response
                 case "reasoning_message":
                     expect(((message as ReasoningMessage).reasoning as string).length).toBeGreaterThan(0);
                     break;
 
-                // 2. Assistant message with response
+                // 3. Assistant message with response
                 case "assistant_message":
                     expect(((message as AssistantMessage).content as string).toLowerCase()).toContain("sarah");
                     break;
