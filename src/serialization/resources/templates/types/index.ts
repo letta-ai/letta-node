@@ -110,6 +110,8 @@ export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRules";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageIdsItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageIds";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemAgentType";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayNameItem";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpoint";

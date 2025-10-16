@@ -10,6 +10,8 @@ import * as Letta from "../index";
 export interface LlmConfig {
     /** LLM model name. */
     model: string;
+    /** A human-friendly display name for the model. */
+    displayName?: string;
     /** The endpoint type for the model. */
     modelEndpointType: Letta.LlmConfigModelEndpointType;
     /** The endpoint for the model. */

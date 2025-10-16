@@ -38,10 +38,18 @@ export class Voice {
     constructor(protected readonly _options: Voice.Options = {}) {}
 
     /**
+     * DEPRECATED: This voice-beta endpoint has been deprecated.
+     *
+     * The voice functionality has been integrated into the main chat completions endpoint.
+     * Please use the standard /v1/agents/{agent_id}/messages endpoint instead.
+     *
+     * This endpoint will be removed in a future version.
+     *
      * @param {string} agentId
      * @param {Record<string, unknown>} request
      * @param {Voice.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Letta.GoneError}
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
@@ -79,8 +87,8 @@ export class Voice {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.2",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.2",
+                "X-Fern-SDK-Version": "1.0.0-alpha.3",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -101,6 +109,8 @@ export class Voice {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 410:
+                    throw new Letta.GoneError(_response.error.body, _response.rawResponse);
                 case 422:
                     throw new Letta.UnprocessableEntityError(
                         serializers.HttpValidationError.parseOrThrow(_response.error.body, {

@@ -5,6 +5,7 @@
 import * as serializers from "../../../index";
 import * as Letta from "../../../../api/index";
 import * as core from "../../../../core";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpoint } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpoint";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderName } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderName";
@@ -27,6 +28,10 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig: core.
     Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig
 > = core.serialization.object({
     model: core.serialization.string(),
+    displayName: core.serialization.property(
+        "display_name",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName.optional(),
+    ),
     modelEndpointType: core.serialization.property(
         "model_endpoint_type",
         TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType,
@@ -85,6 +90,7 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig: core.
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig {
     export interface Raw {
         model: string;
+        display_name?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName.Raw | null;
         model_endpoint_type: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType.Raw;
         model_endpoint?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpoint.Raw | null;
         provider_name?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderName.Raw | null;

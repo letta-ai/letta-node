@@ -6,6 +6,7 @@ import * as Letta from "../../../index";
 
 export interface TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig {
     model: string;
+    displayName?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName;
     modelEndpointType: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType;
     modelEndpoint?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpoint;
     providerName?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderName;

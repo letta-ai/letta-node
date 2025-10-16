@@ -3126,6 +3126,86 @@ await client.agents.search();
 </dl>
 </details>
 
+## Chat
+
+<details><summary><code>client.chat.<a href="/src/api/resources/chat/client/Client.ts">createChatCompletion</a>({ ...params }) -> Letta.ChatCompletion</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a chat completion using a Letta agent (OpenAI-compatible).
+
+This endpoint provides full OpenAI API compatibility. The agent is selected based on:
+
+- The 'model' parameter in the request (should contain an agent ID in format 'agent-...')
+
+When streaming is enabled (stream=true), the response will be Server-Sent Events
+with ChatCompletionChunk objects.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.chat.createChatCompletion({
+    model: "model",
+    messages: [
+        {
+            content: "content",
+            role: "developer",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Letta.ChatCompletionRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Chat.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Groups
 
 <details><summary><code>client.groups.<a href="/src/api/resources/groups/client/Client.ts">list</a>({ ...params }) -> Letta.Group[]</code></summary>
@@ -6152,6 +6232,26 @@ await client.batches.cancel("batch_id");
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+DEPRECATED: This voice-beta endpoint has been deprecated.
+
+The voice functionality has been integrated into the main chat completions endpoint.
+Please use the standard /v1/agents/{agent_id}/messages endpoint instead.
+
+This endpoint will be removed in a future version.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -6644,7 +6744,7 @@ await client.templates.setcurrenttemplatefromsnapshot("project_id", "template_ve
 <dl>
 <dd>
 
-**templateVersion:** `string` — The template name with :current version (e.g., my-template:current)
+**templateVersion:** `string` — The template name with :dev version (e.g., my-template:dev)
 
 </dd>
 </dl>
@@ -10290,214 +10390,6 @@ await client.agents.groups.list("agent_id", {
 <dd>
 
 **requestOptions:** `Groups.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Agents Templates
-
-<details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">migrate</a>(agentId, { ...params }) -> Letta.TemplatesMigrateResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Note>This endpoint is only available on Letta Cloud.</Note>
-
-Migrate an agent to a new versioned agent template.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.templates.migrate("agent_id", {
-    toTemplate: "to_template",
-    preserveCoreMemories: true,
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Letta.agents.TemplatesMigrateRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Templates.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">create</a>(agentId) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Note>This endpoint is only available on Letta Cloud.</Note>
-
-Creates a template from an agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.templates.create("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Templates.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.templates.<a href="/src/api/resources/agents/resources/templates/client/Client.ts">createVersion</a>(agentId) -> void</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Note>This endpoint is only available on Letta Cloud.</Note>
-
-Creates a new version of the template version of the agent.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agents.templates.createVersion("agent_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agentId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Templates.RequestOptions`
 
 </dd>
 </dl>

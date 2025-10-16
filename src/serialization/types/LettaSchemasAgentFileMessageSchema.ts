@@ -7,8 +7,9 @@ import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { MessageRole } from "./MessageRole";
 import { LettaSchemasAgentFileMessageSchemaContent } from "./LettaSchemasAgentFileMessageSchemaContent";
-import { ChatCompletionMessageFunctionToolCall } from "./ChatCompletionMessageFunctionToolCall";
+import { ChatCompletionMessageFunctionToolCallInput } from "./ChatCompletionMessageFunctionToolCallInput";
 import { LettaSchemasMessageToolReturn } from "./LettaSchemasMessageToolReturn";
+import { LettaSchemasAgentFileMessageSchemaApprovalsItem } from "./LettaSchemasAgentFileMessageSchemaApprovalsItem";
 
 export const LettaSchemasAgentFileMessageSchema: core.serialization.ObjectSchema<
     serializers.LettaSchemasAgentFileMessageSchema.Raw,
@@ -27,7 +28,7 @@ export const LettaSchemasAgentFileMessageSchema: core.serialization.ObjectSchema
     agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
     toolCalls: core.serialization.property(
         "tool_calls",
-        core.serialization.list(ChatCompletionMessageFunctionToolCall).optional(),
+        core.serialization.list(ChatCompletionMessageFunctionToolCallInput).optional(),
     ),
     toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
     toolReturns: core.serialization.property(
@@ -38,6 +39,7 @@ export const LettaSchemasAgentFileMessageSchema: core.serialization.ObjectSchema
     approve: core.serialization.boolean().optional(),
     approvalRequestId: core.serialization.property("approval_request_id", core.serialization.string().optional()),
     denialReason: core.serialization.property("denial_reason", core.serialization.string().optional()),
+    approvals: core.serialization.list(LettaSchemasAgentFileMessageSchemaApprovalsItem).optional(),
 });
 
 export declare namespace LettaSchemasAgentFileMessageSchema {
@@ -53,12 +55,13 @@ export declare namespace LettaSchemasAgentFileMessageSchema {
         id: string;
         model?: string | null;
         agent_id?: string | null;
-        tool_calls?: ChatCompletionMessageFunctionToolCall.Raw[] | null;
+        tool_calls?: ChatCompletionMessageFunctionToolCallInput.Raw[] | null;
         tool_call_id?: string | null;
         tool_returns?: LettaSchemasMessageToolReturn.Raw[] | null;
         created_at?: string | null;
         approve?: boolean | null;
         approval_request_id?: string | null;
         denial_reason?: string | null;
+        approvals?: LettaSchemasAgentFileMessageSchemaApprovalsItem.Raw[] | null;
     }
 }

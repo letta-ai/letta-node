@@ -14,6 +14,7 @@ import { LlmConfigVerbosity } from "./LlmConfigVerbosity";
 export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Raw, Letta.LlmConfig> =
     core.serialization.object({
         model: core.serialization.string(),
+        displayName: core.serialization.property("display_name", core.serialization.string().optional()),
         modelEndpointType: core.serialization.property("model_endpoint_type", LlmConfigModelEndpointType),
         modelEndpoint: core.serialization.property("model_endpoint", core.serialization.string().optional()),
         providerName: core.serialization.property("provider_name", core.serialization.string().optional()),
@@ -39,6 +40,7 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
 export declare namespace LlmConfig {
     export interface Raw {
         model: string;
+        display_name?: string | null;
         model_endpoint_type: LlmConfigModelEndpointType.Raw;
         model_endpoint?: string | null;
         provider_name?: string | null;

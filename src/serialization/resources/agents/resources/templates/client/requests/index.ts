@@ -1,1 +1,0 @@
-export { TemplatesMigrateRequest } from "./TemplatesMigrateRequest";

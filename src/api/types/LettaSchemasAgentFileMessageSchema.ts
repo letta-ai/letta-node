@@ -31,7 +31,7 @@ export interface LettaSchemasAgentFileMessageSchema {
     /** The unique identifier of the agent */
     agentId?: string;
     /** The list of tool calls requested. Only applicable for role assistant. */
-    toolCalls?: Letta.ChatCompletionMessageFunctionToolCall[];
+    toolCalls?: Letta.ChatCompletionMessageFunctionToolCallInput[];
     /** The ID of the tool call. Only applicable for role tool. */
     toolCallId?: string;
     /** Tool execution return information for prior tool calls */
@@ -44,4 +44,6 @@ export interface LettaSchemasAgentFileMessageSchema {
     approvalRequestId?: string;
     /** An optional explanation for the provided approval status */
     denialReason?: string;
+    /** Approval returns for the message */
+    approvals?: Letta.LettaSchemasAgentFileMessageSchemaApprovalsItem[];
 }

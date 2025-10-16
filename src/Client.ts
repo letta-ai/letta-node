@@ -9,6 +9,7 @@ import { Tools } from "./api/resources/tools/client/Client";
 import { Sources } from "./api/resources/sources/client/Client";
 import { Folders } from "./api/resources/folders/client/Client";
 import { Agents } from "./api/resources/agents/client/Client";
+import { Chat } from "./api/resources/chat/client/Client";
 import { Groups } from "./api/resources/groups/client/Client";
 import { Identities } from "./api/resources/identities/client/Client";
 import { Models } from "./api/resources/models/client/Client";
@@ -57,6 +58,7 @@ export class LettaClient {
     protected _sources: Sources | undefined;
     protected _folders: Folders | undefined;
     protected _agents: Agents | undefined;
+    protected _chat: Chat | undefined;
     protected _groups: Groups | undefined;
     protected _identities: Identities | undefined;
     protected _models: Models | undefined;
@@ -94,6 +96,10 @@ export class LettaClient {
 
     public get agents(): Agents {
         return (this._agents ??= new Agents(this._options));
+    }
+
+    public get chat(): Chat {
+        return (this._chat ??= new Chat(this._options));
     }
 
     public get groups(): Groups {
