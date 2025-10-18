@@ -41,14 +41,14 @@ export class Messages {
     /**
      * Retrieve message history for an agent.
      *
-     * @param {string} groupId
+     * @param {string} groupId - The ID of the group in the format 'group-<uuid4>'
      * @param {Letta.groups.MessagesListRequest} request
      * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.groups.messages.list("group_id", {
+     *     await client.groups.messages.list("group-123e4567-e89b-42d3-8456-426614174000", {
      *         before: "before",
      *         after: "after",
      *         limit: 1,
@@ -132,8 +132,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -202,14 +202,14 @@ export class Messages {
      * Process a user message and return the group's response.
      * This endpoint accepts a message from a user and processes it through through agents in the group based on the specified pattern
      *
-     * @param {string} groupId
+     * @param {string} groupId - The ID of the group in the format 'group-<uuid4>'
      * @param {Letta.LettaRequest} request
      * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.groups.messages.create("group_id", {
+     *     await client.groups.messages.create("group-123e4567-e89b-42d3-8456-426614174000", {
      *         messages: [{
      *                 role: "user",
      *                 content: [{
@@ -247,8 +247,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -348,8 +348,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -430,15 +430,15 @@ export class Messages {
     /**
      * Update the details of a message associated with an agent.
      *
-     * @param {string} groupId
-     * @param {string} messageId
+     * @param {string} groupId - The ID of the group in the format 'group-<uuid4>'
+     * @param {string} messageId - The ID of the message in the format 'message-<uuid4>'
      * @param {Letta.groups.MessagesModifyRequest} request
      * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.groups.messages.modify("group_id", "message_id", {
+     *     await client.groups.messages.modify("group-123e4567-e89b-42d3-8456-426614174000", "message-123e4567-e89b-42d3-8456-426614174000", {
      *         content: "content"
      *     })
      */
@@ -472,8 +472,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -543,13 +543,13 @@ export class Messages {
     /**
      * Delete the group messages for all agents that are part of the multi-agent group.
      *
-     * @param {string} groupId
+     * @param {string} groupId - The ID of the group in the format 'group-<uuid4>'
      * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.groups.messages.reset("group_id")
+     *     await client.groups.messages.reset("group-123e4567-e89b-42d3-8456-426614174000")
      */
     public reset(groupId: string, requestOptions?: Messages.RequestOptions): core.HttpResponsePromise<unknown> {
         return core.HttpResponsePromise.fromPromise(this.__reset(groupId, requestOptions));
@@ -574,8 +574,8 @@ export class Messages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

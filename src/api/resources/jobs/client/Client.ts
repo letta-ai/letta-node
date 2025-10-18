@@ -119,8 +119,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -250,8 +250,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -319,13 +319,13 @@ export class Jobs {
     /**
      * Get the status of a job.
      *
-     * @param {string} jobId
+     * @param {string} jobId - The ID of the job in the format 'job-<uuid4>'
      * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.jobs.retrieve("job_id")
+     *     await client.jobs.retrieve("job-123e4567-e89b-42d3-8456-426614174000")
      */
     public retrieve(jobId: string, requestOptions?: Jobs.RequestOptions): core.HttpResponsePromise<Letta.Job> {
         return core.HttpResponsePromise.fromPromise(this.__retrieve(jobId, requestOptions));
@@ -350,8 +350,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -418,13 +418,13 @@ export class Jobs {
     /**
      * Delete a job by its job_id.
      *
-     * @param {string} jobId
+     * @param {string} jobId - The ID of the job in the format 'job-<uuid4>'
      * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.jobs.delete("job_id")
+     *     await client.jobs.delete("job-123e4567-e89b-42d3-8456-426614174000")
      */
     public delete(jobId: string, requestOptions?: Jobs.RequestOptions): core.HttpResponsePromise<Letta.Job> {
         return core.HttpResponsePromise.fromPromise(this.__delete(jobId, requestOptions));
@@ -449,8 +449,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -520,13 +520,13 @@ export class Jobs {
      * This endpoint marks a job as cancelled, which will cause any associated
      * agent execution to terminate as soon as possible.
      *
-     * @param {string} jobId
+     * @param {string} jobId - The ID of the job in the format 'job-<uuid4>'
      * @param {Jobs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.jobs.cancelJob("job_id")
+     *     await client.jobs.cancelJob("job-123e4567-e89b-42d3-8456-426614174000")
      */
     public cancelJob(jobId: string, requestOptions?: Jobs.RequestOptions): core.HttpResponsePromise<Letta.Job> {
         return core.HttpResponsePromise.fromPromise(this.__cancelJob(jobId, requestOptions));
@@ -551,8 +551,8 @@ export class Jobs {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

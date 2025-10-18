@@ -50,7 +50,7 @@ export class Files {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id", {
+     *     await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source-123e4567-e89b-42d3-8456-426614174000", {
      *         duplicateHandling: "skip",
      *         name: "name"
      *     })
@@ -100,8 +100,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -173,14 +173,14 @@ export class Files {
     /**
      * List paginated files associated with a data source.
      *
-     * @param {string} sourceId
+     * @param {string} sourceId - The ID of the source in the format 'source-<uuid4>'
      * @param {Letta.sources.FilesListRequest} request
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.sources.files.list("source_id", {
+     *     await client.sources.files.list("source-123e4567-e89b-42d3-8456-426614174000", {
      *         limit: 1,
      *         after: "after",
      *         includeContent: true,
@@ -233,8 +233,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -302,14 +302,14 @@ export class Files {
     /**
      * Delete a data source.
      *
-     * @param {string} sourceId
-     * @param {string} fileId
+     * @param {string} sourceId - The ID of the source in the format 'source-<uuid4>'
+     * @param {string} fileId - The ID of the file in the format 'file-<uuid4>'
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.sources.files.delete("source_id", "file_id")
+     *     await client.sources.files.delete("source-123e4567-e89b-42d3-8456-426614174000", "file-123e4567-e89b-42d3-8456-426614174000")
      */
     public delete(
         sourceId: string,
@@ -339,8 +339,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

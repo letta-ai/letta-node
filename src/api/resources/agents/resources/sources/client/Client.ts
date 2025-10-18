@@ -40,14 +40,14 @@ export class Sources {
     /**
      * Attach a source to an agent.
      *
-     * @param {string} agentId
-     * @param {string} sourceId
+     * @param {string} agentId - The ID of the source in the format 'source-<uuid4>'
+     * @param {string} sourceId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Sources.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.sources.attach("agent_id", "source_id")
+     *     await client.agents.sources.attach("source-123e4567-e89b-42d3-8456-426614174000", "agent-123e4567-e89b-42d3-8456-426614174000")
      */
     public attach(
         agentId: string,
@@ -77,8 +77,8 @@ export class Sources {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -147,14 +147,14 @@ export class Sources {
     /**
      * Detach a source from an agent.
      *
-     * @param {string} agentId
-     * @param {string} sourceId
+     * @param {string} agentId - The ID of the source in the format 'source-<uuid4>'
+     * @param {string} sourceId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Sources.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.sources.detach("agent_id", "source_id")
+     *     await client.agents.sources.detach("source-123e4567-e89b-42d3-8456-426614174000", "agent-123e4567-e89b-42d3-8456-426614174000")
      */
     public detach(
         agentId: string,
@@ -184,8 +184,8 @@ export class Sources {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -254,14 +254,14 @@ export class Sources {
     /**
      * Get the sources associated with an agent.
      *
-     * @param {string} agentId
+     * @param {string} agentId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Letta.agents.SourcesListRequest} request
      * @param {Sources.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.sources.list("agent_id", {
+     *     await client.agents.sources.list("agent-123e4567-e89b-42d3-8456-426614174000", {
      *         before: "before",
      *         after: "after",
      *         limit: 1,
@@ -321,8 +321,8 @@ export class Sources {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

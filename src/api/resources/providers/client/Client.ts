@@ -116,8 +116,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -223,8 +223,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -292,13 +292,13 @@ export class Providers {
     /**
      * Get a provider by ID.
      *
-     * @param {string} providerId
+     * @param {string} providerId - The ID of the provider in the format 'provider-<uuid4>'
      * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.providers.retrieveProvider("provider_id")
+     *     await client.providers.retrieveProvider("provider-123e4567-e89b-42d3-8456-426614174000")
      */
     public retrieveProvider(
         providerId: string,
@@ -326,8 +326,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -394,13 +394,13 @@ export class Providers {
     /**
      * Delete an existing custom provider.
      *
-     * @param {string} providerId
+     * @param {string} providerId - The ID of the provider in the format 'provider-<uuid4>'
      * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.providers.delete("provider_id")
+     *     await client.providers.delete("provider-123e4567-e89b-42d3-8456-426614174000")
      */
     public delete(providerId: string, requestOptions?: Providers.RequestOptions): core.HttpResponsePromise<unknown> {
         return core.HttpResponsePromise.fromPromise(this.__delete(providerId, requestOptions));
@@ -425,8 +425,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -484,14 +484,14 @@ export class Providers {
     /**
      * Update an existing custom provider.
      *
-     * @param {string} providerId
+     * @param {string} providerId - The ID of the provider in the format 'provider-<uuid4>'
      * @param {Letta.ProviderUpdate} request
      * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.providers.modify("provider_id", {
+     *     await client.providers.modify("provider-123e4567-e89b-42d3-8456-426614174000", {
      *         apiKey: "api_key"
      *     })
      */
@@ -523,8 +523,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -629,8 +629,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -689,13 +689,13 @@ export class Providers {
     /**
      * Verify the API key and additional parameters for an existing provider.
      *
-     * @param {string} providerId
+     * @param {string} providerId - The ID of the provider in the format 'provider-<uuid4>'
      * @param {Providers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.providers.checkExistingProvider("provider_id")
+     *     await client.providers.checkExistingProvider("provider-123e4567-e89b-42d3-8456-426614174000")
      */
     public checkExistingProvider(
         providerId: string,
@@ -723,8 +723,8 @@ export class Providers {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

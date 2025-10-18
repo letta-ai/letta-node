@@ -41,13 +41,13 @@ export class CoreMemory {
      * Retrieve the memory state of a specific agent.
      * This endpoint fetches the current memory state of the agent identified by the user ID and agent ID.
      *
-     * @param {string} agentId
+     * @param {string} agentId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {CoreMemory.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.coreMemory.retrieve("agent_id")
+     *     await client.agents.coreMemory.retrieve("agent-123e4567-e89b-42d3-8456-426614174000")
      */
     public retrieve(
         agentId: string,
@@ -75,8 +75,8 @@ export class CoreMemory {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

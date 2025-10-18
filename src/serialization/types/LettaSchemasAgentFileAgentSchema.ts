@@ -99,6 +99,7 @@ export const LettaSchemasAgentFileAgentSchema: core.serialization.ObjectSchema<
         core.serialization.number().optional(),
     ),
     hidden: core.serialization.boolean().optional(),
+    parallelToolCalls: core.serialization.property("parallel_tool_calls", core.serialization.boolean().optional()),
     id: core.serialization.string(),
     inContextMessageIds: core.serialization.property(
         "in_context_message_ids",
@@ -155,6 +156,7 @@ export declare namespace LettaSchemasAgentFileAgentSchema {
         max_files_open?: number | null;
         per_file_view_window_char_limit?: number | null;
         hidden?: boolean | null;
+        parallel_tool_calls?: boolean | null;
         id: string;
         in_context_message_ids?: string[] | null;
         messages?: LettaSchemasAgentFileMessageSchema.Raw[] | null;

@@ -38,14 +38,14 @@ export class Properties {
     constructor(protected readonly _options: Properties.Options = {}) {}
 
     /**
-     * @param {string} identityId
+     * @param {string} identityId - The ID of the identity in the format 'identity-<uuid4>'
      * @param {Letta.IdentityProperty[]} request
      * @param {Properties.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.identities.properties.upsert("identity_id", [{
+     *     await client.identities.properties.upsert("identity-123e4567-e89b-42d3-8456-426614174000", [{
      *             key: "key",
      *             value: "value",
      *             type: "string"
@@ -79,8 +79,8 @@ export class Properties {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

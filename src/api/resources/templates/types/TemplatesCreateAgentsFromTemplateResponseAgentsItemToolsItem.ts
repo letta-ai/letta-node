@@ -18,6 +18,7 @@ export interface TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItem {
     pipRequirements?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemPipRequirements;
     npmRequirements?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemNpmRequirements;
     defaultRequiresApproval?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApproval;
+    enableParallelExecution?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution;
     createdById?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemCreatedById;
     lastUpdatedById?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemLastUpdatedById;
     metadata?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemMetadata;

@@ -96,6 +96,8 @@ export interface LettaSchemasAgentFileAgentSchema {
     perFileViewWindowCharLimit?: number;
     /** If set to True, the agent will be hidden. */
     hidden?: boolean;
+    /** If set to True, enables parallel tool calling. Defaults to False. */
+    parallelToolCalls?: boolean;
     /** Human-readable identifier for this agent in the file */
     id: string;
     /** List of message IDs that are currently in the agent's context */

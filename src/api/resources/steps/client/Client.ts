@@ -197,8 +197,8 @@ export class Steps {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -266,13 +266,13 @@ export class Steps {
     /**
      * Get a step by ID.
      *
-     * @param {string} stepId
+     * @param {string} stepId - The ID of the step in the format 'step-<uuid4>'
      * @param {Steps.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.steps.retrieve("step_id")
+     *     await client.steps.retrieve("step-123e4567-e89b-42d3-8456-426614174000")
      */
     public retrieve(stepId: string, requestOptions?: Steps.RequestOptions): core.HttpResponsePromise<Letta.Step> {
         return core.HttpResponsePromise.fromPromise(this.__retrieve(stepId, requestOptions));
@@ -297,8 +297,8 @@ export class Steps {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

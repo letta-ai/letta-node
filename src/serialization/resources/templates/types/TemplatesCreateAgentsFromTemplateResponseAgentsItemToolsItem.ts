@@ -15,6 +15,7 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemArgsJsonSch
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemPipRequirements } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemPipRequirements";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemNpmRequirements } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemNpmRequirements";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApproval } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApproval";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemCreatedById } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemCreatedById";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemLastUpdatedById } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemLastUpdatedById";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemMetadata } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemMetadata";
@@ -60,6 +61,10 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItem: core.
         "default_requires_approval",
         TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApproval.optional(),
     ),
+    enableParallelExecution: core.serialization.property(
+        "enable_parallel_execution",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution.optional(),
+    ),
     createdById: core.serialization.property(
         "created_by_id",
         TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemCreatedById.optional(),
@@ -89,6 +94,7 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemTool
         pip_requirements?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemPipRequirements.Raw | null;
         npm_requirements?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemNpmRequirements.Raw | null;
         default_requires_approval?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApproval.Raw | null;
+        enable_parallel_execution?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution.Raw | null;
         created_by_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemCreatedById.Raw | null;
         last_updated_by_id?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemLastUpdatedById.Raw | null;
         metadata_?: TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemMetadata.Raw | null;

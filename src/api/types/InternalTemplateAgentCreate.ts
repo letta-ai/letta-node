@@ -96,6 +96,8 @@ export interface InternalTemplateAgentCreate {
     perFileViewWindowCharLimit?: number;
     /** If set to True, the agent will be hidden. */
     hidden?: boolean;
+    /** If set to True, enables parallel tool calling. Defaults to False. */
+    parallelToolCalls?: boolean;
     /** The id of the deployment. */
     deploymentId: string;
     /** The id of the entity within the template. */

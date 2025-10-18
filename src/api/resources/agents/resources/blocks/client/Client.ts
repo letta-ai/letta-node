@@ -41,13 +41,13 @@ export class Blocks {
      * Retrieve a core memory block from an agent.
      *
      * @param {string} agentId
-     * @param {string} blockLabel
+     * @param {string} blockLabel - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.blocks.retrieve("agent_id", "block_label")
+     *     await client.agents.blocks.retrieve("agent_id", "agent-123e4567-e89b-42d3-8456-426614174000")
      */
     public retrieve(
         agentId: string,
@@ -77,8 +77,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -148,14 +148,14 @@ export class Blocks {
      * Updates a core memory block of an agent.
      *
      * @param {string} agentId
-     * @param {string} blockLabel
+     * @param {string} blockLabel - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Letta.BlockUpdate} request
      * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.blocks.modify("agent_id", "block_label", {})
+     *     await client.agents.blocks.modify("agent_id", "agent-123e4567-e89b-42d3-8456-426614174000", {})
      */
     public modify(
         agentId: string,
@@ -187,8 +187,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -258,14 +258,14 @@ export class Blocks {
     /**
      * Retrieve the core memory blocks of a specific agent.
      *
-     * @param {string} agentId
+     * @param {string} agentId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Letta.agents.BlocksListRequest} request
      * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.blocks.list("agent_id", {
+     *     await client.agents.blocks.list("agent-123e4567-e89b-42d3-8456-426614174000", {
      *         before: "before",
      *         after: "after",
      *         limit: 1,
@@ -325,8 +325,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -396,14 +396,14 @@ export class Blocks {
     /**
      * Attach a core memory block to an agent.
      *
-     * @param {string} agentId
-     * @param {string} blockId
+     * @param {string} agentId - The ID of the block in the format 'block-<uuid4>'
+     * @param {string} blockId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.blocks.attach("agent_id", "block_id")
+     *     await client.agents.blocks.attach("block-123e4567-e89b-42d3-8456-426614174000", "agent-123e4567-e89b-42d3-8456-426614174000")
      */
     public attach(
         agentId: string,
@@ -433,8 +433,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -503,14 +503,14 @@ export class Blocks {
     /**
      * Detach a core memory block from an agent.
      *
-     * @param {string} agentId
-     * @param {string} blockId
+     * @param {string} agentId - The ID of the block in the format 'block-<uuid4>'
+     * @param {string} blockId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Blocks.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.blocks.detach("agent_id", "block_id")
+     *     await client.agents.blocks.detach("block-123e4567-e89b-42d3-8456-426614174000", "agent-123e4567-e89b-42d3-8456-426614174000")
      */
     public detach(
         agentId: string,
@@ -540,8 +540,8 @@ export class Blocks {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

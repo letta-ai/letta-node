@@ -140,6 +140,8 @@ export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigVer
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigVerbosity";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTierItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTier";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCallsItem";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigEmbeddingEndpointType";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigEmbeddingEndpointItem";
@@ -264,6 +266,8 @@ export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemNpm
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemNpmRequirements";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApprovalItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApproval";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecutionItem";
+export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemCreatedByIdItem";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemCreatedById";
 export * from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemLastUpdatedByIdItem";

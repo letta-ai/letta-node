@@ -43,13 +43,13 @@ export class Files {
      * This endpoint updates the file state for the agent so that no files are marked as open.
      * Typically used to reset the working memory view for the agent.
      *
-     * @param {string} agentId
+     * @param {string} agentId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.files.closeAll("agent_id")
+     *     await client.agents.files.closeAll("agent-123e4567-e89b-42d3-8456-426614174000")
      */
     public closeAll(agentId: string, requestOptions?: Files.RequestOptions): core.HttpResponsePromise<string[]> {
         return core.HttpResponsePromise.fromPromise(this.__closeAll(agentId, requestOptions));
@@ -74,8 +74,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -148,14 +148,14 @@ export class Files {
      * The file will be included in the agent's working memory view.
      * Returns a list of file names that were closed due to LRU eviction.
      *
-     * @param {string} agentId
-     * @param {string} fileId
+     * @param {string} agentId - The ID of the agent in the format 'agent-<uuid4>'
+     * @param {string} fileId - The ID of the file in the format 'file-<uuid4>'
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.files.open("agent_id", "file_id")
+     *     await client.agents.files.open("agent-123e4567-e89b-42d3-8456-426614174000", "file-123e4567-e89b-42d3-8456-426614174000")
      */
     public open(
         agentId: string,
@@ -185,8 +185,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -258,14 +258,14 @@ export class Files {
      * This endpoint marks a specific file as closed in the agent's file state.
      * The file will be removed from the agent's working memory view.
      *
-     * @param {string} agentId
-     * @param {string} fileId
+     * @param {string} agentId - The ID of the agent in the format 'agent-<uuid4>'
+     * @param {string} fileId - The ID of the file in the format 'file-<uuid4>'
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.files.close("agent_id", "file_id")
+     *     await client.agents.files.close("agent-123e4567-e89b-42d3-8456-426614174000", "file-123e4567-e89b-42d3-8456-426614174000")
      */
     public close(
         agentId: string,
@@ -295,8 +295,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -356,14 +356,14 @@ export class Files {
     /**
      * Get the files attached to an agent with their open/closed status (paginated).
      *
-     * @param {string} agentId
+     * @param {string} agentId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Letta.agents.FilesListRequest} request
      * @param {Files.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.files.list("agent_id", {
+     *     await client.agents.files.list("agent-123e4567-e89b-42d3-8456-426614174000", {
      *         before: "before",
      *         after: "after",
      *         limit: 1,
@@ -433,8 +433,8 @@ export class Files {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

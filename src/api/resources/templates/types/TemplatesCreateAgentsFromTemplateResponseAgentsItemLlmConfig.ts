@@ -24,4 +24,5 @@ export interface TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig {
     compatibilityType?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityType;
     verbosity?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigVerbosity;
     tier?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTier;
+    parallelToolCalls?: Letta.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls;
 }

@@ -15,6 +15,8 @@ export interface RunMetrics {
     runNs?: number;
     /** The number of steps in the run. */
     numSteps?: number;
+    /** List of tool IDs that were used in this run. */
+    toolsUsed?: string[];
     /** The template ID that the run belongs to (cloud only). */
     templateId?: string;
     /** The base template ID that the run belongs to (cloud only). */

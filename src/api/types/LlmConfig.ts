@@ -46,4 +46,6 @@ export interface LlmConfig {
     verbosity?: Letta.LlmConfigVerbosity;
     /** The cost tier for the model (cloud only). */
     tier?: string;
+    /** If set to True, enables parallel tool calling. Defaults to False. */
+    parallelToolCalls?: boolean;
 }

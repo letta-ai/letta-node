@@ -71,6 +71,7 @@ export const UpdateAgent: core.serialization.Schema<serializers.UpdateAgent.Raw,
             core.serialization.number().optional(),
         ),
         hidden: core.serialization.boolean().optional(),
+        parallelToolCalls: core.serialization.property("parallel_tool_calls", core.serialization.boolean().optional()),
     });
 
 export declare namespace UpdateAgent {
@@ -105,5 +106,6 @@ export declare namespace UpdateAgent {
         max_files_open?: number | null;
         per_file_view_window_char_limit?: number | null;
         hidden?: boolean | null;
+        parallel_tool_calls?: boolean | null;
     }
 }

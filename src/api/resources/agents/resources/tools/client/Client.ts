@@ -40,14 +40,14 @@ export class Tools {
     /**
      * Get tools from an existing agent
      *
-     * @param {string} agentId
+     * @param {string} agentId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Letta.agents.ToolsListRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.tools.list("agent_id", {
+     *     await client.agents.tools.list("agent-123e4567-e89b-42d3-8456-426614174000", {
      *         before: "before",
      *         after: "after",
      *         limit: 1,
@@ -107,8 +107,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -176,14 +176,14 @@ export class Tools {
     /**
      * Attach a tool to an agent.
      *
-     * @param {string} agentId
-     * @param {string} toolId
+     * @param {string} agentId - The ID of the tool in the format 'tool-<uuid4>'
+     * @param {string} toolId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.tools.attach("agent_id", "tool_id")
+     *     await client.agents.tools.attach("tool-123e4567-e89b-42d3-8456-426614174000", "agent-123e4567-e89b-42d3-8456-426614174000")
      */
     public attach(
         agentId: string,
@@ -213,8 +213,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -283,14 +283,14 @@ export class Tools {
     /**
      * Detach a tool from an agent.
      *
-     * @param {string} agentId
-     * @param {string} toolId
+     * @param {string} agentId - The ID of the tool in the format 'tool-<uuid4>'
+     * @param {string} toolId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.tools.detach("agent_id", "tool_id")
+     *     await client.agents.tools.detach("tool-123e4567-e89b-42d3-8456-426614174000", "agent-123e4567-e89b-42d3-8456-426614174000")
      */
     public detach(
         agentId: string,
@@ -320,8 +320,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -390,7 +390,7 @@ export class Tools {
     /**
      * Attach a tool to an agent.
      *
-     * @param {string} agentId
+     * @param {string} agentId - The ID of the agent in the format 'agent-<uuid4>'
      * @param {string} toolName
      * @param {Letta.agents.ToolsModifyApprovalRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
@@ -398,7 +398,7 @@ export class Tools {
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.tools.modifyApproval("agent_id", "tool_name", {
+     *     await client.agents.tools.modifyApproval("agent-123e4567-e89b-42d3-8456-426614174000", "tool_name", {
      *         requiresApproval: true
      *     })
      */
@@ -435,8 +435,8 @@ export class Tools {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

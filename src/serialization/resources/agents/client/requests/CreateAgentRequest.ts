@@ -94,6 +94,7 @@ export const CreateAgentRequest: core.serialization.Schema<
         core.serialization.number().optional(),
     ),
     hidden: core.serialization.boolean().optional(),
+    parallelToolCalls: core.serialization.property("parallel_tool_calls", core.serialization.boolean().optional()),
 });
 
 export declare namespace CreateAgentRequest {
@@ -142,5 +143,6 @@ export declare namespace CreateAgentRequest {
         max_files_open?: number | null;
         per_file_view_window_char_limit?: number | null;
         hidden?: boolean | null;
+        parallel_tool_calls?: boolean | null;
     }
 }

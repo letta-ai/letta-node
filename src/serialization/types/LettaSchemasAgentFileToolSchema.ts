@@ -41,6 +41,10 @@ export const LettaSchemasAgentFileToolSchema: core.serialization.ObjectSchema<
         "default_requires_approval",
         core.serialization.boolean().optional(),
     ),
+    enableParallelExecution: core.serialization.property(
+        "enable_parallel_execution",
+        core.serialization.boolean().optional(),
+    ),
     createdById: core.serialization.property("created_by_id", core.serialization.string().optional()),
     lastUpdatedById: core.serialization.property("last_updated_by_id", core.serialization.string().optional()),
     metadata: core.serialization.property(
@@ -64,6 +68,7 @@ export declare namespace LettaSchemasAgentFileToolSchema {
         pip_requirements?: PipRequirement.Raw[] | null;
         npm_requirements?: NpmRequirement.Raw[] | null;
         default_requires_approval?: boolean | null;
+        enable_parallel_execution?: boolean | null;
         created_by_id?: string | null;
         last_updated_by_id?: string | null;
         metadata_?: Record<string, unknown> | null;

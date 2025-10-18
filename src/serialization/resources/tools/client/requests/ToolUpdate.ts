@@ -39,6 +39,10 @@ export const ToolUpdate: core.serialization.Schema<serializers.ToolUpdate.Raw, L
             "default_requires_approval",
             core.serialization.boolean().optional(),
         ),
+        enableParallelExecution: core.serialization.property(
+            "enable_parallel_execution",
+            core.serialization.boolean().optional(),
+        ),
     });
 
 export declare namespace ToolUpdate {
@@ -54,5 +58,6 @@ export declare namespace ToolUpdate {
         npm_requirements?: NpmRequirement.Raw[] | null;
         metadata_?: Record<string, unknown> | null;
         default_requires_approval?: boolean | null;
+        enable_parallel_execution?: boolean | null;
     }
 }

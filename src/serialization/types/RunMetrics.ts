@@ -14,6 +14,10 @@ export const RunMetrics: core.serialization.ObjectSchema<serializers.RunMetrics.
         runStartNs: core.serialization.property("run_start_ns", core.serialization.number().optional()),
         runNs: core.serialization.property("run_ns", core.serialization.number().optional()),
         numSteps: core.serialization.property("num_steps", core.serialization.number().optional()),
+        toolsUsed: core.serialization.property(
+            "tools_used",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         templateId: core.serialization.property("template_id", core.serialization.string().optional()),
         baseTemplateId: core.serialization.property("base_template_id", core.serialization.string().optional()),
     });
@@ -26,6 +30,7 @@ export declare namespace RunMetrics {
         run_start_ns?: number | null;
         run_ns?: number | null;
         num_steps?: number | null;
+        tools_used?: string[] | null;
         template_id?: string | null;
         base_template_id?: string | null;
     }

@@ -40,14 +40,14 @@ export class Passages {
     /**
      * List all passages associated with a data source.
      *
-     * @param {string} sourceId
+     * @param {string} sourceId - The ID of the source in the format 'source-<uuid4>'
      * @param {Letta.sources.PassagesListRequest} request
      * @param {Passages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.sources.passages.list("source_id", {
+     *     await client.sources.passages.list("source-123e4567-e89b-42d3-8456-426614174000", {
      *         after: "after",
      *         before: "before",
      *         limit: 1
@@ -95,8 +95,8 @@ export class Passages {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

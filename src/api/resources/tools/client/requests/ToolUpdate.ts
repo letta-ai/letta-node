@@ -31,4 +31,6 @@ export interface ToolUpdate {
     metadata?: Record<string, unknown>;
     /** Whether or not to require approval before executing this tool. */
     defaultRequiresApproval?: boolean;
+    /** If set to True, then this tool will potentially be executed concurrently with other tools. Default False. */
+    enableParallelExecution?: boolean;
 }

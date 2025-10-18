@@ -35,6 +35,10 @@ export const ToolCreate: core.serialization.ObjectSchema<serializers.ToolCreate.
             "default_requires_approval",
             core.serialization.boolean().optional(),
         ),
+        enableParallelExecution: core.serialization.property(
+            "enable_parallel_execution",
+            core.serialization.boolean().optional(),
+        ),
     });
 
 export declare namespace ToolCreate {
@@ -49,5 +53,6 @@ export declare namespace ToolCreate {
         pip_requirements?: PipRequirement.Raw[] | null;
         npm_requirements?: NpmRequirement.Raw[] | null;
         default_requires_approval?: boolean | null;
+        enable_parallel_execution?: boolean | null;
     }
 }

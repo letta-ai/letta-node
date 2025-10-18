@@ -165,7 +165,7 @@ Update an existing archive's name and/or description.
 <dd>
 
 ```typescript
-await client.archives.modifyArchive("archive_id");
+await client.archives.modifyArchive("archive-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -181,7 +181,7 @@ await client.archives.modifyArchive("archive_id");
 <dl>
 <dd>
 
-**archiveId:** `string`
+**archiveId:** `string` — The ID of the archive in the format 'archive-<uuid4>'
 
 </dd>
 </dl>
@@ -238,7 +238,7 @@ Get a tool by ID
 <dd>
 
 ```typescript
-await client.tools.retrieve("tool_id");
+await client.tools.retrieve("tool-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -254,7 +254,7 @@ await client.tools.retrieve("tool_id");
 <dl>
 <dd>
 
-**toolId:** `string`
+**toolId:** `string` — The ID of the tool in the format 'tool-<uuid4>'
 
 </dd>
 </dl>
@@ -301,7 +301,7 @@ Delete a tool by name
 <dd>
 
 ```typescript
-await client.tools.delete("tool_id");
+await client.tools.delete("tool-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -317,7 +317,7 @@ await client.tools.delete("tool_id");
 <dl>
 <dd>
 
-**toolId:** `string`
+**toolId:** `string` — The ID of the tool in the format 'tool-<uuid4>'
 
 </dd>
 </dl>
@@ -364,7 +364,7 @@ Update an existing tool
 <dd>
 
 ```typescript
-await client.tools.modify("tool_id");
+await client.tools.modify("tool-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -380,7 +380,7 @@ await client.tools.modify("tool_id");
 <dl>
 <dd>
 
-**toolId:** `string`
+**toolId:** `string` — The ID of the tool in the format 'tool-<uuid4>'
 
 </dd>
 </dl>
@@ -1414,7 +1414,7 @@ Get all sources
 <dd>
 
 ```typescript
-await client.sources.retrieve("source_id");
+await client.sources.retrieve("source-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -1430,7 +1430,7 @@ await client.sources.retrieve("source_id");
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -1477,7 +1477,7 @@ Delete a data source.
 <dd>
 
 ```typescript
-await client.sources.delete("source_id");
+await client.sources.delete("source-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -1493,7 +1493,7 @@ await client.sources.delete("source_id");
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -1540,7 +1540,7 @@ Update the name or documentation of an existing data source.
 <dd>
 
 ```typescript
-await client.sources.modify("source_id", {});
+await client.sources.modify("source-123e4567-e89b-42d3-8456-426614174000", {});
 ```
 
 </dd>
@@ -1556,7 +1556,7 @@ await client.sources.modify("source_id", {});
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -1865,7 +1865,7 @@ Get all agent IDs that have the specified source attached.
 <dd>
 
 ```typescript
-await client.sources.getAgentsForSource("source_id");
+await client.sources.getAgentsForSource("source-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -1881,7 +1881,7 @@ await client.sources.getAgentsForSource("source_id");
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -1928,9 +1928,13 @@ Retrieve metadata for a specific file by its ID.
 <dd>
 
 ```typescript
-await client.sources.getFileMetadata("source_id", "file_id", {
-    includeContent: true,
-});
+await client.sources.getFileMetadata(
+    "source-123e4567-e89b-42d3-8456-426614174000",
+    "file-123e4567-e89b-42d3-8456-426614174000",
+    {
+        includeContent: true,
+    },
+);
 ```
 
 </dd>
@@ -1946,7 +1950,7 @@ await client.sources.getFileMetadata("source_id", "file_id", {
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -1954,7 +1958,7 @@ await client.sources.getFileMetadata("source_id", "file_id", {
 <dl>
 <dd>
 
-**fileId:** `string`
+**fileId:** `string` — The ID of the file in the format 'file-<uuid4>'
 
 </dd>
 </dl>
@@ -2736,7 +2740,7 @@ Supports two export formats:
 <dd>
 
 ```typescript
-await client.agents.exportFile("agent_id", {
+await client.agents.exportFile("agent-123e4567-e89b-42d3-8456-426614174000", {
     maxSteps: 1,
     useLegacyFormat: true,
 });
@@ -2755,7 +2759,7 @@ await client.agents.exportFile("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -2884,7 +2888,7 @@ Get the state of the agent.
 <dd>
 
 ```typescript
-await client.agents.retrieve("agent_id");
+await client.agents.retrieve("agent-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -2900,7 +2904,7 @@ await client.agents.retrieve("agent_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -2955,7 +2959,7 @@ Delete an agent.
 <dd>
 
 ```typescript
-await client.agents.delete("agent_id");
+await client.agents.delete("agent-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -2971,7 +2975,7 @@ await client.agents.delete("agent_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -3018,7 +3022,7 @@ Update an existing agent.
 <dd>
 
 ```typescript
-await client.agents.modify("agent_id");
+await client.agents.modify("agent-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -3034,7 +3038,7 @@ await client.agents.modify("agent_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -3428,7 +3432,7 @@ Retrieve the group by id.
 <dd>
 
 ```typescript
-await client.groups.retrieve("group_id");
+await client.groups.retrieve("group-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -3444,7 +3448,7 @@ await client.groups.retrieve("group_id");
 <dl>
 <dd>
 
-**groupId:** `string`
+**groupId:** `string` — The ID of the group in the format 'group-<uuid4>'
 
 </dd>
 </dl>
@@ -3491,7 +3495,7 @@ Delete a multi-agent group.
 <dd>
 
 ```typescript
-await client.groups.delete("group_id");
+await client.groups.delete("group-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -3507,7 +3511,7 @@ await client.groups.delete("group_id");
 <dl>
 <dd>
 
-**groupId:** `string`
+**groupId:** `string` — The ID of the group in the format 'group-<uuid4>'
 
 </dd>
 </dl>
@@ -3554,7 +3558,7 @@ Create a new multi-agent group with the specified configuration.
 <dd>
 
 ```typescript
-await client.groups.modify("group_id");
+await client.groups.modify("group-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -3570,7 +3574,7 @@ await client.groups.modify("group_id");
 <dl>
 <dd>
 
-**groupId:** `string`
+**groupId:** `string` — The ID of the group in the format 'group-<uuid4>'
 
 </dd>
 </dl>
@@ -3844,7 +3848,7 @@ await client.identities.count();
 <dd>
 
 ```typescript
-await client.identities.retrieve("identity_id");
+await client.identities.retrieve("identity-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -3860,7 +3864,7 @@ await client.identities.retrieve("identity_id");
 <dl>
 <dd>
 
-**identityId:** `string`
+**identityId:** `string` — The ID of the identity in the format 'identity-<uuid4>'
 
 </dd>
 </dl>
@@ -3907,7 +3911,7 @@ Delete an identity by its identifier key
 <dd>
 
 ```typescript
-await client.identities.delete("identity_id");
+await client.identities.delete("identity-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -3923,7 +3927,7 @@ await client.identities.delete("identity_id");
 <dl>
 <dd>
 
-**identityId:** `string`
+**identityId:** `string` — The ID of the identity in the format 'identity-<uuid4>'
 
 </dd>
 </dl>
@@ -3955,7 +3959,7 @@ await client.identities.delete("identity_id");
 <dd>
 
 ```typescript
-await client.identities.modify("identity_id");
+await client.identities.modify("identity-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -3971,7 +3975,7 @@ await client.identities.modify("identity_id");
 <dl>
 <dd>
 
-**identityId:** `string`
+**identityId:** `string` — The ID of the identity in the format 'identity-<uuid4>'
 
 </dd>
 </dl>
@@ -4291,7 +4295,7 @@ await client.blocks.count();
 <dd>
 
 ```typescript
-await client.blocks.retrieve("block_id");
+await client.blocks.retrieve("block-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -4307,7 +4311,7 @@ await client.blocks.retrieve("block_id");
 <dl>
 <dd>
 
-**blockId:** `string`
+**blockId:** `string` — The ID of the block in the format 'block-<uuid4>'
 
 </dd>
 </dl>
@@ -4339,7 +4343,7 @@ await client.blocks.retrieve("block_id");
 <dd>
 
 ```typescript
-await client.blocks.delete("block_id");
+await client.blocks.delete("block-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -4355,7 +4359,7 @@ await client.blocks.delete("block_id");
 <dl>
 <dd>
 
-**blockId:** `string`
+**blockId:** `string` — The ID of the block in the format 'block-<uuid4>'
 
 </dd>
 </dl>
@@ -4387,7 +4391,7 @@ await client.blocks.delete("block_id");
 <dd>
 
 ```typescript
-await client.blocks.modify("block_id", {});
+await client.blocks.modify("block-123e4567-e89b-42d3-8456-426614174000", {});
 ```
 
 </dd>
@@ -4403,7 +4407,7 @@ await client.blocks.modify("block_id", {});
 <dl>
 <dd>
 
-**blockId:** `string`
+**blockId:** `string` — The ID of the block in the format 'block-<uuid4>'
 
 </dd>
 </dl>
@@ -4601,7 +4605,7 @@ Get the status of a job.
 <dd>
 
 ```typescript
-await client.jobs.retrieve("job_id");
+await client.jobs.retrieve("job-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -4617,7 +4621,7 @@ await client.jobs.retrieve("job_id");
 <dl>
 <dd>
 
-**jobId:** `string`
+**jobId:** `string` — The ID of the job in the format 'job-<uuid4>'
 
 </dd>
 </dl>
@@ -4664,7 +4668,7 @@ Delete a job by its job_id.
 <dd>
 
 ```typescript
-await client.jobs.delete("job_id");
+await client.jobs.delete("job-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -4680,7 +4684,7 @@ await client.jobs.delete("job_id");
 <dl>
 <dd>
 
-**jobId:** `string`
+**jobId:** `string` — The ID of the job in the format 'job-<uuid4>'
 
 </dd>
 </dl>
@@ -4730,7 +4734,7 @@ agent execution to terminate as soon as possible.
 <dd>
 
 ```typescript
-await client.jobs.cancelJob("job_id");
+await client.jobs.cancelJob("job-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -4746,7 +4750,7 @@ await client.jobs.cancelJob("job_id");
 <dl>
 <dd>
 
-**jobId:** `string`
+**jobId:** `string` — The ID of the job in the format 'job-<uuid4>'
 
 </dd>
 </dl>
@@ -4975,7 +4979,7 @@ Get a provider by ID.
 <dd>
 
 ```typescript
-await client.providers.retrieveProvider("provider_id");
+await client.providers.retrieveProvider("provider-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -4991,7 +4995,7 @@ await client.providers.retrieveProvider("provider_id");
 <dl>
 <dd>
 
-**providerId:** `string`
+**providerId:** `string` — The ID of the provider in the format 'provider-<uuid4>'
 
 </dd>
 </dl>
@@ -5038,7 +5042,7 @@ Delete an existing custom provider.
 <dd>
 
 ```typescript
-await client.providers.delete("provider_id");
+await client.providers.delete("provider-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -5054,7 +5058,7 @@ await client.providers.delete("provider_id");
 <dl>
 <dd>
 
-**providerId:** `string`
+**providerId:** `string` — The ID of the provider in the format 'provider-<uuid4>'
 
 </dd>
 </dl>
@@ -5101,7 +5105,7 @@ Update an existing custom provider.
 <dd>
 
 ```typescript
-await client.providers.modify("provider_id", {
+await client.providers.modify("provider-123e4567-e89b-42d3-8456-426614174000", {
     apiKey: "api_key",
 });
 ```
@@ -5119,7 +5123,7 @@ await client.providers.modify("provider_id", {
 <dl>
 <dd>
 
-**providerId:** `string`
+**providerId:** `string` — The ID of the provider in the format 'provider-<uuid4>'
 
 </dd>
 </dl>
@@ -5240,7 +5244,7 @@ Verify the API key and additional parameters for an existing provider.
 <dd>
 
 ```typescript
-await client.providers.checkExistingProvider("provider_id");
+await client.providers.checkExistingProvider("provider-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -5256,7 +5260,7 @@ await client.providers.checkExistingProvider("provider_id");
 <dl>
 <dd>
 
-**providerId:** `string`
+**providerId:** `string` — The ID of the provider in the format 'provider-<uuid4>'
 
 </dd>
 </dl>
@@ -5771,7 +5775,7 @@ Get a step by ID.
 <dd>
 
 ```typescript
-await client.steps.retrieve("step_id");
+await client.steps.retrieve("step-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -5787,7 +5791,7 @@ await client.steps.retrieve("step_id");
 <dl>
 <dd>
 
-**stepId:** `string`
+**stepId:** `string` — The ID of the step in the format 'step-<uuid4>'
 
 </dd>
 </dl>
@@ -7651,7 +7655,7 @@ Retrieve the context window of a specific agent.
 <dd>
 
 ```typescript
-await client.agents.context.retrieve("agent_id");
+await client.agents.context.retrieve("agent-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -7667,7 +7671,7 @@ await client.agents.context.retrieve("agent_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -7716,7 +7720,7 @@ Get tools from an existing agent
 <dd>
 
 ```typescript
-await client.agents.tools.list("agent_id", {
+await client.agents.tools.list("agent-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -7738,7 +7742,7 @@ await client.agents.tools.list("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -7793,7 +7797,10 @@ Attach a tool to an agent.
 <dd>
 
 ```typescript
-await client.agents.tools.attach("agent_id", "tool_id");
+await client.agents.tools.attach(
+    "tool-123e4567-e89b-42d3-8456-426614174000",
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -7809,7 +7816,7 @@ await client.agents.tools.attach("agent_id", "tool_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the tool in the format 'tool-<uuid4>'
 
 </dd>
 </dl>
@@ -7817,7 +7824,7 @@ await client.agents.tools.attach("agent_id", "tool_id");
 <dl>
 <dd>
 
-**toolId:** `string`
+**toolId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -7864,7 +7871,10 @@ Detach a tool from an agent.
 <dd>
 
 ```typescript
-await client.agents.tools.detach("agent_id", "tool_id");
+await client.agents.tools.detach(
+    "tool-123e4567-e89b-42d3-8456-426614174000",
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -7880,7 +7890,7 @@ await client.agents.tools.detach("agent_id", "tool_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the tool in the format 'tool-<uuid4>'
 
 </dd>
 </dl>
@@ -7888,7 +7898,7 @@ await client.agents.tools.detach("agent_id", "tool_id");
 <dl>
 <dd>
 
-**toolId:** `string`
+**toolId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -7935,7 +7945,7 @@ Attach a tool to an agent.
 <dd>
 
 ```typescript
-await client.agents.tools.modifyApproval("agent_id", "tool_name", {
+await client.agents.tools.modifyApproval("agent-123e4567-e89b-42d3-8456-426614174000", "tool_name", {
     requiresApproval: true,
 });
 ```
@@ -7953,7 +7963,7 @@ await client.agents.tools.modifyApproval("agent_id", "tool_name", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8018,7 +8028,10 @@ Attach a source to an agent.
 <dd>
 
 ```typescript
-await client.agents.sources.attach("agent_id", "source_id");
+await client.agents.sources.attach(
+    "source-123e4567-e89b-42d3-8456-426614174000",
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -8034,7 +8047,7 @@ await client.agents.sources.attach("agent_id", "source_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -8042,7 +8055,7 @@ await client.agents.sources.attach("agent_id", "source_id");
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8089,7 +8102,10 @@ Detach a source from an agent.
 <dd>
 
 ```typescript
-await client.agents.sources.detach("agent_id", "source_id");
+await client.agents.sources.detach(
+    "source-123e4567-e89b-42d3-8456-426614174000",
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -8105,7 +8121,7 @@ await client.agents.sources.detach("agent_id", "source_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -8113,7 +8129,7 @@ await client.agents.sources.detach("agent_id", "source_id");
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8160,7 +8176,7 @@ Get the sources associated with an agent.
 <dd>
 
 ```typescript
-await client.agents.sources.list("agent_id", {
+await client.agents.sources.list("agent-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -8182,7 +8198,7 @@ await client.agents.sources.list("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8239,7 +8255,10 @@ Attach a folder to an agent.
 <dd>
 
 ```typescript
-await client.agents.folders.attach("agent_id", "folder_id");
+await client.agents.folders.attach(
+    "source-123e4567-e89b-42d3-8456-426614174000",
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -8255,7 +8274,7 @@ await client.agents.folders.attach("agent_id", "folder_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -8263,7 +8282,7 @@ await client.agents.folders.attach("agent_id", "folder_id");
 <dl>
 <dd>
 
-**folderId:** `string`
+**folderId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8310,7 +8329,10 @@ Detach a folder from an agent.
 <dd>
 
 ```typescript
-await client.agents.folders.detach("agent_id", "folder_id");
+await client.agents.folders.detach(
+    "source-123e4567-e89b-42d3-8456-426614174000",
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -8326,7 +8348,7 @@ await client.agents.folders.detach("agent_id", "folder_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -8334,7 +8356,7 @@ await client.agents.folders.detach("agent_id", "folder_id");
 <dl>
 <dd>
 
-**folderId:** `string`
+**folderId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8381,7 +8403,7 @@ Get the folders associated with an agent.
 <dd>
 
 ```typescript
-await client.agents.folders.list("agent_id", {
+await client.agents.folders.list("agent-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -8403,7 +8425,7 @@ await client.agents.folders.list("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8463,7 +8485,7 @@ Typically used to reset the working memory view for the agent.
 <dd>
 
 ```typescript
-await client.agents.files.closeAll("agent_id");
+await client.agents.files.closeAll("agent-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -8479,7 +8501,7 @@ await client.agents.files.closeAll("agent_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8530,7 +8552,10 @@ Returns a list of file names that were closed due to LRU eviction.
 <dd>
 
 ```typescript
-await client.agents.files.open("agent_id", "file_id");
+await client.agents.files.open(
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+    "file-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -8546,7 +8571,7 @@ await client.agents.files.open("agent_id", "file_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8554,7 +8579,7 @@ await client.agents.files.open("agent_id", "file_id");
 <dl>
 <dd>
 
-**fileId:** `string`
+**fileId:** `string` — The ID of the file in the format 'file-<uuid4>'
 
 </dd>
 </dl>
@@ -8604,7 +8629,10 @@ The file will be removed from the agent's working memory view.
 <dd>
 
 ```typescript
-await client.agents.files.close("agent_id", "file_id");
+await client.agents.files.close(
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+    "file-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -8620,7 +8648,7 @@ await client.agents.files.close("agent_id", "file_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8628,7 +8656,7 @@ await client.agents.files.close("agent_id", "file_id");
 <dl>
 <dd>
 
-**fileId:** `string`
+**fileId:** `string` — The ID of the file in the format 'file-<uuid4>'
 
 </dd>
 </dl>
@@ -8675,7 +8703,7 @@ Get the files attached to an agent with their open/closed status (paginated).
 <dd>
 
 ```typescript
-await client.agents.files.list("agent_id", {
+await client.agents.files.list("agent-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -8699,7 +8727,7 @@ await client.agents.files.list("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8757,7 +8785,7 @@ This endpoint fetches the current memory state of the agent identified by the us
 <dd>
 
 ```typescript
-await client.agents.coreMemory.retrieve("agent_id");
+await client.agents.coreMemory.retrieve("agent-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -8773,7 +8801,7 @@ await client.agents.coreMemory.retrieve("agent_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8822,7 +8850,7 @@ Retrieve a core memory block from an agent.
 <dd>
 
 ```typescript
-await client.agents.blocks.retrieve("agent_id", "block_label");
+await client.agents.blocks.retrieve("agent_id", "agent-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -8846,7 +8874,7 @@ await client.agents.blocks.retrieve("agent_id", "block_label");
 <dl>
 <dd>
 
-**blockLabel:** `string`
+**blockLabel:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8893,7 +8921,7 @@ Updates a core memory block of an agent.
 <dd>
 
 ```typescript
-await client.agents.blocks.modify("agent_id", "block_label", {});
+await client.agents.blocks.modify("agent_id", "agent-123e4567-e89b-42d3-8456-426614174000", {});
 ```
 
 </dd>
@@ -8917,7 +8945,7 @@ await client.agents.blocks.modify("agent_id", "block_label", {});
 <dl>
 <dd>
 
-**blockLabel:** `string`
+**blockLabel:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -8972,7 +9000,7 @@ Retrieve the core memory blocks of a specific agent.
 <dd>
 
 ```typescript
-await client.agents.blocks.list("agent_id", {
+await client.agents.blocks.list("agent-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -8994,7 +9022,7 @@ await client.agents.blocks.list("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9049,7 +9077,10 @@ Attach a core memory block to an agent.
 <dd>
 
 ```typescript
-await client.agents.blocks.attach("agent_id", "block_id");
+await client.agents.blocks.attach(
+    "block-123e4567-e89b-42d3-8456-426614174000",
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -9065,7 +9096,7 @@ await client.agents.blocks.attach("agent_id", "block_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the block in the format 'block-<uuid4>'
 
 </dd>
 </dl>
@@ -9073,7 +9104,7 @@ await client.agents.blocks.attach("agent_id", "block_id");
 <dl>
 <dd>
 
-**blockId:** `string`
+**blockId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9120,7 +9151,10 @@ Detach a core memory block from an agent.
 <dd>
 
 ```typescript
-await client.agents.blocks.detach("agent_id", "block_id");
+await client.agents.blocks.detach(
+    "block-123e4567-e89b-42d3-8456-426614174000",
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -9136,7 +9170,7 @@ await client.agents.blocks.detach("agent_id", "block_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the block in the format 'block-<uuid4>'
 
 </dd>
 </dl>
@@ -9144,7 +9178,7 @@ await client.agents.blocks.detach("agent_id", "block_id");
 <dl>
 <dd>
 
-**blockId:** `string`
+**blockId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9193,7 +9227,7 @@ Retrieve the memories in an agent's archival memory store (paginated query).
 <dd>
 
 ```typescript
-await client.agents.passages.list("agent_id", {
+await client.agents.passages.list("agent-123e4567-e89b-42d3-8456-426614174000", {
     after: "after",
     before: "before",
     limit: 1,
@@ -9215,7 +9249,7 @@ await client.agents.passages.list("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9270,7 +9304,7 @@ Insert a memory into an agent's archival memory store.
 <dd>
 
 ```typescript
-await client.agents.passages.create("agent_id", {
+await client.agents.passages.create("agent-123e4567-e89b-42d3-8456-426614174000", {
     text: "text",
 });
 ```
@@ -9288,7 +9322,7 @@ await client.agents.passages.create("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9347,7 +9381,7 @@ as the agent's archival_memory_search tool but is accessible for external API us
 <dd>
 
 ```typescript
-await client.agents.passages.search("agent_id", {
+await client.agents.passages.search("agent-123e4567-e89b-42d3-8456-426614174000", {
     query: "query",
     tagMatchMode: "any",
     topK: 1,
@@ -9369,7 +9403,7 @@ await client.agents.passages.search("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9424,7 +9458,7 @@ Delete a memory from an agent's archival memory store.
 <dd>
 
 ```typescript
-await client.agents.passages.delete("agent_id", "memory_id");
+await client.agents.passages.delete("agent_id", "agent-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -9448,7 +9482,7 @@ await client.agents.passages.delete("agent_id", "memory_id");
 <dl>
 <dd>
 
-**memoryId:** `string`
+**memoryId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9553,7 +9587,7 @@ Retrieve message history for an agent.
 <dd>
 
 ```typescript
-await client.agents.messages.list("agent_id", {
+await client.agents.messages.list("agent-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -9580,7 +9614,7 @@ await client.agents.messages.list("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9636,7 +9670,7 @@ This endpoint accepts a message from a user and processes it through the agent.
 <dd>
 
 ```typescript
-await client.agents.messages.create("agent_id", {
+await client.agents.messages.create("agent-123e4567-e89b-42d3-8456-426614174000", {
     messages: [
         {
             role: "user",
@@ -9664,7 +9698,7 @@ await client.agents.messages.create("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9719,9 +9753,13 @@ Update the details of a message associated with an agent.
 <dd>
 
 ```typescript
-await client.agents.messages.modify("agent_id", "message_id", {
-    content: "content",
-});
+await client.agents.messages.modify(
+    "agent-123e4567-e89b-42d3-8456-426614174000",
+    "message-123e4567-e89b-42d3-8456-426614174000",
+    {
+        content: "content",
+    },
+);
 ```
 
 </dd>
@@ -9737,7 +9775,7 @@ await client.agents.messages.modify("agent_id", "message_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9745,7 +9783,7 @@ await client.agents.messages.modify("agent_id", "message_id", {
 <dl>
 <dd>
 
-**messageId:** `string`
+**messageId:** `string` — The ID of the message in the format 'message-<uuid4>'
 
 </dd>
 </dl>
@@ -9802,7 +9840,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 <dd>
 
 ```typescript
-const response = await client.agents.messages.createStream("agent_id", {
+const response = await client.agents.messages.createStream("agent-123e4567-e89b-42d3-8456-426614174000", {
     messages: [
         {
             role: "user",
@@ -9833,7 +9871,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -9890,7 +9928,7 @@ Note to cancel active runs associated with an agent, redis is required.
 <dd>
 
 ```typescript
-await client.agents.messages.cancel("agent_id");
+await client.agents.messages.cancel("agent-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -9906,7 +9944,7 @@ await client.agents.messages.cancel("agent_id");
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -10029,7 +10067,7 @@ This is "asynchronous" in the sense that it's a background run and explicitly mu
 <dd>
 
 ```typescript
-await client.agents.messages.createAsync("agent_id", {
+await client.agents.messages.createAsync("agent-123e4567-e89b-42d3-8456-426614174000", {
     messages: [
         {
             role: "user",
@@ -10057,7 +10095,7 @@ await client.agents.messages.createAsync("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -10112,7 +10150,7 @@ Resets the messages for an agent
 <dd>
 
 ```typescript
-await client.agents.messages.reset("agent_id", {
+await client.agents.messages.reset("agent-123e4567-e89b-42d3-8456-426614174000", {
     addDefaultInitialMessages: true,
 });
 ```
@@ -10130,7 +10168,7 @@ await client.agents.messages.reset("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -10189,7 +10227,7 @@ be sent to the LLM provider. Useful for debugging and inspection.
 <dd>
 
 ```typescript
-await client.agents.messages.preview("agent_id", {
+await client.agents.messages.preview("agent-123e4567-e89b-42d3-8456-426614174000", {
     messages: [
         {
             role: "user",
@@ -10217,7 +10255,7 @@ await client.agents.messages.preview("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -10275,7 +10313,7 @@ truncating and compressing it down to the specified `max_message_length`.
 <dd>
 
 ```typescript
-await client.agents.messages.summarize("agent_id", {
+await client.agents.messages.summarize("agent-123e4567-e89b-42d3-8456-426614174000", {
     maxMessageLength: 1,
 });
 ```
@@ -10293,7 +10331,7 @@ await client.agents.messages.summarize("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -10350,7 +10388,7 @@ Lists the groups for an agent
 <dd>
 
 ```typescript
-await client.agents.groups.list("agent_id", {
+await client.agents.groups.list("agent-123e4567-e89b-42d3-8456-426614174000", {
     managerType: "manager_type",
     before: "before",
     after: "after",
@@ -10373,7 +10411,7 @@ await client.agents.groups.list("agent_id", {
 <dl>
 <dd>
 
-**agentId:** `string`
+**agentId:** `string` — The ID of the agent in the format 'agent-<uuid4>'
 
 </dd>
 </dl>
@@ -10578,7 +10616,7 @@ Raises a 404 if the block does not exist.
 <dd>
 
 ```typescript
-await client.blocks.agents.list("block_id", {
+await client.blocks.agents.list("block-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -10600,7 +10638,7 @@ await client.blocks.agents.list("block_id", {
 <dl>
 <dd>
 
-**blockId:** `string`
+**blockId:** `string` — The ID of the block in the format 'block-<uuid4>'
 
 </dd>
 </dl>
@@ -11048,7 +11086,7 @@ Retrieve message history for an agent.
 <dd>
 
 ```typescript
-await client.groups.messages.list("group_id", {
+await client.groups.messages.list("group-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -11073,7 +11111,7 @@ await client.groups.messages.list("group_id", {
 <dl>
 <dd>
 
-**groupId:** `string`
+**groupId:** `string` — The ID of the group in the format 'group-<uuid4>'
 
 </dd>
 </dl>
@@ -11129,7 +11167,7 @@ This endpoint accepts a message from a user and processes it through through age
 <dd>
 
 ```typescript
-await client.groups.messages.create("group_id", {
+await client.groups.messages.create("group-123e4567-e89b-42d3-8456-426614174000", {
     messages: [
         {
             role: "user",
@@ -11157,7 +11195,7 @@ await client.groups.messages.create("group_id", {
 <dl>
 <dd>
 
-**groupId:** `string`
+**groupId:** `string` — The ID of the group in the format 'group-<uuid4>'
 
 </dd>
 </dl>
@@ -11214,7 +11252,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 <dd>
 
 ```typescript
-const response = await client.groups.messages.createStream("group_id", {
+const response = await client.groups.messages.createStream("group-123e4567-e89b-42d3-8456-426614174000", {
     messages: [
         {
             role: "user",
@@ -11245,7 +11283,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-**groupId:** `string`
+**groupId:** `string` — The ID of the group in the format 'group-<uuid4>'
 
 </dd>
 </dl>
@@ -11300,9 +11338,13 @@ Update the details of a message associated with an agent.
 <dd>
 
 ```typescript
-await client.groups.messages.modify("group_id", "message_id", {
-    content: "content",
-});
+await client.groups.messages.modify(
+    "group-123e4567-e89b-42d3-8456-426614174000",
+    "message-123e4567-e89b-42d3-8456-426614174000",
+    {
+        content: "content",
+    },
+);
 ```
 
 </dd>
@@ -11318,7 +11360,7 @@ await client.groups.messages.modify("group_id", "message_id", {
 <dl>
 <dd>
 
-**groupId:** `string`
+**groupId:** `string` — The ID of the group in the format 'group-<uuid4>'
 
 </dd>
 </dl>
@@ -11326,7 +11368,7 @@ await client.groups.messages.modify("group_id", "message_id", {
 <dl>
 <dd>
 
-**messageId:** `string`
+**messageId:** `string` — The ID of the message in the format 'message-<uuid4>'
 
 </dd>
 </dl>
@@ -11381,7 +11423,7 @@ Delete the group messages for all agents that are part of the multi-agent group.
 <dd>
 
 ```typescript
-await client.groups.messages.reset("group_id");
+await client.groups.messages.reset("group-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -11397,7 +11439,7 @@ await client.groups.messages.reset("group_id");
 <dl>
 <dd>
 
-**groupId:** `string`
+**groupId:** `string` — The ID of the group in the format 'group-<uuid4>'
 
 </dd>
 </dl>
@@ -11431,7 +11473,7 @@ await client.groups.messages.reset("group_id");
 <dd>
 
 ```typescript
-await client.identities.properties.upsert("identity_id", [
+await client.identities.properties.upsert("identity-123e4567-e89b-42d3-8456-426614174000", [
     {
         key: "key",
         value: "value",
@@ -11453,7 +11495,7 @@ await client.identities.properties.upsert("identity_id", [
 <dl>
 <dd>
 
-**identityId:** `string`
+**identityId:** `string` — The ID of the identity in the format 'identity-<uuid4>'
 
 </dd>
 </dl>
@@ -11510,7 +11552,7 @@ Get all agents associated with the specified identity.
 <dd>
 
 ```typescript
-await client.identities.agents.list("identity_id", {
+await client.identities.agents.list("identity-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -11532,7 +11574,7 @@ await client.identities.agents.list("identity_id", {
 <dl>
 <dd>
 
-**identityId:** `string`
+**identityId:** `string` — The ID of the identity in the format 'identity-<uuid4>'
 
 </dd>
 </dl>
@@ -11589,7 +11631,7 @@ Get all blocks associated with the specified identity.
 <dd>
 
 ```typescript
-await client.identities.blocks.list("identity_id", {
+await client.identities.blocks.list("identity-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -11611,7 +11653,7 @@ await client.identities.blocks.list("identity_id", {
 <dl>
 <dd>
 
-**identityId:** `string`
+**identityId:** `string` — The ID of the identity in the format 'identity-<uuid4>'
 
 </dd>
 </dl>
@@ -11948,10 +11990,14 @@ Upload a file to a data source.
 <dd>
 
 ```typescript
-await client.sources.files.upload(fs.createReadStream("/path/to/your/file"), "source_id", {
-    duplicateHandling: "skip",
-    name: "name",
-});
+await client.sources.files.upload(
+    fs.createReadStream("/path/to/your/file"),
+    "source-123e4567-e89b-42d3-8456-426614174000",
+    {
+        duplicateHandling: "skip",
+        name: "name",
+    },
+);
 ```
 
 </dd>
@@ -12030,7 +12076,7 @@ List paginated files associated with a data source.
 <dd>
 
 ```typescript
-await client.sources.files.list("source_id", {
+await client.sources.files.list("source-123e4567-e89b-42d3-8456-426614174000", {
     limit: 1,
     after: "after",
     includeContent: true,
@@ -12051,7 +12097,7 @@ await client.sources.files.list("source_id", {
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -12106,7 +12152,10 @@ Delete a data source.
 <dd>
 
 ```typescript
-await client.sources.files.delete("source_id", "file_id");
+await client.sources.files.delete(
+    "source-123e4567-e89b-42d3-8456-426614174000",
+    "file-123e4567-e89b-42d3-8456-426614174000",
+);
 ```
 
 </dd>
@@ -12122,7 +12171,7 @@ await client.sources.files.delete("source_id", "file_id");
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -12130,7 +12179,7 @@ await client.sources.files.delete("source_id", "file_id");
 <dl>
 <dd>
 
-**fileId:** `string`
+**fileId:** `string` — The ID of the file in the format 'file-<uuid4>'
 
 </dd>
 </dl>
@@ -12179,7 +12228,7 @@ List all passages associated with a data source.
 <dd>
 
 ```typescript
-await client.sources.passages.list("source_id", {
+await client.sources.passages.list("source-123e4567-e89b-42d3-8456-426614174000", {
     after: "after",
     before: "before",
     limit: 1,
@@ -12199,7 +12248,7 @@ await client.sources.passages.list("source_id", {
 <dl>
 <dd>
 
-**sourceId:** `string`
+**sourceId:** `string` — The ID of the source in the format 'source-<uuid4>'
 
 </dd>
 </dl>
@@ -12256,7 +12305,7 @@ Get step metrics by step ID.
 <dd>
 
 ```typescript
-await client.steps.metrics.retrieve("step_id");
+await client.steps.metrics.retrieve("step-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -12272,7 +12321,7 @@ await client.steps.metrics.retrieve("step_id");
 <dl>
 <dd>
 
-**stepId:** `string`
+**stepId:** `string` — The ID of the step in the format 'step-<uuid4>'
 
 </dd>
 </dl>
@@ -12306,7 +12355,7 @@ await client.steps.metrics.retrieve("step_id");
 <dd>
 
 ```typescript
-await client.steps.trace.retrieve("step_id");
+await client.steps.trace.retrieve("step-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -12322,7 +12371,7 @@ await client.steps.trace.retrieve("step_id");
 <dl>
 <dd>
 
-**stepId:** `string`
+**stepId:** `string` — The ID of the step in the format 'step-<uuid4>'
 
 </dd>
 </dl>
@@ -12371,7 +12420,7 @@ Modify feedback for a given step.
 <dd>
 
 ```typescript
-await client.steps.feedback.create("step_id");
+await client.steps.feedback.create("step-123e4567-e89b-42d3-8456-426614174000");
 ```
 
 </dd>
@@ -12387,7 +12436,7 @@ await client.steps.feedback.create("step_id");
 <dl>
 <dd>
 
-**stepId:** `string`
+**stepId:** `string` — The ID of the step in the format 'step-<uuid4>'
 
 </dd>
 </dl>
@@ -12444,7 +12493,7 @@ List messages for a given step.
 <dd>
 
 ```typescript
-await client.steps.messages.list("step_id", {
+await client.steps.messages.list("step-123e4567-e89b-42d3-8456-426614174000", {
     before: "before",
     after: "after",
     limit: 1,
@@ -12466,7 +12515,7 @@ await client.steps.messages.list("step_id", {
 <dl>
 <dd>
 
-**stepId:** `string`
+**stepId:** `string` — The ID of the step in the format 'step-<uuid4>'
 
 </dd>
 </dl>

@@ -35,6 +35,7 @@ export const LlmConfig: core.serialization.ObjectSchema<serializers.LlmConfig.Ra
         compatibilityType: core.serialization.property("compatibility_type", LlmConfigCompatibilityType.optional()),
         verbosity: LlmConfigVerbosity.optional(),
         tier: core.serialization.string().optional(),
+        parallelToolCalls: core.serialization.property("parallel_tool_calls", core.serialization.boolean().optional()),
     });
 
 export declare namespace LlmConfig {
@@ -58,5 +59,6 @@ export declare namespace LlmConfig {
         compatibility_type?: LlmConfigCompatibilityType.Raw | null;
         verbosity?: LlmConfigVerbosity.Raw | null;
         tier?: string | null;
+        parallel_tool_calls?: boolean | null;
     }
 }

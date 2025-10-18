@@ -40,14 +40,14 @@ export class Feedback {
     /**
      * Modify feedback for a given step.
      *
-     * @param {string} stepId
+     * @param {string} stepId - The ID of the step in the format 'step-<uuid4>'
      * @param {Letta.steps.ModifyFeedbackRequest} request
      * @param {Feedback.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Letta.UnprocessableEntityError}
      *
      * @example
-     *     await client.steps.feedback.create("step_id")
+     *     await client.steps.feedback.create("step-123e4567-e89b-42d3-8456-426614174000")
      */
     public create(
         stepId: string,
@@ -77,8 +77,8 @@ export class Feedback {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@letta-ai/letta-client",
-                "X-Fern-SDK-Version": "1.0.0-alpha.3",
-                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.3",
+                "X-Fern-SDK-Version": "1.0.0-alpha.4",
+                "User-Agent": "@letta-ai/letta-client/1.0.0-alpha.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

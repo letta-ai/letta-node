@@ -22,6 +22,7 @@ import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigFrequencyPe
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityType } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityType";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigVerbosity } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigVerbosity";
 import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTier } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTier";
+import { TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls } from "./TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls";
 
 export const TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig: core.serialization.ObjectSchema<
     serializers.TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig.Raw,
@@ -85,6 +86,10 @@ export const TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig: core.
     ),
     verbosity: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigVerbosity.optional(),
     tier: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTier.optional(),
+    parallelToolCalls: core.serialization.property(
+        "parallel_tool_calls",
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls.optional(),
+    ),
 });
 
 export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig {
@@ -108,5 +113,6 @@ export declare namespace TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmC
         compatibility_type?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityType.Raw | null;
         verbosity?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigVerbosity.Raw | null;
         tier?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTier.Raw | null;
+        parallel_tool_calls?: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls.Raw | null;
     }
 }

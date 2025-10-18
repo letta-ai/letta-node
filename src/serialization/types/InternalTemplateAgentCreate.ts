@@ -97,6 +97,7 @@ export const InternalTemplateAgentCreate: core.serialization.ObjectSchema<
         core.serialization.number().optional(),
     ),
     hidden: core.serialization.boolean().optional(),
+    parallelToolCalls: core.serialization.property("parallel_tool_calls", core.serialization.boolean().optional()),
     deploymentId: core.serialization.property("deployment_id", core.serialization.string()),
     entityId: core.serialization.property("entity_id", core.serialization.string()),
 });
@@ -147,6 +148,7 @@ export declare namespace InternalTemplateAgentCreate {
         max_files_open?: number | null;
         per_file_view_window_char_limit?: number | null;
         hidden?: boolean | null;
+        parallel_tool_calls?: boolean | null;
         deployment_id: string;
         entity_id: string;
     }

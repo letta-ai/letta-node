@@ -34,6 +34,8 @@ export interface LettaSchemasAgentFileToolSchema {
     npmRequirements?: Letta.NpmRequirement[];
     /** Default value for whether or not executing this tool requires approval. */
     defaultRequiresApproval?: boolean;
+    /** If set to True, then this tool will potentially be executed concurrently with other tools. Default False. */
+    enableParallelExecution?: boolean;
     /** The id of the user that made this Tool. */
     createdById?: string;
     /** The id of the user that made this Tool. */

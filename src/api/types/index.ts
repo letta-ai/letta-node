@@ -15,6 +15,8 @@ export * from "./AnnotationUrlCitation";
 export * from "./ApprovalCreateApprovalsItem";
 export * from "./ApprovalCreate";
 export * from "./ApprovalRequestMessageToolCall";
+export * from "./ApprovalRequestMessageRequestedToolCalls";
+export * from "./ApprovalRequestMessageAllowedToolCalls";
 export * from "./ApprovalRequestMessage";
 export * from "./ApprovalResponseMessageApprovalsItem";
 export * from "./ApprovalResponseMessage";
