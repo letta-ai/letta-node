@@ -27,7 +27,5 @@ export interface ApprovalRequestMessage {
     /** The tool call that has been requested by the llm to run */
     toolCall: Letta.ApprovalRequestMessageToolCall;
     /** The tool calls that have been requested by the llm to run, which are pending approval */
-    requestedToolCalls?: Letta.ApprovalRequestMessageRequestedToolCalls;
-    /** Any tool calls returned by the llm during the same turn that do not require approvals, which will execute once this approval request is handled regardless of approval or denial. Only used when parallel_tool_calls is enabled */
-    allowedToolCalls?: Letta.ApprovalRequestMessageAllowedToolCalls;
+    toolCalls?: Letta.ApprovalRequestMessageToolCalls;
 }

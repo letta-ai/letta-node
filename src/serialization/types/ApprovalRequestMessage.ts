@@ -6,8 +6,7 @@ import * as serializers from "../index";
 import * as Letta from "../../api/index";
 import * as core from "../../core";
 import { ApprovalRequestMessageToolCall } from "./ApprovalRequestMessageToolCall";
-import { ApprovalRequestMessageRequestedToolCalls } from "./ApprovalRequestMessageRequestedToolCalls";
-import { ApprovalRequestMessageAllowedToolCalls } from "./ApprovalRequestMessageAllowedToolCalls";
+import { ApprovalRequestMessageToolCalls } from "./ApprovalRequestMessageToolCalls";
 
 export const ApprovalRequestMessage: core.serialization.ObjectSchema<
     serializers.ApprovalRequestMessage.Raw,
@@ -27,14 +26,7 @@ export const ApprovalRequestMessage: core.serialization.ObjectSchema<
     seqId: core.serialization.property("seq_id", core.serialization.number().optional()),
     runId: core.serialization.property("run_id", core.serialization.string().optional()),
     toolCall: core.serialization.property("tool_call", ApprovalRequestMessageToolCall),
-    requestedToolCalls: core.serialization.property(
-        "requested_tool_calls",
-        ApprovalRequestMessageRequestedToolCalls.optional(),
-    ),
-    allowedToolCalls: core.serialization.property(
-        "allowed_tool_calls",
-        ApprovalRequestMessageAllowedToolCalls.optional(),
-    ),
+    toolCalls: core.serialization.property("tool_calls", ApprovalRequestMessageToolCalls.optional()),
 });
 
 export declare namespace ApprovalRequestMessage {
@@ -50,7 +42,6 @@ export declare namespace ApprovalRequestMessage {
         seq_id?: number | null;
         run_id?: string | null;
         tool_call: ApprovalRequestMessageToolCall.Raw;
-        requested_tool_calls?: ApprovalRequestMessageRequestedToolCalls.Raw | null;
-        allowed_tool_calls?: ApprovalRequestMessageAllowedToolCalls.Raw | null;
+        tool_calls?: ApprovalRequestMessageToolCalls.Raw | null;
     }
 }

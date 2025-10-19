@@ -7,4 +7,4 @@ import * as Letta from "../index";
 /**
  * The tool calls that have been requested by the llm to run, which are pending approval
  */
-export type ApprovalRequestMessageRequestedToolCalls = Letta.ToolCall[] | Letta.ToolCallDelta;
+export type ApprovalRequestMessageToolCalls = Letta.ToolCall[] | Letta.ToolCallDelta;

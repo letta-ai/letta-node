@@ -8,11 +8,11 @@ import * as core from "../../core";
 import { ToolCall } from "./ToolCall";
 import { ToolCallDelta } from "./ToolCallDelta";
 
-export const ApprovalRequestMessageRequestedToolCalls: core.serialization.Schema<
-    serializers.ApprovalRequestMessageRequestedToolCalls.Raw,
-    Letta.ApprovalRequestMessageRequestedToolCalls
+export const ApprovalRequestMessageToolCalls: core.serialization.Schema<
+    serializers.ApprovalRequestMessageToolCalls.Raw,
+    Letta.ApprovalRequestMessageToolCalls
 > = core.serialization.undiscriminatedUnion([core.serialization.list(ToolCall), ToolCallDelta]);
 
-export declare namespace ApprovalRequestMessageRequestedToolCalls {
+export declare namespace ApprovalRequestMessageToolCalls {
     export type Raw = ToolCall.Raw[] | ToolCallDelta.Raw;
 }
