@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'letta-sdk/internal/uploads';
-import { toFile } from 'letta-sdk/core/uploads';
+import { multipartFormRequestOptions, createForm } from '@letta-ai/letta-client/internal/uploads';
+import { toFile } from '@letta-ai/letta-client/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

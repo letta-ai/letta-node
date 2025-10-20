@@ -1,4 +1,4 @@
-import { createPathTagFunction, encodeURIPath } from 'letta-sdk/internal/utils/path';
+import { createPathTagFunction, encodeURIPath } from '@letta-ai/letta-client/internal/utils/path';
 import { inspect } from 'node:util';
 import { runInNewContext } from 'node:vm';
 

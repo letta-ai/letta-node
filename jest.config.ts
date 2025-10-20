@@ -7,8 +7,8 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^letta-sdk$': '<rootDir>/src/index.ts',
-    '^letta-sdk/(.*)$': '<rootDir>/src/$1',
+    '^@letta-ai/letta-client$': '<rootDir>/src/index.ts',
+    '^@letta-ai/letta-client/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',
