@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "letta-sdk/*": ["./src/*"],
-      "letta-sdk": ["./src/index.ts"]
+      "@letta-ai/letta-client/*": ["./src/*"],
+      "@letta-ai/letta-client": ["./src/index.ts"]
     },
     "noEmit": true,
 

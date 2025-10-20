@@ -1,5 +1,5 @@
 {
-  "name": "letta-sdk",
+  "name": "@letta-ai/letta-client",
   "version": "0.0.1",
   "description": "The official TypeScript library for the Letta SDK API",
   "author": "Letta SDK <>",

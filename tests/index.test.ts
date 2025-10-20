@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'letta-sdk/core/api-promise';
+import { APIPromise } from '@letta-ai/letta-client/core/api-promise';
 
 import util from 'node:util';
-import LettaSDK from 'letta-sdk';
-import { APIUserAbortError } from 'letta-sdk';
+import LettaSDK from '@letta-ai/letta-client';
+import { APIUserAbortError } from '@letta-ai/letta-client';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {

@@ -25,7 +25,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^letta-sdk(/.*)?',
+              regex: '^@letta-ai/letta-client(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],

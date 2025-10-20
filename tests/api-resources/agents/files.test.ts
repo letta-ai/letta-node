@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import LettaSDK from 'letta-sdk';
+import LettaSDK from '@letta-ai/letta-client';
 
 const client = new LettaSDK({
   apiKey: 'My API Key',

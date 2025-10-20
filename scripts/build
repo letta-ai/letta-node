@@ -8,7 +8,7 @@ node scripts/utils/check-version.cjs
 
 # Build into dist and will publish the package from there,
 # so that src/resources/foo.ts becomes <package root>/resources/foo.js
-# This way importing from `"letta-sdk/resources/foo"` works
+# This way importing from `"@letta-ai/letta-client/resources/foo"` works
 # even with `"moduleResolution": "node"`
 
 rm -rf dist; mkdir dist
@@ -42,8 +42,8 @@ node scripts/utils/postprocess-files.cjs
 
 # make sure that nothing crashes when we require the output CJS or
 # import the output ESM
-(cd dist && node -e 'require("letta-sdk")')
-(cd dist && node -e 'import("letta-sdk")' --input-type=module)
+(cd dist && node -e 'require("@letta-ai/letta-client")')
+(cd dist && node -e 'import("@letta-ai/letta-client")' --input-type=module)
 
 if [ -e ./scripts/build-deno ]
 then
