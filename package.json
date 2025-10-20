@@ -1,6 +1,6 @@
 {
   "name": "letta-sdk",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "The official TypeScript library for the Letta SDK API",
   "author": "Letta SDK <>",
   "types": "dist/index.d.ts",
