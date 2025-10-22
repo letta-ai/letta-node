@@ -120,7 +120,7 @@ export interface ApprovalCreate {
   /**
    * The list of approval responses
    */
-  approvals?: Array<ApprovalCreate.ApprovalReturn | ApprovalCreate.LettaSchemasLettaMessageToolReturn> | null;
+  approvals?: Array<ApprovalCreate.ApprovalReturn | ToolReturn> | null;
 
   /**
    * @deprecated Whether the tool has been approved
@@ -159,23 +159,6 @@ export namespace ApprovalCreate {
      * The message type to be created.
      */
     type?: 'approval';
-  }
-
-  export interface LettaSchemasLettaMessageToolReturn {
-    status: 'success' | 'error';
-
-    tool_call_id: string;
-
-    tool_return: string;
-
-    stderr?: Array<string> | null;
-
-    stdout?: Array<string> | null;
-
-    /**
-     * The message type to be created.
-     */
-    type?: 'tool';
   }
 }
 
@@ -246,9 +229,7 @@ export interface ApprovalResponseMessage {
   /**
    * The list of approval responses
    */
-  approvals?: Array<
-    ApprovalResponseMessage.ApprovalReturn | ApprovalResponseMessage.LettaSchemasLettaMessageToolReturn
-  > | null;
+  approvals?: Array<ApprovalResponseMessage.ApprovalReturn | ToolReturn> | null;
 
   /**
    * @deprecated Whether the tool has been approved
@@ -301,23 +282,6 @@ export namespace ApprovalResponseMessage {
      * The message type to be created.
      */
     type?: 'approval';
-  }
-
-  export interface LettaSchemasLettaMessageToolReturn {
-    status: 'success' | 'error';
-
-    tool_call_id: string;
-
-    tool_return: string;
-
-    stderr?: Array<string> | null;
-
-    stdout?: Array<string> | null;
-
-    /**
-     * The message type to be created.
-     */
-    type?: 'tool';
   }
 }
 
@@ -1369,6 +1333,23 @@ export interface ToolCallMessage {
   tool_calls?: Array<ToolCall> | ToolCallDelta | null;
 }
 
+export interface ToolReturn {
+  status: 'success' | 'error';
+
+  tool_call_id: string;
+
+  tool_return: string;
+
+  stderr?: Array<string> | null;
+
+  stdout?: Array<string> | null;
+
+  /**
+   * The message type to be created.
+   */
+  type?: 'tool';
+}
+
 export interface ToolReturnContent {
   /**
    * The content returned by the tool execution.
@@ -1833,6 +1814,7 @@ export declare namespace Messages {
     type ToolCallContent as ToolCallContent,
     type ToolCallDelta as ToolCallDelta,
     type ToolCallMessage as ToolCallMessage,
+    type ToolReturn as ToolReturn,
     type ToolReturnContent as ToolReturnContent,
     type UpdateAssistantMessage as UpdateAssistantMessage,
     type UpdateReasoningMessage as UpdateReasoningMessage,

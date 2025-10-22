@@ -90,6 +90,7 @@ export {
   type ToolCallContent,
   type ToolCallDelta,
   type ToolCallMessage,
+  type ToolReturn,
   type ToolReturnContent,
   type UpdateAssistantMessage,
   type UpdateReasoningMessage,

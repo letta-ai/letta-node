@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as MessagesAPI from './agents/messages';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -318,26 +319,7 @@ export interface ToolReturnMessage {
 
   step_id?: string | null;
 
-  tool_returns?: Array<ToolReturnMessage.ToolReturn> | null;
-}
-
-export namespace ToolReturnMessage {
-  export interface ToolReturn {
-    status: 'success' | 'error';
-
-    tool_call_id: string;
-
-    tool_return: string;
-
-    stderr?: Array<string> | null;
-
-    stdout?: Array<string> | null;
-
-    /**
-     * The message type to be created.
-     */
-    type?: 'tool';
-  }
+  tool_returns?: Array<MessagesAPI.ToolReturn> | null;
 }
 
 export type ToolType =
