@@ -44,16 +44,20 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Attach a tool to an agent.
+   * Modify the approval requirement for a tool attached to an agent.
+   *
+   * Accepts requires_approval via request body (preferred) or query parameter
+   * (deprecated).
    */
   updateApproval(
     toolName: string,
     params: ToolUpdateApprovalParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState> {
-    const { agent_id, requires_approval } = params;
+    const { agent_id, query_requires_approval, ...body } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/tools/approval/${toolName}`, {
-      query: { requires_approval },
+      query: { requires_approval: query_requires_approval },
+      body,
       ...options,
     });
   }
@@ -112,9 +116,14 @@ export interface ToolUpdateApprovalParams {
   agent_id: string;
 
   /**
-   * Query param:
+   * Body param: Whether the tool requires approval before execution
    */
-  requires_approval: boolean;
+  body_requires_approval: boolean;
+
+  /**
+   * @deprecated Query param: Whether the tool requires approval before execution
+   */
+  query_requires_approval?: boolean | null;
 }
 
 export declare namespace Tools {
