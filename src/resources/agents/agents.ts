@@ -99,6 +99,7 @@ import {
 } from './tools';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
+import * as IdentitiesAPI from '../identities/identities';
 import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
 import { type Uploadable } from '../../core/uploads';
@@ -375,7 +376,12 @@ export interface AgentState {
   hidden?: boolean | null;
 
   /**
-   * The ids of the identities associated with this agent.
+   * The identities associated with this agent.
+   */
+  identities?: Array<IdentitiesAPI.Identity>;
+
+  /**
+   * @deprecated The ids of the identities associated with this agent.
    */
   identity_ids?: Array<string>;
 
