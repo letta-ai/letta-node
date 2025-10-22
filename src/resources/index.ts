@@ -115,6 +115,7 @@ export {
   type StepListParams,
 } from './steps/steps';
 export { Tags, type TagListResponse, type TagListParams } from './tags';
+export { Templates } from './templates/templates';
 export {
   Tools,
   type NpmRequirement,

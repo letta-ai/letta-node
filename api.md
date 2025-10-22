@@ -517,3 +517,11 @@ Types:
 Methods:
 
 - <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/resources/batches/messages.ts">list</a>(batchID, { ...params }) -> MessageListResponse</code>
+
+# Templates
+
+## Agents
+
+Methods:
+
+- <code title="post /v1/templates/{project_id}/{template_version}/agents">client.templates.agents.<a href="./src/resources/templates/agents.ts">create</a>(templateVersion, { ...params }) -> void</code>

@@ -146,6 +146,7 @@ import {
 } from './resources/models/models';
 import { Job, RunListParams, RunListResponse, Runs, StopReasonType } from './resources/runs/runs';
 import { ProviderTrace, Step, StepListParams, StepListResponse, Steps } from './resources/steps/steps';
+import { Templates } from './resources/templates/templates';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -870,6 +871,7 @@ export class Letta {
   steps: API.Steps = new API.Steps(this);
   tags: API.Tags = new API.Tags(this);
   batches: API.Batches = new API.Batches(this);
+  templates: API.Templates = new API.Templates(this);
 }
 
 Letta.Archives = Archives;
@@ -884,6 +886,7 @@ Letta.Runs = Runs;
 Letta.Steps = Steps;
 Letta.Tags = Tags;
 Letta.Batches = Batches;
+Letta.Templates = Templates;
 
 export declare namespace Letta {
   export type RequestOptions = Opts.RequestOptions;
@@ -1040,4 +1043,6 @@ export declare namespace Letta {
     type BatchCreateParams as BatchCreateParams,
     type BatchListParams as BatchListParams,
   };
+
+  export { Templates as Templates };
 }
