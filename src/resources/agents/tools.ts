@@ -1,18 +1,22 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as ToolsAPI from '../tools';
 import * as AgentsAPI from './agents';
-import * as ToolsToolsAPI from '../tools/tools';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class Tools extends APIResource {
   /**
-   * Get tools from an existing agent
+   * Get tools from an existing agent.
    */
-  list(agentID: string, options?: RequestOptions): APIPromise<ToolListResponse> {
-    return this._client.get(path`/v1/agents/${agentID}/tools`, options);
+  list(
+    agentID: string,
+    query: ToolListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ToolListResponse> {
+    return this._client.get(path`/v1/agents/${agentID}/tools`, { query, ...options });
   }
 
   /**
@@ -42,9 +46,9 @@ export class Tools extends APIResource {
   /**
    * Attach a tool to an agent.
    */
-  modifyApproval(
+  updateApproval(
     toolName: string,
-    params: ToolModifyApprovalParams,
+    params: ToolUpdateApprovalParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState> {
     const { agent_id, requires_approval } = params;
@@ -55,19 +59,55 @@ export class Tools extends APIResource {
   }
 }
 
-export type ToolListResponse = Array<ToolsToolsAPI.Tool>;
+export type ToolListResponse = Array<ToolsAPI.Tool>;
+
+export interface ToolListParams {
+  /**
+   * Tool ID cursor for pagination. Returns tools that come after this tool ID in the
+   * specified sort order
+   */
+  after?: string | null;
+
+  /**
+   * Tool ID cursor for pagination. Returns tools that come before this tool ID in
+   * the specified sort order
+   */
+  before?: string | null;
+
+  /**
+   * Maximum number of tools to return
+   */
+  limit?: number | null;
+
+  /**
+   * Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest
+   * first
+   */
+  order?: 'asc' | 'desc';
+
+  /**
+   * Field to sort by
+   */
+  order_by?: 'created_at';
+}
 
 export interface ToolAttachParams {
+  /**
+   * The ID of the agent in the format 'agent-<uuid4>'
+   */
   agent_id: string;
 }
 
 export interface ToolDetachParams {
+  /**
+   * The ID of the agent in the format 'agent-<uuid4>'
+   */
   agent_id: string;
 }
 
-export interface ToolModifyApprovalParams {
+export interface ToolUpdateApprovalParams {
   /**
-   * Path param:
+   * Path param: The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
 
@@ -80,8 +120,9 @@ export interface ToolModifyApprovalParams {
 export declare namespace Tools {
   export {
     type ToolListResponse as ToolListResponse,
+    type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
-    type ToolModifyApprovalParams as ToolModifyApprovalParams,
+    type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
   };
 }

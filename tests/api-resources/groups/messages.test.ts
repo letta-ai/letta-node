@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 
-const client = new LettaSDK({
+const client = new Letta({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
@@ -10,8 +10,8 @@ const client = new LettaSDK({
 describe('resource messages', () => {
   // Prism tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.groups.messages.update('message_id', {
-      group_id: 'group_id',
+    const responsePromise = client.groups.messages.update('message-123e4567-e89b-42d3-8456-426614174000', {
+      group_id: 'group-123e4567-e89b-42d3-8456-426614174000',
       content: 'content',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -25,8 +25,8 @@ describe('resource messages', () => {
 
   // Prism tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.groups.messages.update('message_id', {
-      group_id: 'group_id',
+    const response = await client.groups.messages.update('message-123e4567-e89b-42d3-8456-426614174000', {
+      group_id: 'group-123e4567-e89b-42d3-8456-426614174000',
       content: 'content',
       message_type: 'system_message',
     });
@@ -34,7 +34,7 @@ describe('resource messages', () => {
 
   // Prism tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.groups.messages.list('group_id');
+    const responsePromise = client.groups.messages.list('group-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -49,7 +49,7 @@ describe('resource messages', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.groups.messages.list(
-        'group_id',
+        'group-123e4567-e89b-42d3-8456-426614174000',
         {
           after: 'after',
           assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
@@ -62,12 +62,24 @@ describe('resource messages', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(LettaSDK.NotFoundError);
+    ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  // Prism tests are disabled
+  test.skip('reset', async () => {
+    const responsePromise = client.groups.messages.reset('group-123e4567-e89b-42d3-8456-426614174000');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Prism tests are disabled
   test.skip('send: only required params', async () => {
-    const responsePromise = client.groups.messages.send('group_id', {
+    const responsePromise = client.groups.messages.send('group-123e4567-e89b-42d3-8456-426614174000', {
       messages: [{ content: [{ text: 'text', type: 'text' }], role: 'user' }],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -81,10 +93,10 @@ describe('resource messages', () => {
 
   // Prism tests are disabled
   test.skip('send: required and optional params', async () => {
-    const response = await client.groups.messages.send('group_id', {
+    const response = await client.groups.messages.send('group-123e4567-e89b-42d3-8456-426614174000', {
       messages: [
         {
-          content: [{ text: 'text', type: 'text' }],
+          content: [{ text: 'text', signature: 'signature', type: 'text' }],
           role: 'user',
           batch_item_id: 'batch_item_id',
           group_id: 'group_id',
@@ -104,8 +116,8 @@ describe('resource messages', () => {
   });
 
   // Prism tests are disabled
-  test.skip('sendStream: only required params', async () => {
-    const responsePromise = client.groups.messages.sendStream('group_id', {
+  test.skip('stream: only required params', async () => {
+    const responsePromise = client.groups.messages.stream('group-123e4567-e89b-42d3-8456-426614174000', {
       messages: [{ content: [{ text: 'text', type: 'text' }], role: 'user' }],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -118,11 +130,11 @@ describe('resource messages', () => {
   });
 
   // Prism tests are disabled
-  test.skip('sendStream: required and optional params', async () => {
-    const response = await client.groups.messages.sendStream('group_id', {
+  test.skip('stream: required and optional params', async () => {
+    const response = await client.groups.messages.stream('group-123e4567-e89b-42d3-8456-426614174000', {
       messages: [
         {
-          content: [{ text: 'text', type: 'text' }],
+          content: [{ text: 'text', signature: 'signature', type: 'text' }],
           role: 'user',
           batch_item_id: 'batch_item_id',
           group_id: 'group_id',

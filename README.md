@@ -1,8 +1,8 @@
-# Letta SDK TypeScript API Library
+# Letta TypeScript API Library
 
 [![NPM version](<https://img.shields.io/npm/v/@letta-ai/letta-client.svg?label=npm%20(stable)>)](https://npmjs.org/package/@letta-ai/letta-client) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@letta-ai/letta-client)
 
-This library provides convenient access to the Letta SDK REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Letta REST API from server-side TypeScript or JavaScript.
 
 The full API of this library can be found in [api.md](api.md).
 
@@ -20,14 +20,14 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 
-const client = new LettaSDK({
-  apiKey: process.env['LETTA_SDK_API_KEY'], // This is the default and can be omitted
-  environment: 'environment_1', // defaults to 'production'
+const client = new Letta({
+  apiKey: process.env['LETTA_API_KEY'], // This is the default and can be omitted
+  environment: 'local', // defaults to 'cloud'
 });
 
-const archive = await client.archives.update({ name: 'name' });
+const archive = await client.archives.create({ name: 'name' });
 
 console.log(archive.id);
 ```
@@ -38,15 +38,15 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 
-const client = new LettaSDK({
-  apiKey: process.env['LETTA_SDK_API_KEY'], // This is the default and can be omitted
-  environment: 'environment_1', // defaults to 'production'
+const client = new Letta({
+  apiKey: process.env['LETTA_API_KEY'], // This is the default and can be omitted
+  environment: 'local', // defaults to 'cloud'
 });
 
-const params: LettaSDK.ArchiveUpdateParams = { name: 'name' };
-const archive: LettaSDK.Archive = await client.archives.update(params);
+const params: Letta.ArchiveCreateParams = { name: 'name' };
+const archive: Letta.Archive = await client.archives.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -62,22 +62,32 @@ Request parameters that correspond to file uploads can be passed in many differe
 
 ```ts
 import fs from 'fs';
-import LettaSDK, { toFile } from '@letta-ai/letta-client';
+import Letta, { toFile } from '@letta-ai/letta-client';
 
-const client = new LettaSDK();
+const client = new Letta();
 
 // If you have access to Node `fs` we recommend using `fs.createReadStream()`:
-await client.sources.uploadFile('source_id', { file: fs.createReadStream('/path/to/file') });
+await client.folders.files.upload('source-123e4567-e89b-42d3-8456-426614174000', {
+  file: fs.createReadStream('/path/to/file'),
+});
 
 // Or if you have the web `File` API you can pass a `File` instance:
-await client.sources.uploadFile('source_id', { file: new File(['my bytes'], 'file') });
+await client.folders.files.upload('source-123e4567-e89b-42d3-8456-426614174000', {
+  file: new File(['my bytes'], 'file'),
+});
 
 // You can also pass a `fetch` `Response`:
-await client.sources.uploadFile('source_id', { file: await fetch('https://somesite/file') });
+await client.folders.files.upload('source-123e4567-e89b-42d3-8456-426614174000', {
+  file: await fetch('https://somesite/file'),
+});
 
 // Finally, if none of the above are convenient, you can use our `toFile` helper:
-await client.sources.uploadFile('source_id', { file: await toFile(Buffer.from('my bytes'), 'file') });
-await client.sources.uploadFile('source_id', { file: await toFile(new Uint8Array([0, 1, 2]), 'file') });
+await client.folders.files.upload('source-123e4567-e89b-42d3-8456-426614174000', {
+  file: await toFile(Buffer.from('my bytes'), 'file'),
+});
+await client.folders.files.upload('source-123e4567-e89b-42d3-8456-426614174000', {
+  file: await toFile(new Uint8Array([0, 1, 2]), 'file'),
+});
 ```
 
 ## Handling errors
@@ -88,8 +98,8 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const archive = await client.archives.update({ name: 'name' }).catch(async (err) => {
-  if (err instanceof LettaSDK.APIError) {
+const archive = await client.archives.create({ name: 'name' }).catch(async (err) => {
+  if (err instanceof Letta.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
     console.log(err.headers); // {server: 'nginx', ...}
@@ -123,12 +133,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const client = new LettaSDK({
+const client = new Letta({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await client.archives.update({ name: 'name' }, {
+await client.archives.create({ name: 'name' }, {
   maxRetries: 5,
 });
 ```
@@ -140,12 +150,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const client = new LettaSDK({
+const client = new Letta({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await client.archives.update({ name: 'name' }, {
+await client.archives.create({ name: 'name' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -166,13 +176,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 
 <!-- prettier-ignore -->
 ```ts
-const client = new LettaSDK();
+const client = new Letta();
 
-const response = await client.archives.update({ name: 'name' }).asResponse();
+const response = await client.archives.create({ name: 'name' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: archive, response: raw } = await client.archives.update({ name: 'name' }).withResponse();
+const { data: archive, response: raw } = await client.archives.create({ name: 'name' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(archive.id);
 ```
@@ -187,13 +197,13 @@ console.log(archive.id);
 
 The log level can be configured in two ways:
 
-1. Via the `LETTA_SDK_LOG` environment variable
+1. Via the `LETTA_LOG` environment variable
 2. Using the `logLevel` client option (overrides the environment variable if set)
 
 ```ts
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 
-const client = new LettaSDK({
+const client = new Letta({
   logLevel: 'debug', // Show all log messages
 });
 ```
@@ -219,13 +229,13 @@ When providing a custom logger, the `logLevel` option still controls which messa
 below the configured level will not be sent to your logger.
 
 ```ts
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 import pino from 'pino';
 
 const logger = pino();
 
-const client = new LettaSDK({
-  logger: logger.child({ name: 'LettaSDK' }),
+const client = new Letta({
+  logger: logger.child({ name: 'Letta' }),
   logLevel: 'debug', // Send all messages to pino, allowing it to filter
 });
 ```
@@ -254,7 +264,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.archives.update({
+client.archives.create({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
@@ -288,10 +298,10 @@ globalThis.fetch = fetch;
 Or pass it to the client:
 
 ```ts
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 import fetch from 'my-fetch';
 
-const client = new LettaSDK({ fetch });
+const client = new Letta({ fetch });
 ```
 
 ### Fetch options
@@ -299,9 +309,9 @@ const client = new LettaSDK({ fetch });
 If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
 
 ```ts
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 
-const client = new LettaSDK({
+const client = new Letta({
   fetchOptions: {
     // `RequestInit` options
   },
@@ -316,11 +326,11 @@ options to requests:
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
 ```ts
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
-const client = new LettaSDK({
+const client = new Letta({
   fetchOptions: {
     dispatcher: proxyAgent,
   },
@@ -330,9 +340,9 @@ const client = new LettaSDK({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
 ```ts
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 
-const client = new LettaSDK({
+const client = new Letta({
   fetchOptions: {
     proxy: 'http://localhost:8888',
   },
@@ -342,10 +352,10 @@ const client = new LettaSDK({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
 ```ts
-import LettaSDK from 'npm:@letta-ai/letta-client';
+import Letta from 'npm:@letta-ai/letta-client';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
-const client = new LettaSDK({
+const client = new Letta({
   fetchOptions: {
     client: httpClient,
   },

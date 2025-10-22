@@ -18,5 +18,5 @@ jobs:
         run: |
           bash ./bin/check-release-environment
         env:
-          NPM_TOKEN: ${{ secrets.LETTA_SDK_NPM_TOKEN || secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.LETTA_NPM_TOKEN || secrets.NPM_TOKEN }}
 

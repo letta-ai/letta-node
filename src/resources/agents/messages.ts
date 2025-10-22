@@ -2,10 +2,11 @@
 
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
-import * as RunsAPI from '../runs';
+import * as ToolsAPI from '../tools';
 import * as AgentsAPI from './agents';
-import * as ToolsAPI from '../tools/tools';
+import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -48,28 +49,18 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Inspect the raw LLM request payload without sending it.
-   *
-   * This endpoint processes the message through the agent loop up until the LLM
-   * request, then returns the raw request payload that would be sent to the LLM
-   * provider. Useful for debugging and inspection.
+   * Resets the messages for an agent
    */
-  previewRawPayload(
+  reset(
     agentID: string,
-    body: MessagePreviewRawPayloadParams,
+    params: MessageResetParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessagePreviewRawPayloadResponse> {
-    return this._client.post(path`/v1/agents/${agentID}/messages/preview-raw-payload`, { body, ...options });
-  }
-
-  /**
-   * Search messages across the entire organization with optional project and
-   * template filtering. Returns messages with FTS/vector ranks and total RRF score.
-   *
-   * This is a cloud-only feature.
-   */
-  search(body: MessageSearchParams, options?: RequestOptions): APIPromise<MessageSearchResponse> {
-    return this._client.post('/v1/agents/messages/search', { body, ...options });
+  ): APIPromise<AgentsAPI.AgentState> {
+    const { add_default_initial_messages } = params ?? {};
+    return this._client.patch(path`/v1/agents/${agentID}/reset-messages`, {
+      query: { add_default_initial_messages },
+      ...options,
+    });
   }
 
   /**
@@ -85,8 +76,8 @@ export class Messages extends APIResource {
    * processing happens in the background, and the status can be checked using the
    * run ID.
    *
-   * This is "asynchronous" in the sense that it's a background job and explicitly
-   * must be fetched by the run ID. This is more like `send_message_job`
+   * This is "asynchronous" in the sense that it's a background run and explicitly
+   * must be fetched by the run ID.
    */
   sendAsync(agentID: string, body: MessageSendAsyncParams, options?: RequestOptions): APIPromise<Run> {
     return this._client.post(path`/v1/agents/${agentID}/messages/async`, { body, ...options });
@@ -97,8 +88,23 @@ export class Messages extends APIResource {
    * message from a user and processes it through the agent. It will stream the steps
    * of the response always, and stream the tokens if 'stream_tokens' is set to True.
    */
-  sendStream(agentID: string, body: MessageSendStreamParams, options?: RequestOptions): APIPromise<unknown> {
+  stream(agentID: string, body: MessageStreamParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post(path`/v1/agents/${agentID}/messages/stream`, { body, ...options });
+  }
+
+  /**
+   * Summarize an agent's conversation history to a target message length.
+   *
+   * This endpoint summarizes the current message history for a given agent,
+   * truncating and compressing it down to the specified `max_message_length`.
+   */
+  summarize(agentID: string, params: MessageSummarizeParams, options?: RequestOptions): APIPromise<void> {
+    const { max_message_length } = params;
+    return this._client.post(path`/v1/agents/${agentID}/summarize`, {
+      query: { max_message_length },
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -107,17 +113,22 @@ export class Messages extends APIResource {
  */
 export interface ApprovalCreate {
   /**
-   * The message ID of the approval request
+   * @deprecated The message ID of the approval request
    */
-  approval_request_id: string;
+  approval_request_id?: string | null;
 
   /**
-   * Whether the tool has been approved
+   * The list of approval responses
    */
-  approve: boolean;
+  approvals?: Array<ApprovalCreate.ApprovalReturn | ApprovalCreate.LettaSchemasLettaMessageToolReturn> | null;
 
   /**
-   * An optional explanation for the provided approval status
+   * @deprecated Whether the tool has been approved
+   */
+  approve?: boolean | null;
+
+  /**
+   * @deprecated An optional explanation for the provided approval status
    */
   reason?: string | null;
 
@@ -125,6 +136,47 @@ export interface ApprovalCreate {
    * The message type to be created.
    */
   type?: 'approval';
+}
+
+export namespace ApprovalCreate {
+  export interface ApprovalReturn {
+    /**
+     * Whether the tool has been approved
+     */
+    approve: boolean;
+
+    /**
+     * The ID of the tool call that corresponds to this approval
+     */
+    tool_call_id: string;
+
+    /**
+     * An optional explanation for the provided approval status
+     */
+    reason?: string | null;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'approval';
+  }
+
+  export interface LettaSchemasLettaMessageToolReturn {
+    status: 'success' | 'error';
+
+    tool_call_id: string;
+
+    tool_return: string;
+
+    stderr?: Array<string> | null;
+
+    stdout?: Array<string> | null;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool';
+  }
 }
 
 /**
@@ -141,7 +193,7 @@ export interface ApprovalRequestMessage {
   date: string;
 
   /**
-   * The tool call that has been requested by the llm to run
+   * @deprecated The tool call that has been requested by the llm to run
    */
   tool_call: ToolCall | ToolCallDelta;
 
@@ -163,6 +215,12 @@ export interface ApprovalRequestMessage {
   seq_id?: number | null;
 
   step_id?: string | null;
+
+  /**
+   * The tool calls that have been requested by the llm to run, which are pending
+   * approval
+   */
+  tool_calls?: Array<ToolCall> | ToolCallDelta | null;
 }
 
 /**
@@ -178,17 +236,24 @@ export interface ApprovalRequestMessage {
 export interface ApprovalResponseMessage {
   id: string;
 
-  /**
-   * The message ID of the approval request
-   */
-  approval_request_id: string;
-
-  /**
-   * Whether the tool has been approved
-   */
-  approve: boolean;
-
   date: string;
+
+  /**
+   * @deprecated The message ID of the approval request
+   */
+  approval_request_id?: string | null;
+
+  /**
+   * The list of approval responses
+   */
+  approvals?: Array<
+    ApprovalResponseMessage.ApprovalReturn | ApprovalResponseMessage.LettaSchemasLettaMessageToolReturn
+  > | null;
+
+  /**
+   * @deprecated Whether the tool has been approved
+   */
+  approve?: boolean | null;
 
   is_err?: boolean | null;
 
@@ -202,7 +267,7 @@ export interface ApprovalResponseMessage {
   otid?: string | null;
 
   /**
-   * An optional explanation for the provided approval status
+   * @deprecated An optional explanation for the provided approval status
    */
   reason?: string | null;
 
@@ -213,6 +278,47 @@ export interface ApprovalResponseMessage {
   seq_id?: number | null;
 
   step_id?: string | null;
+}
+
+export namespace ApprovalResponseMessage {
+  export interface ApprovalReturn {
+    /**
+     * Whether the tool has been approved
+     */
+    approve: boolean;
+
+    /**
+     * The ID of the tool call that corresponds to this approval
+     */
+    tool_call_id: string;
+
+    /**
+     * An optional explanation for the provided approval status
+     */
+    reason?: string | null;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'approval';
+  }
+
+  export interface LettaSchemasLettaMessageToolReturn {
+    status: 'success' | 'error';
+
+    tool_call_id: string;
+
+    tool_return: string;
+
+    stderr?: Array<string> | null;
+
+    stdout?: Array<string> | null;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool';
+  }
 }
 
 /**
@@ -384,6 +490,11 @@ export interface LettaAssistantMessageContentUnion {
   text: string;
 
   /**
+   * Stores a unique identifier for any reasoning associated with this text content.
+   */
+  signature?: string | null;
+
+  /**
    * The type of the message.
    */
   type?: 'text';
@@ -415,17 +526,21 @@ export interface LettaRequest {
   messages: Array<AgentsAPI.MessageCreate | ApprovalCreate>;
 
   /**
-   * The name of the message argument in the designated message tool.
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * If set to True, enables reasoning before responses or tool calls from the agent.
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
    */
   enable_thinking?: string;
 
@@ -441,8 +556,9 @@ export interface LettaRequest {
   max_steps?: number;
 
   /**
-   * Whether the server should parse specific tool call arguments (default
-   * `send_message`) as `AssistantMessage` objects.
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
 }
@@ -516,11 +632,6 @@ export namespace LettaResponse {
     step_count?: number;
 
     /**
-     * The messages generated per step
-     */
-    steps_messages?: Array<Array<MessagesAPI.Message>> | null;
-
-    /**
      * The total number of tokens processed by the agent.
      */
     total_tokens?: number;
@@ -534,12 +645,15 @@ export interface LettaStreamingRequest {
   messages: Array<AgentsAPI.MessageCreate | ApprovalCreate>;
 
   /**
-   * The name of the message argument in the designated message tool.
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
@@ -549,7 +663,8 @@ export interface LettaStreamingRequest {
   background?: boolean;
 
   /**
-   * If set to True, enables reasoning before responses or tool calls from the agent.
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
    */
   enable_thinking?: string;
 
@@ -577,8 +692,9 @@ export interface LettaStreamingRequest {
   stream_tokens?: boolean;
 
   /**
-   * Whether the server should parse specific tool call arguments (default
-   * `send_message`) as `AssistantMessage` objects.
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
 }
@@ -630,6 +746,11 @@ export interface Message {
   approval_request_id?: string | null;
 
   /**
+   * The list of approvals for this message.
+   */
+  approvals?: Array<Message.ApprovalReturn | Message.LettaSchemasMessageToolReturn> | null;
+
+  /**
    * Whether tool call is approved.
    */
   approve?: boolean | null;
@@ -650,6 +771,7 @@ export interface Message {
     | ReasoningContent
     | RedactedReasoningContent
     | OmittedReasoningContent
+    | Message.SummarizedReasoningContent
   > | null;
 
   /**
@@ -699,6 +821,11 @@ export interface Message {
   otid?: string | null;
 
   /**
+   * The id of the run that this message was created in.
+   */
+  run_id?: string | null;
+
+  /**
    * The id of the sender of the message, can be an identity id or agent id
    */
   sender_id?: string | null;
@@ -721,7 +848,7 @@ export interface Message {
   /**
    * Tool execution return information for prior tool calls
    */
-  tool_returns?: Array<ToolReturn> | null;
+  tool_returns?: Array<Message.ToolReturn> | null;
 
   /**
    * The timestamp when the object was last updated.
@@ -730,6 +857,94 @@ export interface Message {
 }
 
 export namespace Message {
+  export interface ApprovalReturn {
+    /**
+     * Whether the tool has been approved
+     */
+    approve: boolean;
+
+    /**
+     * The ID of the tool call that corresponds to this approval
+     */
+    tool_call_id: string;
+
+    /**
+     * An optional explanation for the provided approval status
+     */
+    reason?: string | null;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'approval';
+  }
+
+  export interface LettaSchemasMessageToolReturn {
+    /**
+     * The status of the tool call
+     */
+    status: 'success' | 'error';
+
+    /**
+     * The function response string
+     */
+    func_response?: string | null;
+
+    /**
+     * Captured stderr from the tool invocation
+     */
+    stderr?: Array<string> | null;
+
+    /**
+     * Captured stdout (e.g. prints, logs) from the tool invocation
+     */
+    stdout?: Array<string> | null;
+
+    /**
+     * The ID for the tool call
+     */
+    tool_call_id?: unknown;
+  }
+
+  /**
+   * The style of reasoning content returned by the OpenAI Responses API
+   */
+  export interface SummarizedReasoningContent {
+    /**
+     * The unique identifier for this reasoning step.
+     */
+    id: string;
+
+    /**
+     * Summaries of the reasoning content.
+     */
+    summary: Array<SummarizedReasoningContent.Summary>;
+
+    /**
+     * The encrypted reasoning content.
+     */
+    encrypted_content?: string;
+
+    /**
+     * Indicates this is a summarized reasoning step.
+     */
+    type?: 'summarized_reasoning';
+  }
+
+  export namespace SummarizedReasoningContent {
+    export interface Summary {
+      /**
+       * The index of the summary part.
+       */
+      index: number;
+
+      /**
+       * The text of the summary part.
+       */
+      text: string;
+    }
+  }
+
   export interface ToolCall {
     id: string;
 
@@ -749,6 +964,33 @@ export namespace Message {
       [k: string]: unknown;
     }
   }
+
+  export interface ToolReturn {
+    /**
+     * The status of the tool call
+     */
+    status: 'success' | 'error';
+
+    /**
+     * The function response string
+     */
+    func_response?: string | null;
+
+    /**
+     * Captured stderr from the tool invocation
+     */
+    stderr?: Array<string> | null;
+
+    /**
+     * Captured stdout (e.g. prints, logs) from the tool invocation
+     */
+    stdout?: Array<string> | null;
+
+    /**
+     * The ID for the tool call
+     */
+    tool_call_id?: unknown;
+  }
 }
 
 export type MessageRole = 'assistant' | 'user' | 'tool' | 'function' | 'system' | 'approval';
@@ -764,13 +1006,25 @@ export type MessageType =
   | 'approval_request_message'
   | 'approval_response_message';
 
+/**
+ * A placeholder for reasoning content we know is present, but isn't returned by
+ * the provider (e.g. OpenAI GPT-5 on ChatCompletions)
+ */
 export interface OmittedReasoningContent {
+  /**
+   * A unique identifier for this reasoning step.
+   */
+  signature?: string | null;
+
   /**
    * Indicates this is an omitted reasoning step.
    */
   type?: 'omitted_reasoning';
 }
 
+/**
+ * Sent via the Anthropic Messages API
+ */
 export interface ReasoningContent {
   /**
    * Whether the reasoning content was generated by a reasoner model that processed
@@ -835,6 +1089,9 @@ export interface ReasoningMessage {
   step_id?: string | null;
 }
 
+/**
+ * Sent via the Anthropic Messages API
+ */
 export interface RedactedReasoningContent {
   /**
    * The redacted or filtered intermediate reasoning content.
@@ -848,20 +1105,40 @@ export interface RedactedReasoningContent {
 }
 
 /**
- * Representation of a run, which is a job with a 'run' prefix in its ID. Inherits
- * all fields and behavior from Job except for the ID prefix.
+ * Representation of a run - a conversation or processing session for an agent.
+ * Runs track when agents process messages and maintain the relationship between
+ * agents, steps, and messages.
  *
  * Parameters: id (str): The unique identifier of the run (prefixed with 'run-').
- * status (JobStatus): The status of the run. created_at (datetime): The unix
- * timestamp of when the run was created. completed_at (datetime): The unix
- * timestamp of when the run was completed. user_id (str): The unique identifier of
- * the user associated with the run.
+ * status (JobStatus): The current status of the run. created_at (datetime): The
+ * timestamp when the run was created. completed_at (datetime): The timestamp when
+ * the run was completed. agent_id (str): The unique identifier of the agent
+ * associated with the run. base_template_id (str): The base template ID that the
+ * run belongs to. stop_reason (StopReasonType): The reason why the run was
+ * stopped. background (bool): Whether the run was created in background mode.
+ * metadata (dict): Additional metadata for the run. request_config
+ * (LettaRequestConfig): The request configuration for the run.
  */
 export interface Run {
+  /**
+   * The unique identifier of the agent associated with the run.
+   */
+  agent_id: string;
+
   /**
    * The human-friendly ID of the Run
    */
   id?: string;
+
+  /**
+   * Whether the run was created in background mode.
+   */
+  background?: boolean | null;
+
+  /**
+   * The base template ID that the run belongs to.
+   */
+  base_template_id?: string | null;
 
   /**
    * Optional error message from attempting to POST the callback endpoint.
@@ -879,34 +1156,22 @@ export interface Run {
   callback_status_code?: number | null;
 
   /**
-   * If set, POST to this URL when the job completes.
+   * If set, POST to this URL when the run completes.
    */
   callback_url?: string | null;
 
   /**
-   * The unix timestamp of when the job was completed.
+   * The timestamp when the run was completed.
    */
   completed_at?: string | null;
 
   /**
-   * The unix timestamp of when the job was created.
+   * The timestamp when the run was created.
    */
   created_at?: string;
 
   /**
-   * The id of the user that made this object.
-   */
-  created_by_id?: string | null;
-
-  job_type?: JobType;
-
-  /**
-   * The id of the user that made this object.
-   */
-  last_updated_by_id?: string | null;
-
-  /**
-   * The metadata of the job.
+   * Additional metadata for the run.
    */
   metadata?: { [key: string]: unknown } | null;
 
@@ -916,9 +1181,9 @@ export interface Run {
   request_config?: Run.RequestConfig | null;
 
   /**
-   * The status of the job.
+   * The current status of the run.
    */
-  status?: JobStatus;
+  status?: 'created' | 'running' | 'completed' | 'failed' | 'cancelled';
 
   /**
    * The reason why the run was stopped.
@@ -934,11 +1199,6 @@ export interface Run {
    * Time to first token for a run in nanoseconds
    */
   ttft_ns?: number | null;
-
-  /**
-   * The timestamp when the object was last updated.
-   */
-  updated_at?: string | null;
 }
 
 export namespace Run {
@@ -1015,6 +1275,11 @@ export interface TextContent {
   text: string;
 
   /**
+   * Stores a unique identifier for any reasoning associated with this text content.
+   */
+  signature?: string | null;
+
+  /**
    * The type of the message.
    */
   type?: 'text';
@@ -1046,6 +1311,11 @@ export interface ToolCallContent {
   name: string;
 
   /**
+   * Stores a unique identifier for any reasoning associated with this tool call.
+   */
+  signature?: string | null;
+
+  /**
    * Indicates this content represents a tool call event.
    */
   type?: 'tool_call';
@@ -1072,6 +1342,9 @@ export interface ToolCallMessage {
 
   date: string;
 
+  /**
+   * @deprecated
+   */
   tool_call: ToolCall | ToolCallDelta;
 
   is_err?: boolean | null;
@@ -1092,23 +1365,8 @@ export interface ToolCallMessage {
   seq_id?: number | null;
 
   step_id?: string | null;
-}
 
-export interface ToolReturn {
-  /**
-   * The status of the tool call
-   */
-  status: 'success' | 'error';
-
-  /**
-   * Captured stderr from the tool invocation
-   */
-  stderr?: Array<string> | null;
-
-  /**
-   * Captured stdout (e.g. prints, logs) from the tool invocation
-   */
-  stdout?: Array<string> | null;
+  tool_calls?: Array<ToolCall> | ToolCallDelta | null;
 }
 
 export interface ToolReturnContent {
@@ -1233,43 +1491,7 @@ export type MessageListResponse = Array<LettaMessageUnion>;
 
 export type MessageCancelResponse = { [key: string]: unknown };
 
-export type MessagePreviewRawPayloadResponse = { [key: string]: unknown };
-
-export type MessageSearchResponse = Array<MessageSearchResponse.MessageSearchResponseItem>;
-
-export namespace MessageSearchResponse {
-  /**
-   * Result from a message search operation with scoring details.
-   */
-  export interface MessageSearchResponseItem {
-    /**
-     * The embedded content (LLM-friendly)
-     */
-    embedded_text: string;
-
-    /**
-     * The raw message object
-     */
-    message: MessagesAPI.Message;
-
-    /**
-     * Reciprocal Rank Fusion combined score
-     */
-    rrf_score: number;
-
-    /**
-     * Full-text search rank position if FTS was used
-     */
-    fts_rank?: number | null;
-
-    /**
-     * Vector search rank position if vector search was used
-     */
-    vector_rank?: number | null;
-  }
-}
-
-export type MessageSendStreamResponse = unknown;
+export type MessageStreamResponse = unknown;
 
 export type MessageUpdateParams =
   | MessageUpdateParams.UpdateSystemMessage
@@ -1280,7 +1502,7 @@ export type MessageUpdateParams =
 export declare namespace MessageUpdateParams {
   export interface UpdateSystemMessage {
     /**
-     * Path param:
+     * Path param: The ID of the agent in the format 'agent-<uuid4>'
      */
     agent_id: string;
 
@@ -1298,7 +1520,7 @@ export declare namespace MessageUpdateParams {
 
   export interface UpdateUserMessage {
     /**
-     * Path param:
+     * Path param: The ID of the agent in the format 'agent-<uuid4>'
      */
     agent_id: string;
 
@@ -1316,7 +1538,7 @@ export declare namespace MessageUpdateParams {
 
   export interface UpdateReasoningMessage {
     /**
-     * Path param:
+     * Path param: The ID of the agent in the format 'agent-<uuid4>'
      */
     agent_id: string;
 
@@ -1333,7 +1555,7 @@ export declare namespace MessageUpdateParams {
 
   export interface UpdateAssistantMessage {
     /**
-     * Path param:
+     * Path param: The ID of the agent in the format 'agent-<uuid4>'
      */
     agent_id: string;
 
@@ -1352,7 +1574,8 @@ export declare namespace MessageUpdateParams {
 
 export interface MessageListParams {
   /**
-   * Message after which to retrieve the returned messages.
+   * Message ID cursor for pagination. Returns messages that come after this message
+   * ID in the specified sort order
    */
   after?: string | null;
 
@@ -1367,7 +1590,8 @@ export interface MessageListParams {
   assistant_message_tool_name?: string;
 
   /**
-   * Message before which to retrieve the returned messages.
+   * Message ID cursor for pagination. Returns messages that come before this message
+   * ID in the specified sort order
    */
   before?: string | null;
 
@@ -1383,9 +1607,20 @@ export interface MessageListParams {
   include_err?: boolean | null;
 
   /**
-   * Maximum number of messages to retrieve.
+   * Maximum number of messages to return
    */
-  limit?: number;
+  limit?: number | null;
+
+  /**
+   * Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
+   * newest first
+   */
+  order?: 'asc' | 'desc';
+
+  /**
+   * Field to sort by
+   */
+  order_by?: 'created_at';
 
   /**
    * Whether to use assistant messages
@@ -1400,147 +1635,11 @@ export interface MessageCancelParams {
   run_ids?: Array<string> | null;
 }
 
-export type MessagePreviewRawPayloadParams =
-  | MessagePreviewRawPayloadParams.LettaRequest
-  | MessagePreviewRawPayloadParams.LettaStreamingRequest;
-
-export declare namespace MessagePreviewRawPayloadParams {
-  export interface LettaRequest {
-    /**
-     * The messages to be sent to the agent.
-     */
-    messages: Array<AgentsAPI.MessageCreate | ApprovalCreate>;
-
-    /**
-     * The name of the message argument in the designated message tool.
-     */
-    assistant_message_tool_kwarg?: string;
-
-    /**
-     * The name of the designated message tool.
-     */
-    assistant_message_tool_name?: string;
-
-    /**
-     * If set to True, enables reasoning before responses or tool calls from the agent.
-     */
-    enable_thinking?: string;
-
-    /**
-     * Only return specified message types in the response. If `None` (default) returns
-     * all messages.
-     */
-    include_return_message_types?: Array<MessageType> | null;
-
-    /**
-     * Maximum number of steps the agent should take to process the request.
-     */
-    max_steps?: number;
-
-    /**
-     * Whether the server should parse specific tool call arguments (default
-     * `send_message`) as `AssistantMessage` objects.
-     */
-    use_assistant_message?: boolean;
-  }
-
-  export interface LettaStreamingRequest {
-    /**
-     * The messages to be sent to the agent.
-     */
-    messages: Array<AgentsAPI.MessageCreate | ApprovalCreate>;
-
-    /**
-     * The name of the message argument in the designated message tool.
-     */
-    assistant_message_tool_kwarg?: string;
-
-    /**
-     * The name of the designated message tool.
-     */
-    assistant_message_tool_name?: string;
-
-    /**
-     * Whether to process the request in the background.
-     */
-    background?: boolean;
-
-    /**
-     * If set to True, enables reasoning before responses or tool calls from the agent.
-     */
-    enable_thinking?: string;
-
-    /**
-     * Whether to include periodic keepalive ping messages in the stream to prevent
-     * connection timeouts.
-     */
-    include_pings?: boolean;
-
-    /**
-     * Only return specified message types in the response. If `None` (default) returns
-     * all messages.
-     */
-    include_return_message_types?: Array<MessageType> | null;
-
-    /**
-     * Maximum number of steps the agent should take to process the request.
-     */
-    max_steps?: number;
-
-    /**
-     * Flag to determine if individual tokens should be streamed, rather than streaming
-     * per step.
-     */
-    stream_tokens?: boolean;
-
-    /**
-     * Whether the server should parse specific tool call arguments (default
-     * `send_message`) as `AssistantMessage` objects.
-     */
-    use_assistant_message?: boolean;
-  }
-}
-
-export interface MessageSearchParams {
+export interface MessageResetParams {
   /**
-   * Filter messages created on or before this date
+   * If true, adds the default initial messages after resetting.
    */
-  end_date?: string | null;
-
-  /**
-   * Maximum number of results to return
-   */
-  limit?: number;
-
-  /**
-   * Filter messages by project ID
-   */
-  project_id?: string | null;
-
-  /**
-   * Text query for full-text search
-   */
-  query?: string | null;
-
-  /**
-   * Filter messages by role
-   */
-  roles?: Array<MessageRole> | null;
-
-  /**
-   * Search mode to use
-   */
-  search_mode?: 'vector' | 'fts' | 'hybrid';
-
-  /**
-   * Filter messages created after this date
-   */
-  start_date?: string | null;
-
-  /**
-   * Filter messages by template ID
-   */
-  template_id?: string | null;
+  add_default_initial_messages?: boolean;
 }
 
 export interface MessageSendParams {
@@ -1550,17 +1649,21 @@ export interface MessageSendParams {
   messages: Array<AgentsAPI.MessageCreate | ApprovalCreate>;
 
   /**
-   * The name of the message argument in the designated message tool.
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * If set to True, enables reasoning before responses or tool calls from the agent.
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
    */
   enable_thinking?: string;
 
@@ -1576,8 +1679,9 @@ export interface MessageSendParams {
   max_steps?: number;
 
   /**
-   * Whether the server should parse specific tool call arguments (default
-   * `send_message`) as `AssistantMessage` objects.
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
 }
@@ -1589,12 +1693,15 @@ export interface MessageSendAsyncParams {
   messages: Array<AgentsAPI.MessageCreate | ApprovalCreate>;
 
   /**
-   * The name of the message argument in the designated message tool.
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
@@ -1604,7 +1711,8 @@ export interface MessageSendAsyncParams {
   callback_url?: string | null;
 
   /**
-   * If set to True, enables reasoning before responses or tool calls from the agent.
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
    */
   enable_thinking?: string;
 
@@ -1620,25 +1728,29 @@ export interface MessageSendAsyncParams {
   max_steps?: number;
 
   /**
-   * Whether the server should parse specific tool call arguments (default
-   * `send_message`) as `AssistantMessage` objects.
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
 }
 
-export interface MessageSendStreamParams {
+export interface MessageStreamParams {
   /**
    * The messages to be sent to the agent.
    */
   messages: Array<AgentsAPI.MessageCreate | ApprovalCreate>;
 
   /**
-   * The name of the message argument in the designated message tool.
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
@@ -1648,7 +1760,8 @@ export interface MessageSendStreamParams {
   background?: boolean;
 
   /**
-   * If set to True, enables reasoning before responses or tool calls from the agent.
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
    */
   enable_thinking?: string;
 
@@ -1676,10 +1789,18 @@ export interface MessageSendStreamParams {
   stream_tokens?: boolean;
 
   /**
-   * Whether the server should parse specific tool call arguments (default
-   * `send_message`) as `AssistantMessage` objects.
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
+}
+
+export interface MessageSummarizeParams {
+  /**
+   * Maximum number of messages to retain after summarization.
+   */
+  max_message_length: number;
 }
 
 export declare namespace Messages {
@@ -1712,7 +1833,6 @@ export declare namespace Messages {
     type ToolCallContent as ToolCallContent,
     type ToolCallDelta as ToolCallDelta,
     type ToolCallMessage as ToolCallMessage,
-    type ToolReturn as ToolReturn,
     type ToolReturnContent as ToolReturnContent,
     type UpdateAssistantMessage as UpdateAssistantMessage,
     type UpdateReasoningMessage as UpdateReasoningMessage,
@@ -1722,16 +1842,14 @@ export declare namespace Messages {
     type MessageUpdateResponse as MessageUpdateResponse,
     type MessageListResponse as MessageListResponse,
     type MessageCancelResponse as MessageCancelResponse,
-    type MessagePreviewRawPayloadResponse as MessagePreviewRawPayloadResponse,
-    type MessageSearchResponse as MessageSearchResponse,
-    type MessageSendStreamResponse as MessageSendStreamResponse,
+    type MessageStreamResponse as MessageStreamResponse,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,
-    type MessagePreviewRawPayloadParams as MessagePreviewRawPayloadParams,
-    type MessageSearchParams as MessageSearchParams,
+    type MessageResetParams as MessageResetParams,
     type MessageSendParams as MessageSendParams,
     type MessageSendAsyncParams as MessageSendAsyncParams,
-    type MessageSendStreamParams as MessageSendStreamParams,
+    type MessageStreamParams as MessageStreamParams,
+    type MessageSummarizeParams as MessageSummarizeParams,
   };
 }

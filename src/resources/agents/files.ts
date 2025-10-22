@@ -7,7 +7,7 @@ import { path } from '../../internal/utils/path';
 
 export class Files extends APIResource {
   /**
-   * Get the files attached to an agent with their open/closed status (paginated).
+   * Get the files attached to an agent with their open/closed status.
    */
   list(
     agentID: string,
@@ -136,7 +136,20 @@ export type FileOpenResponse = Array<string>;
 
 export interface FileListParams {
   /**
-   * Pagination cursor from previous response
+   * File ID cursor for pagination. Returns files that come after this file ID in the
+   * specified sort order
+   */
+  after?: string | null;
+
+  /**
+   * File ID cursor for pagination. Returns files that come before this file ID in
+   * the specified sort order
+   */
+  before?: string | null;
+
+  /**
+   * @deprecated Pagination cursor from previous response (deprecated, use
+   * before/after)
    */
   cursor?: string | null;
 
@@ -146,16 +159,33 @@ export interface FileListParams {
   is_open?: boolean | null;
 
   /**
-   * Number of items to return (1-100)
+   * Maximum number of files to return
    */
-  limit?: number;
+  limit?: number | null;
+
+  /**
+   * Sort order for files by creation time. 'asc' for oldest first, 'desc' for newest
+   * first
+   */
+  order?: 'asc' | 'desc';
+
+  /**
+   * Field to sort by
+   */
+  order_by?: 'created_at';
 }
 
 export interface FileCloseParams {
+  /**
+   * The ID of the agent in the format 'agent-<uuid4>'
+   */
   agent_id: string;
 }
 
 export interface FileOpenParams {
+  /**
+   * The ID of the agent in the format 'agent-<uuid4>'
+   */
   agent_id: string;
 }
 
