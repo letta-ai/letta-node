@@ -1,6 +1,6 @@
 {
   "name": "@letta-ai/letta-client",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.6",
   "description": "The official TypeScript library for the Letta SDK API",
   "author": "Letta SDK <>",
   "types": "dist/index.d.ts",
