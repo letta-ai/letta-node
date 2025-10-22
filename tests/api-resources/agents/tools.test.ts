@@ -78,7 +78,7 @@ describe('resource tools', () => {
   test.skip('updateApproval: only required params', async () => {
     const responsePromise = client.agents.tools.updateApproval('tool_name', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
-      requires_approval: true,
+      body_requires_approval: true,
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -93,7 +93,8 @@ describe('resource tools', () => {
   test.skip('updateApproval: required and optional params', async () => {
     const response = await client.agents.tools.updateApproval('tool_name', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
-      requires_approval: true,
+      body_requires_approval: true,
+      query_requires_approval: true,
     });
   });
 });
