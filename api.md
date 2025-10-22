@@ -227,6 +227,7 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">ToolCallContent</a></code>
 - <code><a href="./src/resources/agents/messages.ts">ToolCallDelta</a></code>
 - <code><a href="./src/resources/agents/messages.ts">ToolCallMessage</a></code>
+- <code><a href="./src/resources/agents/messages.ts">ToolReturn</a></code>
 - <code><a href="./src/resources/agents/messages.ts">ToolReturnContent</a></code>
 - <code><a href="./src/resources/agents/messages.ts">UpdateAssistantMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">UpdateReasoningMessage</a></code>
