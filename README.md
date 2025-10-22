@@ -1,398 +1,390 @@
-# Letta TypeScript SDK
+# Letta SDK TypeScript API Library
 
-[![npm shield](https://img.shields.io/npm/v/@letta-ai/letta-client)](https://www.npmjs.com/package/@letta-ai/letta-client)
+[![NPM version](<https://img.shields.io/npm/v/@letta-ai/letta-client.svg?label=npm%20(stable)>)](https://npmjs.org/package/@letta-ai/letta-client) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@letta-ai/letta-client)
 
-Letta is the platform for building stateful agents: open AI with advanced memory that can learn and self-improve over time.
+This library provides convenient access to the Letta SDK REST API from server-side TypeScript or JavaScript.
 
-### Quicklinks:
-* [**Developer Documentation**](https://docs.letta.com): Learn how to create agents using Python or TypeScript
-* [**TypeScript API Reference**](./reference.md): Complete TypeScript SDK documentation
-* [**Agent Development Environment (ADE)**](https://docs.letta.com/guides/ade/overview): A no-code UI for building stateful agents
-* [**Letta Cloud**](https://app.letta.com/): The fastest way to try Letta
+The full API of this library can be found in [api.md](api.md).
 
-## Get started
+It is generated with [Stainless](https://www.stainless.com/).
 
-Install the Letta TypeScript SDK:
+## Installation
 
-```bash
+```sh
 npm install @letta-ai/letta-client
 ```
 
-## Simple Hello World example
+## Usage
 
-In the example below, we'll create a stateful agent with two memory blocks. We'll initialize the `human` memory block with incorrect information, and correct the agent in our first message - which will trigger the agent to update its own memory with a tool call.
+The full API of this library can be found in [api.md](api.md).
 
-*To run the examples, you'll need to get a `LETTA_API_KEY` from [Letta Cloud](https://app.letta.com/api-keys), or run your own self-hosted server (see [our guide](https://docs.letta.com/guides/selfhosting))*
+<!-- prettier-ignore -->
+```js
+import LettaSDK from '@letta-ai/letta-client';
 
-```typescript
-import { LettaClient } from '@letta-ai/letta-client';
-
-const client = new LettaClient({ token: "LETTA_API_KEY" });
-// const client = new LettaClient({ baseUrl: "http://localhost:8283" });  // if self-hosting
-
-const agentState = await client.agents.create({
-    model: "openai/gpt-4o-mini",
-    embedding: "openai/text-embedding-3-small",
-    memoryBlocks: [
-        {
-          label: "human",
-          value: "The human's name is Chad. They like vibe coding."
-        },
-        {
-          label: "persona",
-          value: "My name is Sam, a helpful assistant."
-        }
-    ],
-    tools: ["web_search", "run_code"]
+const client = new LettaSDK({
+  apiKey: process.env['LETTA_SDK_API_KEY'], // This is the default and can be omitted
+  environment: 'environment_1', // defaults to 'production'
 });
 
-console.log(agentState.id);
-// agent-d9be...0846
+const archive = await client.archives.update({ name: 'name' });
 
-const response = await client.agents.messages.create(agentState.id, {
-    messages: [
-        {
-            role: "user",
-            content: "Hey, nice to meet you, my name is Brad."
-        }
-    ]
-});
-
-// the agent will think, then edit its memory using a tool
-for (const message of response.messages) {
-    console.log(message);
-}
-
-// The content of this memory block will be something like
-// "The human's name is Brad. They like vibe coding."
-// Fetch this block's content with:
-const human_block = await client.agents.blocks.retrieve(agentState.id, "human");
-console.log(human_block.value);
+console.log(archive.id);
 ```
 
-## Core concepts in Letta:
+### Request & Response types
 
-Letta is built on the [MemGPT](https://arxiv.org/abs/2310.08560) research paper, which introduced the concept of the "LLM Operating System" for memory management:
+This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
 
-1. [**Memory Hierarchy**](https://docs.letta.com/guides/agents/memory): Agents have self-editing memory split between in-context and out-of-context memory
-2. [**Memory Blocks**](https://docs.letta.com/guides/agents/memory-blocks): In-context memory is composed of persistent editable blocks
-3. [**Agentic Context Engineering**](https://docs.letta.com/guides/agents/context-engineering): Agents control their context window using tools to edit, delete, or search memory
-4. [**Perpetual Self-Improving Agents**](https://docs.letta.com/guides/agents/overview): Every agent has a perpetual (infinite) message history
+<!-- prettier-ignore -->
+```ts
+import LettaSDK from '@letta-ai/letta-client';
 
-## Local Development
-
-Connect to a local Letta server instead of the cloud:
-
-```typescript
-const client = new LettaClient({
-  baseUrl: "http://localhost:8283"
+const client = new LettaSDK({
+  apiKey: process.env['LETTA_SDK_API_KEY'], // This is the default and can be omitted
+  environment: 'environment_1', // defaults to 'production'
 });
+
+const params: LettaSDK.ArchiveUpdateParams = { name: 'name' };
+const archive: LettaSDK.Archive = await client.archives.update(params);
 ```
 
-Run Letta locally with Docker:
+Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
 
-```bash
-docker run \
-  -v ~/.letta/.persist/pgdata:/var/lib/postgresql/data \
-  -p 8283:8283 \
-  -e OPENAI_API_KEY="your_key" \
-  letta/letta:latest
+## File uploads
+
+Request parameters that correspond to file uploads can be passed in many different forms:
+
+- `File` (or an object with the same structure)
+- a `fetch` `Response` (or an object with the same structure)
+- an `fs.ReadStream`
+- the return value of our `toFile` helper
+
+```ts
+import fs from 'fs';
+import LettaSDK, { toFile } from '@letta-ai/letta-client';
+
+const client = new LettaSDK();
+
+// If you have access to Node `fs` we recommend using `fs.createReadStream()`:
+await client.sources.uploadFile('source_id', { file: fs.createReadStream('/path/to/file') });
+
+// Or if you have the web `File` API you can pass a `File` instance:
+await client.sources.uploadFile('source_id', { file: new File(['my bytes'], 'file') });
+
+// You can also pass a `fetch` `Response`:
+await client.sources.uploadFile('source_id', { file: await fetch('https://somesite/file') });
+
+// Finally, if none of the above are convenient, you can use our `toFile` helper:
+await client.sources.uploadFile('source_id', { file: await toFile(Buffer.from('my bytes'), 'file') });
+await client.sources.uploadFile('source_id', { file: await toFile(new Uint8Array([0, 1, 2]), 'file') });
 ```
 
-See the [self-hosting guide](https://docs.letta.com/guides/selfhosting) for more options.
+## Handling errors
 
-## Key Features
+When the library is unable to connect to the API,
+or if the API returns a non-success status code (i.e., 4xx or 5xx response),
+a subclass of `APIError` will be thrown:
 
-### Memory Management ([full guide](https://docs.letta.com/guides/agents/memory-blocks))
-
-Memory blocks are persistent, editable sections of an agent's context window:
-
-```typescript
-// Create agent with memory blocks
-const agent = await client.agents.create({
-  memoryBlocks: [
-    { label: "persona", value: "I'm a helpful assistant." },
-    { label: "human", value: "User preferences and info." }
-  ]
-});
-
-// Modify blocks manually
-await client.agents.blocks.modify(agent.id, "human", {
-  value: "Updated user information"
-});
-
-// Retrieve a block
-const block = await client.agents.blocks.retrieve(agent.id, "human");
-```
-
-### Multi-agent Shared Memory ([full guide](https://docs.letta.com/guides/agents/multi-agent-shared-memory))
-
-Memory blocks can be attached to multiple agents. All agents will have an up-to-date view on the contents of the memory block -- if one agent modifies it, the other will see it immediately.
-
-Here is how to attach a single memory block to multiple agents:
-
-```typescript
-// Create shared block
-const sharedBlock = await client.blocks.create({
-  label: "organization",
-  value: "Shared team context"
-});
-
-// Attach to multiple agents
-const agent1 = await client.agents.create({
-  memoryBlocks: [{ label: "persona", value: "I am a supervisor" }],
-  blockIds: [sharedBlock.id]
-});
-
-const agent2 = await client.agents.create({
-  memoryBlocks: [{ label: "persona", value: "I am a worker" }],
-  blockIds: [sharedBlock.id]
-});
-```
-
-### Sleep-time Agents ([full guide](https://docs.letta.com/guides/agents/architectures/sleeptime))
-
-Background agents that share memory with your primary agent:
-
-```typescript
-const agent = await client.agents.create({
-  model: "openai/gpt-4o-mini",
-  enableSleeptime: true  // creates a sleep-time agent
-});
-```
-
-### Agent File Import/Export ([full guide](https://docs.letta.com/guides/agents/agent-file))
-
-Save and share agents with the `.af` file format:
-
-```typescript
-import { readFileSync } from 'fs';
-
-// Import agent
-const file = new Blob([readFileSync('/path/to/agent.af')]);
-const agent = await client.agents.importAgentSerialized(file);
-
-// Export agent
-const schema = await client.agents.exportAgentSerialized(agent.id);
-```
-
-### MCP Tools ([full guide](https://docs.letta.com/guides/mcp/overview))
-
-Connect to Model Context Protocol servers:
-
-```typescript
-// Add tool from MCP server
-const tool = await client.tools.addMcpTool("weather-server", "get_weather");
-
-// Create agent with MCP tool
-const agent = await client.agents.create({
-  model: "openai/gpt-4o-mini",
-  toolIds: [tool.id]
-});
-```
-
-### Filesystem ([full guide](https://docs.letta.com/guides/agents/filesystem))
-
-Give agents access to files:
-
-```typescript
-import { createReadStream } from 'fs';
-
-// Get an available embedding config
-const embeddingConfigs = await client.embeddingModels.list();
-
-// Create folder and upload file
-const folder = await client.folders.create({
-  name: "my_folder",
-  embeddingConfig: embeddingConfigs[0]
-});
-await client.folders.files.upload(createReadStream("file.txt"), folder.id);
-
-// Attach to agent
-await client.agents.folders.attach(agent.id, folder.id);
-```
-
-### Long-running Agents ([full guide](https://docs.letta.com/guides/agents/long-running))
-
-Background execution with resumable streaming:
-
-```typescript
-const stream = await client.agents.messages.createStream(agent.id, {
-  messages: [{ role: "user", content: "Analyze this dataset" }],
-  background: true
-});
-
-let runId, lastSeqId;
-for await (const chunk of stream) {
-  runId = chunk.runId;
-  lastSeqId = chunk.seqId;
-}
-
-// Resume if disconnected
-for await (const chunk of client.runs.stream(runId, { startingAfter: lastSeqId })) {
-  console.log(chunk);
-}
-```
-
-### Streaming ([full guide](https://docs.letta.com/guides/agents/streaming))
-
-Stream responses in real-time:
-
-```typescript
-const stream = await client.agents.messages.createStream(agent.id, {
-  messages: [{ role: "user", content: "Hello!" }]
-});
-
-for await (const chunk of stream) {
-  console.log(chunk);
-}
-```
-
-### Message Types ([full guide](https://docs.letta.com/guides/agents/message-types))
-
-Agent responses contain different message types. Handle them with the `messageType` discriminator:
-
-```typescript
-const messages = await client.agents.messages.list(agent.id);
-
-for (const message of messages) {
-  switch (message.messageType) {
-    case "user_message":
-      console.log("User:", message.content);
-      break;
-    case "assistant_message":
-      console.log("Agent:", message.content);
-      break;
-    case "reasoning_message":
-      console.log("Reasoning:", message.reasoning);
-      break;
-    case "tool_call_message":
-      console.log("Tool:", message.toolCall.name);
-      break;
-    case "tool_return_message":
-      console.log("Result:", message.toolReturn);
-      break;
+<!-- prettier-ignore -->
+```ts
+const archive = await client.archives.update({ name: 'name' }).catch(async (err) => {
+  if (err instanceof LettaSDK.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
   }
-}
+});
 ```
 
-## TypeScript Support
+Error codes are as follows:
 
-Full TypeScript support with exported types:
-
-```typescript
-import { Letta } from "@letta-ai/letta-client";
-
-const request: Letta.CreateAgentRequest = {
-  model: "openai/gpt-4o-mini",
-  memoryBlocks: [...]
-};
-```
-
-## Error Handling
-
-```typescript
-import { LettaError } from "@letta-ai/letta-client";
-
-try {
-  await client.agents.messages.create(agentId, {...});
-} catch (err) {
-  if (err instanceof LettaError) {
-    console.log(err.statusCode);
-    console.log(err.message);
-    console.log(err.body);
-  }
-}
-```
-
-## Advanced Configuration
+| Status Code | Error Type                 |
+| ----------- | -------------------------- |
+| 400         | `BadRequestError`          |
+| 401         | `AuthenticationError`      |
+| 403         | `PermissionDeniedError`    |
+| 404         | `NotFoundError`            |
+| 422         | `UnprocessableEntityError` |
+| 429         | `RateLimitError`           |
+| >=500       | `InternalServerError`      |
+| N/A         | `APIConnectionError`       |
 
 ### Retries
 
-```typescript
-const response = await client.agents.create({...}, {
-  maxRetries: 3 // Default: 2
+Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
+Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
+429 Rate Limit, and >=500 Internal errors will all be retried by default.
+
+You can use the `maxRetries` option to configure or disable this:
+
+<!-- prettier-ignore -->
+```js
+// Configure the default for all requests:
+const client = new LettaSDK({
+  maxRetries: 0, // default is 2
+});
+
+// Or, configure per-request:
+await client.archives.update({ name: 'name' }, {
+  maxRetries: 5,
 });
 ```
 
 ### Timeouts
 
-```typescript
-const response = await client.agents.create({...}, {
-  timeoutInSeconds: 30 // Default: 60
+Requests time out after 1 minute by default. You can configure this with a `timeout` option:
+
+<!-- prettier-ignore -->
+```ts
+// Configure the default for all requests:
+const client = new LettaSDK({
+  timeout: 20 * 1000, // 20 seconds (default is 1 minute)
+});
+
+// Override per-request:
+await client.archives.update({ name: 'name' }, {
+  timeout: 5 * 1000,
 });
 ```
 
-### Custom Headers
+On timeout, an `APIConnectionTimeoutError` is thrown.
 
-```typescript
-const response = await client.agents.create({...}, {
-  headers: {
-    'X-Custom-Header': 'value'
-  }
+Note that requests which time out will be [retried twice by default](#retries).
+
+## Advanced Usage
+
+### Accessing raw Response data (e.g., headers)
+
+The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.
+This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
+
+You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
+Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
+
+<!-- prettier-ignore -->
+```ts
+const client = new LettaSDK();
+
+const response = await client.archives.update({ name: 'name' }).asResponse();
+console.log(response.headers.get('X-My-Header'));
+console.log(response.statusText); // access the underlying Response object
+
+const { data: archive, response: raw } = await client.archives.update({ name: 'name' }).withResponse();
+console.log(raw.headers.get('X-My-Header'));
+console.log(archive.id);
+```
+
+### Logging
+
+> [!IMPORTANT]
+> All log messages are intended for debugging only. The format and content of log messages
+> may change between releases.
+
+#### Log levels
+
+The log level can be configured in two ways:
+
+1. Via the `LETTA_SDK_LOG` environment variable
+2. Using the `logLevel` client option (overrides the environment variable if set)
+
+```ts
+import LettaSDK from '@letta-ai/letta-client';
+
+const client = new LettaSDK({
+  logLevel: 'debug', // Show all log messages
 });
 ```
 
-### Abort Requests
+Available log levels, from most to least verbose:
 
-```typescript
-const controller = new AbortController();
-const response = await client.agents.create({...}, {
-  abortSignal: controller.signal
+- `'debug'` - Show debug messages, info, warnings, and errors
+- `'info'` - Show info messages, warnings, and errors
+- `'warn'` - Show warnings and errors (default)
+- `'error'` - Show only errors
+- `'off'` - Disable all logging
+
+At the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies.
+Some authentication-related headers are redacted, but sensitive data in request and response bodies
+may still be visible.
+
+#### Custom logger
+
+By default, this library logs to `globalThis.console`. You can also provide a custom logger.
+Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, please open an issue.
+
+When providing a custom logger, the `logLevel` option still controls which messages are emitted, messages
+below the configured level will not be sent to your logger.
+
+```ts
+import LettaSDK from '@letta-ai/letta-client';
+import pino from 'pino';
+
+const logger = pino();
+
+const client = new LettaSDK({
+  logger: logger.child({ name: 'LettaSDK' }),
+  logLevel: 'debug', // Send all messages to pino, allowing it to filter
 });
-controller.abort();
 ```
 
-### Raw Response Access
+### Making custom/undocumented requests
 
-```typescript
-const { data, rawResponse } = await client.agents
-  .create({...})
-  .withRawResponse();
+This library is typed for convenient access to the documented API. If you need to access undocumented
+endpoints, params, or response properties, the library can still be used.
 
-console.log(rawResponse.headers['X-My-Header']);
-```
+#### Undocumented endpoints
 
-### Custom Fetch Client
+To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.
+Options on the client, such as retries, will be respected when making these requests.
 
-```typescript
-const client = new LettaClient({
-  fetcher: yourCustomFetchImplementation
+```ts
+await client.post('/some/path', {
+  body: { some_prop: 'foo' },
+  query: { some_query_arg: 'bar' },
 });
 ```
 
-## Runtime Compatibility
+#### Undocumented request params
 
-Works in:
-- Node.js 18+
-- Vercel
-- Cloudflare Workers
-- Deno v1.25+
-- Bun 1.0+
-- React Native
+To make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented
+parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you
+send will be sent as-is.
+
+```ts
+client.archives.update({
+  // ...
+  // @ts-expect-error baz is not yet public
+  baz: 'undocumented option',
+});
+```
+
+For requests with the `GET` verb, any extra params will be in the query, all other requests will send the
+extra param in the body.
+
+If you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request
+options.
+
+#### Undocumented response properties
+
+To access undocumented response properties, you may access the response object with `// @ts-expect-error` on
+the response object, or cast the response object to the requisite type. Like the request params, we do not
+validate or strip extra properties from the response from the API.
+
+### Customizing the fetch client
+
+By default, this library expects a global `fetch` function is defined.
+
+If you want to use a different `fetch` function, you can either polyfill the global:
+
+```ts
+import fetch from 'my-fetch';
+
+globalThis.fetch = fetch;
+```
+
+Or pass it to the client:
+
+```ts
+import LettaSDK from '@letta-ai/letta-client';
+import fetch from 'my-fetch';
+
+const client = new LettaSDK({ fetch });
+```
+
+### Fetch options
+
+If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
+
+```ts
+import LettaSDK from '@letta-ai/letta-client';
+
+const client = new LettaSDK({
+  fetchOptions: {
+    // `RequestInit` options
+  },
+});
+```
+
+#### Configuring proxies
+
+To modify proxy behavior, you can provide custom `fetchOptions` that add runtime-specific proxy
+options to requests:
+
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
+
+```ts
+import LettaSDK from '@letta-ai/letta-client';
+import * as undici from 'undici';
+
+const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
+const client = new LettaSDK({
+  fetchOptions: {
+    dispatcher: proxyAgent,
+  },
+});
+```
+
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
+
+```ts
+import LettaSDK from '@letta-ai/letta-client';
+
+const client = new LettaSDK({
+  fetchOptions: {
+    proxy: 'http://localhost:8888',
+  },
+});
+```
+
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
+
+```ts
+import LettaSDK from 'npm:@letta-ai/letta-client';
+
+const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
+const client = new LettaSDK({
+  fetchOptions: {
+    client: httpClient,
+  },
+});
+```
+
+## Frequently Asked Questions
+
+## Semantic versioning
+
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+
+1. Changes that only affect static types, without breaking runtime behavior.
+2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
+3. Changes that we do not expect to impact the vast majority of users in practice.
+
+We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
+
+We are keen for your feedback; please open an [issue](https://www.github.com/letta-ai/letta-node/issues) with questions, bugs, or suggestions.
+
+## Requirements
+
+TypeScript >= 4.9 is supported.
+
+The following runtimes are supported:
+
+- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
+- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Deno v1.28.0 or higher.
+- Bun 1.0 or later.
+- Cloudflare Workers.
+- Vercel Edge Runtime.
+- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+- Nitro v2.6 or greater.
+
+Note that React Native is not supported at this time.
+
+If you are interested in other runtime environments, please open or upvote an issue on GitHub.
 
 ## Contributing
 
-Letta is an open source project built by over a hundred contributors. There are many ways to get involved in the Letta OSS project!
-
-* [**Join the Discord**](https://discord.gg/letta): Chat with the Letta devs and other AI developers.
-* [**Chat on our forum**](https://forum.letta.com/): If you're not into Discord, check out our developer forum.
-* **Follow our socials**: [Twitter/X](https://twitter.com/Letta_AI), [LinkedIn](https://www.linkedin.com/company/letta-ai/), [YouTube](https://www.youtube.com/@letta-ai)
-
-This SDK is generated programmatically. For SDK changes, please [open an issue](https://github.com/letta-ai/letta-node/issues).
-
-README contributions are always welcome!
-
-## Resources
-
-- [Documentation](https://docs.letta.com)
-- [TypeScript API Reference](./reference.md)
-- [Example Applications](https://github.com/letta-ai/letta-chatbot-example)
-
-## License
-
-MIT
-
----
-
-***Legal notices**: By using Letta and related Letta services (such as the Letta endpoint or hosted service), you are agreeing to our [privacy policy](https://www.letta.com/privacy-policy) and [terms of service](https://www.letta.com/terms-of-service).*
+See [the contributing documentation](./CONTRIBUTING.md).

@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["dist/src"],
+  "exclude": [],
+  "compilerOptions": {
+    "rootDir": "./dist/src",
+    "paths": {
+      "@letta-ai/letta-client/*": ["./dist/src/*"],
+      "@letta-ai/letta-client": ["./dist/src/index.ts"]
+    },
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "pretty": true,
+    "sourceMap": true
+  }
+}
