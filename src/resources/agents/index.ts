@@ -108,7 +108,6 @@ export {
   type MessageSendParams,
   type MessageSendAsyncParams,
   type MessageStreamParams,
-  type MessageSummarizeParams,
 } from './messages';
 export {
   Tools,

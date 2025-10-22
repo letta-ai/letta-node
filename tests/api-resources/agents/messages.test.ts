@@ -234,10 +234,8 @@ describe('resource messages', () => {
   });
 
   // Prism tests are disabled
-  test.skip('summarize: only required params', async () => {
-    const responsePromise = client.agents.messages.summarize('agent-123e4567-e89b-42d3-8456-426614174000', {
-      max_message_length: 0,
-    });
+  test.skip('summarize', async () => {
+    const responsePromise = client.agents.messages.summarize('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -245,12 +243,5 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('summarize: required and optional params', async () => {
-    const response = await client.agents.messages.summarize('agent-123e4567-e89b-42d3-8456-426614174000', {
-      max_message_length: 0,
-    });
   });
 });

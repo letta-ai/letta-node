@@ -93,15 +93,10 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Summarize an agent's conversation history to a target message length.
-   *
-   * This endpoint summarizes the current message history for a given agent,
-   * truncating and compressing it down to the specified `max_message_length`.
+   * Summarize an agent's conversation history.
    */
-  summarize(agentID: string, params: MessageSummarizeParams, options?: RequestOptions): APIPromise<void> {
-    const { max_message_length } = params;
+  summarize(agentID: string, options?: RequestOptions): APIPromise<void> {
     return this._client.post(path`/v1/agents/${agentID}/summarize`, {
-      query: { max_message_length },
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
@@ -1777,13 +1772,6 @@ export interface MessageStreamParams {
   use_assistant_message?: boolean;
 }
 
-export interface MessageSummarizeParams {
-  /**
-   * Maximum number of messages to retain after summarization.
-   */
-  max_message_length: number;
-}
-
 export declare namespace Messages {
   export {
     type ApprovalCreate as ApprovalCreate,
@@ -1832,6 +1820,5 @@ export declare namespace Messages {
     type MessageSendParams as MessageSendParams,
     type MessageSendAsyncParams as MessageSendAsyncParams,
     type MessageStreamParams as MessageStreamParams,
-    type MessageSummarizeParams as MessageSummarizeParams,
   };
 }

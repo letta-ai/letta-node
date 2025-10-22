@@ -247,7 +247,7 @@ Methods:
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">send</a>(agentID, { ...params }) -> LettaResponse</code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/resources/agents/messages.ts">sendAsync</a>(agentID, { ...params }) -> Run</code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/resources/agents/messages.ts">stream</a>(agentID, { ...params }) -> unknown</code>
-- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">summarize</a>(agentID, { ...params }) -> void</code>
+- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">summarize</a>(agentID) -> void</code>
 
 # Groups
 

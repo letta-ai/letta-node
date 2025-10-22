@@ -64,7 +64,6 @@ import {
   MessageSendParams,
   MessageStreamParams,
   MessageStreamResponse,
-  MessageSummarizeParams,
   MessageType,
   MessageUpdateParams,
   MessageUpdateResponse,
@@ -1774,6 +1773,5 @@ export declare namespace Agents {
     type MessageSendParams as MessageSendParams,
     type MessageSendAsyncParams as MessageSendAsyncParams,
     type MessageStreamParams as MessageStreamParams,
-    type MessageSummarizeParams as MessageSummarizeParams,
   };
 }
