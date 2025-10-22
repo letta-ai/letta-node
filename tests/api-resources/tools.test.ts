@@ -142,33 +142,6 @@ describe('resource tools', () => {
   });
 
   // Prism tests are disabled
-  test.skip('run: only required params', async () => {
-    const responsePromise = client.tools.run({ args: { foo: 'bar' }, source_code: 'source_code' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('run: required and optional params', async () => {
-    const response = await client.tools.run({
-      args: { foo: 'bar' },
-      source_code: 'source_code',
-      args_json_schema: { foo: 'bar' },
-      env_vars: { foo: 'string' },
-      json_schema: { foo: 'bar' },
-      name: 'name',
-      npm_requirements: [{ name: 'x', version: 'version' }],
-      pip_requirements: [{ name: 'x', version: 'version' }],
-      source_type: 'source_type',
-    });
-  });
-
-  // Prism tests are disabled
   test.skip('upsert: only required params', async () => {
     const responsePromise = client.tools.upsert({ source_code: 'source_code' });
     const rawResponse = await responsePromise.asResponse();

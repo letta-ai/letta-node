@@ -45,7 +45,6 @@ Methods:
 - <code title="get /v1/tools/">client.tools.<a href="./src/resources/tools.ts">list</a>({ ...params }) -> ToolListResponse</code>
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolID) -> unknown</code>
 - <code title="get /v1/tools/count">client.tools.<a href="./src/resources/tools.ts">count</a>({ ...params }) -> ToolCountResponse</code>
-- <code title="post /v1/tools/run">client.tools.<a href="./src/resources/tools.ts">run</a>({ ...params }) -> ToolReturnMessage</code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/resources/tools.ts">upsert</a>({ ...params }) -> Tool</code>
 - <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/resources/tools.ts">upsertBaseTools</a>() -> ToolUpsertBaseToolsResponse</code>
 
