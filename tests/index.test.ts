@@ -3,7 +3,7 @@
 import { APIPromise } from '@letta-ai/letta-client/core/api-promise';
 
 import util from 'node:util';
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 import { APIUserAbortError } from '@letta-ai/letta-client';
 const defaultFetch = fetch;
 
@@ -20,7 +20,7 @@ describe('instantiate client', () => {
   });
 
   describe('defaultHeaders', () => {
-    const client = new LettaSDK({
+    const client = new Letta({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       apiKey: 'My API Key',
@@ -54,14 +54,14 @@ describe('instantiate client', () => {
 
     beforeEach(() => {
       process.env = { ...env };
-      process.env['LETTA_SDK_LOG'] = undefined;
+      process.env['LETTA_LOG'] = undefined;
     });
 
     afterEach(() => {
       process.env = env;
     });
 
-    const forceAPIResponseForClient = async (client: LettaSDK) => {
+    const forceAPIResponseForClient = async (client: Letta) => {
       await new APIPromise(
         client,
         Promise.resolve({
@@ -87,14 +87,14 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new LettaSDK({ logger: logger, logLevel: 'debug', apiKey: 'My API Key' });
+      const client = new Letta({ logger: logger, logLevel: 'debug', apiKey: 'My API Key' });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).toHaveBeenCalled();
     });
 
     test('default logLevel is warn', async () => {
-      const client = new LettaSDK({ apiKey: 'My API Key' });
+      const client = new Letta({ apiKey: 'My API Key' });
       expect(client.logLevel).toBe('warn');
     });
 
@@ -107,7 +107,7 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new LettaSDK({ logger: logger, logLevel: 'info', apiKey: 'My API Key' });
+      const client = new Letta({ logger: logger, logLevel: 'info', apiKey: 'My API Key' });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).not.toHaveBeenCalled();
@@ -122,8 +122,8 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      process.env['LETTA_SDK_LOG'] = 'debug';
-      const client = new LettaSDK({ logger: logger, apiKey: 'My API Key' });
+      process.env['LETTA_LOG'] = 'debug';
+      const client = new Letta({ logger: logger, apiKey: 'My API Key' });
       expect(client.logLevel).toBe('debug');
 
       await forceAPIResponseForClient(client);
@@ -139,11 +139,11 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      process.env['LETTA_SDK_LOG'] = 'not a log level';
-      const client = new LettaSDK({ logger: logger, apiKey: 'My API Key' });
+      process.env['LETTA_LOG'] = 'not a log level';
+      const client = new Letta({ logger: logger, apiKey: 'My API Key' });
       expect(client.logLevel).toBe('warn');
       expect(warnMock).toHaveBeenCalledWith(
-        'process.env[\'LETTA_SDK_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
+        'process.env[\'LETTA_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
       );
     });
 
@@ -156,8 +156,8 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      process.env['LETTA_SDK_LOG'] = 'debug';
-      const client = new LettaSDK({ logger: logger, logLevel: 'off', apiKey: 'My API Key' });
+      process.env['LETTA_LOG'] = 'debug';
+      const client = new Letta({ logger: logger, logLevel: 'off', apiKey: 'My API Key' });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).not.toHaveBeenCalled();
@@ -172,8 +172,8 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      process.env['LETTA_SDK_LOG'] = 'not a log level';
-      const client = new LettaSDK({ logger: logger, logLevel: 'debug', apiKey: 'My API Key' });
+      process.env['LETTA_LOG'] = 'not a log level';
+      const client = new Letta({ logger: logger, logLevel: 'debug', apiKey: 'My API Key' });
       expect(client.logLevel).toBe('debug');
       expect(warnMock).not.toHaveBeenCalled();
     });
@@ -181,7 +181,7 @@ describe('instantiate client', () => {
 
   describe('defaultQuery', () => {
     test('with null query params given', () => {
-      const client = new LettaSDK({
+      const client = new Letta({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
         apiKey: 'My API Key',
@@ -190,7 +190,7 @@ describe('instantiate client', () => {
     });
 
     test('multiple default query params', () => {
-      const client = new LettaSDK({
+      const client = new Letta({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
         apiKey: 'My API Key',
@@ -199,7 +199,7 @@ describe('instantiate client', () => {
     });
 
     test('overriding with `undefined`', () => {
-      const client = new LettaSDK({
+      const client = new Letta({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
         apiKey: 'My API Key',
@@ -209,7 +209,7 @@ describe('instantiate client', () => {
   });
 
   test('custom fetch', async () => {
-    const client = new LettaSDK({
+    const client = new Letta({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
       fetch: (url) => {
@@ -227,7 +227,7 @@ describe('instantiate client', () => {
 
   test('explicit global fetch', async () => {
     // make sure the global fetch type is assignable to our Fetch type
-    const client = new LettaSDK({
+    const client = new Letta({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
       fetch: defaultFetch,
@@ -235,7 +235,7 @@ describe('instantiate client', () => {
   });
 
   test('custom signal', async () => {
-    const client = new LettaSDK({
+    const client = new Letta({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       apiKey: 'My API Key',
       fetch: (...args) => {
@@ -267,11 +267,7 @@ describe('instantiate client', () => {
       return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LettaSDK({
-      baseURL: 'http://localhost:5000/',
-      apiKey: 'My API Key',
-      fetch: testFetch,
-    });
+    const client = new Letta({ baseURL: 'http://localhost:5000/', apiKey: 'My API Key', fetch: testFetch });
 
     await client.patch('/foo');
     expect(capturedRequest?.method).toEqual('PATCH');
@@ -279,72 +275,72 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new LettaSDK({ baseURL: 'http://localhost:5000/custom/path/', apiKey: 'My API Key' });
+      const client = new Letta({ baseURL: 'http://localhost:5000/custom/path/', apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     test('no trailing slash', () => {
-      const client = new LettaSDK({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
+      const client = new Letta({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     afterEach(() => {
-      process.env['LETTA_SDK_BASE_URL'] = undefined;
+      process.env['LETTA_BASE_URL'] = undefined;
     });
 
     test('explicit option', () => {
-      const client = new LettaSDK({ baseURL: 'https://example.com', apiKey: 'My API Key' });
+      const client = new Letta({ baseURL: 'https://example.com', apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
-      process.env['LETTA_SDK_BASE_URL'] = 'https://example.com/from_env';
-      const client = new LettaSDK({ apiKey: 'My API Key' });
+      process.env['LETTA_BASE_URL'] = 'https://example.com/from_env';
+      const client = new Letta({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
-      process.env['LETTA_SDK_BASE_URL'] = ''; // empty
-      const client = new LettaSDK({ apiKey: 'My API Key' });
+      process.env['LETTA_BASE_URL'] = ''; // empty
+      const client = new Letta({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://app.letta.com');
     });
 
     test('blank env variable', () => {
-      process.env['LETTA_SDK_BASE_URL'] = '  '; // blank
-      const client = new LettaSDK({ apiKey: 'My API Key' });
+      process.env['LETTA_BASE_URL'] = '  '; // blank
+      const client = new Letta({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://app.letta.com');
     });
 
     test('env variable with environment', () => {
-      process.env['LETTA_SDK_BASE_URL'] = 'https://example.com/from_env';
+      process.env['LETTA_BASE_URL'] = 'https://example.com/from_env';
 
       expect(
-        () => new LettaSDK({ apiKey: 'My API Key', environment: 'production' }),
+        () => new Letta({ apiKey: 'My API Key', environment: 'cloud' }),
       ).toThrowErrorMatchingInlineSnapshot(
-        `"Ambiguous URL; The \`baseURL\` option (or LETTA_SDK_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
+        `"Ambiguous URL; The \`baseURL\` option (or LETTA_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
       );
 
-      const client = new LettaSDK({ apiKey: 'My API Key', baseURL: null, environment: 'production' });
+      const client = new Letta({ apiKey: 'My API Key', baseURL: null, environment: 'cloud' });
       expect(client.baseURL).toEqual('https://app.letta.com');
     });
 
     test('in request options', () => {
-      const client = new LettaSDK({ apiKey: 'My API Key' });
+      const client = new Letta({ apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/option/foo',
       );
     });
 
     test('in request options overridden by client options', () => {
-      const client = new LettaSDK({ apiKey: 'My API Key', baseURL: 'http://localhost:5000/client' });
+      const client = new Letta({ apiKey: 'My API Key', baseURL: 'http://localhost:5000/client' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/client/foo',
       );
     });
 
     test('in request options overridden by env variable', () => {
-      process.env['LETTA_SDK_BASE_URL'] = 'http://localhost:5000/env';
-      const client = new LettaSDK({ apiKey: 'My API Key' });
+      process.env['LETTA_BASE_URL'] = 'http://localhost:5000/env';
+      const client = new Letta({ apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/env/foo',
       );
@@ -352,17 +348,17 @@ describe('instantiate client', () => {
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new LettaSDK({ maxRetries: 4, apiKey: 'My API Key' });
+    const client = new Letta({ maxRetries: 4, apiKey: 'My API Key' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new LettaSDK({ apiKey: 'My API Key' });
+    const client2 = new Letta({ apiKey: 'My API Key' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   describe('withOptions', () => {
     test('creates a new client with overridden options', async () => {
-      const client = new LettaSDK({ baseURL: 'http://localhost:5000/', maxRetries: 3, apiKey: 'My API Key' });
+      const client = new Letta({ baseURL: 'http://localhost:5000/', maxRetries: 3, apiKey: 'My API Key' });
 
       const newClient = client.withOptions({
         maxRetries: 5,
@@ -383,7 +379,7 @@ describe('instantiate client', () => {
     });
 
     test('inherits options from the parent client', async () => {
-      const client = new LettaSDK({
+      const client = new Letta({
         baseURL: 'http://localhost:5000/',
         defaultHeaders: { 'X-Test-Header': 'test-value' },
         defaultQuery: { 'test-param': 'test-value' },
@@ -402,7 +398,7 @@ describe('instantiate client', () => {
     });
 
     test('respects runtime property changes when creating new client', () => {
-      const client = new LettaSDK({ baseURL: 'http://localhost:5000/', timeout: 1000, apiKey: 'My API Key' });
+      const client = new Letta({ baseURL: 'http://localhost:5000/', timeout: 1000, apiKey: 'My API Key' });
 
       // Modify the client properties directly after creation
       client.baseURL = 'http://localhost:6000/';
@@ -430,21 +426,21 @@ describe('instantiate client', () => {
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['LETTA_SDK_API_KEY'] = 'My API Key';
-    const client = new LettaSDK();
+    process.env['LETTA_API_KEY'] = 'My API Key';
+    const client = new Letta();
     expect(client.apiKey).toBe('My API Key');
   });
 
   test('with overridden environment variable arguments', () => {
     // set options via env var
-    process.env['LETTA_SDK_API_KEY'] = 'another My API Key';
-    const client = new LettaSDK({ apiKey: 'My API Key' });
+    process.env['LETTA_API_KEY'] = 'another My API Key';
+    const client = new Letta({ apiKey: 'My API Key' });
     expect(client.apiKey).toBe('My API Key');
   });
 });
 
 describe('request building', () => {
-  const client = new LettaSDK({ apiKey: 'My API Key' });
+  const client = new Letta({ apiKey: 'My API Key' });
 
   describe('custom headers', () => {
     test('handles undefined', async () => {
@@ -463,7 +459,7 @@ describe('request building', () => {
 });
 
 describe('default encoder', () => {
-  const client = new LettaSDK({ apiKey: 'My API Key' });
+  const client = new Letta({ apiKey: 'My API Key' });
 
   class Serializable {
     toJSON() {
@@ -548,7 +544,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LettaSDK({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
+    const client = new Letta({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -578,7 +574,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LettaSDK({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
+    const client = new Letta({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
 
@@ -602,7 +598,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new LettaSDK({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
+    const client = new Letta({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
 
     expect(
       await client.request({
@@ -631,7 +627,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new LettaSDK({
+    const client = new Letta({
       apiKey: 'My API Key',
       fetch: testFetch,
       maxRetries: 4,
@@ -664,7 +660,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new LettaSDK({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
+    const client = new Letta({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
 
     expect(
       await client.request({
@@ -694,7 +690,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LettaSDK({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Letta({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -724,7 +720,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new LettaSDK({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Letta({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);

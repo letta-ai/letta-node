@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { LettaSDK } from '@letta-ai/letta-client';
+import { Letta } from '@letta-ai/letta-client';
 
-const { stringifyQuery } = LettaSDK.prototype as any;
+const { stringifyQuery } = Letta.prototype as any;
 
 describe(stringifyQuery, () => {
   for (const [input, expected] of [
