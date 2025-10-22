@@ -401,6 +401,11 @@ export interface AgentState {
   last_updated_by_id?: string | null;
 
   /**
+   * The multi-agent group that this agent manages
+   */
+  managed_group?: GroupsGroupsAPI.Group | null;
+
+  /**
    * Maximum number of files that can be open at once for this agent. Setting this
    * too high may exceed the context window, which will break the agent.
    */
@@ -424,7 +429,7 @@ export interface AgentState {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The multi-agent group that this agent manages
+   * @deprecated The multi-agent group that this agent manages
    */
   multi_agent_group?: GroupsGroupsAPI.Group | null;
 
