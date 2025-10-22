@@ -41,7 +41,6 @@ import {
   ToolListParams,
   ToolListResponse,
   ToolReturnMessage,
-  ToolRunParams,
   ToolType,
   ToolUpdateParams,
   ToolUpsertBaseToolsResponse,
@@ -917,7 +916,6 @@ export declare namespace Letta {
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
     type ToolCountParams as ToolCountParams,
-    type ToolRunParams as ToolRunParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 

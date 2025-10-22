@@ -131,7 +131,6 @@ export {
   type ToolUpdateParams,
   type ToolListParams,
   type ToolCountParams,
-  type ToolRunParams,
   type ToolUpsertParams,
 } from './tools';
 export { type HealthResponse } from './top-level';

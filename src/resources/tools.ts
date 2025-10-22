@@ -56,13 +56,6 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Attempt to build a tool from source, then run it on the provided arguments
-   */
-  run(body: ToolRunParams, options?: RequestOptions): APIPromise<ToolReturnMessage> {
-    return this._client.post('/v1/tools/run', { body, ...options });
-  }
-
-  /**
    * Create or update a tool
    */
   upsert(body: ToolUpsertParams, options?: RequestOptions): APIPromise<Tool> {
@@ -570,54 +563,6 @@ export interface ToolCountParams {
   tool_types?: Array<string> | null;
 }
 
-export interface ToolRunParams {
-  /**
-   * The arguments to pass to the tool.
-   */
-  args: { [key: string]: unknown };
-
-  /**
-   * The source code of the function.
-   */
-  source_code: string;
-
-  /**
-   * The args JSON schema of the function.
-   */
-  args_json_schema?: { [key: string]: unknown } | null;
-
-  /**
-   * The environment variables to pass to the tool.
-   */
-  env_vars?: { [key: string]: string };
-
-  /**
-   * The JSON schema of the function (auto-generated from source_code if not
-   * provided)
-   */
-  json_schema?: { [key: string]: unknown } | null;
-
-  /**
-   * The name of the tool to run.
-   */
-  name?: string | null;
-
-  /**
-   * Optional list of npm packages required by this tool.
-   */
-  npm_requirements?: Array<NpmRequirement> | null;
-
-  /**
-   * Optional list of pip packages required by this tool.
-   */
-  pip_requirements?: Array<PipRequirement> | null;
-
-  /**
-   * The type of the source code.
-   */
-  source_type?: string | null;
-}
-
 export interface ToolUpsertParams {
   /**
    * The source code of the function.
@@ -693,7 +638,6 @@ export declare namespace Tools {
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
     type ToolCountParams as ToolCountParams,
-    type ToolRunParams as ToolRunParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 }
