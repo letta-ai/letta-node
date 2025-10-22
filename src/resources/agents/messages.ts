@@ -1561,12 +1561,12 @@ export interface MessageListParams {
   after?: string | null;
 
   /**
-   * The name of the message argument.
+   * @deprecated The name of the message argument.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * @deprecated The name of the designated message tool.
    */
   assistant_message_tool_name?: string;
 
@@ -1604,7 +1604,7 @@ export interface MessageListParams {
   order_by?: 'created_at';
 
   /**
-   * Whether to use assistant messages
+   * @deprecated Whether to use assistant messages
    */
   use_assistant_message?: boolean;
 }
