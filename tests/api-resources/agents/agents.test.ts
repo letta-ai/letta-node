@@ -167,6 +167,7 @@ describe('resource agents', () => {
       env_vars_json: 'env_vars_json',
       override_embedding_handle: 'override_embedding_handle',
       override_existing_tools: true,
+      override_name: 'override_name',
       project_id: 'project_id',
       strip_messages: true,
       'x-override-embedding-model': 'x-override-embedding-model',

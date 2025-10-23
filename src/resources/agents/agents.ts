@@ -1602,7 +1602,8 @@ export interface AgentImportFileParams {
   file: Uploadable;
 
   /**
-   * Body param: If set to True, appends "\_copy" to the end of the agent name.
+   * @deprecated Body param: If set to True, appends "\_copy" to the end of the agent
+   * name.
    */
   append_copy_suffix?: boolean;
 
@@ -1623,6 +1624,11 @@ export interface AgentImportFileParams {
    * updated externally.
    */
   override_existing_tools?: boolean;
+
+  /**
+   * Body param: If provided, overrides the agent name with this value.
+   */
+  override_name?: string | null;
 
   /**
    * Body param: The project ID to associate the uploaded agent with.
