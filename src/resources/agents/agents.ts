@@ -1342,6 +1342,11 @@ export interface AgentUpdateParams {
   block_ids?: Array<string> | null;
 
   /**
+   * The context window limit used by the agent.
+   */
+  context_window_limit?: number | null;
+
+  /**
    * The description of the agent.
    */
   description?: string | null;
@@ -1392,6 +1397,12 @@ export interface AgentUpdateParams {
    * too high may exceed the context window, which will break the agent.
    */
   max_files_open?: number | null;
+
+  /**
+   * The maximum number of tokens to generate, including reasoning step. If not set,
+   * the model will use its default value.
+   */
+  max_tokens?: number | null;
 
   /**
    * If set to True, the agent will not remember previous messages (though the agent
