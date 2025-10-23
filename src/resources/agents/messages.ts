@@ -53,14 +53,10 @@ export class Messages extends APIResource {
    */
   reset(
     agentID: string,
-    params: MessageResetParams | null | undefined = {},
+    body: MessageResetParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState> {
-    const { add_default_initial_messages } = params ?? {};
-    return this._client.patch(path`/v1/agents/${agentID}/reset-messages`, {
-      query: { add_default_initial_messages },
-      ...options,
-    });
+    return this._client.patch(path`/v1/agents/${agentID}/reset-messages`, { body, ...options });
   }
 
   /**

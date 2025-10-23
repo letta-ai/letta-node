@@ -93,7 +93,7 @@ describe('resource messages', () => {
 
   // Prism tests are disabled
   test.skip('reset', async () => {
-    const responsePromise = client.agents.messages.reset('agent-123e4567-e89b-42d3-8456-426614174000');
+    const responsePromise = client.agents.messages.reset('agent-123e4567-e89b-42d3-8456-426614174000', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -101,18 +101,6 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('reset: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.agents.messages.reset(
-        'agent-123e4567-e89b-42d3-8456-426614174000',
-        { add_default_initial_messages: true },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Prism tests are disabled
