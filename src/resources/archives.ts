@@ -14,6 +14,13 @@ export class Archives extends APIResource {
   }
 
   /**
+   * Get a single archive by its ID.
+   */
+  retrieve(archiveID: string, options?: RequestOptions): APIPromise<Archive> {
+    return this._client.get(path`/v1/archives/${archiveID}`, options);
+  }
+
+  /**
    * Update an existing archive's name and/or description.
    */
   update(archiveID: string, body: ArchiveUpdateParams, options?: RequestOptions): APIPromise<Archive> {
@@ -29,6 +36,13 @@ export class Archives extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ArchiveListResponse> {
     return this._client.get('/v1/archives/', { query, ...options });
+  }
+
+  /**
+   * Delete an archive by its ID.
+   */
+  delete(archiveID: string, options?: RequestOptions): APIPromise<Archive> {
+    return this._client.delete(path`/v1/archives/${archiveID}`, options);
   }
 }
 
