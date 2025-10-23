@@ -1308,9 +1308,24 @@ export interface AgentCreateParams {
 
 export interface AgentRetrieveParams {
   /**
+   * Specify which relational fields to include in the response. No relationships are
+   * included by default.
+   */
+  include?: Array<
+    | 'agent.blocks'
+    | 'agent.identities'
+    | 'agent.managed_group'
+    | 'agent.secrets'
+    | 'agent.sources'
+    | 'agent.tags'
+    | 'agent.tools'
+  >;
+
+  /**
    * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
    * in the response. If not provided, all relationships are loaded by default. Using
-   * this can optimize performance by reducing unnecessary joins.
+   * this can optimize performance by reducing unnecessary joins.This is a legacy
+   * parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
 }
@@ -1521,9 +1536,24 @@ export interface AgentListParams {
   identity_id?: string | null;
 
   /**
+   * Specify which relational fields to include in the response. No relationships are
+   * included by default.
+   */
+  include?: Array<
+    | 'agent.blocks'
+    | 'agent.identities'
+    | 'agent.managed_group'
+    | 'agent.secrets'
+    | 'agent.sources'
+    | 'agent.tags'
+    | 'agent.tools'
+  >;
+
+  /**
    * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
    * in the response. If not provided, all relationships are loaded by default. Using
-   * this can optimize performance by reducing unnecessary joins.
+   * this can optimize performance by reducing unnecessary joins.This is a legacy
+   * parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
 

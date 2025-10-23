@@ -35,6 +35,20 @@ export interface AgentListParams {
   before?: string | null;
 
   /**
+   * Specify which relational fields to include in the response. No relationships are
+   * included by default.
+   */
+  include?: Array<
+    | 'agent.blocks'
+    | 'agent.identities'
+    | 'agent.managed_group'
+    | 'agent.secrets'
+    | 'agent.sources'
+    | 'agent.tags'
+    | 'agent.tools'
+  >;
+
+  /**
    * Maximum number of agents to return
    */
   limit?: number | null;
