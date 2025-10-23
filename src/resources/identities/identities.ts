@@ -88,12 +88,12 @@ export class Identities extends APIResource {
 
 export interface Identity {
   /**
-   * The IDs of the agents associated with the identity.
+   * @deprecated The IDs of the agents associated with the identity.
    */
   agent_ids: Array<string>;
 
   /**
-   * The IDs of the blocks associated with the identity.
+   * @deprecated The IDs of the blocks associated with the identity.
    */
   block_ids: Array<string>;
 
