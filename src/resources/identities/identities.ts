@@ -176,12 +176,12 @@ export interface IdentityCreateParams {
   name: string;
 
   /**
-   * Body param: The agent ids that are associated with the identity.
+   * @deprecated Body param: The agent ids that are associated with the identity.
    */
   agent_ids?: Array<string> | null;
 
   /**
-   * Body param: The IDs of the blocks associated with the identity.
+   * @deprecated Body param: The IDs of the blocks associated with the identity.
    */
   block_ids?: Array<string> | null;
 
@@ -203,12 +203,12 @@ export interface IdentityCreateParams {
 
 export interface IdentityUpdateParams {
   /**
-   * The agent ids that are associated with the identity.
+   * @deprecated The agent ids that are associated with the identity.
    */
   agent_ids?: Array<string> | null;
 
   /**
-   * The IDs of the blocks associated with the identity.
+   * @deprecated The IDs of the blocks associated with the identity.
    */
   block_ids?: Array<string> | null;
 
@@ -291,12 +291,12 @@ export interface IdentityUpsertParams {
   name: string;
 
   /**
-   * Body param: The agent ids that are associated with the identity.
+   * @deprecated Body param: The agent ids that are associated with the identity.
    */
   agent_ids?: Array<string> | null;
 
   /**
-   * Body param: The IDs of the blocks associated with the identity.
+   * @deprecated Body param: The IDs of the blocks associated with the identity.
    */
   block_ids?: Array<string> | null;
 
