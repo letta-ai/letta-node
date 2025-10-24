@@ -2,12 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
-import { AgentListParams, AgentListResponse, Agents } from './agents';
+import { AgentListParams, Agents } from './agents';
 import * as BlocksAPI from './blocks';
-import { BlockListParams, BlockListResponse, Blocks } from './blocks';
+import { BlockListParams, Blocks } from './blocks';
 import * as PropertiesAPI from './properties';
 import { Properties, PropertyUpsertParams, PropertyUpsertResponse } from './properties';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -52,8 +53,8 @@ export class Identities extends APIResource {
   list(
     query: IdentityListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<IdentityListResponse> {
-    return this._client.get('/v1/identities/', { query, ...options });
+  ): PagePromise<IdentitiesArrayPage, Identity> {
+    return this._client.getAPIList('/v1/identities/', ArrayPage<Identity>, { query, ...options });
   }
 
   /**
@@ -85,6 +86,8 @@ export class Identities extends APIResource {
     });
   }
 }
+
+export type IdentitiesArrayPage = ArrayPage<Identity>;
 
 export interface Identity {
   /**
@@ -152,8 +155,6 @@ export interface IdentityProperty {
  * Enum to represent the type of the identity.
  */
 export type IdentityType = 'org' | 'user' | 'other';
-
-export type IdentityListResponse = Array<Identity>;
 
 export type IdentityDeleteResponse = unknown;
 
@@ -233,19 +234,7 @@ export interface IdentityUpdateParams {
   properties?: Array<IdentityProperty> | null;
 }
 
-export interface IdentityListParams {
-  /**
-   * Identity ID cursor for pagination. Returns identities that come after this
-   * identity ID in the specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Identity ID cursor for pagination. Returns identities that come before this
-   * identity ID in the specified sort order
-   */
-  before?: string | null;
-
+export interface IdentityListParams extends ArrayPageParams {
   identifier_key?: string | null;
 
   /**
@@ -253,23 +242,7 @@ export interface IdentityListParams {
    */
   identity_type?: IdentityType | null;
 
-  /**
-   * Maximum number of identities to return
-   */
-  limit?: number | null;
-
   name?: string | null;
-
-  /**
-   * Sort order for identities by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
 
   project_id?: string | null;
 }
@@ -325,9 +298,9 @@ export declare namespace Identities {
     type Identity as Identity,
     type IdentityProperty as IdentityProperty,
     type IdentityType as IdentityType,
-    type IdentityListResponse as IdentityListResponse,
     type IdentityDeleteResponse as IdentityDeleteResponse,
     type IdentityCountResponse as IdentityCountResponse,
+    type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
     type IdentityUpdateParams as IdentityUpdateParams,
     type IdentityListParams as IdentityListParams,
@@ -340,15 +313,7 @@ export declare namespace Identities {
     type PropertyUpsertParams as PropertyUpsertParams,
   };
 
-  export {
-    Agents as Agents,
-    type AgentListResponse as AgentListResponse,
-    type AgentListParams as AgentListParams,
-  };
+  export { Agents as Agents, type AgentListParams as AgentListParams };
 
-  export {
-    Blocks as Blocks,
-    type BlockListResponse as BlockListResponse,
-    type BlockListParams as BlockListParams,
-  };
+  export { Blocks as Blocks, type BlockListParams as BlockListParams };
 }

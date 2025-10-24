@@ -19,7 +19,6 @@ export {
   type RequiresApprovalToolRule,
   type TerminalToolRule,
   type TextResponseFormat,
-  type AgentListResponse,
   type AgentDeleteResponse,
   type AgentCountResponse,
   type AgentExportFileResponse,
@@ -30,17 +29,18 @@ export {
   type AgentListParams,
   type AgentExportFileParams,
   type AgentImportFileParams,
+  type AgentStatesArrayPage,
 } from './agents';
 export {
   Blocks,
   type Block,
   type BlockUpdate,
-  type BlockListResponse,
   type BlockRetrieveParams,
   type BlockUpdateParams,
   type BlockListParams,
   type BlockAttachParams,
   type BlockDetachParams,
+  type BlocksArrayPage,
 } from './blocks';
 export {
   Files,
@@ -58,8 +58,9 @@ export {
   type FolderListParams,
   type FolderAttachParams,
   type FolderDetachParams,
+  type FolderListResponsesArrayPage,
 } from './folders';
-export { Groups, type GroupListResponse, type GroupListParams } from './groups';
+export { Groups, type GroupListParams } from './groups';
 export {
   Messages,
   type ApprovalCreate,
@@ -98,7 +99,6 @@ export {
   type UpdateUserMessage,
   type UserMessage,
   type MessageUpdateResponse,
-  type MessageListResponse,
   type MessageCancelResponse,
   type MessageStreamResponse,
   type MessageUpdateParams,
@@ -108,10 +108,11 @@ export {
   type MessageSendParams,
   type MessageSendAsyncParams,
   type MessageStreamParams,
+  type LettaMessageUnionsArrayPage,
+  type RunsArrayPage,
 } from './messages';
 export {
   Tools,
-  type ToolListResponse,
   type ToolListParams,
   type ToolAttachParams,
   type ToolDetachParams,

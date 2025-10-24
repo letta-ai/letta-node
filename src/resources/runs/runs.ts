@@ -2,19 +2,15 @@
 
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from '../agents/messages';
+import { RunsArrayPage } from '../agents/messages';
 import * as RunsMessagesAPI from './messages';
-import {
-  MessageListParams,
-  MessageListResponse,
-  MessageStreamParams,
-  MessageStreamResponse,
-  Messages,
-} from './messages';
+import { MessageListParams, MessageStreamParams, MessageStreamResponse, Messages } from './messages';
 import * as StepsAPI from './steps';
-import { StepListParams, StepListResponse, Steps } from './steps';
+import { StepListParams, Steps } from './steps';
 import * as UsageAPI from './usage';
 import { Usage, UsageRetrieveResponse } from './usage';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -33,8 +29,11 @@ export class Runs extends APIResource {
   /**
    * List all runs.
    */
-  list(query: RunListParams | null | undefined = {}, options?: RequestOptions): APIPromise<RunListResponse> {
-    return this._client.get('/v1/runs/', { query, ...options });
+  list(
+    query: RunListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RunsArrayPage, MessagesAPI.Run> {
+    return this._client.getAPIList('/v1/runs/', ArrayPage<MessagesAPI.Run>, { query, ...options });
   }
 }
 
@@ -151,19 +150,11 @@ export type StopReasonType =
   | 'cancelled'
   | 'requires_approval';
 
-export type RunListResponse = Array<MessagesAPI.Run>;
-
-export interface RunListParams {
+export interface RunListParams extends ArrayPageParams {
   /**
    * Filter for active runs.
    */
   active?: boolean;
-
-  /**
-   * Run ID cursor for pagination. Returns runs that come after this run ID in the
-   * specified sort order
-   */
-  after?: string | null;
 
   /**
    * The unique identifier of the agent associated with the run.
@@ -188,28 +179,6 @@ export interface RunListParams {
   background?: boolean | null;
 
   /**
-   * Run ID cursor for pagination. Returns runs that come before this run ID in the
-   * specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of runs to return
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest
-   * first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
-
-  /**
    * Filter runs by status. Can specify multiple statuses.
    */
   statuses?: Array<string> | null;
@@ -225,16 +194,10 @@ Runs.Usage = Usage;
 Runs.Steps = Steps;
 
 export declare namespace Runs {
-  export {
-    type Job as Job,
-    type StopReasonType as StopReasonType,
-    type RunListResponse as RunListResponse,
-    type RunListParams as RunListParams,
-  };
+  export { type Job as Job, type StopReasonType as StopReasonType, type RunListParams as RunListParams };
 
   export {
     Messages as Messages,
-    type MessageListResponse as MessageListResponse,
     type MessageStreamResponse as MessageStreamResponse,
     type MessageListParams as MessageListParams,
     type MessageStreamParams as MessageStreamParams,
@@ -242,5 +205,7 @@ export declare namespace Runs {
 
   export { Usage as Usage, type UsageRetrieveResponse as UsageRetrieveResponse };
 
-  export { Steps as Steps, type StepListResponse as StepListResponse, type StepListParams as StepListParams };
+  export { Steps as Steps, type StepListParams as StepListParams };
 }
+
+export { type RunsArrayPage };

@@ -7,6 +7,7 @@ import * as BatchesMessagesAPI from './messages';
 import { MessageListParams, MessageListResponse, Messages } from './messages';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -36,8 +37,8 @@ export class Batches extends APIResource {
   list(
     query: BatchListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<BatchListResponse> {
-    return this._client.get('/v1/messages/batches', { query, ...options });
+  ): PagePromise<BatchJobsArrayPage, BatchJob> {
+    return this._client.getAPIList('/v1/messages/batches', ArrayPage<BatchJob>, { query, ...options });
   }
 
   /**
@@ -47,6 +48,8 @@ export class Batches extends APIResource {
     return this._client.patch(path`/v1/messages/batches/${batchID}/cancel`, options);
   }
 }
+
+export type BatchJobsArrayPage = ArrayPage<BatchJob>;
 
 export interface BatchJob {
   /**
@@ -137,8 +140,6 @@ export interface BatchJob {
   updated_at?: string | null;
 }
 
-export type BatchListResponse = Array<BatchJob>;
-
 export type BatchCancelResponse = unknown;
 
 export interface BatchCreateParams {
@@ -209,43 +210,15 @@ export namespace BatchCreateParams {
   }
 }
 
-export interface BatchListParams {
-  /**
-   * Job ID cursor for pagination. Returns jobs that come after this job ID in the
-   * specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Job ID cursor for pagination. Returns jobs that come before this job ID in the
-   * specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of jobs to return
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest
-   * first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
-}
+export interface BatchListParams extends ArrayPageParams {}
 
 Batches.Messages = Messages;
 
 export declare namespace Batches {
   export {
     type BatchJob as BatchJob,
-    type BatchListResponse as BatchListResponse,
     type BatchCancelResponse as BatchCancelResponse,
+    type BatchJobsArrayPage as BatchJobsArrayPage,
     type BatchCreateParams as BatchCreateParams,
     type BatchListParams as BatchListParams,
   };

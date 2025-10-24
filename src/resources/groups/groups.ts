@@ -4,7 +4,6 @@ import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
 import {
   MessageListParams,
-  MessageListResponse,
   MessageResetResponse,
   MessageSendParams,
   MessageStreamParams,
@@ -14,6 +13,7 @@ import {
   Messages,
 } from './messages';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -64,8 +64,8 @@ export class Groups extends APIResource {
   list(
     query: GroupListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<GroupListResponse> {
-    return this._client.get('/v1/groups/', { query, ...options });
+  ): PagePromise<GroupsArrayPage, Group> {
+    return this._client.getAPIList('/v1/groups/', ArrayPage<Group>, { query, ...options });
   }
 
   /**
@@ -82,6 +82,8 @@ export class Groups extends APIResource {
     return this._client.get('/v1/groups/count', options);
   }
 }
+
+export type GroupsArrayPage = ArrayPage<Group>;
 
 export interface DynamicManager {
   manager_agent_id: string;
@@ -204,8 +206,6 @@ export interface VoiceSleeptimeManager {
    */
   min_message_buffer_length?: number | null;
 }
-
-export type GroupListResponse = Array<Group>;
 
 export type GroupDeleteResponse = unknown;
 
@@ -342,39 +342,11 @@ export namespace GroupUpdateParams {
   }
 }
 
-export interface GroupListParams {
-  /**
-   * Group ID cursor for pagination. Returns groups that come after this group ID in
-   * the specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Group ID cursor for pagination. Returns groups that come before this group ID in
-   * the specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of groups to return
-   */
-  limit?: number | null;
-
+export interface GroupListParams extends ArrayPageParams {
   /**
    * Search groups by manager type
    */
   manager_type?: ManagerType | null;
-
-  /**
-   * Sort order for groups by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
 
   /**
    * Search groups by project id
@@ -393,9 +365,9 @@ export declare namespace Groups {
     type SleeptimeManager as SleeptimeManager,
     type SupervisorManager as SupervisorManager,
     type VoiceSleeptimeManager as VoiceSleeptimeManager,
-    type GroupListResponse as GroupListResponse,
     type GroupDeleteResponse as GroupDeleteResponse,
     type GroupCountResponse as GroupCountResponse,
+    type GroupsArrayPage as GroupsArrayPage,
     type GroupCreateParams as GroupCreateParams,
     type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
@@ -404,7 +376,6 @@ export declare namespace Groups {
   export {
     Messages as Messages,
     type MessageUpdateResponse as MessageUpdateResponse,
-    type MessageListResponse as MessageListResponse,
     type MessageResetResponse as MessageResetResponse,
     type MessageStreamResponse as MessageStreamResponse,
     type MessageUpdateParams as MessageUpdateParams,

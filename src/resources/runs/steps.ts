@@ -2,7 +2,8 @@
 
 import { APIResource } from '../../core/resource';
 import * as StepsStepsAPI from '../steps/steps';
-import { APIPromise } from '../../core/api-promise';
+import { StepsArrayPage } from '../steps/steps';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -14,41 +15,18 @@ export class Steps extends APIResource {
     runID: string,
     query: StepListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<StepListResponse> {
-    return this._client.get(path`/v1/runs/${runID}/steps`, { query, ...options });
+  ): PagePromise<StepsArrayPage, StepsStepsAPI.Step> {
+    return this._client.getAPIList(path`/v1/runs/${runID}/steps`, ArrayPage<StepsStepsAPI.Step>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type StepListResponse = Array<StepsStepsAPI.Step>;
-
-export interface StepListParams {
-  /**
-   * Cursor for pagination
-   */
-  after?: string | null;
-
-  /**
-   * Cursor for pagination
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of messages to return
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest
-   * first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
-}
+export interface StepListParams extends ArrayPageParams {}
 
 export declare namespace Steps {
-  export { type StepListResponse as StepListResponse, type StepListParams as StepListParams };
+  export { type StepListParams as StepListParams };
 }
+
+export { type StepsArrayPage };

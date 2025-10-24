@@ -10,11 +10,11 @@ import {
   BlockAttachParams,
   BlockDetachParams,
   BlockListParams,
-  BlockListResponse,
   BlockRetrieveParams,
   BlockUpdate,
   BlockUpdateParams,
   Blocks,
+  BlocksArrayPage,
 } from './blocks';
 import * as FilesAPI from './files';
 import {
@@ -33,10 +33,11 @@ import {
   FolderDetachParams,
   FolderListParams,
   FolderListResponse,
+  FolderListResponsesArrayPage,
   Folders,
 } from './folders';
 import * as GroupsAPI from './groups';
-import { GroupListParams, GroupListResponse, Groups } from './groups';
+import { GroupListParams, Groups } from './groups';
 import * as MessagesAPI from './messages';
 import {
   ApprovalCreate,
@@ -49,6 +50,7 @@ import {
   JobType,
   LettaAssistantMessageContentUnion,
   LettaMessageUnion,
+  LettaMessageUnionsArrayPage,
   LettaRequest,
   LettaResponse,
   LettaStreamingRequest,
@@ -57,7 +59,6 @@ import {
   MessageCancelParams,
   MessageCancelResponse,
   MessageListParams,
-  MessageListResponse,
   MessageResetParams,
   MessageRole,
   MessageSendAsyncParams,
@@ -88,19 +89,13 @@ import {
   UserMessage,
 } from './messages';
 import * as AgentsToolsAPI from './tools';
-import {
-  ToolAttachParams,
-  ToolDetachParams,
-  ToolListParams,
-  ToolListResponse,
-  ToolUpdateApprovalParams,
-  Tools,
-} from './tools';
+import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
 import * as IdentitiesAPI from '../identities/identities';
 import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { type Uploadable } from '../../core/uploads';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -154,8 +149,8 @@ export class Agents extends APIResource {
   list(
     query: AgentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AgentListResponse> {
-    return this._client.get('/v1/agents/', { query, ...options });
+  ): PagePromise<AgentStatesArrayPage, AgentState> {
+    return this._client.getAPIList('/v1/agents/', ArrayPage<AgentState>, { query, ...options });
   }
 
   /**
@@ -210,6 +205,8 @@ export class Agents extends APIResource {
     );
   }
 }
+
+export type AgentStatesArrayPage = ArrayPage<AgentState>;
 
 export interface AgentEnvironmentVariable {
   /**
@@ -1027,8 +1024,6 @@ export interface TextResponseFormat {
   type?: 'text';
 }
 
-export type AgentListResponse = Array<AgentState>;
-
 export type AgentDeleteResponse = unknown;
 
 export type AgentCountResponse = number;
@@ -1514,12 +1509,7 @@ export interface AgentUpdateParams {
   > | null;
 }
 
-export interface AgentListParams {
-  /**
-   * Cursor for pagination
-   */
-  after?: string | null;
-
+export interface AgentListParams extends ArrayPageParams {
   /**
    * @deprecated Whether to sort agents oldest to newest (True) or newest to oldest
    * (False, default)
@@ -1530,11 +1520,6 @@ export interface AgentListParams {
    * Search agents by base template ID
    */
   base_template_id?: string | null;
-
-  /**
-   * Cursor for pagination
-   */
-  before?: string | null;
 
   /**
    * Search agents by identifier keys
@@ -1569,11 +1554,6 @@ export interface AgentListParams {
   include_relationships?: Array<string> | null;
 
   /**
-   * Limit for pagination
-   */
-  limit?: number | null;
-
-  /**
    * If True, only returns agents that match ALL given tags. Otherwise, return agents
    * that have ANY of the passed-in tags.
    */
@@ -1583,17 +1563,6 @@ export interface AgentListParams {
    * Name of the agent
    */
   name?: string | null;
-
-  /**
-   * Sort order for agents by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at' | 'last_run_completion';
 
   /**
    * Search agents by project ID - this will default to your default project on cloud
@@ -1713,11 +1682,11 @@ export declare namespace Agents {
     type RequiresApprovalToolRule as RequiresApprovalToolRule,
     type TerminalToolRule as TerminalToolRule,
     type TextResponseFormat as TextResponseFormat,
-    type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentCountResponse as AgentCountResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,
+    type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
@@ -1728,7 +1697,6 @@ export declare namespace Agents {
 
   export {
     Tools as Tools,
-    type ToolListResponse as ToolListResponse,
     type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
@@ -1738,6 +1706,7 @@ export declare namespace Agents {
   export {
     Folders as Folders,
     type FolderListResponse as FolderListResponse,
+    type FolderListResponsesArrayPage as FolderListResponsesArrayPage,
     type FolderListParams as FolderListParams,
     type FolderAttachParams as FolderAttachParams,
     type FolderDetachParams as FolderDetachParams,
@@ -1758,7 +1727,7 @@ export declare namespace Agents {
     Blocks as Blocks,
     type Block as Block,
     type BlockUpdate as BlockUpdate,
-    type BlockListResponse as BlockListResponse,
+    type BlocksArrayPage as BlocksArrayPage,
     type BlockRetrieveParams as BlockRetrieveParams,
     type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
@@ -1766,11 +1735,7 @@ export declare namespace Agents {
     type BlockDetachParams as BlockDetachParams,
   };
 
-  export {
-    Groups as Groups,
-    type GroupListResponse as GroupListResponse,
-    type GroupListParams as GroupListParams,
-  };
+  export { Groups as Groups, type GroupListParams as GroupListParams };
 
   export {
     Messages as Messages,
@@ -1810,9 +1775,9 @@ export declare namespace Agents {
     type UpdateUserMessage as UpdateUserMessage,
     type UserMessage as UserMessage,
     type MessageUpdateResponse as MessageUpdateResponse,
-    type MessageListResponse as MessageListResponse,
     type MessageCancelResponse as MessageCancelResponse,
     type MessageStreamResponse as MessageStreamResponse,
+    type LettaMessageUnionsArrayPage as LettaMessageUnionsArrayPage,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,

@@ -9,17 +9,16 @@ export {
   type SleeptimeManager,
   type SupervisorManager,
   type VoiceSleeptimeManager,
-  type GroupListResponse,
   type GroupDeleteResponse,
   type GroupCountResponse,
   type GroupCreateParams,
   type GroupUpdateParams,
   type GroupListParams,
+  type GroupsArrayPage,
 } from './groups';
 export {
   Messages,
   type MessageUpdateResponse,
-  type MessageListResponse,
   type MessageResetResponse,
   type MessageStreamResponse,
   type MessageUpdateParams,

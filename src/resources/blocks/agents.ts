@@ -2,7 +2,8 @@
 
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from '../agents/agents';
-import { APIPromise } from '../../core/api-promise';
+import { AgentStatesArrayPage } from '../agents/agents';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -15,26 +16,15 @@ export class Agents extends APIResource {
     blockID: string,
     query: AgentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AgentListResponse> {
-    return this._client.get(path`/v1/blocks/${blockID}/agents`, { query, ...options });
+  ): PagePromise<AgentStatesArrayPage, AgentsAPI.AgentState> {
+    return this._client.getAPIList(path`/v1/blocks/${blockID}/agents`, ArrayPage<AgentsAPI.AgentState>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type AgentListResponse = Array<AgentsAPI.AgentState>;
-
-export interface AgentListParams {
-  /**
-   * Agent ID cursor for pagination. Returns agents that come after this agent ID in
-   * the specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Agent ID cursor for pagination. Returns agents that come before this agent ID in
-   * the specified sort order
-   */
-  before?: string | null;
-
+export interface AgentListParams extends ArrayPageParams {
   /**
    * Specify which relational fields to include in the response. No relationships are
    * included by default.
@@ -56,24 +46,10 @@ export interface AgentListParams {
    * parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
-
-  /**
-   * Maximum number of agents to return
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for agents by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
 }
 
 export declare namespace Agents {
-  export { type AgentListResponse as AgentListResponse, type AgentListParams as AgentListParams };
+  export { type AgentListParams as AgentListParams };
 }
+
+export { type AgentStatesArrayPage };
