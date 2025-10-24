@@ -88,7 +88,15 @@ describe('resource archives', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.archives.list(
-        { after: 'after', agent_id: 'agent_id', before: 'before', limit: 0, name: 'name', order: 'asc' },
+        {
+          after: 'after',
+          agent_id: 'agent_id',
+          before: 'before',
+          limit: 0,
+          name: 'name',
+          order: 'asc',
+          order_by: 'created_at',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

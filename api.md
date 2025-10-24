@@ -14,14 +14,13 @@ Types:
 
 - <code><a href="./src/resources/archives.ts">Archive</a></code>
 - <code><a href="./src/resources/archives.ts">VectorDBProvider</a></code>
-- <code><a href="./src/resources/archives.ts">ArchiveListResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/archives/">client.archives.<a href="./src/resources/archives.ts">create</a>({ ...params }) -> Archive</code>
 - <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">retrieve</a>(archiveID) -> Archive</code>
 - <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">update</a>(archiveID, { ...params }) -> Archive</code>
-- <code title="get /v1/archives/">client.archives.<a href="./src/resources/archives.ts">list</a>({ ...params }) -> ArchiveListResponse</code>
+- <code title="get /v1/archives/">client.archives.<a href="./src/resources/archives.ts">list</a>({ ...params }) -> ArchivesArrayPage</code>
 - <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">delete</a>(archiveID) -> Archive</code>
 
 # Tools

@@ -35,10 +35,10 @@ export {
   Archives,
   type Archive,
   type VectorDBProvider,
-  type ArchiveListResponse,
   type ArchiveCreateParams,
   type ArchiveUpdateParams,
   type ArchiveListParams,
+  type ArchivesArrayPage,
 } from './archives';
 export {
   Batches,

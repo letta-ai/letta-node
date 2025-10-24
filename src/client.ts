@@ -31,9 +31,9 @@ import {
   Archive,
   ArchiveCreateParams,
   ArchiveListParams,
-  ArchiveListResponse,
   ArchiveUpdateParams,
   Archives,
+  ArchivesArrayPage,
   VectorDBProvider,
 } from './resources/archives';
 import { TagListParams, TagListResponse, TagListResponsesArrayPage, Tags } from './resources/tags';
@@ -929,7 +929,7 @@ export declare namespace Letta {
     Archives as Archives,
     type Archive as Archive,
     type VectorDBProvider as VectorDBProvider,
-    type ArchiveListResponse as ArchiveListResponse,
+    type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
     type ArchiveUpdateParams as ArchiveUpdateParams,
     type ArchiveListParams as ArchiveListParams,
