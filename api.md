@@ -168,14 +168,17 @@ Types:
 
 - <code><a href="./src/resources/agents/blocks.ts">Block</a></code>
 - <code><a href="./src/resources/agents/blocks.ts">BlockModify</a></code>
+- <code><a href="./src/resources/agents/blocks.ts">BlockRetrieveResponse</a></code>
+- <code><a href="./src/resources/agents/blocks.ts">BlockListResponse</a></code>
+- <code><a href="./src/resources/agents/blocks.ts">BlockModifyResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">retrieve</a>(blockLabel, { ...params }) -> Block</code>
-- <code title="get /v1/agents/{agent_id}/core-memory/blocks">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">list</a>(agentID, { ...params }) -> BlocksArrayPage</code>
+- <code title="get /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">retrieve</a>(blockLabel, { ...params }) -> BlockRetrieveResponse</code>
+- <code title="get /v1/agents/{agent_id}/core-memory/blocks">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">list</a>(agentID, { ...params }) -> BlockListResponsesArrayPage</code>
 - <code title="patch /v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">attach</a>(blockID, { ...params }) -> AgentState</code>
 - <code title="patch /v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">detach</a>(blockID, { ...params }) -> AgentState</code>
-- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">modify</a>(blockLabel, { ...params }) -> Block</code>
+- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">modify</a>(blockLabel, { ...params }) -> BlockModifyResponse</code>
 
 ## Groups
 
@@ -314,9 +317,13 @@ Methods:
 
 ## Blocks
 
+Types:
+
+- <code><a href="./src/resources/identities/blocks.ts">BlockListResponse</a></code>
+
 Methods:
 
-- <code title="get /v1/identities/{identity_id}/blocks">client.identities.blocks.<a href="./src/resources/identities/blocks.ts">list</a>(identityID, { ...params }) -> BlocksArrayPage</code>
+- <code title="get /v1/identities/{identity_id}/blocks">client.identities.blocks.<a href="./src/resources/identities/blocks.ts">list</a>(identityID, { ...params }) -> BlockListResponsesArrayPage</code>
 
 # Models
 
@@ -347,17 +354,21 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/blocks/blocks.ts">CreateBlock</a></code>
+- <code><a href="./src/resources/blocks/blocks.ts">BlockCreateResponse</a></code>
+- <code><a href="./src/resources/blocks/blocks.ts">BlockRetrieveResponse</a></code>
+- <code><a href="./src/resources/blocks/blocks.ts">BlockListResponse</a></code>
 - <code><a href="./src/resources/blocks/blocks.ts">BlockDeleteResponse</a></code>
 - <code><a href="./src/resources/blocks/blocks.ts">BlockCountResponse</a></code>
+- <code><a href="./src/resources/blocks/blocks.ts">BlockModifyResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">create</a>({ ...params }) -> Block</code>
-- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">retrieve</a>(blockID) -> Block</code>
-- <code title="get /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">list</a>({ ...params }) -> BlocksArrayPage</code>
+- <code title="post /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">create</a>({ ...params }) -> BlockCreateResponse</code>
+- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">retrieve</a>(blockID) -> BlockRetrieveResponse</code>
+- <code title="get /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">list</a>({ ...params }) -> BlockListResponsesArrayPage</code>
 - <code title="delete /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">delete</a>(blockID) -> unknown</code>
 - <code title="get /v1/blocks/count">client.blocks.<a href="./src/resources/blocks/blocks.ts">count</a>() -> BlockCountResponse</code>
-- <code title="patch /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">modify</a>(blockID, { ...params }) -> Block</code>
+- <code title="patch /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">modify</a>(blockID, { ...params }) -> BlockModifyResponse</code>
 
 ## Agents
 

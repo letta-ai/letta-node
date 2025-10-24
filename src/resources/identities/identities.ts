@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
 import { AgentListParams, Agents } from './agents';
 import * as BlocksAPI from './blocks';
-import { BlockListParams, Blocks } from './blocks';
+import { BlockListParams, BlockListResponse, BlockListResponsesArrayPage, Blocks } from './blocks';
 import * as PropertiesAPI from './properties';
 import { Properties, PropertyUpsertParams, PropertyUpsertResponse } from './properties';
 import { APIPromise } from '../../core/api-promise';
@@ -315,5 +315,10 @@ export declare namespace Identities {
 
   export { Agents as Agents, type AgentListParams as AgentListParams };
 
-  export { Blocks as Blocks, type BlockListParams as BlockListParams };
+  export {
+    Blocks as Blocks,
+    type BlockListResponse as BlockListResponse,
+    type BlockListResponsesArrayPage as BlockListResponsesArrayPage,
+    type BlockListParams as BlockListParams,
+  };
 }

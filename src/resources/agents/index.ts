@@ -35,12 +35,15 @@ export {
   Blocks,
   type Block,
   type BlockModify,
+  type BlockRetrieveResponse,
+  type BlockListResponse,
+  type BlockModifyResponse,
   type BlockRetrieveParams,
   type BlockListParams,
   type BlockAttachParams,
   type BlockDetachParams,
   type BlockModifyParams,
-  type BlocksArrayPage,
+  type BlockListResponsesArrayPage,
 } from './blocks';
 export {
   Files,

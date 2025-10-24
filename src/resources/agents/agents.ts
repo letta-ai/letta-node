@@ -10,11 +10,14 @@ import {
   BlockAttachParams,
   BlockDetachParams,
   BlockListParams,
+  BlockListResponse,
+  BlockListResponsesArrayPage,
   BlockModify,
   BlockModifyParams,
+  BlockModifyResponse,
   BlockRetrieveParams,
+  BlockRetrieveResponse,
   Blocks,
-  BlocksArrayPage,
 } from './blocks';
 import * as FilesAPI from './files';
 import {
@@ -602,11 +605,6 @@ export namespace AgentState {
       metadata?: { [key: string]: unknown } | null;
 
       /**
-       * The id of the template.
-       */
-      name?: string | null;
-
-      /**
        * Preserve the block on template migration.
        */
       preserve_on_migration?: boolean | null;
@@ -620,6 +618,16 @@ export namespace AgentState {
        * Whether the agent has read-only access to the block.
        */
       read_only?: boolean;
+
+      /**
+       * The id of the template.
+       */
+      template_id?: string | null;
+
+      /**
+       * Name of the block if it is a template.
+       */
+      template_name?: string | null;
     }
   }
 
@@ -1729,7 +1737,10 @@ export declare namespace Agents {
     Blocks as Blocks,
     type Block as Block,
     type BlockModify as BlockModify,
-    type BlocksArrayPage as BlocksArrayPage,
+    type BlockRetrieveResponse as BlockRetrieveResponse,
+    type BlockListResponse as BlockListResponse,
+    type BlockModifyResponse as BlockModifyResponse,
+    type BlockListResponsesArrayPage as BlockListResponsesArrayPage,
     type BlockRetrieveParams as BlockRetrieveParams,
     type BlockListParams as BlockListParams,
     type BlockAttachParams as BlockAttachParams,

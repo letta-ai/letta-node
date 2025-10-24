@@ -99,9 +99,14 @@ import {
 import {
   BlockCountResponse,
   BlockCreateParams,
+  BlockCreateResponse,
   BlockDeleteResponse,
   BlockListParams,
+  BlockListResponse,
+  BlockListResponsesArrayPage,
   BlockModifyParams,
+  BlockModifyResponse,
+  BlockRetrieveResponse,
   Blocks,
   CreateBlock,
 } from './resources/blocks/blocks';
@@ -1049,8 +1054,13 @@ export declare namespace Letta {
   export {
     Blocks as Blocks,
     type CreateBlock as CreateBlock,
+    type BlockCreateResponse as BlockCreateResponse,
+    type BlockRetrieveResponse as BlockRetrieveResponse,
+    type BlockListResponse as BlockListResponse,
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockCountResponse as BlockCountResponse,
+    type BlockModifyResponse as BlockModifyResponse,
+    type BlockListResponsesArrayPage as BlockListResponsesArrayPage,
     type BlockCreateParams as BlockCreateParams,
     type BlockListParams as BlockListParams,
     type BlockModifyParams as BlockModifyParams,

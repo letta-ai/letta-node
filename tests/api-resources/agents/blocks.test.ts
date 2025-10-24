@@ -122,10 +122,11 @@ describe('resource blocks', () => {
       label: 'label',
       limit: 0,
       metadata: { foo: 'bar' },
-      name: 'name',
       preserve_on_migration: true,
       project_id: 'project_id',
       read_only: true,
+      template_id: 'template_id',
+      template_name: 'template_name',
       value: 'value',
     });
   });
