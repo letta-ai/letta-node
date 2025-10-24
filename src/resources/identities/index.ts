@@ -1,7 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export { Agents, type AgentListParams } from './agents';
-export { Blocks, type BlockListParams } from './blocks';
+export {
+  Blocks,
+  type BlockListResponse,
+  type BlockListParams,
+  type BlockListResponsesArrayPage,
+} from './blocks';
 export {
   Identities,
   type Identity,

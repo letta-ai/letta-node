@@ -51,11 +51,16 @@ export {
 export {
   Blocks,
   type CreateBlock,
+  type BlockCreateResponse,
+  type BlockRetrieveResponse,
+  type BlockListResponse,
   type BlockDeleteResponse,
   type BlockCountResponse,
+  type BlockModifyResponse,
   type BlockCreateParams,
   type BlockListParams,
   type BlockModifyParams,
+  type BlockListResponsesArrayPage,
 } from './blocks/blocks';
 export {
   Folders,

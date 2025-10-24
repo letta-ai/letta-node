@@ -11,7 +11,11 @@ export class Blocks extends APIResource {
   /**
    * Retrieve a core memory block from an agent.
    */
-  retrieve(blockLabel: string, params: BlockRetrieveParams, options?: RequestOptions): APIPromise<Block> {
+  retrieve(
+    blockLabel: string,
+    params: BlockRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<BlockRetrieveResponse> {
     const { agent_id } = params;
     return this._client.get(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, options);
   }
@@ -23,11 +27,12 @@ export class Blocks extends APIResource {
     agentID: string,
     query: BlockListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<BlocksArrayPage, Block> {
-    return this._client.getAPIList(path`/v1/agents/${agentID}/core-memory/blocks`, ArrayPage<Block>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<BlockListResponsesArrayPage, BlockListResponse> {
+    return this._client.getAPIList(
+      path`/v1/agents/${agentID}/core-memory/blocks`,
+      ArrayPage<BlockListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -57,7 +62,11 @@ export class Blocks extends APIResource {
   /**
    * Updates a core memory block of an agent.
    */
-  modify(blockLabel: string, params: BlockModifyParams, options?: RequestOptions): APIPromise<Block> {
+  modify(
+    blockLabel: string,
+    params: BlockModifyParams,
+    options?: RequestOptions,
+  ): APIPromise<BlockModifyResponse> {
     const { agent_id, ...body } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, {
       body,
@@ -66,7 +75,7 @@ export class Blocks extends APIResource {
   }
 }
 
-export type BlocksArrayPage = ArrayPage<Block>;
+export type BlockListResponsesArrayPage = ArrayPage<BlockListResponse>;
 
 /**
  * A Block represents a reserved section of the LLM's context window which is
@@ -152,11 +161,6 @@ export interface Block {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The id of the template.
-   */
-  name?: string | null;
-
-  /**
    * Preserve the block on template migration.
    */
   preserve_on_migration?: boolean | null;
@@ -170,6 +174,16 @@ export interface Block {
    * Whether the agent has read-only access to the block.
    */
   read_only?: boolean;
+
+  /**
+   * The id of the template.
+   */
+  template_id?: string | null;
+
+  /**
+   * Name of the block if it is a template.
+   */
+  template_name?: string | null;
 }
 
 /**
@@ -222,11 +236,6 @@ export interface BlockModify {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The id of the template.
-   */
-  name?: string | null;
-
-  /**
    * Preserve the block on template migration.
    */
   preserve_on_migration?: boolean | null;
@@ -242,9 +251,295 @@ export interface BlockModify {
   read_only?: boolean;
 
   /**
+   * The id of the template.
+   */
+  template_id?: string | null;
+
+  /**
+   * Name of the block if it is a template.
+   */
+  template_name?: string | null;
+
+  /**
    * Value of the block.
    */
   value?: string | null;
+}
+
+export interface BlockRetrieveResponse {
+  /**
+   * Value of the block.
+   */
+  value: string;
+
+  /**
+   * The human-friendly ID of the Block
+   */
+  id?: string;
+
+  /**
+   * @deprecated (Deprecated) The base template id of the block.
+   */
+  base_template_id?: string | null;
+
+  /**
+   * The id of the user that made this Block.
+   */
+  created_by_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) The id of the deployment.
+   */
+  deployment_id?: string | null;
+
+  /**
+   * Description of the block.
+   */
+  description?: string | null;
+
+  /**
+   * @deprecated (Deprecated) The id of the entity within the template.
+   */
+  entity_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) If set to True, the block will be hidden.
+   */
+  hidden?: boolean | null;
+
+  /**
+   * Whether the block is a template (e.g. saved human/persona options).
+   */
+  is_template?: boolean;
+
+  /**
+   * Label of the block (e.g. 'human', 'persona') in the context window.
+   */
+  label?: string | null;
+
+  /**
+   * The id of the user that last updated this Block.
+   */
+  last_updated_by_id?: string | null;
+
+  /**
+   * Character limit of the block.
+   */
+  limit?: number;
+
+  /**
+   * Metadata of the block.
+   */
+  metadata?: { [key: string]: unknown } | null;
+
+  /**
+   * @deprecated (Deprecated) Preserve the block on template migration.
+   */
+  preserve_on_migration?: boolean | null;
+
+  /**
+   * The associated project id.
+   */
+  project_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) Whether the agent has read-only access to the block.
+   */
+  read_only?: boolean;
+
+  /**
+   * @deprecated (Deprecated) The id of the template.
+   */
+  template_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) The name of the block template (if it is a template).
+   */
+  template_name?: string | null;
+}
+
+export interface BlockListResponse {
+  /**
+   * Value of the block.
+   */
+  value: string;
+
+  /**
+   * The human-friendly ID of the Block
+   */
+  id?: string;
+
+  /**
+   * @deprecated (Deprecated) The base template id of the block.
+   */
+  base_template_id?: string | null;
+
+  /**
+   * The id of the user that made this Block.
+   */
+  created_by_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) The id of the deployment.
+   */
+  deployment_id?: string | null;
+
+  /**
+   * Description of the block.
+   */
+  description?: string | null;
+
+  /**
+   * @deprecated (Deprecated) The id of the entity within the template.
+   */
+  entity_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) If set to True, the block will be hidden.
+   */
+  hidden?: boolean | null;
+
+  /**
+   * Whether the block is a template (e.g. saved human/persona options).
+   */
+  is_template?: boolean;
+
+  /**
+   * Label of the block (e.g. 'human', 'persona') in the context window.
+   */
+  label?: string | null;
+
+  /**
+   * The id of the user that last updated this Block.
+   */
+  last_updated_by_id?: string | null;
+
+  /**
+   * Character limit of the block.
+   */
+  limit?: number;
+
+  /**
+   * Metadata of the block.
+   */
+  metadata?: { [key: string]: unknown } | null;
+
+  /**
+   * @deprecated (Deprecated) Preserve the block on template migration.
+   */
+  preserve_on_migration?: boolean | null;
+
+  /**
+   * The associated project id.
+   */
+  project_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) Whether the agent has read-only access to the block.
+   */
+  read_only?: boolean;
+
+  /**
+   * @deprecated (Deprecated) The id of the template.
+   */
+  template_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) The name of the block template (if it is a template).
+   */
+  template_name?: string | null;
+}
+
+export interface BlockModifyResponse {
+  /**
+   * Value of the block.
+   */
+  value: string;
+
+  /**
+   * The human-friendly ID of the Block
+   */
+  id?: string;
+
+  /**
+   * @deprecated (Deprecated) The base template id of the block.
+   */
+  base_template_id?: string | null;
+
+  /**
+   * The id of the user that made this Block.
+   */
+  created_by_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) The id of the deployment.
+   */
+  deployment_id?: string | null;
+
+  /**
+   * Description of the block.
+   */
+  description?: string | null;
+
+  /**
+   * @deprecated (Deprecated) The id of the entity within the template.
+   */
+  entity_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) If set to True, the block will be hidden.
+   */
+  hidden?: boolean | null;
+
+  /**
+   * Whether the block is a template (e.g. saved human/persona options).
+   */
+  is_template?: boolean;
+
+  /**
+   * Label of the block (e.g. 'human', 'persona') in the context window.
+   */
+  label?: string | null;
+
+  /**
+   * The id of the user that last updated this Block.
+   */
+  last_updated_by_id?: string | null;
+
+  /**
+   * Character limit of the block.
+   */
+  limit?: number;
+
+  /**
+   * Metadata of the block.
+   */
+  metadata?: { [key: string]: unknown } | null;
+
+  /**
+   * @deprecated (Deprecated) Preserve the block on template migration.
+   */
+  preserve_on_migration?: boolean | null;
+
+  /**
+   * The associated project id.
+   */
+  project_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) Whether the agent has read-only access to the block.
+   */
+  read_only?: boolean;
+
+  /**
+   * @deprecated (Deprecated) The id of the template.
+   */
+  template_id?: string | null;
+
+  /**
+   * @deprecated (Deprecated) The name of the block template (if it is a template).
+   */
+  template_name?: string | null;
 }
 
 export interface BlockRetrieveParams {
@@ -322,11 +617,6 @@ export interface BlockModifyParams {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: The id of the template.
-   */
-  name?: string | null;
-
-  /**
    * Body param: Preserve the block on template migration.
    */
   preserve_on_migration?: boolean | null;
@@ -342,6 +632,16 @@ export interface BlockModifyParams {
   read_only?: boolean;
 
   /**
+   * Body param: The id of the template.
+   */
+  template_id?: string | null;
+
+  /**
+   * Body param: Name of the block if it is a template.
+   */
+  template_name?: string | null;
+
+  /**
    * Body param: Value of the block.
    */
   value?: string | null;
@@ -351,7 +651,10 @@ export declare namespace Blocks {
   export {
     type Block as Block,
     type BlockModify as BlockModify,
-    type BlocksArrayPage as BlocksArrayPage,
+    type BlockRetrieveResponse as BlockRetrieveResponse,
+    type BlockListResponse as BlockListResponse,
+    type BlockModifyResponse as BlockModifyResponse,
+    type BlockListResponsesArrayPage as BlockListResponsesArrayPage,
     type BlockRetrieveParams as BlockRetrieveParams,
     type BlockListParams as BlockListParams,
     type BlockAttachParams as BlockAttachParams,
