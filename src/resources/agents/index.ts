@@ -110,6 +110,7 @@ export {
   type MessageStreamParams,
   type LettaMessageUnionsArrayPage,
   type RunsArrayPage,
+  type MessagesObjectPage,
 } from './messages';
 export {
   Tools,

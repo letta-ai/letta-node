@@ -172,3 +172,74 @@ export class ArrayPage<Item extends { id: string }> extends AbstractPage<Item> {
     };
   }
 }
+
+export interface ObjectPageResponse<Item> {
+  messages: Array<Item>;
+}
+
+export interface ObjectPageParams {
+  before?: string | null;
+
+  after?: string | null;
+
+  limit?: number | null;
+
+  order?: string | null;
+
+  order_by?: string | null;
+}
+
+export class ObjectPage<Item extends { id: string }>
+  extends AbstractPage<Item>
+  implements ObjectPageResponse<Item>
+{
+  messages: Array<Item>;
+
+  constructor(
+    client: Letta,
+    response: Response,
+    body: ObjectPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.messages = body.messages || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.messages ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const messages = this.getPaginatedItems();
+
+    const isForwards = !(typeof this.options.query === 'object' && 'before' in (this.options.query || {}));
+    if (isForwards) {
+      const id = messages[messages.length - 1]?.id;
+      if (!id) {
+        return null;
+      }
+
+      return {
+        ...this.options,
+        query: {
+          ...maybeObj(this.options.query),
+          after: id,
+        },
+      };
+    }
+
+    const id = messages[0]?.id;
+    if (!id) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        before: id,
+      },
+    };
+  }
+}

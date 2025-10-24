@@ -475,13 +475,9 @@ Methods:
 
 ## Messages
 
-Types:
-
-- <code><a href="./src/resources/batches/messages.ts">MessageListResponse</a></code>
-
 Methods:
 
-- <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/resources/batches/messages.ts">list</a>(batchID, { ...params }) -> MessageListResponse</code>
+- <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/resources/batches/messages.ts">list</a>(batchID, { ...params }) -> MessagesObjectPage</code>
 
 # Templates
 
