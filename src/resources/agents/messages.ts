@@ -6,6 +6,7 @@ import * as ToolsAPI from '../tools';
 import * as AgentsAPI from './agents';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, ObjectPage, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -30,8 +31,11 @@ export class Messages extends APIResource {
     agentID: string,
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessageListResponse> {
-    return this._client.get(path`/v1/agents/${agentID}/messages`, { query, ...options });
+  ): PagePromise<LettaMessageUnionsArrayPage, LettaMessageUnion> {
+    return this._client.getAPIList(path`/v1/agents/${agentID}/messages`, ArrayPage<LettaMessageUnion>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -98,6 +102,12 @@ export class Messages extends APIResource {
     });
   }
 }
+
+export type LettaMessageUnionsArrayPage = ArrayPage<LettaMessageUnion>;
+
+export type RunsArrayPage = ArrayPage<Run>;
+
+export type MessagesObjectPage = ObjectPage<Message>;
 
 /**
  * Input to approve or deny a tool call request
@@ -1459,8 +1469,6 @@ export type MessageUpdateResponse =
   | ApprovalRequestMessage
   | ApprovalResponseMessage;
 
-export type MessageListResponse = Array<LettaMessageUnion>;
-
 export type MessageCancelResponse = { [key: string]: unknown };
 
 export type MessageStreamResponse = unknown;
@@ -1544,13 +1552,7 @@ export declare namespace MessageUpdateParams {
   }
 }
 
-export interface MessageListParams {
-  /**
-   * Message ID cursor for pagination. Returns messages that come after this message
-   * ID in the specified sort order
-   */
-  after?: string | null;
-
+export interface MessageListParams extends ArrayPageParams {
   /**
    * @deprecated The name of the message argument.
    */
@@ -1562,12 +1564,6 @@ export interface MessageListParams {
   assistant_message_tool_name?: string;
 
   /**
-   * Message ID cursor for pagination. Returns messages that come before this message
-   * ID in the specified sort order
-   */
-  before?: string | null;
-
-  /**
    * Group ID to filter messages by.
    */
   group_id?: string | null;
@@ -1577,22 +1573,6 @@ export interface MessageListParams {
    * only.
    */
   include_err?: boolean | null;
-
-  /**
-   * Maximum number of messages to return
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
 
   /**
    * @deprecated Whether to use assistant messages
@@ -1806,9 +1786,9 @@ export declare namespace Messages {
     type UpdateUserMessage as UpdateUserMessage,
     type UserMessage as UserMessage,
     type MessageUpdateResponse as MessageUpdateResponse,
-    type MessageListResponse as MessageListResponse,
     type MessageCancelResponse as MessageCancelResponse,
     type MessageStreamResponse as MessageStreamResponse,
+    type LettaMessageUnionsArrayPage as LettaMessageUnionsArrayPage,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,

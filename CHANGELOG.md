@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.0.0-alpha.8 (2025-10-24)
+
+Full Changelog: [v1.0.0-alpha.7...v1.0.0-alpha.8](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.7...v1.0.0-alpha.8)
+
+### Features
+
+* add pagination config for list agent files ([38a2be0](https://github.com/letta-ai/letta-node/commit/38a2be0e97cb498d0a3b0b3d73d2e0f4d1bf9ae4))
+* add pagination configuration for list batch message endpoint ([855f60e](https://github.com/letta-ai/letta-node/commit/855f60e1f54880023a9b927b175deb4ccb085b1d))
+* add stainless pagination for identities ([ed5e7c7](https://github.com/letta-ai/letta-node/commit/ed5e7c724e42a10bf08a7bf3c66544f62070e4dc))
+* make some routes return none for sdk v1 ([2621268](https://github.com/letta-ai/letta-node/commit/2621268acf05b913e687daf567894651d0aac6d4))
+
+
+### Chores
+
+* add order_by param to list archives [LET-5839] ([33d74a9](https://github.com/letta-ai/letta-node/commit/33d74a948525b99befe5c53bfd539f7555cfed47))
+
 ## 1.0.0-alpha.7 (2025-10-24)
 
 Full Changelog: [v1.0.0-alpha.6...v1.0.0-alpha.7](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.6...v1.0.0-alpha.7)

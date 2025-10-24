@@ -14,6 +14,16 @@ import * as Opts from './internal/request-options';
 import * as qs from './internal/qs';
 import { VERSION } from './version';
 import * as Errors from './core/error';
+import * as Pagination from './core/pagination';
+import {
+  AbstractPage,
+  type ArrayPageParams,
+  ArrayPageResponse,
+  type NextFilesPageParams,
+  NextFilesPageResponse,
+  type ObjectPageParams,
+  ObjectPageResponse,
+} from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
@@ -23,12 +33,12 @@ import {
   Archive,
   ArchiveCreateParams,
   ArchiveListParams,
-  ArchiveListResponse,
   ArchiveUpdateParams,
   Archives,
+  ArchivesArrayPage,
   VectorDBProvider,
 } from './resources/archives';
-import { TagListParams, TagListResponse, Tags } from './resources/tags';
+import { TagListParams, TagListResponse, TagListResponsesArrayPage, Tags } from './resources/tags';
 import {
   NpmRequirement,
   PipRequirement,
@@ -39,13 +49,13 @@ import {
   ToolCreateParams,
   ToolDeleteResponse,
   ToolListParams,
-  ToolListResponse,
   ToolReturnMessage,
   ToolType,
   ToolUpdateParams,
   ToolUpsertBaseToolsResponse,
   ToolUpsertParams,
   Tools,
+  ToolsArrayPage,
 } from './resources/tools';
 import {
   AgentCountResponse,
@@ -57,9 +67,9 @@ import {
   AgentImportFileParams,
   AgentImportFileResponse,
   AgentListParams,
-  AgentListResponse,
   AgentRetrieveParams,
   AgentState,
+  AgentStatesArrayPage,
   AgentType,
   AgentUpdateParams,
   Agents,
@@ -82,8 +92,8 @@ import {
   BatchCancelResponse,
   BatchCreateParams,
   BatchJob,
+  BatchJobsArrayPage,
   BatchListParams,
-  BatchListResponse,
   Batches,
 } from './resources/batches/batches';
 import {
@@ -91,7 +101,6 @@ import {
   BlockCreateParams,
   BlockDeleteResponse,
   BlockListParams,
-  BlockListResponse,
   BlockUpdateParams,
   Blocks,
   CreateBlock,
@@ -102,9 +111,9 @@ import {
   FolderCreateParams,
   FolderDeleteResponse,
   FolderListParams,
-  FolderListResponse,
   FolderUpdateParams,
   Folders,
+  FoldersArrayPage,
 } from './resources/folders/folders';
 import {
   DynamicManager,
@@ -113,9 +122,9 @@ import {
   GroupCreateParams,
   GroupDeleteResponse,
   GroupListParams,
-  GroupListResponse,
   GroupUpdateParams,
   Groups,
+  GroupsArrayPage,
   ManagerType,
   RoundRobinManager,
   SleeptimeManager,
@@ -124,12 +133,12 @@ import {
 } from './resources/groups/groups';
 import {
   Identities,
+  IdentitiesArrayPage,
   Identity,
   IdentityCountResponse,
   IdentityCreateParams,
   IdentityDeleteResponse,
   IdentityListParams,
-  IdentityListResponse,
   IdentityProperty,
   IdentityType,
   IdentityUpdateParams,
@@ -144,8 +153,8 @@ import {
   ProviderCategory,
   ProviderType,
 } from './resources/models/models';
-import { Job, RunListParams, RunListResponse, Runs, StopReasonType } from './resources/runs/runs';
-import { ProviderTrace, Step, StepListParams, StepListResponse, Steps } from './resources/steps/steps';
+import { Job, RunListParams, Runs, StopReasonType } from './resources/runs/runs';
+import { ProviderTrace, Step, StepListParams, Steps, StepsArrayPage } from './resources/steps/steps';
 import { Templates } from './resources/templates/templates';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
@@ -627,6 +636,25 @@ export class Letta {
     return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
   }
 
+  getAPIList<Item, PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>>(
+    path: string,
+    Page: new (...args: any[]) => PageClass,
+    opts?: RequestOptions,
+  ): Pagination.PagePromise<PageClass, Item> {
+    return this.requestAPIList(Page, { method: 'get', path, ...opts });
+  }
+
+  requestAPIList<
+    Item = unknown,
+    PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>,
+  >(
+    Page: new (...args: ConstructorParameters<typeof Pagination.AbstractPage>) => PageClass,
+    options: FinalRequestOptions,
+  ): Pagination.PagePromise<PageClass, Item> {
+    const request = this.makeRequest(options, null, undefined);
+    return new Pagination.PagePromise<PageClass, Item>(this as any as Letta, request, Page);
+  }
+
   async fetchWithTimeout(
     url: RequestInfo,
     init: RequestInit | undefined,
@@ -891,13 +919,25 @@ Letta.Templates = Templates;
 export declare namespace Letta {
   export type RequestOptions = Opts.RequestOptions;
 
+  export import ArrayPage = Pagination.ArrayPage;
+  export { type ArrayPageParams as ArrayPageParams, type ArrayPageResponse as ArrayPageResponse };
+
+  export import ObjectPage = Pagination.ObjectPage;
+  export { type ObjectPageParams as ObjectPageParams, type ObjectPageResponse as ObjectPageResponse };
+
+  export import NextFilesPage = Pagination.NextFilesPage;
+  export {
+    type NextFilesPageParams as NextFilesPageParams,
+    type NextFilesPageResponse as NextFilesPageResponse,
+  };
+
   export { type HealthResponse as HealthResponse };
 
   export {
     Archives as Archives,
     type Archive as Archive,
     type VectorDBProvider as VectorDBProvider,
-    type ArchiveListResponse as ArchiveListResponse,
+    type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
     type ArchiveUpdateParams as ArchiveUpdateParams,
     type ArchiveListParams as ArchiveListParams,
@@ -911,10 +951,10 @@ export declare namespace Letta {
     type ToolCreate as ToolCreate,
     type ToolReturnMessage as ToolReturnMessage,
     type ToolType as ToolType,
-    type ToolListResponse as ToolListResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type ToolCountResponse as ToolCountResponse,
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
+    type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
@@ -925,9 +965,9 @@ export declare namespace Letta {
   export {
     Folders as Folders,
     type Folder as Folder,
-    type FolderListResponse as FolderListResponse,
     type FolderDeleteResponse as FolderDeleteResponse,
     type FolderCountResponse as FolderCountResponse,
+    type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
     type FolderUpdateParams as FolderUpdateParams,
     type FolderListParams as FolderListParams,
@@ -952,11 +992,11 @@ export declare namespace Letta {
     type RequiresApprovalToolRule as RequiresApprovalToolRule,
     type TerminalToolRule as TerminalToolRule,
     type TextResponseFormat as TextResponseFormat,
-    type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentCountResponse as AgentCountResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,
+    type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
@@ -974,9 +1014,9 @@ export declare namespace Letta {
     type SleeptimeManager as SleeptimeManager,
     type SupervisorManager as SupervisorManager,
     type VoiceSleeptimeManager as VoiceSleeptimeManager,
-    type GroupListResponse as GroupListResponse,
     type GroupDeleteResponse as GroupDeleteResponse,
     type GroupCountResponse as GroupCountResponse,
+    type GroupsArrayPage as GroupsArrayPage,
     type GroupCreateParams as GroupCreateParams,
     type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
@@ -987,9 +1027,9 @@ export declare namespace Letta {
     type Identity as Identity,
     type IdentityProperty as IdentityProperty,
     type IdentityType as IdentityType,
-    type IdentityListResponse as IdentityListResponse,
     type IdentityDeleteResponse as IdentityDeleteResponse,
     type IdentityCountResponse as IdentityCountResponse,
+    type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
     type IdentityUpdateParams as IdentityUpdateParams,
     type IdentityListParams as IdentityListParams,
@@ -1009,7 +1049,6 @@ export declare namespace Letta {
   export {
     Blocks as Blocks,
     type CreateBlock as CreateBlock,
-    type BlockListResponse as BlockListResponse,
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockCountResponse as BlockCountResponse,
     type BlockCreateParams as BlockCreateParams,
@@ -1021,7 +1060,6 @@ export declare namespace Letta {
     Runs as Runs,
     type Job as Job,
     type StopReasonType as StopReasonType,
-    type RunListResponse as RunListResponse,
     type RunListParams as RunListParams,
   };
 
@@ -1029,17 +1067,22 @@ export declare namespace Letta {
     Steps as Steps,
     type ProviderTrace as ProviderTrace,
     type Step as Step,
-    type StepListResponse as StepListResponse,
+    type StepsArrayPage as StepsArrayPage,
     type StepListParams as StepListParams,
   };
 
-  export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
+  export {
+    Tags as Tags,
+    type TagListResponse as TagListResponse,
+    type TagListResponsesArrayPage as TagListResponsesArrayPage,
+    type TagListParams as TagListParams,
+  };
 
   export {
     Batches as Batches,
     type BatchJob as BatchJob,
-    type BatchListResponse as BatchListResponse,
     type BatchCancelResponse as BatchCancelResponse,
+    type BatchJobsArrayPage as BatchJobsArrayPage,
     type BatchCreateParams as BatchCreateParams,
     type BatchListParams as BatchListParams,
   };

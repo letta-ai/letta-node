@@ -2,9 +2,11 @@
 
 import { APIResource } from '../../core/resource';
 import * as BlocksAPI from '../agents/blocks';
+import { BlocksArrayPage } from '../agents/blocks';
 import * as AgentsAPI from './agents';
-import { AgentListParams, AgentListResponse, Agents } from './agents';
+import { AgentListParams, Agents } from './agents';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -38,8 +40,8 @@ export class Blocks extends APIResource {
   list(
     query: BlockListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<BlockListResponse> {
-    return this._client.get('/v1/blocks/', { query, ...options });
+  ): PagePromise<BlocksArrayPage, BlocksAPI.Block> {
+    return this._client.getAPIList('/v1/blocks/', ArrayPage<BlocksAPI.Block>, { query, ...options });
   }
 
   /**
@@ -128,8 +130,6 @@ export interface CreateBlock {
    */
   read_only?: boolean;
 }
-
-export type BlockListResponse = Array<BlocksAPI.Block>;
 
 export type BlockDeleteResponse = unknown;
 
@@ -276,19 +276,7 @@ export interface BlockUpdateParams {
   value?: string | null;
 }
 
-export interface BlockListParams {
-  /**
-   * Block ID cursor for pagination. Returns blocks that come after this block ID in
-   * the specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Block ID cursor for pagination. Returns blocks that come before this block ID in
-   * the specified sort order
-   */
-  before?: string | null;
-
+export interface BlockListParams extends ArrayPageParams {
   /**
    * Filter blocks by the exact number of connected agents. If provided, returns
    * blocks that have exactly this number of connected agents.
@@ -335,25 +323,9 @@ export interface BlockListParams {
   label_search?: string | null;
 
   /**
-   * Number of blocks to return
-   */
-  limit?: number | null;
-
-  /**
    * Name of the block
    */
   name?: string | null;
-
-  /**
-   * Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
 
   /**
    * Search blocks by project id
@@ -376,7 +348,6 @@ Blocks.Agents = Agents;
 export declare namespace Blocks {
   export {
     type CreateBlock as CreateBlock,
-    type BlockListResponse as BlockListResponse,
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockCountResponse as BlockCountResponse,
     type BlockCreateParams as BlockCreateParams,
@@ -384,9 +355,7 @@ export declare namespace Blocks {
     type BlockListParams as BlockListParams,
   };
 
-  export {
-    Agents as Agents,
-    type AgentListResponse as AgentListResponse,
-    type AgentListParams as AgentListParams,
-  };
+  export { Agents as Agents, type AgentListParams as AgentListParams };
 }
+
+export { type BlocksArrayPage };
