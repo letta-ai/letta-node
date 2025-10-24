@@ -7,6 +7,6 @@ export {
   type BlockDeleteResponse,
   type BlockCountResponse,
   type BlockCreateParams,
-  type BlockUpdateParams,
   type BlockListParams,
+  type BlockModifyParams,
 } from './blocks';

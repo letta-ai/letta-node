@@ -28,13 +28,6 @@ export class Blocks extends APIResource {
   }
 
   /**
-   * Modify Block
-   */
-  update(blockID: string, body: BlockUpdateParams, options?: RequestOptions): APIPromise<BlocksAPI.Block> {
-    return this._client.patch(path`/v1/blocks/${blockID}`, { body, ...options });
-  }
-
-  /**
    * List Blocks
    */
   list(
@@ -56,6 +49,13 @@ export class Blocks extends APIResource {
    */
   count(options?: RequestOptions): APIPromise<BlockCountResponse> {
     return this._client.get('/v1/blocks/count', options);
+  }
+
+  /**
+   * Modify Block
+   */
+  modify(blockID: string, body: BlockModifyParams, options?: RequestOptions): APIPromise<BlocksAPI.Block> {
+    return this._client.patch(path`/v1/blocks/${blockID}`, { body, ...options });
   }
 }
 
@@ -204,7 +204,74 @@ export interface BlockCreateParams {
   read_only?: boolean;
 }
 
-export interface BlockUpdateParams {
+export interface BlockListParams extends ArrayPageParams {
+  /**
+   * Filter blocks by the exact number of connected agents. If provided, returns
+   * blocks that have exactly this number of connected agents.
+   */
+  connected_to_agents_count_eq?: Array<number> | null;
+
+  /**
+   * Filter blocks by the number of connected agents. If provided, returns blocks
+   * that have more than this number of connected agents.
+   */
+  connected_to_agents_count_gt?: number | null;
+
+  /**
+   * Filter blocks by the number of connected agents. If provided, returns blocks
+   * that have less than this number of connected agents.
+   */
+  connected_to_agents_count_lt?: number | null;
+
+  /**
+   * Search blocks by description. If provided, returns blocks that match this
+   * description. This is a full-text search on block descriptions.
+   */
+  description_search?: string | null;
+
+  /**
+   * Search agents by identifier keys
+   */
+  identifier_keys?: Array<string> | null;
+
+  /**
+   * Search agents by identifier id
+   */
+  identity_id?: string | null;
+
+  /**
+   * Labels to include (e.g. human, persona)
+   */
+  label?: string | null;
+
+  /**
+   * Search blocks by label. If provided, returns blocks that match this label. This
+   * is a full-text search on labels.
+   */
+  label_search?: string | null;
+
+  /**
+   * Name of the block
+   */
+  name?: string | null;
+
+  /**
+   * Search blocks by project id
+   */
+  project_id?: string | null;
+
+  /**
+   * Whether to include only templates
+   */
+  templates_only?: boolean;
+
+  /**
+   * Search blocks by value. If provided, returns blocks that match this value.
+   */
+  value_search?: string | null;
+}
+
+export interface BlockModifyParams {
   /**
    * The base template id of the block.
    */
@@ -276,73 +343,6 @@ export interface BlockUpdateParams {
   value?: string | null;
 }
 
-export interface BlockListParams extends ArrayPageParams {
-  /**
-   * Filter blocks by the exact number of connected agents. If provided, returns
-   * blocks that have exactly this number of connected agents.
-   */
-  connected_to_agents_count_eq?: Array<number> | null;
-
-  /**
-   * Filter blocks by the number of connected agents. If provided, returns blocks
-   * that have more than this number of connected agents.
-   */
-  connected_to_agents_count_gt?: number | null;
-
-  /**
-   * Filter blocks by the number of connected agents. If provided, returns blocks
-   * that have less than this number of connected agents.
-   */
-  connected_to_agents_count_lt?: number | null;
-
-  /**
-   * Search blocks by description. If provided, returns blocks that match this
-   * description. This is a full-text search on block descriptions.
-   */
-  description_search?: string | null;
-
-  /**
-   * Search agents by identifier keys
-   */
-  identifier_keys?: Array<string> | null;
-
-  /**
-   * Search agents by identifier id
-   */
-  identity_id?: string | null;
-
-  /**
-   * Labels to include (e.g. human, persona)
-   */
-  label?: string | null;
-
-  /**
-   * Search blocks by label. If provided, returns blocks that match this label. This
-   * is a full-text search on labels.
-   */
-  label_search?: string | null;
-
-  /**
-   * Name of the block
-   */
-  name?: string | null;
-
-  /**
-   * Search blocks by project id
-   */
-  project_id?: string | null;
-
-  /**
-   * Whether to include only templates
-   */
-  templates_only?: boolean;
-
-  /**
-   * Search blocks by value. If provided, returns blocks that match this value.
-   */
-  value_search?: string | null;
-}
-
 Blocks.Agents = Agents;
 
 export declare namespace Blocks {
@@ -351,8 +351,8 @@ export declare namespace Blocks {
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockCountResponse as BlockCountResponse,
     type BlockCreateParams as BlockCreateParams,
-    type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
+    type BlockModifyParams as BlockModifyParams,
   };
 
   export { Agents as Agents, type AgentListParams as AgentListParams };
