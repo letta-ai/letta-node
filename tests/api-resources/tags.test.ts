@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import LettaSDK from '@letta-ai/letta-client';
+import Letta from '@letta-ai/letta-client';
 
-const client = new LettaSDK({
+const client = new Letta({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
@@ -36,6 +36,6 @@ describe('resource tags', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(LettaSDK.NotFoundError);
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 });

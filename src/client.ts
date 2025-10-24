@@ -16,190 +16,50 @@ import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
+import * as TopLevelAPI from './resources/top-level';
+import { HealthResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import {
   Archive,
-  ArchiveRetrieveParams,
-  ArchiveRetrieveResponse,
+  ArchiveCreateParams,
+  ArchiveListParams,
+  ArchiveListResponse,
   ArchiveUpdateParams,
   Archives,
   VectorDBProvider,
 } from './resources/archives';
-import {
-  BlockCountResponse,
-  BlockCreateParams,
-  BlockDeleteResponse,
-  BlockListAgentsParams,
-  BlockListAgentsResponse,
-  BlockListParams,
-  BlockListResponse,
-  BlockUpdateParams,
-  Blocks,
-  CreateBlock,
-} from './resources/blocks';
-import {
-  ClientSideAccessTokenCreateParams,
-  ClientSideAccessTokenCreateResponse,
-  ClientSideAccessTokenDeleteParams,
-  ClientSideAccessTokenDeleteResponse,
-  ClientSideAccessTokenListParams,
-  ClientSideAccessTokenListResponse,
-  ClientSideAccessTokens,
-} from './resources/client-side-access-tokens';
-import {
-  EmbeddingGetTotalStorageSizeParams,
-  EmbeddingGetTotalStorageSizeResponse,
-  Embeddings,
-} from './resources/embeddings';
-import {
-  Folder,
-  FolderCountResponse,
-  FolderCreateParams,
-  FolderDeleteFileParams,
-  FolderDeleteResponse,
-  FolderGetByNameResponse,
-  FolderListAgentsParams,
-  FolderListAgentsResponse,
-  FolderListFilesParams,
-  FolderListFilesResponse,
-  FolderListParams,
-  FolderListPassagesParams,
-  FolderListPassagesResponse,
-  FolderListResponse,
-  FolderRetrieveMetadataParams,
-  FolderUpdateParams,
-  FolderUploadFileParams,
-  Folders,
-} from './resources/folders';
-import { Health, HealthCheckResponse } from './resources/health';
-import {
-  Identities,
-  Identity,
-  IdentityCountResponse,
-  IdentityCreateParams,
-  IdentityDeleteResponse,
-  IdentityListAgentsParams,
-  IdentityListAgentsResponse,
-  IdentityListBlocksParams,
-  IdentityListBlocksResponse,
-  IdentityListParams,
-  IdentityListResponse,
-  IdentityModifyParams,
-  IdentityProperty,
-  IdentityType,
-  IdentityUpsertParams,
-  IdentityUpsertPropertiesParams,
-  IdentityUpsertPropertiesResponse,
-} from './resources/identities';
-import {
-  Job,
-  JobListActiveParams,
-  JobListActiveResponse,
-  JobListParams,
-  JobListResponse,
-  Jobs,
-} from './resources/jobs';
-import {
-  EmbeddingConfig,
-  LlmConfig,
-  ModelListEmbeddingResponse,
-  ModelListParams,
-  ModelListResponse,
-  Models,
-  ProviderCategory,
-  ProviderType,
-} from './resources/models';
-import { ProjectListParams, ProjectListResponse, Projects } from './resources/projects';
-import {
-  Provider,
-  ProviderCheckParams,
-  ProviderCheckResponse,
-  ProviderCreateParams,
-  ProviderDeleteResponse,
-  ProviderListParams,
-  ProviderListResponse,
-  ProviderUpdateParams,
-  Providers,
-} from './resources/providers';
-import {
-  RunListActiveParams,
-  RunListActiveResponse,
-  RunListMessagesParams,
-  RunListMessagesResponse,
-  RunListParams,
-  RunListResponse,
-  RunListStepsParams,
-  RunListStepsResponse,
-  RunRetrieveStreamParams,
-  RunRetrieveStreamResponse,
-  RunRetrieveUsageResponse,
-  Runs,
-  StopReasonType,
-} from './resources/runs';
-import {
-  ProviderTrace,
-  Step,
-  StepListMessagesParams,
-  StepListMessagesResponse,
-  StepListParams,
-  StepListResponse,
-  StepRetrieveMetricsResponse,
-  StepUpdateFeedbackParams,
-  Steps,
-} from './resources/steps';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
-import { Telemetry } from './resources/telemetry';
 import {
-  TemplateCreateAgentsParams,
-  TemplateCreateAgentsResponse,
-  TemplateCreateParams,
-  TemplateCreateResponse,
-  TemplateDeleteParams,
-  TemplateDeleteResponse,
-  TemplateForkParams,
-  TemplateForkResponse,
-  TemplateGetSnapshotParams,
-  TemplateGetSnapshotResponse,
-  TemplateListParams,
-  TemplateListResponse,
-  TemplateListVersionsParams,
-  TemplateListVersionsResponse,
-  TemplateRenameParams,
-  TemplateRenameResponse,
-  TemplateSaveVersionParams,
-  TemplateSaveVersionResponse,
-  TemplateUpdateDescriptionParams,
-  TemplateUpdateDescriptionResponse,
-  Templates,
-} from './resources/templates';
-import {
-  InternalTemplateCreateAgentParams,
-  InternalTemplateCreateBlockParams,
-  InternalTemplateCreateGroupParams,
-  _InternalTemplates,
-} from './resources/-internal-templates/-internal-templates';
+  NpmRequirement,
+  PipRequirement,
+  Tool,
+  ToolCountParams,
+  ToolCountResponse,
+  ToolCreate,
+  ToolCreateParams,
+  ToolDeleteResponse,
+  ToolListParams,
+  ToolListResponse,
+  ToolReturnMessage,
+  ToolType,
+  ToolUpdateParams,
+  ToolUpsertBaseToolsResponse,
+  ToolUpsertParams,
+  Tools,
+} from './resources/tools';
 import {
   AgentCountResponse,
   AgentCreateParams,
   AgentDeleteResponse,
   AgentEnvironmentVariable,
-  AgentExportParams,
-  AgentExportResponse,
-  AgentImportParams,
-  AgentImportResponse,
-  AgentListGroupsParams,
-  AgentListGroupsResponse,
+  AgentExportFileParams,
+  AgentExportFileResponse,
+  AgentImportFileParams,
+  AgentImportFileResponse,
   AgentListParams,
   AgentListResponse,
-  AgentMigrateParams,
-  AgentMigrateResponse,
-  AgentResetMessagesParams,
-  AgentRetrieveContextResponse,
   AgentRetrieveParams,
-  AgentSearchParams,
-  AgentSearchResponse,
   AgentState,
-  AgentSummarizeParams,
   AgentType,
   AgentUpdateParams,
   Agents,
@@ -219,6 +79,34 @@ import {
   TextResponseFormat,
 } from './resources/agents/agents';
 import {
+  BatchCancelResponse,
+  BatchCreateParams,
+  BatchJob,
+  BatchListParams,
+  BatchListResponse,
+  Batches,
+} from './resources/batches/batches';
+import {
+  BlockCountResponse,
+  BlockCreateParams,
+  BlockDeleteResponse,
+  BlockListParams,
+  BlockListResponse,
+  BlockUpdateParams,
+  Blocks,
+  CreateBlock,
+} from './resources/blocks/blocks';
+import {
+  Folder,
+  FolderCountResponse,
+  FolderCreateParams,
+  FolderDeleteResponse,
+  FolderListParams,
+  FolderListResponse,
+  FolderUpdateParams,
+  Folders,
+} from './resources/folders/folders';
+import {
   DynamicManager,
   Group,
   GroupCountResponse,
@@ -226,7 +114,6 @@ import {
   GroupDeleteResponse,
   GroupListParams,
   GroupListResponse,
-  GroupResetMessagesResponse,
   GroupUpdateParams,
   Groups,
   ManagerType,
@@ -235,50 +122,31 @@ import {
   SupervisorManager,
   VoiceSleeptimeManager,
 } from './resources/groups/groups';
-import { Messages } from './resources/messages/messages';
 import {
-  DuplicateFileHandling,
-  FileMetadata,
-  FileProcessingStatus,
-  OrganizationSourcesStats,
-  Passage,
-  Source,
-  SourceCountResponse,
-  SourceCreate,
-  SourceCreateParams,
-  SourceDeleteFileParams,
-  SourceDeleteResponse,
-  SourceGetAgentsResponse,
-  SourceGetByNameResponse,
-  SourceGetMetadataParams,
-  SourceListPassagesParams,
-  SourceListPassagesResponse,
-  SourceListResponse,
-  SourceUpdate,
-  SourceUpdateParams,
-  SourceUploadFileParams,
-  Sources,
-} from './resources/sources/sources';
+  Identities,
+  Identity,
+  IdentityCountResponse,
+  IdentityCreateParams,
+  IdentityDeleteResponse,
+  IdentityListParams,
+  IdentityListResponse,
+  IdentityProperty,
+  IdentityType,
+  IdentityUpdateParams,
+  IdentityUpsertParams,
+} from './resources/identities/identities';
 import {
-  NpmRequirement,
-  PipRequirement,
-  Tool,
-  ToolCountParams,
-  ToolCountResponse,
-  ToolCreate,
-  ToolCreateParams,
-  ToolDeleteResponse,
-  ToolListParams,
-  ToolListResponse,
-  ToolModifyParams,
-  ToolReturnMessage,
-  ToolRunParams,
-  ToolType,
-  ToolUpsertBaseResponse,
-  ToolUpsertParams,
-  Tools,
-} from './resources/tools/tools';
-import { VoiceBeta } from './resources/voice-beta/voice-beta';
+  EmbeddingConfig,
+  LlmConfig,
+  ModelListParams,
+  ModelListResponse,
+  Models,
+  ProviderCategory,
+  ProviderType,
+} from './resources/models/models';
+import { Job, RunListParams, RunListResponse, Runs, StopReasonType } from './resources/runs/runs';
+import { ProviderTrace, Step, StepListParams, StepListResponse, Steps } from './resources/steps/steps';
+import { Templates } from './resources/templates/templates';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -293,14 +161,14 @@ import {
 import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
-  production: 'https://app.letta.com',
-  environment_1: 'http://localhost:8283',
+  cloud: 'https://app.letta.com',
+  local: 'http://localhost:8283',
 };
 type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['LETTA_SDK_API_KEY'].
+   * Defaults to process.env['LETTA_API_KEY'].
    */
   apiKey?: string | undefined;
 
@@ -308,15 +176,15 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `production` corresponds to `https://app.letta.com`
-   * - `environment_1` corresponds to `http://localhost:8283`
+   * - `cloud` corresponds to `https://app.letta.com`
+   * - `local` corresponds to `http://localhost:8283`
    */
   environment?: Environment | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['LETTA_SDK_BASE_URL'].
+   * Defaults to process.env['LETTA_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -370,7 +238,7 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env['LETTA_SDK_LOG'] or 'warn' if it isn't set.
+   * Defaults to process.env['LETTA_LOG'] or 'warn' if it isn't set.
    */
   logLevel?: LogLevel | undefined;
 
@@ -383,9 +251,9 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Letta SDK API.
+ * API Client for interfacing with the Letta API.
  */
-export class LettaSDK {
+export class Letta {
   apiKey: string;
 
   baseURL: string;
@@ -401,11 +269,11 @@ export class LettaSDK {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Letta SDK API.
+   * API Client for interfacing with the Letta API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['LETTA_SDK_API_KEY'] ?? undefined]
-   * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['LETTA_SDK_BASE_URL'] ?? https://app.letta.com] - Override the default base URL for the API.
+   * @param {string | undefined} [opts.apiKey=process.env['LETTA_API_KEY'] ?? undefined]
+   * @param {Environment} [opts.environment=cloud] - Specifies the environment URL to use for the API.
+   * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? https://app.letta.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -414,13 +282,13 @@ export class LettaSDK {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = readEnv('LETTA_SDK_BASE_URL'),
-    apiKey = readEnv('LETTA_SDK_API_KEY'),
+    baseURL = readEnv('LETTA_BASE_URL'),
+    apiKey = readEnv('LETTA_API_KEY'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Errors.LettaSDKError(
-        "The LETTA_SDK_API_KEY environment variable is missing or empty; either provide it, or instantiate the LettaSDK client with an apiKey option, like new LettaSDK({ apiKey: 'My API Key' }).",
+      throw new Errors.LettaError(
+        "The LETTA_API_KEY environment variable is missing or empty; either provide it, or instantiate the Letta client with an apiKey option, like new Letta({ apiKey: 'My API Key' }).",
       );
     }
 
@@ -428,24 +296,24 @@ export class LettaSDK {
       apiKey,
       ...opts,
       baseURL,
-      environment: opts.environment ?? 'production',
+      environment: opts.environment ?? 'cloud',
     };
 
     if (baseURL && opts.environment) {
-      throw new Errors.LettaSDKError(
-        'Ambiguous URL; The `baseURL` option (or LETTA_SDK_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
+      throw new Errors.LettaError(
+        'Ambiguous URL; The `baseURL` option (or LETTA_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
       );
     }
 
-    this.baseURL = options.baseURL || environments[options.environment || 'production'];
-    this.timeout = options.timeout ?? LettaSDK.DEFAULT_TIMEOUT /* 1 minute */;
+    this.baseURL = options.baseURL || environments[options.environment || 'cloud'];
+    this.timeout = options.timeout ?? Letta.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
     this.logLevel =
       parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('LETTA_SDK_LOG'), "process.env['LETTA_SDK_LOG']", this) ??
+      parseLogLevel(readEnv('LETTA_LOG'), "process.env['LETTA_LOG']", this) ??
       defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
@@ -481,7 +349,14 @@ export class LettaSDK {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== environments[this._options.environment || 'production'];
+    return this.baseURL !== environments[this._options.environment || 'cloud'];
+  }
+
+  /**
+   * Check Health
+   */
+  health(options?: RequestOptions): APIPromise<TopLevelAPI.HealthResponse> {
+    return this.get('/v1/health/', options);
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -965,10 +840,10 @@ export class LettaSDK {
     }
   }
 
-  static LettaSDK = this;
+  static Letta = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static LettaSDKError = Errors.LettaSDKError;
+  static LettaError = Errors.LettaError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -986,63 +861,46 @@ export class LettaSDK {
 
   archives: API.Archives = new API.Archives(this);
   tools: API.Tools = new API.Tools(this);
-  sources: API.Sources = new API.Sources(this);
   folders: API.Folders = new API.Folders(this);
   agents: API.Agents = new API.Agents(this);
   groups: API.Groups = new API.Groups(this);
   identities: API.Identities = new API.Identities(this);
-  _internalTemplates: API._InternalTemplates = new API._InternalTemplates(this);
   models: API.Models = new API.Models(this);
   blocks: API.Blocks = new API.Blocks(this);
-  jobs: API.Jobs = new API.Jobs(this);
-  health: API.Health = new API.Health(this);
-  providers: API.Providers = new API.Providers(this);
   runs: API.Runs = new API.Runs(this);
   steps: API.Steps = new API.Steps(this);
   tags: API.Tags = new API.Tags(this);
-  telemetry: API.Telemetry = new API.Telemetry(this);
-  messages: API.Messages = new API.Messages(this);
-  voiceBeta: API.VoiceBeta = new API.VoiceBeta(this);
-  embeddings: API.Embeddings = new API.Embeddings(this);
+  batches: API.Batches = new API.Batches(this);
   templates: API.Templates = new API.Templates(this);
-  clientSideAccessTokens: API.ClientSideAccessTokens = new API.ClientSideAccessTokens(this);
-  projects: API.Projects = new API.Projects(this);
 }
 
-LettaSDK.Archives = Archives;
-LettaSDK.Tools = Tools;
-LettaSDK.Sources = Sources;
-LettaSDK.Folders = Folders;
-LettaSDK.Agents = Agents;
-LettaSDK.Groups = Groups;
-LettaSDK.Identities = Identities;
-LettaSDK._InternalTemplates = _InternalTemplates;
-LettaSDK.Models = Models;
-LettaSDK.Blocks = Blocks;
-LettaSDK.Jobs = Jobs;
-LettaSDK.Health = Health;
-LettaSDK.Providers = Providers;
-LettaSDK.Runs = Runs;
-LettaSDK.Steps = Steps;
-LettaSDK.Tags = Tags;
-LettaSDK.Telemetry = Telemetry;
-LettaSDK.Messages = Messages;
-LettaSDK.VoiceBeta = VoiceBeta;
-LettaSDK.Embeddings = Embeddings;
-LettaSDK.Templates = Templates;
-LettaSDK.ClientSideAccessTokens = ClientSideAccessTokens;
-LettaSDK.Projects = Projects;
+Letta.Archives = Archives;
+Letta.Tools = Tools;
+Letta.Folders = Folders;
+Letta.Agents = Agents;
+Letta.Groups = Groups;
+Letta.Identities = Identities;
+Letta.Models = Models;
+Letta.Blocks = Blocks;
+Letta.Runs = Runs;
+Letta.Steps = Steps;
+Letta.Tags = Tags;
+Letta.Batches = Batches;
+Letta.Templates = Templates;
 
-export declare namespace LettaSDK {
+export declare namespace Letta {
   export type RequestOptions = Opts.RequestOptions;
+
+  export { type HealthResponse as HealthResponse };
 
   export {
     Archives as Archives,
     type Archive as Archive,
     type VectorDBProvider as VectorDBProvider,
-    type ArchiveRetrieveResponse as ArchiveRetrieveResponse,
+    type ArchiveListResponse as ArchiveListResponse,
+    type ArchiveCreateParams as ArchiveCreateParams,
     type ArchiveUpdateParams as ArchiveUpdateParams,
-    type ArchiveRetrieveParams as ArchiveRetrieveParams,
+    type ArchiveListParams as ArchiveListParams,
   };
 
   export {
@@ -1056,37 +914,12 @@ export declare namespace LettaSDK {
     type ToolListResponse as ToolListResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type ToolCountResponse as ToolCountResponse,
-    type ToolUpsertBaseResponse as ToolUpsertBaseResponse,
+    type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolCreateParams as ToolCreateParams,
+    type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
     type ToolCountParams as ToolCountParams,
-    type ToolModifyParams as ToolModifyParams,
-    type ToolRunParams as ToolRunParams,
     type ToolUpsertParams as ToolUpsertParams,
-  };
-
-  export {
-    Sources as Sources,
-    type DuplicateFileHandling as DuplicateFileHandling,
-    type FileMetadata as FileMetadata,
-    type FileProcessingStatus as FileProcessingStatus,
-    type OrganizationSourcesStats as OrganizationSourcesStats,
-    type Passage as Passage,
-    type Source as Source,
-    type SourceCreate as SourceCreate,
-    type SourceUpdate as SourceUpdate,
-    type SourceListResponse as SourceListResponse,
-    type SourceDeleteResponse as SourceDeleteResponse,
-    type SourceCountResponse as SourceCountResponse,
-    type SourceGetAgentsResponse as SourceGetAgentsResponse,
-    type SourceGetByNameResponse as SourceGetByNameResponse,
-    type SourceListPassagesResponse as SourceListPassagesResponse,
-    type SourceCreateParams as SourceCreateParams,
-    type SourceUpdateParams as SourceUpdateParams,
-    type SourceDeleteFileParams as SourceDeleteFileParams,
-    type SourceGetMetadataParams as SourceGetMetadataParams,
-    type SourceListPassagesParams as SourceListPassagesParams,
-    type SourceUploadFileParams as SourceUploadFileParams,
   };
 
   export {
@@ -1095,19 +928,9 @@ export declare namespace LettaSDK {
     type FolderListResponse as FolderListResponse,
     type FolderDeleteResponse as FolderDeleteResponse,
     type FolderCountResponse as FolderCountResponse,
-    type FolderGetByNameResponse as FolderGetByNameResponse,
-    type FolderListAgentsResponse as FolderListAgentsResponse,
-    type FolderListFilesResponse as FolderListFilesResponse,
-    type FolderListPassagesResponse as FolderListPassagesResponse,
     type FolderCreateParams as FolderCreateParams,
     type FolderUpdateParams as FolderUpdateParams,
     type FolderListParams as FolderListParams,
-    type FolderDeleteFileParams as FolderDeleteFileParams,
-    type FolderListAgentsParams as FolderListAgentsParams,
-    type FolderListFilesParams as FolderListFilesParams,
-    type FolderListPassagesParams as FolderListPassagesParams,
-    type FolderRetrieveMetadataParams as FolderRetrieveMetadataParams,
-    type FolderUploadFileParams as FolderUploadFileParams,
   };
 
   export {
@@ -1132,23 +955,14 @@ export declare namespace LettaSDK {
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentCountResponse as AgentCountResponse,
-    type AgentExportResponse as AgentExportResponse,
-    type AgentImportResponse as AgentImportResponse,
-    type AgentListGroupsResponse as AgentListGroupsResponse,
-    type AgentMigrateResponse as AgentMigrateResponse,
-    type AgentRetrieveContextResponse as AgentRetrieveContextResponse,
-    type AgentSearchResponse as AgentSearchResponse,
+    type AgentExportFileResponse as AgentExportFileResponse,
+    type AgentImportFileResponse as AgentImportFileResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
-    type AgentExportParams as AgentExportParams,
-    type AgentImportParams as AgentImportParams,
-    type AgentListGroupsParams as AgentListGroupsParams,
-    type AgentMigrateParams as AgentMigrateParams,
-    type AgentResetMessagesParams as AgentResetMessagesParams,
-    type AgentSearchParams as AgentSearchParams,
-    type AgentSummarizeParams as AgentSummarizeParams,
+    type AgentExportFileParams as AgentExportFileParams,
+    type AgentImportFileParams as AgentImportFileParams,
   };
 
   export {
@@ -1163,7 +977,6 @@ export declare namespace LettaSDK {
     type GroupListResponse as GroupListResponse,
     type GroupDeleteResponse as GroupDeleteResponse,
     type GroupCountResponse as GroupCountResponse,
-    type GroupResetMessagesResponse as GroupResetMessagesResponse,
     type GroupCreateParams as GroupCreateParams,
     type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
@@ -1177,23 +990,10 @@ export declare namespace LettaSDK {
     type IdentityListResponse as IdentityListResponse,
     type IdentityDeleteResponse as IdentityDeleteResponse,
     type IdentityCountResponse as IdentityCountResponse,
-    type IdentityListAgentsResponse as IdentityListAgentsResponse,
-    type IdentityListBlocksResponse as IdentityListBlocksResponse,
-    type IdentityUpsertPropertiesResponse as IdentityUpsertPropertiesResponse,
     type IdentityCreateParams as IdentityCreateParams,
+    type IdentityUpdateParams as IdentityUpdateParams,
     type IdentityListParams as IdentityListParams,
-    type IdentityListAgentsParams as IdentityListAgentsParams,
-    type IdentityListBlocksParams as IdentityListBlocksParams,
-    type IdentityModifyParams as IdentityModifyParams,
     type IdentityUpsertParams as IdentityUpsertParams,
-    type IdentityUpsertPropertiesParams as IdentityUpsertPropertiesParams,
-  };
-
-  export {
-    _InternalTemplates as _InternalTemplates,
-    type InternalTemplateCreateAgentParams as InternalTemplateCreateAgentParams,
-    type InternalTemplateCreateBlockParams as InternalTemplateCreateBlockParams,
-    type InternalTemplateCreateGroupParams as InternalTemplateCreateGroupParams,
   };
 
   export {
@@ -1203,7 +1003,6 @@ export declare namespace LettaSDK {
     type ProviderCategory as ProviderCategory,
     type ProviderType as ProviderType,
     type ModelListResponse as ModelListResponse,
-    type ModelListEmbeddingResponse as ModelListEmbeddingResponse,
     type ModelListParams as ModelListParams,
   };
 
@@ -1213,50 +1012,17 @@ export declare namespace LettaSDK {
     type BlockListResponse as BlockListResponse,
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockCountResponse as BlockCountResponse,
-    type BlockListAgentsResponse as BlockListAgentsResponse,
     type BlockCreateParams as BlockCreateParams,
     type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
-    type BlockListAgentsParams as BlockListAgentsParams,
-  };
-
-  export {
-    Jobs as Jobs,
-    type Job as Job,
-    type JobListResponse as JobListResponse,
-    type JobListActiveResponse as JobListActiveResponse,
-    type JobListParams as JobListParams,
-    type JobListActiveParams as JobListActiveParams,
-  };
-
-  export { Health as Health, type HealthCheckResponse as HealthCheckResponse };
-
-  export {
-    Providers as Providers,
-    type Provider as Provider,
-    type ProviderListResponse as ProviderListResponse,
-    type ProviderDeleteResponse as ProviderDeleteResponse,
-    type ProviderCheckResponse as ProviderCheckResponse,
-    type ProviderCreateParams as ProviderCreateParams,
-    type ProviderUpdateParams as ProviderUpdateParams,
-    type ProviderListParams as ProviderListParams,
-    type ProviderCheckParams as ProviderCheckParams,
   };
 
   export {
     Runs as Runs,
+    type Job as Job,
     type StopReasonType as StopReasonType,
     type RunListResponse as RunListResponse,
-    type RunListActiveResponse as RunListActiveResponse,
-    type RunListMessagesResponse as RunListMessagesResponse,
-    type RunListStepsResponse as RunListStepsResponse,
-    type RunRetrieveStreamResponse as RunRetrieveStreamResponse,
-    type RunRetrieveUsageResponse as RunRetrieveUsageResponse,
     type RunListParams as RunListParams,
-    type RunListActiveParams as RunListActiveParams,
-    type RunListMessagesParams as RunListMessagesParams,
-    type RunListStepsParams as RunListStepsParams,
-    type RunRetrieveStreamParams as RunRetrieveStreamParams,
   };
 
   export {
@@ -1264,64 +1030,19 @@ export declare namespace LettaSDK {
     type ProviderTrace as ProviderTrace,
     type Step as Step,
     type StepListResponse as StepListResponse,
-    type StepListMessagesResponse as StepListMessagesResponse,
-    type StepRetrieveMetricsResponse as StepRetrieveMetricsResponse,
     type StepListParams as StepListParams,
-    type StepListMessagesParams as StepListMessagesParams,
-    type StepUpdateFeedbackParams as StepUpdateFeedbackParams,
   };
 
   export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
 
-  export { Telemetry as Telemetry };
-
-  export { Messages as Messages };
-
-  export { VoiceBeta as VoiceBeta };
-
   export {
-    Embeddings as Embeddings,
-    type EmbeddingGetTotalStorageSizeResponse as EmbeddingGetTotalStorageSizeResponse,
-    type EmbeddingGetTotalStorageSizeParams as EmbeddingGetTotalStorageSizeParams,
+    Batches as Batches,
+    type BatchJob as BatchJob,
+    type BatchListResponse as BatchListResponse,
+    type BatchCancelResponse as BatchCancelResponse,
+    type BatchCreateParams as BatchCreateParams,
+    type BatchListParams as BatchListParams,
   };
 
-  export {
-    Templates as Templates,
-    type TemplateCreateResponse as TemplateCreateResponse,
-    type TemplateListResponse as TemplateListResponse,
-    type TemplateDeleteResponse as TemplateDeleteResponse,
-    type TemplateCreateAgentsResponse as TemplateCreateAgentsResponse,
-    type TemplateForkResponse as TemplateForkResponse,
-    type TemplateGetSnapshotResponse as TemplateGetSnapshotResponse,
-    type TemplateListVersionsResponse as TemplateListVersionsResponse,
-    type TemplateRenameResponse as TemplateRenameResponse,
-    type TemplateSaveVersionResponse as TemplateSaveVersionResponse,
-    type TemplateUpdateDescriptionResponse as TemplateUpdateDescriptionResponse,
-    type TemplateCreateParams as TemplateCreateParams,
-    type TemplateListParams as TemplateListParams,
-    type TemplateDeleteParams as TemplateDeleteParams,
-    type TemplateCreateAgentsParams as TemplateCreateAgentsParams,
-    type TemplateForkParams as TemplateForkParams,
-    type TemplateGetSnapshotParams as TemplateGetSnapshotParams,
-    type TemplateListVersionsParams as TemplateListVersionsParams,
-    type TemplateRenameParams as TemplateRenameParams,
-    type TemplateSaveVersionParams as TemplateSaveVersionParams,
-    type TemplateUpdateDescriptionParams as TemplateUpdateDescriptionParams,
-  };
-
-  export {
-    ClientSideAccessTokens as ClientSideAccessTokens,
-    type ClientSideAccessTokenCreateResponse as ClientSideAccessTokenCreateResponse,
-    type ClientSideAccessTokenListResponse as ClientSideAccessTokenListResponse,
-    type ClientSideAccessTokenDeleteResponse as ClientSideAccessTokenDeleteResponse,
-    type ClientSideAccessTokenCreateParams as ClientSideAccessTokenCreateParams,
-    type ClientSideAccessTokenListParams as ClientSideAccessTokenListParams,
-    type ClientSideAccessTokenDeleteParams as ClientSideAccessTokenDeleteParams,
-  };
-
-  export {
-    Projects as Projects,
-    type ProjectListResponse as ProjectListResponse,
-    type ProjectListParams as ProjectListParams,
-  };
+  export { Templates as Templates };
 }

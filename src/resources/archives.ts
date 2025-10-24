@@ -1,26 +1,49 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as ModelsAPI from './models/models';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class Archives extends APIResource {
   /**
    * Create a new archive.
    */
-  update(body: ArchiveUpdateParams, options?: RequestOptions): APIPromise<Archive> {
+  create(body: ArchiveCreateParams, options?: RequestOptions): APIPromise<Archive> {
     return this._client.post('/v1/archives/', { body, ...options });
+  }
+
+  /**
+   * Get a single archive by its ID.
+   */
+  retrieve(archiveID: string, options?: RequestOptions): APIPromise<Archive> {
+    return this._client.get(path`/v1/archives/${archiveID}`, options);
+  }
+
+  /**
+   * Update an existing archive's name and/or description.
+   */
+  update(archiveID: string, body: ArchiveUpdateParams, options?: RequestOptions): APIPromise<Archive> {
+    return this._client.patch(path`/v1/archives/${archiveID}`, { body, ...options });
   }
 
   /**
    * Get a list of all archives for the current organization with optional filters
    * and pagination.
    */
-  retrieve(
-    query: ArchiveRetrieveParams | null | undefined = {},
+  list(
+    query: ArchiveListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ArchiveRetrieveResponse> {
+  ): APIPromise<ArchiveListResponse> {
     return this._client.get('/v1/archives/', { query, ...options });
+  }
+
+  /**
+   * Delete an archive by its ID.
+   */
+  delete(archiveID: string, options?: RequestOptions): APIPromise<Archive> {
+    return this._client.delete(path`/v1/archives/${archiveID}`, options);
   }
 }
 
@@ -39,6 +62,11 @@ export interface Archive {
    * The creation date of the archive
    */
   created_at: string;
+
+  /**
+   * Embedding configuration for passages in this archive
+   */
+  embedding_config: ModelsAPI.EmbeddingConfig;
 
   /**
    * The name of the archive
@@ -86,15 +114,26 @@ export interface Archive {
  */
 export type VectorDBProvider = 'native' | 'tpuf' | 'pinecone';
 
-export type ArchiveRetrieveResponse = Array<Archive>;
+export type ArchiveListResponse = Array<Archive>;
 
-export interface ArchiveUpdateParams {
+export interface ArchiveCreateParams {
+  /**
+   * Embedding configuration for the archive
+   */
+  embedding_config: ModelsAPI.EmbeddingConfig;
+
   name: string;
 
   description?: string | null;
 }
 
-export interface ArchiveRetrieveParams {
+export interface ArchiveUpdateParams {
+  description?: string | null;
+
+  name?: string | null;
+}
+
+export interface ArchiveListParams {
   /**
    * Archive ID cursor for pagination. Returns archives that come after this archive
    * ID in the specified sort order
@@ -133,8 +172,9 @@ export declare namespace Archives {
   export {
     type Archive as Archive,
     type VectorDBProvider as VectorDBProvider,
-    type ArchiveRetrieveResponse as ArchiveRetrieveResponse,
+    type ArchiveListResponse as ArchiveListResponse,
+    type ArchiveCreateParams as ArchiveCreateParams,
     type ArchiveUpdateParams as ArchiveUpdateParams,
-    type ArchiveRetrieveParams as ArchiveRetrieveParams,
+    type ArchiveListParams as ArchiveListParams,
   };
 }

@@ -1,5 +1,37 @@
 # Changelog
 
+## 1.0.0-alpha.7 (2025-10-24)
+
+Full Changelog: [v1.0.0-alpha.6...v1.0.0-alpha.7](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.6...v1.0.0-alpha.7)
+
+### Features
+
+* add agent template route to config ([a379f18](https://github.com/letta-ai/letta-node/commit/a379f189b301a71a7f229561327481ec9510ef93))
+* add new archive routes to sdk ([389a103](https://github.com/letta-ai/letta-node/commit/389a103835dac6e45720e8c640c4f46050bb0320))
+* add openai-style include param for agents relationship loading ([b5d9129](https://github.com/letta-ai/letta-node/commit/b5d91299de0444d848d9d340c1f4e97fcf99003c))
+* attach/detach identities route on blocks and agents, move archives attach/detach routes to agents ([3598ad8](https://github.com/letta-ai/letta-node/commit/3598ad8be4b5ba0bc8a52d8804aa356e451fbbb8))
+* deprecate append copy suffix, add override name [LET-5779] ([9315a1d](https://github.com/letta-ai/letta-node/commit/9315a1d1ce68b0dc3c569a0798dc57a03f9da945))
+* deprecate use_assistant_message in list endpoints ([01dc718](https://github.com/letta-ai/letta-node/commit/01dc71801be25019afd1f78897f549e61b50fa83))
+* fix patch approvals endpoint incorrectly using queyr params ([7afe5c8](https://github.com/letta-ai/letta-node/commit/7afe5c8f4e59ea35e227741de29656be9f8d7169))
+* remove relationship fields on identities ([46760eb](https://github.com/letta-ai/letta-node/commit/46760ebf5f756ac46ad49fedcfaa6376aa765990))
+* remove run tool for external sdk ([7553ec2](https://github.com/letta-ai/letta-node/commit/7553ec211dec69ff9c65492f2810abd5d165c322))
+* remove unused max length parameter ([52583f4](https://github.com/letta-ai/letta-node/commit/52583f440712308078b2a7df068500f056ed153c))
+* rename multi agent group to managed group ([c28d519](https://github.com/letta-ai/letta-node/commit/c28d5193c93e5388ec9ca439e9fbfda0ac9a14b3))
+* replace agent.identity_ids with agent.identities ([d030ea8](https://github.com/letta-ai/letta-node/commit/d030ea82e6e23c691c60bc47268e50db1a02b3ad))
+* reset message incorrectly using query param ([8887c58](https://github.com/letta-ai/letta-node/commit/8887c5802c50f782562572c650d8b7ffcc0d9fa6))
+* Revert "feat: revise mcp tool routes [LET-4321]" ([839bdbc](https://github.com/letta-ai/letta-node/commit/839bdbcb891119452b16554bb58737c6bb3ccefe))
+* Support embedding config on the archive [LET-5832] ([c464e03](https://github.com/letta-ai/letta-node/commit/c464e035785567695f998d18c661b1cfb4a35ed0))
+
+
+### Bug Fixes
+
+* sdk config code gen ([7c34069](https://github.com/letta-ai/letta-node/commit/7c340694b03d629e1a70081ff392440c30c59023))
+
+
+### Chores
+
+* add context_window_limit and max_tokens to UpdateAgent [LET-3743] [LET-3741] ([e8a7bd3](https://github.com/letta-ai/letta-node/commit/e8a7bd347e8973beefcf467b8da6532b39f74aa1))
+
 ## 1.0.0-alpha.6 (2025-10-22)
 
 Full Changelog: [v0.0.1...v1.0.0-alpha.6](https://github.com/letta-ai/letta-node/compare/v0.0.1...v1.0.0-alpha.6)

@@ -22,78 +22,52 @@ export {
   type AgentListResponse,
   type AgentDeleteResponse,
   type AgentCountResponse,
-  type AgentExportResponse,
-  type AgentImportResponse,
-  type AgentListGroupsResponse,
-  type AgentMigrateResponse,
-  type AgentRetrieveContextResponse,
-  type AgentSearchResponse,
+  type AgentExportFileResponse,
+  type AgentImportFileResponse,
   type AgentCreateParams,
   type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
-  type AgentExportParams,
-  type AgentImportParams,
-  type AgentListGroupsParams,
-  type AgentMigrateParams,
-  type AgentResetMessagesParams,
-  type AgentSearchParams,
-  type AgentSummarizeParams,
+  type AgentExportFileParams,
+  type AgentImportFileParams,
 } from './agents/agents';
 export {
   Archives,
   type Archive,
   type VectorDBProvider,
-  type ArchiveRetrieveResponse,
+  type ArchiveListResponse,
+  type ArchiveCreateParams,
   type ArchiveUpdateParams,
-  type ArchiveRetrieveParams,
+  type ArchiveListParams,
 } from './archives';
+export {
+  Batches,
+  type BatchJob,
+  type BatchListResponse,
+  type BatchCancelResponse,
+  type BatchCreateParams,
+  type BatchListParams,
+} from './batches/batches';
 export {
   Blocks,
   type CreateBlock,
   type BlockListResponse,
   type BlockDeleteResponse,
   type BlockCountResponse,
-  type BlockListAgentsResponse,
   type BlockCreateParams,
   type BlockUpdateParams,
   type BlockListParams,
-  type BlockListAgentsParams,
-} from './blocks';
-export {
-  ClientSideAccessTokens,
-  type ClientSideAccessTokenCreateResponse,
-  type ClientSideAccessTokenListResponse,
-  type ClientSideAccessTokenDeleteResponse,
-  type ClientSideAccessTokenCreateParams,
-  type ClientSideAccessTokenListParams,
-  type ClientSideAccessTokenDeleteParams,
-} from './client-side-access-tokens';
-export {
-  Embeddings,
-  type EmbeddingGetTotalStorageSizeResponse,
-  type EmbeddingGetTotalStorageSizeParams,
-} from './embeddings';
+} from './blocks/blocks';
 export {
   Folders,
   type Folder,
   type FolderListResponse,
   type FolderDeleteResponse,
   type FolderCountResponse,
-  type FolderGetByNameResponse,
-  type FolderListAgentsResponse,
-  type FolderListFilesResponse,
-  type FolderListPassagesResponse,
   type FolderCreateParams,
   type FolderUpdateParams,
   type FolderListParams,
-  type FolderDeleteFileParams,
-  type FolderListAgentsParams,
-  type FolderListFilesParams,
-  type FolderListPassagesParams,
-  type FolderRetrieveMetadataParams,
-  type FolderUploadFileParams,
-} from './folders';
+} from './folders/folders';
 export {
   Groups,
   type DynamicManager,
@@ -106,12 +80,10 @@ export {
   type GroupListResponse,
   type GroupDeleteResponse,
   type GroupCountResponse,
-  type GroupResetMessagesResponse,
   type GroupCreateParams,
   type GroupUpdateParams,
   type GroupListParams,
 } from './groups/groups';
-export { Health, type HealthCheckResponse } from './health';
 export {
   Identities,
   type Identity,
@@ -120,26 +92,11 @@ export {
   type IdentityListResponse,
   type IdentityDeleteResponse,
   type IdentityCountResponse,
-  type IdentityListAgentsResponse,
-  type IdentityListBlocksResponse,
-  type IdentityUpsertPropertiesResponse,
   type IdentityCreateParams,
+  type IdentityUpdateParams,
   type IdentityListParams,
-  type IdentityListAgentsParams,
-  type IdentityListBlocksParams,
-  type IdentityModifyParams,
   type IdentityUpsertParams,
-  type IdentityUpsertPropertiesParams,
-} from './identities';
-export {
-  Jobs,
-  type Job,
-  type JobListResponse,
-  type JobListActiveResponse,
-  type JobListParams,
-  type JobListActiveParams,
-} from './jobs';
-export { Messages } from './messages/messages';
+} from './identities/identities';
 export {
   Models,
   type EmbeddingConfig,
@@ -147,95 +104,18 @@ export {
   type ProviderCategory,
   type ProviderType,
   type ModelListResponse,
-  type ModelListEmbeddingResponse,
   type ModelListParams,
-} from './models';
-export { Projects, type ProjectListResponse, type ProjectListParams } from './projects';
-export {
-  Providers,
-  type Provider,
-  type ProviderListResponse,
-  type ProviderDeleteResponse,
-  type ProviderCheckResponse,
-  type ProviderCreateParams,
-  type ProviderUpdateParams,
-  type ProviderListParams,
-  type ProviderCheckParams,
-} from './providers';
-export {
-  Runs,
-  type StopReasonType,
-  type RunListResponse,
-  type RunListActiveResponse,
-  type RunListMessagesResponse,
-  type RunListStepsResponse,
-  type RunRetrieveStreamResponse,
-  type RunRetrieveUsageResponse,
-  type RunListParams,
-  type RunListActiveParams,
-  type RunListMessagesParams,
-  type RunListStepsParams,
-  type RunRetrieveStreamParams,
-} from './runs';
-export {
-  Sources,
-  type DuplicateFileHandling,
-  type FileMetadata,
-  type FileProcessingStatus,
-  type OrganizationSourcesStats,
-  type Passage,
-  type Source,
-  type SourceCreate,
-  type SourceUpdate,
-  type SourceListResponse,
-  type SourceDeleteResponse,
-  type SourceCountResponse,
-  type SourceGetAgentsResponse,
-  type SourceGetByNameResponse,
-  type SourceListPassagesResponse,
-  type SourceCreateParams,
-  type SourceUpdateParams,
-  type SourceDeleteFileParams,
-  type SourceGetMetadataParams,
-  type SourceListPassagesParams,
-  type SourceUploadFileParams,
-} from './sources/sources';
+} from './models/models';
+export { Runs, type Job, type StopReasonType, type RunListResponse, type RunListParams } from './runs/runs';
 export {
   Steps,
   type ProviderTrace,
   type Step,
   type StepListResponse,
-  type StepListMessagesResponse,
-  type StepRetrieveMetricsResponse,
   type StepListParams,
-  type StepListMessagesParams,
-  type StepUpdateFeedbackParams,
-} from './steps';
+} from './steps/steps';
 export { Tags, type TagListResponse, type TagListParams } from './tags';
-export { Telemetry } from './telemetry';
-export {
-  Templates,
-  type TemplateCreateResponse,
-  type TemplateListResponse,
-  type TemplateDeleteResponse,
-  type TemplateCreateAgentsResponse,
-  type TemplateForkResponse,
-  type TemplateGetSnapshotResponse,
-  type TemplateListVersionsResponse,
-  type TemplateRenameResponse,
-  type TemplateSaveVersionResponse,
-  type TemplateUpdateDescriptionResponse,
-  type TemplateCreateParams,
-  type TemplateListParams,
-  type TemplateDeleteParams,
-  type TemplateCreateAgentsParams,
-  type TemplateForkParams,
-  type TemplateGetSnapshotParams,
-  type TemplateListVersionsParams,
-  type TemplateRenameParams,
-  type TemplateSaveVersionParams,
-  type TemplateUpdateDescriptionParams,
-} from './templates';
+export { Templates } from './templates/templates';
 export {
   Tools,
   type NpmRequirement,
@@ -247,18 +127,11 @@ export {
   type ToolListResponse,
   type ToolDeleteResponse,
   type ToolCountResponse,
-  type ToolUpsertBaseResponse,
+  type ToolUpsertBaseToolsResponse,
   type ToolCreateParams,
+  type ToolUpdateParams,
   type ToolListParams,
   type ToolCountParams,
-  type ToolModifyParams,
-  type ToolRunParams,
   type ToolUpsertParams,
-} from './tools/tools';
-export { VoiceBeta } from './voice-beta/voice-beta';
-export {
-  _InternalTemplates,
-  type InternalTemplateCreateAgentParams,
-  type InternalTemplateCreateBlockParams,
-  type InternalTemplateCreateGroupParams,
-} from './-internal-templates/-internal-templates';
+} from './tools';
+export { type HealthResponse } from './top-level';

@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as ToolsAPI from '../tools';
 import * as AgentsAPI from '../agents/agents';
 import * as MessagesAPI from '../agents/messages';
-import * as ToolsAPI from '../tools/tools';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -33,6 +33,13 @@ export class Messages extends APIResource {
   }
 
   /**
+   * Delete the group messages for all agents that are part of the multi-agent group.
+   */
+  reset(groupID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.patch(path`/v1/groups/${groupID}/reset-messages`, options);
+  }
+
+  /**
    * Process a user message and return the group's response. This endpoint accepts a
    * message from a user and processes it through through agents in the group based
    * on the specified pattern
@@ -51,7 +58,7 @@ export class Messages extends APIResource {
    * specified pattern. It will stream the steps of the response always, and stream
    * the tokens if 'stream_tokens' is set to True.
    */
-  sendStream(groupID: string, body: MessageSendStreamParams, options?: RequestOptions): APIPromise<unknown> {
+  stream(groupID: string, body: MessageStreamParams, options?: RequestOptions): APIPromise<unknown> {
     return this._client.post(path`/v1/groups/${groupID}/messages/stream`, { body, ...options });
   }
 }
@@ -77,7 +84,9 @@ export type MessageUpdateResponse =
 
 export type MessageListResponse = Array<MessagesAPI.LettaMessageUnion>;
 
-export type MessageSendStreamResponse = unknown;
+export type MessageResetResponse = unknown;
+
+export type MessageStreamResponse = unknown;
 
 export type MessageUpdateParams =
   | MessageUpdateParams.UpdateSystemMessage
@@ -88,7 +97,7 @@ export type MessageUpdateParams =
 export declare namespace MessageUpdateParams {
   export interface UpdateSystemMessage {
     /**
-     * Path param:
+     * Path param: The ID of the group in the format 'group-<uuid4>'
      */
     group_id: string;
 
@@ -106,7 +115,7 @@ export declare namespace MessageUpdateParams {
 
   export interface UpdateUserMessage {
     /**
-     * Path param:
+     * Path param: The ID of the group in the format 'group-<uuid4>'
      */
     group_id: string;
 
@@ -124,7 +133,7 @@ export declare namespace MessageUpdateParams {
 
   export interface UpdateReasoningMessage {
     /**
-     * Path param:
+     * Path param: The ID of the group in the format 'group-<uuid4>'
      */
     group_id: string;
 
@@ -141,7 +150,7 @@ export declare namespace MessageUpdateParams {
 
   export interface UpdateAssistantMessage {
     /**
-     * Path param:
+     * Path param: The ID of the group in the format 'group-<uuid4>'
      */
     group_id: string;
 
@@ -166,12 +175,12 @@ export interface MessageListParams {
   after?: string | null;
 
   /**
-   * The name of the message argument.
+   * @deprecated The name of the message argument.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * @deprecated The name of the designated message tool.
    */
   assistant_message_tool_name?: string;
 
@@ -198,7 +207,7 @@ export interface MessageListParams {
   order_by?: 'created_at';
 
   /**
-   * Whether to use assistant messages
+   * @deprecated Whether to use assistant messages
    */
   use_assistant_message?: boolean;
 }
@@ -210,17 +219,21 @@ export interface MessageSendParams {
   messages: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate>;
 
   /**
-   * The name of the message argument in the designated message tool.
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * If set to True, enables reasoning before responses or tool calls from the agent.
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
    */
   enable_thinking?: string;
 
@@ -236,25 +249,29 @@ export interface MessageSendParams {
   max_steps?: number;
 
   /**
-   * Whether the server should parse specific tool call arguments (default
-   * `send_message`) as `AssistantMessage` objects.
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
 }
 
-export interface MessageSendStreamParams {
+export interface MessageStreamParams {
   /**
    * The messages to be sent to the agent.
    */
   messages: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate>;
 
   /**
-   * The name of the message argument in the designated message tool.
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * The name of the designated message tool.
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
@@ -264,7 +281,8 @@ export interface MessageSendStreamParams {
   background?: boolean;
 
   /**
-   * If set to True, enables reasoning before responses or tool calls from the agent.
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
    */
   enable_thinking?: string;
 
@@ -292,8 +310,9 @@ export interface MessageSendStreamParams {
   stream_tokens?: boolean;
 
   /**
-   * Whether the server should parse specific tool call arguments (default
-   * `send_message`) as `AssistantMessage` objects.
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
 }
@@ -302,10 +321,11 @@ export declare namespace Messages {
   export {
     type MessageUpdateResponse as MessageUpdateResponse,
     type MessageListResponse as MessageListResponse,
-    type MessageSendStreamResponse as MessageSendStreamResponse,
+    type MessageResetResponse as MessageResetResponse,
+    type MessageStreamResponse as MessageStreamResponse,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
     type MessageSendParams as MessageSendParams,
-    type MessageSendStreamParams as MessageSendStreamParams,
+    type MessageStreamParams as MessageStreamParams,
   };
 }

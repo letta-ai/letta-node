@@ -1,20 +1,21 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as BlocksAPI from '../blocks';
-import * as ModelsAPI from '../models';
-import * as ArchivalMemoryAPI from './archival-memory';
+import * as AgentsAPI from './agents';
+import * as ArchivesAPI from '../archives';
+import * as ToolsAPI from '../tools';
+import * as BlocksAPI from './blocks';
 import {
-  ArchivalMemory,
-  ArchivalMemoryCreateParams,
-  ArchivalMemoryCreateResponse,
-  ArchivalMemoryDeleteParams,
-  ArchivalMemoryDeleteResponse,
-  ArchivalMemoryListParams,
-  ArchivalMemoryListResponse,
-  ArchivalMemorySearchParams,
-  ArchivalMemorySearchResponse,
-} from './archival-memory';
+  Block,
+  BlockAttachParams,
+  BlockDetachParams,
+  BlockListParams,
+  BlockListResponse,
+  BlockRetrieveParams,
+  BlockUpdate,
+  BlockUpdateParams,
+  Blocks,
+} from './blocks';
 import * as FilesAPI from './files';
 import {
   FileCloseAllResponse,
@@ -27,7 +28,15 @@ import {
   Files,
 } from './files';
 import * as FoldersAPI from './folders';
-import { FolderAttachParams, FolderDetachParams, FolderListResponse, Folders } from './folders';
+import {
+  FolderAttachParams,
+  FolderDetachParams,
+  FolderListParams,
+  FolderListResponse,
+  Folders,
+} from './folders';
+import * as GroupsAPI from './groups';
+import { GroupListParams, GroupListResponse, Groups } from './groups';
 import * as MessagesAPI from './messages';
 import {
   ApprovalCreate,
@@ -49,15 +58,12 @@ import {
   MessageCancelResponse,
   MessageListParams,
   MessageListResponse,
-  MessagePreviewRawPayloadParams,
-  MessagePreviewRawPayloadResponse,
+  MessageResetParams,
   MessageRole,
-  MessageSearchParams,
-  MessageSearchResponse,
   MessageSendAsyncParams,
   MessageSendParams,
-  MessageSendStreamParams,
-  MessageSendStreamResponse,
+  MessageStreamParams,
+  MessageStreamResponse,
   MessageType,
   MessageUpdateParams,
   MessageUpdateResponse,
@@ -81,21 +87,19 @@ import {
   UpdateUserMessage,
   UserMessage,
 } from './messages';
-import * as SourcesAPI from './sources';
-import { SourceAttachParams, SourceDetachParams, SourceListResponse, Sources } from './sources';
-import * as ToolsAPI from './tools';
+import * as AgentsToolsAPI from './tools';
 import {
   ToolAttachParams,
   ToolDetachParams,
+  ToolListParams,
   ToolListResponse,
-  ToolModifyApprovalParams,
+  ToolUpdateApprovalParams,
   Tools,
 } from './tools';
-import * as GroupsAPI from '../groups/groups';
-import * as SourcesSourcesAPI from '../sources/sources';
-import * as ToolsToolsAPI from '../tools/tools';
-import * as CoreMemoryAPI from './core-memory/core-memory';
-import { CoreMemory, CoreMemoryRetrieveVariablesResponse, Memory } from './core-memory/core-memory';
+import * as BlocksBlocksAPI from '../blocks/blocks';
+import * as GroupsGroupsAPI from '../groups/groups';
+import * as IdentitiesAPI from '../identities/identities';
+import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
 import { type Uploadable } from '../../core/uploads';
 import { buildHeaders } from '../../internal/headers';
@@ -104,12 +108,11 @@ import { multipartFormRequestOptions } from '../../internal/uploads';
 import { path } from '../../internal/utils/path';
 
 export class Agents extends APIResource {
-  tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
-  sources: SourcesAPI.Sources = new SourcesAPI.Sources(this._client);
+  tools: AgentsToolsAPI.Tools = new AgentsToolsAPI.Tools(this._client);
   folders: FoldersAPI.Folders = new FoldersAPI.Folders(this._client);
   files: FilesAPI.Files = new FilesAPI.Files(this._client);
-  coreMemory: CoreMemoryAPI.CoreMemory = new CoreMemoryAPI.CoreMemory(this._client);
-  archivalMemory: ArchivalMemoryAPI.ArchivalMemory = new ArchivalMemoryAPI.ArchivalMemory(this._client);
+  blocks: BlocksAPI.Blocks = new BlocksAPI.Blocks(this._client);
+  groups: GroupsAPI.Groups = new GroupsAPI.Groups(this._client);
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
 
   /**
@@ -172,16 +175,10 @@ export class Agents extends APIResource {
   /**
    * Export the serialized JSON representation of an agent, formatted with
    * indentation.
-   *
-   * Supports two export formats:
-   *
-   * - Legacy format (use_legacy_format=true): Single agent with inline tools/blocks
-   * - New format (default): Multi-entity format with separate agents, tools, blocks,
-   *   files, etc.
    */
-  export(
+  exportFile(
     agentID: string,
-    query: AgentExportParams | null | undefined = {},
+    query: AgentExportFileParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<string> {
     return this._client.get(path`/v1/agents/${agentID}/export`, { query, ...options });
@@ -191,7 +188,7 @@ export class Agents extends APIResource {
    * Import a serialized agent file and recreate the agent(s) in the system. Returns
    * the IDs of all imported agents.
    */
-  import(params: AgentImportParams, options?: RequestOptions): APIPromise<AgentImportResponse> {
+  importFile(params: AgentImportFileParams, options?: RequestOptions): APIPromise<AgentImportFileResponse> {
     const { 'x-override-embedding-model': xOverrideEmbeddingModel, ...body } = params;
     return this._client.post(
       '/v1/agents/import',
@@ -211,76 +208,6 @@ export class Agents extends APIResource {
         this._client,
       ),
     );
-  }
-
-  /**
-   * Lists the groups for an agent
-   */
-  listGroups(
-    agentID: string,
-    query: AgentListGroupsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AgentListGroupsResponse> {
-    return this._client.get(path`/v1/agents/${agentID}/groups`, { query, ...options });
-  }
-
-  /**
-   * Migrate an agent to a new versioned agent template. This will only work for
-   * "classic" and non-multiagent agent templates.
-   */
-  migrate(
-    agentID: string,
-    body: AgentMigrateParams,
-    options?: RequestOptions,
-  ): APIPromise<AgentMigrateResponse> {
-    return this._client.post(path`/v1/agents/${agentID}/migrate`, { body, ...options });
-  }
-
-  /**
-   * Resets the messages for an agent
-   */
-  resetMessages(
-    agentID: string,
-    params: AgentResetMessagesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AgentState> {
-    const { add_default_initial_messages } = params ?? {};
-    return this._client.patch(path`/v1/agents/${agentID}/reset-messages`, {
-      query: { add_default_initial_messages },
-      ...options,
-    });
-  }
-
-  /**
-   * Retrieve the context window of a specific agent.
-   */
-  retrieveContext(agentID: string, options?: RequestOptions): APIPromise<AgentRetrieveContextResponse> {
-    return this._client.get(path`/v1/agents/${agentID}/context`, options);
-  }
-
-  /**
-   * Search deployed agents
-   */
-  search(
-    body: AgentSearchParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AgentSearchResponse> {
-    return this._client.post('/v1/agents/search', { body, ...options });
-  }
-
-  /**
-   * Summarize an agent's conversation history to a target message length.
-   *
-   * This endpoint summarizes the current message history for a given agent,
-   * truncating and compressing it down to the specified `max_message_length`.
-   */
-  summarize(agentID: string, params: AgentSummarizeParams, options?: RequestOptions): APIPromise<void> {
-    const { max_message_length } = params;
-    return this._client.post(path`/v1/agents/${agentID}/summarize`, {
-      query: { max_message_length },
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 
@@ -329,6 +256,11 @@ export interface AgentEnvironmentVariable {
    * The timestamp when the object was last updated.
    */
   updated_at?: string | null;
+
+  /**
+   * Encrypted secret value (stored as encrypted string)
+   */
+  value_enc?: string | null;
 }
 
 /**
@@ -358,6 +290,11 @@ export interface AgentState {
   agent_type: AgentType;
 
   /**
+   * The memory blocks used by the agent.
+   */
+  blocks: Array<BlocksAPI.Block>;
+
+  /**
    * The embedding configuration used by the agent.
    */
   embedding_config: ModelsAPI.EmbeddingConfig;
@@ -368,9 +305,9 @@ export interface AgentState {
   llm_config: ModelsAPI.LlmConfig;
 
   /**
-   * The in-context memory of the agent.
+   * @deprecated The in-context memory of the agent.
    */
-  memory: CoreMemoryAPI.Memory;
+  memory: AgentState.Memory;
 
   /**
    * The name of the agent.
@@ -380,7 +317,7 @@ export interface AgentState {
   /**
    * The sources used by the agent.
    */
-  sources: Array<SourcesSourcesAPI.Source>;
+  sources: Array<AgentState.Source>;
 
   /**
    * The system prompt used by the agent.
@@ -395,7 +332,7 @@ export interface AgentState {
   /**
    * The tools used by the agent.
    */
-  tools: Array<ToolsToolsAPI.Tool>;
+  tools: Array<ToolsAPI.Tool>;
 
   /**
    * The base template id of the agent.
@@ -438,7 +375,12 @@ export interface AgentState {
   hidden?: boolean | null;
 
   /**
-   * The ids of the identities associated with this agent.
+   * The identities associated with this agent.
+   */
+  identities?: Array<IdentitiesAPI.Identity>;
+
+  /**
+   * @deprecated The ids of the identities associated with this agent.
    */
   identity_ids?: Array<string>;
 
@@ -456,6 +398,11 @@ export interface AgentState {
    * The id of the user that made this object.
    */
   last_updated_by_id?: string | null;
+
+  /**
+   * The multi-agent group that this agent manages
+   */
+  managed_group?: GroupsGroupsAPI.Group | null;
 
   /**
    * Maximum number of files that can be open at once for this agent. Setting this
@@ -481,9 +428,9 @@ export interface AgentState {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The multi-agent group that this agent manages
+   * @deprecated The multi-agent group that this agent manages
    */
-  multi_agent_group?: GroupsAPI.Group | null;
+  multi_agent_group?: GroupsGroupsAPI.Group | null;
 
   /**
    * The per-file view window character limit for this agent. Setting this too high
@@ -542,12 +489,216 @@ export interface AgentState {
   updated_at?: string | null;
 }
 
+export namespace AgentState {
+  /**
+   * @deprecated The in-context memory of the agent.
+   */
+  export interface Memory {
+    /**
+     * Memory blocks contained in the agent's in-context memory
+     */
+    blocks: Array<BlocksAPI.Block>;
+
+    /**
+     * Agent type controlling prompt rendering.
+     */
+    agent_type?: AgentsAPI.AgentType | (string & {}) | null;
+
+    /**
+     * Special blocks representing the agent's in-context memory of an attached file
+     */
+    file_blocks?: Array<Memory.FileBlock>;
+
+    /**
+     * Deprecated. Ignored for performance.
+     */
+    prompt_template?: string;
+  }
+
+  export namespace Memory {
+    export interface FileBlock {
+      /**
+       * Unique identifier of the file.
+       */
+      file_id: string;
+
+      /**
+       * True if the agent currently has the file open.
+       */
+      is_open: boolean;
+
+      /**
+       * Unique identifier of the source.
+       */
+      source_id: string;
+
+      /**
+       * Value of the block.
+       */
+      value: string;
+
+      /**
+       * The human-friendly ID of the Block
+       */
+      id?: string;
+
+      /**
+       * The base template id of the block.
+       */
+      base_template_id?: string | null;
+
+      /**
+       * The id of the user that made this Block.
+       */
+      created_by_id?: string | null;
+
+      /**
+       * The id of the deployment.
+       */
+      deployment_id?: string | null;
+
+      /**
+       * Description of the block.
+       */
+      description?: string | null;
+
+      /**
+       * The id of the entity within the template.
+       */
+      entity_id?: string | null;
+
+      /**
+       * If set to True, the block will be hidden.
+       */
+      hidden?: boolean | null;
+
+      /**
+       * Whether the block is a template (e.g. saved human/persona options).
+       */
+      is_template?: boolean;
+
+      /**
+       * Label of the block (e.g. 'human', 'persona') in the context window.
+       */
+      label?: string | null;
+
+      /**
+       * UTC timestamp of the agent’s most recent access to this file. Any operations
+       * from the open, close, or search tools will update this field.
+       */
+      last_accessed_at?: string | null;
+
+      /**
+       * The id of the user that last updated this Block.
+       */
+      last_updated_by_id?: string | null;
+
+      /**
+       * Character limit of the block.
+       */
+      limit?: number;
+
+      /**
+       * Metadata of the block.
+       */
+      metadata?: { [key: string]: unknown } | null;
+
+      /**
+       * The id of the template.
+       */
+      name?: string | null;
+
+      /**
+       * Preserve the block on template migration.
+       */
+      preserve_on_migration?: boolean | null;
+
+      /**
+       * The associated project id.
+       */
+      project_id?: string | null;
+
+      /**
+       * Whether the agent has read-only access to the block.
+       */
+      read_only?: boolean;
+    }
+  }
+
+  /**
+   * Representation of a source, which is a collection of files and passages.
+   *
+   * Parameters: id (str): The ID of the source name (str): The name of the source.
+   * embedding_config (EmbeddingConfig): The embedding configuration used by the
+   * source. user_id (str): The ID of the user that created the source. metadata
+   * (dict): Metadata associated with the source. description (str): The description
+   * of the source.
+   */
+  export interface Source {
+    /**
+     * The embedding configuration used by the source.
+     */
+    embedding_config: ModelsAPI.EmbeddingConfig;
+
+    /**
+     * The name of the source.
+     */
+    name: string;
+
+    /**
+     * The human-friendly ID of the Source
+     */
+    id?: string;
+
+    /**
+     * The timestamp when the source was created.
+     */
+    created_at?: string | null;
+
+    /**
+     * The id of the user that made this Tool.
+     */
+    created_by_id?: string | null;
+
+    /**
+     * The description of the source.
+     */
+    description?: string | null;
+
+    /**
+     * Instructions for how to use the source.
+     */
+    instructions?: string | null;
+
+    /**
+     * The id of the user that made this Tool.
+     */
+    last_updated_by_id?: string | null;
+
+    /**
+     * Metadata associated with the source.
+     */
+    metadata?: { [key: string]: unknown } | null;
+
+    /**
+     * The timestamp when the source was last updated.
+     */
+    updated_at?: string | null;
+
+    /**
+     * The vector database provider used for this source's passages
+     */
+    vector_db_provider?: ArchivesAPI.VectorDBProvider;
+  }
+}
+
 /**
  * Enum to represent the type of agent.
  */
 export type AgentType =
   | 'memgpt_agent'
   | 'memgpt_v2_agent'
+  | 'letta_v1_agent'
   | 'react_agent'
   | 'workflow_agent'
   | 'split_thread_agent'
@@ -570,11 +721,39 @@ export interface ChildToolRule {
   tool_name: string;
 
   /**
+   * Optional list of typed child argument overrides. Each node must reference a
+   * child in 'children'.
+   */
+  child_arg_nodes?: Array<ChildToolRule.ChildArgNode> | null;
+
+  /**
    * Optional template string (ignored).
    */
   prompt_template?: string | null;
 
   type?: 'constrain_child_tools';
+}
+
+export namespace ChildToolRule {
+  /**
+   * Typed child override for prefilled arguments.
+   *
+   * When used in a ChildToolRule, if this child is selected next, its `args` will be
+   * applied as prefilled arguments (overriding overlapping LLM-provided values).
+   */
+  export interface ChildArgNode {
+    /**
+     * The name of the child tool to invoke next.
+     */
+    name: string;
+
+    /**
+     * Optional prefilled arguments for this child tool. Keys must match the tool's
+     * parameter names and values must satisfy the tool's JSON schema. Supports partial
+     * prefill; non-overlapping parameters are left to the model.
+     */
+    args?: { [key: string]: unknown } | null;
+  }
 }
 
 /**
@@ -637,6 +816,15 @@ export interface InitToolRule {
   tool_name: string;
 
   /**
+   * Optional prefilled arguments for this tool. When present, these values will
+   * override any LLM-provided arguments with the same keys during invocation. Keys
+   * must match the tool's parameter names and values must satisfy the tool's JSON
+   * schema. Supports partial prefill; non-overlapping parameters are left to the
+   * model.
+   */
+  args?: { [key: string]: unknown } | null;
+
+  /**
    * Optional template string (ignored). Rendering uses fast built-in formatting for
    * performance.
    */
@@ -670,6 +858,9 @@ export interface JsonSchemaResponseFormat {
   type?: 'json_schema';
 }
 
+/**
+ * Sent via the Anthropic Messages API
+ */
 export type LettaMessageContentUnion =
   | MessagesAPI.TextContent
   | MessagesAPI.ImageContent
@@ -842,144 +1033,16 @@ export type AgentDeleteResponse = unknown;
 
 export type AgentCountResponse = number;
 
-export type AgentExportResponse = string;
+export type AgentExportFileResponse = string;
 
 /**
  * Response model for imported agents
  */
-export interface AgentImportResponse {
+export interface AgentImportFileResponse {
   /**
    * List of IDs of the imported agents
    */
   agent_ids: Array<string>;
-}
-
-export type AgentListGroupsResponse = Array<GroupsAPI.Group>;
-
-export interface AgentMigrateResponse {
-  success: true;
-}
-
-/**
- * Overview of the context window, including the number of messages and tokens.
- */
-export interface AgentRetrieveContextResponse {
-  /**
-   * The current number of tokens in the context window.
-   */
-  context_window_size_current: number;
-
-  /**
-   * The maximum amount of tokens the context window can hold.
-   */
-  context_window_size_max: number;
-
-  /**
-   * The content of the core memory.
-   */
-  core_memory: string;
-
-  /**
-   * The metadata summary of the external memory sources (archival + recall
-   * metadata).
-   */
-  external_memory_summary: string;
-
-  /**
-   * The content of the functions definitions.
-   */
-  functions_definitions: Array<AgentRetrieveContextResponse.FunctionsDefinition> | null;
-
-  /**
-   * The messages in the context window.
-   */
-  messages: Array<MessagesAPI.Message>;
-
-  /**
-   * The number of messages in the archival memory.
-   */
-  num_archival_memory: number;
-
-  /**
-   * The number of messages in the context window.
-   */
-  num_messages: number;
-
-  /**
-   * The number of messages in the recall memory.
-   */
-  num_recall_memory: number;
-
-  /**
-   * The number of tokens in the core memory.
-   */
-  num_tokens_core_memory: number;
-
-  /**
-   * The number of tokens in the external memory summary (archival + recall
-   * metadata).
-   */
-  num_tokens_external_memory_summary: number;
-
-  /**
-   * The number of tokens in the functions definitions.
-   */
-  num_tokens_functions_definitions: number;
-
-  /**
-   * The number of tokens in the messages list.
-   */
-  num_tokens_messages: number;
-
-  /**
-   * The number of tokens in the summary memory.
-   */
-  num_tokens_summary_memory: number;
-
-  /**
-   * The number of tokens in the system prompt.
-   */
-  num_tokens_system: number;
-
-  /**
-   * The content of the system prompt.
-   */
-  system_prompt: string;
-
-  /**
-   * The content of the summary memory.
-   */
-  summary_memory?: string | null;
-}
-
-export namespace AgentRetrieveContextResponse {
-  export interface FunctionsDefinition {
-    function: FunctionsDefinition.Function;
-
-    type: 'function';
-
-    [k: string]: unknown;
-  }
-
-  export namespace FunctionsDefinition {
-    export interface Function {
-      name: string;
-
-      description?: string | null;
-
-      parameters?: { [key: string]: unknown } | null;
-
-      strict?: boolean | null;
-
-      [k: string]: unknown;
-    }
-  }
-}
-
-export interface AgentSearchResponse {
-  agents: Array<AgentState>;
-
-  nextCursor?: string | null;
 }
 
 export interface AgentCreateParams {
@@ -1038,7 +1101,8 @@ export interface AgentCreateParams {
   enable_sleeptime?: boolean | null;
 
   /**
-   * Body param: The template id used to configure the agent
+   * Body param: Deprecated: please use the 'create agents from a template' endpoint
+   * instead.
    */
   from_template?: string | null;
 
@@ -1108,7 +1172,7 @@ export interface AgentCreateParams {
   /**
    * Body param: The blocks to create in the agent's in-context memory.
    */
-  memory_blocks?: Array<BlocksAPI.CreateBlock> | null;
+  memory_blocks?: Array<BlocksBlocksAPI.CreateBlock> | null;
 
   /**
    * Body param: The variables that should be set for the agent.
@@ -1137,6 +1201,11 @@ export interface AgentCreateParams {
    * Body param: The name of the agent.
    */
   name?: string;
+
+  /**
+   * Body param: If set to True, enables parallel tool calling. Defaults to False.
+   */
+  parallel_tool_calls?: boolean | null;
 
   /**
    * Body param: The per-file view window character limit for this agent. Setting
@@ -1187,7 +1256,7 @@ export interface AgentCreateParams {
   tags?: Array<string> | null;
 
   /**
-   * Body param: Whether the agent is a template
+   * Body param: Deprecated: No longer used
    */
   template?: boolean;
 
@@ -1239,9 +1308,24 @@ export interface AgentCreateParams {
 
 export interface AgentRetrieveParams {
   /**
+   * Specify which relational fields to include in the response. No relationships are
+   * included by default.
+   */
+  include?: Array<
+    | 'agent.blocks'
+    | 'agent.identities'
+    | 'agent.managed_group'
+    | 'agent.secrets'
+    | 'agent.sources'
+    | 'agent.tags'
+    | 'agent.tools'
+  >;
+
+  /**
    * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
    * in the response. If not provided, all relationships are loaded by default. Using
-   * this can optimize performance by reducing unnecessary joins.
+   * this can optimize performance by reducing unnecessary joins.This is a legacy
+   * parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
 }
@@ -1256,6 +1340,11 @@ export interface AgentUpdateParams {
    * The ids of the blocks used by the agent.
    */
   block_ids?: Array<string> | null;
+
+  /**
+   * The context window limit used by the agent.
+   */
+  context_window_limit?: number | null;
 
   /**
    * The description of the agent.
@@ -1310,6 +1399,12 @@ export interface AgentUpdateParams {
   max_files_open?: number | null;
 
   /**
+   * The maximum number of tokens to generate, including reasoning step. If not set,
+   * the model will use its default value.
+   */
+  max_tokens?: number | null;
+
+  /**
    * If set to True, the agent will not remember previous messages (though the agent
    * will still retain state via core memory blocks and archival/recall memory). Not
    * recommended unless you have an advanced use case.
@@ -1336,6 +1431,11 @@ export interface AgentUpdateParams {
    * The name of the agent.
    */
   name?: string | null;
+
+  /**
+   * If set to True, enables parallel tool calling. Defaults to False.
+   */
+  parallel_tool_calls?: boolean | null;
 
   /**
    * The per-file view window character limit for this agent. Setting this too high
@@ -1447,9 +1547,24 @@ export interface AgentListParams {
   identity_id?: string | null;
 
   /**
+   * Specify which relational fields to include in the response. No relationships are
+   * included by default.
+   */
+  include?: Array<
+    | 'agent.blocks'
+    | 'agent.identities'
+    | 'agent.managed_group'
+    | 'agent.secrets'
+    | 'agent.sources'
+    | 'agent.tags'
+    | 'agent.tools'
+  >;
+
+  /**
    * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
    * in the response. If not provided, all relationships are loaded by default. Using
-   * this can optimize performance by reducing unnecessary joins.
+   * this can optimize performance by reducing unnecessary joins.This is a legacy
+   * parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
 
@@ -1507,24 +1622,29 @@ export interface AgentListParams {
   template_id?: string | null;
 }
 
-export interface AgentExportParams {
+export interface AgentExportFileParams {
+  /**
+   * @deprecated
+   */
   max_steps?: number;
 
   /**
-   * If true, exports using the legacy single-agent format (v1). If false, exports
-   * using the new multi-entity format (v2).
+   * @deprecated If True, exports using the legacy single-agent 'v1' format with
+   * inline tools/blocks. If False, exports using the new multi-entity 'v2' format,
+   * with separate agents, tools, blocks, files, etc.
    */
   use_legacy_format?: boolean;
 }
 
-export interface AgentImportParams {
+export interface AgentImportFileParams {
   /**
    * Body param:
    */
   file: Uploadable;
 
   /**
-   * Body param: If set to True, appends "\_copy" to the end of the agent name.
+   * @deprecated Body param: If set to True, appends "\_copy" to the end of the agent
+   * name.
    */
   append_copy_suffix?: boolean;
 
@@ -1547,6 +1667,11 @@ export interface AgentImportParams {
   override_existing_tools?: boolean;
 
   /**
+   * Body param: If provided, overrides the agent name with this value.
+   */
+  override_name?: string | null;
+
+  /**
    * Body param: The project ID to associate the uploaded agent with.
    */
   project_id?: string | null;
@@ -1562,107 +1687,11 @@ export interface AgentImportParams {
   'x-override-embedding-model'?: string;
 }
 
-export interface AgentListGroupsParams {
-  /**
-   * Manager type to filter groups by
-   */
-  manager_type?: string | null;
-}
-
-export interface AgentMigrateParams {
-  preserve_core_memories: boolean;
-
-  to_template: string;
-
-  /**
-   * If true, preserves the existing agent's tool environment variables instead of
-   * using the template's variables
-   */
-  preserve_tool_variables?: boolean;
-}
-
-export interface AgentResetMessagesParams {
-  /**
-   * If true, adds the default initial messages after resetting.
-   */
-  add_default_initial_messages?: boolean;
-}
-
-export interface AgentSearchParams {
-  after?: string | null;
-
-  ascending?: boolean;
-
-  combinator?: 'AND';
-
-  limit?: number;
-
-  project_id?: string;
-
-  search?: Array<
-    | AgentSearchParams.UnionMember0
-    | AgentSearchParams.UnionMember1
-    | AgentSearchParams.UnionMember2
-    | AgentSearchParams.UnionMember3
-    | AgentSearchParams.UnionMember4
-  >;
-
-  sortBy?: 'created_at' | 'last_run_completion';
-}
-
-export namespace AgentSearchParams {
-  export interface UnionMember0 {
-    field: 'version';
-
-    value: string;
-  }
-
-  export interface UnionMember1 {
-    field: 'name';
-
-    operator: 'eq' | 'contains';
-
-    value: string;
-  }
-
-  export interface UnionMember2 {
-    field: 'tags';
-
-    operator: 'contains';
-
-    value: Array<string>;
-  }
-
-  export interface UnionMember3 {
-    field: 'identity';
-
-    operator: 'eq';
-
-    value: string;
-  }
-
-  export interface UnionMember4 {
-    field: 'templateName';
-
-    operator: 'eq';
-
-    value: string;
-  }
-}
-
-export interface AgentSummarizeParams {
-  /**
-   * Maximum number of messages to retain after summarization.
-   */
-  max_message_length: number;
-}
-
 Agents.Tools = Tools;
-Agents.Sources = Sources;
 Agents.Folders = Folders;
 Agents.Files = Files;
-Agents.CoreMemory = CoreMemory;
-Agents.ArchivalMemory = ArchivalMemory;
+Agents.Blocks = Blocks;
+Agents.Groups = Groups;
 Agents.Messages = Messages;
 
 export declare namespace Agents {
@@ -1687,43 +1716,29 @@ export declare namespace Agents {
     type AgentListResponse as AgentListResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentCountResponse as AgentCountResponse,
-    type AgentExportResponse as AgentExportResponse,
-    type AgentImportResponse as AgentImportResponse,
-    type AgentListGroupsResponse as AgentListGroupsResponse,
-    type AgentMigrateResponse as AgentMigrateResponse,
-    type AgentRetrieveContextResponse as AgentRetrieveContextResponse,
-    type AgentSearchResponse as AgentSearchResponse,
+    type AgentExportFileResponse as AgentExportFileResponse,
+    type AgentImportFileResponse as AgentImportFileResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
-    type AgentExportParams as AgentExportParams,
-    type AgentImportParams as AgentImportParams,
-    type AgentListGroupsParams as AgentListGroupsParams,
-    type AgentMigrateParams as AgentMigrateParams,
-    type AgentResetMessagesParams as AgentResetMessagesParams,
-    type AgentSearchParams as AgentSearchParams,
-    type AgentSummarizeParams as AgentSummarizeParams,
+    type AgentExportFileParams as AgentExportFileParams,
+    type AgentImportFileParams as AgentImportFileParams,
   };
 
   export {
     Tools as Tools,
     type ToolListResponse as ToolListResponse,
+    type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
-    type ToolModifyApprovalParams as ToolModifyApprovalParams,
-  };
-
-  export {
-    Sources as Sources,
-    type SourceListResponse as SourceListResponse,
-    type SourceAttachParams as SourceAttachParams,
-    type SourceDetachParams as SourceDetachParams,
+    type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
   };
 
   export {
     Folders as Folders,
     type FolderListResponse as FolderListResponse,
+    type FolderListParams as FolderListParams,
     type FolderAttachParams as FolderAttachParams,
     type FolderDetachParams as FolderDetachParams,
   };
@@ -1740,21 +1755,21 @@ export declare namespace Agents {
   };
 
   export {
-    CoreMemory as CoreMemory,
-    type Memory as Memory,
-    type CoreMemoryRetrieveVariablesResponse as CoreMemoryRetrieveVariablesResponse,
+    Blocks as Blocks,
+    type Block as Block,
+    type BlockUpdate as BlockUpdate,
+    type BlockListResponse as BlockListResponse,
+    type BlockRetrieveParams as BlockRetrieveParams,
+    type BlockUpdateParams as BlockUpdateParams,
+    type BlockListParams as BlockListParams,
+    type BlockAttachParams as BlockAttachParams,
+    type BlockDetachParams as BlockDetachParams,
   };
 
   export {
-    ArchivalMemory as ArchivalMemory,
-    type ArchivalMemoryCreateResponse as ArchivalMemoryCreateResponse,
-    type ArchivalMemoryListResponse as ArchivalMemoryListResponse,
-    type ArchivalMemoryDeleteResponse as ArchivalMemoryDeleteResponse,
-    type ArchivalMemorySearchResponse as ArchivalMemorySearchResponse,
-    type ArchivalMemoryCreateParams as ArchivalMemoryCreateParams,
-    type ArchivalMemoryListParams as ArchivalMemoryListParams,
-    type ArchivalMemoryDeleteParams as ArchivalMemoryDeleteParams,
-    type ArchivalMemorySearchParams as ArchivalMemorySearchParams,
+    Groups as Groups,
+    type GroupListResponse as GroupListResponse,
+    type GroupListParams as GroupListParams,
   };
 
   export {
@@ -1797,16 +1812,13 @@ export declare namespace Agents {
     type MessageUpdateResponse as MessageUpdateResponse,
     type MessageListResponse as MessageListResponse,
     type MessageCancelResponse as MessageCancelResponse,
-    type MessagePreviewRawPayloadResponse as MessagePreviewRawPayloadResponse,
-    type MessageSearchResponse as MessageSearchResponse,
-    type MessageSendStreamResponse as MessageSendStreamResponse,
+    type MessageStreamResponse as MessageStreamResponse,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,
-    type MessagePreviewRawPayloadParams as MessagePreviewRawPayloadParams,
-    type MessageSearchParams as MessageSearchParams,
+    type MessageResetParams as MessageResetParams,
     type MessageSendParams as MessageSendParams,
     type MessageSendAsyncParams as MessageSendAsyncParams,
-    type MessageSendStreamParams as MessageSendStreamParams,
+    type MessageStreamParams as MessageStreamParams,
   };
 }

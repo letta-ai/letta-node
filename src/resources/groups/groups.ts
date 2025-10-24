@@ -5,9 +5,10 @@ import * as MessagesAPI from './messages';
 import {
   MessageListParams,
   MessageListResponse,
+  MessageResetResponse,
   MessageSendParams,
-  MessageSendStreamParams,
-  MessageSendStreamResponse,
+  MessageStreamParams,
+  MessageStreamResponse,
   MessageUpdateParams,
   MessageUpdateResponse,
   Messages,
@@ -79,13 +80,6 @@ export class Groups extends APIResource {
    */
   count(options?: RequestOptions): APIPromise<GroupCountResponse> {
     return this._client.get('/v1/groups/count', options);
-  }
-
-  /**
-   * Delete the group messages for all agents that are part of the multi-agent group.
-   */
-  resetMessages(groupID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.patch(path`/v1/groups/${groupID}/reset-messages`, options);
   }
 }
 
@@ -216,8 +210,6 @@ export type GroupListResponse = Array<Group>;
 export type GroupDeleteResponse = unknown;
 
 export type GroupCountResponse = number;
-
-export type GroupResetMessagesResponse = unknown;
 
 export interface GroupCreateParams {
   /**
@@ -404,7 +396,6 @@ export declare namespace Groups {
     type GroupListResponse as GroupListResponse,
     type GroupDeleteResponse as GroupDeleteResponse,
     type GroupCountResponse as GroupCountResponse,
-    type GroupResetMessagesResponse as GroupResetMessagesResponse,
     type GroupCreateParams as GroupCreateParams,
     type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
@@ -414,10 +405,11 @@ export declare namespace Groups {
     Messages as Messages,
     type MessageUpdateResponse as MessageUpdateResponse,
     type MessageListResponse as MessageListResponse,
-    type MessageSendStreamResponse as MessageSendStreamResponse,
+    type MessageResetResponse as MessageResetResponse,
+    type MessageStreamResponse as MessageStreamResponse,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
     type MessageSendParams as MessageSendParams,
-    type MessageSendStreamParams as MessageSendStreamParams,
+    type MessageStreamParams as MessageStreamParams,
   };
 }
