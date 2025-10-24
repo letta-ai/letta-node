@@ -243,3 +243,92 @@ export class ObjectPage<Item extends { id: string }>
     };
   }
 }
+
+export interface NextFilesPageResponse<Item> {
+  files: Array<Item>;
+
+  next_cursor: string | null;
+
+  has_more: boolean;
+}
+
+export interface NextFilesPageParams {
+  before?: string | null;
+
+  after?: string | null;
+
+  limit?: number | null;
+
+  order?: string | null;
+
+  order_by?: string | null;
+}
+
+export class NextFilesPage<Item extends { next_cursor: string | null }>
+  extends AbstractPage<Item>
+  implements NextFilesPageResponse<Item>
+{
+  files: Array<Item>;
+
+  next_cursor: string | null;
+
+  has_more: boolean;
+
+  constructor(
+    client: Letta,
+    response: Response,
+    body: NextFilesPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.files = body.files || [];
+    this.next_cursor = body.next_cursor || null;
+    this.has_more = body.has_more || false;
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.files ?? [];
+  }
+
+  override hasNextPage(): boolean {
+    if (this.has_more === false) {
+      return false;
+    }
+
+    return super.hasNextPage();
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const files = this.getPaginatedItems();
+
+    const isForwards = !(typeof this.options.query === 'object' && 'before' in (this.options.query || {}));
+    if (isForwards) {
+      const nextCursor = files[files.length - 1]?.next_cursor;
+      if (!nextCursor) {
+        return null;
+      }
+
+      return {
+        ...this.options,
+        query: {
+          ...maybeObj(this.options.query),
+          after: nextCursor,
+        },
+      };
+    }
+
+    const nextCursor = files[0]?.next_cursor;
+    if (!nextCursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        before: nextCursor,
+      },
+    };
+  }
+}

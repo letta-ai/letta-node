@@ -19,6 +19,8 @@ import {
   AbstractPage,
   type ArrayPageParams,
   ArrayPageResponse,
+  type NextFilesPageParams,
+  NextFilesPageResponse,
   type ObjectPageParams,
   ObjectPageResponse,
 } from './core/pagination';
@@ -922,6 +924,12 @@ export declare namespace Letta {
 
   export import ObjectPage = Pagination.ObjectPage;
   export { type ObjectPageParams as ObjectPageParams, type ObjectPageResponse as ObjectPageResponse };
+
+  export import NextFilesPage = Pagination.NextFilesPage;
+  export {
+    type NextFilesPageParams as NextFilesPageParams,
+    type NextFilesPageResponse as NextFilesPageResponse,
+  };
 
   export { type HealthResponse as HealthResponse };
 
