@@ -33,7 +33,7 @@ import {
   Archive,
   ArchiveCreateParams,
   ArchiveListParams,
-  ArchiveUpdateParams,
+  ArchiveModifyParams,
   Archives,
   ArchivesArrayPage,
   VectorDBProvider,
@@ -49,9 +49,9 @@ import {
   ToolCreateParams,
   ToolDeleteResponse,
   ToolListParams,
+  ToolModifyParams,
   ToolReturnMessage,
   ToolType,
-  ToolUpdateParams,
   ToolUpsertBaseToolsResponse,
   ToolUpsertParams,
   Tools,
@@ -67,11 +67,11 @@ import {
   AgentImportFileParams,
   AgentImportFileResponse,
   AgentListParams,
+  AgentModifyParams,
   AgentRetrieveParams,
   AgentState,
   AgentStatesArrayPage,
   AgentType,
-  AgentUpdateParams,
   Agents,
   ChildToolRule,
   ConditionalToolRule,
@@ -101,7 +101,7 @@ import {
   BlockCreateParams,
   BlockDeleteResponse,
   BlockListParams,
-  BlockUpdateParams,
+  BlockModifyParams,
   Blocks,
   CreateBlock,
 } from './resources/blocks/blocks';
@@ -111,7 +111,7 @@ import {
   FolderCreateParams,
   FolderDeleteResponse,
   FolderListParams,
-  FolderUpdateParams,
+  FolderModifyParams,
   Folders,
   FoldersArrayPage,
 } from './resources/folders/folders';
@@ -122,7 +122,7 @@ import {
   GroupCreateParams,
   GroupDeleteResponse,
   GroupListParams,
-  GroupUpdateParams,
+  GroupModifyParams,
   Groups,
   GroupsArrayPage,
   ManagerType,
@@ -139,9 +139,9 @@ import {
   IdentityCreateParams,
   IdentityDeleteResponse,
   IdentityListParams,
+  IdentityModifyParams,
   IdentityProperty,
   IdentityType,
-  IdentityUpdateParams,
   IdentityUpsertParams,
 } from './resources/identities/identities';
 import {
@@ -939,8 +939,8 @@ export declare namespace Letta {
     type VectorDBProvider as VectorDBProvider,
     type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
-    type ArchiveUpdateParams as ArchiveUpdateParams,
     type ArchiveListParams as ArchiveListParams,
+    type ArchiveModifyParams as ArchiveModifyParams,
   };
 
   export {
@@ -956,9 +956,9 @@ export declare namespace Letta {
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
-    type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
     type ToolCountParams as ToolCountParams,
+    type ToolModifyParams as ToolModifyParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 
@@ -969,8 +969,8 @@ export declare namespace Letta {
     type FolderCountResponse as FolderCountResponse,
     type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
-    type FolderUpdateParams as FolderUpdateParams,
     type FolderListParams as FolderListParams,
+    type FolderModifyParams as FolderModifyParams,
   };
 
   export {
@@ -999,10 +999,10 @@ export declare namespace Letta {
     type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
-    type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
+    type AgentModifyParams as AgentModifyParams,
   };
 
   export {
@@ -1018,8 +1018,8 @@ export declare namespace Letta {
     type GroupCountResponse as GroupCountResponse,
     type GroupsArrayPage as GroupsArrayPage,
     type GroupCreateParams as GroupCreateParams,
-    type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
+    type GroupModifyParams as GroupModifyParams,
   };
 
   export {
@@ -1031,8 +1031,8 @@ export declare namespace Letta {
     type IdentityCountResponse as IdentityCountResponse,
     type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
-    type IdentityUpdateParams as IdentityUpdateParams,
     type IdentityListParams as IdentityListParams,
+    type IdentityModifyParams as IdentityModifyParams,
     type IdentityUpsertParams as IdentityUpsertParams,
   };
 
@@ -1052,8 +1052,8 @@ export declare namespace Letta {
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockCountResponse as BlockCountResponse,
     type BlockCreateParams as BlockCreateParams,
-    type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
+    type BlockModifyParams as BlockModifyParams,
   };
 
   export {

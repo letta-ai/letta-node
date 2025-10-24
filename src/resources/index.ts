@@ -25,10 +25,10 @@ export {
   type AgentImportFileResponse,
   type AgentCreateParams,
   type AgentRetrieveParams,
-  type AgentUpdateParams,
   type AgentListParams,
   type AgentExportFileParams,
   type AgentImportFileParams,
+  type AgentModifyParams,
   type AgentStatesArrayPage,
 } from './agents/agents';
 export {
@@ -36,8 +36,8 @@ export {
   type Archive,
   type VectorDBProvider,
   type ArchiveCreateParams,
-  type ArchiveUpdateParams,
   type ArchiveListParams,
+  type ArchiveModifyParams,
   type ArchivesArrayPage,
 } from './archives';
 export {
@@ -54,8 +54,8 @@ export {
   type BlockDeleteResponse,
   type BlockCountResponse,
   type BlockCreateParams,
-  type BlockUpdateParams,
   type BlockListParams,
+  type BlockModifyParams,
 } from './blocks/blocks';
 export {
   Folders,
@@ -63,8 +63,8 @@ export {
   type FolderDeleteResponse,
   type FolderCountResponse,
   type FolderCreateParams,
-  type FolderUpdateParams,
   type FolderListParams,
+  type FolderModifyParams,
   type FoldersArrayPage,
 } from './folders/folders';
 export {
@@ -79,8 +79,8 @@ export {
   type GroupDeleteResponse,
   type GroupCountResponse,
   type GroupCreateParams,
-  type GroupUpdateParams,
   type GroupListParams,
+  type GroupModifyParams,
   type GroupsArrayPage,
 } from './groups/groups';
 export {
@@ -91,8 +91,8 @@ export {
   type IdentityDeleteResponse,
   type IdentityCountResponse,
   type IdentityCreateParams,
-  type IdentityUpdateParams,
   type IdentityListParams,
+  type IdentityModifyParams,
   type IdentityUpsertParams,
   type IdentitiesArrayPage,
 } from './identities/identities';
@@ -127,9 +127,9 @@ export {
   type ToolCountResponse,
   type ToolUpsertBaseToolsResponse,
   type ToolCreateParams,
-  type ToolUpdateParams,
   type ToolListParams,
   type ToolCountParams,
+  type ToolModifyParams,
   type ToolUpsertParams,
   type ToolsArrayPage,
 } from './tools';

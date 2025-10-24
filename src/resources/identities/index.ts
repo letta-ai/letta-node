@@ -10,8 +10,8 @@ export {
   type IdentityDeleteResponse,
   type IdentityCountResponse,
   type IdentityCreateParams,
-  type IdentityUpdateParams,
   type IdentityListParams,
+  type IdentityModifyParams,
   type IdentityUpsertParams,
   type IdentitiesArrayPage,
 } from './identities';

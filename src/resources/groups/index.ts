@@ -12,17 +12,17 @@ export {
   type GroupDeleteResponse,
   type GroupCountResponse,
   type GroupCreateParams,
-  type GroupUpdateParams,
   type GroupListParams,
+  type GroupModifyParams,
   type GroupsArrayPage,
 } from './groups';
 export {
   Messages,
-  type MessageUpdateResponse,
+  type MessageModifyResponse,
   type MessageResetResponse,
   type MessageStreamResponse,
-  type MessageUpdateParams,
   type MessageListParams,
+  type MessageModifyParams,
   type MessageSendParams,
   type MessageStreamParams,
 } from './messages';
