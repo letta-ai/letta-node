@@ -19,9 +19,9 @@ Methods:
 
 - <code title="post /v1/archives/">client.archives.<a href="./src/resources/archives.ts">create</a>({ ...params }) -> Archive</code>
 - <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">retrieve</a>(archiveID) -> Archive</code>
-- <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">update</a>(archiveID, { ...params }) -> Archive</code>
 - <code title="get /v1/archives/">client.archives.<a href="./src/resources/archives.ts">list</a>({ ...params }) -> ArchivesArrayPage</code>
 - <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">delete</a>(archiveID) -> Archive</code>
+- <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">modify</a>(archiveID, { ...params }) -> Archive</code>
 
 # Tools
 
@@ -41,10 +41,10 @@ Methods:
 
 - <code title="post /v1/tools/">client.tools.<a href="./src/resources/tools.ts">create</a>({ ...params }) -> Tool</code>
 - <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">retrieve</a>(toolID) -> Tool</code>
-- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">update</a>(toolID, { ...params }) -> Tool</code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/resources/tools.ts">list</a>({ ...params }) -> ToolsArrayPage</code>
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolID) -> unknown</code>
 - <code title="get /v1/tools/count">client.tools.<a href="./src/resources/tools.ts">count</a>({ ...params }) -> ToolCountResponse</code>
+- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">modify</a>(toolID, { ...params }) -> Tool</code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/resources/tools.ts">upsert</a>({ ...params }) -> Tool</code>
 - <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/resources/tools.ts">upsertBaseTools</a>() -> ToolUpsertBaseToolsResponse</code>
 
@@ -60,10 +60,10 @@ Methods:
 
 - <code title="post /v1/folders/">client.folders.<a href="./src/resources/folders/folders.ts">create</a>({ ...params }) -> Folder</code>
 - <code title="get /v1/folders/{folder_id}">client.folders.<a href="./src/resources/folders/folders.ts">retrieve</a>(folderID) -> Folder</code>
-- <code title="patch /v1/folders/{folder_id}">client.folders.<a href="./src/resources/folders/folders.ts">update</a>(folderID, { ...params }) -> Folder</code>
 - <code title="get /v1/folders/">client.folders.<a href="./src/resources/folders/folders.ts">list</a>({ ...params }) -> FoldersArrayPage</code>
 - <code title="delete /v1/folders/{folder_id}">client.folders.<a href="./src/resources/folders/folders.ts">delete</a>(folderID) -> unknown</code>
 - <code title="get /v1/folders/count">client.folders.<a href="./src/resources/folders/folders.ts">count</a>() -> FolderCountResponse</code>
+- <code title="patch /v1/folders/{folder_id}">client.folders.<a href="./src/resources/folders/folders.ts">modify</a>(folderID, { ...params }) -> Folder</code>
 
 ## Files
 
@@ -118,12 +118,12 @@ Methods:
 
 - <code title="post /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">create</a>({ ...params }) -> AgentState</code>
 - <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">retrieve</a>(agentID, { ...params }) -> AgentState</code>
-- <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">update</a>(agentID, { ...params }) -> AgentState</code>
 - <code title="get /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">list</a>({ ...params }) -> AgentStatesArrayPage</code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentID) -> unknown</code>
 - <code title="get /v1/agents/count">client.agents.<a href="./src/resources/agents/agents.ts">count</a>() -> AgentCountResponse</code>
 - <code title="get /v1/agents/{agent_id}/export">client.agents.<a href="./src/resources/agents/agents.ts">exportFile</a>(agentID, { ...params }) -> string</code>
 - <code title="post /v1/agents/import">client.agents.<a href="./src/resources/agents/agents.ts">importFile</a>({ ...params }) -> AgentImportFileResponse</code>
+- <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">modify</a>(agentID, { ...params }) -> AgentState</code>
 
 ## Tools
 
@@ -167,15 +167,18 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/agents/blocks.ts">Block</a></code>
-- <code><a href="./src/resources/agents/blocks.ts">BlockUpdate</a></code>
+- <code><a href="./src/resources/agents/blocks.ts">BlockModify</a></code>
+- <code><a href="./src/resources/agents/blocks.ts">BlockRetrieveResponse</a></code>
+- <code><a href="./src/resources/agents/blocks.ts">BlockListResponse</a></code>
+- <code><a href="./src/resources/agents/blocks.ts">BlockModifyResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">retrieve</a>(blockLabel, { ...params }) -> Block</code>
-- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">update</a>(blockLabel, { ...params }) -> Block</code>
-- <code title="get /v1/agents/{agent_id}/core-memory/blocks">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">list</a>(agentID, { ...params }) -> BlocksArrayPage</code>
+- <code title="get /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">retrieve</a>(blockLabel, { ...params }) -> BlockRetrieveResponse</code>
+- <code title="get /v1/agents/{agent_id}/core-memory/blocks">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">list</a>(agentID, { ...params }) -> BlockListResponsesArrayPage</code>
 - <code title="patch /v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">attach</a>(blockID, { ...params }) -> AgentState</code>
 - <code title="patch /v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">detach</a>(blockID, { ...params }) -> AgentState</code>
+- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">modify</a>(blockLabel, { ...params }) -> BlockModifyResponse</code>
 
 ## Groups
 
@@ -222,15 +225,15 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">UpdateSystemMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">UpdateUserMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">UserMessage</a></code>
-- <code><a href="./src/resources/agents/messages.ts">MessageUpdateResponse</a></code>
 - <code><a href="./src/resources/agents/messages.ts">MessageCancelResponse</a></code>
+- <code><a href="./src/resources/agents/messages.ts">MessageModifyResponse</a></code>
 - <code><a href="./src/resources/agents/messages.ts">MessageStreamResponse</a></code>
 
 Methods:
 
-- <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/resources/agents/messages.ts">update</a>(messageID, { ...params }) -> MessageUpdateResponse</code>
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">list</a>(agentID, { ...params }) -> LettaMessageUnionsArrayPage</code>
 - <code title="post /v1/agents/{agent_id}/messages/cancel">client.agents.messages.<a href="./src/resources/agents/messages.ts">cancel</a>(agentID, { ...params }) -> MessageCancelResponse</code>
+- <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/resources/agents/messages.ts">modify</a>(messageID, { ...params }) -> MessageModifyResponse</code>
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState</code>
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">send</a>(agentID, { ...params }) -> LettaResponse</code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/resources/agents/messages.ts">sendAsync</a>(agentID, { ...params }) -> Run</code>
@@ -255,23 +258,23 @@ Methods:
 
 - <code title="post /v1/groups/">client.groups.<a href="./src/resources/groups/groups.ts">create</a>({ ...params }) -> Group</code>
 - <code title="get /v1/groups/{group_id}">client.groups.<a href="./src/resources/groups/groups.ts">retrieve</a>(groupID) -> Group</code>
-- <code title="patch /v1/groups/{group_id}">client.groups.<a href="./src/resources/groups/groups.ts">update</a>(groupID, { ...params }) -> Group</code>
 - <code title="get /v1/groups/">client.groups.<a href="./src/resources/groups/groups.ts">list</a>({ ...params }) -> GroupsArrayPage</code>
 - <code title="delete /v1/groups/{group_id}">client.groups.<a href="./src/resources/groups/groups.ts">delete</a>(groupID) -> unknown</code>
 - <code title="get /v1/groups/count">client.groups.<a href="./src/resources/groups/groups.ts">count</a>() -> GroupCountResponse</code>
+- <code title="patch /v1/groups/{group_id}">client.groups.<a href="./src/resources/groups/groups.ts">modify</a>(groupID, { ...params }) -> Group</code>
 
 ## Messages
 
 Types:
 
-- <code><a href="./src/resources/groups/messages.ts">MessageUpdateResponse</a></code>
+- <code><a href="./src/resources/groups/messages.ts">MessageModifyResponse</a></code>
 - <code><a href="./src/resources/groups/messages.ts">MessageResetResponse</a></code>
 - <code><a href="./src/resources/groups/messages.ts">MessageStreamResponse</a></code>
 
 Methods:
 
-- <code title="patch /v1/groups/{group_id}/messages/{message_id}">client.groups.messages.<a href="./src/resources/groups/messages.ts">update</a>(messageID, { ...params }) -> MessageUpdateResponse</code>
 - <code title="get /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">list</a>(groupID, { ...params }) -> LettaMessageUnionsArrayPage</code>
+- <code title="patch /v1/groups/{group_id}/messages/{message_id}">client.groups.messages.<a href="./src/resources/groups/messages.ts">modify</a>(messageID, { ...params }) -> MessageModifyResponse</code>
 - <code title="patch /v1/groups/{group_id}/reset-messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">reset</a>(groupID) -> unknown</code>
 - <code title="post /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">send</a>(groupID, { ...params }) -> LettaResponse</code>
 - <code title="post /v1/groups/{group_id}/messages/stream">client.groups.messages.<a href="./src/resources/groups/messages.ts">stream</a>(groupID, { ...params }) -> unknown</code>
@@ -290,10 +293,10 @@ Methods:
 
 - <code title="post /v1/identities/">client.identities.<a href="./src/resources/identities/identities.ts">create</a>({ ...params }) -> Identity</code>
 - <code title="get /v1/identities/{identity_id}">client.identities.<a href="./src/resources/identities/identities.ts">retrieve</a>(identityID) -> Identity</code>
-- <code title="patch /v1/identities/{identity_id}">client.identities.<a href="./src/resources/identities/identities.ts">update</a>(identityID, { ...params }) -> Identity</code>
 - <code title="get /v1/identities/">client.identities.<a href="./src/resources/identities/identities.ts">list</a>({ ...params }) -> IdentitiesArrayPage</code>
 - <code title="delete /v1/identities/{identity_id}">client.identities.<a href="./src/resources/identities/identities.ts">delete</a>(identityID) -> unknown</code>
 - <code title="get /v1/identities/count">client.identities.<a href="./src/resources/identities/identities.ts">count</a>() -> IdentityCountResponse</code>
+- <code title="patch /v1/identities/{identity_id}">client.identities.<a href="./src/resources/identities/identities.ts">modify</a>(identityID, { ...params }) -> Identity</code>
 - <code title="put /v1/identities/">client.identities.<a href="./src/resources/identities/identities.ts">upsert</a>({ ...params }) -> Identity</code>
 
 ## Properties
@@ -314,9 +317,13 @@ Methods:
 
 ## Blocks
 
+Types:
+
+- <code><a href="./src/resources/identities/blocks.ts">BlockListResponse</a></code>
+
 Methods:
 
-- <code title="get /v1/identities/{identity_id}/blocks">client.identities.blocks.<a href="./src/resources/identities/blocks.ts">list</a>(identityID, { ...params }) -> BlocksArrayPage</code>
+- <code title="get /v1/identities/{identity_id}/blocks">client.identities.blocks.<a href="./src/resources/identities/blocks.ts">list</a>(identityID, { ...params }) -> BlockListResponsesArrayPage</code>
 
 # Models
 
@@ -347,17 +354,21 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/blocks/blocks.ts">CreateBlock</a></code>
+- <code><a href="./src/resources/blocks/blocks.ts">BlockCreateResponse</a></code>
+- <code><a href="./src/resources/blocks/blocks.ts">BlockRetrieveResponse</a></code>
+- <code><a href="./src/resources/blocks/blocks.ts">BlockListResponse</a></code>
 - <code><a href="./src/resources/blocks/blocks.ts">BlockDeleteResponse</a></code>
 - <code><a href="./src/resources/blocks/blocks.ts">BlockCountResponse</a></code>
+- <code><a href="./src/resources/blocks/blocks.ts">BlockModifyResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">create</a>({ ...params }) -> Block</code>
-- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">retrieve</a>(blockID) -> Block</code>
-- <code title="patch /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">update</a>(blockID, { ...params }) -> Block</code>
-- <code title="get /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">list</a>({ ...params }) -> BlocksArrayPage</code>
+- <code title="post /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">create</a>({ ...params }) -> BlockCreateResponse</code>
+- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">retrieve</a>(blockID) -> BlockRetrieveResponse</code>
+- <code title="get /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">list</a>({ ...params }) -> BlockListResponsesArrayPage</code>
 - <code title="delete /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">delete</a>(blockID) -> unknown</code>
 - <code title="get /v1/blocks/count">client.blocks.<a href="./src/resources/blocks/blocks.ts">count</a>() -> BlockCountResponse</code>
+- <code title="patch /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">modify</a>(blockID, { ...params }) -> BlockModifyResponse</code>
 
 ## Agents
 

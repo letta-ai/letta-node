@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.0-alpha.9 (2025-10-24)
+
+Full Changelog: [v1.0.0-alpha.8...v1.0.0-alpha.9](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.8...v1.0.0-alpha.9)
+
+### Features
+
+* clean up block return object  [LET-5784] ([9d70a8a](https://github.com/letta-ai/letta-node/commit/9d70a8aaf6ece09236092dbb1faedb9bf4c06ef0))
+* deprecate shared_block_ids, and add groups, blocks [LET-4430] ([eae2e06](https://github.com/letta-ai/letta-node/commit/eae2e06ff465987018b459bb5a711f6d6a0b5e08))
+
+
+### Chores
+
+* rename update methods to modify in stainless ([6e1bd59](https://github.com/letta-ai/letta-node/commit/6e1bd59fd2634fcf3b3c5cfeeb724e95b7541dfa))
+
 ## 1.0.0-alpha.8 (2025-10-24)
 
 Full Changelog: [v1.0.0-alpha.7...v1.0.0-alpha.8](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.7...v1.0.0-alpha.8)

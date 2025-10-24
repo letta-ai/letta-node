@@ -10,11 +10,14 @@ import {
   BlockAttachParams,
   BlockDetachParams,
   BlockListParams,
+  BlockListResponse,
+  BlockListResponsesArrayPage,
+  BlockModify,
+  BlockModifyParams,
+  BlockModifyResponse,
   BlockRetrieveParams,
-  BlockUpdate,
-  BlockUpdateParams,
+  BlockRetrieveResponse,
   Blocks,
-  BlocksArrayPage,
 } from './blocks';
 import * as FilesAPI from './files';
 import {
@@ -60,6 +63,8 @@ import {
   MessageCancelParams,
   MessageCancelResponse,
   MessageListParams,
+  MessageModifyParams,
+  MessageModifyResponse,
   MessageResetParams,
   MessageRole,
   MessageSendAsyncParams,
@@ -67,8 +72,6 @@ import {
   MessageStreamParams,
   MessageStreamResponse,
   MessageType,
-  MessageUpdateParams,
-  MessageUpdateResponse,
   Messages,
   OmittedReasoningContent,
   ReasoningContent,
@@ -138,13 +141,6 @@ export class Agents extends APIResource {
   }
 
   /**
-   * Update an existing agent.
-   */
-  update(agentID: string, body: AgentUpdateParams, options?: RequestOptions): APIPromise<AgentState> {
-    return this._client.patch(path`/v1/agents/${agentID}`, { body, ...options });
-  }
-
-  /**
    * Get a list of all agents.
    */
   list(
@@ -204,6 +200,13 @@ export class Agents extends APIResource {
         this._client,
       ),
     );
+  }
+
+  /**
+   * Update an existing agent.
+   */
+  modify(agentID: string, body: AgentModifyParams, options?: RequestOptions): APIPromise<AgentState> {
+    return this._client.patch(path`/v1/agents/${agentID}`, { body, ...options });
   }
 }
 
@@ -602,11 +605,6 @@ export namespace AgentState {
       metadata?: { [key: string]: unknown } | null;
 
       /**
-       * The id of the template.
-       */
-      name?: string | null;
-
-      /**
        * Preserve the block on template migration.
        */
       preserve_on_migration?: boolean | null;
@@ -620,6 +618,16 @@ export namespace AgentState {
        * Whether the agent has read-only access to the block.
        */
       read_only?: boolean;
+
+      /**
+       * The id of the template.
+       */
+      template_id?: string | null;
+
+      /**
+       * Name of the block if it is a template.
+       */
+      template_name?: string | null;
     }
   }
 
@@ -1326,7 +1334,154 @@ export interface AgentRetrieveParams {
   include_relationships?: Array<string> | null;
 }
 
-export interface AgentUpdateParams {
+export interface AgentListParams extends ArrayPageParams {
+  /**
+   * @deprecated Whether to sort agents oldest to newest (True) or newest to oldest
+   * (False, default)
+   */
+  ascending?: boolean;
+
+  /**
+   * Search agents by base template ID
+   */
+  base_template_id?: string | null;
+
+  /**
+   * Search agents by identifier keys
+   */
+  identifier_keys?: Array<string> | null;
+
+  /**
+   * Search agents by identity ID
+   */
+  identity_id?: string | null;
+
+  /**
+   * Specify which relational fields to include in the response. No relationships are
+   * included by default.
+   */
+  include?: Array<
+    | 'agent.blocks'
+    | 'agent.identities'
+    | 'agent.managed_group'
+    | 'agent.secrets'
+    | 'agent.sources'
+    | 'agent.tags'
+    | 'agent.tools'
+  >;
+
+  /**
+   * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
+   * in the response. If not provided, all relationships are loaded by default. Using
+   * this can optimize performance by reducing unnecessary joins.This is a legacy
+   * parameter, and no longer supported after 1.0.0 SDK versions.
+   */
+  include_relationships?: Array<string> | null;
+
+  /**
+   * If True, only returns agents that match ALL given tags. Otherwise, return agents
+   * that have ANY of the passed-in tags.
+   */
+  match_all_tags?: boolean;
+
+  /**
+   * Name of the agent
+   */
+  name?: string | null;
+
+  /**
+   * Search agents by project ID - this will default to your default project on cloud
+   */
+  project_id?: string | null;
+
+  /**
+   * Search agents by name
+   */
+  query_text?: string | null;
+
+  /**
+   * @deprecated Field to sort by. Options: 'created_at' (default),
+   * 'last_run_completion'
+   */
+  sort_by?: string | null;
+
+  /**
+   * List of tags to filter agents by
+   */
+  tags?: Array<string> | null;
+
+  /**
+   * Search agents by template ID
+   */
+  template_id?: string | null;
+}
+
+export interface AgentExportFileParams {
+  /**
+   * @deprecated
+   */
+  max_steps?: number;
+
+  /**
+   * @deprecated If True, exports using the legacy single-agent 'v1' format with
+   * inline tools/blocks. If False, exports using the new multi-entity 'v2' format,
+   * with separate agents, tools, blocks, files, etc.
+   */
+  use_legacy_format?: boolean;
+}
+
+export interface AgentImportFileParams {
+  /**
+   * Body param:
+   */
+  file: Uploadable;
+
+  /**
+   * @deprecated Body param: If set to True, appends "\_copy" to the end of the agent
+   * name.
+   */
+  append_copy_suffix?: boolean;
+
+  /**
+   * Body param: Environment variables as a JSON string to pass to the agent for tool
+   * execution.
+   */
+  env_vars_json?: string | null;
+
+  /**
+   * Body param: Override import with specific embedding handle.
+   */
+  override_embedding_handle?: string | null;
+
+  /**
+   * Body param: If set to True, existing tools can get their source code overwritten
+   * by the uploaded tool definitions. Note that Letta core tools can never be
+   * updated externally.
+   */
+  override_existing_tools?: boolean;
+
+  /**
+   * Body param: If provided, overrides the agent name with this value.
+   */
+  override_name?: string | null;
+
+  /**
+   * Body param: The project ID to associate the uploaded agent with.
+   */
+  project_id?: string | null;
+
+  /**
+   * Body param: If set to True, strips all messages from the agent before importing.
+   */
+  strip_messages?: boolean;
+
+  /**
+   * Header param:
+   */
+  'x-override-embedding-model'?: string;
+}
+
+export interface AgentModifyParams {
   /**
    * The base template id of the agent.
    */
@@ -1510,153 +1665,6 @@ export interface AgentUpdateParams {
   > | null;
 }
 
-export interface AgentListParams extends ArrayPageParams {
-  /**
-   * @deprecated Whether to sort agents oldest to newest (True) or newest to oldest
-   * (False, default)
-   */
-  ascending?: boolean;
-
-  /**
-   * Search agents by base template ID
-   */
-  base_template_id?: string | null;
-
-  /**
-   * Search agents by identifier keys
-   */
-  identifier_keys?: Array<string> | null;
-
-  /**
-   * Search agents by identity ID
-   */
-  identity_id?: string | null;
-
-  /**
-   * Specify which relational fields to include in the response. No relationships are
-   * included by default.
-   */
-  include?: Array<
-    | 'agent.blocks'
-    | 'agent.identities'
-    | 'agent.managed_group'
-    | 'agent.secrets'
-    | 'agent.sources'
-    | 'agent.tags'
-    | 'agent.tools'
-  >;
-
-  /**
-   * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
-   * in the response. If not provided, all relationships are loaded by default. Using
-   * this can optimize performance by reducing unnecessary joins.This is a legacy
-   * parameter, and no longer supported after 1.0.0 SDK versions.
-   */
-  include_relationships?: Array<string> | null;
-
-  /**
-   * If True, only returns agents that match ALL given tags. Otherwise, return agents
-   * that have ANY of the passed-in tags.
-   */
-  match_all_tags?: boolean;
-
-  /**
-   * Name of the agent
-   */
-  name?: string | null;
-
-  /**
-   * Search agents by project ID - this will default to your default project on cloud
-   */
-  project_id?: string | null;
-
-  /**
-   * Search agents by name
-   */
-  query_text?: string | null;
-
-  /**
-   * @deprecated Field to sort by. Options: 'created_at' (default),
-   * 'last_run_completion'
-   */
-  sort_by?: string | null;
-
-  /**
-   * List of tags to filter agents by
-   */
-  tags?: Array<string> | null;
-
-  /**
-   * Search agents by template ID
-   */
-  template_id?: string | null;
-}
-
-export interface AgentExportFileParams {
-  /**
-   * @deprecated
-   */
-  max_steps?: number;
-
-  /**
-   * @deprecated If True, exports using the legacy single-agent 'v1' format with
-   * inline tools/blocks. If False, exports using the new multi-entity 'v2' format,
-   * with separate agents, tools, blocks, files, etc.
-   */
-  use_legacy_format?: boolean;
-}
-
-export interface AgentImportFileParams {
-  /**
-   * Body param:
-   */
-  file: Uploadable;
-
-  /**
-   * @deprecated Body param: If set to True, appends "\_copy" to the end of the agent
-   * name.
-   */
-  append_copy_suffix?: boolean;
-
-  /**
-   * Body param: Environment variables as a JSON string to pass to the agent for tool
-   * execution.
-   */
-  env_vars_json?: string | null;
-
-  /**
-   * Body param: Override import with specific embedding handle.
-   */
-  override_embedding_handle?: string | null;
-
-  /**
-   * Body param: If set to True, existing tools can get their source code overwritten
-   * by the uploaded tool definitions. Note that Letta core tools can never be
-   * updated externally.
-   */
-  override_existing_tools?: boolean;
-
-  /**
-   * Body param: If provided, overrides the agent name with this value.
-   */
-  override_name?: string | null;
-
-  /**
-   * Body param: The project ID to associate the uploaded agent with.
-   */
-  project_id?: string | null;
-
-  /**
-   * Body param: If set to True, strips all messages from the agent before importing.
-   */
-  strip_messages?: boolean;
-
-  /**
-   * Header param:
-   */
-  'x-override-embedding-model'?: string;
-}
-
 Agents.Tools = Tools;
 Agents.Folders = Folders;
 Agents.Files = Files;
@@ -1690,10 +1698,10 @@ export declare namespace Agents {
     type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
-    type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
+    type AgentModifyParams as AgentModifyParams,
   };
 
   export {
@@ -1728,13 +1736,16 @@ export declare namespace Agents {
   export {
     Blocks as Blocks,
     type Block as Block,
-    type BlockUpdate as BlockUpdate,
-    type BlocksArrayPage as BlocksArrayPage,
+    type BlockModify as BlockModify,
+    type BlockRetrieveResponse as BlockRetrieveResponse,
+    type BlockListResponse as BlockListResponse,
+    type BlockModifyResponse as BlockModifyResponse,
+    type BlockListResponsesArrayPage as BlockListResponsesArrayPage,
     type BlockRetrieveParams as BlockRetrieveParams,
-    type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
     type BlockAttachParams as BlockAttachParams,
     type BlockDetachParams as BlockDetachParams,
+    type BlockModifyParams as BlockModifyParams,
   };
 
   export { Groups as Groups, type GroupListParams as GroupListParams };
@@ -1776,13 +1787,13 @@ export declare namespace Agents {
     type UpdateSystemMessage as UpdateSystemMessage,
     type UpdateUserMessage as UpdateUserMessage,
     type UserMessage as UserMessage,
-    type MessageUpdateResponse as MessageUpdateResponse,
     type MessageCancelResponse as MessageCancelResponse,
+    type MessageModifyResponse as MessageModifyResponse,
     type MessageStreamResponse as MessageStreamResponse,
     type LettaMessageUnionsArrayPage as LettaMessageUnionsArrayPage,
-    type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,
+    type MessageModifyParams as MessageModifyParams,
     type MessageResetParams as MessageResetParams,
     type MessageSendParams as MessageSendParams,
     type MessageSendAsyncParams as MessageSendAsyncParams,

@@ -4,12 +4,12 @@ import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
 import {
   MessageListParams,
+  MessageModifyParams,
+  MessageModifyResponse,
   MessageResetResponse,
   MessageSendParams,
   MessageStreamParams,
   MessageStreamResponse,
-  MessageUpdateParams,
-  MessageUpdateResponse,
   Messages,
 } from './messages';
 import { APIPromise } from '../../core/api-promise';
@@ -44,21 +44,6 @@ export class Groups extends APIResource {
   }
 
   /**
-   * Create a new multi-agent group with the specified configuration.
-   */
-  update(groupID: string, params: GroupUpdateParams, options?: RequestOptions): APIPromise<Group> {
-    const { 'X-Project': xProject, ...body } = params;
-    return this._client.patch(path`/v1/groups/${groupID}`, {
-      body,
-      ...options,
-      headers: buildHeaders([
-        { ...(xProject != null ? { 'X-Project': xProject } : undefined) },
-        options?.headers,
-      ]),
-    });
-  }
-
-  /**
    * Fetch all multi-agent groups matching query.
    */
   list(
@@ -80,6 +65,21 @@ export class Groups extends APIResource {
    */
   count(options?: RequestOptions): APIPromise<GroupCountResponse> {
     return this._client.get('/v1/groups/count', options);
+  }
+
+  /**
+   * Create a new multi-agent group with the specified configuration.
+   */
+  modify(groupID: string, params: GroupModifyParams, options?: RequestOptions): APIPromise<Group> {
+    const { 'X-Project': xProject, ...body } = params;
+    return this._client.patch(path`/v1/groups/${groupID}`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(xProject != null ? { 'X-Project': xProject } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -146,6 +146,9 @@ export interface Group {
    */
   project_id?: string | null;
 
+  /**
+   * @deprecated
+   */
   shared_block_ids?: Array<string>;
 
   sleeptime_agent_frequency?: number | null;
@@ -243,7 +246,7 @@ export interface GroupCreateParams {
   project_id?: string | null;
 
   /**
-   * Body param:
+   * @deprecated Body param:
    */
   shared_block_ids?: Array<string>;
 
@@ -253,7 +256,19 @@ export interface GroupCreateParams {
   'X-Project'?: string;
 }
 
-export interface GroupUpdateParams {
+export interface GroupListParams extends ArrayPageParams {
+  /**
+   * Search groups by manager type
+   */
+  manager_type?: ManagerType | null;
+
+  /**
+   * Search groups by project id
+   */
+  project_id?: string | null;
+}
+
+export interface GroupModifyParams {
   /**
    * Body param:
    */
@@ -268,11 +283,11 @@ export interface GroupUpdateParams {
    * Body param:
    */
   manager_config?:
-    | GroupUpdateParams.RoundRobinManagerUpdate
-    | GroupUpdateParams.SupervisorManagerUpdate
-    | GroupUpdateParams.DynamicManagerUpdate
-    | GroupUpdateParams.SleeptimeManagerUpdate
-    | GroupUpdateParams.VoiceSleeptimeManagerUpdate
+    | GroupModifyParams.RoundRobinManagerUpdate
+    | GroupModifyParams.SupervisorManagerUpdate
+    | GroupModifyParams.DynamicManagerUpdate
+    | GroupModifyParams.SleeptimeManagerUpdate
+    | GroupModifyParams.VoiceSleeptimeManagerUpdate
     | null;
 
   /**
@@ -281,7 +296,7 @@ export interface GroupUpdateParams {
   project_id?: string | null;
 
   /**
-   * Body param:
+   * @deprecated Body param:
    */
   shared_block_ids?: Array<string> | null;
 
@@ -291,7 +306,7 @@ export interface GroupUpdateParams {
   'X-Project'?: string;
 }
 
-export namespace GroupUpdateParams {
+export namespace GroupModifyParams {
   export interface RoundRobinManagerUpdate {
     manager_type?: 'round_robin';
 
@@ -342,18 +357,6 @@ export namespace GroupUpdateParams {
   }
 }
 
-export interface GroupListParams extends ArrayPageParams {
-  /**
-   * Search groups by manager type
-   */
-  manager_type?: ManagerType | null;
-
-  /**
-   * Search groups by project id
-   */
-  project_id?: string | null;
-}
-
 Groups.Messages = Messages;
 
 export declare namespace Groups {
@@ -369,17 +372,17 @@ export declare namespace Groups {
     type GroupCountResponse as GroupCountResponse,
     type GroupsArrayPage as GroupsArrayPage,
     type GroupCreateParams as GroupCreateParams,
-    type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
+    type GroupModifyParams as GroupModifyParams,
   };
 
   export {
     Messages as Messages,
-    type MessageUpdateResponse as MessageUpdateResponse,
+    type MessageModifyResponse as MessageModifyResponse,
     type MessageResetResponse as MessageResetResponse,
     type MessageStreamResponse as MessageStreamResponse,
-    type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
+    type MessageModifyParams as MessageModifyParams,
     type MessageSendParams as MessageSendParams,
     type MessageStreamParams as MessageStreamParams,
   };

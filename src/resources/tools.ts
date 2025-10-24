@@ -23,13 +23,6 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Update an existing tool
-   */
-  update(toolID: string, body: ToolUpdateParams, options?: RequestOptions): APIPromise<Tool> {
-    return this._client.patch(path`/v1/tools/${toolID}`, { body, ...options });
-  }
-
-  /**
    * Get a list of all tools available to agents.
    */
   list(
@@ -54,6 +47,13 @@ export class Tools extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ToolCountResponse> {
     return this._client.get('/v1/tools/count', { query, ...options });
+  }
+
+  /**
+   * Update an existing tool
+   */
+  modify(toolID: string, body: ToolModifyParams, options?: RequestOptions): APIPromise<Tool> {
+    return this._client.patch(path`/v1/tools/${toolID}`, { body, ...options });
   }
 
   /**
@@ -396,70 +396,6 @@ export interface ToolCreateParams {
   tags?: Array<string> | null;
 }
 
-export interface ToolUpdateParams {
-  /**
-   * The args JSON schema of the function.
-   */
-  args_json_schema?: { [key: string]: unknown } | null;
-
-  /**
-   * Whether or not to require approval before executing this tool.
-   */
-  default_requires_approval?: boolean | null;
-
-  /**
-   * The description of the tool.
-   */
-  description?: string | null;
-
-  /**
-   * If set to True, then this tool will potentially be executed concurrently with
-   * other tools. Default False.
-   */
-  enable_parallel_execution?: boolean | null;
-
-  /**
-   * The JSON schema of the function (auto-generated from source_code if not
-   * provided)
-   */
-  json_schema?: { [key: string]: unknown } | null;
-
-  /**
-   * A dictionary of additional metadata for the tool.
-   */
-  metadata_?: { [key: string]: unknown } | null;
-
-  /**
-   * Optional list of npm packages required by this tool.
-   */
-  npm_requirements?: Array<NpmRequirement> | null;
-
-  /**
-   * Optional list of pip packages required by this tool.
-   */
-  pip_requirements?: Array<PipRequirement> | null;
-
-  /**
-   * The maximum number of characters in the response.
-   */
-  return_char_limit?: number | null;
-
-  /**
-   * The source code of the function.
-   */
-  source_code?: string | null;
-
-  /**
-   * The type of the source code.
-   */
-  source_type?: string | null;
-
-  /**
-   * Metadata tags.
-   */
-  tags?: Array<string> | null;
-}
-
 export interface ToolListParams extends ArrayPageParams {
   /**
    * Tool type(s) to exclude - accepts repeated params or comma-separated values
@@ -536,6 +472,70 @@ export interface ToolCountParams {
   tool_types?: Array<string> | null;
 }
 
+export interface ToolModifyParams {
+  /**
+   * The args JSON schema of the function.
+   */
+  args_json_schema?: { [key: string]: unknown } | null;
+
+  /**
+   * Whether or not to require approval before executing this tool.
+   */
+  default_requires_approval?: boolean | null;
+
+  /**
+   * The description of the tool.
+   */
+  description?: string | null;
+
+  /**
+   * If set to True, then this tool will potentially be executed concurrently with
+   * other tools. Default False.
+   */
+  enable_parallel_execution?: boolean | null;
+
+  /**
+   * The JSON schema of the function (auto-generated from source_code if not
+   * provided)
+   */
+  json_schema?: { [key: string]: unknown } | null;
+
+  /**
+   * A dictionary of additional metadata for the tool.
+   */
+  metadata_?: { [key: string]: unknown } | null;
+
+  /**
+   * Optional list of npm packages required by this tool.
+   */
+  npm_requirements?: Array<NpmRequirement> | null;
+
+  /**
+   * Optional list of pip packages required by this tool.
+   */
+  pip_requirements?: Array<PipRequirement> | null;
+
+  /**
+   * The maximum number of characters in the response.
+   */
+  return_char_limit?: number | null;
+
+  /**
+   * The source code of the function.
+   */
+  source_code?: string | null;
+
+  /**
+   * The type of the source code.
+   */
+  source_type?: string | null;
+
+  /**
+   * Metadata tags.
+   */
+  tags?: Array<string> | null;
+}
+
 export interface ToolUpsertParams {
   /**
    * The source code of the function.
@@ -608,9 +608,9 @@ export declare namespace Tools {
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
-    type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
     type ToolCountParams as ToolCountParams,
+    type ToolModifyParams as ToolModifyParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 }
