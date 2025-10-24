@@ -146,6 +146,9 @@ export interface Group {
    */
   project_id?: string | null;
 
+  /**
+   * @deprecated
+   */
   shared_block_ids?: Array<string>;
 
   sleeptime_agent_frequency?: number | null;
@@ -243,7 +246,7 @@ export interface GroupCreateParams {
   project_id?: string | null;
 
   /**
-   * Body param:
+   * @deprecated Body param:
    */
   shared_block_ids?: Array<string>;
 
@@ -293,7 +296,7 @@ export interface GroupModifyParams {
   project_id?: string | null;
 
   /**
-   * Body param:
+   * @deprecated Body param:
    */
   shared_block_ids?: Array<string> | null;
 
