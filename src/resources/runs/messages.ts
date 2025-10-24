@@ -2,7 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from '../agents/messages';
+import { LettaMessageUnionsArrayPage } from '../agents/messages';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -14,8 +16,12 @@ export class Messages extends APIResource {
     runID: string,
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessageListResponse> {
-    return this._client.get(path`/v1/runs/${runID}/messages`, { query, ...options });
+  ): PagePromise<LettaMessageUnionsArrayPage, MessagesAPI.LettaMessageUnion> {
+    return this._client.getAPIList(
+      path`/v1/runs/${runID}/messages`,
+      ArrayPage<MessagesAPI.LettaMessageUnion>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -30,39 +36,9 @@ export class Messages extends APIResource {
   }
 }
 
-export type MessageListResponse = Array<MessagesAPI.LettaMessageUnion>;
-
 export type MessageStreamResponse = unknown;
 
-export interface MessageListParams {
-  /**
-   * Message ID cursor for pagination. Returns messages that come after this message
-   * ID in the specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Message ID cursor for pagination. Returns messages that come before this message
-   * ID in the specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of messages to return
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
-}
+export interface MessageListParams extends ArrayPageParams {}
 
 export interface MessageStreamParams {
   /**
@@ -90,9 +66,10 @@ export interface MessageStreamParams {
 
 export declare namespace Messages {
   export {
-    type MessageListResponse as MessageListResponse,
     type MessageStreamResponse as MessageStreamResponse,
     type MessageListParams as MessageListParams,
     type MessageStreamParams as MessageStreamParams,
   };
 }
+
+export { type LettaMessageUnionsArrayPage };

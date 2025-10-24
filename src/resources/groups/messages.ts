@@ -4,7 +4,9 @@ import { APIResource } from '../../core/resource';
 import * as ToolsAPI from '../tools';
 import * as AgentsAPI from '../agents/agents';
 import * as MessagesAPI from '../agents/messages';
+import { LettaMessageUnionsArrayPage } from '../agents/messages';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -28,8 +30,12 @@ export class Messages extends APIResource {
     groupID: string,
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessageListResponse> {
-    return this._client.get(path`/v1/groups/${groupID}/messages`, { query, ...options });
+  ): PagePromise<LettaMessageUnionsArrayPage, MessagesAPI.LettaMessageUnion> {
+    return this._client.getAPIList(
+      path`/v1/groups/${groupID}/messages`,
+      ArrayPage<MessagesAPI.LettaMessageUnion>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -81,8 +87,6 @@ export type MessageUpdateResponse =
   | MessagesAPI.AssistantMessage
   | MessagesAPI.ApprovalRequestMessage
   | MessagesAPI.ApprovalResponseMessage;
-
-export type MessageListResponse = Array<MessagesAPI.LettaMessageUnion>;
 
 export type MessageResetResponse = unknown;
 
@@ -167,13 +171,7 @@ export declare namespace MessageUpdateParams {
   }
 }
 
-export interface MessageListParams {
-  /**
-   * Message ID cursor for pagination. Returns messages that come after this message
-   * ID in the specified sort order
-   */
-  after?: string | null;
-
+export interface MessageListParams extends ArrayPageParams {
   /**
    * @deprecated The name of the message argument.
    */
@@ -183,28 +181,6 @@ export interface MessageListParams {
    * @deprecated The name of the designated message tool.
    */
   assistant_message_tool_name?: string;
-
-  /**
-   * Message ID cursor for pagination. Returns messages that come before this message
-   * ID in the specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of messages to retrieve
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
 
   /**
    * @deprecated Whether to use assistant messages
@@ -320,7 +296,6 @@ export interface MessageStreamParams {
 export declare namespace Messages {
   export {
     type MessageUpdateResponse as MessageUpdateResponse,
-    type MessageListResponse as MessageListResponse,
     type MessageResetResponse as MessageResetResponse,
     type MessageStreamResponse as MessageStreamResponse,
     type MessageUpdateParams as MessageUpdateParams,
@@ -329,3 +304,5 @@ export declare namespace Messages {
     type MessageStreamParams as MessageStreamParams,
   };
 }
+
+export { type LettaMessageUnionsArrayPage };

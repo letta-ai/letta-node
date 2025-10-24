@@ -19,7 +19,6 @@ export {
   type RequiresApprovalToolRule,
   type TerminalToolRule,
   type TextResponseFormat,
-  type AgentListResponse,
   type AgentDeleteResponse,
   type AgentCountResponse,
   type AgentExportFileResponse,
@@ -30,6 +29,7 @@ export {
   type AgentListParams,
   type AgentExportFileParams,
   type AgentImportFileParams,
+  type AgentStatesArrayPage,
 } from './agents/agents';
 export {
   Archives,
@@ -43,15 +43,14 @@ export {
 export {
   Batches,
   type BatchJob,
-  type BatchListResponse,
   type BatchCancelResponse,
   type BatchCreateParams,
   type BatchListParams,
+  type BatchJobsArrayPage,
 } from './batches/batches';
 export {
   Blocks,
   type CreateBlock,
-  type BlockListResponse,
   type BlockDeleteResponse,
   type BlockCountResponse,
   type BlockCreateParams,
@@ -61,12 +60,12 @@ export {
 export {
   Folders,
   type Folder,
-  type FolderListResponse,
   type FolderDeleteResponse,
   type FolderCountResponse,
   type FolderCreateParams,
   type FolderUpdateParams,
   type FolderListParams,
+  type FoldersArrayPage,
 } from './folders/folders';
 export {
   Groups,
@@ -77,25 +76,25 @@ export {
   type SleeptimeManager,
   type SupervisorManager,
   type VoiceSleeptimeManager,
-  type GroupListResponse,
   type GroupDeleteResponse,
   type GroupCountResponse,
   type GroupCreateParams,
   type GroupUpdateParams,
   type GroupListParams,
+  type GroupsArrayPage,
 } from './groups/groups';
 export {
   Identities,
   type Identity,
   type IdentityProperty,
   type IdentityType,
-  type IdentityListResponse,
   type IdentityDeleteResponse,
   type IdentityCountResponse,
   type IdentityCreateParams,
   type IdentityUpdateParams,
   type IdentityListParams,
   type IdentityUpsertParams,
+  type IdentitiesArrayPage,
 } from './identities/identities';
 export {
   Models,
@@ -106,15 +105,15 @@ export {
   type ModelListResponse,
   type ModelListParams,
 } from './models/models';
-export { Runs, type Job, type StopReasonType, type RunListResponse, type RunListParams } from './runs/runs';
+export { Runs, type Job, type StopReasonType, type RunListParams } from './runs/runs';
 export {
   Steps,
   type ProviderTrace,
   type Step,
-  type StepListResponse,
   type StepListParams,
+  type StepsArrayPage,
 } from './steps/steps';
-export { Tags, type TagListResponse, type TagListParams } from './tags';
+export { Tags, type TagListResponse, type TagListParams, type TagListResponsesArrayPage } from './tags';
 export { Templates } from './templates/templates';
 export {
   Tools,
@@ -124,7 +123,6 @@ export {
   type ToolCreate,
   type ToolReturnMessage,
   type ToolType,
-  type ToolListResponse,
   type ToolDeleteResponse,
   type ToolCountResponse,
   type ToolUpsertBaseToolsResponse,
@@ -133,5 +131,6 @@ export {
   type ToolListParams,
   type ToolCountParams,
   type ToolUpsertParams,
+  type ToolsArrayPage,
 } from './tools';
 export { type HealthResponse } from './top-level';

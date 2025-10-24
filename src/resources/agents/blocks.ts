@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -33,8 +34,11 @@ export class Blocks extends APIResource {
     agentID: string,
     query: BlockListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<BlockListResponse> {
-    return this._client.get(path`/v1/agents/${agentID}/core-memory/blocks`, { query, ...options });
+  ): PagePromise<BlocksArrayPage, Block> {
+    return this._client.getAPIList(path`/v1/agents/${agentID}/core-memory/blocks`, ArrayPage<Block>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -61,6 +65,8 @@ export class Blocks extends APIResource {
     return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/detach/${blockID}`, options);
   }
 }
+
+export type BlocksArrayPage = ArrayPage<Block>;
 
 /**
  * A Block represents a reserved section of the LLM's context window which is
@@ -241,8 +247,6 @@ export interface BlockUpdate {
   value?: string | null;
 }
 
-export type BlockListResponse = Array<Block>;
-
 export interface BlockRetrieveParams {
   /**
    * The ID of the agent in the format 'agent-<uuid4>'
@@ -327,35 +331,7 @@ export interface BlockUpdateParams {
   value?: string | null;
 }
 
-export interface BlockListParams {
-  /**
-   * Block ID cursor for pagination. Returns blocks that come after this block ID in
-   * the specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Block ID cursor for pagination. Returns blocks that come before this block ID in
-   * the specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of blocks to return
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
-}
+export interface BlockListParams extends ArrayPageParams {}
 
 export interface BlockAttachParams {
   /**
@@ -375,7 +351,7 @@ export declare namespace Blocks {
   export {
     type Block as Block,
     type BlockUpdate as BlockUpdate,
-    type BlockListResponse as BlockListResponse,
+    type BlocksArrayPage as BlocksArrayPage,
     type BlockRetrieveParams as BlockRetrieveParams,
     type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,

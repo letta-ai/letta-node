@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -13,43 +13,24 @@ export class Agents extends APIResource {
     folderID: string,
     query: AgentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AgentListResponse> {
-    return this._client.get(path`/v1/folders/${folderID}/agents`, { query, ...options });
+  ): PagePromise<AgentListResponsesArrayPage, AgentListResponse> {
+    return this._client.getAPIList(path`/v1/folders/${folderID}/agents`, ArrayPage<AgentListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type AgentListResponse = Array<string>;
+export type AgentListResponsesArrayPage = ArrayPage<AgentListResponse>;
 
-export interface AgentListParams {
-  /**
-   * Agent ID cursor for pagination. Returns agents that come after this agent ID in
-   * the specified sort order
-   */
-  after?: string | null;
+export type AgentListResponse = string;
 
-  /**
-   * Agent ID cursor for pagination. Returns agents that come before this agent ID in
-   * the specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of agents to return
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for agents by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
-}
+export interface AgentListParams extends ArrayPageParams {}
 
 export declare namespace Agents {
-  export { type AgentListResponse as AgentListResponse, type AgentListParams as AgentListParams };
+  export {
+    type AgentListResponse as AgentListResponse,
+    type AgentListResponsesArrayPage as AgentListResponsesArrayPage,
+    type AgentListParams as AgentListParams,
+  };
 }

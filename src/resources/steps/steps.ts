@@ -6,12 +6,13 @@ import * as RunsAPI from '../runs/runs';
 import * as FeedbackAPI from './feedback';
 import { Feedback, FeedbackCreateParams } from './feedback';
 import * as StepsMessagesAPI from './messages';
-import { MessageListParams, MessageListResponse, Messages } from './messages';
+import { MessageListParams, MessageListResponse, MessageListResponsesArrayPage, Messages } from './messages';
 import * as MetricsAPI from './metrics';
 import { MetricRetrieveResponse, Metrics } from './metrics';
 import * as TraceAPI from './trace';
 import { Trace } from './trace';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -35,9 +36,9 @@ export class Steps extends APIResource {
   list(
     params: StepListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<StepListResponse> {
+  ): PagePromise<StepsArrayPage, Step> {
     const { 'X-Project': xProject, ...query } = params ?? {};
-    return this._client.get('/v1/steps/', {
+    return this._client.getAPIList('/v1/steps/', ArrayPage<Step>, {
       query,
       ...options,
       headers: buildHeaders([
@@ -47,6 +48,8 @@ export class Steps extends APIResource {
     });
   }
 }
+
+export type StepsArrayPage = ArrayPage<Step>;
 
 /**
  * Letta's internal representation of a provider trace.
@@ -224,23 +227,11 @@ export interface Step {
   trace_id?: string | null;
 }
 
-export type StepListResponse = Array<Step>;
-
-export interface StepListParams {
-  /**
-   * Query param: Return steps after this step ID
-   */
-  after?: string | null;
-
+export interface StepListParams extends ArrayPageParams {
   /**
    * Query param: Filter by the ID of the agent that performed the step
    */
   agent_id?: string | null;
-
-  /**
-   * Query param: Return steps before this step ID
-   */
-  before?: string | null;
 
   /**
    * Query param: Return steps before this ISO datetime (e.g.
@@ -259,25 +250,9 @@ export interface StepListParams {
   has_feedback?: boolean | null;
 
   /**
-   * Query param: Maximum number of steps to return
-   */
-  limit?: number | null;
-
-  /**
    * Query param: Filter by the name of the model used for the step
    */
   model?: string | null;
-
-  /**
-   * Query param: Sort order for steps by creation time. 'asc' for oldest first,
-   * 'desc' for newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Query param: Field to sort by
-   */
-  order_by?: 'created_at';
 
   /**
    * Query param: Filter by the project ID that is associated with the step (cloud
@@ -316,7 +291,7 @@ export declare namespace Steps {
   export {
     type ProviderTrace as ProviderTrace,
     type Step as Step,
-    type StepListResponse as StepListResponse,
+    type StepsArrayPage as StepsArrayPage,
     type StepListParams as StepListParams,
   };
 
@@ -329,6 +304,7 @@ export declare namespace Steps {
   export {
     Messages as Messages,
     type MessageListResponse as MessageListResponse,
+    type MessageListResponsesArrayPage as MessageListResponsesArrayPage,
     type MessageListParams as MessageListParams,
   };
 }
