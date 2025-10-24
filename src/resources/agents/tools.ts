@@ -31,7 +31,7 @@ export class Tools extends APIResource {
     toolID: string,
     params: ToolAttachParams,
     options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
+  ): APIPromise<AgentsAPI.AgentState | null> {
     const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/tools/attach/${toolID}`, options);
   }
@@ -43,7 +43,7 @@ export class Tools extends APIResource {
     toolID: string,
     params: ToolDetachParams,
     options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
+  ): APIPromise<AgentsAPI.AgentState | null> {
     const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/tools/detach/${toolID}`, options);
   }
@@ -58,7 +58,7 @@ export class Tools extends APIResource {
     toolName: string,
     params: ToolUpdateApprovalParams,
     options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
+  ): APIPromise<AgentsAPI.AgentState | null> {
     const { agent_id, query_requires_approval, ...body } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/tools/approval/${toolName}`, {
       query: { requires_approval: query_requires_approval },

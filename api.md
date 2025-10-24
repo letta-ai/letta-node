@@ -131,9 +131,9 @@ Methods:
 Methods:
 
 - <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/resources/agents/tools.ts">list</a>(agentID, { ...params }) -> ToolsArrayPage</code>
-- <code title="patch /v1/agents/{agent_id}/tools/attach/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">attach</a>(toolID, { ...params }) -> AgentState</code>
-- <code title="patch /v1/agents/{agent_id}/tools/detach/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">detach</a>(toolID, { ...params }) -> AgentState</code>
-- <code title="patch /v1/agents/{agent_id}/tools/approval/{tool_name}">client.agents.tools.<a href="./src/resources/agents/tools.ts">updateApproval</a>(toolName, { ...params }) -> AgentState</code>
+- <code title="patch /v1/agents/{agent_id}/tools/attach/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">attach</a>(toolID, { ...params }) -> AgentState | null</code>
+- <code title="patch /v1/agents/{agent_id}/tools/detach/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">detach</a>(toolID, { ...params }) -> AgentState | null</code>
+- <code title="patch /v1/agents/{agent_id}/tools/approval/{tool_name}">client.agents.tools.<a href="./src/resources/agents/tools.ts">updateApproval</a>(toolName, { ...params }) -> AgentState | null</code>
 
 ## Folders
 
