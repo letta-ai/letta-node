@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as ModelsAPI from './models/models';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -63,6 +64,11 @@ export interface Archive {
   created_at: string;
 
   /**
+   * Embedding configuration for passages in this archive
+   */
+  embedding_config: ModelsAPI.EmbeddingConfig;
+
+  /**
    * The name of the archive
    */
   name: string;
@@ -111,6 +117,11 @@ export type VectorDBProvider = 'native' | 'tpuf' | 'pinecone';
 export type ArchiveListResponse = Array<Archive>;
 
 export interface ArchiveCreateParams {
+  /**
+   * Embedding configuration for the archive
+   */
+  embedding_config: ModelsAPI.EmbeddingConfig;
+
   name: string;
 
   description?: string | null;

@@ -27,7 +27,14 @@ const client = new Letta({
   environment: 'local', // defaults to 'cloud'
 });
 
-const archive = await client.archives.create({ name: 'name' });
+const archive = await client.archives.create({
+  embedding_config: {
+    embedding_dim: 0,
+    embedding_endpoint_type: 'openai',
+    embedding_model: 'embedding_model',
+  },
+  name: 'name',
+});
 
 console.log(archive.id);
 ```
@@ -45,7 +52,14 @@ const client = new Letta({
   environment: 'local', // defaults to 'cloud'
 });
 
-const params: Letta.ArchiveCreateParams = { name: 'name' };
+const params: Letta.ArchiveCreateParams = {
+  embedding_config: {
+    embedding_dim: 0,
+    embedding_endpoint_type: 'openai',
+    embedding_model: 'embedding_model',
+  },
+  name: 'name',
+};
 const archive: Letta.Archive = await client.archives.create(params);
 ```
 
@@ -98,15 +112,24 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const archive = await client.archives.create({ name: 'name' }).catch(async (err) => {
-  if (err instanceof Letta.APIError) {
-    console.log(err.status); // 400
-    console.log(err.name); // BadRequestError
-    console.log(err.headers); // {server: 'nginx', ...}
-  } else {
-    throw err;
-  }
-});
+const archive = await client.archives
+  .create({
+    embedding_config: {
+      embedding_dim: 0,
+      embedding_endpoint_type: 'openai',
+      embedding_model: 'embedding_model',
+    },
+    name: 'name',
+  })
+  .catch(async (err) => {
+    if (err instanceof Letta.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 ```
 
 Error codes are as follows:
@@ -138,7 +161,7 @@ const client = new Letta({
 });
 
 // Or, configure per-request:
-await client.archives.create({ name: 'name' }, {
+await client.archives.create({ embedding_config: { embedding_dim: 0, embedding_endpoint_type: 'openai', embedding_model: 'embedding_model' }, name: 'name' }, {
   maxRetries: 5,
 });
 ```
@@ -155,7 +178,7 @@ const client = new Letta({
 });
 
 // Override per-request:
-await client.archives.create({ name: 'name' }, {
+await client.archives.create({ embedding_config: { embedding_dim: 0, embedding_endpoint_type: 'openai', embedding_model: 'embedding_model' }, name: 'name' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -178,11 +201,29 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Letta();
 
-const response = await client.archives.create({ name: 'name' }).asResponse();
+const response = await client.archives
+  .create({
+    embedding_config: {
+      embedding_dim: 0,
+      embedding_endpoint_type: 'openai',
+      embedding_model: 'embedding_model',
+    },
+    name: 'name',
+  })
+  .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: archive, response: raw } = await client.archives.create({ name: 'name' }).withResponse();
+const { data: archive, response: raw } = await client.archives
+  .create({
+    embedding_config: {
+      embedding_dim: 0,
+      embedding_endpoint_type: 'openai',
+      embedding_model: 'embedding_model',
+    },
+    name: 'name',
+  })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(archive.id);
 ```
