@@ -15,7 +15,13 @@ import * as qs from './internal/qs';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
-import { AbstractPage, type ArrayPageParams, ArrayPageResponse } from './core/pagination';
+import {
+  AbstractPage,
+  type ArrayPageParams,
+  ArrayPageResponse,
+  type ObjectPageParams,
+  ObjectPageResponse,
+} from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
@@ -913,6 +919,9 @@ export declare namespace Letta {
 
   export import ArrayPage = Pagination.ArrayPage;
   export { type ArrayPageParams as ArrayPageParams, type ArrayPageResponse as ArrayPageResponse };
+
+  export import ObjectPage = Pagination.ObjectPage;
+  export { type ObjectPageParams as ObjectPageParams, type ObjectPageResponse as ObjectPageResponse };
 
   export { type HealthResponse as HealthResponse };
 

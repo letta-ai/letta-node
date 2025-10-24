@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as AgentsAPI from '../agents/agents';
 import * as MessagesAPI from '../agents/messages';
 import * as BatchesMessagesAPI from './messages';
-import { MessageListParams, MessageListResponse, Messages } from './messages';
+import { MessageListParams, Messages } from './messages';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
@@ -223,9 +223,5 @@ export declare namespace Batches {
     type BatchListParams as BatchListParams,
   };
 
-  export {
-    Messages as Messages,
-    type MessageListResponse as MessageListResponse,
-    type MessageListParams as MessageListParams,
-  };
+  export { Messages as Messages, type MessageListParams as MessageListParams };
 }
