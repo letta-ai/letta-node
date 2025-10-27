@@ -9,30 +9,6 @@ const client = new Letta({
 
 describe('resource messages', () => {
   // Prism tests are disabled
-  test.skip('update: only required params', async () => {
-    const responsePromise = client.groups.messages.update('message-123e4567-e89b-42d3-8456-426614174000', {
-      group_id: 'group-123e4567-e89b-42d3-8456-426614174000',
-      content: 'content',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
-    const response = await client.groups.messages.update('message-123e4567-e89b-42d3-8456-426614174000', {
-      group_id: 'group-123e4567-e89b-42d3-8456-426614174000',
-      content: 'content',
-      message_type: 'system_message',
-    });
-  });
-
-  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.groups.messages.list('group-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -63,6 +39,30 @@ describe('resource messages', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  // Prism tests are disabled
+  test.skip('modify: only required params', async () => {
+    const responsePromise = client.groups.messages.modify('message-123e4567-e89b-42d3-8456-426614174000', {
+      group_id: 'group-123e4567-e89b-42d3-8456-426614174000',
+      content: 'content',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('modify: required and optional params', async () => {
+    const response = await client.groups.messages.modify('message-123e4567-e89b-42d3-8456-426614174000', {
+      group_id: 'group-123e4567-e89b-42d3-8456-426614174000',
+      content: 'content',
+      message_type: 'system_message',
+    });
   });
 
   // Prism tests are disabled

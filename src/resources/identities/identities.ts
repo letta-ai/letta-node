@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
 import { AgentListParams, Agents } from './agents';
 import * as BlocksAPI from './blocks';
-import { BlockListParams, Blocks } from './blocks';
+import { BlockListParams, BlockListResponse, BlockListResponsesArrayPage, Blocks } from './blocks';
 import * as PropertiesAPI from './properties';
 import { Properties, PropertyUpsertParams, PropertyUpsertResponse } from './properties';
 import { APIPromise } from '../../core/api-promise';
@@ -41,13 +41,6 @@ export class Identities extends APIResource {
   }
 
   /**
-   * Modify Identity
-   */
-  update(identityID: string, body: IdentityUpdateParams, options?: RequestOptions): APIPromise<Identity> {
-    return this._client.patch(path`/v1/identities/${identityID}`, { body, ...options });
-  }
-
-  /**
    * Get a list of all identities in the database
    */
   list(
@@ -69,6 +62,13 @@ export class Identities extends APIResource {
    */
   count(options?: RequestOptions): APIPromise<IdentityCountResponse> {
     return this._client.get('/v1/identities/count', options);
+  }
+
+  /**
+   * Modify Identity
+   */
+  modify(identityID: string, body: IdentityModifyParams, options?: RequestOptions): APIPromise<Identity> {
+    return this._client.patch(path`/v1/identities/${identityID}`, { body, ...options });
   }
 
   /**
@@ -202,7 +202,20 @@ export interface IdentityCreateParams {
   'X-Project'?: string;
 }
 
-export interface IdentityUpdateParams {
+export interface IdentityListParams extends ArrayPageParams {
+  identifier_key?: string | null;
+
+  /**
+   * Enum to represent the type of the identity.
+   */
+  identity_type?: IdentityType | null;
+
+  name?: string | null;
+
+  project_id?: string | null;
+}
+
+export interface IdentityModifyParams {
   /**
    * @deprecated The agent ids that are associated with the identity.
    */
@@ -232,19 +245,6 @@ export interface IdentityUpdateParams {
    * List of properties associated with the identity.
    */
   properties?: Array<IdentityProperty> | null;
-}
-
-export interface IdentityListParams extends ArrayPageParams {
-  identifier_key?: string | null;
-
-  /**
-   * Enum to represent the type of the identity.
-   */
-  identity_type?: IdentityType | null;
-
-  name?: string | null;
-
-  project_id?: string | null;
 }
 
 export interface IdentityUpsertParams {
@@ -302,8 +302,8 @@ export declare namespace Identities {
     type IdentityCountResponse as IdentityCountResponse,
     type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
-    type IdentityUpdateParams as IdentityUpdateParams,
     type IdentityListParams as IdentityListParams,
+    type IdentityModifyParams as IdentityModifyParams,
     type IdentityUpsertParams as IdentityUpsertParams,
   };
 
@@ -315,5 +315,10 @@ export declare namespace Identities {
 
   export { Agents as Agents, type AgentListParams as AgentListParams };
 
-  export { Blocks as Blocks, type BlockListParams as BlockListParams };
+  export {
+    Blocks as Blocks,
+    type BlockListResponse as BlockListResponse,
+    type BlockListResponsesArrayPage as BlockListResponsesArrayPage,
+    type BlockListParams as BlockListParams,
+  };
 }

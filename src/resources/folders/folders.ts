@@ -38,13 +38,6 @@ export class Folders extends APIResource {
   }
 
   /**
-   * Update the name or documentation of an existing data folder.
-   */
-  update(folderID: string, body: FolderUpdateParams, options?: RequestOptions): APIPromise<Folder> {
-    return this._client.patch(path`/v1/folders/${folderID}`, { body, ...options });
-  }
-
-  /**
    * List all data folders created by a user.
    */
   list(
@@ -66,6 +59,13 @@ export class Folders extends APIResource {
    */
   count(options?: RequestOptions): APIPromise<FolderCountResponse> {
     return this._client.get('/v1/folders/count', options);
+  }
+
+  /**
+   * Update the name or documentation of an existing data folder.
+   */
+  modify(folderID: string, body: FolderModifyParams, options?: RequestOptions): APIPromise<Folder> {
+    return this._client.patch(path`/v1/folders/${folderID}`, { body, ...options });
   }
 }
 
@@ -173,7 +173,14 @@ export interface FolderCreateParams {
   metadata?: { [key: string]: unknown } | null;
 }
 
-export interface FolderUpdateParams {
+export interface FolderListParams extends ArrayPageParams {
+  /**
+   * Folder name to filter by
+   */
+  name?: string | null;
+}
+
+export interface FolderModifyParams {
   /**
    * The description of the source.
    */
@@ -200,13 +207,6 @@ export interface FolderUpdateParams {
   name?: string | null;
 }
 
-export interface FolderListParams extends ArrayPageParams {
-  /**
-   * Folder name to filter by
-   */
-  name?: string | null;
-}
-
 Folders.Files = Files;
 Folders.Agents = Agents;
 
@@ -217,8 +217,8 @@ export declare namespace Folders {
     type FolderCountResponse as FolderCountResponse,
     type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
-    type FolderUpdateParams as FolderUpdateParams,
     type FolderListParams as FolderListParams,
+    type FolderModifyParams as FolderModifyParams,
   };
 
   export {
