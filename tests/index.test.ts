@@ -302,13 +302,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['LETTA_BASE_URL'] = ''; // empty
       const client = new Letta({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://app.letta.com');
+      expect(client.baseURL).toEqual('https://api.letta.com');
     });
 
     test('blank env variable', () => {
       process.env['LETTA_BASE_URL'] = '  '; // blank
       const client = new Letta({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://app.letta.com');
+      expect(client.baseURL).toEqual('https://api.letta.com');
     });
 
     test('env variable with environment', () => {
@@ -321,7 +321,7 @@ describe('instantiate client', () => {
       );
 
       const client = new Letta({ apiKey: 'My API Key', baseURL: null, environment: 'cloud' });
-      expect(client.baseURL).toEqual('https://app.letta.com');
+      expect(client.baseURL).toEqual('https://api.letta.com');
     });
 
     test('in request options', () => {

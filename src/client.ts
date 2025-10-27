@@ -175,7 +175,7 @@ import {
 import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
-  cloud: 'https://app.letta.com',
+  cloud: 'https://api.letta.com',
   local: 'http://localhost:8283',
 };
 type Environment = keyof typeof environments;
@@ -190,7 +190,7 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `cloud` corresponds to `https://app.letta.com`
+   * - `cloud` corresponds to `https://api.letta.com`
    * - `local` corresponds to `http://localhost:8283`
    */
   environment?: Environment | undefined;
@@ -287,7 +287,7 @@ export class Letta {
    *
    * @param {string | undefined} [opts.apiKey=process.env['LETTA_API_KEY'] ?? undefined]
    * @param {Environment} [opts.environment=cloud] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? https://app.letta.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? https://api.letta.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
