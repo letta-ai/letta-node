@@ -33,12 +33,12 @@ import {
   Archive,
   ArchiveCreateParams,
   ArchiveListParams,
+  ArchiveListResponse,
   ArchiveModifyParams,
   Archives,
-  ArchivesArrayPage,
   VectorDBProvider,
 } from './resources/archives';
-import { TagListParams, TagListResponse, TagListResponsesArrayPage, Tags } from './resources/tags';
+import { TagListParams, TagListResponse, Tags } from './resources/tags';
 import {
   NpmRequirement,
   PipRequirement,
@@ -49,13 +49,13 @@ import {
   ToolCreateParams,
   ToolDeleteResponse,
   ToolListParams,
+  ToolListResponse,
   ToolModifyParams,
   ToolReturnMessage,
   ToolType,
   ToolUpsertBaseToolsResponse,
   ToolUpsertParams,
   Tools,
-  ToolsArrayPage,
 } from './resources/tools';
 import {
   AgentCountResponse,
@@ -92,21 +92,18 @@ import {
   BatchCancelResponse,
   BatchCreateParams,
   BatchJob,
-  BatchJobsArrayPage,
   BatchListParams,
+  BatchListResponse,
   Batches,
 } from './resources/batches/batches';
 import {
   BlockCountResponse,
   BlockCreateParams,
-  BlockCreateResponse,
   BlockDeleteResponse,
   BlockListParams,
-  BlockListResponse,
-  BlockListResponsesArrayPage,
   BlockModifyParams,
-  BlockModifyResponse,
-  BlockRetrieveResponse,
+  BlockResponse,
+  BlockResponsesArrayPage,
   Blocks,
   CreateBlock,
 } from './resources/blocks/blocks';
@@ -116,9 +113,9 @@ import {
   FolderCreateParams,
   FolderDeleteResponse,
   FolderListParams,
+  FolderListResponse,
   FolderModifyParams,
   Folders,
-  FoldersArrayPage,
 } from './resources/folders/folders';
 import {
   DynamicManager,
@@ -138,12 +135,12 @@ import {
 } from './resources/groups/groups';
 import {
   Identities,
-  IdentitiesArrayPage,
   Identity,
   IdentityCountResponse,
   IdentityCreateParams,
   IdentityDeleteResponse,
   IdentityListParams,
+  IdentityListResponse,
   IdentityModifyParams,
   IdentityProperty,
   IdentityType,
@@ -158,7 +155,7 @@ import {
   ProviderCategory,
   ProviderType,
 } from './resources/models/models';
-import { Job, RunListParams, Runs, StopReasonType } from './resources/runs/runs';
+import { Job, RunListParams, RunListResponse, Runs, StopReasonType } from './resources/runs/runs';
 import { ProviderTrace, Step, StepListParams, Steps, StepsArrayPage } from './resources/steps/steps';
 import { Templates } from './resources/templates/templates';
 import { type Fetch } from './internal/builtin-types';
@@ -175,7 +172,7 @@ import {
 import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
-  cloud: 'https://app.letta.com',
+  cloud: 'https://api.letta.com',
   local: 'http://localhost:8283',
 };
 type Environment = keyof typeof environments;
@@ -190,7 +187,7 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `cloud` corresponds to `https://app.letta.com`
+   * - `cloud` corresponds to `https://api.letta.com`
    * - `local` corresponds to `http://localhost:8283`
    */
   environment?: Environment | undefined;
@@ -287,7 +284,7 @@ export class Letta {
    *
    * @param {string | undefined} [opts.apiKey=process.env['LETTA_API_KEY'] ?? undefined]
    * @param {Environment} [opts.environment=cloud] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? https://app.letta.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? https://api.letta.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -942,7 +939,7 @@ export declare namespace Letta {
     Archives as Archives,
     type Archive as Archive,
     type VectorDBProvider as VectorDBProvider,
-    type ArchivesArrayPage as ArchivesArrayPage,
+    type ArchiveListResponse as ArchiveListResponse,
     type ArchiveCreateParams as ArchiveCreateParams,
     type ArchiveListParams as ArchiveListParams,
     type ArchiveModifyParams as ArchiveModifyParams,
@@ -956,10 +953,10 @@ export declare namespace Letta {
     type ToolCreate as ToolCreate,
     type ToolReturnMessage as ToolReturnMessage,
     type ToolType as ToolType,
+    type ToolListResponse as ToolListResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type ToolCountResponse as ToolCountResponse,
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
-    type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolListParams as ToolListParams,
     type ToolCountParams as ToolCountParams,
@@ -970,9 +967,9 @@ export declare namespace Letta {
   export {
     Folders as Folders,
     type Folder as Folder,
+    type FolderListResponse as FolderListResponse,
     type FolderDeleteResponse as FolderDeleteResponse,
     type FolderCountResponse as FolderCountResponse,
-    type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
     type FolderListParams as FolderListParams,
     type FolderModifyParams as FolderModifyParams,
@@ -1032,9 +1029,9 @@ export declare namespace Letta {
     type Identity as Identity,
     type IdentityProperty as IdentityProperty,
     type IdentityType as IdentityType,
+    type IdentityListResponse as IdentityListResponse,
     type IdentityDeleteResponse as IdentityDeleteResponse,
     type IdentityCountResponse as IdentityCountResponse,
-    type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
     type IdentityListParams as IdentityListParams,
     type IdentityModifyParams as IdentityModifyParams,
@@ -1053,14 +1050,11 @@ export declare namespace Letta {
 
   export {
     Blocks as Blocks,
+    type BlockResponse as BlockResponse,
     type CreateBlock as CreateBlock,
-    type BlockCreateResponse as BlockCreateResponse,
-    type BlockRetrieveResponse as BlockRetrieveResponse,
-    type BlockListResponse as BlockListResponse,
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockCountResponse as BlockCountResponse,
-    type BlockModifyResponse as BlockModifyResponse,
-    type BlockListResponsesArrayPage as BlockListResponsesArrayPage,
+    type BlockResponsesArrayPage as BlockResponsesArrayPage,
     type BlockCreateParams as BlockCreateParams,
     type BlockListParams as BlockListParams,
     type BlockModifyParams as BlockModifyParams,
@@ -1070,6 +1064,7 @@ export declare namespace Letta {
     Runs as Runs,
     type Job as Job,
     type StopReasonType as StopReasonType,
+    type RunListResponse as RunListResponse,
     type RunListParams as RunListParams,
   };
 
@@ -1081,18 +1076,13 @@ export declare namespace Letta {
     type StepListParams as StepListParams,
   };
 
-  export {
-    Tags as Tags,
-    type TagListResponse as TagListResponse,
-    type TagListResponsesArrayPage as TagListResponsesArrayPage,
-    type TagListParams as TagListParams,
-  };
+  export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
 
   export {
     Batches as Batches,
     type BatchJob as BatchJob,
+    type BatchListResponse as BatchListResponse,
     type BatchCancelResponse as BatchCancelResponse,
-    type BatchJobsArrayPage as BatchJobsArrayPage,
     type BatchCreateParams as BatchCreateParams,
     type BatchListParams as BatchListParams,
   };

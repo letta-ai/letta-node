@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { NextFilesPage, type NextFilesPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -14,11 +13,8 @@ export class Files extends APIResource {
     agentID: string,
     query: FileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FileListResponsesNextFilesPage, FileListResponse> {
-    return this._client.getAPIList(path`/v1/agents/${agentID}/files`, NextFilesPage<FileListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<FileListResponse> {
+    return this._client.get(path`/v1/agents/${agentID}/files`, { query, ...options });
   }
 
   /**
@@ -55,61 +51,81 @@ export class Files extends APIResource {
   }
 }
 
-export type FileListResponsesNextFilesPage = NextFilesPage<FileListResponse>;
-
 /**
- * Response model for agent file attachments showing file status in agent context
+ * Paginated response for agent files
  */
 export interface FileListResponse {
   /**
-   * Unique identifier of the file-agent relationship
+   * List of file attachments for the agent
    */
-  id: string;
+  files: Array<FileListResponse.File>;
 
   /**
-   * Unique identifier of the file
+   * Whether more results exist after this page
    */
-  file_id: string;
+  has_more: boolean;
 
   /**
-   * Name of the file
+   * Cursor for fetching the next page (file-agent relationship ID)
    */
-  file_name: string;
+  next_cursor?: string | null;
+}
 
+export namespace FileListResponse {
   /**
-   * Unique identifier of the folder/source
+   * Response model for agent file attachments showing file status in agent context
    */
-  folder_id: string;
+  export interface File {
+    /**
+     * Unique identifier of the file-agent relationship
+     */
+    id: string;
 
-  /**
-   * Name of the folder/source
-   */
-  folder_name: string;
+    /**
+     * Unique identifier of the file
+     */
+    file_id: string;
 
-  /**
-   * Whether the file is currently open in the agent's context
-   */
-  is_open: boolean;
+    /**
+     * Name of the file
+     */
+    file_name: string;
 
-  /**
-   * Ending line number if file was opened with line range
-   */
-  end_line?: number | null;
+    /**
+     * Unique identifier of the folder/source
+     */
+    folder_id: string;
 
-  /**
-   * Timestamp of last access by the agent
-   */
-  last_accessed_at?: string | null;
+    /**
+     * Name of the folder/source
+     */
+    folder_name: string;
 
-  /**
-   * Starting line number if file was opened with line range
-   */
-  start_line?: number | null;
+    /**
+     * Whether the file is currently open in the agent's context
+     */
+    is_open: boolean;
 
-  /**
-   * Portion of the file visible to the agent if open
-   */
-  visible_content?: string | null;
+    /**
+     * Ending line number if file was opened with line range
+     */
+    end_line?: number | null;
+
+    /**
+     * Timestamp of last access by the agent
+     */
+    last_accessed_at?: string | null;
+
+    /**
+     * Starting line number if file was opened with line range
+     */
+    start_line?: number | null;
+
+    /**
+     * Portion of the file visible to the agent if open
+     */
+    visible_content?: string | null;
+  }
 }
 
 export type FileCloseResponse = unknown;
@@ -118,7 +134,19 @@ export type FileCloseAllResponse = Array<string>;
 
 export type FileOpenResponse = Array<string>;
 
-export interface FileListParams extends NextFilesPageParams {
+export interface FileListParams {
+  /**
+   * File ID cursor for pagination. Returns files that come after this file ID in the
+   * specified sort order
+   */
+  after?: string | null;
+
+  /**
+   * File ID cursor for pagination. Returns files that come before this file ID in
+   * the specified sort order
+   */
+  before?: string | null;
+
   /**
    * @deprecated Pagination cursor from previous response (deprecated, use
    * before/after)
@@ -129,6 +157,22 @@ export interface FileListParams extends NextFilesPageParams {
    * Filter by open status (true for open files, false for closed files)
    */
   is_open?: boolean | null;
+
+  /**
+   * Maximum number of files to return
+   */
+  limit?: number | null;
+
+  /**
+   * Sort order for files by creation time. 'asc' for oldest first, 'desc' for newest
+   * first
+   */
+  order?: 'asc' | 'desc';
+
+  /**
+   * Field to sort by
+   */
+  order_by?: 'created_at';
 }
 
 export interface FileCloseParams {
@@ -151,7 +195,6 @@ export declare namespace Files {
     type FileCloseResponse as FileCloseResponse,
     type FileCloseAllResponse as FileCloseAllResponse,
     type FileOpenResponse as FileOpenResponse,
-    type FileListResponsesNextFilesPage as FileListResponsesNextFilesPage,
     type FileListParams as FileListParams,
     type FileCloseParams as FileCloseParams,
     type FileOpenParams as FileOpenParams,
