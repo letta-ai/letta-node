@@ -10,13 +10,9 @@ import {
   BlockAttachParams,
   BlockDetachParams,
   BlockListParams,
-  BlockListResponse,
-  BlockListResponsesArrayPage,
   BlockModify,
   BlockModifyParams,
-  BlockModifyResponse,
   BlockRetrieveParams,
-  BlockRetrieveResponse,
   Blocks,
 } from './blocks';
 import * as FilesAPI from './files';
@@ -26,7 +22,6 @@ import {
   FileCloseResponse,
   FileListParams,
   FileListResponse,
-  FileListResponsesNextFilesPage,
   FileOpenParams,
   FileOpenResponse,
   Files,
@@ -37,7 +32,6 @@ import {
   FolderDetachParams,
   FolderListParams,
   FolderListResponse,
-  FolderListResponsesArrayPage,
   Folders,
 } from './folders';
 import * as GroupsAPI from './groups';
@@ -58,6 +52,7 @@ import {
   LettaRequest,
   LettaResponse,
   LettaStreamingRequest,
+  LettaStreamingResponse,
   LettaUserMessageContentUnion,
   Message,
   MessageCancelParams,
@@ -70,7 +65,6 @@ import {
   MessageSendAsyncParams,
   MessageSendParams,
   MessageStreamParams,
-  MessageStreamResponse,
   MessageType,
   Messages,
   OmittedReasoningContent,
@@ -93,7 +87,14 @@ import {
   UserMessage,
 } from './messages';
 import * as AgentsToolsAPI from './tools';
-import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
+import {
+  ToolAttachParams,
+  ToolDetachParams,
+  ToolListParams,
+  ToolListResponse,
+  ToolUpdateApprovalParams,
+  Tools,
+} from './tools';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
 import * as IdentitiesAPI from '../identities/identities';
@@ -1706,6 +1707,7 @@ export declare namespace Agents {
 
   export {
     Tools as Tools,
+    type ToolListResponse as ToolListResponse,
     type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
@@ -1715,7 +1717,6 @@ export declare namespace Agents {
   export {
     Folders as Folders,
     type FolderListResponse as FolderListResponse,
-    type FolderListResponsesArrayPage as FolderListResponsesArrayPage,
     type FolderListParams as FolderListParams,
     type FolderAttachParams as FolderAttachParams,
     type FolderDetachParams as FolderDetachParams,
@@ -1727,7 +1728,6 @@ export declare namespace Agents {
     type FileCloseResponse as FileCloseResponse,
     type FileCloseAllResponse as FileCloseAllResponse,
     type FileOpenResponse as FileOpenResponse,
-    type FileListResponsesNextFilesPage as FileListResponsesNextFilesPage,
     type FileListParams as FileListParams,
     type FileCloseParams as FileCloseParams,
     type FileOpenParams as FileOpenParams,
@@ -1737,10 +1737,6 @@ export declare namespace Agents {
     Blocks as Blocks,
     type Block as Block,
     type BlockModify as BlockModify,
-    type BlockRetrieveResponse as BlockRetrieveResponse,
-    type BlockListResponse as BlockListResponse,
-    type BlockModifyResponse as BlockModifyResponse,
-    type BlockListResponsesArrayPage as BlockListResponsesArrayPage,
     type BlockRetrieveParams as BlockRetrieveParams,
     type BlockListParams as BlockListParams,
     type BlockAttachParams as BlockAttachParams,
@@ -1765,6 +1761,7 @@ export declare namespace Agents {
     type LettaRequest as LettaRequest,
     type LettaResponse as LettaResponse,
     type LettaStreamingRequest as LettaStreamingRequest,
+    type LettaStreamingResponse as LettaStreamingResponse,
     type LettaUserMessageContentUnion as LettaUserMessageContentUnion,
     type Message as Message,
     type MessageRole as MessageRole,
@@ -1789,7 +1786,6 @@ export declare namespace Agents {
     type UserMessage as UserMessage,
     type MessageCancelResponse as MessageCancelResponse,
     type MessageModifyResponse as MessageModifyResponse,
-    type MessageStreamResponse as MessageStreamResponse,
     type LettaMessageUnionsArrayPage as LettaMessageUnionsArrayPage,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,
