@@ -207,6 +207,7 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">LettaRequest</a></code>
 - <code><a href="./src/resources/agents/messages.ts">LettaResponse</a></code>
 - <code><a href="./src/resources/agents/messages.ts">LettaStreamingRequest</a></code>
+- <code><a href="./src/resources/agents/messages.ts">LettaStreamingResponse</a></code>
 - <code><a href="./src/resources/agents/messages.ts">LettaUserMessageContentUnion</a></code>
 - <code><a href="./src/resources/agents/messages.ts">Message</a></code>
 - <code><a href="./src/resources/agents/messages.ts">MessageRole</a></code>
@@ -231,7 +232,6 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">UserMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">MessageCancelResponse</a></code>
 - <code><a href="./src/resources/agents/messages.ts">MessageModifyResponse</a></code>
-- <code><a href="./src/resources/agents/messages.ts">MessageStreamResponse</a></code>
 
 Methods:
 
@@ -241,7 +241,7 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState</code>
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">send</a>(agentID, { ...params }) -> LettaResponse</code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/resources/agents/messages.ts">sendAsync</a>(agentID, { ...params }) -> Run</code>
-- <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/resources/agents/messages.ts">stream</a>(agentID, { ...params }) -> unknown</code>
+- <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/resources/agents/messages.ts">stream</a>(agentID, { ...params }) -> LettaStreamingResponse</code>
 - <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">summarize</a>(agentID) -> void</code>
 
 # Groups
