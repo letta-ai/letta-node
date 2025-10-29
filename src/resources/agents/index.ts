@@ -35,15 +35,11 @@ export {
   Blocks,
   type Block,
   type BlockModify,
-  type BlockRetrieveResponse,
-  type BlockListResponse,
-  type BlockModifyResponse,
   type BlockRetrieveParams,
   type BlockListParams,
   type BlockAttachParams,
   type BlockDetachParams,
   type BlockModifyParams,
-  type BlockListResponsesArrayPage,
 } from './blocks';
 export {
   Files,
@@ -54,7 +50,6 @@ export {
   type FileListParams,
   type FileCloseParams,
   type FileOpenParams,
-  type FileListResponsesNextFilesPage,
 } from './files';
 export {
   Folders,
@@ -62,7 +57,6 @@ export {
   type FolderListParams,
   type FolderAttachParams,
   type FolderDetachParams,
-  type FolderListResponsesArrayPage,
 } from './folders';
 export { Groups, type GroupListParams } from './groups';
 export {
@@ -113,11 +107,10 @@ export {
   type MessageSendAsyncParams,
   type MessageStreamParams,
   type LettaMessageUnionsArrayPage,
-  type RunsArrayPage,
-  type MessagesObjectPage,
 } from './messages';
 export {
   Tools,
+  type ToolListResponse,
   type ToolListParams,
   type ToolAttachParams,
   type ToolDetachParams,

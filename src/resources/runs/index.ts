@@ -6,6 +6,6 @@ export {
   type MessageListParams,
   type MessageStreamParams,
 } from './messages';
-export { Runs, type Job, type StopReasonType, type RunListParams } from './runs';
+export { Runs, type Job, type StopReasonType, type RunListResponse, type RunListParams } from './runs';
 export { Steps, type StepListParams } from './steps';
 export { Usage, type UsageRetrieveResponse } from './usage';

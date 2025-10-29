@@ -3,15 +3,12 @@
 export { Agents, type AgentListParams } from './agents';
 export {
   Blocks,
+  type BlockResponse,
   type CreateBlock,
-  type BlockCreateResponse,
-  type BlockRetrieveResponse,
-  type BlockListResponse,
   type BlockDeleteResponse,
   type BlockCountResponse,
-  type BlockModifyResponse,
   type BlockCreateParams,
   type BlockListParams,
   type BlockModifyParams,
-  type BlockListResponsesArrayPage,
+  type BlockResponsesArrayPage,
 } from './blocks';

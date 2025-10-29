@@ -35,42 +35,39 @@ export {
   Archives,
   type Archive,
   type VectorDBProvider,
+  type ArchiveListResponse,
   type ArchiveCreateParams,
   type ArchiveListParams,
   type ArchiveModifyParams,
-  type ArchivesArrayPage,
 } from './archives';
 export {
   Batches,
   type BatchJob,
+  type BatchListResponse,
   type BatchCancelResponse,
   type BatchCreateParams,
   type BatchListParams,
-  type BatchJobsArrayPage,
 } from './batches/batches';
 export {
   Blocks,
+  type BlockResponse,
   type CreateBlock,
-  type BlockCreateResponse,
-  type BlockRetrieveResponse,
-  type BlockListResponse,
   type BlockDeleteResponse,
   type BlockCountResponse,
-  type BlockModifyResponse,
   type BlockCreateParams,
   type BlockListParams,
   type BlockModifyParams,
-  type BlockListResponsesArrayPage,
+  type BlockResponsesArrayPage,
 } from './blocks/blocks';
 export {
   Folders,
   type Folder,
+  type FolderListResponse,
   type FolderDeleteResponse,
   type FolderCountResponse,
   type FolderCreateParams,
   type FolderListParams,
   type FolderModifyParams,
-  type FoldersArrayPage,
 } from './folders/folders';
 export {
   Groups,
@@ -93,13 +90,13 @@ export {
   type Identity,
   type IdentityProperty,
   type IdentityType,
+  type IdentityListResponse,
   type IdentityDeleteResponse,
   type IdentityCountResponse,
   type IdentityCreateParams,
   type IdentityListParams,
   type IdentityModifyParams,
   type IdentityUpsertParams,
-  type IdentitiesArrayPage,
 } from './identities/identities';
 export {
   Models,
@@ -110,7 +107,7 @@ export {
   type ModelListResponse,
   type ModelListParams,
 } from './models/models';
-export { Runs, type Job, type StopReasonType, type RunListParams } from './runs/runs';
+export { Runs, type Job, type StopReasonType, type RunListResponse, type RunListParams } from './runs/runs';
 export {
   Steps,
   type ProviderTrace,
@@ -118,7 +115,7 @@ export {
   type StepListParams,
   type StepsArrayPage,
 } from './steps/steps';
-export { Tags, type TagListResponse, type TagListParams, type TagListResponsesArrayPage } from './tags';
+export { Tags, type TagListResponse, type TagListParams } from './tags';
 export { Templates } from './templates/templates';
 export {
   Tools,
@@ -128,6 +125,7 @@ export {
   type ToolCreate,
   type ToolReturnMessage,
   type ToolType,
+  type ToolListResponse,
   type ToolDeleteResponse,
   type ToolCountResponse,
   type ToolUpsertBaseToolsResponse,
@@ -136,6 +134,5 @@ export {
   type ToolCountParams,
   type ToolModifyParams,
   type ToolUpsertParams,
-  type ToolsArrayPage,
 } from './tools';
 export { type HealthResponse } from './top-level';
