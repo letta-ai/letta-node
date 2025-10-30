@@ -100,6 +100,7 @@ export {
 } from './identities/identities';
 export {
   McpServers,
+  type McpServerSchema,
   type McpServerCreateResponse,
   type McpServerRetrieveResponse,
   type McpServerListResponse,

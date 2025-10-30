@@ -2,6 +2,7 @@
 
 export {
   McpServers,
+  type McpServerSchema,
   type McpServerCreateResponse,
   type McpServerRetrieveResponse,
   type McpServerListResponse,

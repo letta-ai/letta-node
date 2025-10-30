@@ -154,6 +154,7 @@ import {
   McpServerModifyParams,
   McpServerModifyResponse,
   McpServerRetrieveResponse,
+  McpServerSchema,
   McpServers,
 } from './resources/mcp-servers/mcp-servers';
 import {
@@ -1103,6 +1104,7 @@ export declare namespace Letta {
 
   export {
     McpServers as McpServers,
+    type McpServerSchema as McpServerSchema,
     type McpServerCreateResponse as McpServerCreateResponse,
     type McpServerRetrieveResponse as McpServerRetrieveResponse,
     type McpServerListResponse as McpServerListResponse,

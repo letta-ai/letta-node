@@ -505,6 +505,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerSchema</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerCreateResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerRetrieveResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerListResponse</a></code>
