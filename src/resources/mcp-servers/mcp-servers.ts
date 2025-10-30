@@ -66,6 +66,26 @@ export class McpServers extends APIResource {
 }
 
 /**
+ * MCP server schema for agent files with remapped ID.
+ */
+export interface McpServerSchema {
+  /**
+   * Human-readable MCP server ID
+   */
+  id: string;
+
+  server_name: string;
+
+  server_type: string;
+
+  metadata_?: { [key: string]: unknown } | null;
+
+  server_url?: string | null;
+
+  stdio_config?: { [key: string]: unknown } | null;
+}
+
+/**
  * A Stdio MCP server
  */
 export type McpServerCreateResponse =
@@ -716,6 +736,7 @@ McpServers.Refresh = Refresh;
 
 export declare namespace McpServers {
   export {
+    type McpServerSchema as McpServerSchema,
     type McpServerCreateResponse as McpServerCreateResponse,
     type McpServerRetrieveResponse as McpServerRetrieveResponse,
     type McpServerListResponse as McpServerListResponse,
