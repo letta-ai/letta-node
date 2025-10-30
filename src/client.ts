@@ -147,6 +147,16 @@ import {
   IdentityUpsertParams,
 } from './resources/identities/identities';
 import {
+  McpServerConnectResponse,
+  McpServerCreateParams,
+  McpServerCreateResponse,
+  McpServerListResponse,
+  McpServerModifyParams,
+  McpServerModifyResponse,
+  McpServerRetrieveResponse,
+  McpServers,
+} from './resources/mcp-servers/mcp-servers';
+import {
   EmbeddingConfig,
   LlmConfig,
   ModelListParams,
@@ -902,6 +912,7 @@ export class Letta {
   tags: API.Tags = new API.Tags(this);
   batches: API.Batches = new API.Batches(this);
   templates: API.Templates = new API.Templates(this);
+  mcpServers: API.McpServers = new API.McpServers(this);
 }
 
 Letta.Archives = Archives;
@@ -917,6 +928,7 @@ Letta.Steps = Steps;
 Letta.Tags = Tags;
 Letta.Batches = Batches;
 Letta.Templates = Templates;
+Letta.McpServers = McpServers;
 
 export declare namespace Letta {
   export type RequestOptions = Opts.RequestOptions;
@@ -1088,4 +1100,15 @@ export declare namespace Letta {
   };
 
   export { Templates as Templates };
+
+  export {
+    McpServers as McpServers,
+    type McpServerCreateResponse as McpServerCreateResponse,
+    type McpServerRetrieveResponse as McpServerRetrieveResponse,
+    type McpServerListResponse as McpServerListResponse,
+    type McpServerConnectResponse as McpServerConnectResponse,
+    type McpServerModifyResponse as McpServerModifyResponse,
+    type McpServerCreateParams as McpServerCreateParams,
+    type McpServerModifyParams as McpServerModifyParams,
+  };
 }

@@ -99,6 +99,16 @@ export {
   type IdentityUpsertParams,
 } from './identities/identities';
 export {
+  McpServers,
+  type McpServerCreateResponse,
+  type McpServerRetrieveResponse,
+  type McpServerListResponse,
+  type McpServerConnectResponse,
+  type McpServerModifyResponse,
+  type McpServerCreateParams,
+  type McpServerModifyParams,
+} from './mcp-servers/mcp-servers';
+export {
   Models,
   type EmbeddingConfig,
   type LlmConfig,
