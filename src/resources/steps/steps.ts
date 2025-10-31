@@ -13,7 +13,6 @@ import * as TraceAPI from './trace';
 import { Trace } from './trace';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -34,18 +33,10 @@ export class Steps extends APIResource {
    * List steps with optional pagination and date filters.
    */
   list(
-    params: StepListParams | null | undefined = {},
+    query: StepListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<StepsArrayPage, Step> {
-    const { 'X-Project': xProject, ...query } = params ?? {};
-    return this._client.getAPIList('/v1/steps/', ArrayPage<Step>, {
-      query,
-      ...options,
-      headers: buildHeaders([
-        { ...(xProject != null ? { 'X-Project': xProject } : undefined) },
-        options?.headers,
-      ]),
-    });
+    return this._client.getAPIList('/v1/steps/', ArrayPage<Step>, { query, ...options });
   }
 }
 
@@ -229,57 +220,49 @@ export interface Step {
 
 export interface StepListParams extends ArrayPageParams {
   /**
-   * Query param: Filter by the ID of the agent that performed the step
+   * Filter by the ID of the agent that performed the step
    */
   agent_id?: string | null;
 
   /**
-   * Query param: Return steps before this ISO datetime (e.g.
-   * "2025-01-29T15:01:19-08:00")
+   * Return steps before this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
    */
   end_date?: string | null;
 
   /**
-   * Query param: Filter by feedback
+   * Filter by feedback
    */
   feedback?: 'positive' | 'negative' | null;
 
   /**
-   * Query param: Filter by whether steps have feedback (true) or not (false)
+   * Filter by whether steps have feedback (true) or not (false)
    */
   has_feedback?: boolean | null;
 
   /**
-   * Query param: Filter by the name of the model used for the step
+   * Filter by the name of the model used for the step
    */
   model?: string | null;
 
   /**
-   * Query param: Filter by the project ID that is associated with the step (cloud
-   * only).
+   * Filter by the project ID that is associated with the step (cloud only).
    */
   project_id?: string | null;
 
   /**
-   * Query param: Return steps after this ISO datetime (e.g.
-   * "2025-01-29T15:01:19-08:00")
+   * Return steps after this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
    */
   start_date?: string | null;
 
   /**
-   * Query param: Filter by tags
+   * Filter by tags
    */
   tags?: Array<string> | null;
 
   /**
-   * Query param: Filter by trace ids returned by the server
+   * Filter by trace ids returned by the server
    */
   trace_ids?: Array<string> | null;
-
-  /**
-   * Header param: Filter by project slug to associate with the group (cloud only).
-   */
-  'X-Project'?: string;
 }
 
 Steps.Metrics = Metrics;

@@ -34,7 +34,6 @@ describe('resource identities', () => {
       block_ids: ['string'],
       project_id: 'project_id',
       properties: [{ key: 'key', type: 'string', value: 'string' }],
-      'X-Project': 'X-Project',
     });
   });
 
@@ -145,7 +144,6 @@ describe('resource identities', () => {
       block_ids: ['string'],
       project_id: 'project_id',
       properties: [{ key: 'key', type: 'string', value: 'string' }],
-      'X-Project': 'X-Project',
     });
   });
 });
