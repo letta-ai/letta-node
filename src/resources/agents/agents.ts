@@ -118,16 +118,8 @@ export class Agents extends APIResource {
   /**
    * Create an agent.
    */
-  create(params: AgentCreateParams, options?: RequestOptions): APIPromise<AgentState> {
-    const { 'X-Project': xProject, ...body } = params;
-    return this._client.post('/v1/agents/', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        { ...(xProject != null ? { 'X-Project': xProject } : undefined) },
-        options?.headers,
-      ]),
-    });
+  create(body: AgentCreateParams, options?: RequestOptions): APIPromise<AgentState> {
+    return this._client.post('/v1/agents/', { body, ...options });
   }
 
   /**
@@ -1052,241 +1044,235 @@ export interface AgentImportFileResponse {
 
 export interface AgentCreateParams {
   /**
-   * Body param: The type of agent.
+   * The type of agent.
    */
   agent_type?: AgentType;
 
   /**
-   * Body param: The base template id of the agent.
+   * The base template id of the agent.
    */
   base_template_id?: string | null;
 
   /**
-   * Body param: The ids of the blocks used by the agent.
+   * The ids of the blocks used by the agent.
    */
   block_ids?: Array<string> | null;
 
   /**
-   * Body param: The context window limit used by the agent.
+   * The context window limit used by the agent.
    */
   context_window_limit?: number | null;
 
   /**
-   * Body param: The description of the agent.
+   * The description of the agent.
    */
   description?: string | null;
 
   /**
-   * Body param: The embedding configuration handle used by the agent, specified in
-   * the format provider/model-name.
+   * The embedding configuration handle used by the agent, specified in the format
+   * provider/model-name.
    */
   embedding?: string | null;
 
   /**
-   * Body param: The embedding chunk size used by the agent.
+   * The embedding chunk size used by the agent.
    */
   embedding_chunk_size?: number | null;
 
   /**
-   * Body param: Configuration for embedding model connection and processing
-   * parameters.
+   * Configuration for embedding model connection and processing parameters.
    */
   embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
-   * Body param: Whether to enable internal extended thinking step for a reasoner
-   * model.
+   * Whether to enable internal extended thinking step for a reasoner model.
    */
   enable_reasoner?: boolean | null;
 
   /**
-   * Body param: If set to True, memory management will move to a background agent
-   * thread.
+   * If set to True, memory management will move to a background agent thread.
    */
   enable_sleeptime?: boolean | null;
 
   /**
-   * Body param: Deprecated: please use the 'create agents from a template' endpoint
-   * instead.
+   * Deprecated: please use the 'create agents from a template' endpoint instead.
    */
   from_template?: string | null;
 
   /**
-   * Body param: If set to True, the agent will be hidden.
+   * If set to True, the agent will be hidden.
    */
   hidden?: boolean | null;
 
   /**
-   * Body param: The ids of the identities associated with this agent.
+   * The ids of the identities associated with this agent.
    */
   identity_ids?: Array<string> | null;
 
   /**
-   * Body param: If true, attaches the Letta base tool rules (e.g. deny all tools not
-   * explicitly allowed).
+   * If true, attaches the Letta base tool rules (e.g. deny all tools not explicitly
+   * allowed).
    */
   include_base_tool_rules?: boolean | null;
 
   /**
-   * Body param: If true, attaches the Letta core tools (e.g. core_memory related
-   * functions).
+   * If true, attaches the Letta core tools (e.g. core_memory related functions).
    */
   include_base_tools?: boolean;
 
   /**
-   * Body param: If true, automatically creates and attaches a default data source
-   * for this agent.
+   * If true, automatically creates and attaches a default data source for this
+   * agent.
    */
   include_default_source?: boolean;
 
   /**
-   * Body param: If true, attaches the Letta multi-agent tools (e.g. sending a
-   * message to another agent).
+   * If true, attaches the Letta multi-agent tools (e.g. sending a message to another
+   * agent).
    */
   include_multi_agent_tools?: boolean;
 
   /**
-   * Body param: The initial set of messages to put in the agent's in-context memory.
+   * The initial set of messages to put in the agent's in-context memory.
    */
   initial_message_sequence?: Array<MessageCreate> | null;
 
   /**
-   * Body param: Configuration for Language Model (LLM) connection and generation
-   * parameters.
+   * Configuration for Language Model (LLM) connection and generation parameters.
    */
   llm_config?: ModelsAPI.LlmConfig | null;
 
   /**
-   * Body param: Maximum number of files that can be open at once for this agent.
-   * Setting this too high may exceed the context window, which will break the agent.
+   * Maximum number of files that can be open at once for this agent. Setting this
+   * too high may exceed the context window, which will break the agent.
    */
   max_files_open?: number | null;
 
   /**
-   * Body param: The maximum number of tokens to generate for reasoning step. If not
-   * set, the model will use its default value.
+   * The maximum number of tokens to generate for reasoning step. If not set, the
+   * model will use its default value.
    */
   max_reasoning_tokens?: number | null;
 
   /**
-   * Body param: The maximum number of tokens to generate, including reasoning step.
-   * If not set, the model will use its default value.
+   * The maximum number of tokens to generate, including reasoning step. If not set,
+   * the model will use its default value.
    */
   max_tokens?: number | null;
 
   /**
-   * Body param: The blocks to create in the agent's in-context memory.
+   * The blocks to create in the agent's in-context memory.
    */
   memory_blocks?: Array<BlocksBlocksAPI.CreateBlock> | null;
 
   /**
-   * Body param: The variables that should be set for the agent.
+   * The variables that should be set for the agent.
    */
   memory_variables?: { [key: string]: string } | null;
 
   /**
-   * Body param: If set to True, the agent will not remember previous messages
-   * (though the agent will still retain state via core memory blocks and
-   * archival/recall memory). Not recommended unless you have an advanced use case.
+   * If set to True, the agent will not remember previous messages (though the agent
+   * will still retain state via core memory blocks and archival/recall memory). Not
+   * recommended unless you have an advanced use case.
    */
   message_buffer_autoclear?: boolean;
 
   /**
-   * Body param: The metadata of the agent.
+   * The metadata of the agent.
    */
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: The LLM configuration handle used by the agent, specified in the
-   * format provider/model-name, as an alternative to specifying llm_config.
+   * The LLM configuration handle used by the agent, specified in the format
+   * provider/model-name, as an alternative to specifying llm_config.
    */
   model?: string | null;
 
   /**
-   * Body param: The name of the agent.
+   * The name of the agent.
    */
   name?: string;
 
   /**
-   * Body param: If set to True, enables parallel tool calling. Defaults to False.
+   * If set to True, enables parallel tool calling. Defaults to False.
    */
   parallel_tool_calls?: boolean | null;
 
   /**
-   * Body param: The per-file view window character limit for this agent. Setting
-   * this too high may exceed the context window, which will break the agent.
+   * The per-file view window character limit for this agent. Setting this too high
+   * may exceed the context window, which will break the agent.
    */
   per_file_view_window_char_limit?: number | null;
 
   /**
-   * @deprecated Body param: Deprecated: Project should now be passed via the
-   * X-Project header instead of in the request body. If using the sdk, this can be
-   * done via the new x_project field below.
+   * @deprecated Deprecated: Project should now be passed via the X-Project header
+   * instead of in the request body. If using the sdk, this can be done via the new
+   * x_project field below.
    */
   project?: string | null;
 
   /**
-   * Body param: The id of the project the agent belongs to.
+   * The id of the project the agent belongs to.
    */
   project_id?: string | null;
 
   /**
-   * Body param: Whether to enable reasoning for this agent.
+   * Whether to enable reasoning for this agent.
    */
   reasoning?: boolean | null;
 
   /**
-   * Body param: The response format for the agent.
+   * The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
   /**
-   * Body param: The environment variables for tool execution specific to this agent.
+   * The environment variables for tool execution specific to this agent.
    */
   secrets?: { [key: string]: string } | null;
 
   /**
-   * Body param: The ids of the sources used by the agent.
+   * The ids of the sources used by the agent.
    */
   source_ids?: Array<string> | null;
 
   /**
-   * Body param: The system prompt used by the agent.
+   * The system prompt used by the agent.
    */
   system?: string | null;
 
   /**
-   * Body param: The tags associated with the agent.
+   * The tags associated with the agent.
    */
   tags?: Array<string> | null;
 
   /**
-   * Body param: Deprecated: No longer used
+   * Deprecated: No longer used
    */
   template?: boolean;
 
   /**
-   * Body param: The id of the template the agent belongs to.
+   * The id of the template the agent belongs to.
    */
   template_id?: string | null;
 
   /**
-   * Body param: The timezone of the agent (IANA format).
+   * The timezone of the agent (IANA format).
    */
   timezone?: string | null;
 
   /**
-   * Body param: Deprecated: use `secrets` field instead.
+   * Deprecated: use `secrets` field instead.
    */
   tool_exec_environment_variables?: { [key: string]: string } | null;
 
   /**
-   * Body param: The ids of the tools used by the agent.
+   * The ids of the tools used by the agent.
    */
   tool_ids?: Array<string> | null;
 
   /**
-   * Body param: The tool rules governing the agent.
+   * The tool rules governing the agent.
    */
   tool_rules?: Array<
     | ChildToolRule
@@ -1301,14 +1287,9 @@ export interface AgentCreateParams {
   > | null;
 
   /**
-   * Body param: The tools used by the agent.
+   * The tools used by the agent.
    */
   tools?: Array<string> | null;
-
-  /**
-   * Header param: The project slug to associate with the agent (cloud only).
-   */
-  'X-Project'?: string;
 }
 
 export interface AgentRetrieveParams {

@@ -8,7 +8,6 @@ import { BlockListParams, Blocks } from './blocks';
 import * as PropertiesAPI from './properties';
 import { Properties, PropertyUpsertParams, PropertyUpsertResponse } from './properties';
 import { APIPromise } from '../../core/api-promise';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -20,16 +19,8 @@ export class Identities extends APIResource {
   /**
    * Create Identity
    */
-  create(params: IdentityCreateParams, options?: RequestOptions): APIPromise<Identity> {
-    const { 'X-Project': xProject, ...body } = params;
-    return this._client.post('/v1/identities/', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        { ...(xProject != null ? { 'X-Project': xProject } : undefined) },
-        options?.headers,
-      ]),
-    });
+  create(body: IdentityCreateParams, options?: RequestOptions): APIPromise<Identity> {
+    return this._client.post('/v1/identities/', { body, ...options });
   }
 
   /**
@@ -73,16 +64,8 @@ export class Identities extends APIResource {
   /**
    * Upsert Identity
    */
-  upsert(params: IdentityUpsertParams, options?: RequestOptions): APIPromise<Identity> {
-    const { 'X-Project': xProject, ...body } = params;
-    return this._client.put('/v1/identities/', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        { ...(xProject != null ? { 'X-Project': xProject } : undefined) },
-        options?.headers,
-      ]),
-    });
+  upsert(body: IdentityUpsertParams, options?: RequestOptions): APIPromise<Identity> {
+    return this._client.put('/v1/identities/', { body, ...options });
   }
 }
 
@@ -161,44 +144,39 @@ export type IdentityCountResponse = number;
 
 export interface IdentityCreateParams {
   /**
-   * Body param: External, user-generated identifier key of the identity.
+   * External, user-generated identifier key of the identity.
    */
   identifier_key: string;
 
   /**
-   * Body param: The type of the identity.
+   * The type of the identity.
    */
   identity_type: IdentityType;
 
   /**
-   * Body param: The name of the identity.
+   * The name of the identity.
    */
   name: string;
 
   /**
-   * @deprecated Body param: The agent ids that are associated with the identity.
+   * @deprecated The agent ids that are associated with the identity.
    */
   agent_ids?: Array<string> | null;
 
   /**
-   * @deprecated Body param: The IDs of the blocks associated with the identity.
+   * @deprecated The IDs of the blocks associated with the identity.
    */
   block_ids?: Array<string> | null;
 
   /**
-   * Body param: The project id of the identity, if applicable.
+   * The project id of the identity, if applicable.
    */
   project_id?: string | null;
 
   /**
-   * Body param: List of properties associated with the identity.
+   * List of properties associated with the identity.
    */
   properties?: Array<IdentityProperty> | null;
-
-  /**
-   * Header param: The project slug to associate with the identity (cloud only).
-   */
-  'X-Project'?: string;
 }
 
 export interface IdentityListParams {
@@ -276,44 +254,39 @@ export interface IdentityModifyParams {
 
 export interface IdentityUpsertParams {
   /**
-   * Body param: External, user-generated identifier key of the identity.
+   * External, user-generated identifier key of the identity.
    */
   identifier_key: string;
 
   /**
-   * Body param: The type of the identity.
+   * The type of the identity.
    */
   identity_type: IdentityType;
 
   /**
-   * Body param: The name of the identity.
+   * The name of the identity.
    */
   name: string;
 
   /**
-   * @deprecated Body param: The agent ids that are associated with the identity.
+   * @deprecated The agent ids that are associated with the identity.
    */
   agent_ids?: Array<string> | null;
 
   /**
-   * @deprecated Body param: The IDs of the blocks associated with the identity.
+   * @deprecated The IDs of the blocks associated with the identity.
    */
   block_ids?: Array<string> | null;
 
   /**
-   * Body param: The project id of the identity, if applicable.
+   * The project id of the identity, if applicable.
    */
   project_id?: string | null;
 
   /**
-   * Body param: List of properties associated with the identity.
+   * List of properties associated with the identity.
    */
   properties?: Array<IdentityProperty> | null;
-
-  /**
-   * Header param: The project slug to associate with the identity (cloud only).
-   */
-  'X-Project'?: string;
 }
 
 Identities.Properties = Properties;

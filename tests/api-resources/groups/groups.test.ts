@@ -29,7 +29,6 @@ describe('resource groups', () => {
       manager_config: { manager_type: 'round_robin', max_turns: 0 },
       project_id: 'project_id',
       shared_block_ids: ['string'],
-      'X-Project': 'X-Project',
     });
   });
 
