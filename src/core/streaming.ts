@@ -4,12 +4,9 @@ import { makeReadableStream } from '../internal/shims';
 import { findDoubleNewlineIndex, LineDecoder } from '../internal/decoders/line';
 import { ReadableStreamToAsyncIterable } from '../internal/shims';
 import { isAbortError } from '../internal/errors';
-import { safeJSON } from '../internal/utils/values';
 import { encodeUTF8 } from '../internal/utils/bytes';
 import { loggerFor } from '../internal/utils/log';
 import type { Letta } from '../client';
-
-import { APIError } from './error';
 
 type Bytes = string | ArrayBuffer | Uint8Array | null | undefined;
 
@@ -53,10 +50,6 @@ export class Stream<Item> implements AsyncIterable<Item> {
           if (sse.data.startsWith('[DONE]')) {
             done = true;
             continue;
-          }
-
-          if (sse.event === 'error') {
-            throw new APIError(undefined, safeJSON(sse.data) ?? sse.data, undefined, response.headers);
           }
 
           if (sse.event === null) {

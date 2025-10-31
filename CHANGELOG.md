@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.0.0-alpha.11 (2025-10-31)
+
+Full Changelog: [v1.0.0-alpha.10...v1.0.0-alpha.11](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.10...v1.0.0-alpha.11)
+
+### Features
+
+* add project and project_id fields to stainless client ([3e40365](https://github.com/letta-ai/letta-node/commit/3e403651515619eb67859680b05b204003097389))
+* provider-specific model configuration ([8ea03d2](https://github.com/letta-ai/letta-node/commit/8ea03d2e6719a025c065a59b0b361a047880df73))
+* Revert "feat: provider-specific model configuration " ([35f2757](https://github.com/letta-ai/letta-node/commit/35f2757b25075b230ab6cece92c177503da7def1))
+
+
+### Bug Fixes
+
+* stainless merge build dependency on changed files ([0cab2f0](https://github.com/letta-ai/letta-node/commit/0cab2f0087fcb99b68a7c1bb6bc2f815c6ecfcd9))
+
+
+### Chores
+
+* verify stainless merge build ([6e086a3](https://github.com/letta-ai/letta-node/commit/6e086a3cea7f4152324c34b53201a1df4aff6224))
+
 ## 1.0.0-alpha.10 (2025-10-29)
 
 Full Changelog: [v1.0.0-alpha.9...v1.0.0-alpha.10](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.9...v1.0.0-alpha.10)

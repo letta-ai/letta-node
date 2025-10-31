@@ -14,7 +14,6 @@ import {
 } from './messages';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -24,16 +23,8 @@ export class Groups extends APIResource {
   /**
    * Create a new multi-agent group with the specified configuration.
    */
-  create(params: GroupCreateParams, options?: RequestOptions): APIPromise<Group> {
-    const { 'X-Project': xProject, ...body } = params;
-    return this._client.post('/v1/groups/', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        { ...(xProject != null ? { 'X-Project': xProject } : undefined) },
-        options?.headers,
-      ]),
-    });
+  create(body: GroupCreateParams, options?: RequestOptions): APIPromise<Group> {
+    return this._client.post('/v1/groups/', { body, ...options });
   }
 
   /**
@@ -70,16 +61,8 @@ export class Groups extends APIResource {
   /**
    * Create a new multi-agent group with the specified configuration.
    */
-  modify(groupID: string, params: GroupModifyParams, options?: RequestOptions): APIPromise<Group> {
-    const { 'X-Project': xProject, ...body } = params;
-    return this._client.patch(path`/v1/groups/${groupID}`, {
-      body,
-      ...options,
-      headers: buildHeaders([
-        { ...(xProject != null ? { 'X-Project': xProject } : undefined) },
-        options?.headers,
-      ]),
-    });
+  modify(groupID: string, body: GroupModifyParams, options?: RequestOptions): APIPromise<Group> {
+    return this._client.patch(path`/v1/groups/${groupID}`, { body, ...options });
   }
 }
 
@@ -215,24 +198,15 @@ export type GroupDeleteResponse = unknown;
 export type GroupCountResponse = number;
 
 export interface GroupCreateParams {
-  /**
-   * Body param:
-   */
   agent_ids: Array<string>;
 
-  /**
-   * Body param:
-   */
   description: string;
 
   /**
-   * Body param: If set to True, the group will be hidden.
+   * If set to True, the group will be hidden.
    */
   hidden?: boolean | null;
 
-  /**
-   * Body param:
-   */
   manager_config?:
     | RoundRobinManager
     | SupervisorManager
@@ -241,19 +215,14 @@ export interface GroupCreateParams {
     | VoiceSleeptimeManager;
 
   /**
-   * Body param: The associated project id.
+   * The associated project id.
    */
   project_id?: string | null;
 
   /**
-   * @deprecated Body param:
+   * @deprecated
    */
   shared_block_ids?: Array<string>;
-
-  /**
-   * Header param: The project slug to associate with the group (cloud only).
-   */
-  'X-Project'?: string;
 }
 
 export interface GroupListParams extends ArrayPageParams {
@@ -269,19 +238,10 @@ export interface GroupListParams extends ArrayPageParams {
 }
 
 export interface GroupModifyParams {
-  /**
-   * Body param:
-   */
   agent_ids?: Array<string> | null;
 
-  /**
-   * Body param:
-   */
   description?: string | null;
 
-  /**
-   * Body param:
-   */
   manager_config?:
     | GroupModifyParams.RoundRobinManagerUpdate
     | GroupModifyParams.SupervisorManagerUpdate
@@ -291,19 +251,14 @@ export interface GroupModifyParams {
     | null;
 
   /**
-   * Body param: The associated project id.
+   * The associated project id.
    */
   project_id?: string | null;
 
   /**
-   * @deprecated Body param:
+   * @deprecated
    */
   shared_block_ids?: Array<string> | null;
-
-  /**
-   * Header param: The project slug to associate with the group (cloud only).
-   */
-  'X-Project'?: string;
 }
 
 export namespace GroupModifyParams {

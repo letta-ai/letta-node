@@ -147,6 +147,17 @@ import {
   IdentityUpsertParams,
 } from './resources/identities/identities';
 import {
+  McpServerConnectResponse,
+  McpServerCreateParams,
+  McpServerCreateResponse,
+  McpServerListResponse,
+  McpServerModifyParams,
+  McpServerModifyResponse,
+  McpServerRetrieveResponse,
+  McpServerSchema,
+  McpServers,
+} from './resources/mcp-servers/mcp-servers';
+import {
   EmbeddingConfig,
   LlmConfig,
   ModelListParams,
@@ -182,6 +193,8 @@ export interface ClientOptions {
    * Defaults to process.env['LETTA_API_KEY'].
    */
   apiKey?: string | undefined;
+
+  projectID?: string | null | undefined;
 
   /**
    * Specifies the environment to use for the API.
@@ -266,6 +279,7 @@ export interface ClientOptions {
  */
 export class Letta {
   apiKey: string;
+  projectID: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -283,6 +297,7 @@ export class Letta {
    * API Client for interfacing with the Letta API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['LETTA_API_KEY'] ?? undefined]
+   * @param {string | null | undefined} [opts.projectID]
    * @param {Environment} [opts.environment=cloud] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['LETTA_BASE_URL'] ?? https://api.letta.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -295,6 +310,7 @@ export class Letta {
   constructor({
     baseURL = readEnv('LETTA_BASE_URL'),
     apiKey = readEnv('LETTA_API_KEY'),
+    projectID = null,
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -305,6 +321,7 @@ export class Letta {
 
     const options: ClientOptions = {
       apiKey,
+      projectID,
       ...opts,
       baseURL,
       environment: opts.environment ?? 'cloud',
@@ -334,6 +351,7 @@ export class Letta {
     this._options = options;
 
     this.apiKey = apiKey;
+    this.projectID = projectID;
   }
 
   /**
@@ -351,6 +369,7 @@ export class Letta {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
+      projectID: this.projectID,
       ...options,
     });
     return client;
@@ -821,6 +840,7 @@ export class Letta {
         'X-Stainless-Retry-Count': String(retryCount),
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
+        'X-Project': this.projectID,
       },
       await this.authHeaders(options),
       this._options.defaultHeaders,
@@ -902,6 +922,7 @@ export class Letta {
   tags: API.Tags = new API.Tags(this);
   batches: API.Batches = new API.Batches(this);
   templates: API.Templates = new API.Templates(this);
+  mcpServers: API.McpServers = new API.McpServers(this);
 }
 
 Letta.Archives = Archives;
@@ -917,6 +938,7 @@ Letta.Steps = Steps;
 Letta.Tags = Tags;
 Letta.Batches = Batches;
 Letta.Templates = Templates;
+Letta.McpServers = McpServers;
 
 export declare namespace Letta {
   export type RequestOptions = Opts.RequestOptions;
@@ -1088,4 +1110,16 @@ export declare namespace Letta {
   };
 
   export { Templates as Templates };
+
+  export {
+    McpServers as McpServers,
+    type McpServerSchema as McpServerSchema,
+    type McpServerCreateResponse as McpServerCreateResponse,
+    type McpServerRetrieveResponse as McpServerRetrieveResponse,
+    type McpServerListResponse as McpServerListResponse,
+    type McpServerConnectResponse as McpServerConnectResponse,
+    type McpServerModifyResponse as McpServerModifyResponse,
+    type McpServerCreateParams as McpServerCreateParams,
+    type McpServerModifyParams as McpServerModifyParams,
+  };
 }

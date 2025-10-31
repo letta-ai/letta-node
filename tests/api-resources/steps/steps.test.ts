@@ -52,7 +52,6 @@ describe('resource steps', () => {
           start_date: 'start_date',
           tags: ['string'],
           trace_ids: ['string'],
-          'X-Project': 'X-Project',
         },
         { path: '/_stainless_unknown_path' },
       ),

@@ -500,3 +500,46 @@ Methods:
 Methods:
 
 - <code title="post /v1/templates/{project_id}/{template_version}/agents">client.templates.agents.<a href="./src/resources/templates/agents.ts">create</a>(templateVersion, { ...params }) -> void</code>
+
+# McpServers
+
+Types:
+
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerSchema</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerCreateResponse</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerRetrieveResponse</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerListResponse</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerConnectResponse</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerModifyResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/mcp-servers/">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">create</a>({ ...params }) -> McpServerCreateResponse</code>
+- <code title="get /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">retrieve</a>(mcpServerID) -> McpServerRetrieveResponse</code>
+- <code title="get /v1/mcp-servers/">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">list</a>() -> McpServerListResponse</code>
+- <code title="delete /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">delete</a>(mcpServerID) -> void</code>
+- <code title="get /v1/mcp-servers/connect/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">connect</a>(mcpServerID) -> unknown</code>
+- <code title="patch /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">modify</a>(mcpServerID, { ...params }) -> McpServerModifyResponse</code>
+
+## Tools
+
+Types:
+
+- <code><a href="./src/resources/mcp-servers/tools.ts">ToolListResponse</a></code>
+- <code><a href="./src/resources/mcp-servers/tools.ts">ToolRunResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">retrieve</a>(toolID, { ...params }) -> Tool</code>
+- <code title="get /v1/mcp-servers/{mcp_server_id}/tools">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">list</a>(mcpServerID) -> ToolListResponse</code>
+- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">run</a>(toolID, { ...params }) -> ToolRunResponse</code>
+
+## Refresh
+
+Types:
+
+- <code><a href="./src/resources/mcp-servers/refresh.ts">RefreshTriggerResponse</a></code>
+
+Methods:
+
+- <code title="patch /v1/mcp-servers/{mcp_server_id}/refresh">client.mcpServers.refresh.<a href="./src/resources/mcp-servers/refresh.ts">trigger</a>(mcpServerID, { ...params }) -> unknown</code>
