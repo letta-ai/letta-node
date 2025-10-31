@@ -297,20 +297,17 @@ export interface AgentState {
   blocks: Array<BlocksAPI.Block>;
 
   /**
-   * @deprecated Deprecated: Use `embedding` field instead. The embedding
-   * configuration used by the agent.
+   * The embedding configuration used by the agent.
    */
   embedding_config: ModelsAPI.EmbeddingConfig;
 
   /**
-   * @deprecated Deprecated: Use `model` field instead. The LLM configuration used by
-   * the agent.
+   * The LLM configuration used by the agent.
    */
   llm_config: ModelsAPI.LlmConfig;
 
   /**
-   * @deprecated Deprecated: Use `blocks` field instead. The in-context memory of the
-   * agent.
+   * @deprecated The in-context memory of the agent.
    */
   memory: AgentState.Memory;
 
@@ -365,11 +362,6 @@ export interface AgentState {
   description?: string | null;
 
   /**
-   * The embedding model used by the agent.
-   */
-  embedding?: AgentState.Embedding | null;
-
-  /**
    * If set to True, memory management will move to a background agent thread.
    */
   enable_sleeptime?: boolean | null;
@@ -390,8 +382,7 @@ export interface AgentState {
   identities?: Array<IdentitiesAPI.Identity>;
 
   /**
-   * @deprecated Deprecated: Use `identities` field instead. The ids of the
-   * identities associated with this agent.
+   * @deprecated The ids of the identities associated with this agent.
    */
   identity_ids?: Array<string>;
 
@@ -439,24 +430,7 @@ export interface AgentState {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The model used by the agent.
-   */
-  model?:
-    | AgentState.OpenAIModel
-    | AgentState.AnthropicModel
-    | AgentState.GoogleAIModel
-    | AgentState.GoogleVertexModel
-    | AgentState.AzureModel
-    | AgentState.XaiModel
-    | AgentState.GroqModel
-    | AgentState.DeepseekModel
-    | AgentState.TogetherModel
-    | AgentState.BedrockModel
-    | null;
-
-  /**
-   * @deprecated Deprecated: Use `managed_group` field instead. The multi-agent group
-   * that this agent manages.
+   * @deprecated The multi-agent group that this agent manages
    */
   multi_agent_group?: GroupsGroupsAPI.Group | null;
 
@@ -472,7 +446,7 @@ export interface AgentState {
   project_id?: string | null;
 
   /**
-   * The response format used by the agent
+   * The response format used by the agent when returning from `send_message`.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
@@ -519,8 +493,7 @@ export interface AgentState {
 
 export namespace AgentState {
   /**
-   * @deprecated Deprecated: Use `blocks` field instead. The in-context memory of the
-   * agent.
+   * @deprecated The in-context memory of the agent.
    */
   export interface Memory {
     /**
@@ -723,428 +696,6 @@ export namespace AgentState {
      * The vector database provider used for this source's passages
      */
     vector_db_provider?: ArchivesAPI.VectorDBProvider;
-  }
-
-  /**
-   * The embedding model used by the agent.
-   */
-  export interface Embedding {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The provider of the model.
-     */
-    provider: 'openai' | 'ollama';
-  }
-
-  export interface OpenAIModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'openai';
-
-    /**
-     * The reasoning configuration for the model.
-     */
-    reasoning?: OpenAIModel.Reasoning;
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  export namespace OpenAIModel {
-    /**
-     * The reasoning configuration for the model.
-     */
-    export interface Reasoning {
-      /**
-       * The reasoning effort to use when generating text reasoning models
-       */
-      reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high';
-    }
-  }
-
-  export interface AnthropicModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'anthropic';
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking?: AnthropicModel.Thinking;
-
-    /**
-     * Soft control for how verbose model output should be, used for GPT-5 models.
-     */
-    verbosity?: 'low' | 'medium' | 'high' | null;
-  }
-
-  export namespace AnthropicModel {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface Thinking {
-      /**
-       * The maximum number of tokens the model can use for extended thinking.
-       */
-      budget_tokens?: number;
-
-      /**
-       * The type of thinking to use.
-       */
-      type?: 'enabled' | 'disabled';
-    }
-  }
-
-  export interface GoogleAIModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_ai';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleAIModel.ThinkingConfig;
-  }
-
-  export namespace GoogleAIModel {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  export interface GoogleVertexModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_vertex';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleVertexModel.ThinkingConfig;
-  }
-
-  export namespace GoogleVertexModel {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  /**
-   * Azure OpenAI model configuration (OpenAI-compatible).
-   */
-  export interface AzureModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'azure';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * xAI model configuration (OpenAI-compatible).
-   */
-  export interface XaiModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'xai';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Groq model configuration (OpenAI-compatible).
-   */
-  export interface GroqModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'groq';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Deepseek model configuration (OpenAI-compatible).
-   */
-  export interface DeepseekModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'deepseek';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Together AI model configuration (OpenAI-compatible).
-   */
-  export interface TogetherModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'together';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * AWS Bedrock model configuration.
-   */
-  export interface BedrockModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'bedrock';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
   }
 }
 
@@ -1506,8 +1057,7 @@ export interface AgentCreateParams {
   agent_type?: AgentType;
 
   /**
-   * @deprecated Body param: Deprecated: No longer used. The base template id of the
-   * agent.
+   * Body param: The base template id of the agent.
    */
   base_template_id?: string | null;
 
@@ -1530,11 +1080,10 @@ export interface AgentCreateParams {
    * Body param: The embedding configuration handle used by the agent, specified in
    * the format provider/model-name.
    */
-  embedding?: string | AgentCreateParams.EmbeddingModelSettings | null;
+  embedding?: string | null;
 
   /**
-   * @deprecated Body param: Deprecated: No longer used. The embedding chunk size
-   * used by the agent.
+   * Body param: The embedding chunk size used by the agent.
    */
   embedding_chunk_size?: number | null;
 
@@ -1545,8 +1094,8 @@ export interface AgentCreateParams {
   embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
-   * @deprecated Body param: Deprecated: Use `model` field to configure reasoning
-   * instead. Whether to enable internal extended thinking step for a reasoner model.
+   * Body param: Whether to enable internal extended thinking step for a reasoner
+   * model.
    */
   enable_reasoner?: boolean | null;
 
@@ -1557,14 +1106,13 @@ export interface AgentCreateParams {
   enable_sleeptime?: boolean | null;
 
   /**
-   * @deprecated Body param: Deprecated: please use the 'create agents from a
-   * template' endpoint instead.
+   * Body param: Deprecated: please use the 'create agents from a template' endpoint
+   * instead.
    */
   from_template?: string | null;
 
   /**
-   * @deprecated Body param: Deprecated: No longer used. If set to True, the agent
-   * will be hidden.
+   * Body param: If set to True, the agent will be hidden.
    */
   hidden?: boolean | null;
 
@@ -1586,8 +1134,8 @@ export interface AgentCreateParams {
   include_base_tools?: boolean;
 
   /**
-   * @deprecated Body param: If true, automatically creates and attaches a default
-   * data source for this agent.
+   * Body param: If true, automatically creates and attaches a default data source
+   * for this agent.
    */
   include_default_source?: boolean;
 
@@ -1615,15 +1163,14 @@ export interface AgentCreateParams {
   max_files_open?: number | null;
 
   /**
-   * @deprecated Body param: Deprecated: Use `model` field to configure reasoning
-   * tokens instead. The maximum number of tokens to generate for reasoning step.
+   * Body param: The maximum number of tokens to generate for reasoning step. If not
+   * set, the model will use its default value.
    */
   max_reasoning_tokens?: number | null;
 
   /**
-   * @deprecated Body param: Deprecated: Use `model` field to configure max output
-   * tokens instead. The maximum number of tokens to generate, including reasoning
-   * step.
+   * Body param: The maximum number of tokens to generate, including reasoning step.
+   * If not set, the model will use its default value.
    */
   max_tokens?: number | null;
 
@@ -1633,8 +1180,7 @@ export interface AgentCreateParams {
   memory_blocks?: Array<BlocksBlocksAPI.CreateBlock> | null;
 
   /**
-   * @deprecated Body param: Deprecated: Only relevant for creating agents from a
-   * template. Use the 'create agents from a template' endpoint instead.
+   * Body param: The variables that should be set for the agent.
    */
   memory_variables?: { [key: string]: string } | null;
 
@@ -1651,22 +1197,10 @@ export interface AgentCreateParams {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: The model handle or model settings for the agent to use, specified
-   * either by a handle or an object. See the model schema for more information.
+   * Body param: The LLM configuration handle used by the agent, specified in the
+   * format provider/model-name, as an alternative to specifying llm_config.
    */
-  model?:
-    | string
-    | AgentCreateParams.OpenAIModel
-    | AgentCreateParams.AnthropicModel
-    | AgentCreateParams.GoogleAIModel
-    | AgentCreateParams.GoogleVertexModel
-    | AgentCreateParams.AzureModel
-    | AgentCreateParams.XaiModel
-    | AgentCreateParams.GroqModel
-    | AgentCreateParams.DeepseekModel
-    | AgentCreateParams.TogetherModel
-    | AgentCreateParams.BedrockModel
-    | null;
+  model?: string | null;
 
   /**
    * Body param: The name of the agent.
@@ -1674,8 +1208,7 @@ export interface AgentCreateParams {
   name?: string;
 
   /**
-   * @deprecated Body param: Deprecated: Use `model` field to configure parallel tool
-   * calls instead. If set to True, enables parallel tool calling.
+   * Body param: If set to True, enables parallel tool calling. Defaults to False.
    */
   parallel_tool_calls?: boolean | null;
 
@@ -1687,20 +1220,18 @@ export interface AgentCreateParams {
 
   /**
    * @deprecated Body param: Deprecated: Project should now be passed via the
-   * X-Project header instead of in the request body. If using the SDK, this can be
-   * done via the x_project parameter.
+   * X-Project header instead of in the request body. If using the sdk, this can be
+   * done via the new x_project field below.
    */
   project?: string | null;
 
   /**
-   * @deprecated Body param: Deprecated: No longer used. The id of the project the
-   * agent belongs to.
+   * Body param: The id of the project the agent belongs to.
    */
   project_id?: string | null;
 
   /**
-   * @deprecated Body param: Deprecated: Use `model` field to configure reasoning
-   * instead. Whether to enable reasoning for this agent.
+   * Body param: Whether to enable reasoning for this agent.
    */
   reasoning?: boolean | null;
 
@@ -1730,13 +1261,12 @@ export interface AgentCreateParams {
   tags?: Array<string> | null;
 
   /**
-   * @deprecated Body param: Deprecated: No longer used.
+   * Body param: Deprecated: No longer used
    */
   template?: boolean;
 
   /**
-   * @deprecated Body param: Deprecated: No longer used. The id of the template the
-   * agent belongs to.
+   * Body param: The id of the template the agent belongs to.
    */
   template_id?: string | null;
 
@@ -1746,8 +1276,7 @@ export interface AgentCreateParams {
   timezone?: string | null;
 
   /**
-   * @deprecated Body param: Deprecated: Use `secrets` field instead. Environment
-   * variables for tool execution.
+   * Body param: Deprecated: use `secrets` field instead.
    */
   tool_exec_environment_variables?: { [key: string]: string } | null;
 
@@ -1780,427 +1309,6 @@ export interface AgentCreateParams {
    * Header param: The project slug to associate with the agent (cloud only).
    */
   'X-Project'?: string;
-}
-
-export namespace AgentCreateParams {
-  export interface EmbeddingModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The provider of the model.
-     */
-    provider: 'openai' | 'ollama';
-  }
-
-  export interface OpenAIModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'openai';
-
-    /**
-     * The reasoning configuration for the model.
-     */
-    reasoning?: OpenAIModel.Reasoning;
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  export namespace OpenAIModel {
-    /**
-     * The reasoning configuration for the model.
-     */
-    export interface Reasoning {
-      /**
-       * The reasoning effort to use when generating text reasoning models
-       */
-      reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high';
-    }
-  }
-
-  export interface AnthropicModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'anthropic';
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking?: AnthropicModel.Thinking;
-
-    /**
-     * Soft control for how verbose model output should be, used for GPT-5 models.
-     */
-    verbosity?: 'low' | 'medium' | 'high' | null;
-  }
-
-  export namespace AnthropicModel {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface Thinking {
-      /**
-       * The maximum number of tokens the model can use for extended thinking.
-       */
-      budget_tokens?: number;
-
-      /**
-       * The type of thinking to use.
-       */
-      type?: 'enabled' | 'disabled';
-    }
-  }
-
-  export interface GoogleAIModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_ai';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleAIModel.ThinkingConfig;
-  }
-
-  export namespace GoogleAIModel {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  export interface GoogleVertexModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_vertex';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleVertexModel.ThinkingConfig;
-  }
-
-  export namespace GoogleVertexModel {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  /**
-   * Azure OpenAI model configuration (OpenAI-compatible).
-   */
-  export interface AzureModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'azure';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * xAI model configuration (OpenAI-compatible).
-   */
-  export interface XaiModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'xai';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Groq model configuration (OpenAI-compatible).
-   */
-  export interface GroqModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'groq';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Deepseek model configuration (OpenAI-compatible).
-   */
-  export interface DeepseekModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'deepseek';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Together AI model configuration (OpenAI-compatible).
-   */
-  export interface TogetherModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'together';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * AWS Bedrock model configuration.
-   */
-  export interface BedrockModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'bedrock';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
 }
 
 export interface AgentRetrieveParams {
@@ -2399,7 +1507,7 @@ export interface AgentModifyParams {
    * The embedding configuration handle used by the agent, specified in the format
    * provider/model-name.
    */
-  embedding?: string | AgentModifyParams.EmbeddingModelSettings | null;
+  embedding?: string | null;
 
   /**
    * Configuration for embedding model connection and processing parameters.
@@ -2443,8 +1551,8 @@ export interface AgentModifyParams {
   max_files_open?: number | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure max output tokens
-   * instead. The maximum number of tokens to generate, including reasoning step.
+   * The maximum number of tokens to generate, including reasoning step. If not set,
+   * the model will use its default value.
    */
   max_tokens?: number | null;
 
@@ -2466,22 +1574,10 @@ export interface AgentModifyParams {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The model used by the agent, specified either by a handle or an object. See the
-   * model schema for more information.
+   * The LLM configuration handle used by the agent, specified in the format
+   * provider/model-name, as an alternative to specifying llm_config.
    */
-  model?:
-    | string
-    | AgentModifyParams.OpenAIModel
-    | AgentModifyParams.AnthropicModel
-    | AgentModifyParams.GoogleAIModel
-    | AgentModifyParams.GoogleVertexModel
-    | AgentModifyParams.AzureModel
-    | AgentModifyParams.XaiModel
-    | AgentModifyParams.GroqModel
-    | AgentModifyParams.DeepseekModel
-    | AgentModifyParams.TogetherModel
-    | AgentModifyParams.BedrockModel
-    | null;
+  model?: string | null;
 
   /**
    * The name of the agent.
@@ -2489,8 +1585,7 @@ export interface AgentModifyParams {
   name?: string | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure parallel tool calls
-   * instead. If set to True, enables parallel tool calling.
+   * If set to True, enables parallel tool calling. Defaults to False.
    */
   parallel_tool_calls?: boolean | null;
 
@@ -2506,13 +1601,11 @@ export interface AgentModifyParams {
   project_id?: string | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure reasoning instead.
    * Whether to enable reasoning for this agent.
    */
   reasoning?: boolean | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure response format instead.
    * The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
@@ -2571,427 +1664,6 @@ export interface AgentModifyParams {
     | ParentToolRule
     | RequiresApprovalToolRule
   > | null;
-}
-
-export namespace AgentModifyParams {
-  export interface EmbeddingModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The provider of the model.
-     */
-    provider: 'openai' | 'ollama';
-  }
-
-  export interface OpenAIModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'openai';
-
-    /**
-     * The reasoning configuration for the model.
-     */
-    reasoning?: OpenAIModel.Reasoning;
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  export namespace OpenAIModel {
-    /**
-     * The reasoning configuration for the model.
-     */
-    export interface Reasoning {
-      /**
-       * The reasoning effort to use when generating text reasoning models
-       */
-      reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high';
-    }
-  }
-
-  export interface AnthropicModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'anthropic';
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking?: AnthropicModel.Thinking;
-
-    /**
-     * Soft control for how verbose model output should be, used for GPT-5 models.
-     */
-    verbosity?: 'low' | 'medium' | 'high' | null;
-  }
-
-  export namespace AnthropicModel {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface Thinking {
-      /**
-       * The maximum number of tokens the model can use for extended thinking.
-       */
-      budget_tokens?: number;
-
-      /**
-       * The type of thinking to use.
-       */
-      type?: 'enabled' | 'disabled';
-    }
-  }
-
-  export interface GoogleAIModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_ai';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleAIModel.ThinkingConfig;
-  }
-
-  export namespace GoogleAIModel {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  export interface GoogleVertexModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_vertex';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleVertexModel.ThinkingConfig;
-  }
-
-  export namespace GoogleVertexModel {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  /**
-   * Azure OpenAI model configuration (OpenAI-compatible).
-   */
-  export interface AzureModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'azure';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * xAI model configuration (OpenAI-compatible).
-   */
-  export interface XaiModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'xai';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Groq model configuration (OpenAI-compatible).
-   */
-  export interface GroqModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'groq';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Deepseek model configuration (OpenAI-compatible).
-   */
-  export interface DeepseekModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'deepseek';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Together AI model configuration (OpenAI-compatible).
-   */
-  export interface TogetherModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'together';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * AWS Bedrock model configuration.
-   */
-  export interface BedrockModel {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'bedrock';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
 }
 
 Agents.Tools = Tools;
