@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0-alpha.12 (2025-11-01)
+
+Full Changelog: [v1.0.0-alpha.11...v1.0.0-alpha.12](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.11...v1.0.0-alpha.12)
+
+### Features
+
+* add error handle to stainless stream response ([a17dea8](https://github.com/letta-ai/letta-node/commit/a17dea812692f11bfe6ddd5ea87b7f043a83ca0d))
+
 ## 1.0.0-alpha.11 (2025-10-31)
 
 Full Changelog: [v1.0.0-alpha.10...v1.0.0-alpha.11](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.10...v1.0.0-alpha.11)
