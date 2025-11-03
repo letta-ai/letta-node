@@ -5,6 +5,7 @@ import * as MessagesAPI from '../agents/messages';
 import { LettaMessageUnionsArrayPage } from '../agents/messages';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
+import { Stream } from '../../core/streaming';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -29,10 +30,14 @@ export class Messages extends APIResource {
    */
   stream(
     runID: string,
-    body: MessageStreamParams | null | undefined = {},
+    body: MessageStreamParams | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<unknown> {
-    return this._client.post(path`/v1/runs/${runID}/stream`, { body, ...options });
+  ): APIPromise<Stream<MessagesAPI.LettaStreamingResponse>> {
+    return this._client.post(path`/v1/runs/${runID}/stream`, {
+      body,
+      ...options,
+      stream: true,
+    }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
   }
 }
 
