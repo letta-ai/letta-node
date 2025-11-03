@@ -10,9 +10,12 @@ export class Agents extends APIResource {
   /**
    * Creates an Agent or multiple Agents from a template
    */
-  create(templateVersion: string, params: AgentCreateParams, options?: RequestOptions): APIPromise<void> {
-    const { project_id, ...body } = params;
-    return this._client.post(path`/v1/templates/${project_id}/${templateVersion}/agents`, {
+  create(
+    templateVersion: string,
+    body: AgentCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.post(path`/v1/templates/${templateVersion}/agents`, {
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -22,40 +25,34 @@ export class Agents extends APIResource {
 
 export interface AgentCreateParams {
   /**
-   * Path param: The project id
-   */
-  project_id: string;
-
-  /**
-   * Body param: The name of the agent, optional otherwise a random one will be
-   * assigned
+   * The name of the agent, optional otherwise a random one will be assigned
    */
   agent_name?: string;
 
   /**
-   * Body param: The identity ids to assign to the agent
+   * The identity ids to assign to the agent
    */
   identity_ids?: Array<string>;
 
   /**
-   * Body param: Set an initial sequence of messages, if not provided, the agent will
-   * start with the default message sequence, if an empty array is provided, the
-   * agent will start with no messages
+   * Set an initial sequence of messages, if not provided, the agent will start with
+   * the default message sequence, if an empty array is provided, the agent will
+   * start with no messages
    */
   initial_message_sequence?: Array<AgentCreateParams.InitialMessageSequence>;
 
   /**
-   * Body param: The memory variables to assign to the agent
+   * The memory variables to assign to the agent
    */
   memory_variables?: { [key: string]: string };
 
   /**
-   * Body param: The tags to assign to the agent
+   * The tags to assign to the agent
    */
   tags?: Array<string>;
 
   /**
-   * Body param: The tool variables to assign to the agent
+   * The tool variables to assign to the agent
    */
   tool_variables?: { [key: string]: string };
 }
