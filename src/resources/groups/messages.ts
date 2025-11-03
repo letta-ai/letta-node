@@ -7,6 +7,7 @@ import * as MessagesAPI from '../agents/messages';
 import { LettaMessageUnionsArrayPage } from '../agents/messages';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
+import { Stream } from '../../core/streaming';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -64,8 +65,16 @@ export class Messages extends APIResource {
    * specified pattern. It will stream the steps of the response always, and stream
    * the tokens if 'stream_tokens' is set to True.
    */
-  stream(groupID: string, body: MessageStreamParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post(path`/v1/groups/${groupID}/messages/stream`, { body, ...options });
+  stream(
+    groupID: string,
+    body: MessageStreamParams,
+    options?: RequestOptions,
+  ): APIPromise<Stream<MessagesAPI.LettaStreamingResponse>> {
+    return this._client.post(path`/v1/groups/${groupID}/messages/stream`, {
+      body,
+      ...options,
+      stream: true,
+    }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
   }
 }
 
