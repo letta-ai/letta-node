@@ -499,7 +499,7 @@ Methods:
 
 Methods:
 
-- <code title="post /v1/templates/{project_id}/{template_version}/agents">client.templates.agents.<a href="./src/resources/templates/agents.ts">create</a>(templateVersion, { ...params }) -> void</code>
+- <code title="post /v1/templates/{template_version}/agents">client.templates.agents.<a href="./src/resources/templates/agents.ts">create</a>(templateVersion, { ...params }) -> void</code>
 
 # McpServers
 

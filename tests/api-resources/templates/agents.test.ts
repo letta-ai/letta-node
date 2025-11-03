@@ -9,8 +9,8 @@ const client = new Letta({
 
 describe('resource agents', () => {
   // Prism tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.templates.agents.create('template_version', { project_id: 'project_id' });
+  test.skip('create', async () => {
+    const responsePromise = client.templates.agents.create('template_version');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,25 +21,31 @@ describe('resource agents', () => {
   });
 
   // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.templates.agents.create('template_version', {
-      project_id: 'project_id',
-      agent_name: 'agent_name',
-      identity_ids: ['string'],
-      initial_message_sequence: [
+  test.skip('create: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.templates.agents.create(
+        'template_version',
         {
-          content: 'content',
-          role: 'user',
-          batch_item_id: 'batch_item_id',
-          group_id: 'group_id',
-          name: 'name',
-          otid: 'otid',
-          sender_id: 'sender_id',
+          agent_name: 'agent_name',
+          identity_ids: ['string'],
+          initial_message_sequence: [
+            {
+              content: 'content',
+              role: 'user',
+              batch_item_id: 'batch_item_id',
+              group_id: 'group_id',
+              name: 'name',
+              otid: 'otid',
+              sender_id: 'sender_id',
+            },
+          ],
+          memory_variables: { foo: 'string' },
+          tags: ['-_'],
+          tool_variables: { foo: 'string' },
         },
-      ],
-      memory_variables: { foo: 'string' },
-      tags: ['-_'],
-      tool_variables: { foo: 'string' },
-    });
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 });
