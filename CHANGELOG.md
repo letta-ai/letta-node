@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0-alpha.13 (2025-11-03)
+
+Full Changelog: [v1.0.0-alpha.12...v1.0.0-alpha.13](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.12...v1.0.0-alpha.13)
+
+### Features
+
+* add stream return type to all sse endpoints ([c22c792](https://github.com/letta-ai/letta-node/commit/c22c792ab23bad57de9b6b356afb31ef2f075264))
+
 ## 1.0.0-alpha.12 (2025-11-01)
 
 Full Changelog: [v1.0.0-alpha.11...v1.0.0-alpha.12](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.11...v1.0.0-alpha.12)
