@@ -31,7 +31,7 @@ describe('resource tools', () => {
       json_schema: { foo: 'bar' },
       npm_requirements: [{ name: 'x', version: 'version' }],
       pip_requirements: [{ name: 'x', version: 'version' }],
-      return_char_limit: 0,
+      return_char_limit: 1,
       source_type: 'source_type',
       tags: ['string'],
     });
@@ -164,7 +164,7 @@ describe('resource tools', () => {
       json_schema: { foo: 'bar' },
       npm_requirements: [{ name: 'x', version: 'version' }],
       pip_requirements: [{ name: 'x', version: 'version' }],
-      return_char_limit: 0,
+      return_char_limit: 1,
       source_type: 'source_type',
       tags: ['string'],
     });
