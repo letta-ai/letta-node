@@ -95,7 +95,9 @@ export type MessageModifyResponse =
   | ToolsAPI.ToolReturnMessage
   | MessagesAPI.AssistantMessage
   | MessagesAPI.ApprovalRequestMessage
-  | MessagesAPI.ApprovalResponseMessage;
+  | MessagesAPI.ApprovalResponseMessage
+  | MessagesAPI.SummaryMessage
+  | MessagesAPI.EventMessage;
 
 export type MessageResetResponse = unknown;
 

@@ -42,7 +42,9 @@ export type MessageListResponse =
   | ToolsAPI.ToolReturnMessage
   | MessagesAPI.AssistantMessage
   | MessagesAPI.ApprovalRequestMessage
-  | MessagesAPI.ApprovalResponseMessage;
+  | MessagesAPI.ApprovalResponseMessage
+  | MessagesAPI.SummaryMessage
+  | MessagesAPI.EventMessage;
 
 export interface MessageListParams extends ArrayPageParams {}
 
