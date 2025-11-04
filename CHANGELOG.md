@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.0.0-alpha.14 (2025-11-04)
+
+Full Changelog: [v1.0.0-alpha.13...v1.0.0-alpha.14](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.13...v1.0.0-alpha.14)
+
+### Features
+
+* add new project id header to stainless client ([f8066b6](https://github.com/letta-ai/letta-node/commit/f8066b6f9d8813bae0ffac391ab4fc4f9fee93bd))
+
+
+### Bug Fixes
+
+* enable stainless pagination ([ae519f4](https://github.com/letta-ai/letta-node/commit/ae519f482c503f669364d4c7fd2496905dfd0ebc))
+
+
+### Chores
+
+* update stainless templates route to not pass in project id ([c032587](https://github.com/letta-ai/letta-node/commit/c032587e583ba130b7eda733145554252b3b50b4))
+
 ## 1.0.0-alpha.13 (2025-11-03)
 
 Full Changelog: [v1.0.0-alpha.12...v1.0.0-alpha.13](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.12...v1.0.0-alpha.13)
