@@ -164,7 +164,7 @@ Types:
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/files">client.agents.files.<a href="./src/resources/agents/files.ts">list</a>(agentID, { ...params }) -> FileListResponse</code>
+- <code title="get /v1/agents/{agent_id}/files">client.agents.files.<a href="./src/resources/agents/files.ts">list</a>(agentID, { ...params }) -> FileListResponsesNextFilesPage</code>
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/close">client.agents.files.<a href="./src/resources/agents/files.ts">close</a>(fileID, { ...params }) -> unknown</code>
 - <code title="patch /v1/agents/{agent_id}/files/close-all">client.agents.files.<a href="./src/resources/agents/files.ts">closeAll</a>(agentID) -> FileCloseAllResponse</code>
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/open">client.agents.files.<a href="./src/resources/agents/files.ts">open</a>(fileID, { ...params }) -> FileOpenResponse</code>

@@ -50,6 +50,7 @@ export {
   type FileListParams,
   type FileCloseParams,
   type FileOpenParams,
+  type FileListResponsesNextFilesPage,
 } from './files';
 export {
   Folders,

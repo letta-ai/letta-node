@@ -264,7 +264,7 @@ export interface NextFilesPageParams {
   order_by?: string | null;
 }
 
-export class NextFilesPage<Item extends { next_cursor: string | null }>
+export class NextFilesPage<Item extends { id: string }>
   extends AbstractPage<Item>
   implements NextFilesPageResponse<Item>
 {
@@ -304,8 +304,8 @@ export class NextFilesPage<Item extends { next_cursor: string | null }>
 
     const isForwards = !(typeof this.options.query === 'object' && 'before' in (this.options.query || {}));
     if (isForwards) {
-      const nextCursor = files[files.length - 1]?.next_cursor;
-      if (!nextCursor) {
+      const id = files[files.length - 1]?.id;
+      if (!id) {
         return null;
       }
 
@@ -313,13 +313,13 @@ export class NextFilesPage<Item extends { next_cursor: string | null }>
         ...this.options,
         query: {
           ...maybeObj(this.options.query),
-          after: nextCursor,
+          after: id,
         },
       };
     }
 
-    const nextCursor = files[0]?.next_cursor;
-    if (!nextCursor) {
+    const id = files[0]?.id;
+    if (!id) {
       return null;
     }
 
@@ -327,7 +327,7 @@ export class NextFilesPage<Item extends { next_cursor: string | null }>
       ...this.options,
       query: {
         ...maybeObj(this.options.query),
-        before: nextCursor,
+        before: id,
       },
     };
   }
