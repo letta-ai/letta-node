@@ -198,6 +198,7 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">ApprovalRequestMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">ApprovalResponseMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">AssistantMessage</a></code>
+- <code><a href="./src/resources/agents/messages.ts">EventMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">HiddenReasoningMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">ImageContent</a></code>
 - <code><a href="./src/resources/agents/messages.ts">JobStatus</a></code>
@@ -217,6 +218,7 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">ReasoningMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">RedactedReasoningContent</a></code>
 - <code><a href="./src/resources/agents/messages.ts">Run</a></code>
+- <code><a href="./src/resources/agents/messages.ts">SummaryMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">SystemMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">TextContent</a></code>
 - <code><a href="./src/resources/agents/messages.ts">ToolCall</a></code>
