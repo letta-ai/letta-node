@@ -102,6 +102,7 @@ import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
 import * as IdentitiesAPI from '../identities/identities';
 import * as ModelsAPI from '../models/models';
+import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { type Uploadable } from '../../core/uploads';
@@ -390,6 +391,11 @@ export interface AgentState {
    * The duration in milliseconds of the agent's last run.
    */
   last_run_duration_ms?: number | null;
+
+  /**
+   * The stop reason from the agent's last run.
+   */
+  last_stop_reason?: RunsAPI.StopReasonType | null;
 
   /**
    * The id of the user that made this object.
@@ -1522,6 +1528,11 @@ export interface AgentModifyParams {
    * The duration in milliseconds of the agent's last run.
    */
   last_run_duration_ms?: number | null;
+
+  /**
+   * The stop reason from the agent's last run.
+   */
+  last_stop_reason?: RunsAPI.StopReasonType | null;
 
   /**
    * Configuration for Language Model (LLM) connection and generation parameters.
