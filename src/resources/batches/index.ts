@@ -3,9 +3,9 @@
 export {
   Batches,
   type BatchJob,
-  type BatchListResponse,
   type BatchCancelResponse,
   type BatchCreateParams,
   type BatchListParams,
+  type BatchJobsArrayPage,
 } from './batches';
-export { Messages, type MessageListResponse, type MessageListParams } from './messages';
+export { Messages, type MessageListParams } from './messages';

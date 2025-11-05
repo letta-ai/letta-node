@@ -58,6 +58,7 @@ export {
   type FolderListParams,
   type FolderAttachParams,
   type FolderDetachParams,
+  type FolderListResponsesArrayPage,
 } from './folders';
 export { Groups, type GroupListParams } from './groups';
 export {
@@ -110,10 +111,11 @@ export {
   type MessageSendAsyncParams,
   type MessageStreamParams,
   type LettaMessageUnionsArrayPage,
+  type RunsArrayPage,
+  type MessagesObjectPage,
 } from './messages';
 export {
   Tools,
-  type ToolListResponse,
   type ToolListParams,
   type ToolAttachParams,
   type ToolDetachParams,

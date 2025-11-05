@@ -35,18 +35,18 @@ export {
   Archives,
   type Archive,
   type VectorDBProvider,
-  type ArchiveListResponse,
   type ArchiveCreateParams,
   type ArchiveListParams,
   type ArchiveModifyParams,
+  type ArchivesArrayPage,
 } from './archives';
 export {
   Batches,
   type BatchJob,
-  type BatchListResponse,
   type BatchCancelResponse,
   type BatchCreateParams,
   type BatchListParams,
+  type BatchJobsArrayPage,
 } from './batches/batches';
 export {
   Blocks,
@@ -62,12 +62,12 @@ export {
 export {
   Folders,
   type Folder,
-  type FolderListResponse,
   type FolderDeleteResponse,
   type FolderCountResponse,
   type FolderCreateParams,
   type FolderListParams,
   type FolderModifyParams,
+  type FoldersArrayPage,
 } from './folders/folders';
 export {
   Groups,
@@ -90,13 +90,13 @@ export {
   type Identity,
   type IdentityProperty,
   type IdentityType,
-  type IdentityListResponse,
   type IdentityDeleteResponse,
   type IdentityCountResponse,
   type IdentityCreateParams,
   type IdentityListParams,
   type IdentityModifyParams,
   type IdentityUpsertParams,
+  type IdentitiesArrayPage,
 } from './identities/identities';
 export {
   McpServers,
@@ -118,7 +118,7 @@ export {
   type ModelListResponse,
   type ModelListParams,
 } from './models/models';
-export { Runs, type Job, type StopReasonType, type RunListResponse, type RunListParams } from './runs/runs';
+export { Runs, type Job, type StopReasonType, type RunListParams } from './runs/runs';
 export {
   Steps,
   type ProviderTrace,
@@ -136,7 +136,6 @@ export {
   type ToolCreate,
   type ToolReturnMessage,
   type ToolType,
-  type ToolListResponse,
   type ToolDeleteResponse,
   type ToolCountResponse,
   type ToolUpsertBaseToolsResponse,
@@ -145,5 +144,6 @@ export {
   type ToolCountParams,
   type ToolModifyParams,
   type ToolUpsertParams,
+  type ToolsArrayPage,
 } from './tools';
 export { type HealthResponse } from './top-level';
