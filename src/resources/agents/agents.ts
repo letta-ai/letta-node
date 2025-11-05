@@ -33,6 +33,7 @@ import {
   FolderDetachParams,
   FolderListParams,
   FolderListResponse,
+  FolderListResponsesArrayPage,
   Folders,
 } from './folders';
 import * as GroupsAPI from './groups';
@@ -90,14 +91,7 @@ import {
   UserMessage,
 } from './messages';
 import * as AgentsToolsAPI from './tools';
-import {
-  ToolAttachParams,
-  ToolDetachParams,
-  ToolListParams,
-  ToolListResponse,
-  ToolUpdateApprovalParams,
-  Tools,
-} from './tools';
+import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
 import * as IdentitiesAPI from '../identities/identities';
@@ -644,6 +638,11 @@ export namespace AgentState {
    */
   export interface Source {
     /**
+     * The human-friendly ID of the Source
+     */
+    id: string;
+
+    /**
      * The embedding configuration used by the source.
      */
     embedding_config: ModelsAPI.EmbeddingConfig;
@@ -652,11 +651,6 @@ export namespace AgentState {
      * The name of the source.
      */
     name: string;
-
-    /**
-     * The human-friendly ID of the Source
-     */
-    id?: string;
 
     /**
      * The timestamp when the source was created.
@@ -1702,7 +1696,6 @@ export declare namespace Agents {
 
   export {
     Tools as Tools,
-    type ToolListResponse as ToolListResponse,
     type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
@@ -1712,6 +1705,7 @@ export declare namespace Agents {
   export {
     Folders as Folders,
     type FolderListResponse as FolderListResponse,
+    type FolderListResponsesArrayPage as FolderListResponsesArrayPage,
     type FolderListParams as FolderListParams,
     type FolderAttachParams as FolderAttachParams,
     type FolderDetachParams as FolderDetachParams,

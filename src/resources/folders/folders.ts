@@ -8,12 +8,14 @@ import {
   FileDeleteParams,
   FileListParams,
   FileListResponse,
+  FileListResponsesArrayPage,
   FileUploadParams,
   FileUploadResponse,
   Files,
 } from './files';
 import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -41,8 +43,8 @@ export class Folders extends APIResource {
   list(
     query: FolderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<FolderListResponse> {
-    return this._client.get('/v1/folders/', { query, ...options });
+  ): PagePromise<FoldersArrayPage, Folder> {
+    return this._client.getAPIList('/v1/folders/', ArrayPage<Folder>, { query, ...options });
   }
 
   /**
@@ -67,6 +69,8 @@ export class Folders extends APIResource {
   }
 }
 
+export type FoldersArrayPage = ArrayPage<Folder>;
+
 /**
  * Representation of a folder, which is a collection of files and passages.
  *
@@ -78,6 +82,11 @@ export class Folders extends APIResource {
  */
 export interface Folder {
   /**
+   * The human-friendly ID of the Source
+   */
+  id: string;
+
+  /**
    * The embedding configuration used by the folder.
    */
   embedding_config: ModelsAPI.EmbeddingConfig;
@@ -86,11 +95,6 @@ export interface Folder {
    * The name of the folder.
    */
   name: string;
-
-  /**
-   * The human-friendly ID of the Source
-   */
-  id?: string;
 
   /**
    * The timestamp when the folder was created.
@@ -127,8 +131,6 @@ export interface Folder {
    */
   updated_at?: string | null;
 }
-
-export type FolderListResponse = Array<Folder>;
 
 export type FolderDeleteResponse = unknown;
 
@@ -171,39 +173,11 @@ export interface FolderCreateParams {
   metadata?: { [key: string]: unknown } | null;
 }
 
-export interface FolderListParams {
-  /**
-   * Folder ID cursor for pagination. Returns folders that come after this folder ID
-   * in the specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Folder ID cursor for pagination. Returns folders that come before this folder ID
-   * in the specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of folders to return
-   */
-  limit?: number | null;
-
+export interface FolderListParams extends ArrayPageParams {
   /**
    * Folder name to filter by
    */
   name?: string | null;
-
-  /**
-   * Sort order for folders by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
 }
 
 export interface FolderModifyParams {
@@ -239,9 +213,9 @@ Folders.Agents = Agents;
 export declare namespace Folders {
   export {
     type Folder as Folder,
-    type FolderListResponse as FolderListResponse,
     type FolderDeleteResponse as FolderDeleteResponse,
     type FolderCountResponse as FolderCountResponse,
+    type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
     type FolderListParams as FolderListParams,
     type FolderModifyParams as FolderModifyParams,
@@ -251,6 +225,7 @@ export declare namespace Folders {
     Files as Files,
     type FileListResponse as FileListResponse,
     type FileUploadResponse as FileUploadResponse,
+    type FileListResponsesArrayPage as FileListResponsesArrayPage,
     type FileListParams as FileListParams,
     type FileDeleteParams as FileDeleteParams,
     type FileUploadParams as FileUploadParams,

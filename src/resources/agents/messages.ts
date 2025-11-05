@@ -6,7 +6,7 @@ import * as ToolsAPI from '../tools';
 import * as AgentsAPI from './agents';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
-import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
+import { ArrayPage, type ArrayPageParams, ObjectPage, PagePromise } from '../../core/pagination';
 import { Stream } from '../../core/streaming';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -113,6 +113,10 @@ export class Messages extends APIResource {
 }
 
 export type LettaMessageUnionsArrayPage = ArrayPage<LettaMessageUnion>;
+
+export type RunsArrayPage = ArrayPage<Run>;
+
+export type MessagesObjectPage = ObjectPage<Message>;
 
 /**
  * Input to approve or deny a tool call request
@@ -928,14 +932,14 @@ export type LettaUserMessageContentUnion = TextContent | ImageContent;
  */
 export interface Message {
   /**
+   * The human-friendly ID of the Message
+   */
+  id: string;
+
+  /**
    * The role of the participant.
    */
   role: MessageRole;
-
-  /**
-   * The human-friendly ID of the Message
-   */
-  id?: string;
 
   /**
    * The unique identifier of the agent.
@@ -1324,14 +1328,14 @@ export interface RedactedReasoningContent {
  */
 export interface Run {
   /**
+   * The human-friendly ID of the Run
+   */
+  id: string;
+
+  /**
    * The unique identifier of the agent associated with the run.
    */
   agent_id: string;
-
-  /**
-   * The human-friendly ID of the Run
-   */
-  id?: string;
 
   /**
    * Whether the run was created in background mode.

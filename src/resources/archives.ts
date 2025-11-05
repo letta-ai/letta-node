@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as ModelsAPI from './models/models';
 import { APIPromise } from '../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -28,8 +29,8 @@ export class Archives extends APIResource {
   list(
     query: ArchiveListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ArchiveListResponse> {
-    return this._client.get('/v1/archives/', { query, ...options });
+  ): PagePromise<ArchivesArrayPage, Archive> {
+    return this._client.getAPIList('/v1/archives/', ArrayPage<Archive>, { query, ...options });
   }
 
   /**
@@ -47,6 +48,8 @@ export class Archives extends APIResource {
   }
 }
 
+export type ArchivesArrayPage = ArrayPage<Archive>;
+
 /**
  * Representation of an archive - a collection of archival passages that can be
  * shared between agents.
@@ -58,6 +61,11 @@ export class Archives extends APIResource {
  * archive.
  */
 export interface Archive {
+  /**
+   * The human-friendly ID of the Archive
+   */
+  id: string;
+
   /**
    * The creation date of the archive
    */
@@ -72,11 +80,6 @@ export interface Archive {
    * The name of the archive
    */
   name: string;
-
-  /**
-   * The human-friendly ID of the Archive
-   */
-  id?: string;
 
   /**
    * The id of the user that made this object.
@@ -114,8 +117,6 @@ export interface Archive {
  */
 export type VectorDBProvider = 'native' | 'tpuf' | 'pinecone';
 
-export type ArchiveListResponse = Array<Archive>;
-
 export interface ArchiveCreateParams {
   /**
    * Embedding configuration for the archive
@@ -127,44 +128,16 @@ export interface ArchiveCreateParams {
   description?: string | null;
 }
 
-export interface ArchiveListParams {
-  /**
-   * Archive ID cursor for pagination. Returns archives that come after this archive
-   * ID in the specified sort order
-   */
-  after?: string | null;
-
+export interface ArchiveListParams extends ArrayPageParams {
   /**
    * Only archives attached to this agent ID
    */
   agent_id?: string | null;
 
   /**
-   * Archive ID cursor for pagination. Returns archives that come before this archive
-   * ID in the specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of archives to return
-   */
-  limit?: number | null;
-
-  /**
    * Filter by archive name (exact match)
    */
   name?: string | null;
-
-  /**
-   * Sort order for archives by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
 }
 
 export interface ArchiveModifyParams {
@@ -177,7 +150,7 @@ export declare namespace Archives {
   export {
     type Archive as Archive,
     type VectorDBProvider as VectorDBProvider,
-    type ArchiveListResponse as ArchiveListResponse,
+    type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
     type ArchiveListParams as ArchiveListParams,
     type ArchiveModifyParams as ArchiveModifyParams,

@@ -33,9 +33,9 @@ import {
   Archive,
   ArchiveCreateParams,
   ArchiveListParams,
-  ArchiveListResponse,
   ArchiveModifyParams,
   Archives,
+  ArchivesArrayPage,
   VectorDBProvider,
 } from './resources/archives';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
@@ -49,13 +49,13 @@ import {
   ToolCreateParams,
   ToolDeleteResponse,
   ToolListParams,
-  ToolListResponse,
   ToolModifyParams,
   ToolReturnMessage,
   ToolType,
   ToolUpsertBaseToolsResponse,
   ToolUpsertParams,
   Tools,
+  ToolsArrayPage,
 } from './resources/tools';
 import {
   AgentCountResponse,
@@ -92,8 +92,8 @@ import {
   BatchCancelResponse,
   BatchCreateParams,
   BatchJob,
+  BatchJobsArrayPage,
   BatchListParams,
-  BatchListResponse,
   Batches,
 } from './resources/batches/batches';
 import {
@@ -113,9 +113,9 @@ import {
   FolderCreateParams,
   FolderDeleteResponse,
   FolderListParams,
-  FolderListResponse,
   FolderModifyParams,
   Folders,
+  FoldersArrayPage,
 } from './resources/folders/folders';
 import {
   DynamicManager,
@@ -135,12 +135,12 @@ import {
 } from './resources/groups/groups';
 import {
   Identities,
+  IdentitiesArrayPage,
   Identity,
   IdentityCountResponse,
   IdentityCreateParams,
   IdentityDeleteResponse,
   IdentityListParams,
-  IdentityListResponse,
   IdentityModifyParams,
   IdentityProperty,
   IdentityType,
@@ -166,7 +166,7 @@ import {
   ProviderCategory,
   ProviderType,
 } from './resources/models/models';
-import { Job, RunListParams, RunListResponse, Runs, StopReasonType } from './resources/runs/runs';
+import { Job, RunListParams, Runs, StopReasonType } from './resources/runs/runs';
 import { ProviderTrace, Step, StepListParams, Steps, StepsArrayPage } from './resources/steps/steps';
 import { Templates } from './resources/templates/templates';
 import { type Fetch } from './internal/builtin-types';
@@ -973,7 +973,7 @@ export declare namespace Letta {
     Archives as Archives,
     type Archive as Archive,
     type VectorDBProvider as VectorDBProvider,
-    type ArchiveListResponse as ArchiveListResponse,
+    type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
     type ArchiveListParams as ArchiveListParams,
     type ArchiveModifyParams as ArchiveModifyParams,
@@ -987,10 +987,10 @@ export declare namespace Letta {
     type ToolCreate as ToolCreate,
     type ToolReturnMessage as ToolReturnMessage,
     type ToolType as ToolType,
-    type ToolListResponse as ToolListResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type ToolCountResponse as ToolCountResponse,
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
+    type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolListParams as ToolListParams,
     type ToolCountParams as ToolCountParams,
@@ -1001,9 +1001,9 @@ export declare namespace Letta {
   export {
     Folders as Folders,
     type Folder as Folder,
-    type FolderListResponse as FolderListResponse,
     type FolderDeleteResponse as FolderDeleteResponse,
     type FolderCountResponse as FolderCountResponse,
+    type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
     type FolderListParams as FolderListParams,
     type FolderModifyParams as FolderModifyParams,
@@ -1063,9 +1063,9 @@ export declare namespace Letta {
     type Identity as Identity,
     type IdentityProperty as IdentityProperty,
     type IdentityType as IdentityType,
-    type IdentityListResponse as IdentityListResponse,
     type IdentityDeleteResponse as IdentityDeleteResponse,
     type IdentityCountResponse as IdentityCountResponse,
+    type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
     type IdentityListParams as IdentityListParams,
     type IdentityModifyParams as IdentityModifyParams,
@@ -1098,7 +1098,6 @@ export declare namespace Letta {
     Runs as Runs,
     type Job as Job,
     type StopReasonType as StopReasonType,
-    type RunListResponse as RunListResponse,
     type RunListParams as RunListParams,
   };
 
@@ -1115,8 +1114,8 @@ export declare namespace Letta {
   export {
     Batches as Batches,
     type BatchJob as BatchJob,
-    type BatchListResponse as BatchListResponse,
     type BatchCancelResponse as BatchCancelResponse,
+    type BatchJobsArrayPage as BatchJobsArrayPage,
     type BatchCreateParams as BatchCreateParams,
     type BatchListParams as BatchListParams,
   };
