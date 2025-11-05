@@ -10,11 +10,7 @@ const client = new Letta({
 describe('resource batches', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.batches.create({
-      requests: [
-        { agent_id: 'agent_id', messages: [{ content: [{ text: 'text', type: 'text' }], role: 'user' }] },
-      ],
-    });
+    const responsePromise = client.batches.create({ requests: [{ agent_id: 'agent_id' }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -30,6 +26,12 @@ describe('resource batches', () => {
       requests: [
         {
           agent_id: 'agent_id',
+          assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
+          assistant_message_tool_name: 'assistant_message_tool_name',
+          enable_thinking: 'enable_thinking',
+          include_return_message_types: ['system_message'],
+          input: 'string',
+          max_steps: 0,
           messages: [
             {
               content: [{ text: 'text', signature: 'signature', type: 'text' }],
@@ -42,11 +44,6 @@ describe('resource batches', () => {
               type: 'message',
             },
           ],
-          assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
-          assistant_message_tool_name: 'assistant_message_tool_name',
-          enable_thinking: 'enable_thinking',
-          include_return_message_types: ['system_message'],
-          max_steps: 0,
           use_assistant_message: true,
         },
       ],

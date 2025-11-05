@@ -95,7 +95,9 @@ export type MessageModifyResponse =
   | ToolsAPI.ToolReturnMessage
   | MessagesAPI.AssistantMessage
   | MessagesAPI.ApprovalRequestMessage
-  | MessagesAPI.ApprovalResponseMessage;
+  | MessagesAPI.ApprovalResponseMessage
+  | MessagesAPI.SummaryMessage
+  | MessagesAPI.EventMessage;
 
 export type MessageResetResponse = unknown;
 
@@ -199,11 +201,6 @@ export declare namespace MessageModifyParams {
 
 export interface MessageSendParams {
   /**
-   * The messages to be sent to the agent.
-   */
-  messages: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate>;
-
-  /**
    * @deprecated The name of the message argument in the designated message tool.
    * Still supported for legacy agent types, but deprecated for letta_v1_agent
    * onward.
@@ -229,9 +226,32 @@ export interface MessageSendParams {
   include_return_message_types?: Array<MessagesAPI.MessageType> | null;
 
   /**
+   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+   * 'user', 'content': input}].
+   */
+  input?:
+    | string
+    | Array<
+        | MessagesAPI.TextContent
+        | MessagesAPI.ImageContent
+        | MessagesAPI.ToolCallContent
+        | MessagesAPI.ToolReturnContent
+        | MessagesAPI.ReasoningContent
+        | MessagesAPI.RedactedReasoningContent
+        | MessagesAPI.OmittedReasoningContent
+        | MessageSendParams.SummarizedReasoningContent
+      >
+    | null;
+
+  /**
    * Maximum number of steps the agent should take to process the request.
    */
   max_steps?: number;
+
+  /**
+   * The messages to be sent to the agent.
+   */
+  messages?: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate> | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -241,12 +261,48 @@ export interface MessageSendParams {
   use_assistant_message?: boolean;
 }
 
-export interface MessageStreamParams {
+export namespace MessageSendParams {
   /**
-   * The messages to be sent to the agent.
+   * The style of reasoning content returned by the OpenAI Responses API
    */
-  messages: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate>;
+  export interface SummarizedReasoningContent {
+    /**
+     * The unique identifier for this reasoning step.
+     */
+    id: string;
 
+    /**
+     * Summaries of the reasoning content.
+     */
+    summary: Array<SummarizedReasoningContent.Summary>;
+
+    /**
+     * The encrypted reasoning content.
+     */
+    encrypted_content?: string;
+
+    /**
+     * Indicates this is a summarized reasoning step.
+     */
+    type?: 'summarized_reasoning';
+  }
+
+  export namespace SummarizedReasoningContent {
+    export interface Summary {
+      /**
+       * The index of the summary part.
+       */
+      index: number;
+
+      /**
+       * The text of the summary part.
+       */
+      text: string;
+    }
+  }
+}
+
+export interface MessageStreamParams {
   /**
    * @deprecated The name of the message argument in the designated message tool.
    * Still supported for legacy agent types, but deprecated for letta_v1_agent
@@ -284,9 +340,32 @@ export interface MessageStreamParams {
   include_return_message_types?: Array<MessagesAPI.MessageType> | null;
 
   /**
+   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+   * 'user', 'content': input}].
+   */
+  input?:
+    | string
+    | Array<
+        | MessagesAPI.TextContent
+        | MessagesAPI.ImageContent
+        | MessagesAPI.ToolCallContent
+        | MessagesAPI.ToolReturnContent
+        | MessagesAPI.ReasoningContent
+        | MessagesAPI.RedactedReasoningContent
+        | MessagesAPI.OmittedReasoningContent
+        | MessageStreamParams.SummarizedReasoningContent
+      >
+    | null;
+
+  /**
    * Maximum number of steps the agent should take to process the request.
    */
   max_steps?: number;
+
+  /**
+   * The messages to be sent to the agent.
+   */
+  messages?: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate> | null;
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
@@ -300,6 +379,47 @@ export interface MessageStreamParams {
    * legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
+}
+
+export namespace MessageStreamParams {
+  /**
+   * The style of reasoning content returned by the OpenAI Responses API
+   */
+  export interface SummarizedReasoningContent {
+    /**
+     * The unique identifier for this reasoning step.
+     */
+    id: string;
+
+    /**
+     * Summaries of the reasoning content.
+     */
+    summary: Array<SummarizedReasoningContent.Summary>;
+
+    /**
+     * The encrypted reasoning content.
+     */
+    encrypted_content?: string;
+
+    /**
+     * Indicates this is a summarized reasoning step.
+     */
+    type?: 'summarized_reasoning';
+  }
+
+  export namespace SummarizedReasoningContent {
+    export interface Summary {
+      /**
+       * The index of the summary part.
+       */
+      index: number;
+
+      /**
+       * The text of the summary part.
+       */
+      text: string;
+    }
+  }
 }
 
 export declare namespace Messages {
