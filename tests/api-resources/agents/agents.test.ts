@@ -70,6 +70,7 @@ describe('resource agents', () => {
           identity_id: 'identity_id',
           include: ['agent.blocks'],
           include_relationships: ['string'],
+          last_stop_reason: 'end_turn',
           limit: 0,
           match_all_tags: true,
           name: 'name',

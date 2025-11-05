@@ -1364,6 +1364,11 @@ export interface AgentListParams extends ArrayPageParams {
   include_relationships?: Array<string> | null;
 
   /**
+   * Filter agents by their last stop reason.
+   */
+  last_stop_reason?: RunsAPI.StopReasonType | null;
+
+  /**
    * If True, only returns agents that match ALL given tags. Otherwise, return agents
    * that have ANY of the passed-in tags.
    */
