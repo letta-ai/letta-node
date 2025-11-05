@@ -147,6 +147,9 @@ import {
   IdentityUpsertParams,
 } from './resources/identities/identities';
 import {
+  CreateSseMcpServer,
+  CreateStdioMcpServer,
+  CreateStreamableHTTPMcpServer,
   McpServerConnectResponse,
   McpServerCreateParams,
   McpServerCreateResponse,
@@ -154,8 +157,15 @@ import {
   McpServerModifyParams,
   McpServerModifyResponse,
   McpServerRetrieveResponse,
-  McpServerSchema,
   McpServers,
+  McpToolExecuteRequest,
+  SseMcpServer,
+  StdioMcpServer,
+  StreamableHTTPMcpServer,
+  ToolExecutionResult,
+  UpdateSseMcpServer,
+  UpdateStdioMcpServer,
+  UpdateStreamableHTTPMcpServer,
 } from './resources/mcp-servers/mcp-servers';
 import {
   EmbeddingConfig,
@@ -1124,7 +1134,17 @@ export declare namespace Letta {
 
   export {
     McpServers as McpServers,
-    type McpServerSchema as McpServerSchema,
+    type CreateSseMcpServer as CreateSseMcpServer,
+    type CreateStdioMcpServer as CreateStdioMcpServer,
+    type CreateStreamableHTTPMcpServer as CreateStreamableHTTPMcpServer,
+    type McpToolExecuteRequest as McpToolExecuteRequest,
+    type SseMcpServer as SseMcpServer,
+    type StdioMcpServer as StdioMcpServer,
+    type StreamableHTTPMcpServer as StreamableHTTPMcpServer,
+    type ToolExecutionResult as ToolExecutionResult,
+    type UpdateSseMcpServer as UpdateSseMcpServer,
+    type UpdateStdioMcpServer as UpdateStdioMcpServer,
+    type UpdateStreamableHTTPMcpServer as UpdateStreamableHTTPMcpServer,
     type McpServerCreateResponse as McpServerCreateResponse,
     type McpServerRetrieveResponse as McpServerRetrieveResponse,
     type McpServerListResponse as McpServerListResponse,

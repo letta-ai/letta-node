@@ -100,7 +100,17 @@ export {
 } from './identities/identities';
 export {
   McpServers,
-  type McpServerSchema,
+  type CreateSseMcpServer,
+  type CreateStdioMcpServer,
+  type CreateStreamableHTTPMcpServer,
+  type McpToolExecuteRequest,
+  type SseMcpServer,
+  type StdioMcpServer,
+  type StreamableHTTPMcpServer,
+  type ToolExecutionResult,
+  type UpdateSseMcpServer,
+  type UpdateStdioMcpServer,
+  type UpdateStreamableHTTPMcpServer,
   type McpServerCreateResponse,
   type McpServerRetrieveResponse,
   type McpServerListResponse,

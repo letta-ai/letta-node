@@ -493,7 +493,17 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerSchema</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">CreateSseMcpServer</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">CreateStdioMcpServer</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">CreateStreamableHTTPMcpServer</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpToolExecuteRequest</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">SseMcpServer</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">StdioMcpServer</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">StreamableHTTPMcpServer</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">ToolExecutionResult</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">UpdateSseMcpServer</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">UpdateStdioMcpServer</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">UpdateStreamableHTTPMcpServer</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerCreateResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerRetrieveResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerListResponse</a></code>
@@ -514,13 +524,12 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/mcp-servers/tools.ts">ToolListResponse</a></code>
-- <code><a href="./src/resources/mcp-servers/tools.ts">ToolRunResponse</a></code>
 
 Methods:
 
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">retrieve</a>(toolID, { ...params }) -> Tool</code>
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">list</a>(mcpServerID) -> ToolListResponse</code>
-- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">run</a>(toolID, { ...params }) -> ToolRunResponse</code>
+- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">run</a>(toolID, { ...params }) -> ToolExecutionResult</code>
 
 ## Refresh
 
