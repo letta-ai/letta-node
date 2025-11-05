@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as ToolsAPI from '../tools';
-import * as AgentsAPI from '../agents/agents';
+import * as McpServersAPI from './mcp-servers';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -29,7 +29,11 @@ export class Tools extends APIResource {
    * The request body should contain the tool arguments in the MCPToolExecuteRequest
    * format.
    */
-  run(toolID: string, params: ToolRunParams, options?: RequestOptions): APIPromise<ToolRunResponse> {
+  run(
+    toolID: string,
+    params: ToolRunParams,
+    options?: RequestOptions,
+  ): APIPromise<McpServersAPI.ToolExecutionResult> {
     const { mcp_server_id, ...body } = params;
     return this._client.post(path`/v1/mcp-servers/${mcp_server_id}/tools/${toolID}/run`, {
       body,
@@ -39,50 +43,6 @@ export class Tools extends APIResource {
 }
 
 export type ToolListResponse = Array<ToolsAPI.Tool>;
-
-export interface ToolRunResponse {
-  /**
-   * The status of the tool execution and return object
-   */
-  status: 'success' | 'error';
-
-  /**
-   * Representation of an agent's state. This is the state of the agent at a given
-   * time, and is persisted in the DB backend. The state has all the information
-   * needed to recreate a persisted agent.
-   *
-   * Parameters: id (str): The unique identifier of the agent. name (str): The name
-   * of the agent (must be unique to the user). created_at (datetime): The datetime
-   * the agent was created. message_ids (List[str]): The ids of the messages in the
-   * agent's in-context memory. memory (Memory): The in-context memory of the agent.
-   * tools (List[str]): The tools used by the agent. This includes any memory editing
-   * functions specified in `memory`. system (str): The system prompt used by the
-   * agent. llm_config (LLMConfig): The LLM configuration used by the agent.
-   * embedding_config (EmbeddingConfig): The embedding configuration used by the
-   * agent.
-   */
-  agent_state?: AgentsAPI.AgentState | null;
-
-  /**
-   * The function return object
-   */
-  func_return?: unknown;
-
-  /**
-   * The fingerprint of the config for the sandbox
-   */
-  sandbox_config_fingerprint?: string | null;
-
-  /**
-   * Captured stderr from the function invocation
-   */
-  stderr?: Array<string> | null;
-
-  /**
-   * Captured stdout (prints, logs) from function invocation
-   */
-  stdout?: Array<string> | null;
-}
 
 export interface ToolRetrieveParams {
   mcp_server_id: string;
@@ -103,7 +63,6 @@ export interface ToolRunParams {
 export declare namespace Tools {
   export {
     type ToolListResponse as ToolListResponse,
-    type ToolRunResponse as ToolRunResponse,
     type ToolRetrieveParams as ToolRetrieveParams,
     type ToolRunParams as ToolRunParams,
   };
