@@ -58,6 +58,7 @@ import {
   ToolsArrayPage,
 } from './resources/tools';
 import {
+  AgentCountParams,
   AgentCountResponse,
   AgentCreateParams,
   AgentDeleteResponse,
@@ -1046,6 +1047,7 @@ export declare namespace Letta {
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentListParams as AgentListParams,
+    type AgentCountParams as AgentCountParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
     type AgentModifyParams as AgentModifyParams,

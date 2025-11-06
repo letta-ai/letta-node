@@ -149,10 +149,14 @@ export class Agents extends APIResource {
   }
 
   /**
-   * Get the total number of agents.
+   * Get the total number of agents with optional filtering. Supports the same
+   * filters as list_agents for consistent querying.
    */
-  count(options?: RequestOptions): APIPromise<AgentCountResponse> {
-    return this._client.get('/v1/agents/count', options);
+  count(
+    query: AgentCountParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<AgentCountResponse> {
+    return this._client.get('/v1/agents/count', { query, ...options });
   }
 
   /**
@@ -1491,6 +1495,59 @@ export interface AgentListParams extends ArrayPageParams {
   template_id?: string | null;
 }
 
+export interface AgentCountParams {
+  /**
+   * Search agents by base template ID
+   */
+  base_template_id?: string | null;
+
+  /**
+   * Search agents by identifier keys
+   */
+  identifier_keys?: Array<string> | null;
+
+  /**
+   * Search agents by identity ID
+   */
+  identity_id?: string | null;
+
+  /**
+   * Filter agents by their last stop reason.
+   */
+  last_stop_reason?: RunsAPI.StopReasonType | null;
+
+  /**
+   * If True, only counts agents that match ALL given tags. Otherwise, counts agents
+   * that have ANY of the passed-in tags.
+   */
+  match_all_tags?: boolean;
+
+  /**
+   * Name of the agent
+   */
+  name?: string | null;
+
+  /**
+   * Search agents by project ID - this will default to your default project on cloud
+   */
+  project_id?: string | null;
+
+  /**
+   * Search agents by name
+   */
+  query_text?: string | null;
+
+  /**
+   * List of tags to filter agents by
+   */
+  tags?: Array<string> | null;
+
+  /**
+   * Search agents by template ID
+   */
+  template_id?: string | null;
+}
+
 export interface AgentExportFileParams {
   /**
    * @deprecated
@@ -1811,6 +1868,7 @@ export declare namespace Agents {
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentListParams as AgentListParams,
+    type AgentCountParams as AgentCountParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
     type AgentModifyParams as AgentModifyParams,
