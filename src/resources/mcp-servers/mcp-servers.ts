@@ -2,8 +2,6 @@
 
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from '../agents/agents';
-import * as RefreshAPI from './refresh';
-import { Refresh, RefreshTriggerParams, RefreshTriggerResponse } from './refresh';
 import * as ToolsAPI from './tools';
 import { ToolListResponse, ToolRetrieveParams, ToolRunParams, Tools } from './tools';
 import { APIPromise } from '../../core/api-promise';
@@ -13,7 +11,6 @@ import { path } from '../../internal/utils/path';
 
 export class McpServers extends APIResource {
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
-  refresh: RefreshAPI.Refresh = new RefreshAPI.Refresh(this._client);
 
   /**
    * Add a new MCP server to the Letta MCP server config
@@ -63,6 +60,28 @@ export class McpServers extends APIResource {
     options?: RequestOptions,
   ): APIPromise<McpServerModifyResponse> {
     return this._client.patch(path`/v1/mcp-servers/${mcpServerID}`, { body, ...options });
+  }
+
+  /**
+   * Refresh tools for an MCP server by:
+   *
+   * 1. Fetching current tools from the MCP server
+   * 2. Deleting tools that no longer exist on the server
+   * 3. Updating schemas for existing tools
+   * 4. Adding new tools from the server
+   *
+   * Returns a summary of changes made.
+   */
+  refresh(
+    mcpServerID: string,
+    params: McpServerRefreshParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<unknown> {
+    const { agent_id } = params ?? {};
+    return this._client.patch(path`/v1/mcp-servers/${mcpServerID}/refresh`, {
+      query: { agent_id },
+      ...options,
+    });
   }
 }
 
@@ -431,6 +450,8 @@ export type McpServerConnectResponse = unknown;
  */
 export type McpServerModifyResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer;
 
+export type McpServerRefreshResponse = unknown;
+
 export type McpServerCreateParams =
   | McpServerCreateParams.CreateStdioMcpServer
   | McpServerCreateParams.CreateSseMcpServer
@@ -613,8 +634,11 @@ export declare namespace McpServerModifyParams {
   }
 }
 
+export interface McpServerRefreshParams {
+  agent_id?: string | null;
+}
+
 McpServers.Tools = Tools;
-McpServers.Refresh = Refresh;
 
 export declare namespace McpServers {
   export {
@@ -634,8 +658,10 @@ export declare namespace McpServers {
     type McpServerListResponse as McpServerListResponse,
     type McpServerConnectResponse as McpServerConnectResponse,
     type McpServerModifyResponse as McpServerModifyResponse,
+    type McpServerRefreshResponse as McpServerRefreshResponse,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerModifyParams as McpServerModifyParams,
+    type McpServerRefreshParams as McpServerRefreshParams,
   };
 
   export {
@@ -643,11 +669,5 @@ export declare namespace McpServers {
     type ToolListResponse as ToolListResponse,
     type ToolRetrieveParams as ToolRetrieveParams,
     type ToolRunParams as ToolRunParams,
-  };
-
-  export {
-    Refresh as Refresh,
-    type RefreshTriggerResponse as RefreshTriggerResponse,
-    type RefreshTriggerParams as RefreshTriggerParams,
   };
 }
