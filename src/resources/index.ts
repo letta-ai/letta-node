@@ -26,6 +26,7 @@ export {
   type AgentCreateParams,
   type AgentRetrieveParams,
   type AgentListParams,
+  type AgentCountParams,
   type AgentExportFileParams,
   type AgentImportFileParams,
   type AgentModifyParams,

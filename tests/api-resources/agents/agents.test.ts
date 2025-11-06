@@ -112,6 +112,28 @@ describe('resource agents', () => {
   });
 
   // Prism tests are disabled
+  test.skip('count: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.agents.count(
+        {
+          base_template_id: 'base_template_id',
+          identifier_keys: ['string'],
+          identity_id: 'identity_id',
+          last_stop_reason: 'end_turn',
+          match_all_tags: true,
+          name: 'name',
+          project_id: 'project_id',
+          query_text: 'query_text',
+          tags: ['string'],
+          template_id: 'template_id',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  // Prism tests are disabled
   test.skip('exportFile', async () => {
     const responsePromise = client.agents.exportFile('agent_id');
     const rawResponse = await responsePromise.asResponse();

@@ -120,7 +120,7 @@ Methods:
 - <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">retrieve</a>(agentID, { ...params }) -> AgentState</code>
 - <code title="get /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">list</a>({ ...params }) -> AgentStatesArrayPage</code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentID) -> unknown</code>
-- <code title="get /v1/agents/count">client.agents.<a href="./src/resources/agents/agents.ts">count</a>() -> AgentCountResponse</code>
+- <code title="get /v1/agents/count">client.agents.<a href="./src/resources/agents/agents.ts">count</a>({ ...params }) -> AgentCountResponse</code>
 - <code title="get /v1/agents/{agent_id}/export">client.agents.<a href="./src/resources/agents/agents.ts">exportFile</a>(agentID, { ...params }) -> string</code>
 - <code title="post /v1/agents/import">client.agents.<a href="./src/resources/agents/agents.ts">importFile</a>({ ...params }) -> AgentImportFileResponse</code>
 - <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">modify</a>(agentID, { ...params }) -> AgentState</code>
