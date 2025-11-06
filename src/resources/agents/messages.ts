@@ -138,6 +138,11 @@ export interface ApprovalCreate {
   approve?: boolean | null;
 
   /**
+   * The multi-agent group that the message was sent in
+   */
+  group_id?: string | null;
+
+  /**
    * @deprecated An optional explanation for the provided approval status
    */
   reason?: string | null;
