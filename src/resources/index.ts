@@ -117,8 +117,10 @@ export {
   type McpServerListResponse,
   type McpServerConnectResponse,
   type McpServerModifyResponse,
+  type McpServerRefreshResponse,
   type McpServerCreateParams,
   type McpServerModifyParams,
+  type McpServerRefreshParams,
 } from './mcp-servers/mcp-servers';
 export {
   Models,

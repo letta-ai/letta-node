@@ -18,8 +18,9 @@ export {
   type McpServerListResponse,
   type McpServerConnectResponse,
   type McpServerModifyResponse,
+  type McpServerRefreshResponse,
   type McpServerCreateParams,
   type McpServerModifyParams,
+  type McpServerRefreshParams,
 } from './mcp-servers';
-export { Refresh, type RefreshTriggerResponse, type RefreshTriggerParams } from './refresh';
 export { Tools, type ToolListResponse, type ToolRetrieveParams, type ToolRunParams } from './tools';

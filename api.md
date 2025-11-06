@@ -509,6 +509,7 @@ Types:
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerListResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerConnectResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerModifyResponse</a></code>
+- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerRefreshResponse</a></code>
 
 Methods:
 
@@ -518,6 +519,7 @@ Methods:
 - <code title="delete /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">delete</a>(mcpServerID) -> void</code>
 - <code title="get /v1/mcp-servers/connect/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">connect</a>(mcpServerID) -> unknown</code>
 - <code title="patch /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">modify</a>(mcpServerID, { ...params }) -> McpServerModifyResponse</code>
+- <code title="patch /v1/mcp-servers/{mcp_server_id}/refresh">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">refresh</a>(mcpServerID, { ...params }) -> unknown</code>
 
 ## Tools
 
@@ -530,13 +532,3 @@ Methods:
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">retrieve</a>(toolID, { ...params }) -> Tool</code>
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">list</a>(mcpServerID) -> ToolListResponse</code>
 - <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">run</a>(toolID, { ...params }) -> ToolExecutionResult</code>
-
-## Refresh
-
-Types:
-
-- <code><a href="./src/resources/mcp-servers/refresh.ts">RefreshTriggerResponse</a></code>
-
-Methods:
-
-- <code title="patch /v1/mcp-servers/{mcp_server_id}/refresh">client.mcpServers.refresh.<a href="./src/resources/mcp-servers/refresh.ts">trigger</a>(mcpServerID, { ...params }) -> unknown</code>

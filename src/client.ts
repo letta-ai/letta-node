@@ -157,6 +157,8 @@ import {
   McpServerListResponse,
   McpServerModifyParams,
   McpServerModifyResponse,
+  McpServerRefreshParams,
+  McpServerRefreshResponse,
   McpServerRetrieveResponse,
   McpServers,
   McpToolExecuteRequest,
@@ -1152,7 +1154,9 @@ export declare namespace Letta {
     type McpServerListResponse as McpServerListResponse,
     type McpServerConnectResponse as McpServerConnectResponse,
     type McpServerModifyResponse as McpServerModifyResponse,
+    type McpServerRefreshResponse as McpServerRefreshResponse,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerModifyParams as McpServerModifyParams,
+    type McpServerRefreshParams as McpServerRefreshParams,
   };
 }
