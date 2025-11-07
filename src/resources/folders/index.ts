@@ -8,14 +8,14 @@ export {
   type FileListParams,
   type FileDeleteParams,
   type FileUploadParams,
+  type FileListResponsesArrayPage,
 } from './files';
 export {
   Folders,
   type Folder,
-  type FolderListResponse,
   type FolderDeleteResponse,
-  type FolderCountResponse,
   type FolderCreateParams,
   type FolderListParams,
   type FolderModifyParams,
+  type FoldersArrayPage,
 } from './folders';

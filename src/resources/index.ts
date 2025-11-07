@@ -20,7 +20,6 @@ export {
   type TerminalToolRule,
   type TextResponseFormat,
   type AgentDeleteResponse,
-  type AgentCountResponse,
   type AgentExportFileResponse,
   type AgentImportFileResponse,
   type AgentCreateParams,
@@ -35,25 +34,24 @@ export {
   Archives,
   type Archive,
   type VectorDBProvider,
-  type ArchiveListResponse,
   type ArchiveCreateParams,
   type ArchiveListParams,
   type ArchiveModifyParams,
+  type ArchivesArrayPage,
 } from './archives';
 export {
   Batches,
   type BatchJob,
-  type BatchListResponse,
   type BatchCancelResponse,
   type BatchCreateParams,
   type BatchListParams,
+  type BatchJobsArrayPage,
 } from './batches/batches';
 export {
   Blocks,
   type BlockResponse,
   type CreateBlock,
   type BlockDeleteResponse,
-  type BlockCountResponse,
   type BlockCreateParams,
   type BlockListParams,
   type BlockModifyParams,
@@ -62,12 +60,11 @@ export {
 export {
   Folders,
   type Folder,
-  type FolderListResponse,
   type FolderDeleteResponse,
-  type FolderCountResponse,
   type FolderCreateParams,
   type FolderListParams,
   type FolderModifyParams,
+  type FoldersArrayPage,
 } from './folders/folders';
 export {
   Groups,
@@ -79,7 +76,6 @@ export {
   type SupervisorManager,
   type VoiceSleeptimeManager,
   type GroupDeleteResponse,
-  type GroupCountResponse,
   type GroupCreateParams,
   type GroupListParams,
   type GroupModifyParams,
@@ -90,24 +86,35 @@ export {
   type Identity,
   type IdentityProperty,
   type IdentityType,
-  type IdentityListResponse,
   type IdentityDeleteResponse,
-  type IdentityCountResponse,
   type IdentityCreateParams,
   type IdentityListParams,
   type IdentityModifyParams,
   type IdentityUpsertParams,
+  type IdentitiesArrayPage,
 } from './identities/identities';
 export {
   McpServers,
-  type McpServerSchema,
+  type CreateSseMcpServer,
+  type CreateStdioMcpServer,
+  type CreateStreamableHTTPMcpServer,
+  type McpToolExecuteRequest,
+  type SseMcpServer,
+  type StdioMcpServer,
+  type StreamableHTTPMcpServer,
+  type ToolExecutionResult,
+  type UpdateSseMcpServer,
+  type UpdateStdioMcpServer,
+  type UpdateStreamableHTTPMcpServer,
   type McpServerCreateResponse,
   type McpServerRetrieveResponse,
   type McpServerListResponse,
   type McpServerConnectResponse,
   type McpServerModifyResponse,
+  type McpServerRefreshResponse,
   type McpServerCreateParams,
   type McpServerModifyParams,
+  type McpServerRefreshParams,
 } from './mcp-servers/mcp-servers';
 export {
   Models,
@@ -118,7 +125,7 @@ export {
   type ModelListResponse,
   type ModelListParams,
 } from './models/models';
-export { Runs, type Job, type StopReasonType, type RunListResponse, type RunListParams } from './runs/runs';
+export { Runs, type Job, type StopReasonType, type RunListParams } from './runs/runs';
 export {
   Steps,
   type ProviderTrace,
@@ -136,14 +143,12 @@ export {
   type ToolCreate,
   type ToolReturnMessage,
   type ToolType,
-  type ToolListResponse,
   type ToolDeleteResponse,
-  type ToolCountResponse,
   type ToolUpsertBaseToolsResponse,
   type ToolCreateParams,
   type ToolListParams,
-  type ToolCountParams,
   type ToolModifyParams,
   type ToolUpsertParams,
+  type ToolsArrayPage,
 } from './tools';
 export { type HealthResponse } from './top-level';

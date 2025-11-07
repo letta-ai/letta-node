@@ -33,6 +33,7 @@ import {
   FolderDetachParams,
   FolderListParams,
   FolderListResponse,
+  FolderListResponsesArrayPage,
   Folders,
 } from './folders';
 import * as GroupsAPI from './groups';
@@ -66,6 +67,8 @@ import {
   MessageRole,
   MessageSendAsyncParams,
   MessageSendParams,
+  MessageSendParamsNonStreaming,
+  MessageSendParamsStreaming,
   MessageStreamParams,
   MessageType,
   Messages,
@@ -90,18 +93,12 @@ import {
   UserMessage,
 } from './messages';
 import * as AgentsToolsAPI from './tools';
-import {
-  ToolAttachParams,
-  ToolDetachParams,
-  ToolListParams,
-  ToolListResponse,
-  ToolUpdateApprovalParams,
-  Tools,
-} from './tools';
+import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
 import * as IdentitiesAPI from '../identities/identities';
 import * as ModelsAPI from '../models/models';
+import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { type Uploadable } from '../../core/uploads';
@@ -151,13 +148,6 @@ export class Agents extends APIResource {
    */
   delete(agentID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.delete(path`/v1/agents/${agentID}`, options);
-  }
-
-  /**
-   * Get the total number of agents.
-   */
-  count(options?: RequestOptions): APIPromise<AgentCountResponse> {
-    return this._client.get('/v1/agents/count', options);
   }
 
   /**
@@ -292,17 +282,20 @@ export interface AgentState {
   blocks: Array<BlocksAPI.Block>;
 
   /**
-   * The embedding configuration used by the agent.
+   * @deprecated Deprecated: Use `embedding` field instead. The embedding
+   * configuration used by the agent.
    */
   embedding_config: ModelsAPI.EmbeddingConfig;
 
   /**
-   * The LLM configuration used by the agent.
+   * @deprecated Deprecated: Use `model` field instead. The LLM configuration used by
+   * the agent.
    */
   llm_config: ModelsAPI.LlmConfig;
 
   /**
-   * @deprecated The in-context memory of the agent.
+   * @deprecated Deprecated: Use `blocks` field instead. The in-context memory of the
+   * agent.
    */
   memory: AgentState.Memory;
 
@@ -357,6 +350,11 @@ export interface AgentState {
   description?: string | null;
 
   /**
+   * The embedding model used by the agent.
+   */
+  embedding?: AgentState.Embedding | null;
+
+  /**
    * If set to True, memory management will move to a background agent thread.
    */
   enable_sleeptime?: boolean | null;
@@ -377,7 +375,8 @@ export interface AgentState {
   identities?: Array<IdentitiesAPI.Identity>;
 
   /**
-   * @deprecated The ids of the identities associated with this agent.
+   * @deprecated Deprecated: Use `identities` field instead. The ids of the
+   * identities associated with this agent.
    */
   identity_ids?: Array<string>;
 
@@ -390,6 +389,11 @@ export interface AgentState {
    * The duration in milliseconds of the agent's last run.
    */
   last_run_duration_ms?: number | null;
+
+  /**
+   * The stop reason from the agent's last run.
+   */
+  last_stop_reason?: RunsAPI.StopReasonType | null;
 
   /**
    * The id of the user that made this object.
@@ -425,7 +429,13 @@ export interface AgentState {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * @deprecated The multi-agent group that this agent manages
+   * Schema for defining settings for a model
+   */
+  model?: AgentState.Model | null;
+
+  /**
+   * @deprecated Deprecated: Use `managed_group` field instead. The multi-agent group
+   * that this agent manages.
    */
   multi_agent_group?: GroupsGroupsAPI.Group | null;
 
@@ -441,7 +451,7 @@ export interface AgentState {
   project_id?: string | null;
 
   /**
-   * The response format used by the agent when returning from `send_message`.
+   * The response format used by the agent
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
@@ -488,7 +498,8 @@ export interface AgentState {
 
 export namespace AgentState {
   /**
-   * @deprecated The in-context memory of the agent.
+   * @deprecated Deprecated: Use `blocks` field instead. The in-context memory of the
+   * agent.
    */
   export interface Memory {
     /**
@@ -638,6 +649,11 @@ export namespace AgentState {
    */
   export interface Source {
     /**
+     * The human-friendly ID of the Source
+     */
+    id: string;
+
+    /**
      * The embedding configuration used by the source.
      */
     embedding_config: ModelsAPI.EmbeddingConfig;
@@ -646,11 +662,6 @@ export namespace AgentState {
      * The name of the source.
      */
     name: string;
-
-    /**
-     * The human-friendly ID of the Source
-     */
-    id?: string;
 
     /**
      * The timestamp when the source was created.
@@ -691,6 +702,36 @@ export namespace AgentState {
      * The vector database provider used for this source's passages
      */
     vector_db_provider?: ArchivesAPI.VectorDBProvider;
+  }
+
+  /**
+   * The embedding model used by the agent.
+   */
+  export interface Embedding {
+    /**
+     * The name of the model.
+     */
+    model: string;
+
+    /**
+     * The provider of the model.
+     */
+    provider: 'openai' | 'ollama';
+  }
+
+  /**
+   * Schema for defining settings for a model
+   */
+  export interface Model {
+    /**
+     * The name of the model.
+     */
+    model: string;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
   }
 }
 
@@ -1031,8 +1072,6 @@ export interface TextResponseFormat {
 
 export type AgentDeleteResponse = unknown;
 
-export type AgentCountResponse = number;
-
 export type AgentExportFileResponse = string;
 
 /**
@@ -1052,7 +1091,7 @@ export interface AgentCreateParams {
   agent_type?: AgentType;
 
   /**
-   * The base template id of the agent.
+   * @deprecated Deprecated: No longer used. The base template id of the agent.
    */
   base_template_id?: string | null;
 
@@ -1075,10 +1114,11 @@ export interface AgentCreateParams {
    * The embedding configuration handle used by the agent, specified in the format
    * provider/model-name.
    */
-  embedding?: string | null;
+  embedding?: string | AgentCreateParams.EmbeddingModelSettings | null;
 
   /**
-   * The embedding chunk size used by the agent.
+   * @deprecated Deprecated: No longer used. The embedding chunk size used by the
+   * agent.
    */
   embedding_chunk_size?: number | null;
 
@@ -1088,6 +1128,7 @@ export interface AgentCreateParams {
   embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
+   * @deprecated Deprecated: Use `model` field to configure reasoning instead.
    * Whether to enable internal extended thinking step for a reasoner model.
    */
   enable_reasoner?: boolean | null;
@@ -1098,12 +1139,14 @@ export interface AgentCreateParams {
   enable_sleeptime?: boolean | null;
 
   /**
-   * Deprecated: please use the 'create agents from a template' endpoint instead.
+   * @deprecated Deprecated: please use the 'create agents from a template' endpoint
+   * instead.
    */
   from_template?: string | null;
 
   /**
-   * If set to True, the agent will be hidden.
+   * @deprecated Deprecated: No longer used. If set to True, the agent will be
+   * hidden.
    */
   hidden?: boolean | null;
 
@@ -1124,8 +1167,8 @@ export interface AgentCreateParams {
   include_base_tools?: boolean;
 
   /**
-   * If true, automatically creates and attaches a default data source for this
-   * agent.
+   * @deprecated If true, automatically creates and attaches a default data source
+   * for this agent.
    */
   include_default_source?: boolean;
 
@@ -1152,14 +1195,14 @@ export interface AgentCreateParams {
   max_files_open?: number | null;
 
   /**
-   * The maximum number of tokens to generate for reasoning step. If not set, the
-   * model will use its default value.
+   * @deprecated Deprecated: Use `model` field to configure reasoning tokens instead.
+   * The maximum number of tokens to generate for reasoning step.
    */
   max_reasoning_tokens?: number | null;
 
   /**
-   * The maximum number of tokens to generate, including reasoning step. If not set,
-   * the model will use its default value.
+   * @deprecated Deprecated: Use `model` field to configure max output tokens
+   * instead. The maximum number of tokens to generate, including reasoning step.
    */
   max_tokens?: number | null;
 
@@ -1169,7 +1212,8 @@ export interface AgentCreateParams {
   memory_blocks?: Array<BlocksBlocksAPI.CreateBlock> | null;
 
   /**
-   * The variables that should be set for the agent.
+   * @deprecated Deprecated: Only relevant for creating agents from a template. Use
+   * the 'create agents from a template' endpoint instead.
    */
   memory_variables?: { [key: string]: string } | null;
 
@@ -1186,10 +1230,10 @@ export interface AgentCreateParams {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The LLM configuration handle used by the agent, specified in the format
-   * provider/model-name, as an alternative to specifying llm_config.
+   * The model handle or model settings for the agent to use, specified either by a
+   * handle or an object. See the model schema for more information.
    */
-  model?: string | null;
+  model?: string | AgentCreateParams.ModelSettings | null;
 
   /**
    * The name of the agent.
@@ -1197,7 +1241,8 @@ export interface AgentCreateParams {
   name?: string;
 
   /**
-   * If set to True, enables parallel tool calling. Defaults to False.
+   * @deprecated Deprecated: Use `model` field to configure parallel tool calls
+   * instead. If set to True, enables parallel tool calling.
    */
   parallel_tool_calls?: boolean | null;
 
@@ -1209,17 +1254,19 @@ export interface AgentCreateParams {
 
   /**
    * @deprecated Deprecated: Project should now be passed via the X-Project header
-   * instead of in the request body. If using the sdk, this can be done via the new
-   * x_project field below.
+   * instead of in the request body. If using the SDK, this can be done via the
+   * x_project parameter.
    */
   project?: string | null;
 
   /**
-   * The id of the project the agent belongs to.
+   * @deprecated Deprecated: No longer used. The id of the project the agent belongs
+   * to.
    */
   project_id?: string | null;
 
   /**
+   * @deprecated Deprecated: Use `model` field to configure reasoning instead.
    * Whether to enable reasoning for this agent.
    */
   reasoning?: boolean | null;
@@ -1250,12 +1297,13 @@ export interface AgentCreateParams {
   tags?: Array<string> | null;
 
   /**
-   * Deprecated: No longer used
+   * @deprecated Deprecated: No longer used.
    */
   template?: boolean;
 
   /**
-   * The id of the template the agent belongs to.
+   * @deprecated Deprecated: No longer used. The id of the template the agent belongs
+   * to.
    */
   template_id?: string | null;
 
@@ -1265,7 +1313,8 @@ export interface AgentCreateParams {
   timezone?: string | null;
 
   /**
-   * Deprecated: use `secrets` field instead.
+   * @deprecated Deprecated: Use `secrets` field instead. Environment variables for
+   * tool execution.
    */
   tool_exec_environment_variables?: { [key: string]: string } | null;
 
@@ -1293,6 +1342,35 @@ export interface AgentCreateParams {
    * The tools used by the agent.
    */
   tools?: Array<string> | null;
+}
+
+export namespace AgentCreateParams {
+  export interface EmbeddingModelSettings {
+    /**
+     * The name of the model.
+     */
+    model: string;
+
+    /**
+     * The provider of the model.
+     */
+    provider: 'openai' | 'ollama';
+  }
+
+  /**
+   * Schema for defining settings for a model
+   */
+  export interface ModelSettings {
+    /**
+     * The name of the model.
+     */
+    model: string;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+  }
 }
 
 export interface AgentRetrieveParams {
@@ -1362,6 +1440,11 @@ export interface AgentListParams extends ArrayPageParams {
    * parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
+
+  /**
+   * Filter agents by their last stop reason.
+   */
+  last_stop_reason?: RunsAPI.StopReasonType | null;
 
   /**
    * If True, only returns agents that match ALL given tags. Otherwise, return agents
@@ -1491,7 +1574,7 @@ export interface AgentModifyParams {
    * The embedding configuration handle used by the agent, specified in the format
    * provider/model-name.
    */
-  embedding?: string | null;
+  embedding?: string | AgentModifyParams.EmbeddingModelSettings | null;
 
   /**
    * Configuration for embedding model connection and processing parameters.
@@ -1524,6 +1607,11 @@ export interface AgentModifyParams {
   last_run_duration_ms?: number | null;
 
   /**
+   * The stop reason from the agent's last run.
+   */
+  last_stop_reason?: RunsAPI.StopReasonType | null;
+
+  /**
    * Configuration for Language Model (LLM) connection and generation parameters.
    */
   llm_config?: ModelsAPI.LlmConfig | null;
@@ -1535,8 +1623,8 @@ export interface AgentModifyParams {
   max_files_open?: number | null;
 
   /**
-   * The maximum number of tokens to generate, including reasoning step. If not set,
-   * the model will use its default value.
+   * @deprecated Deprecated: Use `model` field to configure max output tokens
+   * instead. The maximum number of tokens to generate, including reasoning step.
    */
   max_tokens?: number | null;
 
@@ -1558,10 +1646,10 @@ export interface AgentModifyParams {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The LLM configuration handle used by the agent, specified in the format
-   * provider/model-name, as an alternative to specifying llm_config.
+   * The model used by the agent, specified either by a handle or an object. See the
+   * model schema for more information.
    */
-  model?: string | null;
+  model?: string | AgentModifyParams.ModelSettings | null;
 
   /**
    * The name of the agent.
@@ -1569,7 +1657,8 @@ export interface AgentModifyParams {
   name?: string | null;
 
   /**
-   * If set to True, enables parallel tool calling. Defaults to False.
+   * @deprecated Deprecated: Use `model` field to configure parallel tool calls
+   * instead. If set to True, enables parallel tool calling.
    */
   parallel_tool_calls?: boolean | null;
 
@@ -1585,11 +1674,13 @@ export interface AgentModifyParams {
   project_id?: string | null;
 
   /**
+   * @deprecated Deprecated: Use `model` field to configure reasoning instead.
    * Whether to enable reasoning for this agent.
    */
   reasoning?: boolean | null;
 
   /**
+   * @deprecated Deprecated: Use `model` field to configure response format instead.
    * The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
@@ -1650,6 +1741,35 @@ export interface AgentModifyParams {
   > | null;
 }
 
+export namespace AgentModifyParams {
+  export interface EmbeddingModelSettings {
+    /**
+     * The name of the model.
+     */
+    model: string;
+
+    /**
+     * The provider of the model.
+     */
+    provider: 'openai' | 'ollama';
+  }
+
+  /**
+   * Schema for defining settings for a model
+   */
+  export interface ModelSettings {
+    /**
+     * The name of the model.
+     */
+    model: string;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+  }
+}
+
 Agents.Tools = Tools;
 Agents.Folders = Folders;
 Agents.Files = Files;
@@ -1677,7 +1797,6 @@ export declare namespace Agents {
     type TerminalToolRule as TerminalToolRule,
     type TextResponseFormat as TextResponseFormat,
     type AgentDeleteResponse as AgentDeleteResponse,
-    type AgentCountResponse as AgentCountResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,
     type AgentStatesArrayPage as AgentStatesArrayPage,
@@ -1691,7 +1810,6 @@ export declare namespace Agents {
 
   export {
     Tools as Tools,
-    type ToolListResponse as ToolListResponse,
     type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
@@ -1701,6 +1819,7 @@ export declare namespace Agents {
   export {
     Folders as Folders,
     type FolderListResponse as FolderListResponse,
+    type FolderListResponsesArrayPage as FolderListResponsesArrayPage,
     type FolderListParams as FolderListParams,
     type FolderAttachParams as FolderAttachParams,
     type FolderDetachParams as FolderDetachParams,
@@ -1779,6 +1898,8 @@ export declare namespace Agents {
     type MessageModifyParams as MessageModifyParams,
     type MessageResetParams as MessageResetParams,
     type MessageSendParams as MessageSendParams,
+    type MessageSendParamsNonStreaming as MessageSendParamsNonStreaming,
+    type MessageSendParamsStreaming as MessageSendParamsStreaming,
     type MessageSendAsyncParams as MessageSendAsyncParams,
     type MessageStreamParams as MessageStreamParams,
   };

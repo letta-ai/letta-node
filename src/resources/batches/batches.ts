@@ -4,9 +4,10 @@ import { APIResource } from '../../core/resource';
 import * as AgentsAPI from '../agents/agents';
 import * as MessagesAPI from '../agents/messages';
 import * as BatchesMessagesAPI from './messages';
-import { MessageListParams, MessageListResponse, Messages } from './messages';
+import { MessageListParams, Messages } from './messages';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -36,8 +37,8 @@ export class Batches extends APIResource {
   list(
     query: BatchListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<BatchListResponse> {
-    return this._client.get('/v1/messages/batches', { query, ...options });
+  ): PagePromise<BatchJobsArrayPage, BatchJob> {
+    return this._client.getAPIList('/v1/messages/batches', ArrayPage<BatchJob>, { query, ...options });
   }
 
   /**
@@ -48,11 +49,13 @@ export class Batches extends APIResource {
   }
 }
 
+export type BatchJobsArrayPage = ArrayPage<BatchJob>;
+
 export interface BatchJob {
   /**
    * The human-friendly ID of the Job
    */
-  id?: string;
+  id: string;
 
   /**
    * The agent associated with this job/run.
@@ -136,8 +139,6 @@ export interface BatchJob {
    */
   updated_at?: string | null;
 }
-
-export type BatchListResponse = Array<BatchJob>;
 
 export type BatchCancelResponse = unknown;
 
@@ -268,50 +269,18 @@ export namespace BatchCreateParams {
   }
 }
 
-export interface BatchListParams {
-  /**
-   * Job ID cursor for pagination. Returns jobs that come after this job ID in the
-   * specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Job ID cursor for pagination. Returns jobs that come before this job ID in the
-   * specified sort order
-   */
-  before?: string | null;
-
-  /**
-   * Maximum number of jobs to return
-   */
-  limit?: number | null;
-
-  /**
-   * Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest
-   * first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
-}
+export interface BatchListParams extends ArrayPageParams {}
 
 Batches.Messages = Messages;
 
 export declare namespace Batches {
   export {
     type BatchJob as BatchJob,
-    type BatchListResponse as BatchListResponse,
     type BatchCancelResponse as BatchCancelResponse,
+    type BatchJobsArrayPage as BatchJobsArrayPage,
     type BatchCreateParams as BatchCreateParams,
     type BatchListParams as BatchListParams,
   };
 
-  export {
-    Messages as Messages,
-    type MessageListResponse as MessageListResponse,
-    type MessageListParams as MessageListParams,
-  };
+  export { Messages as Messages, type MessageListParams as MessageListParams };
 }

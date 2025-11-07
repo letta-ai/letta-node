@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.0.0-alpha.16 (2025-11-07)
+
+Full Changelog: [v1.0.0-alpha.15...v1.0.0-alpha.16](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.15...v1.0.0-alpha.16)
+
+### Features
+
+* add filters to count_agents endpoint [LET-5380] [LET-5497] ([b46fb82](https://github.com/letta-ai/letta-node/commit/b46fb82c9369d548a328b024e04074d4ed29ece8))
+* add last_stop_reason to AgentState [LET-5911] ([b49b54d](https://github.com/letta-ai/letta-node/commit/b49b54de46dedfc859407681790fc02558244792))
+* enable streaming flag on send message ([e990b70](https://github.com/letta-ai/letta-node/commit/e990b70a2fe68b969dfc6b8f9f4cdc5f441b36b8))
+* filter list agents by stop reason [LET-5928] ([7809961](https://github.com/letta-ai/letta-node/commit/780996166e7f74ef903850072a1e2bd225534096))
+* return new Model and EmbeddingModel objects for list model/embedding endpoints [LET-6090] ([137bff3](https://github.com/letta-ai/letta-node/commit/137bff3d038bcf64e1387997c65ea1ed109e5e96))
+* Revert "Revert "feat: provider-specific model configuration " ([#5873](https://github.com/letta-ai/letta-node/issues/5873))" ([e63538e](https://github.com/letta-ai/letta-node/commit/e63538e97b275f74f4b5d76f67a60b2163e330e8))
+
+
+### Bug Fixes
+
+* add mcp server routes typing to stainless.yml ([f9e57a7](https://github.com/letta-ai/letta-node/commit/f9e57a720628e4ad6947471ab07fb03a77e965a8))
+* **core:** patch bug w/ sleeptime agents and client-side tool executions [LET-6081] ([2ae116f](https://github.com/letta-ai/letta-node/commit/2ae116f7354534c341b706474da57def3b8c3013))
+* fix refresh sdk name stainless ([d66d4a6](https://github.com/letta-ai/letta-node/commit/d66d4a6b3c16b35397202eadac3d6584be2ec8de))
+* stainless pagination ([546b50c](https://github.com/letta-ai/letta-node/commit/546b50cc3bba2b09aff4e690ce39473dc3cf7909))
+
+
+### Chores
+
+* remove count methods from stainless sdk ([a394300](https://github.com/letta-ai/letta-node/commit/a394300fc5c4ca0df19ac5ab6ab7d1f51b9d7335))
+
 ## 1.0.0-alpha.15 (2025-11-04)
 
 Full Changelog: [v1.0.0-alpha.14...v1.0.0-alpha.15](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.14...v1.0.0-alpha.15)

@@ -70,6 +70,7 @@ describe('resource agents', () => {
           identity_id: 'identity_id',
           include: ['agent.blocks'],
           include_relationships: ['string'],
+          last_stop_reason: 'end_turn',
           limit: 0,
           match_all_tags: true,
           name: 'name',
@@ -89,18 +90,6 @@ describe('resource agents', () => {
   // Prism tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.agents.delete('agent-123e4567-e89b-42d3-8456-426614174000');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('count', async () => {
-    const responsePromise = client.agents.count();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

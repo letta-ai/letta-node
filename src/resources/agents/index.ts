@@ -20,7 +20,6 @@ export {
   type TerminalToolRule,
   type TextResponseFormat,
   type AgentDeleteResponse,
-  type AgentCountResponse,
   type AgentExportFileResponse,
   type AgentImportFileResponse,
   type AgentCreateParams,
@@ -58,6 +57,7 @@ export {
   type FolderListParams,
   type FolderAttachParams,
   type FolderDetachParams,
+  type FolderListResponsesArrayPage,
 } from './folders';
 export { Groups, type GroupListParams } from './groups';
 export {
@@ -107,13 +107,16 @@ export {
   type MessageModifyParams,
   type MessageResetParams,
   type MessageSendParams,
+  type MessageSendParamsNonStreaming,
+  type MessageSendParamsStreaming,
   type MessageSendAsyncParams,
   type MessageStreamParams,
   type LettaMessageUnionsArrayPage,
+  type RunsArrayPage,
+  type MessagesObjectPage,
 } from './messages';
 export {
   Tools,
-  type ToolListResponse,
   type ToolListParams,
   type ToolAttachParams,
   type ToolDetachParams,

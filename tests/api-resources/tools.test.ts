@@ -98,38 +98,6 @@ describe('resource tools', () => {
   });
 
   // Prism tests are disabled
-  test.skip('count', async () => {
-    const responsePromise = client.tools.count();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('count: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.tools.count(
-        {
-          exclude_letta_tools: true,
-          exclude_tool_types: ['string'],
-          name: 'name',
-          names: ['string'],
-          return_only_letta_tools: true,
-          search: 'search',
-          tool_ids: ['string'],
-          tool_types: ['string'],
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  // Prism tests are disabled
   test.skip('modify', async () => {
     const responsePromise = client.tools.modify('tool-123e4567-e89b-42d3-8456-426614174000', {});
     const rawResponse = await responsePromise.asResponse();

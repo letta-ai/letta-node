@@ -8,6 +8,7 @@ import { BlockListParams, Blocks } from './blocks';
 import * as PropertiesAPI from './properties';
 import { Properties, PropertyUpsertParams, PropertyUpsertResponse } from './properties';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -36,8 +37,8 @@ export class Identities extends APIResource {
   list(
     query: IdentityListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<IdentityListResponse> {
-    return this._client.get('/v1/identities/', { query, ...options });
+  ): PagePromise<IdentitiesArrayPage, Identity> {
+    return this._client.getAPIList('/v1/identities/', ArrayPage<Identity>, { query, ...options });
   }
 
   /**
@@ -45,13 +46,6 @@ export class Identities extends APIResource {
    */
   delete(identityID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.delete(path`/v1/identities/${identityID}`, options);
-  }
-
-  /**
-   * Get count of all identities for a user
-   */
-  count(options?: RequestOptions): APIPromise<IdentityCountResponse> {
-    return this._client.get('/v1/identities/count', options);
   }
 
   /**
@@ -69,7 +63,14 @@ export class Identities extends APIResource {
   }
 }
 
+export type IdentitiesArrayPage = ArrayPage<Identity>;
+
 export interface Identity {
+  /**
+   * The human-friendly ID of the Identity
+   */
+  id: string;
+
   /**
    * @deprecated The IDs of the agents associated with the identity.
    */
@@ -94,11 +95,6 @@ export interface Identity {
    * The name of the identity.
    */
   name: string;
-
-  /**
-   * The human-friendly ID of the Identity
-   */
-  id?: string;
 
   /**
    * The project id of the identity, if applicable.
@@ -136,11 +132,7 @@ export interface IdentityProperty {
  */
 export type IdentityType = 'org' | 'user' | 'other';
 
-export type IdentityListResponse = Array<Identity>;
-
 export type IdentityDeleteResponse = unknown;
-
-export type IdentityCountResponse = number;
 
 export interface IdentityCreateParams {
   /**
@@ -179,19 +171,7 @@ export interface IdentityCreateParams {
   properties?: Array<IdentityProperty> | null;
 }
 
-export interface IdentityListParams {
-  /**
-   * Identity ID cursor for pagination. Returns identities that come after this
-   * identity ID in the specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Identity ID cursor for pagination. Returns identities that come before this
-   * identity ID in the specified sort order
-   */
-  before?: string | null;
-
+export interface IdentityListParams extends ArrayPageParams {
   identifier_key?: string | null;
 
   /**
@@ -199,23 +179,7 @@ export interface IdentityListParams {
    */
   identity_type?: IdentityType | null;
 
-  /**
-   * Maximum number of identities to return
-   */
-  limit?: number | null;
-
   name?: string | null;
-
-  /**
-   * Sort order for identities by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
 
   project_id?: string | null;
 }
@@ -298,9 +262,8 @@ export declare namespace Identities {
     type Identity as Identity,
     type IdentityProperty as IdentityProperty,
     type IdentityType as IdentityType,
-    type IdentityListResponse as IdentityListResponse,
     type IdentityDeleteResponse as IdentityDeleteResponse,
-    type IdentityCountResponse as IdentityCountResponse,
+    type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
     type IdentityListParams as IdentityListParams,
     type IdentityModifyParams as IdentityModifyParams,

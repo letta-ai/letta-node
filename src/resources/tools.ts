@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as MessagesAPI from './agents/messages';
 import { APIPromise } from '../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -27,8 +28,8 @@ export class Tools extends APIResource {
   list(
     query: ToolListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ToolListResponse> {
-    return this._client.get('/v1/tools/', { query, ...options });
+  ): PagePromise<ToolsArrayPage, Tool> {
+    return this._client.getAPIList('/v1/tools/', ArrayPage<Tool>, { query, ...options });
   }
 
   /**
@@ -36,16 +37,6 @@ export class Tools extends APIResource {
    */
   delete(toolID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.delete(path`/v1/tools/${toolID}`, options);
-  }
-
-  /**
-   * Get a count of all tools available to agents belonging to the org of the user.
-   */
-  count(
-    query: ToolCountParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ToolCountResponse> {
-    return this._client.get('/v1/tools/count', { query, ...options });
   }
 
   /**
@@ -69,6 +60,8 @@ export class Tools extends APIResource {
     return this._client.post('/v1/tools/add-base-tools', options);
   }
 }
+
+export type ToolsArrayPage = ArrayPage<Tool>;
 
 export interface NpmRequirement {
   /**
@@ -105,7 +98,7 @@ export interface Tool {
   /**
    * The human-friendly ID of the Tool
    */
-  id?: string;
+  id: string;
 
   /**
    * The args JSON schema of the function.
@@ -328,11 +321,7 @@ export type ToolType =
   | 'external_composio'
   | 'external_mcp';
 
-export type ToolListResponse = Array<Tool>;
-
 export type ToolDeleteResponse = unknown;
-
-export type ToolCountResponse = number;
 
 export type ToolUpsertBaseToolsResponse = Array<Tool>;
 
@@ -395,28 +384,11 @@ export interface ToolCreateParams {
   tags?: Array<string> | null;
 }
 
-export interface ToolListParams {
-  /**
-   * Tool ID cursor for pagination. Returns tools that come after this tool ID in the
-   * specified sort order
-   */
-  after?: string | null;
-
-  /**
-   * Tool ID cursor for pagination. Returns tools that come before this tool ID in
-   * the specified sort order
-   */
-  before?: string | null;
-
+export interface ToolListParams extends ArrayPageParams {
   /**
    * Tool type(s) to exclude - accepts repeated params or comma-separated values
    */
   exclude_tool_types?: Array<string> | null;
-
-  /**
-   * Maximum number of tools to return
-   */
-  limit?: number | null;
 
   /**
    * Filter by single tool name
@@ -429,57 +401,7 @@ export interface ToolListParams {
   names?: Array<string> | null;
 
   /**
-   * Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest
-   * first
-   */
-  order?: 'asc' | 'desc';
-
-  /**
-   * Field to sort by
-   */
-  order_by?: 'created_at';
-
-  /**
    * Return only tools with tool*type starting with 'letta*'
-   */
-  return_only_letta_tools?: boolean | null;
-
-  /**
-   * Search tool names (case-insensitive partial match)
-   */
-  search?: string | null;
-
-  /**
-   * Filter by specific tool IDs - accepts repeated params or comma-separated values
-   */
-  tool_ids?: Array<string> | null;
-
-  /**
-   * Filter by tool type(s) - accepts repeated params or comma-separated values
-   */
-  tool_types?: Array<string> | null;
-}
-
-export interface ToolCountParams {
-  /**
-   * Exclude built-in Letta tools from the count
-   */
-  exclude_letta_tools?: boolean | null;
-
-  /**
-   * Tool type(s) to exclude - accepts repeated params or comma-separated values
-   */
-  exclude_tool_types?: Array<string> | null;
-
-  name?: string | null;
-
-  /**
-   * Filter by specific tool names
-   */
-  names?: Array<string> | null;
-
-  /**
-   * Count only tools with tool*type starting with 'letta*'
    */
   return_only_letta_tools?: boolean | null;
 
@@ -630,13 +552,11 @@ export declare namespace Tools {
     type ToolCreate as ToolCreate,
     type ToolReturnMessage as ToolReturnMessage,
     type ToolType as ToolType,
-    type ToolListResponse as ToolListResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolCountResponse as ToolCountResponse,
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
+    type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolListParams as ToolListParams,
-    type ToolCountParams as ToolCountParams,
     type ToolModifyParams as ToolModifyParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
