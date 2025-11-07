@@ -350,9 +350,9 @@ export interface AgentState {
   description?: string | null;
 
   /**
-   * The embedding model used by the agent.
+   * The embedding model handle used by the agent (format: provider/model-name).
    */
-  embedding?: AgentState.Embedding | null;
+  embedding?: string | null;
 
   /**
    * If set to True, memory management will move to a background agent thread.
@@ -429,9 +429,14 @@ export interface AgentState {
   metadata?: { [key: string]: unknown } | null;
 
   /**
+   * The model handle used by the agent (format: provider/model-name).
+   */
+  model?: string | null;
+
+  /**
    * Schema for defining settings for a model
    */
-  model?: AgentState.Model | null;
+  model_settings?: AgentState.ModelSettings | null;
 
   /**
    * @deprecated Deprecated: Use `managed_group` field instead. The multi-agent group
@@ -705,29 +710,9 @@ export namespace AgentState {
   }
 
   /**
-   * The embedding model used by the agent.
-   */
-  export interface Embedding {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The provider of the model.
-     */
-    provider: 'openai' | 'ollama';
-  }
-
-  /**
    * Schema for defining settings for a model
    */
-  export interface Model {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
+  export interface ModelSettings {
     /**
      * The maximum number of tokens the model can generate.
      */
@@ -1111,10 +1096,9 @@ export interface AgentCreateParams {
   description?: string | null;
 
   /**
-   * The embedding configuration handle used by the agent, specified in the format
-   * provider/model-name.
+   * The embedding model handle used by the agent (format: provider/model-name).
    */
-  embedding?: string | AgentCreateParams.EmbeddingModelSettings | null;
+  embedding?: string | null;
 
   /**
    * @deprecated Deprecated: No longer used. The embedding chunk size used by the
@@ -1230,10 +1214,14 @@ export interface AgentCreateParams {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The model handle or model settings for the agent to use, specified either by a
-   * handle or an object. See the model schema for more information.
+   * The model handle for the agent to use (format: provider/model-name).
    */
-  model?: string | AgentCreateParams.ModelSettings | null;
+  model?: string | null;
+
+  /**
+   * Schema for defining settings for a model
+   */
+  model_settings?: AgentCreateParams.ModelSettings | null;
 
   /**
    * The name of the agent.
@@ -1345,27 +1333,10 @@ export interface AgentCreateParams {
 }
 
 export namespace AgentCreateParams {
-  export interface EmbeddingModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The provider of the model.
-     */
-    provider: 'openai' | 'ollama';
-  }
-
   /**
    * Schema for defining settings for a model
    */
   export interface ModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
     /**
      * The maximum number of tokens the model can generate.
      */
@@ -1571,10 +1542,9 @@ export interface AgentModifyParams {
   description?: string | null;
 
   /**
-   * The embedding configuration handle used by the agent, specified in the format
-   * provider/model-name.
+   * The embedding model handle used by the agent (format: provider/model-name).
    */
-  embedding?: string | AgentModifyParams.EmbeddingModelSettings | null;
+  embedding?: string | null;
 
   /**
    * Configuration for embedding model connection and processing parameters.
@@ -1646,10 +1616,14 @@ export interface AgentModifyParams {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The model used by the agent, specified either by a handle or an object. See the
-   * model schema for more information.
+   * The model handle used by the agent (format: provider/model-name).
    */
-  model?: string | AgentModifyParams.ModelSettings | null;
+  model?: string | null;
+
+  /**
+   * Schema for defining settings for a model
+   */
+  model_settings?: AgentModifyParams.ModelSettings | null;
 
   /**
    * The name of the agent.
@@ -1742,27 +1716,10 @@ export interface AgentModifyParams {
 }
 
 export namespace AgentModifyParams {
-  export interface EmbeddingModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The provider of the model.
-     */
-    provider: 'openai' | 'ollama';
-  }
-
   /**
    * Schema for defining settings for a model
    */
   export interface ModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
     /**
      * The maximum number of tokens the model can generate.
      */
