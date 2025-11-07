@@ -317,7 +317,8 @@ export interface MessageStreamParams {
   assistant_message_tool_name?: string;
 
   /**
-   * Whether to process the request in the background.
+   * Whether to process the request in the background (only used when
+   * streaming=true).
    */
   background?: boolean;
 
@@ -329,7 +330,7 @@ export interface MessageStreamParams {
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
-   * connection timeouts.
+   * connection timeouts (only used when streaming=true).
    */
   include_pings?: boolean;
 
@@ -369,9 +370,15 @@ export interface MessageStreamParams {
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
-   * per step.
+   * per step (only used when streaming=true).
    */
   stream_tokens?: boolean;
+
+  /**
+   * If True, returns a streaming response (Server-Sent Events). If False (default),
+   * returns a complete response.
+   */
+  streaming?: boolean;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments

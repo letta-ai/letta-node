@@ -67,6 +67,8 @@ import {
   MessageRole,
   MessageSendAsyncParams,
   MessageSendParams,
+  MessageSendParamsNonStreaming,
+  MessageSendParamsStreaming,
   MessageStreamParams,
   MessageType,
   Messages,
@@ -1896,6 +1898,8 @@ export declare namespace Agents {
     type MessageModifyParams as MessageModifyParams,
     type MessageResetParams as MessageResetParams,
     type MessageSendParams as MessageSendParams,
+    type MessageSendParamsNonStreaming as MessageSendParamsNonStreaming,
+    type MessageSendParamsStreaming as MessageSendParamsStreaming,
     type MessageSendAsyncParams as MessageSendAsyncParams,
     type MessageStreamParams as MessageStreamParams,
   };

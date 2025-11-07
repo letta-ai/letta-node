@@ -67,9 +67,44 @@ export class Messages extends APIResource {
   /**
    * Process a user message and return the agent's response. This endpoint accepts a
    * message from a user and processes it through the agent.
+   *
+   * The response format is controlled by the `streaming` field in the request body:
+   *
+   * - If `streaming=false` (default): Returns a complete LettaResponse with all
+   *   messages
+   * - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
+   *
+   * Additional streaming options (only used when streaming=true):
+   *
+   * - `stream_tokens`: Stream individual tokens instead of complete steps
+   * - `include_pings`: Include keepalive pings to prevent connection timeouts
+   * - `background`: Process the request in the background
    */
-  send(agentID: string, body: MessageSendParams, options?: RequestOptions): APIPromise<LettaResponse> {
-    return this._client.post(path`/v1/agents/${agentID}/messages`, { body, ...options });
+  send(
+    agentID: string,
+    body: MessageSendParamsNonStreaming,
+    options?: RequestOptions,
+  ): APIPromise<LettaResponse>;
+  send(
+    agentID: string,
+    body: MessageSendParamsStreaming,
+    options?: RequestOptions,
+  ): APIPromise<Stream<LettaStreamingResponse>>;
+  send(
+    agentID: string,
+    body: MessageSendParamsBase,
+    options?: RequestOptions,
+  ): APIPromise<Stream<LettaStreamingResponse> | LettaResponse>;
+  send(
+    agentID: string,
+    body: MessageSendParams,
+    options?: RequestOptions,
+  ): APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>> {
+    return this._client.post(path`/v1/agents/${agentID}/messages`, {
+      body,
+      ...options,
+      stream: body.streaming ?? false,
+    }) as APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>>;
   }
 
   /**
@@ -723,7 +758,8 @@ export interface LettaStreamingRequest {
   assistant_message_tool_name?: string;
 
   /**
-   * Whether to process the request in the background.
+   * Whether to process the request in the background (only used when
+   * streaming=true).
    */
   background?: boolean;
 
@@ -735,7 +771,7 @@ export interface LettaStreamingRequest {
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
-   * connection timeouts.
+   * connection timeouts (only used when streaming=true).
    */
   include_pings?: boolean;
 
@@ -775,9 +811,15 @@ export interface LettaStreamingRequest {
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
-   * per step.
+   * per step (only used when streaming=true).
    */
   stream_tokens?: boolean;
+
+  /**
+   * If True, returns a streaming response (Server-Sent Events). If False (default),
+   * returns a complete response.
+   */
+  streaming?: boolean;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -1869,7 +1911,9 @@ export interface MessageResetParams {
   add_default_initial_messages?: boolean;
 }
 
-export interface MessageSendParams {
+export type MessageSendParams = MessageSendParamsNonStreaming | MessageSendParamsStreaming;
+
+export interface MessageSendParamsBase {
   /**
    * @deprecated The name of the message argument in the designated message tool.
    * Still supported for legacy agent types, but deprecated for letta_v1_agent
@@ -1884,10 +1928,22 @@ export interface MessageSendParams {
   assistant_message_tool_name?: string;
 
   /**
+   * Whether to process the request in the background (only used when
+   * streaming=true).
+   */
+  background?: boolean;
+
+  /**
    * @deprecated If set to True, enables reasoning before responses or tool calls
    * from the agent.
    */
   enable_thinking?: string;
+
+  /**
+   * Whether to include periodic keepalive ping messages in the stream to prevent
+   * connection timeouts (only used when streaming=true).
+   */
+  include_pings?: boolean;
 
   /**
    * Only return specified message types in the response. If `None` (default) returns
@@ -1922,6 +1978,18 @@ export interface MessageSendParams {
    * The messages to be sent to the agent.
    */
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+
+  /**
+   * Flag to determine if individual tokens should be streamed, rather than streaming
+   * per step (only used when streaming=true).
+   */
+  stream_tokens?: boolean;
+
+  /**
+   * If True, returns a streaming response (Server-Sent Events). If False (default),
+   * returns a complete response.
+   */
+  streaming?: boolean;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -1970,6 +2038,25 @@ export namespace MessageSendParams {
       text: string;
     }
   }
+
+  export type MessageSendParamsNonStreaming = MessagesAPI.MessageSendParamsNonStreaming;
+  export type MessageSendParamsStreaming = MessagesAPI.MessageSendParamsStreaming;
+}
+
+export interface MessageSendParamsNonStreaming extends MessageSendParamsBase {
+  /**
+   * If True, returns a streaming response (Server-Sent Events). If False (default),
+   * returns a complete response.
+   */
+  streaming?: false;
+}
+
+export interface MessageSendParamsStreaming extends MessageSendParamsBase {
+  /**
+   * If True, returns a streaming response (Server-Sent Events). If False (default),
+   * returns a complete response.
+   */
+  streaming: true;
 }
 
 export interface MessageSendAsyncParams {
@@ -2095,7 +2182,8 @@ export interface MessageStreamParams {
   assistant_message_tool_name?: string;
 
   /**
-   * Whether to process the request in the background.
+   * Whether to process the request in the background (only used when
+   * streaming=true).
    */
   background?: boolean;
 
@@ -2107,7 +2195,7 @@ export interface MessageStreamParams {
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
-   * connection timeouts.
+   * connection timeouts (only used when streaming=true).
    */
   include_pings?: boolean;
 
@@ -2147,9 +2235,15 @@ export interface MessageStreamParams {
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
-   * per step.
+   * per step (only used when streaming=true).
    */
   stream_tokens?: boolean;
+
+  /**
+   * If True, returns a streaming response (Server-Sent Events). If False (default),
+   * returns a complete response.
+   */
+  streaming?: boolean;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -2248,6 +2342,8 @@ export declare namespace Messages {
     type MessageModifyParams as MessageModifyParams,
     type MessageResetParams as MessageResetParams,
     type MessageSendParams as MessageSendParams,
+    type MessageSendParamsNonStreaming as MessageSendParamsNonStreaming,
+    type MessageSendParamsStreaming as MessageSendParamsStreaming,
     type MessageSendAsyncParams as MessageSendAsyncParams,
     type MessageStreamParams as MessageStreamParams,
   };

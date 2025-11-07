@@ -107,6 +107,8 @@ export {
   type MessageModifyParams,
   type MessageResetParams,
   type MessageSendParams,
+  type MessageSendParamsNonStreaming,
+  type MessageSendParamsStreaming,
   type MessageSendAsyncParams,
   type MessageStreamParams,
   type LettaMessageUnionsArrayPage,
