@@ -43,13 +43,6 @@ export class Blocks extends APIResource {
   }
 
   /**
-   * Count all blocks created by a user.
-   */
-  count(options?: RequestOptions): APIPromise<BlockCountResponse> {
-    return this._client.get('/v1/blocks/count', options);
-  }
-
-  /**
    * Modify Block
    */
   modify(blockID: string, body: BlockModifyParams, options?: RequestOptions): APIPromise<BlockResponse> {
@@ -229,8 +222,6 @@ export interface CreateBlock {
 }
 
 export type BlockDeleteResponse = unknown;
-
-export type BlockCountResponse = number;
 
 export interface BlockCreateParams {
   /**
@@ -457,7 +448,6 @@ export declare namespace Blocks {
     type BlockResponse as BlockResponse,
     type CreateBlock as CreateBlock,
     type BlockDeleteResponse as BlockDeleteResponse,
-    type BlockCountResponse as BlockCountResponse,
     type BlockResponsesArrayPage as BlockResponsesArrayPage,
     type BlockCreateParams as BlockCreateParams,
     type BlockListParams as BlockListParams,
