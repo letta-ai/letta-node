@@ -55,13 +55,6 @@ export class Folders extends APIResource {
   }
 
   /**
-   * Count all data folders created by a user.
-   */
-  count(options?: RequestOptions): APIPromise<FolderCountResponse> {
-    return this._client.get('/v1/folders/count', options);
-  }
-
-  /**
    * Update the name or documentation of an existing data folder.
    */
   modify(folderID: string, body: FolderModifyParams, options?: RequestOptions): APIPromise<Folder> {
@@ -133,8 +126,6 @@ export interface Folder {
 }
 
 export type FolderDeleteResponse = unknown;
-
-export type FolderCountResponse = number;
 
 export interface FolderCreateParams {
   /**
@@ -214,7 +205,6 @@ export declare namespace Folders {
   export {
     type Folder as Folder,
     type FolderDeleteResponse as FolderDeleteResponse,
-    type FolderCountResponse as FolderCountResponse,
     type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
     type FolderListParams as FolderListParams,

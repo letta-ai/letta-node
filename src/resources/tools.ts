@@ -40,16 +40,6 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Get a count of all tools available to agents belonging to the org of the user.
-   */
-  count(
-    query: ToolCountParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ToolCountResponse> {
-    return this._client.get('/v1/tools/count', { query, ...options });
-  }
-
-  /**
    * Update an existing tool
    */
   modify(toolID: string, body: ToolModifyParams, options?: RequestOptions): APIPromise<Tool> {
@@ -333,8 +323,6 @@ export type ToolType =
 
 export type ToolDeleteResponse = unknown;
 
-export type ToolCountResponse = number;
-
 export type ToolUpsertBaseToolsResponse = Array<Tool>;
 
 export interface ToolCreateParams {
@@ -414,45 +402,6 @@ export interface ToolListParams extends ArrayPageParams {
 
   /**
    * Return only tools with tool*type starting with 'letta*'
-   */
-  return_only_letta_tools?: boolean | null;
-
-  /**
-   * Search tool names (case-insensitive partial match)
-   */
-  search?: string | null;
-
-  /**
-   * Filter by specific tool IDs - accepts repeated params or comma-separated values
-   */
-  tool_ids?: Array<string> | null;
-
-  /**
-   * Filter by tool type(s) - accepts repeated params or comma-separated values
-   */
-  tool_types?: Array<string> | null;
-}
-
-export interface ToolCountParams {
-  /**
-   * Exclude built-in Letta tools from the count
-   */
-  exclude_letta_tools?: boolean | null;
-
-  /**
-   * Tool type(s) to exclude - accepts repeated params or comma-separated values
-   */
-  exclude_tool_types?: Array<string> | null;
-
-  name?: string | null;
-
-  /**
-   * Filter by specific tool names
-   */
-  names?: Array<string> | null;
-
-  /**
-   * Count only tools with tool*type starting with 'letta*'
    */
   return_only_letta_tools?: boolean | null;
 
@@ -604,12 +553,10 @@ export declare namespace Tools {
     type ToolReturnMessage as ToolReturnMessage,
     type ToolType as ToolType,
     type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolCountResponse as ToolCountResponse,
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolListParams as ToolListParams,
-    type ToolCountParams as ToolCountParams,
     type ToolModifyParams as ToolModifyParams,
     type ToolUpsertParams as ToolUpsertParams,
   };

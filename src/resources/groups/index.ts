@@ -10,7 +10,6 @@ export {
   type SupervisorManager,
   type VoiceSleeptimeManager,
   type GroupDeleteResponse,
-  type GroupCountResponse,
   type GroupCreateParams,
   type GroupListParams,
   type GroupModifyParams,

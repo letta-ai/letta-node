@@ -8,7 +8,6 @@ export {
   type IdentityProperty,
   type IdentityType,
   type IdentityDeleteResponse,
-  type IdentityCountResponse,
   type IdentityCreateParams,
   type IdentityListParams,
   type IdentityModifyParams,

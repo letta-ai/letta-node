@@ -6,7 +6,6 @@ export {
   type BlockResponse,
   type CreateBlock,
   type BlockDeleteResponse,
-  type BlockCountResponse,
   type BlockCreateParams,
   type BlockListParams,
   type BlockModifyParams,

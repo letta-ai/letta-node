@@ -14,7 +14,6 @@ export {
   Folders,
   type Folder,
   type FolderDeleteResponse,
-  type FolderCountResponse,
   type FolderCreateParams,
   type FolderListParams,
   type FolderModifyParams,

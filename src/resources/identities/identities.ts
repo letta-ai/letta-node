@@ -49,13 +49,6 @@ export class Identities extends APIResource {
   }
 
   /**
-   * Get count of all identities for a user
-   */
-  count(options?: RequestOptions): APIPromise<IdentityCountResponse> {
-    return this._client.get('/v1/identities/count', options);
-  }
-
-  /**
    * Modify Identity
    */
   modify(identityID: string, body: IdentityModifyParams, options?: RequestOptions): APIPromise<Identity> {
@@ -140,8 +133,6 @@ export interface IdentityProperty {
 export type IdentityType = 'org' | 'user' | 'other';
 
 export type IdentityDeleteResponse = unknown;
-
-export type IdentityCountResponse = number;
 
 export interface IdentityCreateParams {
   /**
@@ -272,7 +263,6 @@ export declare namespace Identities {
     type IdentityProperty as IdentityProperty,
     type IdentityType as IdentityType,
     type IdentityDeleteResponse as IdentityDeleteResponse,
-    type IdentityCountResponse as IdentityCountResponse,
     type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
     type IdentityListParams as IdentityListParams,

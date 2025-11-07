@@ -52,13 +52,6 @@ export class Groups extends APIResource {
   }
 
   /**
-   * Get the count of all groups associated with a given user.
-   */
-  count(options?: RequestOptions): APIPromise<GroupCountResponse> {
-    return this._client.get('/v1/groups/count', options);
-  }
-
-  /**
    * Create a new multi-agent group with the specified configuration.
    */
   modify(groupID: string, body: GroupModifyParams, options?: RequestOptions): APIPromise<Group> {
@@ -195,8 +188,6 @@ export interface VoiceSleeptimeManager {
 
 export type GroupDeleteResponse = unknown;
 
-export type GroupCountResponse = number;
-
 export interface GroupCreateParams {
   agent_ids: Array<string>;
 
@@ -324,7 +315,6 @@ export declare namespace Groups {
     type SupervisorManager as SupervisorManager,
     type VoiceSleeptimeManager as VoiceSleeptimeManager,
     type GroupDeleteResponse as GroupDeleteResponse,
-    type GroupCountResponse as GroupCountResponse,
     type GroupsArrayPage as GroupsArrayPage,
     type GroupCreateParams as GroupCreateParams,
     type GroupListParams as GroupListParams,
