@@ -45,7 +45,7 @@ describe('resource runs', () => {
           ascending: true,
           background: true,
           before: 'before',
-          limit: 0,
+          limit: 1000,
           order: 'asc',
           order_by: 'created_at',
           statuses: ['string'],
