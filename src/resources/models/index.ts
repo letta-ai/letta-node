@@ -4,7 +4,9 @@ export { Embeddings, type EmbeddingListResponse } from './embeddings';
 export {
   Models,
   type EmbeddingConfig,
+  type EmbeddingModel,
   type LlmConfig,
+  type Model,
   type ProviderCategory,
   type ProviderType,
   type ModelListResponse,
