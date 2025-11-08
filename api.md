@@ -315,7 +315,9 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/models/models.ts">EmbeddingConfig</a></code>
+- <code><a href="./src/resources/models/models.ts">EmbeddingModel</a></code>
 - <code><a href="./src/resources/models/models.ts">LlmConfig</a></code>
+- <code><a href="./src/resources/models/models.ts">Model</a></code>
 - <code><a href="./src/resources/models/models.ts">ProviderCategory</a></code>
 - <code><a href="./src/resources/models/models.ts">ProviderType</a></code>
 - <code><a href="./src/resources/models/models.ts">ModelListResponse</a></code>

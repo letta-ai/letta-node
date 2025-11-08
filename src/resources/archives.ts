@@ -53,12 +53,6 @@ export type ArchivesArrayPage = ArrayPage<Archive>;
 /**
  * Representation of an archive - a collection of archival passages that can be
  * shared between agents.
- *
- * Parameters: id (str): The unique identifier of the archive. name (str): The name
- * of the archive. description (str): A description of the archive. organization_id
- * (str): The organization this archive belongs to. created_at (datetime): The
- * creation date of the archive. metadata (dict): Additional metadata for the
- * archive.
  */
 export interface Archive {
   /**

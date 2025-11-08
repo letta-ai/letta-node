@@ -52,13 +52,8 @@ export class Folders extends APIResource {
 export type FolderListResponsesArrayPage = ArrayPage<FolderListResponse>;
 
 /**
- * Representation of a source, which is a collection of files and passages.
- *
- * Parameters: id (str): The ID of the source name (str): The name of the source.
- * embedding_config (EmbeddingConfig): The embedding configuration used by the
- * source. user_id (str): The ID of the user that created the source. metadata
- * (dict): Metadata associated with the source. description (str): The description
- * of the source.
+ * (Deprecated: Use Folder) Representation of a source, which is a collection of
+ * files and passages.
  */
 export interface FolderListResponse {
   /**
