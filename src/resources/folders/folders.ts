@@ -66,12 +66,6 @@ export type FoldersArrayPage = ArrayPage<Folder>;
 
 /**
  * Representation of a folder, which is a collection of files and passages.
- *
- * Parameters: id (str): The ID of the folder name (str): The name of the folder.
- * embedding_config (EmbeddingConfig): The embedding configuration used by the
- * folder. user_id (str): The ID of the user that created the folder. metadata
- * (dict): Metadata associated with the folder. description (str): The description
- * of the folder.
  */
 export interface Folder {
   /**
