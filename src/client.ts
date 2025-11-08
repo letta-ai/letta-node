@@ -164,7 +164,9 @@ import {
 } from './resources/mcp-servers/mcp-servers';
 import {
   EmbeddingConfig,
+  EmbeddingModel,
   LlmConfig,
+  Model,
   ModelListParams,
   ModelListResponse,
   Models,
@@ -1074,7 +1076,9 @@ export declare namespace Letta {
   export {
     Models as Models,
     type EmbeddingConfig as EmbeddingConfig,
+    type EmbeddingModel as EmbeddingModel,
     type LlmConfig as LlmConfig,
+    type Model as Model,
     type ProviderCategory as ProviderCategory,
     type ProviderType as ProviderType,
     type ModelListResponse as ModelListResponse,
