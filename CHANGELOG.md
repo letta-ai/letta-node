@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0-alpha.18 (2025-11-10)
+
+Full Changelog: [v1.0.0-alpha.17...v1.0.0-alpha.18](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.17...v1.0.0-alpha.18)
+
+### Features
+
+* add list support for query params in sdk ([3494a74](https://github.com/letta-ai/letta-node/commit/3494a746d05f9a5c24f912003ffafd667e3cbeca))
+
+
+### Bug Fixes
+
+* prevent too many runs bug ([d4459ff](https://github.com/letta-ai/letta-node/commit/d4459ff324e183593c9a7a825ed1bd16faa6a903))
+
 ## 1.0.0-alpha.17 (2025-11-08)
 
 Full Changelog: [v1.0.0-alpha.16...v1.0.0-alpha.17](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.16...v1.0.0-alpha.17)
