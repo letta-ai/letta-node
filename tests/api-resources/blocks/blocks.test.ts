@@ -73,11 +73,11 @@ describe('resource blocks', () => {
         {
           after: 'after',
           before: 'before',
-          connected_to_agents_count_eq: [0],
+          connected_to_agents_count_eq: [0, 0],
           connected_to_agents_count_gt: 0,
           connected_to_agents_count_lt: 0,
           description_search: 'description_search',
-          identifier_keys: ['string'],
+          identifier_keys: ['string', 'string'],
           identity_id: 'identity_id',
           label: 'label',
           label_search: 'label_search',
