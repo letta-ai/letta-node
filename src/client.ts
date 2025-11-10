@@ -928,36 +928,36 @@ export class Letta {
 
   static toFile = Uploads.toFile;
 
-  archives: API.Archives = new API.Archives(this);
-  tools: API.Tools = new API.Tools(this);
-  folders: API.Folders = new API.Folders(this);
   agents: API.Agents = new API.Agents(this);
-  groups: API.Groups = new API.Groups(this);
-  identities: API.Identities = new API.Identities(this);
-  models: API.Models = new API.Models(this);
+  tools: API.Tools = new API.Tools(this);
   blocks: API.Blocks = new API.Blocks(this);
+  archives: API.Archives = new API.Archives(this);
+  folders: API.Folders = new API.Folders(this);
+  models: API.Models = new API.Models(this);
+  mcpServers: API.McpServers = new API.McpServers(this);
   runs: API.Runs = new API.Runs(this);
   steps: API.Steps = new API.Steps(this);
-  tags: API.Tags = new API.Tags(this);
-  batches: API.Batches = new API.Batches(this);
   templates: API.Templates = new API.Templates(this);
-  mcpServers: API.McpServers = new API.McpServers(this);
+  tags: API.Tags = new API.Tags(this);
+  identities: API.Identities = new API.Identities(this);
+  groups: API.Groups = new API.Groups(this);
+  batches: API.Batches = new API.Batches(this);
 }
 
-Letta.Archives = Archives;
-Letta.Tools = Tools;
-Letta.Folders = Folders;
 Letta.Agents = Agents;
-Letta.Groups = Groups;
-Letta.Identities = Identities;
-Letta.Models = Models;
+Letta.Tools = Tools;
 Letta.Blocks = Blocks;
+Letta.Archives = Archives;
+Letta.Folders = Folders;
+Letta.Models = Models;
+Letta.McpServers = McpServers;
 Letta.Runs = Runs;
 Letta.Steps = Steps;
-Letta.Tags = Tags;
-Letta.Batches = Batches;
 Letta.Templates = Templates;
-Letta.McpServers = McpServers;
+Letta.Tags = Tags;
+Letta.Identities = Identities;
+Letta.Groups = Groups;
+Letta.Batches = Batches;
 
 export declare namespace Letta {
   export type RequestOptions = Opts.RequestOptions;
@@ -975,43 +975,6 @@ export declare namespace Letta {
   };
 
   export { type HealthResponse as HealthResponse };
-
-  export {
-    Archives as Archives,
-    type Archive as Archive,
-    type VectorDBProvider as VectorDBProvider,
-    type ArchivesArrayPage as ArchivesArrayPage,
-    type ArchiveCreateParams as ArchiveCreateParams,
-    type ArchiveListParams as ArchiveListParams,
-    type ArchiveModifyParams as ArchiveModifyParams,
-  };
-
-  export {
-    Tools as Tools,
-    type NpmRequirement as NpmRequirement,
-    type PipRequirement as PipRequirement,
-    type Tool as Tool,
-    type ToolCreate as ToolCreate,
-    type ToolReturnMessage as ToolReturnMessage,
-    type ToolType as ToolType,
-    type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
-    type ToolsArrayPage as ToolsArrayPage,
-    type ToolCreateParams as ToolCreateParams,
-    type ToolListParams as ToolListParams,
-    type ToolModifyParams as ToolModifyParams,
-    type ToolUpsertParams as ToolUpsertParams,
-  };
-
-  export {
-    Folders as Folders,
-    type Folder as Folder,
-    type FolderDeleteResponse as FolderDeleteResponse,
-    type FoldersArrayPage as FoldersArrayPage,
-    type FolderCreateParams as FolderCreateParams,
-    type FolderListParams as FolderListParams,
-    type FolderModifyParams as FolderModifyParams,
-  };
 
   export {
     Agents as Agents,
@@ -1045,44 +1008,20 @@ export declare namespace Letta {
   };
 
   export {
-    Groups as Groups,
-    type DynamicManager as DynamicManager,
-    type Group as Group,
-    type ManagerType as ManagerType,
-    type RoundRobinManager as RoundRobinManager,
-    type SleeptimeManager as SleeptimeManager,
-    type SupervisorManager as SupervisorManager,
-    type VoiceSleeptimeManager as VoiceSleeptimeManager,
-    type GroupDeleteResponse as GroupDeleteResponse,
-    type GroupsArrayPage as GroupsArrayPage,
-    type GroupCreateParams as GroupCreateParams,
-    type GroupListParams as GroupListParams,
-    type GroupModifyParams as GroupModifyParams,
-  };
-
-  export {
-    Identities as Identities,
-    type Identity as Identity,
-    type IdentityProperty as IdentityProperty,
-    type IdentityType as IdentityType,
-    type IdentityDeleteResponse as IdentityDeleteResponse,
-    type IdentitiesArrayPage as IdentitiesArrayPage,
-    type IdentityCreateParams as IdentityCreateParams,
-    type IdentityListParams as IdentityListParams,
-    type IdentityModifyParams as IdentityModifyParams,
-    type IdentityUpsertParams as IdentityUpsertParams,
-  };
-
-  export {
-    Models as Models,
-    type EmbeddingConfig as EmbeddingConfig,
-    type EmbeddingModel as EmbeddingModel,
-    type LlmConfig as LlmConfig,
-    type Model as Model,
-    type ProviderCategory as ProviderCategory,
-    type ProviderType as ProviderType,
-    type ModelListResponse as ModelListResponse,
-    type ModelListParams as ModelListParams,
+    Tools as Tools,
+    type NpmRequirement as NpmRequirement,
+    type PipRequirement as PipRequirement,
+    type Tool as Tool,
+    type ToolCreate as ToolCreate,
+    type ToolReturnMessage as ToolReturnMessage,
+    type ToolType as ToolType,
+    type ToolDeleteResponse as ToolDeleteResponse,
+    type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
+    type ToolsArrayPage as ToolsArrayPage,
+    type ToolCreateParams as ToolCreateParams,
+    type ToolListParams as ToolListParams,
+    type ToolModifyParams as ToolModifyParams,
+    type ToolUpsertParams as ToolUpsertParams,
   };
 
   export {
@@ -1097,32 +1036,36 @@ export declare namespace Letta {
   };
 
   export {
-    Runs as Runs,
-    type Job as Job,
-    type StopReasonType as StopReasonType,
-    type RunListParams as RunListParams,
+    Archives as Archives,
+    type Archive as Archive,
+    type VectorDBProvider as VectorDBProvider,
+    type ArchivesArrayPage as ArchivesArrayPage,
+    type ArchiveCreateParams as ArchiveCreateParams,
+    type ArchiveListParams as ArchiveListParams,
+    type ArchiveModifyParams as ArchiveModifyParams,
   };
 
   export {
-    Steps as Steps,
-    type ProviderTrace as ProviderTrace,
-    type Step as Step,
-    type StepsArrayPage as StepsArrayPage,
-    type StepListParams as StepListParams,
+    Folders as Folders,
+    type Folder as Folder,
+    type FolderDeleteResponse as FolderDeleteResponse,
+    type FoldersArrayPage as FoldersArrayPage,
+    type FolderCreateParams as FolderCreateParams,
+    type FolderListParams as FolderListParams,
+    type FolderModifyParams as FolderModifyParams,
   };
-
-  export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
 
   export {
-    Batches as Batches,
-    type BatchJob as BatchJob,
-    type BatchCancelResponse as BatchCancelResponse,
-    type BatchJobsArrayPage as BatchJobsArrayPage,
-    type BatchCreateParams as BatchCreateParams,
-    type BatchListParams as BatchListParams,
+    Models as Models,
+    type EmbeddingConfig as EmbeddingConfig,
+    type EmbeddingModel as EmbeddingModel,
+    type LlmConfig as LlmConfig,
+    type Model as Model,
+    type ProviderCategory as ProviderCategory,
+    type ProviderType as ProviderType,
+    type ModelListResponse as ModelListResponse,
+    type ModelListParams as ModelListParams,
   };
-
-  export { Templates as Templates };
 
   export {
     McpServers as McpServers,
@@ -1146,5 +1089,62 @@ export declare namespace Letta {
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerModifyParams as McpServerModifyParams,
     type McpServerRefreshParams as McpServerRefreshParams,
+  };
+
+  export {
+    Runs as Runs,
+    type Job as Job,
+    type StopReasonType as StopReasonType,
+    type RunListParams as RunListParams,
+  };
+
+  export {
+    Steps as Steps,
+    type ProviderTrace as ProviderTrace,
+    type Step as Step,
+    type StepsArrayPage as StepsArrayPage,
+    type StepListParams as StepListParams,
+  };
+
+  export { Templates as Templates };
+
+  export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
+
+  export {
+    Identities as Identities,
+    type Identity as Identity,
+    type IdentityProperty as IdentityProperty,
+    type IdentityType as IdentityType,
+    type IdentityDeleteResponse as IdentityDeleteResponse,
+    type IdentitiesArrayPage as IdentitiesArrayPage,
+    type IdentityCreateParams as IdentityCreateParams,
+    type IdentityListParams as IdentityListParams,
+    type IdentityModifyParams as IdentityModifyParams,
+    type IdentityUpsertParams as IdentityUpsertParams,
+  };
+
+  export {
+    Groups as Groups,
+    type DynamicManager as DynamicManager,
+    type Group as Group,
+    type ManagerType as ManagerType,
+    type RoundRobinManager as RoundRobinManager,
+    type SleeptimeManager as SleeptimeManager,
+    type SupervisorManager as SupervisorManager,
+    type VoiceSleeptimeManager as VoiceSleeptimeManager,
+    type GroupDeleteResponse as GroupDeleteResponse,
+    type GroupsArrayPage as GroupsArrayPage,
+    type GroupCreateParams as GroupCreateParams,
+    type GroupListParams as GroupListParams,
+    type GroupModifyParams as GroupModifyParams,
+  };
+
+  export {
+    Batches as Batches,
+    type BatchJob as BatchJob,
+    type BatchCancelResponse as BatchCancelResponse,
+    type BatchJobsArrayPage as BatchJobsArrayPage,
+    type BatchCreateParams as BatchCreateParams,
+    type BatchListParams as BatchListParams,
   };
 }

@@ -108,12 +108,12 @@ import { multipartFormRequestOptions } from '../../internal/uploads';
 import { path } from '../../internal/utils/path';
 
 export class Agents extends APIResource {
+  messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
+  blocks: BlocksAPI.Blocks = new BlocksAPI.Blocks(this._client);
   tools: AgentsToolsAPI.Tools = new AgentsToolsAPI.Tools(this._client);
   folders: FoldersAPI.Folders = new FoldersAPI.Folders(this._client);
   files: FilesAPI.Files = new FilesAPI.Files(this._client);
-  blocks: BlocksAPI.Blocks = new BlocksAPI.Blocks(this._client);
   groups: GroupsAPI.Groups = new GroupsAPI.Groups(this._client);
-  messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
 
   /**
    * Create an agent.
@@ -2936,12 +2936,12 @@ export namespace AgentModifyParams {
   }
 }
 
+Agents.Messages = Messages;
+Agents.Blocks = Blocks;
 Agents.Tools = Tools;
 Agents.Folders = Folders;
 Agents.Files = Files;
-Agents.Blocks = Blocks;
 Agents.Groups = Groups;
-Agents.Messages = Messages;
 
 export declare namespace Agents {
   export {
@@ -2973,48 +2973,6 @@ export declare namespace Agents {
     type AgentImportFileParams as AgentImportFileParams,
     type AgentModifyParams as AgentModifyParams,
   };
-
-  export {
-    Tools as Tools,
-    type ToolListParams as ToolListParams,
-    type ToolAttachParams as ToolAttachParams,
-    type ToolDetachParams as ToolDetachParams,
-    type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
-  };
-
-  export {
-    Folders as Folders,
-    type FolderListResponse as FolderListResponse,
-    type FolderListResponsesArrayPage as FolderListResponsesArrayPage,
-    type FolderListParams as FolderListParams,
-    type FolderAttachParams as FolderAttachParams,
-    type FolderDetachParams as FolderDetachParams,
-  };
-
-  export {
-    Files as Files,
-    type FileListResponse as FileListResponse,
-    type FileCloseResponse as FileCloseResponse,
-    type FileCloseAllResponse as FileCloseAllResponse,
-    type FileOpenResponse as FileOpenResponse,
-    type FileListResponsesNextFilesPage as FileListResponsesNextFilesPage,
-    type FileListParams as FileListParams,
-    type FileCloseParams as FileCloseParams,
-    type FileOpenParams as FileOpenParams,
-  };
-
-  export {
-    Blocks as Blocks,
-    type Block as Block,
-    type BlockModify as BlockModify,
-    type BlockRetrieveParams as BlockRetrieveParams,
-    type BlockListParams as BlockListParams,
-    type BlockAttachParams as BlockAttachParams,
-    type BlockDetachParams as BlockDetachParams,
-    type BlockModifyParams as BlockModifyParams,
-  };
-
-  export { Groups as Groups, type GroupListParams as GroupListParams };
 
   export {
     Messages as Messages,
@@ -3069,4 +3027,46 @@ export declare namespace Agents {
     type MessageSendAsyncParams as MessageSendAsyncParams,
     type MessageStreamParams as MessageStreamParams,
   };
+
+  export {
+    Blocks as Blocks,
+    type Block as Block,
+    type BlockModify as BlockModify,
+    type BlockRetrieveParams as BlockRetrieveParams,
+    type BlockListParams as BlockListParams,
+    type BlockAttachParams as BlockAttachParams,
+    type BlockDetachParams as BlockDetachParams,
+    type BlockModifyParams as BlockModifyParams,
+  };
+
+  export {
+    Tools as Tools,
+    type ToolListParams as ToolListParams,
+    type ToolAttachParams as ToolAttachParams,
+    type ToolDetachParams as ToolDetachParams,
+    type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
+  };
+
+  export {
+    Folders as Folders,
+    type FolderListResponse as FolderListResponse,
+    type FolderListResponsesArrayPage as FolderListResponsesArrayPage,
+    type FolderListParams as FolderListParams,
+    type FolderAttachParams as FolderAttachParams,
+    type FolderDetachParams as FolderDetachParams,
+  };
+
+  export {
+    Files as Files,
+    type FileListResponse as FileListResponse,
+    type FileCloseResponse as FileCloseResponse,
+    type FileCloseAllResponse as FileCloseAllResponse,
+    type FileOpenResponse as FileOpenResponse,
+    type FileListResponsesNextFilesPage as FileListResponsesNextFilesPage,
+    type FileListParams as FileListParams,
+    type FileCloseParams as FileCloseParams,
+    type FileOpenParams as FileOpenParams,
+  };
+
+  export { Groups as Groups, type GroupListParams as GroupListParams };
 }
