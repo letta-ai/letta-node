@@ -25,7 +25,7 @@ describe('resource models', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.models.list(
-        { provider_category: ['base'], provider_name: 'provider_name', provider_type: 'anthropic' },
+        { provider_category: ['base', 'byok'], provider_name: 'provider_name', provider_type: 'anthropic' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

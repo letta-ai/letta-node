@@ -420,7 +420,7 @@ export class Letta {
   }
 
   protected stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+    return qs.stringify(query, { allowDots: true, arrayFormat: 'repeat' });
   }
 
   private getUserAgent(): string {
