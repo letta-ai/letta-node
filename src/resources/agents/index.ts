@@ -111,8 +111,8 @@ export {
   type MessageSendParamsStreaming,
   type MessageSendAsyncParams,
   type MessageStreamParams,
-  type LettaMessageUnionsArrayPage,
   type RunsArrayPage,
+  type LettaMessageUnionsArrayPage,
   type MessagesObjectPage,
 } from './messages';
 export {
