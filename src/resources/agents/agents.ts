@@ -358,9 +358,9 @@ export interface AgentState {
   description?: string | null;
 
   /**
-   * Schema for defining settings for an embedding model
+   * The embedding model handle used by the agent (format: provider/model-name).
    */
-  embedding?: AgentState.Embedding | null;
+  embedding?: string | null;
 
   /**
    * If set to True, memory management will move to a background agent thread.
@@ -437,9 +437,25 @@ export interface AgentState {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * Schema for defining settings for a model
+   * The model handle used by the agent (format: provider/model-name).
    */
-  model?: AgentState.Model | null;
+  model?: string | null;
+
+  /**
+   * The model settings used by the agent.
+   */
+  model_settings?:
+    | AgentState.OpenAIModelSettings
+    | AgentState.AnthropicModelSettings
+    | AgentState.GoogleAIModelSettings
+    | AgentState.GoogleVertexModelSettings
+    | AgentState.AzureModelSettings
+    | AgentState.XaiModelSettings
+    | AgentState.GroqModelSettings
+    | AgentState.DeepseekModelSettings
+    | AgentState.TogetherModelSettings
+    | AgentState.BedrockModelSettings
+    | null;
 
   /**
    * @deprecated Deprecated: Use `managed_group` field instead. The multi-agent group
@@ -707,30 +723,7 @@ export namespace AgentState {
     vector_db_provider?: ArchivesArchivesAPI.VectorDBProvider;
   }
 
-  /**
-   * Schema for defining settings for an embedding model
-   */
-  export interface Embedding {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The provider of the model.
-     */
-    provider: 'openai' | 'ollama';
-  }
-
-  /**
-   * Schema for defining settings for a model
-   */
-  export interface Model {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
+  export interface OpenAIModelSettings {
     /**
      * The maximum number of tokens the model can generate.
      */
@@ -740,6 +733,401 @@ export namespace AgentState {
      * Whether to enable parallel tool calling.
      */
     parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'openai';
+
+    /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: OpenAIModelSettings.Reasoning;
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  export namespace OpenAIModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort to use when generating text reasoning models
+       */
+      reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high';
+    }
+  }
+
+  export interface AnthropicModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'anthropic';
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: AnthropicModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace AnthropicModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  export interface GoogleAIModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'google_ai';
+
+    /**
+     * The response schema for the model.
+     */
+    response_schema?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking_config?: GoogleAIModelSettings.ThinkingConfig;
+  }
+
+  export namespace GoogleAIModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface ThinkingConfig {
+      /**
+       * Whether to include thoughts in the model's response.
+       */
+      include_thoughts?: boolean;
+
+      /**
+       * The thinking budget for the model.
+       */
+      thinking_budget?: number;
+    }
+  }
+
+  export interface GoogleVertexModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'google_vertex';
+
+    /**
+     * The response schema for the model.
+     */
+    response_schema?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking_config?: GoogleVertexModelSettings.ThinkingConfig;
+  }
+
+  export namespace GoogleVertexModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface ThinkingConfig {
+      /**
+       * Whether to include thoughts in the model's response.
+       */
+      include_thoughts?: boolean;
+
+      /**
+       * The thinking budget for the model.
+       */
+      thinking_budget?: number;
+    }
+  }
+
+  /**
+   * Azure OpenAI model configuration (OpenAI-compatible).
+   */
+  export interface AzureModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'azure';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
+   * xAI model configuration (OpenAI-compatible).
+   */
+  export interface XaiModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'xai';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
+   * Groq model configuration (OpenAI-compatible).
+   */
+  export interface GroqModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'groq';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
+   * Deepseek model configuration (OpenAI-compatible).
+   */
+  export interface DeepseekModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'deepseek';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
+   * Together AI model configuration (OpenAI-compatible).
+   */
+  export interface TogetherModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'together';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
+   * AWS Bedrock model configuration.
+   */
+  export interface BedrockModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'bedrock';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
   }
 }
 
@@ -1119,10 +1507,9 @@ export interface AgentCreateParams {
   description?: string | null;
 
   /**
-   * The embedding configuration handle used by the agent, specified in the format
-   * provider/model-name.
+   * The embedding model handle used by the agent (format: provider/model-name).
    */
-  embedding?: string | AgentCreateParams.EmbeddingModelSettings | null;
+  embedding?: string | null;
 
   /**
    * @deprecated Deprecated: No longer used. The embedding chunk size used by the
@@ -1238,11 +1625,14 @@ export interface AgentCreateParams {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The model handle or model settings for the agent to use, specified either by a
-   * handle or an object. See the model schema for more information.
+   * The model handle for the agent to use (format: provider/model-name).
    */
-  model?:
-    | string
+  model?: string | null;
+
+  /**
+   * The model settings for the agent.
+   */
+  model_settings?:
     | AgentCreateParams.OpenAIModelSettings
     | AgentCreateParams.AnthropicModelSettings
     | AgentCreateParams.GoogleAIModelSettings
@@ -1365,27 +1755,7 @@ export interface AgentCreateParams {
 }
 
 export namespace AgentCreateParams {
-  /**
-   * Schema for defining settings for an embedding model
-   */
-  export interface EmbeddingModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The provider of the model.
-     */
-    provider: 'openai' | 'ollama';
-  }
-
   export interface OpenAIModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
     /**
      * The maximum number of tokens the model can generate.
      */
@@ -1397,9 +1767,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'openai';
+    provider_type?: 'openai';
 
     /**
      * The reasoning configuration for the model.
@@ -1435,11 +1805,6 @@ export namespace AgentCreateParams {
 
   export interface AnthropicModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -1450,9 +1815,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'anthropic';
+    provider_type?: 'anthropic';
 
     /**
      * The temperature of the model.
@@ -1489,11 +1854,6 @@ export namespace AgentCreateParams {
 
   export interface GoogleAIModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -1504,9 +1864,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'google_ai';
+    provider_type?: 'google_ai';
 
     /**
      * The response schema for the model.
@@ -1547,11 +1907,6 @@ export namespace AgentCreateParams {
 
   export interface GoogleVertexModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -1562,9 +1917,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'google_vertex';
+    provider_type?: 'google_vertex';
 
     /**
      * The response schema for the model.
@@ -1608,11 +1963,6 @@ export namespace AgentCreateParams {
    */
   export interface AzureModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -1623,9 +1973,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'azure';
+    provider_type?: 'azure';
 
     /**
      * The response format for the model.
@@ -1647,11 +1997,6 @@ export namespace AgentCreateParams {
    */
   export interface XaiModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -1662,9 +2007,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'xai';
+    provider_type?: 'xai';
 
     /**
      * The response format for the model.
@@ -1686,11 +2031,6 @@ export namespace AgentCreateParams {
    */
   export interface GroqModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -1701,9 +2041,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'groq';
+    provider_type?: 'groq';
 
     /**
      * The response format for the model.
@@ -1725,11 +2065,6 @@ export namespace AgentCreateParams {
    */
   export interface DeepseekModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -1740,9 +2075,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'deepseek';
+    provider_type?: 'deepseek';
 
     /**
      * The response format for the model.
@@ -1764,11 +2099,6 @@ export namespace AgentCreateParams {
    */
   export interface TogetherModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -1779,9 +2109,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'together';
+    provider_type?: 'together';
 
     /**
      * The response format for the model.
@@ -1803,11 +2133,6 @@ export namespace AgentCreateParams {
    */
   export interface BedrockModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -1818,9 +2143,9 @@ export namespace AgentCreateParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'bedrock';
+    provider_type?: 'bedrock';
 
     /**
      * The response format for the model.
@@ -2036,10 +2361,9 @@ export interface AgentModifyParams {
   description?: string | null;
 
   /**
-   * The embedding configuration handle used by the agent, specified in the format
-   * provider/model-name.
+   * The embedding model handle used by the agent (format: provider/model-name).
    */
-  embedding?: string | AgentModifyParams.EmbeddingModelSettings | null;
+  embedding?: string | null;
 
   /**
    * Configuration for embedding model connection and processing parameters.
@@ -2111,11 +2435,14 @@ export interface AgentModifyParams {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The model used by the agent, specified either by a handle or an object. See the
-   * model schema for more information.
+   * The model handle used by the agent (format: provider/model-name).
    */
-  model?:
-    | string
+  model?: string | null;
+
+  /**
+   * The model settings for the agent.
+   */
+  model_settings?:
     | AgentModifyParams.OpenAIModelSettings
     | AgentModifyParams.AnthropicModelSettings
     | AgentModifyParams.GoogleAIModelSettings
@@ -2219,27 +2546,7 @@ export interface AgentModifyParams {
 }
 
 export namespace AgentModifyParams {
-  /**
-   * Schema for defining settings for an embedding model
-   */
-  export interface EmbeddingModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
-     * The provider of the model.
-     */
-    provider: 'openai' | 'ollama';
-  }
-
   export interface OpenAIModelSettings {
-    /**
-     * The name of the model.
-     */
-    model: string;
-
     /**
      * The maximum number of tokens the model can generate.
      */
@@ -2251,9 +2558,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'openai';
+    provider_type?: 'openai';
 
     /**
      * The reasoning configuration for the model.
@@ -2289,11 +2596,6 @@ export namespace AgentModifyParams {
 
   export interface AnthropicModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -2304,9 +2606,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'anthropic';
+    provider_type?: 'anthropic';
 
     /**
      * The temperature of the model.
@@ -2343,11 +2645,6 @@ export namespace AgentModifyParams {
 
   export interface GoogleAIModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -2358,9 +2655,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'google_ai';
+    provider_type?: 'google_ai';
 
     /**
      * The response schema for the model.
@@ -2401,11 +2698,6 @@ export namespace AgentModifyParams {
 
   export interface GoogleVertexModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -2416,9 +2708,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'google_vertex';
+    provider_type?: 'google_vertex';
 
     /**
      * The response schema for the model.
@@ -2462,11 +2754,6 @@ export namespace AgentModifyParams {
    */
   export interface AzureModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -2477,9 +2764,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'azure';
+    provider_type?: 'azure';
 
     /**
      * The response format for the model.
@@ -2501,11 +2788,6 @@ export namespace AgentModifyParams {
    */
   export interface XaiModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -2516,9 +2798,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'xai';
+    provider_type?: 'xai';
 
     /**
      * The response format for the model.
@@ -2540,11 +2822,6 @@ export namespace AgentModifyParams {
    */
   export interface GroqModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -2555,9 +2832,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'groq';
+    provider_type?: 'groq';
 
     /**
      * The response format for the model.
@@ -2579,11 +2856,6 @@ export namespace AgentModifyParams {
    */
   export interface DeepseekModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -2594,9 +2866,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'deepseek';
+    provider_type?: 'deepseek';
 
     /**
      * The response format for the model.
@@ -2618,11 +2890,6 @@ export namespace AgentModifyParams {
    */
   export interface TogetherModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -2633,9 +2900,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'together';
+    provider_type?: 'together';
 
     /**
      * The response format for the model.
@@ -2657,11 +2924,6 @@ export namespace AgentModifyParams {
    */
   export interface BedrockModelSettings {
     /**
-     * The name of the model.
-     */
-    model: string;
-
-    /**
      * The maximum number of tokens the model can generate.
      */
     max_output_tokens?: number;
@@ -2672,9 +2934,9 @@ export namespace AgentModifyParams {
     parallel_tool_calls?: boolean;
 
     /**
-     * The provider of the model.
+     * The type of the provider.
      */
-    provider?: 'bedrock';
+    provider_type?: 'bedrock';
 
     /**
      * The response format for the model.
