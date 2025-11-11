@@ -157,6 +157,30 @@ Methods:
 
 - <code title="get /v1/agents/{agent_id}/groups">client.agents.groups.<a href="./src/resources/agents/groups.ts">list</a>(agentID, { ...params }) -> GroupsArrayPage</code>
 
+## Archives
+
+Types:
+
+- <code><a href="./src/resources/agents/archives.ts">ArchiveAttachResponse</a></code>
+- <code><a href="./src/resources/agents/archives.ts">ArchiveDetachResponse</a></code>
+
+Methods:
+
+- <code title="patch /v1/agents/{agent_id}/archives/attach/{archive_id}">client.agents.archives.<a href="./src/resources/agents/archives.ts">attach</a>(archiveID, { ...params }) -> unknown</code>
+- <code title="patch /v1/agents/{agent_id}/archives/detach/{archive_id}">client.agents.archives.<a href="./src/resources/agents/archives.ts">detach</a>(archiveID, { ...params }) -> unknown</code>
+
+## Identities
+
+Types:
+
+- <code><a href="./src/resources/agents/identities.ts">IdentityAttachResponse</a></code>
+- <code><a href="./src/resources/agents/identities.ts">IdentityDetachResponse</a></code>
+
+Methods:
+
+- <code title="patch /v1/agents/{agent_id}/identities/attach/{identity_id}">client.agents.identities.<a href="./src/resources/agents/identities.ts">attach</a>(identityID, { ...params }) -> unknown</code>
+- <code title="patch /v1/agents/{agent_id}/identities/detach/{identity_id}">client.agents.identities.<a href="./src/resources/agents/identities.ts">detach</a>(identityID, { ...params }) -> unknown</code>
+
 # Tools
 
 Types:

@@ -31,6 +31,13 @@ export {
   type AgentStatesArrayPage,
 } from './agents';
 export {
+  Archives,
+  type ArchiveAttachResponse,
+  type ArchiveDetachResponse,
+  type ArchiveAttachParams,
+  type ArchiveDetachParams,
+} from './archives';
+export {
   Blocks,
   type Block,
   type BlockModify,
@@ -60,6 +67,13 @@ export {
   type FolderListResponsesArrayPage,
 } from './folders';
 export { Groups, type GroupListParams } from './groups';
+export {
+  Identities,
+  type IdentityAttachResponse,
+  type IdentityDetachResponse,
+  type IdentityAttachParams,
+  type IdentityDetachParams,
+} from './identities';
 export {
   Messages,
   type ApprovalCreate,
