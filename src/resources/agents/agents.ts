@@ -4,6 +4,14 @@ import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
 import * as ArchivesAPI from '../archives';
 import * as ToolsAPI from '../tools';
+import * as AgentsArchivesAPI from './archives';
+import {
+  ArchiveAttachParams,
+  ArchiveAttachResponse,
+  ArchiveDetachParams,
+  ArchiveDetachResponse,
+  Archives,
+} from './archives';
 import * as BlocksAPI from './blocks';
 import {
   Block,
@@ -38,6 +46,14 @@ import {
 } from './folders';
 import * as GroupsAPI from './groups';
 import { GroupListParams, Groups } from './groups';
+import * as IdentitiesAPI from './identities';
+import {
+  Identities,
+  IdentityAttachParams,
+  IdentityAttachResponse,
+  IdentityDetachParams,
+  IdentityDetachResponse,
+} from './identities';
 import * as MessagesAPI from './messages';
 import {
   ApprovalCreate,
@@ -96,7 +112,7 @@ import * as AgentsToolsAPI from './tools';
 import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
-import * as IdentitiesAPI from '../identities/identities';
+import * as IdentitiesIdentitiesAPI from '../identities/identities';
 import * as ModelsAPI from '../models/models';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
@@ -114,6 +130,8 @@ export class Agents extends APIResource {
   folders: FoldersAPI.Folders = new FoldersAPI.Folders(this._client);
   files: FilesAPI.Files = new FilesAPI.Files(this._client);
   groups: GroupsAPI.Groups = new GroupsAPI.Groups(this._client);
+  archives: AgentsArchivesAPI.Archives = new AgentsArchivesAPI.Archives(this._client);
+  identities: IdentitiesAPI.Identities = new IdentitiesAPI.Identities(this._client);
 
   /**
    * Create an agent.
@@ -362,7 +380,7 @@ export interface AgentState {
   /**
    * The identities associated with this agent.
    */
-  identities?: Array<IdentitiesAPI.Identity>;
+  identities?: Array<IdentitiesIdentitiesAPI.Identity>;
 
   /**
    * @deprecated Deprecated: Use `identities` field instead. The ids of the
@@ -2942,6 +2960,8 @@ Agents.Tools = Tools;
 Agents.Folders = Folders;
 Agents.Files = Files;
 Agents.Groups = Groups;
+Agents.Archives = Archives;
+Agents.Identities = Identities;
 
 export declare namespace Agents {
   export {
@@ -3069,4 +3089,20 @@ export declare namespace Agents {
   };
 
   export { Groups as Groups, type GroupListParams as GroupListParams };
+
+  export {
+    Archives as Archives,
+    type ArchiveAttachResponse as ArchiveAttachResponse,
+    type ArchiveDetachResponse as ArchiveDetachResponse,
+    type ArchiveAttachParams as ArchiveAttachParams,
+    type ArchiveDetachParams as ArchiveDetachParams,
+  };
+
+  export {
+    Identities as Identities,
+    type IdentityAttachResponse as IdentityAttachResponse,
+    type IdentityDetachResponse as IdentityDetachResponse,
+    type IdentityAttachParams as IdentityAttachParams,
+    type IdentityDetachParams as IdentityDetachParams,
+  };
 }
