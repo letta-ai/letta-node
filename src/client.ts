@@ -199,7 +199,7 @@ export interface ClientOptions {
   /**
    * Defaults to process.env['LETTA_API_KEY'].
    */
-  apiKey?: string | undefined;
+  apiKey?: string | null | undefined;
 
   projectID?: string | null | undefined;
 
@@ -290,7 +290,7 @@ export interface ClientOptions {
  * API Client for interfacing with the Letta API.
  */
 export class Letta {
-  apiKey: string;
+  apiKey: string | null;
   projectID: string | null;
   project: string | null;
 
@@ -309,7 +309,7 @@ export class Letta {
   /**
    * API Client for interfacing with the Letta API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['LETTA_API_KEY'] ?? undefined]
+   * @param {string | null | undefined} [opts.apiKey=process.env['LETTA_API_KEY'] ?? null]
    * @param {string | null | undefined} [opts.projectID]
    * @param {string | null | undefined} [opts.project]
    * @param {Environment} [opts.environment=cloud] - Specifies the environment URL to use for the API.
@@ -323,17 +323,11 @@ export class Letta {
    */
   constructor({
     baseURL = readEnv('LETTA_BASE_URL'),
-    apiKey = readEnv('LETTA_API_KEY'),
+    apiKey = readEnv('LETTA_API_KEY') ?? null,
     projectID = null,
     project = null,
     ...opts
   }: ClientOptions = {}) {
-    if (apiKey === undefined) {
-      throw new Errors.LettaError(
-        "The LETTA_API_KEY environment variable is missing or empty; either provide it, or instantiate the Letta client with an apiKey option, like new Letta({ apiKey: 'My API Key' }).",
-      );
-    }
-
     const options: ClientOptions = {
       apiKey,
       projectID,
@@ -412,10 +406,22 @@ export class Letta {
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
-    return;
+    if (this.apiKey && values.get('authorization')) {
+      return;
+    }
+    if (nulls.has('authorization')) {
+      return;
+    }
+
+    throw new Error(
+      'Could not resolve authentication method. Expected the apiKey to be set. Or for the "Authorization" headers to be explicitly omitted',
+    );
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    if (this.apiKey == null) {
+      return undefined;
+    }
     return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
   }
 
