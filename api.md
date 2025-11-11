@@ -243,8 +243,13 @@ Methods:
 
 ## Passages
 
+Types:
+
+- <code><a href="./src/resources/archives/passages.ts">PassageCreateResponse</a></code>
+
 Methods:
 
+- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/resources/archives/passages.ts">create</a>(archiveID, { ...params }) -> PassageCreateResponse</code>
 - <code title="delete /v1/archives/{archive_id}/passages/{passage_id}">client.archives.passages.<a href="./src/resources/archives/passages.ts">delete</a>(passageID, { ...params }) -> void</code>
 
 # Folders

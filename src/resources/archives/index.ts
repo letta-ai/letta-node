@@ -9,4 +9,9 @@ export {
   type ArchiveModifyParams,
   type ArchivesArrayPage,
 } from './archives';
-export { Passages, type PassageDeleteParams } from './passages';
+export {
+  Passages,
+  type PassageCreateResponse,
+  type PassageCreateParams,
+  type PassageDeleteParams,
+} from './passages';
