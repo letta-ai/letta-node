@@ -401,7 +401,7 @@ export class Letta {
   }
 
   /**
-   * Check Health
+   * Async health check endpoint.
    */
   health(options?: RequestOptions): APIPromise<TopLevelAPI.HealthResponse> {
     return this.get('/v1/health/', options);
