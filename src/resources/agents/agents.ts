@@ -2,9 +2,8 @@
 
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
-import * as ArchivesAPI from '../archives';
 import * as ToolsAPI from '../tools';
-import * as AgentsArchivesAPI from './archives';
+import * as ArchivesAPI from './archives';
 import {
   ArchiveAttachParams,
   ArchiveAttachResponse,
@@ -110,6 +109,7 @@ import {
 } from './messages';
 import * as AgentsToolsAPI from './tools';
 import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
+import * as ArchivesArchivesAPI from '../archives/archives';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
 import * as IdentitiesIdentitiesAPI from '../identities/identities';
@@ -130,7 +130,7 @@ export class Agents extends APIResource {
   folders: FoldersAPI.Folders = new FoldersAPI.Folders(this._client);
   files: FilesAPI.Files = new FilesAPI.Files(this._client);
   groups: GroupsAPI.Groups = new GroupsAPI.Groups(this._client);
-  archives: AgentsArchivesAPI.Archives = new AgentsArchivesAPI.Archives(this._client);
+  archives: ArchivesAPI.Archives = new ArchivesAPI.Archives(this._client);
   identities: IdentitiesAPI.Identities = new IdentitiesAPI.Identities(this._client);
 
   /**
@@ -720,7 +720,7 @@ export namespace AgentState {
     /**
      * The vector database provider used for this source's passages
      */
-    vector_db_provider?: ArchivesAPI.VectorDBProvider;
+    vector_db_provider?: ArchivesArchivesAPI.VectorDBProvider;
   }
 
   export interface OpenAIModelSettings {

@@ -29,15 +29,6 @@ import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 import { HealthResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
-import {
-  Archive,
-  ArchiveCreateParams,
-  ArchiveListParams,
-  ArchiveModifyParams,
-  Archives,
-  ArchivesArrayPage,
-  VectorDBProvider,
-} from './resources/archives';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
 import {
   NpmRequirement,
@@ -85,6 +76,15 @@ import {
   TerminalToolRule,
   TextResponseFormat,
 } from './resources/agents/agents';
+import {
+  Archive,
+  ArchiveCreateParams,
+  ArchiveListParams,
+  ArchiveModifyParams,
+  Archives,
+  ArchivesArrayPage,
+  VectorDBProvider,
+} from './resources/archives/archives';
 import {
   BatchCancelResponse,
   BatchCreateParams,

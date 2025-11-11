@@ -38,7 +38,7 @@ export {
   type ArchiveListParams,
   type ArchiveModifyParams,
   type ArchivesArrayPage,
-} from './archives';
+} from './archives/archives';
 export {
   Batches,
   type BatchJob,

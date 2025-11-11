@@ -230,16 +230,22 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/archives.ts">Archive</a></code>
-- <code><a href="./src/resources/archives.ts">VectorDBProvider</a></code>
+- <code><a href="./src/resources/archives/archives.ts">Archive</a></code>
+- <code><a href="./src/resources/archives/archives.ts">VectorDBProvider</a></code>
 
 Methods:
 
-- <code title="post /v1/archives/">client.archives.<a href="./src/resources/archives.ts">create</a>({ ...params }) -> Archive</code>
-- <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">retrieve</a>(archiveID) -> Archive</code>
-- <code title="get /v1/archives/">client.archives.<a href="./src/resources/archives.ts">list</a>({ ...params }) -> ArchivesArrayPage</code>
-- <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">delete</a>(archiveID) -> Archive</code>
-- <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives.ts">modify</a>(archiveID, { ...params }) -> Archive</code>
+- <code title="post /v1/archives/">client.archives.<a href="./src/resources/archives/archives.ts">create</a>({ ...params }) -> Archive</code>
+- <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives/archives.ts">retrieve</a>(archiveID) -> Archive</code>
+- <code title="get /v1/archives/">client.archives.<a href="./src/resources/archives/archives.ts">list</a>({ ...params }) -> ArchivesArrayPage</code>
+- <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives/archives.ts">delete</a>(archiveID) -> Archive</code>
+- <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives/archives.ts">modify</a>(archiveID, { ...params }) -> Archive</code>
+
+## Passages
+
+Methods:
+
+- <code title="delete /v1/archives/{archive_id}/passages/{passage_id}">client.archives.passages.<a href="./src/resources/archives/passages.ts">delete</a>(passageID, { ...params }) -> void</code>
 
 # Folders
 
