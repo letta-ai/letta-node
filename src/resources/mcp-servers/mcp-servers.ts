@@ -27,6 +27,17 @@ export class McpServers extends APIResource {
   }
 
   /**
+   * Update an existing MCP server configuration
+   */
+  update(
+    mcpServerID: string,
+    body: McpServerUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<McpServerUpdateResponse> {
+    return this._client.patch(path`/v1/mcp-servers/${mcpServerID}`, { body, ...options });
+  }
+
+  /**
    * Get a list of all configured MCP servers
    */
   list(options?: RequestOptions): APIPromise<McpServerListResponse> {
@@ -49,17 +60,6 @@ export class McpServers extends APIResource {
    */
   connect(mcpServerID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.get(path`/v1/mcp-servers/connect/${mcpServerID}`, options);
-  }
-
-  /**
-   * Update an existing MCP server configuration
-   */
-  modify(
-    mcpServerID: string,
-    body: McpServerModifyParams,
-    options?: RequestOptions,
-  ): APIPromise<McpServerModifyResponse> {
-    return this._client.patch(path`/v1/mcp-servers/${mcpServerID}`, { body, ...options });
   }
 
   /**
@@ -431,14 +431,14 @@ export type McpServerCreateResponse = StdioMcpServer | SseMcpServer | Streamable
  */
 export type McpServerRetrieveResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer;
 
-export type McpServerListResponse = Array<StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer>;
-
-export type McpServerConnectResponse = unknown;
-
 /**
  * A Stdio MCP server
  */
-export type McpServerModifyResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer;
+export type McpServerUpdateResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer;
+
+export type McpServerListResponse = Array<StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer>;
+
+export type McpServerConnectResponse = unknown;
 
 export type McpServerRefreshResponse = unknown;
 
@@ -531,12 +531,12 @@ export declare namespace McpServerCreateParams {
   }
 }
 
-export type McpServerModifyParams =
-  | McpServerModifyParams.UpdateStdioMcpServer
-  | McpServerModifyParams.UpdateSseMcpServer
-  | McpServerModifyParams.UpdateStreamableHTTPMcpServer;
+export type McpServerUpdateParams =
+  | McpServerUpdateParams.UpdateStdioMcpServer
+  | McpServerUpdateParams.UpdateSseMcpServer
+  | McpServerUpdateParams.UpdateStreamableHTTPMcpServer;
 
-export declare namespace McpServerModifyParams {
+export declare namespace McpServerUpdateParams {
   export interface UpdateStdioMcpServer {
     /**
      * The arguments to pass to the command
@@ -645,12 +645,12 @@ export declare namespace McpServers {
     type UpdateStreamableHTTPMcpServer as UpdateStreamableHTTPMcpServer,
     type McpServerCreateResponse as McpServerCreateResponse,
     type McpServerRetrieveResponse as McpServerRetrieveResponse,
+    type McpServerUpdateResponse as McpServerUpdateResponse,
     type McpServerListResponse as McpServerListResponse,
     type McpServerConnectResponse as McpServerConnectResponse,
-    type McpServerModifyResponse as McpServerModifyResponse,
     type McpServerRefreshResponse as McpServerRefreshResponse,
     type McpServerCreateParams as McpServerCreateParams,
-    type McpServerModifyParams as McpServerModifyParams,
+    type McpServerUpdateParams as McpServerUpdateParams,
     type McpServerRefreshParams as McpServerRefreshParams,
   };
 

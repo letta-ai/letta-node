@@ -50,6 +50,18 @@ describe('resource tools', () => {
   });
 
   // Prism tests are disabled
+  test.skip('update', async () => {
+    const responsePromise = client.tools.update('tool-123e4567-e89b-42d3-8456-426614174000', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.tools.list();
     const rawResponse = await responsePromise.asResponse();
@@ -88,18 +100,6 @@ describe('resource tools', () => {
   // Prism tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.tools.delete('tool-123e4567-e89b-42d3-8456-426614174000');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('modify', async () => {
-    const responsePromise = client.tools.modify('tool-123e4567-e89b-42d3-8456-426614174000', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

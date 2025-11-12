@@ -23,6 +23,13 @@ export class Tools extends APIResource {
   }
 
   /**
+   * Update an existing tool
+   */
+  update(toolID: string, body: ToolUpdateParams, options?: RequestOptions): APIPromise<Tool> {
+    return this._client.patch(path`/v1/tools/${toolID}`, { body, ...options });
+  }
+
+  /**
    * Get a list of all tools available to agents.
    */
   list(
@@ -37,13 +44,6 @@ export class Tools extends APIResource {
    */
   delete(toolID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.delete(path`/v1/tools/${toolID}`, options);
-  }
-
-  /**
-   * Update an existing tool
-   */
-  modify(toolID: string, body: ToolModifyParams, options?: RequestOptions): APIPromise<Tool> {
-    return this._client.patch(path`/v1/tools/${toolID}`, { body, ...options });
   }
 
   /**
@@ -380,44 +380,7 @@ export interface ToolCreateParams {
   tags?: Array<string> | null;
 }
 
-export interface ToolListParams extends ArrayPageParams {
-  /**
-   * Tool type(s) to exclude - accepts repeated params or comma-separated values
-   */
-  exclude_tool_types?: Array<string> | null;
-
-  /**
-   * Filter by single tool name
-   */
-  name?: string | null;
-
-  /**
-   * Filter by specific tool names
-   */
-  names?: Array<string> | null;
-
-  /**
-   * Return only tools with tool*type starting with 'letta*'
-   */
-  return_only_letta_tools?: boolean | null;
-
-  /**
-   * Search tool names (case-insensitive partial match)
-   */
-  search?: string | null;
-
-  /**
-   * Filter by specific tool IDs - accepts repeated params or comma-separated values
-   */
-  tool_ids?: Array<string> | null;
-
-  /**
-   * Filter by tool type(s) - accepts repeated params or comma-separated values
-   */
-  tool_types?: Array<string> | null;
-}
-
-export interface ToolModifyParams {
+export interface ToolUpdateParams {
   /**
    * The args JSON schema of the function.
    */
@@ -479,6 +442,43 @@ export interface ToolModifyParams {
    * Metadata tags.
    */
   tags?: Array<string> | null;
+}
+
+export interface ToolListParams extends ArrayPageParams {
+  /**
+   * Tool type(s) to exclude - accepts repeated params or comma-separated values
+   */
+  exclude_tool_types?: Array<string> | null;
+
+  /**
+   * Filter by single tool name
+   */
+  name?: string | null;
+
+  /**
+   * Filter by specific tool names
+   */
+  names?: Array<string> | null;
+
+  /**
+   * Return only tools with tool*type starting with 'letta*'
+   */
+  return_only_letta_tools?: boolean | null;
+
+  /**
+   * Search tool names (case-insensitive partial match)
+   */
+  search?: string | null;
+
+  /**
+   * Filter by specific tool IDs - accepts repeated params or comma-separated values
+   */
+  tool_ids?: Array<string> | null;
+
+  /**
+   * Filter by tool type(s) - accepts repeated params or comma-separated values
+   */
+  tool_types?: Array<string> | null;
 }
 
 export interface ToolUpsertParams {
@@ -552,8 +552,8 @@ export declare namespace Tools {
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
+    type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolModifyParams as ToolModifyParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 }

@@ -15,7 +15,7 @@ export {
   type Folder,
   type FolderDeleteResponse,
   type FolderCreateParams,
+  type FolderUpdateParams,
   type FolderListParams,
-  type FolderModifyParams,
   type FoldersArrayPage,
 } from './folders';

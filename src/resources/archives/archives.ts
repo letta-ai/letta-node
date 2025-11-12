@@ -27,6 +27,13 @@ export class Archives extends APIResource {
   }
 
   /**
+   * Update an existing archive's name and/or description.
+   */
+  update(archiveID: string, body: ArchiveUpdateParams, options?: RequestOptions): APIPromise<Archive> {
+    return this._client.patch(path`/v1/archives/${archiveID}`, { body, ...options });
+  }
+
+  /**
    * Get a list of all archives for the current organization with optional filters
    * and pagination.
    */
@@ -42,13 +49,6 @@ export class Archives extends APIResource {
    */
   delete(archiveID: string, options?: RequestOptions): APIPromise<Archive> {
     return this._client.delete(path`/v1/archives/${archiveID}`, options);
-  }
-
-  /**
-   * Update an existing archive's name and/or description.
-   */
-  modify(archiveID: string, body: ArchiveModifyParams, options?: RequestOptions): APIPromise<Archive> {
-    return this._client.patch(path`/v1/archives/${archiveID}`, { body, ...options });
   }
 }
 
@@ -131,6 +131,12 @@ export interface ArchiveCreateParams {
   embedding_config?: ModelsAPI.EmbeddingConfig | null;
 }
 
+export interface ArchiveUpdateParams {
+  description?: string | null;
+
+  name?: string | null;
+}
+
 export interface ArchiveListParams extends ArrayPageParams {
   /**
    * Only archives attached to this agent ID
@@ -143,12 +149,6 @@ export interface ArchiveListParams extends ArrayPageParams {
   name?: string | null;
 }
 
-export interface ArchiveModifyParams {
-  description?: string | null;
-
-  name?: string | null;
-}
-
 Archives.Passages = Passages;
 
 export declare namespace Archives {
@@ -157,8 +157,8 @@ export declare namespace Archives {
     type VectorDBProvider as VectorDBProvider,
     type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
+    type ArchiveUpdateParams as ArchiveUpdateParams,
     type ArchiveListParams as ArchiveListParams,
-    type ArchiveModifyParams as ArchiveModifyParams,
   };
 
   export {

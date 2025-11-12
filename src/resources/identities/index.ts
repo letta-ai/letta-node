@@ -9,8 +9,8 @@ export {
   type IdentityType,
   type IdentityDeleteResponse,
   type IdentityCreateParams,
+  type IdentityUpdateParams,
   type IdentityListParams,
-  type IdentityModifyParams,
   type IdentityUpsertParams,
   type IdentitiesArrayPage,
 } from './identities';
