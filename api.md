@@ -60,6 +60,7 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">ApprovalCreate</a></code>
 - <code><a href="./src/resources/agents/messages.ts">ApprovalRequestMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">ApprovalResponseMessage</a></code>
+- <code><a href="./src/resources/agents/messages.ts">ApprovalReturn</a></code>
 - <code><a href="./src/resources/agents/messages.ts">AssistantMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">EventMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">HiddenReasoningMessage</a></code>

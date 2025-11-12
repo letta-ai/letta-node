@@ -89,6 +89,7 @@ export {
   type ApprovalCreate,
   type ApprovalRequestMessage,
   type ApprovalResponseMessage,
+  type ApprovalReturn,
   type AssistantMessage,
   type EventMessage,
   type HiddenReasoningMessage,

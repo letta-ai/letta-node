@@ -165,7 +165,7 @@ export interface ApprovalCreate {
   /**
    * The list of approval responses
    */
-  approvals?: Array<ApprovalCreate.ApprovalReturn | ToolReturn> | null;
+  approvals?: Array<ApprovalReturn | ToolReturn> | null;
 
   /**
    * @deprecated Whether the tool has been approved
@@ -186,30 +186,6 @@ export interface ApprovalCreate {
    * The message type to be created.
    */
   type?: 'approval';
-}
-
-export namespace ApprovalCreate {
-  export interface ApprovalReturn {
-    /**
-     * Whether the tool has been approved
-     */
-    approve: boolean;
-
-    /**
-     * The ID of the tool call that corresponds to this approval
-     */
-    tool_call_id: string;
-
-    /**
-     * An optional explanation for the provided approval status
-     */
-    reason?: string | null;
-
-    /**
-     * The message type to be created.
-     */
-    type?: 'approval';
-  }
 }
 
 /**
@@ -279,7 +255,7 @@ export interface ApprovalResponseMessage {
   /**
    * The list of approval responses
    */
-  approvals?: Array<ApprovalResponseMessage.ApprovalReturn | ToolReturn> | null;
+  approvals?: Array<ApprovalReturn | ToolReturn> | null;
 
   /**
    * @deprecated Whether the tool has been approved
@@ -311,28 +287,26 @@ export interface ApprovalResponseMessage {
   step_id?: string | null;
 }
 
-export namespace ApprovalResponseMessage {
-  export interface ApprovalReturn {
-    /**
-     * Whether the tool has been approved
-     */
-    approve: boolean;
+export interface ApprovalReturn {
+  /**
+   * Whether the tool has been approved
+   */
+  approve: boolean;
 
-    /**
-     * The ID of the tool call that corresponds to this approval
-     */
-    tool_call_id: string;
+  /**
+   * The ID of the tool call that corresponds to this approval
+   */
+  tool_call_id: string;
 
-    /**
-     * An optional explanation for the provided approval status
-     */
-    reason?: string | null;
+  /**
+   * An optional explanation for the provided approval status
+   */
+  reason?: string | null;
 
-    /**
-     * The message type to be created.
-     */
-    type?: 'approval';
-  }
+  /**
+   * The message type to be created.
+   */
+  type?: 'approval';
 }
 
 /**
@@ -1002,7 +976,7 @@ export interface Message {
   /**
    * The list of approvals for this message.
    */
-  approvals?: Array<Message.ApprovalReturn | Message.LettaSchemasMessageToolReturn> | null;
+  approvals?: Array<ApprovalReturn | Message.LettaSchemasMessageToolReturn> | null;
 
   /**
    * Whether tool call is approved.
@@ -1111,28 +1085,6 @@ export interface Message {
 }
 
 export namespace Message {
-  export interface ApprovalReturn {
-    /**
-     * Whether the tool has been approved
-     */
-    approve: boolean;
-
-    /**
-     * The ID of the tool call that corresponds to this approval
-     */
-    tool_call_id: string;
-
-    /**
-     * An optional explanation for the provided approval status
-     */
-    reason?: string | null;
-
-    /**
-     * The message type to be created.
-     */
-    type?: 'approval';
-  }
-
   export interface LettaSchemasMessageToolReturn {
     /**
      * The status of the tool call
@@ -2289,6 +2241,7 @@ export declare namespace Messages {
     type ApprovalCreate as ApprovalCreate,
     type ApprovalRequestMessage as ApprovalRequestMessage,
     type ApprovalResponseMessage as ApprovalResponseMessage,
+    type ApprovalReturn as ApprovalReturn,
     type AssistantMessage as AssistantMessage,
     type EventMessage as EventMessage,
     type HiddenReasoningMessage as HiddenReasoningMessage,
