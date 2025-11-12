@@ -10,14 +10,7 @@ const client = new Letta({
 describe('resource archives', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.archives.create({
-      embedding_config: {
-        embedding_dim: 0,
-        embedding_endpoint_type: 'openai',
-        embedding_model: 'embedding_model',
-      },
-      name: 'name',
-    });
+    const responsePromise = client.archives.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -30,6 +23,9 @@ describe('resource archives', () => {
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.archives.create({
+      name: 'name',
+      description: 'description',
+      embedding: 'embedding',
       embedding_config: {
         embedding_dim: 0,
         embedding_endpoint_type: 'openai',
@@ -42,8 +38,6 @@ describe('resource archives', () => {
         embedding_endpoint: 'embedding_endpoint',
         handle: 'handle',
       },
-      name: 'name',
-      description: 'description',
     });
   });
 
