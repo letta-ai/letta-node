@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.0.0-alpha.19 (2025-11-12)
+
+Full Changelog: [v1.0.0-alpha.18...v1.0.0-alpha.19](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.18...v1.0.0-alpha.19)
+
+### Features
+
+* add approval return param to stainless ([7ec5ea3](https://github.com/letta-ai/letta-node/commit/7ec5ea3da042bae9d8a20d64ef4d301f778514a7))
+* add attach detach methods for archives and identities to sdk ([f644e48](https://github.com/letta-ai/letta-node/commit/f644e487f079e2b136334f0b4e7586d97a978f69))
+* add create memory for archive ([8414e07](https://github.com/letta-ai/letta-node/commit/8414e0785a5b4007107c8a38a4b38698ca3bb9f4))
+* add model setting params to stainless config ([30e5ba2](https://github.com/letta-ai/letta-node/commit/30e5ba23a93427826406bdf5b3d84e188ac6b4bf))
+* add passage deletion route to sdk ([a6656fe](https://github.com/letta-ai/letta-node/commit/a6656fe29a222d9558afb7da80135df9b59c3695))
+* bring back model_settings and remove validation again ([916f8ea](https://github.com/letta-ai/letta-node/commit/916f8ea257dad7a4d413f855cc844f99d414bb8a))
+* make api key optional in sdk ([2ad9913](https://github.com/letta-ai/letta-node/commit/2ad99135884527fcf1255205d6c6840fb2526084))
+* rename message union and internal message ([25bd7a0](https://github.com/letta-ai/letta-node/commit/25bd7a0f12b29988e60dbe5640aff8133f015fef))
+* revert model_settings ([6f9e60b](https://github.com/letta-ai/letta-node/commit/6f9e60b6a82e0f7e54a8b100d90a88a3053a45d1))
+
+
+### Chores
+
+* api sync ([fce4f3a](https://github.com/letta-ai/letta-node/commit/fce4f3af9e6646cc9318cd122c2d1afdc9d16f7e))
+* reorder stainless SDK ([7b390be](https://github.com/letta-ai/letta-node/commit/7b390be89c288ea33fdfcfbba6143590e58ebb14))
+
 ## 1.0.0-alpha.18 (2025-11-10)
 
 Full Changelog: [v1.0.0-alpha.17...v1.0.0-alpha.18](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.17...v1.0.0-alpha.18)
