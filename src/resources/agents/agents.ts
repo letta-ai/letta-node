@@ -17,9 +17,9 @@ import {
   BlockAttachParams,
   BlockDetachParams,
   BlockListParams,
-  BlockModify,
-  BlockModifyParams,
   BlockRetrieveParams,
+  BlockUpdate,
+  BlockUpdateParams,
   Blocks,
 } from './blocks';
 import * as FilesAPI from './files';
@@ -75,17 +75,17 @@ import {
   Message,
   MessageCancelParams,
   MessageCancelResponse,
+  MessageCreateAsyncParams,
+  MessageCreateParams,
+  MessageCreateParamsNonStreaming,
+  MessageCreateParamsStreaming,
   MessageListParams,
-  MessageModifyParams,
-  MessageModifyResponse,
   MessageResetParams,
   MessageRole,
-  MessageSendAsyncParams,
-  MessageSendParams,
-  MessageSendParamsNonStreaming,
-  MessageSendParamsStreaming,
   MessageStreamParams,
   MessageType,
+  MessageUpdateParams,
+  MessageUpdateResponse,
   Messages,
   MessagesArrayPage,
   OmittedReasoningContent,
@@ -153,6 +153,13 @@ export class Agents extends APIResource {
   }
 
   /**
+   * Update an existing agent.
+   */
+  update(agentID: string, body: AgentUpdateParams, options?: RequestOptions): APIPromise<AgentState> {
+    return this._client.patch(path`/v1/agents/${agentID}`, { body, ...options });
+  }
+
+  /**
    * Get a list of all agents.
    */
   list(
@@ -205,13 +212,6 @@ export class Agents extends APIResource {
         this._client,
       ),
     );
-  }
-
-  /**
-   * Update an existing agent.
-   */
-  modify(agentID: string, body: AgentModifyParams, options?: RequestOptions): APIPromise<AgentState> {
-    return this._client.patch(path`/v1/agents/${agentID}`, { body, ...options });
   }
 }
 
@@ -1545,6 +1545,11 @@ export interface AgentCreateParams {
 
   /**
    * Configuration for Language Model (LLM) connection and generation parameters.
+   *
+   * .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+   * return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+   * OpenAIModelSettings, etc.) instead. For conversion, use the \_to_model() method
+   * or Model.\_from_llm_config() method.
    */
   llm_config?: ModelsAPI.LlmConfig | null;
 
@@ -1743,6 +1748,217 @@ export interface AgentRetrieveParams {
   include_relationships?: Array<string> | null;
 }
 
+export interface AgentUpdateParams {
+  /**
+   * The base template id of the agent.
+   */
+  base_template_id?: string | null;
+
+  /**
+   * The ids of the blocks used by the agent.
+   */
+  block_ids?: Array<string> | null;
+
+  /**
+   * The context window limit used by the agent.
+   */
+  context_window_limit?: number | null;
+
+  /**
+   * The description of the agent.
+   */
+  description?: string | null;
+
+  /**
+   * The embedding model handle used by the agent (format: provider/model-name).
+   */
+  embedding?: string | null;
+
+  /**
+   * Configuration for embedding model connection and processing parameters.
+   */
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
+
+  /**
+   * If set to True, memory management will move to a background agent thread.
+   */
+  enable_sleeptime?: boolean | null;
+
+  /**
+   * If set to True, the agent will be hidden.
+   */
+  hidden?: boolean | null;
+
+  /**
+   * The ids of the identities associated with this agent.
+   */
+  identity_ids?: Array<string> | null;
+
+  /**
+   * The timestamp when the agent last completed a run.
+   */
+  last_run_completion?: string | null;
+
+  /**
+   * The duration in milliseconds of the agent's last run.
+   */
+  last_run_duration_ms?: number | null;
+
+  /**
+   * The stop reason from the agent's last run.
+   */
+  last_stop_reason?: RunsAPI.StopReasonType | null;
+
+  /**
+   * Configuration for Language Model (LLM) connection and generation parameters.
+   *
+   * .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+   * return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+   * OpenAIModelSettings, etc.) instead. For conversion, use the \_to_model() method
+   * or Model.\_from_llm_config() method.
+   */
+  llm_config?: ModelsAPI.LlmConfig | null;
+
+  /**
+   * Maximum number of files that can be open at once for this agent. Setting this
+   * too high may exceed the context window, which will break the agent.
+   */
+  max_files_open?: number | null;
+
+  /**
+   * @deprecated Deprecated: Use `model` field to configure max output tokens
+   * instead. The maximum number of tokens to generate, including reasoning step.
+   */
+  max_tokens?: number | null;
+
+  /**
+   * If set to True, the agent will not remember previous messages (though the agent
+   * will still retain state via core memory blocks and archival/recall memory). Not
+   * recommended unless you have an advanced use case.
+   */
+  message_buffer_autoclear?: boolean | null;
+
+  /**
+   * The ids of the messages in the agent's in-context memory.
+   */
+  message_ids?: Array<string> | null;
+
+  /**
+   * The metadata of the agent.
+   */
+  metadata?: { [key: string]: unknown } | null;
+
+  /**
+   * The model handle used by the agent (format: provider/model-name).
+   */
+  model?: string | null;
+
+  /**
+   * The model settings for the agent.
+   */
+  model_settings?:
+    | OpenAIModelSettings
+    | AnthropicModelSettings
+    | GoogleAIModelSettings
+    | GoogleVertexModelSettings
+    | AzureModelSettings
+    | XaiModelSettings
+    | GroqModelSettings
+    | DeepseekModelSettings
+    | TogetherModelSettings
+    | BedrockModelSettings
+    | null;
+
+  /**
+   * The name of the agent.
+   */
+  name?: string | null;
+
+  /**
+   * @deprecated Deprecated: Use `model` field to configure parallel tool calls
+   * instead. If set to True, enables parallel tool calling.
+   */
+  parallel_tool_calls?: boolean | null;
+
+  /**
+   * The per-file view window character limit for this agent. Setting this too high
+   * may exceed the context window, which will break the agent.
+   */
+  per_file_view_window_char_limit?: number | null;
+
+  /**
+   * The id of the project the agent belongs to.
+   */
+  project_id?: string | null;
+
+  /**
+   * @deprecated Deprecated: Use `model` field to configure reasoning instead.
+   * Whether to enable reasoning for this agent.
+   */
+  reasoning?: boolean | null;
+
+  /**
+   * @deprecated Deprecated: Use `model` field to configure response format instead.
+   * The response format for the agent.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The environment variables for tool execution specific to this agent.
+   */
+  secrets?: { [key: string]: string } | null;
+
+  /**
+   * The ids of the sources used by the agent.
+   */
+  source_ids?: Array<string> | null;
+
+  /**
+   * The system prompt used by the agent.
+   */
+  system?: string | null;
+
+  /**
+   * The tags associated with the agent.
+   */
+  tags?: Array<string> | null;
+
+  /**
+   * The id of the template the agent belongs to.
+   */
+  template_id?: string | null;
+
+  /**
+   * The timezone of the agent (IANA format).
+   */
+  timezone?: string | null;
+
+  /**
+   * Deprecated: use `secrets` field instead
+   */
+  tool_exec_environment_variables?: { [key: string]: string } | null;
+
+  /**
+   * The ids of the tools used by the agent.
+   */
+  tool_ids?: Array<string> | null;
+
+  /**
+   * The tool rules governing the agent.
+   */
+  tool_rules?: Array<
+    | ChildToolRule
+    | InitToolRule
+    | TerminalToolRule
+    | ConditionalToolRule
+    | ContinueToolRule
+    | RequiredBeforeExitToolRule
+    | MaxCountPerStepToolRule
+    | ParentToolRule
+    | RequiresApprovalToolRule
+  > | null;
+}
+
 export interface AgentListParams extends ArrayPageParams {
   /**
    * @deprecated Whether to sort agents oldest to newest (True) or newest to oldest
@@ -1895,212 +2111,6 @@ export interface AgentImportFileParams {
   'x-override-embedding-model'?: string;
 }
 
-export interface AgentModifyParams {
-  /**
-   * The base template id of the agent.
-   */
-  base_template_id?: string | null;
-
-  /**
-   * The ids of the blocks used by the agent.
-   */
-  block_ids?: Array<string> | null;
-
-  /**
-   * The context window limit used by the agent.
-   */
-  context_window_limit?: number | null;
-
-  /**
-   * The description of the agent.
-   */
-  description?: string | null;
-
-  /**
-   * The embedding model handle used by the agent (format: provider/model-name).
-   */
-  embedding?: string | null;
-
-  /**
-   * Configuration for embedding model connection and processing parameters.
-   */
-  embedding_config?: ModelsAPI.EmbeddingConfig | null;
-
-  /**
-   * If set to True, memory management will move to a background agent thread.
-   */
-  enable_sleeptime?: boolean | null;
-
-  /**
-   * If set to True, the agent will be hidden.
-   */
-  hidden?: boolean | null;
-
-  /**
-   * The ids of the identities associated with this agent.
-   */
-  identity_ids?: Array<string> | null;
-
-  /**
-   * The timestamp when the agent last completed a run.
-   */
-  last_run_completion?: string | null;
-
-  /**
-   * The duration in milliseconds of the agent's last run.
-   */
-  last_run_duration_ms?: number | null;
-
-  /**
-   * The stop reason from the agent's last run.
-   */
-  last_stop_reason?: RunsAPI.StopReasonType | null;
-
-  /**
-   * Configuration for Language Model (LLM) connection and generation parameters.
-   */
-  llm_config?: ModelsAPI.LlmConfig | null;
-
-  /**
-   * Maximum number of files that can be open at once for this agent. Setting this
-   * too high may exceed the context window, which will break the agent.
-   */
-  max_files_open?: number | null;
-
-  /**
-   * @deprecated Deprecated: Use `model` field to configure max output tokens
-   * instead. The maximum number of tokens to generate, including reasoning step.
-   */
-  max_tokens?: number | null;
-
-  /**
-   * If set to True, the agent will not remember previous messages (though the agent
-   * will still retain state via core memory blocks and archival/recall memory). Not
-   * recommended unless you have an advanced use case.
-   */
-  message_buffer_autoclear?: boolean | null;
-
-  /**
-   * The ids of the messages in the agent's in-context memory.
-   */
-  message_ids?: Array<string> | null;
-
-  /**
-   * The metadata of the agent.
-   */
-  metadata?: { [key: string]: unknown } | null;
-
-  /**
-   * The model handle used by the agent (format: provider/model-name).
-   */
-  model?: string | null;
-
-  /**
-   * The model settings for the agent.
-   */
-  model_settings?:
-    | OpenAIModelSettings
-    | AnthropicModelSettings
-    | GoogleAIModelSettings
-    | GoogleVertexModelSettings
-    | AzureModelSettings
-    | XaiModelSettings
-    | GroqModelSettings
-    | DeepseekModelSettings
-    | TogetherModelSettings
-    | BedrockModelSettings
-    | null;
-
-  /**
-   * The name of the agent.
-   */
-  name?: string | null;
-
-  /**
-   * @deprecated Deprecated: Use `model` field to configure parallel tool calls
-   * instead. If set to True, enables parallel tool calling.
-   */
-  parallel_tool_calls?: boolean | null;
-
-  /**
-   * The per-file view window character limit for this agent. Setting this too high
-   * may exceed the context window, which will break the agent.
-   */
-  per_file_view_window_char_limit?: number | null;
-
-  /**
-   * The id of the project the agent belongs to.
-   */
-  project_id?: string | null;
-
-  /**
-   * @deprecated Deprecated: Use `model` field to configure reasoning instead.
-   * Whether to enable reasoning for this agent.
-   */
-  reasoning?: boolean | null;
-
-  /**
-   * @deprecated Deprecated: Use `model` field to configure response format instead.
-   * The response format for the agent.
-   */
-  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
-
-  /**
-   * The environment variables for tool execution specific to this agent.
-   */
-  secrets?: { [key: string]: string } | null;
-
-  /**
-   * The ids of the sources used by the agent.
-   */
-  source_ids?: Array<string> | null;
-
-  /**
-   * The system prompt used by the agent.
-   */
-  system?: string | null;
-
-  /**
-   * The tags associated with the agent.
-   */
-  tags?: Array<string> | null;
-
-  /**
-   * The id of the template the agent belongs to.
-   */
-  template_id?: string | null;
-
-  /**
-   * The timezone of the agent (IANA format).
-   */
-  timezone?: string | null;
-
-  /**
-   * Deprecated: use `secrets` field instead
-   */
-  tool_exec_environment_variables?: { [key: string]: string } | null;
-
-  /**
-   * The ids of the tools used by the agent.
-   */
-  tool_ids?: Array<string> | null;
-
-  /**
-   * The tool rules governing the agent.
-   */
-  tool_rules?: Array<
-    | ChildToolRule
-    | InitToolRule
-    | TerminalToolRule
-    | ConditionalToolRule
-    | ContinueToolRule
-    | RequiredBeforeExitToolRule
-    | MaxCountPerStepToolRule
-    | ParentToolRule
-    | RequiresApprovalToolRule
-  > | null;
-}
-
 Agents.Messages = Messages;
 Agents.Blocks = Blocks;
 Agents.Tools = Tools;
@@ -2145,10 +2155,10 @@ export declare namespace Agents {
     type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
+    type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
-    type AgentModifyParams as AgentModifyParams,
   };
 
   export {
@@ -2192,29 +2202,29 @@ export declare namespace Agents {
     type UpdateSystemMessage as UpdateSystemMessage,
     type UpdateUserMessage as UpdateUserMessage,
     type UserMessage as UserMessage,
+    type MessageUpdateResponse as MessageUpdateResponse,
     type MessageCancelResponse as MessageCancelResponse,
-    type MessageModifyResponse as MessageModifyResponse,
     type MessagesArrayPage as MessagesArrayPage,
+    type MessageCreateParams as MessageCreateParams,
+    type MessageCreateParamsNonStreaming as MessageCreateParamsNonStreaming,
+    type MessageCreateParamsStreaming as MessageCreateParamsStreaming,
+    type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,
-    type MessageModifyParams as MessageModifyParams,
+    type MessageCreateAsyncParams as MessageCreateAsyncParams,
     type MessageResetParams as MessageResetParams,
-    type MessageSendParams as MessageSendParams,
-    type MessageSendParamsNonStreaming as MessageSendParamsNonStreaming,
-    type MessageSendParamsStreaming as MessageSendParamsStreaming,
-    type MessageSendAsyncParams as MessageSendAsyncParams,
     type MessageStreamParams as MessageStreamParams,
   };
 
   export {
     Blocks as Blocks,
     type Block as Block,
-    type BlockModify as BlockModify,
+    type BlockUpdate as BlockUpdate,
     type BlockRetrieveParams as BlockRetrieveParams,
+    type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
     type BlockAttachParams as BlockAttachParams,
     type BlockDetachParams as BlockDetachParams,
-    type BlockModifyParams as BlockModifyParams,
   };
 
   export {

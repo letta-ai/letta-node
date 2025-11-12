@@ -3,13 +3,13 @@
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
 import {
+  MessageCreateParams,
   MessageListParams,
-  MessageModifyParams,
-  MessageModifyResponse,
   MessageResetResponse,
-  MessageSendParams,
   MessageStreamParams,
   MessageStreamResponse,
+  MessageUpdateParams,
+  MessageUpdateResponse,
   Messages,
 } from './messages';
 import { APIPromise } from '../../core/api-promise';
@@ -35,6 +35,13 @@ export class Groups extends APIResource {
   }
 
   /**
+   * Create a new multi-agent group with the specified configuration.
+   */
+  update(groupID: string, body: GroupUpdateParams, options?: RequestOptions): APIPromise<Group> {
+    return this._client.patch(path`/v1/groups/${groupID}`, { body, ...options });
+  }
+
+  /**
    * Fetch all multi-agent groups matching query.
    */
   list(
@@ -49,13 +56,6 @@ export class Groups extends APIResource {
    */
   delete(groupID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.delete(path`/v1/groups/${groupID}`, options);
-  }
-
-  /**
-   * Create a new multi-agent group with the specified configuration.
-   */
-  modify(groupID: string, body: GroupModifyParams, options?: RequestOptions): APIPromise<Group> {
-    return this._client.patch(path`/v1/groups/${groupID}`, { body, ...options });
   }
 }
 
@@ -216,29 +216,17 @@ export interface GroupCreateParams {
   shared_block_ids?: Array<string>;
 }
 
-export interface GroupListParams extends ArrayPageParams {
-  /**
-   * Search groups by manager type
-   */
-  manager_type?: ManagerType | null;
-
-  /**
-   * Search groups by project id
-   */
-  project_id?: string | null;
-}
-
-export interface GroupModifyParams {
+export interface GroupUpdateParams {
   agent_ids?: Array<string> | null;
 
   description?: string | null;
 
   manager_config?:
-    | GroupModifyParams.RoundRobinManagerUpdate
-    | GroupModifyParams.SupervisorManagerUpdate
-    | GroupModifyParams.DynamicManagerUpdate
-    | GroupModifyParams.SleeptimeManagerUpdate
-    | GroupModifyParams.VoiceSleeptimeManagerUpdate
+    | GroupUpdateParams.RoundRobinManagerUpdate
+    | GroupUpdateParams.SupervisorManagerUpdate
+    | GroupUpdateParams.DynamicManagerUpdate
+    | GroupUpdateParams.SleeptimeManagerUpdate
+    | GroupUpdateParams.VoiceSleeptimeManagerUpdate
     | null;
 
   /**
@@ -252,7 +240,7 @@ export interface GroupModifyParams {
   shared_block_ids?: Array<string> | null;
 }
 
-export namespace GroupModifyParams {
+export namespace GroupUpdateParams {
   export interface RoundRobinManagerUpdate {
     manager_type?: 'round_robin';
 
@@ -303,6 +291,18 @@ export namespace GroupModifyParams {
   }
 }
 
+export interface GroupListParams extends ArrayPageParams {
+  /**
+   * Search groups by manager type
+   */
+  manager_type?: ManagerType | null;
+
+  /**
+   * Search groups by project id
+   */
+  project_id?: string | null;
+}
+
 Groups.Messages = Messages;
 
 export declare namespace Groups {
@@ -317,18 +317,18 @@ export declare namespace Groups {
     type GroupDeleteResponse as GroupDeleteResponse,
     type GroupsArrayPage as GroupsArrayPage,
     type GroupCreateParams as GroupCreateParams,
+    type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
-    type GroupModifyParams as GroupModifyParams,
   };
 
   export {
     Messages as Messages,
-    type MessageModifyResponse as MessageModifyResponse,
+    type MessageUpdateResponse as MessageUpdateResponse,
     type MessageResetResponse as MessageResetResponse,
     type MessageStreamResponse as MessageStreamResponse,
+    type MessageCreateParams as MessageCreateParams,
+    type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
-    type MessageModifyParams as MessageModifyParams,
-    type MessageSendParams as MessageSendParams,
     type MessageStreamParams as MessageStreamParams,
   };
 }

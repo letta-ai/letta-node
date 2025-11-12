@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.0-alpha.20 (2025-11-12)
+
+Full Changelog: [v1.0.0-alpha.19...v1.0.0-alpha.20](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.19...v1.0.0-alpha.20)
+
+### Features
+
+* deprecate `EmbeddingConfig` from archives ([30b174c](https://github.com/letta-ai/letta-node/commit/30b174c30bc1364f48de752c7b3fb9bdb4d60503))
+
+
+### Chores
+
+* rename send to create and modify to update ([d5aec1c](https://github.com/letta-ai/letta-node/commit/d5aec1cdcf8dadf31616939ad6d74e30315ab9b8))
+* update stainless send to create ([92380e0](https://github.com/letta-ai/letta-node/commit/92380e02c838231f371e96e701655b4e0b6144f4))
+
 ## 1.0.0-alpha.19 (2025-11-12)
 
 Full Changelog: [v1.0.0-alpha.18...v1.0.0-alpha.19](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.18...v1.0.0-alpha.19)

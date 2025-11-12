@@ -38,9 +38,9 @@ import {
   ToolCreateParams,
   ToolDeleteResponse,
   ToolListParams,
-  ToolModifyParams,
   ToolReturnMessage,
   ToolType,
+  ToolUpdateParams,
   ToolUpsertBaseToolsResponse,
   ToolUpsertParams,
   Tools,
@@ -55,11 +55,11 @@ import {
   AgentImportFileParams,
   AgentImportFileResponse,
   AgentListParams,
-  AgentModifyParams,
   AgentRetrieveParams,
   AgentState,
   AgentStatesArrayPage,
   AgentType,
+  AgentUpdateParams,
   Agents,
   AnthropicModelSettings,
   AzureModelSettings,
@@ -90,7 +90,7 @@ import {
   Archive,
   ArchiveCreateParams,
   ArchiveListParams,
-  ArchiveModifyParams,
+  ArchiveUpdateParams,
   Archives,
   ArchivesArrayPage,
   VectorDBProvider,
@@ -107,9 +107,9 @@ import {
   BlockCreateParams,
   BlockDeleteResponse,
   BlockListParams,
-  BlockModifyParams,
   BlockResponse,
   BlockResponsesArrayPage,
+  BlockUpdateParams,
   Blocks,
   CreateBlock,
 } from './resources/blocks/blocks';
@@ -118,7 +118,7 @@ import {
   FolderCreateParams,
   FolderDeleteResponse,
   FolderListParams,
-  FolderModifyParams,
+  FolderUpdateParams,
   Folders,
   FoldersArrayPage,
 } from './resources/folders/folders';
@@ -128,7 +128,7 @@ import {
   GroupCreateParams,
   GroupDeleteResponse,
   GroupListParams,
-  GroupModifyParams,
+  GroupUpdateParams,
   Groups,
   GroupsArrayPage,
   ManagerType,
@@ -144,9 +144,9 @@ import {
   IdentityCreateParams,
   IdentityDeleteResponse,
   IdentityListParams,
-  IdentityModifyParams,
   IdentityProperty,
   IdentityType,
+  IdentityUpdateParams,
   IdentityUpsertParams,
 } from './resources/identities/identities';
 import {
@@ -157,11 +157,11 @@ import {
   McpServerCreateParams,
   McpServerCreateResponse,
   McpServerListResponse,
-  McpServerModifyParams,
-  McpServerModifyResponse,
   McpServerRefreshParams,
   McpServerRefreshResponse,
   McpServerRetrieveResponse,
+  McpServerUpdateParams,
+  McpServerUpdateResponse,
   McpServers,
   McpToolExecuteRequest,
   SseMcpServer,
@@ -1027,10 +1027,10 @@ export declare namespace Letta {
     type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
+    type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
-    type AgentModifyParams as AgentModifyParams,
   };
 
   export {
@@ -1045,8 +1045,8 @@ export declare namespace Letta {
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
+    type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolModifyParams as ToolModifyParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 
@@ -1057,8 +1057,8 @@ export declare namespace Letta {
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockResponsesArrayPage as BlockResponsesArrayPage,
     type BlockCreateParams as BlockCreateParams,
+    type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
-    type BlockModifyParams as BlockModifyParams,
   };
 
   export {
@@ -1067,8 +1067,8 @@ export declare namespace Letta {
     type VectorDBProvider as VectorDBProvider,
     type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
+    type ArchiveUpdateParams as ArchiveUpdateParams,
     type ArchiveListParams as ArchiveListParams,
-    type ArchiveModifyParams as ArchiveModifyParams,
   };
 
   export {
@@ -1077,8 +1077,8 @@ export declare namespace Letta {
     type FolderDeleteResponse as FolderDeleteResponse,
     type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
+    type FolderUpdateParams as FolderUpdateParams,
     type FolderListParams as FolderListParams,
-    type FolderModifyParams as FolderModifyParams,
   };
 
   export {
@@ -1108,12 +1108,12 @@ export declare namespace Letta {
     type UpdateStreamableHTTPMcpServer as UpdateStreamableHTTPMcpServer,
     type McpServerCreateResponse as McpServerCreateResponse,
     type McpServerRetrieveResponse as McpServerRetrieveResponse,
+    type McpServerUpdateResponse as McpServerUpdateResponse,
     type McpServerListResponse as McpServerListResponse,
     type McpServerConnectResponse as McpServerConnectResponse,
-    type McpServerModifyResponse as McpServerModifyResponse,
     type McpServerRefreshResponse as McpServerRefreshResponse,
     type McpServerCreateParams as McpServerCreateParams,
-    type McpServerModifyParams as McpServerModifyParams,
+    type McpServerUpdateParams as McpServerUpdateParams,
     type McpServerRefreshParams as McpServerRefreshParams,
   };
 
@@ -1144,8 +1144,8 @@ export declare namespace Letta {
     type IdentityDeleteResponse as IdentityDeleteResponse,
     type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
+    type IdentityUpdateParams as IdentityUpdateParams,
     type IdentityListParams as IdentityListParams,
-    type IdentityModifyParams as IdentityModifyParams,
     type IdentityUpsertParams as IdentityUpsertParams,
   };
 
@@ -1161,8 +1161,8 @@ export declare namespace Letta {
     type GroupDeleteResponse as GroupDeleteResponse,
     type GroupsArrayPage as GroupsArrayPage,
     type GroupCreateParams as GroupCreateParams,
+    type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
-    type GroupModifyParams as GroupModifyParams,
   };
 
   export {

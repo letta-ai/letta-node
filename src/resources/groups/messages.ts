@@ -13,6 +13,31 @@ import { path } from '../../internal/utils/path';
 
 export class Messages extends APIResource {
   /**
+   * Process a user message and return the group's response. This endpoint accepts a
+   * message from a user and processes it through through agents in the group based
+   * on the specified pattern
+   */
+  create(
+    groupID: string,
+    body: MessageCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessagesAPI.LettaResponse> {
+    return this._client.post(path`/v1/groups/${groupID}/messages`, { body, ...options });
+  }
+
+  /**
+   * Update the details of a message associated with an agent.
+   */
+  update(
+    messageID: string,
+    params: MessageUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessageUpdateResponse> {
+    const { group_id, ...body } = params;
+    return this._client.patch(path`/v1/groups/${group_id}/messages/${messageID}`, { body, ...options });
+  }
+
+  /**
    * Retrieve message history for an agent.
    */
   list(
@@ -27,35 +52,10 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Update the details of a message associated with an agent.
-   */
-  modify(
-    messageID: string,
-    params: MessageModifyParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageModifyResponse> {
-    const { group_id, ...body } = params;
-    return this._client.patch(path`/v1/groups/${group_id}/messages/${messageID}`, { body, ...options });
-  }
-
-  /**
    * Delete the group messages for all agents that are part of the multi-agent group.
    */
   reset(groupID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.patch(path`/v1/groups/${groupID}/reset-messages`, options);
-  }
-
-  /**
-   * Process a user message and return the group's response. This endpoint accepts a
-   * message from a user and processes it through through agents in the group based
-   * on the specified pattern
-   */
-  send(
-    groupID: string,
-    body: MessageSendParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagesAPI.LettaResponse> {
-    return this._client.post(path`/v1/groups/${groupID}/messages`, { body, ...options });
   }
 
   /**
@@ -85,7 +85,7 @@ export class Messages extends APIResource {
  * created in ISO format name (Optional[str]): The name of the sender of the
  * message content (str): The message content sent by the system
  */
-export type MessageModifyResponse =
+export type MessageUpdateResponse =
   | MessagesAPI.SystemMessage
   | MessagesAPI.UserMessage
   | MessagesAPI.ReasoningMessage
@@ -102,30 +102,116 @@ export type MessageResetResponse = unknown;
 
 export type MessageStreamResponse = unknown;
 
-export interface MessageListParams extends ArrayPageParams {
+export interface MessageCreateParams {
   /**
-   * @deprecated The name of the message argument.
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * @deprecated The name of the designated message tool.
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * @deprecated Whether to use assistant messages
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
+   */
+  enable_thinking?: string;
+
+  /**
+   * Only return specified message types in the response. If `None` (default) returns
+   * all messages.
+   */
+  include_return_message_types?: Array<MessagesAPI.MessageType> | null;
+
+  /**
+   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+   * 'user', 'content': input}].
+   */
+  input?:
+    | string
+    | Array<
+        | MessagesAPI.TextContent
+        | MessagesAPI.ImageContent
+        | MessagesAPI.ToolCallContent
+        | MessagesAPI.ToolReturnContent
+        | MessagesAPI.ReasoningContent
+        | MessagesAPI.RedactedReasoningContent
+        | MessagesAPI.OmittedReasoningContent
+        | MessageCreateParams.SummarizedReasoningContent
+      >
+    | null;
+
+  /**
+   * Maximum number of steps the agent should take to process the request.
+   */
+  max_steps?: number;
+
+  /**
+   * The messages to be sent to the agent.
+   */
+  messages?: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate> | null;
+
+  /**
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
 }
 
-export type MessageModifyParams =
-  | MessageModifyParams.UpdateSystemMessage
-  | MessageModifyParams.UpdateUserMessage
-  | MessageModifyParams.UpdateReasoningMessage
-  | MessageModifyParams.UpdateAssistantMessage;
+export namespace MessageCreateParams {
+  /**
+   * The style of reasoning content returned by the OpenAI Responses API
+   */
+  export interface SummarizedReasoningContent {
+    /**
+     * The unique identifier for this reasoning step.
+     */
+    id: string;
 
-export declare namespace MessageModifyParams {
+    /**
+     * Summaries of the reasoning content.
+     */
+    summary: Array<SummarizedReasoningContent.Summary>;
+
+    /**
+     * The encrypted reasoning content.
+     */
+    encrypted_content?: string;
+
+    /**
+     * Indicates this is a summarized reasoning step.
+     */
+    type?: 'summarized_reasoning';
+  }
+
+  export namespace SummarizedReasoningContent {
+    export interface Summary {
+      /**
+       * The index of the summary part.
+       */
+      index: number;
+
+      /**
+       * The text of the summary part.
+       */
+      text: string;
+    }
+  }
+}
+
+export type MessageUpdateParams =
+  | MessageUpdateParams.UpdateSystemMessage
+  | MessageUpdateParams.UpdateUserMessage
+  | MessageUpdateParams.UpdateReasoningMessage
+  | MessageUpdateParams.UpdateAssistantMessage;
+
+export declare namespace MessageUpdateParams {
   export interface UpdateSystemMessage {
     /**
      * Path param: The ID of the group in the format 'group-<uuid4>'
@@ -198,107 +284,21 @@ export declare namespace MessageModifyParams {
   }
 }
 
-export interface MessageSendParams {
+export interface MessageListParams extends ArrayPageParams {
   /**
-   * @deprecated The name of the message argument in the designated message tool.
-   * Still supported for legacy agent types, but deprecated for letta_v1_agent
-   * onward.
+   * @deprecated The name of the message argument.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * @deprecated The name of the designated message tool. Still supported for legacy
-   * agent types, but deprecated for letta_v1_agent onward.
+   * @deprecated The name of the designated message tool.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * @deprecated If set to True, enables reasoning before responses or tool calls
-   * from the agent.
-   */
-  enable_thinking?: string;
-
-  /**
-   * Only return specified message types in the response. If `None` (default) returns
-   * all messages.
-   */
-  include_return_message_types?: Array<MessagesAPI.MessageType> | null;
-
-  /**
-   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-   * 'user', 'content': input}].
-   */
-  input?:
-    | string
-    | Array<
-        | MessagesAPI.TextContent
-        | MessagesAPI.ImageContent
-        | MessagesAPI.ToolCallContent
-        | MessagesAPI.ToolReturnContent
-        | MessagesAPI.ReasoningContent
-        | MessagesAPI.RedactedReasoningContent
-        | MessagesAPI.OmittedReasoningContent
-        | MessageSendParams.SummarizedReasoningContent
-      >
-    | null;
-
-  /**
-   * Maximum number of steps the agent should take to process the request.
-   */
-  max_steps?: number;
-
-  /**
-   * The messages to be sent to the agent.
-   */
-  messages?: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate> | null;
-
-  /**
-   * @deprecated Whether the server should parse specific tool call arguments
-   * (default `send_message`) as `AssistantMessage` objects. Still supported for
-   * legacy agent types, but deprecated for letta_v1_agent onward.
+   * @deprecated Whether to use assistant messages
    */
   use_assistant_message?: boolean;
-}
-
-export namespace MessageSendParams {
-  /**
-   * The style of reasoning content returned by the OpenAI Responses API
-   */
-  export interface SummarizedReasoningContent {
-    /**
-     * The unique identifier for this reasoning step.
-     */
-    id: string;
-
-    /**
-     * Summaries of the reasoning content.
-     */
-    summary: Array<SummarizedReasoningContent.Summary>;
-
-    /**
-     * The encrypted reasoning content.
-     */
-    encrypted_content?: string;
-
-    /**
-     * Indicates this is a summarized reasoning step.
-     */
-    type?: 'summarized_reasoning';
-  }
-
-  export namespace SummarizedReasoningContent {
-    export interface Summary {
-      /**
-       * The index of the summary part.
-       */
-      index: number;
-
-      /**
-       * The text of the summary part.
-       */
-      text: string;
-    }
-  }
 }
 
 export interface MessageStreamParams {
@@ -430,12 +430,12 @@ export namespace MessageStreamParams {
 
 export declare namespace Messages {
   export {
-    type MessageModifyResponse as MessageModifyResponse,
+    type MessageUpdateResponse as MessageUpdateResponse,
     type MessageResetResponse as MessageResetResponse,
     type MessageStreamResponse as MessageStreamResponse,
+    type MessageCreateParams as MessageCreateParams,
+    type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
-    type MessageModifyParams as MessageModifyParams,
-    type MessageSendParams as MessageSendParams,
     type MessageStreamParams as MessageStreamParams,
   };
 }

@@ -23,6 +23,21 @@ export class Blocks extends APIResource {
   }
 
   /**
+   * Updates a core memory block of an agent.
+   */
+  update(
+    blockLabel: string,
+    params: BlockUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<BlocksBlocksAPI.BlockResponse> {
+    const { agent_id, ...body } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
    * Retrieve the core memory blocks of a specific agent.
    */
   list(
@@ -59,21 +74,6 @@ export class Blocks extends APIResource {
   ): APIPromise<AgentsAPI.AgentState> {
     const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/detach/${blockID}`, options);
-  }
-
-  /**
-   * Updates a core memory block of an agent.
-   */
-  modify(
-    blockLabel: string,
-    params: BlockModifyParams,
-    options?: RequestOptions,
-  ): APIPromise<BlocksBlocksAPI.BlockResponse> {
-    const { agent_id, ...body } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, {
-      body,
-      ...options,
-    });
   }
 }
 
@@ -175,7 +175,7 @@ export interface Block {
 /**
  * Update a block
  */
-export interface BlockModify {
+export interface BlockUpdate {
   /**
    * The base template id of the block.
    */
@@ -259,23 +259,7 @@ export interface BlockRetrieveParams {
   agent_id: string;
 }
 
-export interface BlockListParams extends ArrayPageParams {}
-
-export interface BlockAttachParams {
-  /**
-   * The ID of the agent in the format 'agent-<uuid4>'
-   */
-  agent_id: string;
-}
-
-export interface BlockDetachParams {
-  /**
-   * The ID of the agent in the format 'agent-<uuid4>'
-   */
-  agent_id: string;
-}
-
-export interface BlockModifyParams {
+export interface BlockUpdateParams {
   /**
    * Path param: The ID of the agent in the format 'agent-<uuid4>'
    */
@@ -357,15 +341,31 @@ export interface BlockModifyParams {
   value?: string | null;
 }
 
+export interface BlockListParams extends ArrayPageParams {}
+
+export interface BlockAttachParams {
+  /**
+   * The ID of the agent in the format 'agent-<uuid4>'
+   */
+  agent_id: string;
+}
+
+export interface BlockDetachParams {
+  /**
+   * The ID of the agent in the format 'agent-<uuid4>'
+   */
+  agent_id: string;
+}
+
 export declare namespace Blocks {
   export {
     type Block as Block,
-    type BlockModify as BlockModify,
+    type BlockUpdate as BlockUpdate,
     type BlockRetrieveParams as BlockRetrieveParams,
+    type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
     type BlockAttachParams as BlockAttachParams,
     type BlockDetachParams as BlockDetachParams,
-    type BlockModifyParams as BlockModifyParams,
   };
 }
 

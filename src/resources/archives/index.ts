@@ -5,8 +5,8 @@ export {
   type Archive,
   type VectorDBProvider,
   type ArchiveCreateParams,
+  type ArchiveUpdateParams,
   type ArchiveListParams,
-  type ArchiveModifyParams,
   type ArchivesArrayPage,
 } from './archives';
 export {

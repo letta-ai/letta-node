@@ -15,12 +15,12 @@ export {
   type UpdateStreamableHTTPMcpServer,
   type McpServerCreateResponse,
   type McpServerRetrieveResponse,
+  type McpServerUpdateResponse,
   type McpServerListResponse,
   type McpServerConnectResponse,
-  type McpServerModifyResponse,
   type McpServerRefreshResponse,
   type McpServerCreateParams,
-  type McpServerModifyParams,
+  type McpServerUpdateParams,
   type McpServerRefreshParams,
 } from './mcp-servers';
 export { Tools, type ToolListResponse, type ToolRetrieveParams, type ToolRunParams } from './tools';

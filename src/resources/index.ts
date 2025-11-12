@@ -34,10 +34,10 @@ export {
   type AgentImportFileResponse,
   type AgentCreateParams,
   type AgentRetrieveParams,
+  type AgentUpdateParams,
   type AgentListParams,
   type AgentExportFileParams,
   type AgentImportFileParams,
-  type AgentModifyParams,
   type AgentStatesArrayPage,
 } from './agents/agents';
 export {
@@ -45,8 +45,8 @@ export {
   type Archive,
   type VectorDBProvider,
   type ArchiveCreateParams,
+  type ArchiveUpdateParams,
   type ArchiveListParams,
-  type ArchiveModifyParams,
   type ArchivesArrayPage,
 } from './archives/archives';
 export {
@@ -63,8 +63,8 @@ export {
   type CreateBlock,
   type BlockDeleteResponse,
   type BlockCreateParams,
+  type BlockUpdateParams,
   type BlockListParams,
-  type BlockModifyParams,
   type BlockResponsesArrayPage,
 } from './blocks/blocks';
 export {
@@ -72,8 +72,8 @@ export {
   type Folder,
   type FolderDeleteResponse,
   type FolderCreateParams,
+  type FolderUpdateParams,
   type FolderListParams,
-  type FolderModifyParams,
   type FoldersArrayPage,
 } from './folders/folders';
 export {
@@ -87,8 +87,8 @@ export {
   type VoiceSleeptimeManager,
   type GroupDeleteResponse,
   type GroupCreateParams,
+  type GroupUpdateParams,
   type GroupListParams,
-  type GroupModifyParams,
   type GroupsArrayPage,
 } from './groups/groups';
 export {
@@ -98,8 +98,8 @@ export {
   type IdentityType,
   type IdentityDeleteResponse,
   type IdentityCreateParams,
+  type IdentityUpdateParams,
   type IdentityListParams,
-  type IdentityModifyParams,
   type IdentityUpsertParams,
   type IdentitiesArrayPage,
 } from './identities/identities';
@@ -118,12 +118,12 @@ export {
   type UpdateStreamableHTTPMcpServer,
   type McpServerCreateResponse,
   type McpServerRetrieveResponse,
+  type McpServerUpdateResponse,
   type McpServerListResponse,
   type McpServerConnectResponse,
-  type McpServerModifyResponse,
   type McpServerRefreshResponse,
   type McpServerCreateParams,
-  type McpServerModifyParams,
+  type McpServerUpdateParams,
   type McpServerRefreshParams,
 } from './mcp-servers/mcp-servers';
 export {
@@ -158,8 +158,8 @@ export {
   type ToolDeleteResponse,
   type ToolUpsertBaseToolsResponse,
   type ToolCreateParams,
+  type ToolUpdateParams,
   type ToolListParams,
-  type ToolModifyParams,
   type ToolUpsertParams,
   type ToolsArrayPage,
 } from './tools';

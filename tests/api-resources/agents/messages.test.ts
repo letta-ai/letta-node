@@ -9,6 +9,42 @@ const client = new Letta({
 
 describe('resource messages', () => {
   // Prism tests are disabled
+  test.skip('create', async () => {
+    const responsePromise = client.agents.messages.create('agent-123e4567-e89b-42d3-8456-426614174000', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('update: only required params', async () => {
+    const responsePromise = client.agents.messages.update('message-123e4567-e89b-42d3-8456-426614174000', {
+      agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
+      content: 'content',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('update: required and optional params', async () => {
+    const response = await client.agents.messages.update('message-123e4567-e89b-42d3-8456-426614174000', {
+      agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
+      content: 'content',
+      message_type: 'system_message',
+    });
+  });
+
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.agents.messages.list('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -68,11 +104,11 @@ describe('resource messages', () => {
   });
 
   // Prism tests are disabled
-  test.skip('modify: only required params', async () => {
-    const responsePromise = client.agents.messages.modify('message-123e4567-e89b-42d3-8456-426614174000', {
-      agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
-      content: 'content',
-    });
+  test.skip('createAsync', async () => {
+    const responsePromise = client.agents.messages.createAsync(
+      'agent-123e4567-e89b-42d3-8456-426614174000',
+      {},
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -80,47 +116,11 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('modify: required and optional params', async () => {
-    const response = await client.agents.messages.modify('message-123e4567-e89b-42d3-8456-426614174000', {
-      agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
-      content: 'content',
-      message_type: 'system_message',
-    });
   });
 
   // Prism tests are disabled
   test.skip('reset', async () => {
     const responsePromise = client.agents.messages.reset('agent-123e4567-e89b-42d3-8456-426614174000', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('send', async () => {
-    const responsePromise = client.agents.messages.send('agent-123e4567-e89b-42d3-8456-426614174000', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('sendAsync', async () => {
-    const responsePromise = client.agents.messages.sendAsync(
-      'agent-123e4567-e89b-42d3-8456-426614174000',
-      {},
-    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

@@ -32,6 +32,13 @@ export class Identities extends APIResource {
   }
 
   /**
+   * Update Identity
+   */
+  update(identityID: string, body: IdentityUpdateParams, options?: RequestOptions): APIPromise<Identity> {
+    return this._client.patch(path`/v1/identities/${identityID}`, { body, ...options });
+  }
+
+  /**
    * Get a list of all identities in the database
    */
   list(
@@ -46,13 +53,6 @@ export class Identities extends APIResource {
    */
   delete(identityID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.delete(path`/v1/identities/${identityID}`, options);
-  }
-
-  /**
-   * Modify Identity
-   */
-  modify(identityID: string, body: IdentityModifyParams, options?: RequestOptions): APIPromise<Identity> {
-    return this._client.patch(path`/v1/identities/${identityID}`, { body, ...options });
   }
 
   /**
@@ -171,20 +171,7 @@ export interface IdentityCreateParams {
   properties?: Array<IdentityProperty> | null;
 }
 
-export interface IdentityListParams extends ArrayPageParams {
-  identifier_key?: string | null;
-
-  /**
-   * Enum to represent the type of the identity.
-   */
-  identity_type?: IdentityType | null;
-
-  name?: string | null;
-
-  project_id?: string | null;
-}
-
-export interface IdentityModifyParams {
+export interface IdentityUpdateParams {
   /**
    * @deprecated The agent ids that are associated with the identity.
    */
@@ -214,6 +201,19 @@ export interface IdentityModifyParams {
    * List of properties associated with the identity.
    */
   properties?: Array<IdentityProperty> | null;
+}
+
+export interface IdentityListParams extends ArrayPageParams {
+  identifier_key?: string | null;
+
+  /**
+   * Enum to represent the type of the identity.
+   */
+  identity_type?: IdentityType | null;
+
+  name?: string | null;
+
+  project_id?: string | null;
 }
 
 export interface IdentityUpsertParams {
@@ -265,8 +265,8 @@ export declare namespace Identities {
     type IdentityDeleteResponse as IdentityDeleteResponse,
     type IdentitiesArrayPage as IdentitiesArrayPage,
     type IdentityCreateParams as IdentityCreateParams,
+    type IdentityUpdateParams as IdentityUpdateParams,
     type IdentityListParams as IdentityListParams,
-    type IdentityModifyParams as IdentityModifyParams,
     type IdentityUpsertParams as IdentityUpsertParams,
   };
 

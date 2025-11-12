@@ -11,17 +11,17 @@ export {
   type VoiceSleeptimeManager,
   type GroupDeleteResponse,
   type GroupCreateParams,
+  type GroupUpdateParams,
   type GroupListParams,
-  type GroupModifyParams,
   type GroupsArrayPage,
 } from './groups';
 export {
   Messages,
-  type MessageModifyResponse,
+  type MessageUpdateResponse,
   type MessageResetResponse,
   type MessageStreamResponse,
+  type MessageCreateParams,
+  type MessageUpdateParams,
   type MessageListParams,
-  type MessageModifyParams,
-  type MessageSendParams,
   type MessageStreamParams,
 } from './messages';
