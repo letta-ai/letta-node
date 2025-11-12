@@ -2,8 +2,15 @@
 
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
-import * as ArchivesAPI from '../archives';
 import * as ToolsAPI from '../tools';
+import * as ArchivesAPI from './archives';
+import {
+  ArchiveAttachParams,
+  ArchiveAttachResponse,
+  ArchiveDetachParams,
+  ArchiveDetachResponse,
+  Archives,
+} from './archives';
 import * as BlocksAPI from './blocks';
 import {
   Block,
@@ -38,20 +45,28 @@ import {
 } from './folders';
 import * as GroupsAPI from './groups';
 import { GroupListParams, Groups } from './groups';
+import * as IdentitiesAPI from './identities';
+import {
+  Identities,
+  IdentityAttachParams,
+  IdentityAttachResponse,
+  IdentityDetachParams,
+  IdentityDetachResponse,
+} from './identities';
 import * as MessagesAPI from './messages';
 import {
   ApprovalCreate,
   ApprovalRequestMessage,
   ApprovalResponseMessage,
+  ApprovalReturn,
   AssistantMessage,
   EventMessage,
   HiddenReasoningMessage,
   ImageContent,
+  InternalMessage,
   JobStatus,
   JobType,
   LettaAssistantMessageContentUnion,
-  LettaMessageUnion,
-  LettaMessageUnionsArrayPage,
   LettaRequest,
   LettaResponse,
   LettaStreamingRequest,
@@ -72,6 +87,7 @@ import {
   MessageStreamParams,
   MessageType,
   Messages,
+  MessagesArrayPage,
   OmittedReasoningContent,
   ReasoningContent,
   ReasoningMessage,
@@ -94,9 +110,10 @@ import {
 } from './messages';
 import * as AgentsToolsAPI from './tools';
 import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
+import * as ArchivesArchivesAPI from '../archives/archives';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
-import * as IdentitiesAPI from '../identities/identities';
+import * as IdentitiesIdentitiesAPI from '../identities/identities';
 import * as ModelsAPI from '../models/models';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
@@ -108,12 +125,14 @@ import { multipartFormRequestOptions } from '../../internal/uploads';
 import { path } from '../../internal/utils/path';
 
 export class Agents extends APIResource {
+  messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
+  blocks: BlocksAPI.Blocks = new BlocksAPI.Blocks(this._client);
   tools: AgentsToolsAPI.Tools = new AgentsToolsAPI.Tools(this._client);
   folders: FoldersAPI.Folders = new FoldersAPI.Folders(this._client);
   files: FilesAPI.Files = new FilesAPI.Files(this._client);
-  blocks: BlocksAPI.Blocks = new BlocksAPI.Blocks(this._client);
   groups: GroupsAPI.Groups = new GroupsAPI.Groups(this._client);
-  messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
+  archives: ArchivesAPI.Archives = new ArchivesAPI.Archives(this._client);
+  identities: IdentitiesAPI.Identities = new IdentitiesAPI.Identities(this._client);
 
   /**
    * Create an agent.
@@ -362,7 +381,7 @@ export interface AgentState {
   /**
    * The identities associated with this agent.
    */
-  identities?: Array<IdentitiesAPI.Identity>;
+  identities?: Array<IdentitiesIdentitiesAPI.Identity>;
 
   /**
    * @deprecated Deprecated: Use `identities` field instead. The ids of the
@@ -427,16 +446,16 @@ export interface AgentState {
    * The model settings used by the agent.
    */
   model_settings?:
-    | AgentState.OpenAIModelSettings
-    | AgentState.AnthropicModelSettings
-    | AgentState.GoogleAIModelSettings
-    | AgentState.GoogleVertexModelSettings
-    | AgentState.AzureModelSettings
-    | AgentState.XaiModelSettings
-    | AgentState.GroqModelSettings
-    | AgentState.DeepseekModelSettings
-    | AgentState.TogetherModelSettings
-    | AgentState.BedrockModelSettings
+    | OpenAIModelSettings
+    | AnthropicModelSettings
+    | GoogleAIModelSettings
+    | GoogleVertexModelSettings
+    | AzureModelSettings
+    | XaiModelSettings
+    | GroqModelSettings
+    | DeepseekModelSettings
+    | TogetherModelSettings
+    | BedrockModelSettings
     | null;
 
   /**
@@ -702,414 +721,7 @@ export namespace AgentState {
     /**
      * The vector database provider used for this source's passages
      */
-    vector_db_provider?: ArchivesAPI.VectorDBProvider;
-  }
-
-  export interface OpenAIModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'openai';
-
-    /**
-     * The reasoning configuration for the model.
-     */
-    reasoning?: OpenAIModelSettings.Reasoning;
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  export namespace OpenAIModelSettings {
-    /**
-     * The reasoning configuration for the model.
-     */
-    export interface Reasoning {
-      /**
-       * The reasoning effort to use when generating text reasoning models
-       */
-      reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high';
-    }
-  }
-
-  export interface AnthropicModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'anthropic';
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking?: AnthropicModelSettings.Thinking;
-
-    /**
-     * Soft control for how verbose model output should be, used for GPT-5 models.
-     */
-    verbosity?: 'low' | 'medium' | 'high' | null;
-  }
-
-  export namespace AnthropicModelSettings {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface Thinking {
-      /**
-       * The maximum number of tokens the model can use for extended thinking.
-       */
-      budget_tokens?: number;
-
-      /**
-       * The type of thinking to use.
-       */
-      type?: 'enabled' | 'disabled';
-    }
-  }
-
-  export interface GoogleAIModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_ai';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleAIModelSettings.ThinkingConfig;
-  }
-
-  export namespace GoogleAIModelSettings {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  export interface GoogleVertexModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_vertex';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleVertexModelSettings.ThinkingConfig;
-  }
-
-  export namespace GoogleVertexModelSettings {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  /**
-   * Azure OpenAI model configuration (OpenAI-compatible).
-   */
-  export interface AzureModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'azure';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * xAI model configuration (OpenAI-compatible).
-   */
-  export interface XaiModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'xai';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Groq model configuration (OpenAI-compatible).
-   */
-  export interface GroqModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'groq';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Deepseek model configuration (OpenAI-compatible).
-   */
-  export interface DeepseekModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'deepseek';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Together AI model configuration (OpenAI-compatible).
-   */
-  export interface TogetherModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'together';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * AWS Bedrock model configuration.
-   */
-  export interface BedrockModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'bedrock';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
+    vector_db_provider?: ArchivesArchivesAPI.VectorDBProvider;
   }
 }
 
@@ -1126,6 +738,115 @@ export type AgentType =
   | 'sleeptime_agent'
   | 'voice_convo_agent'
   | 'voice_sleeptime_agent';
+
+export interface AnthropicModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'anthropic';
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
+
+  /**
+   * The thinking configuration for the model.
+   */
+  thinking?: AnthropicModelSettings.Thinking;
+
+  /**
+   * Soft control for how verbose model output should be, used for GPT-5 models.
+   */
+  verbosity?: 'low' | 'medium' | 'high' | null;
+}
+
+export namespace AnthropicModelSettings {
+  /**
+   * The thinking configuration for the model.
+   */
+  export interface Thinking {
+    /**
+     * The maximum number of tokens the model can use for extended thinking.
+     */
+    budget_tokens?: number;
+
+    /**
+     * The type of thinking to use.
+     */
+    type?: 'enabled' | 'disabled';
+  }
+}
+
+/**
+ * Azure OpenAI model configuration (OpenAI-compatible).
+ */
+export interface AzureModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'azure';
+
+  /**
+   * The response format for the model.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
+}
+
+/**
+ * AWS Bedrock model configuration.
+ */
+export interface BedrockModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'bedrock';
+
+  /**
+   * The response format for the model.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
+}
 
 /**
  * A ToolRule represents a tool that can be invoked by the agent.
@@ -1225,6 +946,164 @@ export interface ContinueToolRule {
   prompt_template?: string | null;
 
   type?: 'continue_loop';
+}
+
+/**
+ * Deepseek model configuration (OpenAI-compatible).
+ */
+export interface DeepseekModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'deepseek';
+
+  /**
+   * The response format for the model.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
+}
+
+export interface GoogleAIModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'google_ai';
+
+  /**
+   * The response schema for the model.
+   */
+  response_schema?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
+
+  /**
+   * The thinking configuration for the model.
+   */
+  thinking_config?: GoogleAIModelSettings.ThinkingConfig;
+}
+
+export namespace GoogleAIModelSettings {
+  /**
+   * The thinking configuration for the model.
+   */
+  export interface ThinkingConfig {
+    /**
+     * Whether to include thoughts in the model's response.
+     */
+    include_thoughts?: boolean;
+
+    /**
+     * The thinking budget for the model.
+     */
+    thinking_budget?: number;
+  }
+}
+
+export interface GoogleVertexModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'google_vertex';
+
+  /**
+   * The response schema for the model.
+   */
+  response_schema?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
+
+  /**
+   * The thinking configuration for the model.
+   */
+  thinking_config?: GoogleVertexModelSettings.ThinkingConfig;
+}
+
+export namespace GoogleVertexModelSettings {
+  /**
+   * The thinking configuration for the model.
+   */
+  export interface ThinkingConfig {
+    /**
+     * Whether to include thoughts in the model's response.
+     */
+    include_thoughts?: boolean;
+
+    /**
+     * The thinking budget for the model.
+     */
+    thinking_budget?: number;
+  }
+}
+
+/**
+ * Groq model configuration (OpenAI-compatible).
+ */
+export interface GroqModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'groq';
+
+  /**
+   * The response format for the model.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
 }
 
 /**
@@ -1360,6 +1239,50 @@ export interface MessageCreate {
   type?: 'message' | null;
 }
 
+export interface OpenAIModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'openai';
+
+  /**
+   * The reasoning configuration for the model.
+   */
+  reasoning?: OpenAIModelSettings.Reasoning;
+
+  /**
+   * The response format for the model.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
+}
+
+export namespace OpenAIModelSettings {
+  /**
+   * The reasoning configuration for the model.
+   */
+  export interface Reasoning {
+    /**
+     * The reasoning effort to use when generating text reasoning models
+     */
+    reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high';
+  }
+}
+
 /**
  * A ToolRule that only allows a child tool to be called if the parent has been
  * called.
@@ -1446,6 +1369,66 @@ export interface TextResponseFormat {
    * The type of the response format.
    */
   type?: 'text';
+}
+
+/**
+ * Together AI model configuration (OpenAI-compatible).
+ */
+export interface TogetherModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'together';
+
+  /**
+   * The response format for the model.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
+}
+
+/**
+ * xAI model configuration (OpenAI-compatible).
+ */
+export interface XaiModelSettings {
+  /**
+   * The maximum number of tokens the model can generate.
+   */
+  max_output_tokens?: number;
+
+  /**
+   * Whether to enable parallel tool calling.
+   */
+  parallel_tool_calls?: boolean;
+
+  /**
+   * The type of the provider.
+   */
+  provider_type?: 'xai';
+
+  /**
+   * The response format for the model.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * The temperature of the model.
+   */
+  temperature?: number;
 }
 
 export type AgentDeleteResponse = unknown;
@@ -1615,16 +1598,16 @@ export interface AgentCreateParams {
    * The model settings for the agent.
    */
   model_settings?:
-    | AgentCreateParams.OpenAIModelSettings
-    | AgentCreateParams.AnthropicModelSettings
-    | AgentCreateParams.GoogleAIModelSettings
-    | AgentCreateParams.GoogleVertexModelSettings
-    | AgentCreateParams.AzureModelSettings
-    | AgentCreateParams.XaiModelSettings
-    | AgentCreateParams.GroqModelSettings
-    | AgentCreateParams.DeepseekModelSettings
-    | AgentCreateParams.TogetherModelSettings
-    | AgentCreateParams.BedrockModelSettings
+    | OpenAIModelSettings
+    | AnthropicModelSettings
+    | GoogleAIModelSettings
+    | GoogleVertexModelSettings
+    | AzureModelSettings
+    | XaiModelSettings
+    | GroqModelSettings
+    | DeepseekModelSettings
+    | TogetherModelSettings
+    | BedrockModelSettings
     | null;
 
   /**
@@ -1734,415 +1717,6 @@ export interface AgentCreateParams {
    * The tools used by the agent.
    */
   tools?: Array<string> | null;
-}
-
-export namespace AgentCreateParams {
-  export interface OpenAIModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'openai';
-
-    /**
-     * The reasoning configuration for the model.
-     */
-    reasoning?: OpenAIModelSettings.Reasoning;
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  export namespace OpenAIModelSettings {
-    /**
-     * The reasoning configuration for the model.
-     */
-    export interface Reasoning {
-      /**
-       * The reasoning effort to use when generating text reasoning models
-       */
-      reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high';
-    }
-  }
-
-  export interface AnthropicModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'anthropic';
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking?: AnthropicModelSettings.Thinking;
-
-    /**
-     * Soft control for how verbose model output should be, used for GPT-5 models.
-     */
-    verbosity?: 'low' | 'medium' | 'high' | null;
-  }
-
-  export namespace AnthropicModelSettings {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface Thinking {
-      /**
-       * The maximum number of tokens the model can use for extended thinking.
-       */
-      budget_tokens?: number;
-
-      /**
-       * The type of thinking to use.
-       */
-      type?: 'enabled' | 'disabled';
-    }
-  }
-
-  export interface GoogleAIModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_ai';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleAIModelSettings.ThinkingConfig;
-  }
-
-  export namespace GoogleAIModelSettings {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  export interface GoogleVertexModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_vertex';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleVertexModelSettings.ThinkingConfig;
-  }
-
-  export namespace GoogleVertexModelSettings {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  /**
-   * Azure OpenAI model configuration (OpenAI-compatible).
-   */
-  export interface AzureModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'azure';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * xAI model configuration (OpenAI-compatible).
-   */
-  export interface XaiModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'xai';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Groq model configuration (OpenAI-compatible).
-   */
-  export interface GroqModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'groq';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Deepseek model configuration (OpenAI-compatible).
-   */
-  export interface DeepseekModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'deepseek';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Together AI model configuration (OpenAI-compatible).
-   */
-  export interface TogetherModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'together';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * AWS Bedrock model configuration.
-   */
-  export interface BedrockModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'bedrock';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
 }
 
 export interface AgentRetrieveParams {
@@ -2425,16 +1999,16 @@ export interface AgentModifyParams {
    * The model settings for the agent.
    */
   model_settings?:
-    | AgentModifyParams.OpenAIModelSettings
-    | AgentModifyParams.AnthropicModelSettings
-    | AgentModifyParams.GoogleAIModelSettings
-    | AgentModifyParams.GoogleVertexModelSettings
-    | AgentModifyParams.AzureModelSettings
-    | AgentModifyParams.XaiModelSettings
-    | AgentModifyParams.GroqModelSettings
-    | AgentModifyParams.DeepseekModelSettings
-    | AgentModifyParams.TogetherModelSettings
-    | AgentModifyParams.BedrockModelSettings
+    | OpenAIModelSettings
+    | AnthropicModelSettings
+    | GoogleAIModelSettings
+    | GoogleVertexModelSettings
+    | AzureModelSettings
+    | XaiModelSettings
+    | GroqModelSettings
+    | DeepseekModelSettings
+    | TogetherModelSettings
+    | BedrockModelSettings
     | null;
 
   /**
@@ -2527,441 +2101,44 @@ export interface AgentModifyParams {
   > | null;
 }
 
-export namespace AgentModifyParams {
-  export interface OpenAIModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'openai';
-
-    /**
-     * The reasoning configuration for the model.
-     */
-    reasoning?: OpenAIModelSettings.Reasoning;
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  export namespace OpenAIModelSettings {
-    /**
-     * The reasoning configuration for the model.
-     */
-    export interface Reasoning {
-      /**
-       * The reasoning effort to use when generating text reasoning models
-       */
-      reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high';
-    }
-  }
-
-  export interface AnthropicModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'anthropic';
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking?: AnthropicModelSettings.Thinking;
-
-    /**
-     * Soft control for how verbose model output should be, used for GPT-5 models.
-     */
-    verbosity?: 'low' | 'medium' | 'high' | null;
-  }
-
-  export namespace AnthropicModelSettings {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface Thinking {
-      /**
-       * The maximum number of tokens the model can use for extended thinking.
-       */
-      budget_tokens?: number;
-
-      /**
-       * The type of thinking to use.
-       */
-      type?: 'enabled' | 'disabled';
-    }
-  }
-
-  export interface GoogleAIModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_ai';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleAIModelSettings.ThinkingConfig;
-  }
-
-  export namespace GoogleAIModelSettings {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  export interface GoogleVertexModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'google_vertex';
-
-    /**
-     * The response schema for the model.
-     */
-    response_schema?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-
-    /**
-     * The thinking configuration for the model.
-     */
-    thinking_config?: GoogleVertexModelSettings.ThinkingConfig;
-  }
-
-  export namespace GoogleVertexModelSettings {
-    /**
-     * The thinking configuration for the model.
-     */
-    export interface ThinkingConfig {
-      /**
-       * Whether to include thoughts in the model's response.
-       */
-      include_thoughts?: boolean;
-
-      /**
-       * The thinking budget for the model.
-       */
-      thinking_budget?: number;
-    }
-  }
-
-  /**
-   * Azure OpenAI model configuration (OpenAI-compatible).
-   */
-  export interface AzureModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'azure';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * xAI model configuration (OpenAI-compatible).
-   */
-  export interface XaiModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'xai';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Groq model configuration (OpenAI-compatible).
-   */
-  export interface GroqModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'groq';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Deepseek model configuration (OpenAI-compatible).
-   */
-  export interface DeepseekModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'deepseek';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * Together AI model configuration (OpenAI-compatible).
-   */
-  export interface TogetherModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'together';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-
-  /**
-   * AWS Bedrock model configuration.
-   */
-  export interface BedrockModelSettings {
-    /**
-     * The maximum number of tokens the model can generate.
-     */
-    max_output_tokens?: number;
-
-    /**
-     * Whether to enable parallel tool calling.
-     */
-    parallel_tool_calls?: boolean;
-
-    /**
-     * The provider of the model.
-     */
-    provider?: 'bedrock';
-
-    /**
-     * The response format for the model.
-     */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
-
-    /**
-     * The temperature of the model.
-     */
-    temperature?: number;
-  }
-}
-
+Agents.Messages = Messages;
+Agents.Blocks = Blocks;
 Agents.Tools = Tools;
 Agents.Folders = Folders;
 Agents.Files = Files;
-Agents.Blocks = Blocks;
 Agents.Groups = Groups;
-Agents.Messages = Messages;
+Agents.Archives = Archives;
+Agents.Identities = Identities;
 
 export declare namespace Agents {
   export {
     type AgentEnvironmentVariable as AgentEnvironmentVariable,
     type AgentState as AgentState,
     type AgentType as AgentType,
+    type AnthropicModelSettings as AnthropicModelSettings,
+    type AzureModelSettings as AzureModelSettings,
+    type BedrockModelSettings as BedrockModelSettings,
     type ChildToolRule as ChildToolRule,
     type ConditionalToolRule as ConditionalToolRule,
     type ContinueToolRule as ContinueToolRule,
+    type DeepseekModelSettings as DeepseekModelSettings,
+    type GoogleAIModelSettings as GoogleAIModelSettings,
+    type GoogleVertexModelSettings as GoogleVertexModelSettings,
+    type GroqModelSettings as GroqModelSettings,
     type InitToolRule as InitToolRule,
     type JsonObjectResponseFormat as JsonObjectResponseFormat,
     type JsonSchemaResponseFormat as JsonSchemaResponseFormat,
     type LettaMessageContentUnion as LettaMessageContentUnion,
     type MaxCountPerStepToolRule as MaxCountPerStepToolRule,
     type MessageCreate as MessageCreate,
+    type OpenAIModelSettings as OpenAIModelSettings,
     type ParentToolRule as ParentToolRule,
     type RequiredBeforeExitToolRule as RequiredBeforeExitToolRule,
     type RequiresApprovalToolRule as RequiresApprovalToolRule,
     type TerminalToolRule as TerminalToolRule,
     type TextResponseFormat as TextResponseFormat,
+    type TogetherModelSettings as TogetherModelSettings,
+    type XaiModelSettings as XaiModelSettings,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,
@@ -2972,6 +2149,72 @@ export declare namespace Agents {
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
     type AgentModifyParams as AgentModifyParams,
+  };
+
+  export {
+    Messages as Messages,
+    type ApprovalCreate as ApprovalCreate,
+    type ApprovalRequestMessage as ApprovalRequestMessage,
+    type ApprovalResponseMessage as ApprovalResponseMessage,
+    type ApprovalReturn as ApprovalReturn,
+    type AssistantMessage as AssistantMessage,
+    type EventMessage as EventMessage,
+    type HiddenReasoningMessage as HiddenReasoningMessage,
+    type ImageContent as ImageContent,
+    type InternalMessage as InternalMessage,
+    type JobStatus as JobStatus,
+    type JobType as JobType,
+    type LettaAssistantMessageContentUnion as LettaAssistantMessageContentUnion,
+    type LettaRequest as LettaRequest,
+    type LettaResponse as LettaResponse,
+    type LettaStreamingRequest as LettaStreamingRequest,
+    type LettaStreamingResponse as LettaStreamingResponse,
+    type LettaUserMessageContentUnion as LettaUserMessageContentUnion,
+    type Message as Message,
+    type MessageRole as MessageRole,
+    type MessageType as MessageType,
+    type OmittedReasoningContent as OmittedReasoningContent,
+    type ReasoningContent as ReasoningContent,
+    type ReasoningMessage as ReasoningMessage,
+    type RedactedReasoningContent as RedactedReasoningContent,
+    type Run as Run,
+    type SummaryMessage as SummaryMessage,
+    type SystemMessage as SystemMessage,
+    type TextContent as TextContent,
+    type ToolCall as ToolCall,
+    type ToolCallContent as ToolCallContent,
+    type ToolCallDelta as ToolCallDelta,
+    type ToolCallMessage as ToolCallMessage,
+    type ToolReturn as ToolReturn,
+    type ToolReturnContent as ToolReturnContent,
+    type UpdateAssistantMessage as UpdateAssistantMessage,
+    type UpdateReasoningMessage as UpdateReasoningMessage,
+    type UpdateSystemMessage as UpdateSystemMessage,
+    type UpdateUserMessage as UpdateUserMessage,
+    type UserMessage as UserMessage,
+    type MessageCancelResponse as MessageCancelResponse,
+    type MessageModifyResponse as MessageModifyResponse,
+    type MessagesArrayPage as MessagesArrayPage,
+    type MessageListParams as MessageListParams,
+    type MessageCancelParams as MessageCancelParams,
+    type MessageModifyParams as MessageModifyParams,
+    type MessageResetParams as MessageResetParams,
+    type MessageSendParams as MessageSendParams,
+    type MessageSendParamsNonStreaming as MessageSendParamsNonStreaming,
+    type MessageSendParamsStreaming as MessageSendParamsStreaming,
+    type MessageSendAsyncParams as MessageSendAsyncParams,
+    type MessageStreamParams as MessageStreamParams,
+  };
+
+  export {
+    Blocks as Blocks,
+    type Block as Block,
+    type BlockModify as BlockModify,
+    type BlockRetrieveParams as BlockRetrieveParams,
+    type BlockListParams as BlockListParams,
+    type BlockAttachParams as BlockAttachParams,
+    type BlockDetachParams as BlockDetachParams,
+    type BlockModifyParams as BlockModifyParams,
   };
 
   export {
@@ -3003,70 +2246,21 @@ export declare namespace Agents {
     type FileOpenParams as FileOpenParams,
   };
 
-  export {
-    Blocks as Blocks,
-    type Block as Block,
-    type BlockModify as BlockModify,
-    type BlockRetrieveParams as BlockRetrieveParams,
-    type BlockListParams as BlockListParams,
-    type BlockAttachParams as BlockAttachParams,
-    type BlockDetachParams as BlockDetachParams,
-    type BlockModifyParams as BlockModifyParams,
-  };
-
   export { Groups as Groups, type GroupListParams as GroupListParams };
 
   export {
-    Messages as Messages,
-    type ApprovalCreate as ApprovalCreate,
-    type ApprovalRequestMessage as ApprovalRequestMessage,
-    type ApprovalResponseMessage as ApprovalResponseMessage,
-    type AssistantMessage as AssistantMessage,
-    type EventMessage as EventMessage,
-    type HiddenReasoningMessage as HiddenReasoningMessage,
-    type ImageContent as ImageContent,
-    type JobStatus as JobStatus,
-    type JobType as JobType,
-    type LettaAssistantMessageContentUnion as LettaAssistantMessageContentUnion,
-    type LettaMessageUnion as LettaMessageUnion,
-    type LettaRequest as LettaRequest,
-    type LettaResponse as LettaResponse,
-    type LettaStreamingRequest as LettaStreamingRequest,
-    type LettaStreamingResponse as LettaStreamingResponse,
-    type LettaUserMessageContentUnion as LettaUserMessageContentUnion,
-    type Message as Message,
-    type MessageRole as MessageRole,
-    type MessageType as MessageType,
-    type OmittedReasoningContent as OmittedReasoningContent,
-    type ReasoningContent as ReasoningContent,
-    type ReasoningMessage as ReasoningMessage,
-    type RedactedReasoningContent as RedactedReasoningContent,
-    type Run as Run,
-    type SummaryMessage as SummaryMessage,
-    type SystemMessage as SystemMessage,
-    type TextContent as TextContent,
-    type ToolCall as ToolCall,
-    type ToolCallContent as ToolCallContent,
-    type ToolCallDelta as ToolCallDelta,
-    type ToolCallMessage as ToolCallMessage,
-    type ToolReturn as ToolReturn,
-    type ToolReturnContent as ToolReturnContent,
-    type UpdateAssistantMessage as UpdateAssistantMessage,
-    type UpdateReasoningMessage as UpdateReasoningMessage,
-    type UpdateSystemMessage as UpdateSystemMessage,
-    type UpdateUserMessage as UpdateUserMessage,
-    type UserMessage as UserMessage,
-    type MessageCancelResponse as MessageCancelResponse,
-    type MessageModifyResponse as MessageModifyResponse,
-    type LettaMessageUnionsArrayPage as LettaMessageUnionsArrayPage,
-    type MessageListParams as MessageListParams,
-    type MessageCancelParams as MessageCancelParams,
-    type MessageModifyParams as MessageModifyParams,
-    type MessageResetParams as MessageResetParams,
-    type MessageSendParams as MessageSendParams,
-    type MessageSendParamsNonStreaming as MessageSendParamsNonStreaming,
-    type MessageSendParamsStreaming as MessageSendParamsStreaming,
-    type MessageSendAsyncParams as MessageSendAsyncParams,
-    type MessageStreamParams as MessageStreamParams,
+    Archives as Archives,
+    type ArchiveAttachResponse as ArchiveAttachResponse,
+    type ArchiveDetachResponse as ArchiveDetachResponse,
+    type ArchiveAttachParams as ArchiveAttachParams,
+    type ArchiveDetachParams as ArchiveDetachParams,
+  };
+
+  export {
+    Identities as Identities,
+    type IdentityAttachResponse as IdentityAttachResponse,
+    type IdentityDetachResponse as IdentityDetachResponse,
+    type IdentityAttachParams as IdentityAttachParams,
+    type IdentityDetachParams as IdentityDetachParams,
   };
 }

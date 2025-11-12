@@ -29,15 +29,6 @@ import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 import { HealthResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
-import {
-  Archive,
-  ArchiveCreateParams,
-  ArchiveListParams,
-  ArchiveModifyParams,
-  Archives,
-  ArchivesArrayPage,
-  VectorDBProvider,
-} from './resources/archives';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
 import {
   NpmRequirement,
@@ -70,21 +61,40 @@ import {
   AgentStatesArrayPage,
   AgentType,
   Agents,
+  AnthropicModelSettings,
+  AzureModelSettings,
+  BedrockModelSettings,
   ChildToolRule,
   ConditionalToolRule,
   ContinueToolRule,
+  DeepseekModelSettings,
+  GoogleAIModelSettings,
+  GoogleVertexModelSettings,
+  GroqModelSettings,
   InitToolRule,
   JsonObjectResponseFormat,
   JsonSchemaResponseFormat,
   LettaMessageContentUnion,
   MaxCountPerStepToolRule,
   MessageCreate,
+  OpenAIModelSettings,
   ParentToolRule,
   RequiredBeforeExitToolRule,
   RequiresApprovalToolRule,
   TerminalToolRule,
   TextResponseFormat,
+  TogetherModelSettings,
+  XaiModelSettings,
 } from './resources/agents/agents';
+import {
+  Archive,
+  ArchiveCreateParams,
+  ArchiveListParams,
+  ArchiveModifyParams,
+  Archives,
+  ArchivesArrayPage,
+  VectorDBProvider,
+} from './resources/archives/archives';
 import {
   BatchCancelResponse,
   BatchCreateParams,
@@ -199,7 +209,7 @@ export interface ClientOptions {
   /**
    * Defaults to process.env['LETTA_API_KEY'].
    */
-  apiKey?: string | undefined;
+  apiKey?: string | null | undefined;
 
   projectID?: string | null | undefined;
 
@@ -290,7 +300,7 @@ export interface ClientOptions {
  * API Client for interfacing with the Letta API.
  */
 export class Letta {
-  apiKey: string;
+  apiKey: string | null;
   projectID: string | null;
   project: string | null;
 
@@ -309,7 +319,7 @@ export class Letta {
   /**
    * API Client for interfacing with the Letta API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['LETTA_API_KEY'] ?? undefined]
+   * @param {string | null | undefined} [opts.apiKey=process.env['LETTA_API_KEY'] ?? null]
    * @param {string | null | undefined} [opts.projectID]
    * @param {string | null | undefined} [opts.project]
    * @param {Environment} [opts.environment=cloud] - Specifies the environment URL to use for the API.
@@ -323,17 +333,11 @@ export class Letta {
    */
   constructor({
     baseURL = readEnv('LETTA_BASE_URL'),
-    apiKey = readEnv('LETTA_API_KEY'),
+    apiKey = readEnv('LETTA_API_KEY') ?? null,
     projectID = null,
     project = null,
     ...opts
   }: ClientOptions = {}) {
-    if (apiKey === undefined) {
-      throw new Errors.LettaError(
-        "The LETTA_API_KEY environment variable is missing or empty; either provide it, or instantiate the Letta client with an apiKey option, like new Letta({ apiKey: 'My API Key' }).",
-      );
-    }
-
     const options: ClientOptions = {
       apiKey,
       projectID,
@@ -401,7 +405,7 @@ export class Letta {
   }
 
   /**
-   * Check Health
+   * Async health check endpoint.
    */
   health(options?: RequestOptions): APIPromise<TopLevelAPI.HealthResponse> {
     return this.get('/v1/health/', options);
@@ -412,10 +416,22 @@ export class Letta {
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
-    return;
+    if (this.apiKey && values.get('authorization')) {
+      return;
+    }
+    if (nulls.has('authorization')) {
+      return;
+    }
+
+    throw new Error(
+      'Could not resolve authentication method. Expected the apiKey to be set. Or for the "Authorization" headers to be explicitly omitted',
+    );
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    if (this.apiKey == null) {
+      return undefined;
+    }
     return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
   }
 
@@ -928,36 +944,36 @@ export class Letta {
 
   static toFile = Uploads.toFile;
 
-  archives: API.Archives = new API.Archives(this);
-  tools: API.Tools = new API.Tools(this);
-  folders: API.Folders = new API.Folders(this);
   agents: API.Agents = new API.Agents(this);
-  groups: API.Groups = new API.Groups(this);
-  identities: API.Identities = new API.Identities(this);
-  models: API.Models = new API.Models(this);
+  tools: API.Tools = new API.Tools(this);
   blocks: API.Blocks = new API.Blocks(this);
+  archives: API.Archives = new API.Archives(this);
+  folders: API.Folders = new API.Folders(this);
+  models: API.Models = new API.Models(this);
+  mcpServers: API.McpServers = new API.McpServers(this);
   runs: API.Runs = new API.Runs(this);
   steps: API.Steps = new API.Steps(this);
-  tags: API.Tags = new API.Tags(this);
-  batches: API.Batches = new API.Batches(this);
   templates: API.Templates = new API.Templates(this);
-  mcpServers: API.McpServers = new API.McpServers(this);
+  tags: API.Tags = new API.Tags(this);
+  identities: API.Identities = new API.Identities(this);
+  groups: API.Groups = new API.Groups(this);
+  batches: API.Batches = new API.Batches(this);
 }
 
-Letta.Archives = Archives;
-Letta.Tools = Tools;
-Letta.Folders = Folders;
 Letta.Agents = Agents;
-Letta.Groups = Groups;
-Letta.Identities = Identities;
-Letta.Models = Models;
+Letta.Tools = Tools;
 Letta.Blocks = Blocks;
+Letta.Archives = Archives;
+Letta.Folders = Folders;
+Letta.Models = Models;
+Letta.McpServers = McpServers;
 Letta.Runs = Runs;
 Letta.Steps = Steps;
-Letta.Tags = Tags;
-Letta.Batches = Batches;
 Letta.Templates = Templates;
-Letta.McpServers = McpServers;
+Letta.Tags = Tags;
+Letta.Identities = Identities;
+Letta.Groups = Groups;
+Letta.Batches = Batches;
 
 export declare namespace Letta {
   export type RequestOptions = Opts.RequestOptions;
@@ -977,13 +993,44 @@ export declare namespace Letta {
   export { type HealthResponse as HealthResponse };
 
   export {
-    Archives as Archives,
-    type Archive as Archive,
-    type VectorDBProvider as VectorDBProvider,
-    type ArchivesArrayPage as ArchivesArrayPage,
-    type ArchiveCreateParams as ArchiveCreateParams,
-    type ArchiveListParams as ArchiveListParams,
-    type ArchiveModifyParams as ArchiveModifyParams,
+    Agents as Agents,
+    type AgentEnvironmentVariable as AgentEnvironmentVariable,
+    type AgentState as AgentState,
+    type AgentType as AgentType,
+    type AnthropicModelSettings as AnthropicModelSettings,
+    type AzureModelSettings as AzureModelSettings,
+    type BedrockModelSettings as BedrockModelSettings,
+    type ChildToolRule as ChildToolRule,
+    type ConditionalToolRule as ConditionalToolRule,
+    type ContinueToolRule as ContinueToolRule,
+    type DeepseekModelSettings as DeepseekModelSettings,
+    type GoogleAIModelSettings as GoogleAIModelSettings,
+    type GoogleVertexModelSettings as GoogleVertexModelSettings,
+    type GroqModelSettings as GroqModelSettings,
+    type InitToolRule as InitToolRule,
+    type JsonObjectResponseFormat as JsonObjectResponseFormat,
+    type JsonSchemaResponseFormat as JsonSchemaResponseFormat,
+    type LettaMessageContentUnion as LettaMessageContentUnion,
+    type MaxCountPerStepToolRule as MaxCountPerStepToolRule,
+    type MessageCreate as MessageCreate,
+    type OpenAIModelSettings as OpenAIModelSettings,
+    type ParentToolRule as ParentToolRule,
+    type RequiredBeforeExitToolRule as RequiredBeforeExitToolRule,
+    type RequiresApprovalToolRule as RequiresApprovalToolRule,
+    type TerminalToolRule as TerminalToolRule,
+    type TextResponseFormat as TextResponseFormat,
+    type TogetherModelSettings as TogetherModelSettings,
+    type XaiModelSettings as XaiModelSettings,
+    type AgentDeleteResponse as AgentDeleteResponse,
+    type AgentExportFileResponse as AgentExportFileResponse,
+    type AgentImportFileResponse as AgentImportFileResponse,
+    type AgentStatesArrayPage as AgentStatesArrayPage,
+    type AgentCreateParams as AgentCreateParams,
+    type AgentRetrieveParams as AgentRetrieveParams,
+    type AgentListParams as AgentListParams,
+    type AgentExportFileParams as AgentExportFileParams,
+    type AgentImportFileParams as AgentImportFileParams,
+    type AgentModifyParams as AgentModifyParams,
   };
 
   export {
@@ -1004,6 +1051,27 @@ export declare namespace Letta {
   };
 
   export {
+    Blocks as Blocks,
+    type BlockResponse as BlockResponse,
+    type CreateBlock as CreateBlock,
+    type BlockDeleteResponse as BlockDeleteResponse,
+    type BlockResponsesArrayPage as BlockResponsesArrayPage,
+    type BlockCreateParams as BlockCreateParams,
+    type BlockListParams as BlockListParams,
+    type BlockModifyParams as BlockModifyParams,
+  };
+
+  export {
+    Archives as Archives,
+    type Archive as Archive,
+    type VectorDBProvider as VectorDBProvider,
+    type ArchivesArrayPage as ArchivesArrayPage,
+    type ArchiveCreateParams as ArchiveCreateParams,
+    type ArchiveListParams as ArchiveListParams,
+    type ArchiveModifyParams as ArchiveModifyParams,
+  };
+
+  export {
     Folders as Folders,
     type Folder as Folder,
     type FolderDeleteResponse as FolderDeleteResponse,
@@ -1011,66 +1079,6 @@ export declare namespace Letta {
     type FolderCreateParams as FolderCreateParams,
     type FolderListParams as FolderListParams,
     type FolderModifyParams as FolderModifyParams,
-  };
-
-  export {
-    Agents as Agents,
-    type AgentEnvironmentVariable as AgentEnvironmentVariable,
-    type AgentState as AgentState,
-    type AgentType as AgentType,
-    type ChildToolRule as ChildToolRule,
-    type ConditionalToolRule as ConditionalToolRule,
-    type ContinueToolRule as ContinueToolRule,
-    type InitToolRule as InitToolRule,
-    type JsonObjectResponseFormat as JsonObjectResponseFormat,
-    type JsonSchemaResponseFormat as JsonSchemaResponseFormat,
-    type LettaMessageContentUnion as LettaMessageContentUnion,
-    type MaxCountPerStepToolRule as MaxCountPerStepToolRule,
-    type MessageCreate as MessageCreate,
-    type ParentToolRule as ParentToolRule,
-    type RequiredBeforeExitToolRule as RequiredBeforeExitToolRule,
-    type RequiresApprovalToolRule as RequiresApprovalToolRule,
-    type TerminalToolRule as TerminalToolRule,
-    type TextResponseFormat as TextResponseFormat,
-    type AgentDeleteResponse as AgentDeleteResponse,
-    type AgentExportFileResponse as AgentExportFileResponse,
-    type AgentImportFileResponse as AgentImportFileResponse,
-    type AgentStatesArrayPage as AgentStatesArrayPage,
-    type AgentCreateParams as AgentCreateParams,
-    type AgentRetrieveParams as AgentRetrieveParams,
-    type AgentListParams as AgentListParams,
-    type AgentExportFileParams as AgentExportFileParams,
-    type AgentImportFileParams as AgentImportFileParams,
-    type AgentModifyParams as AgentModifyParams,
-  };
-
-  export {
-    Groups as Groups,
-    type DynamicManager as DynamicManager,
-    type Group as Group,
-    type ManagerType as ManagerType,
-    type RoundRobinManager as RoundRobinManager,
-    type SleeptimeManager as SleeptimeManager,
-    type SupervisorManager as SupervisorManager,
-    type VoiceSleeptimeManager as VoiceSleeptimeManager,
-    type GroupDeleteResponse as GroupDeleteResponse,
-    type GroupsArrayPage as GroupsArrayPage,
-    type GroupCreateParams as GroupCreateParams,
-    type GroupListParams as GroupListParams,
-    type GroupModifyParams as GroupModifyParams,
-  };
-
-  export {
-    Identities as Identities,
-    type Identity as Identity,
-    type IdentityProperty as IdentityProperty,
-    type IdentityType as IdentityType,
-    type IdentityDeleteResponse as IdentityDeleteResponse,
-    type IdentitiesArrayPage as IdentitiesArrayPage,
-    type IdentityCreateParams as IdentityCreateParams,
-    type IdentityListParams as IdentityListParams,
-    type IdentityModifyParams as IdentityModifyParams,
-    type IdentityUpsertParams as IdentityUpsertParams,
   };
 
   export {
@@ -1084,45 +1092,6 @@ export declare namespace Letta {
     type ModelListResponse as ModelListResponse,
     type ModelListParams as ModelListParams,
   };
-
-  export {
-    Blocks as Blocks,
-    type BlockResponse as BlockResponse,
-    type CreateBlock as CreateBlock,
-    type BlockDeleteResponse as BlockDeleteResponse,
-    type BlockResponsesArrayPage as BlockResponsesArrayPage,
-    type BlockCreateParams as BlockCreateParams,
-    type BlockListParams as BlockListParams,
-    type BlockModifyParams as BlockModifyParams,
-  };
-
-  export {
-    Runs as Runs,
-    type Job as Job,
-    type StopReasonType as StopReasonType,
-    type RunListParams as RunListParams,
-  };
-
-  export {
-    Steps as Steps,
-    type ProviderTrace as ProviderTrace,
-    type Step as Step,
-    type StepsArrayPage as StepsArrayPage,
-    type StepListParams as StepListParams,
-  };
-
-  export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
-
-  export {
-    Batches as Batches,
-    type BatchJob as BatchJob,
-    type BatchCancelResponse as BatchCancelResponse,
-    type BatchJobsArrayPage as BatchJobsArrayPage,
-    type BatchCreateParams as BatchCreateParams,
-    type BatchListParams as BatchListParams,
-  };
-
-  export { Templates as Templates };
 
   export {
     McpServers as McpServers,
@@ -1146,5 +1115,62 @@ export declare namespace Letta {
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerModifyParams as McpServerModifyParams,
     type McpServerRefreshParams as McpServerRefreshParams,
+  };
+
+  export {
+    Runs as Runs,
+    type Job as Job,
+    type StopReasonType as StopReasonType,
+    type RunListParams as RunListParams,
+  };
+
+  export {
+    Steps as Steps,
+    type ProviderTrace as ProviderTrace,
+    type Step as Step,
+    type StepsArrayPage as StepsArrayPage,
+    type StepListParams as StepListParams,
+  };
+
+  export { Templates as Templates };
+
+  export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
+
+  export {
+    Identities as Identities,
+    type Identity as Identity,
+    type IdentityProperty as IdentityProperty,
+    type IdentityType as IdentityType,
+    type IdentityDeleteResponse as IdentityDeleteResponse,
+    type IdentitiesArrayPage as IdentitiesArrayPage,
+    type IdentityCreateParams as IdentityCreateParams,
+    type IdentityListParams as IdentityListParams,
+    type IdentityModifyParams as IdentityModifyParams,
+    type IdentityUpsertParams as IdentityUpsertParams,
+  };
+
+  export {
+    Groups as Groups,
+    type DynamicManager as DynamicManager,
+    type Group as Group,
+    type ManagerType as ManagerType,
+    type RoundRobinManager as RoundRobinManager,
+    type SleeptimeManager as SleeptimeManager,
+    type SupervisorManager as SupervisorManager,
+    type VoiceSleeptimeManager as VoiceSleeptimeManager,
+    type GroupDeleteResponse as GroupDeleteResponse,
+    type GroupsArrayPage as GroupsArrayPage,
+    type GroupCreateParams as GroupCreateParams,
+    type GroupListParams as GroupListParams,
+    type GroupModifyParams as GroupModifyParams,
+  };
+
+  export {
+    Batches as Batches,
+    type BatchJob as BatchJob,
+    type BatchCancelResponse as BatchCancelResponse,
+    type BatchJobsArrayPage as BatchJobsArrayPage,
+    type BatchCreateParams as BatchCreateParams,
+    type BatchListParams as BatchListParams,
   };
 }
