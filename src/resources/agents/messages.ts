@@ -14,6 +14,49 @@ import { path } from '../../internal/utils/path';
 
 export class Messages extends APIResource {
   /**
+   * Process a user message and return the agent's response. This endpoint accepts a
+   * message from a user and processes it through the agent.
+   *
+   * The response format is controlled by the `streaming` field in the request body:
+   *
+   * - If `streaming=false` (default): Returns a complete LettaResponse with all
+   *   messages
+   * - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
+   *
+   * Additional streaming options (only used when streaming=true):
+   *
+   * - `stream_tokens`: Stream individual tokens instead of complete steps
+   * - `include_pings`: Include keepalive pings to prevent connection timeouts
+   * - `background`: Process the request in the background
+   */
+  create(
+    agentID: string,
+    body: MessageCreateParamsNonStreaming,
+    options?: RequestOptions,
+  ): APIPromise<LettaResponse>;
+  create(
+    agentID: string,
+    body: MessageCreateParamsStreaming,
+    options?: RequestOptions,
+  ): APIPromise<Stream<LettaStreamingResponse>>;
+  create(
+    agentID: string,
+    body: MessageCreateParamsBase,
+    options?: RequestOptions,
+  ): APIPromise<Stream<LettaStreamingResponse> | LettaResponse>;
+  create(
+    agentID: string,
+    body: MessageCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>> {
+    return this._client.post(path`/v1/agents/${agentID}/messages`, {
+      body,
+      ...options,
+      stream: body.streaming ?? false,
+    }) as APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>>;
+  }
+
+  /**
    * Retrieve message history for an agent.
    */
   list(
@@ -42,6 +85,18 @@ export class Messages extends APIResource {
   }
 
   /**
+   * Asynchronously process a user message and return a run object. The actual
+   * processing happens in the background, and the status can be checked using the
+   * run ID.
+   *
+   * This is "asynchronous" in the sense that it's a background run and explicitly
+   * must be fetched by the run ID.
+   */
+  createAsync(agentID: string, body: MessageCreateAsyncParams, options?: RequestOptions): APIPromise<Run> {
+    return this._client.post(path`/v1/agents/${agentID}/messages/async`, { body, ...options });
+  }
+
+  /**
    * Update the details of a message associated with an agent.
    */
   modify(
@@ -62,61 +117,6 @@ export class Messages extends APIResource {
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState> {
     return this._client.patch(path`/v1/agents/${agentID}/reset-messages`, { body, ...options });
-  }
-
-  /**
-   * Process a user message and return the agent's response. This endpoint accepts a
-   * message from a user and processes it through the agent.
-   *
-   * The response format is controlled by the `streaming` field in the request body:
-   *
-   * - If `streaming=false` (default): Returns a complete LettaResponse with all
-   *   messages
-   * - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
-   *
-   * Additional streaming options (only used when streaming=true):
-   *
-   * - `stream_tokens`: Stream individual tokens instead of complete steps
-   * - `include_pings`: Include keepalive pings to prevent connection timeouts
-   * - `background`: Process the request in the background
-   */
-  send(
-    agentID: string,
-    body: MessageSendParamsNonStreaming,
-    options?: RequestOptions,
-  ): APIPromise<LettaResponse>;
-  send(
-    agentID: string,
-    body: MessageSendParamsStreaming,
-    options?: RequestOptions,
-  ): APIPromise<Stream<LettaStreamingResponse>>;
-  send(
-    agentID: string,
-    body: MessageSendParamsBase,
-    options?: RequestOptions,
-  ): APIPromise<Stream<LettaStreamingResponse> | LettaResponse>;
-  send(
-    agentID: string,
-    body: MessageSendParams,
-    options?: RequestOptions,
-  ): APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>> {
-    return this._client.post(path`/v1/agents/${agentID}/messages`, {
-      body,
-      ...options,
-      stream: body.streaming ?? false,
-    }) as APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>>;
-  }
-
-  /**
-   * Asynchronously process a user message and return a run object. The actual
-   * processing happens in the background, and the status can be checked using the
-   * run ID.
-   *
-   * This is "asynchronous" in the sense that it's a background run and explicitly
-   * must be fetched by the run ID.
-   */
-  sendAsync(agentID: string, body: MessageSendAsyncParams, options?: RequestOptions): APIPromise<Run> {
-    return this._client.post(path`/v1/agents/${agentID}/messages/async`, { body, ...options });
   }
 
   /**
@@ -1732,6 +1732,154 @@ export type MessageModifyResponse =
   | SummaryMessage
   | EventMessage;
 
+export type MessageCreateParams = MessageCreateParamsNonStreaming | MessageCreateParamsStreaming;
+
+export interface MessageCreateParamsBase {
+  /**
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
+   */
+  assistant_message_tool_kwarg?: string;
+
+  /**
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
+   */
+  assistant_message_tool_name?: string;
+
+  /**
+   * Whether to process the request in the background (only used when
+   * streaming=true).
+   */
+  background?: boolean;
+
+  /**
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
+   */
+  enable_thinking?: string;
+
+  /**
+   * Whether to include periodic keepalive ping messages in the stream to prevent
+   * connection timeouts (only used when streaming=true).
+   */
+  include_pings?: boolean;
+
+  /**
+   * Only return specified message types in the response. If `None` (default) returns
+   * all messages.
+   */
+  include_return_message_types?: Array<MessageType> | null;
+
+  /**
+   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+   * 'user', 'content': input}].
+   */
+  input?:
+    | string
+    | Array<
+        | TextContent
+        | ImageContent
+        | ToolCallContent
+        | ToolReturnContent
+        | ReasoningContent
+        | RedactedReasoningContent
+        | OmittedReasoningContent
+        | MessageCreateParams.SummarizedReasoningContent
+      >
+    | null;
+
+  /**
+   * Maximum number of steps the agent should take to process the request.
+   */
+  max_steps?: number;
+
+  /**
+   * The messages to be sent to the agent.
+   */
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+
+  /**
+   * Flag to determine if individual tokens should be streamed, rather than streaming
+   * per step (only used when streaming=true).
+   */
+  stream_tokens?: boolean;
+
+  /**
+   * If True, returns a streaming response (Server-Sent Events). If False (default),
+   * returns a complete response.
+   */
+  streaming?: boolean;
+
+  /**
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
+   */
+  use_assistant_message?: boolean;
+}
+
+export namespace MessageCreateParams {
+  /**
+   * The style of reasoning content returned by the OpenAI Responses API
+   */
+  export interface SummarizedReasoningContent {
+    /**
+     * The unique identifier for this reasoning step.
+     */
+    id: string;
+
+    /**
+     * Summaries of the reasoning content.
+     */
+    summary: Array<SummarizedReasoningContent.Summary>;
+
+    /**
+     * The encrypted reasoning content.
+     */
+    encrypted_content?: string;
+
+    /**
+     * Indicates this is a summarized reasoning step.
+     */
+    type?: 'summarized_reasoning';
+  }
+
+  export namespace SummarizedReasoningContent {
+    export interface Summary {
+      /**
+       * The index of the summary part.
+       */
+      index: number;
+
+      /**
+       * The text of the summary part.
+       */
+      text: string;
+    }
+  }
+
+  export type MessageCreateParamsNonStreaming = MessagesAPI.MessageCreateParamsNonStreaming;
+  export type MessageCreateParamsStreaming = MessagesAPI.MessageCreateParamsStreaming;
+}
+
+export interface MessageCreateParamsNonStreaming extends MessageCreateParamsBase {
+  /**
+   * If True, returns a streaming response (Server-Sent Events). If False (default),
+   * returns a complete response.
+   */
+  streaming?: false;
+}
+
+export interface MessageCreateParamsStreaming extends MessageCreateParamsBase {
+  /**
+   * If True, returns a streaming response (Server-Sent Events). If False (default),
+   * returns a complete response.
+   */
+  streaming: true;
+}
+
 export interface MessageListParams extends ArrayPageParams {
   /**
    * @deprecated The name of the message argument.
@@ -1765,6 +1913,114 @@ export interface MessageCancelParams {
    * Optional list of run IDs to cancel
    */
   run_ids?: Array<string> | null;
+}
+
+export interface MessageCreateAsyncParams {
+  /**
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
+   */
+  assistant_message_tool_kwarg?: string;
+
+  /**
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
+   */
+  assistant_message_tool_name?: string;
+
+  /**
+   * Optional callback URL to POST to when the job completes
+   */
+  callback_url?: string | null;
+
+  /**
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
+   */
+  enable_thinking?: string;
+
+  /**
+   * Only return specified message types in the response. If `None` (default) returns
+   * all messages.
+   */
+  include_return_message_types?: Array<MessageType> | null;
+
+  /**
+   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+   * 'user', 'content': input}].
+   */
+  input?:
+    | string
+    | Array<
+        | TextContent
+        | ImageContent
+        | ToolCallContent
+        | ToolReturnContent
+        | ReasoningContent
+        | RedactedReasoningContent
+        | OmittedReasoningContent
+        | MessageCreateAsyncParams.SummarizedReasoningContent
+      >
+    | null;
+
+  /**
+   * Maximum number of steps the agent should take to process the request.
+   */
+  max_steps?: number;
+
+  /**
+   * The messages to be sent to the agent.
+   */
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+
+  /**
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
+   */
+  use_assistant_message?: boolean;
+}
+
+export namespace MessageCreateAsyncParams {
+  /**
+   * The style of reasoning content returned by the OpenAI Responses API
+   */
+  export interface SummarizedReasoningContent {
+    /**
+     * The unique identifier for this reasoning step.
+     */
+    id: string;
+
+    /**
+     * Summaries of the reasoning content.
+     */
+    summary: Array<SummarizedReasoningContent.Summary>;
+
+    /**
+     * The encrypted reasoning content.
+     */
+    encrypted_content?: string;
+
+    /**
+     * Indicates this is a summarized reasoning step.
+     */
+    type?: 'summarized_reasoning';
+  }
+
+  export namespace SummarizedReasoningContent {
+    export interface Summary {
+      /**
+       * The index of the summary part.
+       */
+      index: number;
+
+      /**
+       * The text of the summary part.
+       */
+      text: string;
+    }
+  }
 }
 
 export type MessageModifyParams =
@@ -1851,262 +2107,6 @@ export interface MessageResetParams {
    * If true, adds the default initial messages after resetting.
    */
   add_default_initial_messages?: boolean;
-}
-
-export type MessageSendParams = MessageSendParamsNonStreaming | MessageSendParamsStreaming;
-
-export interface MessageSendParamsBase {
-  /**
-   * @deprecated The name of the message argument in the designated message tool.
-   * Still supported for legacy agent types, but deprecated for letta_v1_agent
-   * onward.
-   */
-  assistant_message_tool_kwarg?: string;
-
-  /**
-   * @deprecated The name of the designated message tool. Still supported for legacy
-   * agent types, but deprecated for letta_v1_agent onward.
-   */
-  assistant_message_tool_name?: string;
-
-  /**
-   * Whether to process the request in the background (only used when
-   * streaming=true).
-   */
-  background?: boolean;
-
-  /**
-   * @deprecated If set to True, enables reasoning before responses or tool calls
-   * from the agent.
-   */
-  enable_thinking?: string;
-
-  /**
-   * Whether to include periodic keepalive ping messages in the stream to prevent
-   * connection timeouts (only used when streaming=true).
-   */
-  include_pings?: boolean;
-
-  /**
-   * Only return specified message types in the response. If `None` (default) returns
-   * all messages.
-   */
-  include_return_message_types?: Array<MessageType> | null;
-
-  /**
-   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-   * 'user', 'content': input}].
-   */
-  input?:
-    | string
-    | Array<
-        | TextContent
-        | ImageContent
-        | ToolCallContent
-        | ToolReturnContent
-        | ReasoningContent
-        | RedactedReasoningContent
-        | OmittedReasoningContent
-        | MessageSendParams.SummarizedReasoningContent
-      >
-    | null;
-
-  /**
-   * Maximum number of steps the agent should take to process the request.
-   */
-  max_steps?: number;
-
-  /**
-   * The messages to be sent to the agent.
-   */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
-
-  /**
-   * Flag to determine if individual tokens should be streamed, rather than streaming
-   * per step (only used when streaming=true).
-   */
-  stream_tokens?: boolean;
-
-  /**
-   * If True, returns a streaming response (Server-Sent Events). If False (default),
-   * returns a complete response.
-   */
-  streaming?: boolean;
-
-  /**
-   * @deprecated Whether the server should parse specific tool call arguments
-   * (default `send_message`) as `AssistantMessage` objects. Still supported for
-   * legacy agent types, but deprecated for letta_v1_agent onward.
-   */
-  use_assistant_message?: boolean;
-}
-
-export namespace MessageSendParams {
-  /**
-   * The style of reasoning content returned by the OpenAI Responses API
-   */
-  export interface SummarizedReasoningContent {
-    /**
-     * The unique identifier for this reasoning step.
-     */
-    id: string;
-
-    /**
-     * Summaries of the reasoning content.
-     */
-    summary: Array<SummarizedReasoningContent.Summary>;
-
-    /**
-     * The encrypted reasoning content.
-     */
-    encrypted_content?: string;
-
-    /**
-     * Indicates this is a summarized reasoning step.
-     */
-    type?: 'summarized_reasoning';
-  }
-
-  export namespace SummarizedReasoningContent {
-    export interface Summary {
-      /**
-       * The index of the summary part.
-       */
-      index: number;
-
-      /**
-       * The text of the summary part.
-       */
-      text: string;
-    }
-  }
-
-  export type MessageSendParamsNonStreaming = MessagesAPI.MessageSendParamsNonStreaming;
-  export type MessageSendParamsStreaming = MessagesAPI.MessageSendParamsStreaming;
-}
-
-export interface MessageSendParamsNonStreaming extends MessageSendParamsBase {
-  /**
-   * If True, returns a streaming response (Server-Sent Events). If False (default),
-   * returns a complete response.
-   */
-  streaming?: false;
-}
-
-export interface MessageSendParamsStreaming extends MessageSendParamsBase {
-  /**
-   * If True, returns a streaming response (Server-Sent Events). If False (default),
-   * returns a complete response.
-   */
-  streaming: true;
-}
-
-export interface MessageSendAsyncParams {
-  /**
-   * @deprecated The name of the message argument in the designated message tool.
-   * Still supported for legacy agent types, but deprecated for letta_v1_agent
-   * onward.
-   */
-  assistant_message_tool_kwarg?: string;
-
-  /**
-   * @deprecated The name of the designated message tool. Still supported for legacy
-   * agent types, but deprecated for letta_v1_agent onward.
-   */
-  assistant_message_tool_name?: string;
-
-  /**
-   * Optional callback URL to POST to when the job completes
-   */
-  callback_url?: string | null;
-
-  /**
-   * @deprecated If set to True, enables reasoning before responses or tool calls
-   * from the agent.
-   */
-  enable_thinking?: string;
-
-  /**
-   * Only return specified message types in the response. If `None` (default) returns
-   * all messages.
-   */
-  include_return_message_types?: Array<MessageType> | null;
-
-  /**
-   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-   * 'user', 'content': input}].
-   */
-  input?:
-    | string
-    | Array<
-        | TextContent
-        | ImageContent
-        | ToolCallContent
-        | ToolReturnContent
-        | ReasoningContent
-        | RedactedReasoningContent
-        | OmittedReasoningContent
-        | MessageSendAsyncParams.SummarizedReasoningContent
-      >
-    | null;
-
-  /**
-   * Maximum number of steps the agent should take to process the request.
-   */
-  max_steps?: number;
-
-  /**
-   * The messages to be sent to the agent.
-   */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
-
-  /**
-   * @deprecated Whether the server should parse specific tool call arguments
-   * (default `send_message`) as `AssistantMessage` objects. Still supported for
-   * legacy agent types, but deprecated for letta_v1_agent onward.
-   */
-  use_assistant_message?: boolean;
-}
-
-export namespace MessageSendAsyncParams {
-  /**
-   * The style of reasoning content returned by the OpenAI Responses API
-   */
-  export interface SummarizedReasoningContent {
-    /**
-     * The unique identifier for this reasoning step.
-     */
-    id: string;
-
-    /**
-     * Summaries of the reasoning content.
-     */
-    summary: Array<SummarizedReasoningContent.Summary>;
-
-    /**
-     * The encrypted reasoning content.
-     */
-    encrypted_content?: string;
-
-    /**
-     * Indicates this is a summarized reasoning step.
-     */
-    type?: 'summarized_reasoning';
-  }
-
-  export namespace SummarizedReasoningContent {
-    export interface Summary {
-      /**
-       * The index of the summary part.
-       */
-      index: number;
-
-      /**
-       * The text of the summary part.
-       */
-      text: string;
-    }
-  }
 }
 
 export interface MessageStreamParams {
@@ -2280,14 +2280,14 @@ export declare namespace Messages {
     type MessageCancelResponse as MessageCancelResponse,
     type MessageModifyResponse as MessageModifyResponse,
     type MessagesArrayPage as MessagesArrayPage,
+    type MessageCreateParams as MessageCreateParams,
+    type MessageCreateParamsNonStreaming as MessageCreateParamsNonStreaming,
+    type MessageCreateParamsStreaming as MessageCreateParamsStreaming,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,
+    type MessageCreateAsyncParams as MessageCreateAsyncParams,
     type MessageModifyParams as MessageModifyParams,
     type MessageResetParams as MessageResetParams,
-    type MessageSendParams as MessageSendParams,
-    type MessageSendParamsNonStreaming as MessageSendParamsNonStreaming,
-    type MessageSendParamsStreaming as MessageSendParamsStreaming,
-    type MessageSendAsyncParams as MessageSendAsyncParams,
     type MessageStreamParams as MessageStreamParams,
   };
 }
