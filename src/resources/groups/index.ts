@@ -20,8 +20,8 @@ export {
   type MessageModifyResponse,
   type MessageResetResponse,
   type MessageStreamResponse,
+  type MessageCreateParams,
   type MessageListParams,
   type MessageModifyParams,
-  type MessageSendParams,
   type MessageStreamParams,
 } from './messages';

@@ -3,11 +3,11 @@
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
 import {
+  MessageCreateParams,
   MessageListParams,
   MessageModifyParams,
   MessageModifyResponse,
   MessageResetResponse,
-  MessageSendParams,
   MessageStreamParams,
   MessageStreamResponse,
   Messages,
@@ -326,9 +326,9 @@ export declare namespace Groups {
     type MessageModifyResponse as MessageModifyResponse,
     type MessageResetResponse as MessageResetResponse,
     type MessageStreamResponse as MessageStreamResponse,
+    type MessageCreateParams as MessageCreateParams,
     type MessageListParams as MessageListParams,
     type MessageModifyParams as MessageModifyParams,
-    type MessageSendParams as MessageSendParams,
     type MessageStreamParams as MessageStreamParams,
   };
 }

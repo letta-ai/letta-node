@@ -13,6 +13,19 @@ import { path } from '../../internal/utils/path';
 
 export class Messages extends APIResource {
   /**
+   * Process a user message and return the group's response. This endpoint accepts a
+   * message from a user and processes it through through agents in the group based
+   * on the specified pattern
+   */
+  create(
+    groupID: string,
+    body: MessageCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessagesAPI.LettaResponse> {
+    return this._client.post(path`/v1/groups/${groupID}/messages`, { body, ...options });
+  }
+
+  /**
    * Retrieve message history for an agent.
    */
   list(
@@ -43,19 +56,6 @@ export class Messages extends APIResource {
    */
   reset(groupID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.patch(path`/v1/groups/${groupID}/reset-messages`, options);
-  }
-
-  /**
-   * Process a user message and return the group's response. This endpoint accepts a
-   * message from a user and processes it through through agents in the group based
-   * on the specified pattern
-   */
-  send(
-    groupID: string,
-    body: MessageSendParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagesAPI.LettaResponse> {
-    return this._client.post(path`/v1/groups/${groupID}/messages`, { body, ...options });
   }
 
   /**
@@ -101,6 +101,109 @@ export type MessageModifyResponse =
 export type MessageResetResponse = unknown;
 
 export type MessageStreamResponse = unknown;
+
+export interface MessageCreateParams {
+  /**
+   * @deprecated The name of the message argument in the designated message tool.
+   * Still supported for legacy agent types, but deprecated for letta_v1_agent
+   * onward.
+   */
+  assistant_message_tool_kwarg?: string;
+
+  /**
+   * @deprecated The name of the designated message tool. Still supported for legacy
+   * agent types, but deprecated for letta_v1_agent onward.
+   */
+  assistant_message_tool_name?: string;
+
+  /**
+   * @deprecated If set to True, enables reasoning before responses or tool calls
+   * from the agent.
+   */
+  enable_thinking?: string;
+
+  /**
+   * Only return specified message types in the response. If `None` (default) returns
+   * all messages.
+   */
+  include_return_message_types?: Array<MessagesAPI.MessageType> | null;
+
+  /**
+   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+   * 'user', 'content': input}].
+   */
+  input?:
+    | string
+    | Array<
+        | MessagesAPI.TextContent
+        | MessagesAPI.ImageContent
+        | MessagesAPI.ToolCallContent
+        | MessagesAPI.ToolReturnContent
+        | MessagesAPI.ReasoningContent
+        | MessagesAPI.RedactedReasoningContent
+        | MessagesAPI.OmittedReasoningContent
+        | MessageCreateParams.SummarizedReasoningContent
+      >
+    | null;
+
+  /**
+   * Maximum number of steps the agent should take to process the request.
+   */
+  max_steps?: number;
+
+  /**
+   * The messages to be sent to the agent.
+   */
+  messages?: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate> | null;
+
+  /**
+   * @deprecated Whether the server should parse specific tool call arguments
+   * (default `send_message`) as `AssistantMessage` objects. Still supported for
+   * legacy agent types, but deprecated for letta_v1_agent onward.
+   */
+  use_assistant_message?: boolean;
+}
+
+export namespace MessageCreateParams {
+  /**
+   * The style of reasoning content returned by the OpenAI Responses API
+   */
+  export interface SummarizedReasoningContent {
+    /**
+     * The unique identifier for this reasoning step.
+     */
+    id: string;
+
+    /**
+     * Summaries of the reasoning content.
+     */
+    summary: Array<SummarizedReasoningContent.Summary>;
+
+    /**
+     * The encrypted reasoning content.
+     */
+    encrypted_content?: string;
+
+    /**
+     * Indicates this is a summarized reasoning step.
+     */
+    type?: 'summarized_reasoning';
+  }
+
+  export namespace SummarizedReasoningContent {
+    export interface Summary {
+      /**
+       * The index of the summary part.
+       */
+      index: number;
+
+      /**
+       * The text of the summary part.
+       */
+      text: string;
+    }
+  }
+}
 
 export interface MessageListParams extends ArrayPageParams {
   /**
@@ -195,109 +298,6 @@ export declare namespace MessageModifyParams {
      * Body param:
      */
     message_type?: 'assistant_message';
-  }
-}
-
-export interface MessageSendParams {
-  /**
-   * @deprecated The name of the message argument in the designated message tool.
-   * Still supported for legacy agent types, but deprecated for letta_v1_agent
-   * onward.
-   */
-  assistant_message_tool_kwarg?: string;
-
-  /**
-   * @deprecated The name of the designated message tool. Still supported for legacy
-   * agent types, but deprecated for letta_v1_agent onward.
-   */
-  assistant_message_tool_name?: string;
-
-  /**
-   * @deprecated If set to True, enables reasoning before responses or tool calls
-   * from the agent.
-   */
-  enable_thinking?: string;
-
-  /**
-   * Only return specified message types in the response. If `None` (default) returns
-   * all messages.
-   */
-  include_return_message_types?: Array<MessagesAPI.MessageType> | null;
-
-  /**
-   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-   * 'user', 'content': input}].
-   */
-  input?:
-    | string
-    | Array<
-        | MessagesAPI.TextContent
-        | MessagesAPI.ImageContent
-        | MessagesAPI.ToolCallContent
-        | MessagesAPI.ToolReturnContent
-        | MessagesAPI.ReasoningContent
-        | MessagesAPI.RedactedReasoningContent
-        | MessagesAPI.OmittedReasoningContent
-        | MessageSendParams.SummarizedReasoningContent
-      >
-    | null;
-
-  /**
-   * Maximum number of steps the agent should take to process the request.
-   */
-  max_steps?: number;
-
-  /**
-   * The messages to be sent to the agent.
-   */
-  messages?: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate> | null;
-
-  /**
-   * @deprecated Whether the server should parse specific tool call arguments
-   * (default `send_message`) as `AssistantMessage` objects. Still supported for
-   * legacy agent types, but deprecated for letta_v1_agent onward.
-   */
-  use_assistant_message?: boolean;
-}
-
-export namespace MessageSendParams {
-  /**
-   * The style of reasoning content returned by the OpenAI Responses API
-   */
-  export interface SummarizedReasoningContent {
-    /**
-     * The unique identifier for this reasoning step.
-     */
-    id: string;
-
-    /**
-     * Summaries of the reasoning content.
-     */
-    summary: Array<SummarizedReasoningContent.Summary>;
-
-    /**
-     * The encrypted reasoning content.
-     */
-    encrypted_content?: string;
-
-    /**
-     * Indicates this is a summarized reasoning step.
-     */
-    type?: 'summarized_reasoning';
-  }
-
-  export namespace SummarizedReasoningContent {
-    export interface Summary {
-      /**
-       * The index of the summary part.
-       */
-      index: number;
-
-      /**
-       * The text of the summary part.
-       */
-      text: string;
-    }
   }
 }
 
@@ -433,9 +433,9 @@ export declare namespace Messages {
     type MessageModifyResponse as MessageModifyResponse,
     type MessageResetResponse as MessageResetResponse,
     type MessageStreamResponse as MessageStreamResponse,
+    type MessageCreateParams as MessageCreateParams,
     type MessageListParams as MessageListParams,
     type MessageModifyParams as MessageModifyParams,
-    type MessageSendParams as MessageSendParams,
     type MessageStreamParams as MessageStreamParams,
   };
 }
