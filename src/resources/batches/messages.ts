@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from '../agents/messages';
-import { MessagesObjectPage } from '../agents/messages';
+import { InternalMessagesObjectPage } from '../agents/messages';
 import { ObjectPage, type ObjectPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -15,10 +15,10 @@ export class Messages extends APIResource {
     batchID: string,
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagesObjectPage, MessagesAPI.Message> {
+  ): PagePromise<InternalMessagesObjectPage, MessagesAPI.InternalMessage> {
     return this._client.getAPIList(
       path`/v1/messages/batches/${batchID}/messages`,
-      ObjectPage<MessagesAPI.Message>,
+      ObjectPage<MessagesAPI.InternalMessage>,
       { query, ...options },
     );
   }
@@ -35,4 +35,4 @@ export declare namespace Messages {
   export { type MessageListParams as MessageListParams };
 }
 
-export { type MessagesObjectPage };
+export { type InternalMessagesObjectPage };

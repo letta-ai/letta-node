@@ -139,7 +139,7 @@ export interface Step {
    * @deprecated The messages generated during this step. Deprecated: use
    * `GET /v1/steps/{step_id}/messages` endpoint instead
    */
-  messages?: Array<MessagesAPI.Message>;
+  messages?: Array<MessagesAPI.InternalMessage>;
 
   /**
    * The name of the model used for this step.

@@ -65,10 +65,10 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">EventMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">HiddenReasoningMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">ImageContent</a></code>
+- <code><a href="./src/resources/agents/messages.ts">InternalMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">JobStatus</a></code>
 - <code><a href="./src/resources/agents/messages.ts">JobType</a></code>
 - <code><a href="./src/resources/agents/messages.ts">LettaAssistantMessageContentUnion</a></code>
-- <code><a href="./src/resources/agents/messages.ts">LettaMessageUnion</a></code>
 - <code><a href="./src/resources/agents/messages.ts">LettaRequest</a></code>
 - <code><a href="./src/resources/agents/messages.ts">LettaResponse</a></code>
 - <code><a href="./src/resources/agents/messages.ts">LettaStreamingRequest</a></code>
@@ -101,7 +101,7 @@ Types:
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">list</a>(agentID, { ...params }) -> LettaMessageUnionsArrayPage</code>
+- <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">list</a>(agentID, { ...params }) -> MessagesArrayPage</code>
 - <code title="post /v1/agents/{agent_id}/messages/cancel">client.agents.messages.<a href="./src/resources/agents/messages.ts">cancel</a>(agentID, { ...params }) -> MessageCancelResponse</code>
 - <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/resources/agents/messages.ts">modify</a>(messageID, { ...params }) -> MessageModifyResponse</code>
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState</code>
@@ -391,7 +391,7 @@ Types:
 
 Methods:
 
-- <code title="get /v1/runs/{run_id}/messages">client.runs.messages.<a href="./src/resources/runs/messages.ts">list</a>(runID, { ...params }) -> LettaMessageUnionsArrayPage</code>
+- <code title="get /v1/runs/{run_id}/messages">client.runs.messages.<a href="./src/resources/runs/messages.ts">list</a>(runID, { ...params }) -> MessagesArrayPage</code>
 - <code title="post /v1/runs/{run_id}/stream">client.runs.messages.<a href="./src/resources/runs/messages.ts">stream</a>(runID, { ...params }) -> unknown</code>
 
 ## Usage
@@ -543,7 +543,7 @@ Types:
 
 Methods:
 
-- <code title="get /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">list</a>(groupID, { ...params }) -> LettaMessageUnionsArrayPage</code>
+- <code title="get /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">list</a>(groupID, { ...params }) -> MessagesArrayPage</code>
 - <code title="patch /v1/groups/{group_id}/messages/{message_id}">client.groups.messages.<a href="./src/resources/groups/messages.ts">modify</a>(messageID, { ...params }) -> MessageModifyResponse</code>
 - <code title="patch /v1/groups/{group_id}/reset-messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">reset</a>(groupID) -> unknown</code>
 - <code title="post /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">send</a>(groupID, { ...params }) -> LettaResponse</code>
@@ -567,4 +567,4 @@ Methods:
 
 Methods:
 
-- <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/resources/batches/messages.ts">list</a>(batchID, { ...params }) -> MessagesObjectPage</code>
+- <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/resources/batches/messages.ts">list</a>(batchID, { ...params }) -> InternalMessagesObjectPage</code>
