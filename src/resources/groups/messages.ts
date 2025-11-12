@@ -26,6 +26,18 @@ export class Messages extends APIResource {
   }
 
   /**
+   * Update the details of a message associated with an agent.
+   */
+  update(
+    messageID: string,
+    params: MessageUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessageUpdateResponse> {
+    const { group_id, ...body } = params;
+    return this._client.patch(path`/v1/groups/${group_id}/messages/${messageID}`, { body, ...options });
+  }
+
+  /**
    * Retrieve message history for an agent.
    */
   list(
@@ -37,18 +49,6 @@ export class Messages extends APIResource {
       query,
       ...options,
     });
-  }
-
-  /**
-   * Update the details of a message associated with an agent.
-   */
-  modify(
-    messageID: string,
-    params: MessageModifyParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageModifyResponse> {
-    const { group_id, ...body } = params;
-    return this._client.patch(path`/v1/groups/${group_id}/messages/${messageID}`, { body, ...options });
   }
 
   /**
@@ -85,7 +85,7 @@ export class Messages extends APIResource {
  * created in ISO format name (Optional[str]): The name of the sender of the
  * message content (str): The message content sent by the system
  */
-export type MessageModifyResponse =
+export type MessageUpdateResponse =
   | MessagesAPI.SystemMessage
   | MessagesAPI.UserMessage
   | MessagesAPI.ReasoningMessage
@@ -205,30 +205,13 @@ export namespace MessageCreateParams {
   }
 }
 
-export interface MessageListParams extends ArrayPageParams {
-  /**
-   * @deprecated The name of the message argument.
-   */
-  assistant_message_tool_kwarg?: string;
+export type MessageUpdateParams =
+  | MessageUpdateParams.UpdateSystemMessage
+  | MessageUpdateParams.UpdateUserMessage
+  | MessageUpdateParams.UpdateReasoningMessage
+  | MessageUpdateParams.UpdateAssistantMessage;
 
-  /**
-   * @deprecated The name of the designated message tool.
-   */
-  assistant_message_tool_name?: string;
-
-  /**
-   * @deprecated Whether to use assistant messages
-   */
-  use_assistant_message?: boolean;
-}
-
-export type MessageModifyParams =
-  | MessageModifyParams.UpdateSystemMessage
-  | MessageModifyParams.UpdateUserMessage
-  | MessageModifyParams.UpdateReasoningMessage
-  | MessageModifyParams.UpdateAssistantMessage;
-
-export declare namespace MessageModifyParams {
+export declare namespace MessageUpdateParams {
   export interface UpdateSystemMessage {
     /**
      * Path param: The ID of the group in the format 'group-<uuid4>'
@@ -299,6 +282,23 @@ export declare namespace MessageModifyParams {
      */
     message_type?: 'assistant_message';
   }
+}
+
+export interface MessageListParams extends ArrayPageParams {
+  /**
+   * @deprecated The name of the message argument.
+   */
+  assistant_message_tool_kwarg?: string;
+
+  /**
+   * @deprecated The name of the designated message tool.
+   */
+  assistant_message_tool_name?: string;
+
+  /**
+   * @deprecated Whether to use assistant messages
+   */
+  use_assistant_message?: boolean;
 }
 
 export interface MessageStreamParams {
@@ -430,12 +430,12 @@ export namespace MessageStreamParams {
 
 export declare namespace Messages {
   export {
-    type MessageModifyResponse as MessageModifyResponse,
+    type MessageUpdateResponse as MessageUpdateResponse,
     type MessageResetResponse as MessageResetResponse,
     type MessageStreamResponse as MessageStreamResponse,
     type MessageCreateParams as MessageCreateParams,
+    type MessageUpdateParams as MessageUpdateParams,
     type MessageListParams as MessageListParams,
-    type MessageModifyParams as MessageModifyParams,
     type MessageStreamParams as MessageStreamParams,
   };
 }
