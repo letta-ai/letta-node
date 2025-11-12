@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as ToolsAPI from '../tools';
 import * as AgentsAPI from '../agents/agents';
 import * as MessagesAPI from '../agents/messages';
-import { LettaMessageUnionsArrayPage } from '../agents/messages';
+import { MessagesArrayPage } from '../agents/messages';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { Stream } from '../../core/streaming';
@@ -19,12 +19,11 @@ export class Messages extends APIResource {
     groupID: string,
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<LettaMessageUnionsArrayPage, MessagesAPI.LettaMessageUnion> {
-    return this._client.getAPIList(
-      path`/v1/groups/${groupID}/messages`,
-      ArrayPage<MessagesAPI.LettaMessageUnion>,
-      { query, ...options },
-    );
+  ): PagePromise<MessagesArrayPage, MessagesAPI.Message> {
+    return this._client.getAPIList(path`/v1/groups/${groupID}/messages`, ArrayPage<MessagesAPI.Message>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -441,4 +440,4 @@ export declare namespace Messages {
   };
 }
 
-export { type LettaMessageUnionsArrayPage };
+export { type MessagesArrayPage };

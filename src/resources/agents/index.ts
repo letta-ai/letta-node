@@ -94,10 +94,10 @@ export {
   type EventMessage,
   type HiddenReasoningMessage,
   type ImageContent,
+  type InternalMessage,
   type JobStatus,
   type JobType,
   type LettaAssistantMessageContentUnion,
-  type LettaMessageUnion,
   type LettaRequest,
   type LettaResponse,
   type LettaStreamingRequest,
@@ -137,8 +137,8 @@ export {
   type MessageSendAsyncParams,
   type MessageStreamParams,
   type RunsArrayPage,
-  type LettaMessageUnionsArrayPage,
-  type MessagesObjectPage,
+  type MessagesArrayPage,
+  type InternalMessagesObjectPage,
 } from './messages';
 export {
   Tools,

@@ -20,8 +20,8 @@ export class Messages extends APIResource {
     agentID: string,
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<LettaMessageUnionsArrayPage, LettaMessageUnion> {
-    return this._client.getAPIList(path`/v1/agents/${agentID}/messages`, ArrayPage<LettaMessageUnion>, {
+  ): PagePromise<MessagesArrayPage, Message> {
+    return this._client.getAPIList(path`/v1/agents/${agentID}/messages`, ArrayPage<Message>, {
       query,
       ...options,
     });
@@ -147,11 +147,11 @@ export class Messages extends APIResource {
   }
 }
 
-export type LettaMessageUnionsArrayPage = ArrayPage<LettaMessageUnion>;
+export type MessagesArrayPage = ArrayPage<Message>;
 
 export type RunsArrayPage = ArrayPage<Run>;
 
-export type MessagesObjectPage = ObjectPage<Message>;
+export type InternalMessagesObjectPage = ObjectPage<InternalMessage>;
 
 /**
  * Input to approve or deny a tool call request
@@ -495,6 +495,276 @@ export namespace ImageContent {
 }
 
 /**
+ * Letta's internal representation of a message. Includes methods to convert to/from LLM provider formats.
+ *
+ *     Attributes:
+ *         id (str): The unique identifier of the message.
+ *         role (MessageRole): The role of the participant.
+ *         text (str): The text of the message.
+ *         user_id (str): The unique identifier of the user.
+ *         agent_id (str): The unique identifier of the agent.
+ *         model (str): The model used to make the function call.
+ *         name (str): The name of the participant.
+ *         created_at (datetime): The time the message was created.
+ *         tool_calls (List[OpenAIToolCall,]): The list of tool calls requested.
+ *         tool_call_id (str): The id of the tool call.
+ *         step_id (str): The id of the step that this message was created in.
+ *         otid (str): The offline threading id associated with this message.
+ *         tool_returns (List[ToolReturn]): The list of tool returns requested.
+ *         group_id (str): The multi-agent group that the message was sent in.
+ *         sender_id (str): The id of the sender of the message, can be an identity id or agent id.
+ *
+ * t
+ */
+export interface InternalMessage {
+  /**
+   * The human-friendly ID of the Message
+   */
+  id: string;
+
+  /**
+   * The role of the participant.
+   */
+  role: MessageRole;
+
+  /**
+   * The unique identifier of the agent.
+   */
+  agent_id?: string | null;
+
+  /**
+   * The id of the approval request if this message is associated with a tool call
+   * request.
+   */
+  approval_request_id?: string | null;
+
+  /**
+   * The list of approvals for this message.
+   */
+  approvals?: Array<ApprovalReturn | InternalMessage.LettaSchemasMessageToolReturn> | null;
+
+  /**
+   * Whether tool call is approved.
+   */
+  approve?: boolean | null;
+
+  /**
+   * The id of the LLMBatchItem that this message is associated with
+   */
+  batch_item_id?: string | null;
+
+  /**
+   * The content of the message.
+   */
+  content?: Array<
+    | TextContent
+    | ImageContent
+    | ToolCallContent
+    | ToolReturnContent
+    | ReasoningContent
+    | RedactedReasoningContent
+    | OmittedReasoningContent
+    | InternalMessage.SummarizedReasoningContent
+  > | null;
+
+  /**
+   * The timestamp when the object was created.
+   */
+  created_at?: string;
+
+  /**
+   * The id of the user that made this object.
+   */
+  created_by_id?: string | null;
+
+  /**
+   * The reason the tool call request was denied.
+   */
+  denial_reason?: string | null;
+
+  /**
+   * The multi-agent group that the message was sent in
+   */
+  group_id?: string | null;
+
+  /**
+   * Whether this message is part of an error step. Used only for debugging purposes.
+   */
+  is_err?: boolean | null;
+
+  /**
+   * The id of the user that made this object.
+   */
+  last_updated_by_id?: string | null;
+
+  /**
+   * The model used to make the function call.
+   */
+  model?: string | null;
+
+  /**
+   * For role user/assistant: the (optional) name of the participant. For role
+   * tool/function: the name of the function called.
+   */
+  name?: string | null;
+
+  /**
+   * The offline threading id associated with this message
+   */
+  otid?: string | null;
+
+  /**
+   * The id of the run that this message was created in.
+   */
+  run_id?: string | null;
+
+  /**
+   * The id of the sender of the message, can be an identity id or agent id
+   */
+  sender_id?: string | null;
+
+  /**
+   * The id of the step that this message was created in.
+   */
+  step_id?: string | null;
+
+  /**
+   * The ID of the tool call. Only applicable for role tool.
+   */
+  tool_call_id?: string | null;
+
+  /**
+   * The list of tool calls requested. Only applicable for role assistant.
+   */
+  tool_calls?: Array<InternalMessage.ToolCall> | null;
+
+  /**
+   * Tool execution return information for prior tool calls
+   */
+  tool_returns?: Array<InternalMessage.ToolReturn> | null;
+
+  /**
+   * The timestamp when the object was last updated.
+   */
+  updated_at?: string | null;
+}
+
+export namespace InternalMessage {
+  export interface LettaSchemasMessageToolReturn {
+    /**
+     * The status of the tool call
+     */
+    status: 'success' | 'error';
+
+    /**
+     * The function response string
+     */
+    func_response?: string | null;
+
+    /**
+     * Captured stderr from the tool invocation
+     */
+    stderr?: Array<string> | null;
+
+    /**
+     * Captured stdout (e.g. prints, logs) from the tool invocation
+     */
+    stdout?: Array<string> | null;
+
+    /**
+     * The ID for the tool call
+     */
+    tool_call_id?: unknown;
+  }
+
+  /**
+   * The style of reasoning content returned by the OpenAI Responses API
+   */
+  export interface SummarizedReasoningContent {
+    /**
+     * The unique identifier for this reasoning step.
+     */
+    id: string;
+
+    /**
+     * Summaries of the reasoning content.
+     */
+    summary: Array<SummarizedReasoningContent.Summary>;
+
+    /**
+     * The encrypted reasoning content.
+     */
+    encrypted_content?: string;
+
+    /**
+     * Indicates this is a summarized reasoning step.
+     */
+    type?: 'summarized_reasoning';
+  }
+
+  export namespace SummarizedReasoningContent {
+    export interface Summary {
+      /**
+       * The index of the summary part.
+       */
+      index: number;
+
+      /**
+       * The text of the summary part.
+       */
+      text: string;
+    }
+  }
+
+  export interface ToolCall {
+    id: string;
+
+    function: ToolCall.Function;
+
+    type: 'function';
+
+    [k: string]: unknown;
+  }
+
+  export namespace ToolCall {
+    export interface Function {
+      arguments: string;
+
+      name: string;
+
+      [k: string]: unknown;
+    }
+  }
+
+  export interface ToolReturn {
+    /**
+     * The status of the tool call
+     */
+    status: 'success' | 'error';
+
+    /**
+     * The function response string
+     */
+    func_response?: string | null;
+
+    /**
+     * Captured stderr from the tool invocation
+     */
+    stderr?: Array<string> | null;
+
+    /**
+     * Captured stdout (e.g. prints, logs) from the tool invocation
+     */
+    stdout?: Array<string> | null;
+
+    /**
+     * The ID for the tool call
+     */
+    tool_call_id?: unknown;
+  }
+}
+
+/**
  * Status of the job.
  */
 export type JobStatus = 'created' | 'running' | 'completed' | 'failed' | 'pending' | 'cancelled' | 'expired';
@@ -517,27 +787,6 @@ export interface LettaAssistantMessageContentUnion {
    */
   type?: 'text';
 }
-
-/**
- * A message generated by the system. Never streamed back on a response, only used
- * for cursor pagination.
- *
- * Args: id (str): The ID of the message date (datetime): The date the message was
- * created in ISO format name (Optional[str]): The name of the sender of the
- * message content (str): The message content sent by the system
- */
-export type LettaMessageUnion =
-  | SystemMessage
-  | UserMessage
-  | ReasoningMessage
-  | HiddenReasoningMessage
-  | ToolCallMessage
-  | ToolsAPI.ToolReturnMessage
-  | AssistantMessage
-  | ApprovalRequestMessage
-  | ApprovalResponseMessage
-  | SummaryMessage
-  | EventMessage;
 
 export interface LettaRequest {
   /**
@@ -655,7 +904,7 @@ export interface LettaResponse {
   /**
    * The messages returned by the agent.
    */
-  messages: Array<LettaMessageUnion>;
+  messages: Array<Message>;
 
   /**
    * The stop reason from Letta indicating why agent loop stopped execution.
@@ -930,274 +1179,25 @@ export namespace LettaStreamingResponse {
 export type LettaUserMessageContentUnion = TextContent | ImageContent;
 
 /**
- * Letta's internal representation of a message. Includes methods to convert to/from LLM provider formats.
+ * A message generated by the system. Never streamed back on a response, only used
+ * for cursor pagination.
  *
- *     Attributes:
- *         id (str): The unique identifier of the message.
- *         role (MessageRole): The role of the participant.
- *         text (str): The text of the message.
- *         user_id (str): The unique identifier of the user.
- *         agent_id (str): The unique identifier of the agent.
- *         model (str): The model used to make the function call.
- *         name (str): The name of the participant.
- *         created_at (datetime): The time the message was created.
- *         tool_calls (List[OpenAIToolCall,]): The list of tool calls requested.
- *         tool_call_id (str): The id of the tool call.
- *         step_id (str): The id of the step that this message was created in.
- *         otid (str): The offline threading id associated with this message.
- *         tool_returns (List[ToolReturn]): The list of tool returns requested.
- *         group_id (str): The multi-agent group that the message was sent in.
- *         sender_id (str): The id of the sender of the message, can be an identity id or agent id.
- *
- * t
+ * Args: id (str): The ID of the message date (datetime): The date the message was
+ * created in ISO format name (Optional[str]): The name of the sender of the
+ * message content (str): The message content sent by the system
  */
-export interface Message {
-  /**
-   * The human-friendly ID of the Message
-   */
-  id: string;
-
-  /**
-   * The role of the participant.
-   */
-  role: MessageRole;
-
-  /**
-   * The unique identifier of the agent.
-   */
-  agent_id?: string | null;
-
-  /**
-   * The id of the approval request if this message is associated with a tool call
-   * request.
-   */
-  approval_request_id?: string | null;
-
-  /**
-   * The list of approvals for this message.
-   */
-  approvals?: Array<ApprovalReturn | Message.LettaSchemasMessageToolReturn> | null;
-
-  /**
-   * Whether tool call is approved.
-   */
-  approve?: boolean | null;
-
-  /**
-   * The id of the LLMBatchItem that this message is associated with
-   */
-  batch_item_id?: string | null;
-
-  /**
-   * The content of the message.
-   */
-  content?: Array<
-    | TextContent
-    | ImageContent
-    | ToolCallContent
-    | ToolReturnContent
-    | ReasoningContent
-    | RedactedReasoningContent
-    | OmittedReasoningContent
-    | Message.SummarizedReasoningContent
-  > | null;
-
-  /**
-   * The timestamp when the object was created.
-   */
-  created_at?: string;
-
-  /**
-   * The id of the user that made this object.
-   */
-  created_by_id?: string | null;
-
-  /**
-   * The reason the tool call request was denied.
-   */
-  denial_reason?: string | null;
-
-  /**
-   * The multi-agent group that the message was sent in
-   */
-  group_id?: string | null;
-
-  /**
-   * Whether this message is part of an error step. Used only for debugging purposes.
-   */
-  is_err?: boolean | null;
-
-  /**
-   * The id of the user that made this object.
-   */
-  last_updated_by_id?: string | null;
-
-  /**
-   * The model used to make the function call.
-   */
-  model?: string | null;
-
-  /**
-   * For role user/assistant: the (optional) name of the participant. For role
-   * tool/function: the name of the function called.
-   */
-  name?: string | null;
-
-  /**
-   * The offline threading id associated with this message
-   */
-  otid?: string | null;
-
-  /**
-   * The id of the run that this message was created in.
-   */
-  run_id?: string | null;
-
-  /**
-   * The id of the sender of the message, can be an identity id or agent id
-   */
-  sender_id?: string | null;
-
-  /**
-   * The id of the step that this message was created in.
-   */
-  step_id?: string | null;
-
-  /**
-   * The ID of the tool call. Only applicable for role tool.
-   */
-  tool_call_id?: string | null;
-
-  /**
-   * The list of tool calls requested. Only applicable for role assistant.
-   */
-  tool_calls?: Array<Message.ToolCall> | null;
-
-  /**
-   * Tool execution return information for prior tool calls
-   */
-  tool_returns?: Array<Message.ToolReturn> | null;
-
-  /**
-   * The timestamp when the object was last updated.
-   */
-  updated_at?: string | null;
-}
-
-export namespace Message {
-  export interface LettaSchemasMessageToolReturn {
-    /**
-     * The status of the tool call
-     */
-    status: 'success' | 'error';
-
-    /**
-     * The function response string
-     */
-    func_response?: string | null;
-
-    /**
-     * Captured stderr from the tool invocation
-     */
-    stderr?: Array<string> | null;
-
-    /**
-     * Captured stdout (e.g. prints, logs) from the tool invocation
-     */
-    stdout?: Array<string> | null;
-
-    /**
-     * The ID for the tool call
-     */
-    tool_call_id?: unknown;
-  }
-
-  /**
-   * The style of reasoning content returned by the OpenAI Responses API
-   */
-  export interface SummarizedReasoningContent {
-    /**
-     * The unique identifier for this reasoning step.
-     */
-    id: string;
-
-    /**
-     * Summaries of the reasoning content.
-     */
-    summary: Array<SummarizedReasoningContent.Summary>;
-
-    /**
-     * The encrypted reasoning content.
-     */
-    encrypted_content?: string;
-
-    /**
-     * Indicates this is a summarized reasoning step.
-     */
-    type?: 'summarized_reasoning';
-  }
-
-  export namespace SummarizedReasoningContent {
-    export interface Summary {
-      /**
-       * The index of the summary part.
-       */
-      index: number;
-
-      /**
-       * The text of the summary part.
-       */
-      text: string;
-    }
-  }
-
-  export interface ToolCall {
-    id: string;
-
-    function: ToolCall.Function;
-
-    type: 'function';
-
-    [k: string]: unknown;
-  }
-
-  export namespace ToolCall {
-    export interface Function {
-      arguments: string;
-
-      name: string;
-
-      [k: string]: unknown;
-    }
-  }
-
-  export interface ToolReturn {
-    /**
-     * The status of the tool call
-     */
-    status: 'success' | 'error';
-
-    /**
-     * The function response string
-     */
-    func_response?: string | null;
-
-    /**
-     * Captured stderr from the tool invocation
-     */
-    stderr?: Array<string> | null;
-
-    /**
-     * Captured stdout (e.g. prints, logs) from the tool invocation
-     */
-    stdout?: Array<string> | null;
-
-    /**
-     * The ID for the tool call
-     */
-    tool_call_id?: unknown;
-  }
-}
+export type Message =
+  | SystemMessage
+  | UserMessage
+  | ReasoningMessage
+  | HiddenReasoningMessage
+  | ToolCallMessage
+  | ToolsAPI.ToolReturnMessage
+  | AssistantMessage
+  | ApprovalRequestMessage
+  | ApprovalResponseMessage
+  | SummaryMessage
+  | EventMessage;
 
 export type MessageRole = 'assistant' | 'user' | 'tool' | 'function' | 'system' | 'approval';
 
@@ -2246,10 +2246,10 @@ export declare namespace Messages {
     type EventMessage as EventMessage,
     type HiddenReasoningMessage as HiddenReasoningMessage,
     type ImageContent as ImageContent,
+    type InternalMessage as InternalMessage,
     type JobStatus as JobStatus,
     type JobType as JobType,
     type LettaAssistantMessageContentUnion as LettaAssistantMessageContentUnion,
-    type LettaMessageUnion as LettaMessageUnion,
     type LettaRequest as LettaRequest,
     type LettaResponse as LettaResponse,
     type LettaStreamingRequest as LettaStreamingRequest,
@@ -2279,7 +2279,7 @@ export declare namespace Messages {
     type UserMessage as UserMessage,
     type MessageCancelResponse as MessageCancelResponse,
     type MessageModifyResponse as MessageModifyResponse,
-    type LettaMessageUnionsArrayPage as LettaMessageUnionsArrayPage,
+    type MessagesArrayPage as MessagesArrayPage,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,
     type MessageModifyParams as MessageModifyParams,
