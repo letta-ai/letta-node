@@ -116,14 +116,19 @@ export interface Archive {
 export type VectorDBProvider = 'native' | 'tpuf' | 'pinecone';
 
 export interface ArchiveCreateParams {
-  /**
-   * Embedding configuration for the archive
-   */
-  embedding_config: ModelsAPI.EmbeddingConfig;
-
   name: string;
 
   description?: string | null;
+
+  /**
+   * Embedding model handle for the archive
+   */
+  embedding?: string | null;
+
+  /**
+   * Configuration for embedding model connection and processing parameters.
+   */
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
 }
 
 export interface ArchiveListParams extends ArrayPageParams {
