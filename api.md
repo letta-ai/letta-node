@@ -346,7 +346,6 @@ Types:
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerRetrieveResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerUpdateResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerListResponse</a></code>
-- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerConnectResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerRefreshResponse</a></code>
 
 Methods:
@@ -356,7 +355,6 @@ Methods:
 - <code title="patch /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">update</a>(mcpServerID, { ...params }) -> McpServerUpdateResponse</code>
 - <code title="get /v1/mcp-servers/">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">list</a>() -> McpServerListResponse</code>
 - <code title="delete /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">delete</a>(mcpServerID) -> void</code>
-- <code title="get /v1/mcp-servers/connect/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">connect</a>(mcpServerID) -> unknown</code>
 - <code title="patch /v1/mcp-servers/{mcp_server_id}/refresh">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">refresh</a>(mcpServerID, { ...params }) -> unknown</code>
 
 ## Tools
