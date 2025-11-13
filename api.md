@@ -105,10 +105,10 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/resources/agents/messages.ts">update</a>(messageID, { ...params }) -> MessageUpdateResponse</code>
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">list</a>(agentID, { ...params }) -> MessagesArrayPage</code>
 - <code title="post /v1/agents/{agent_id}/messages/cancel">client.agents.messages.<a href="./src/resources/agents/messages.ts">cancel</a>(agentID, { ...params }) -> MessageCancelResponse</code>
+- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">compact</a>(agentID) -> void</code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/resources/agents/messages.ts">createAsync</a>(agentID, { ...params }) -> Run</code>
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState</code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/resources/agents/messages.ts">stream</a>(agentID, { ...params }) -> LettaStreamingResponse</code>
-- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">summarize</a>(agentID) -> void</code>
 
 ## Blocks
 
