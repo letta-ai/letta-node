@@ -104,6 +104,18 @@ describe('resource messages', () => {
   });
 
   // Prism tests are disabled
+  test.skip('compact', async () => {
+    const responsePromise = client.agents.messages.compact('agent-123e4567-e89b-42d3-8456-426614174000');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
   test.skip('createAsync', async () => {
     const responsePromise = client.agents.messages.createAsync(
       'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -133,18 +145,6 @@ describe('resource messages', () => {
   // Prism tests are disabled
   test.skip('stream', async () => {
     const responsePromise = client.agents.messages.stream('agent-123e4567-e89b-42d3-8456-426614174000', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('summarize', async () => {
-    const responsePromise = client.agents.messages.summarize('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
