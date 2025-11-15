@@ -105,10 +105,10 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/resources/agents/messages.ts">update</a>(messageID, { ...params }) -> MessageUpdateResponse</code>
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">list</a>(agentID, { ...params }) -> MessagesArrayPage</code>
 - <code title="post /v1/agents/{agent_id}/messages/cancel">client.agents.messages.<a href="./src/resources/agents/messages.ts">cancel</a>(agentID, { ...params }) -> MessageCancelResponse</code>
+- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">compact</a>(agentID) -> void</code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/resources/agents/messages.ts">createAsync</a>(agentID, { ...params }) -> Run</code>
-- <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState</code>
+- <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState | null</code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/resources/agents/messages.ts">stream</a>(agentID, { ...params }) -> LettaStreamingResponse</code>
-- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">summarize</a>(agentID) -> void</code>
 
 ## Blocks
 
@@ -122,8 +122,8 @@ Methods:
 - <code title="get /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">retrieve</a>(blockLabel, { ...params }) -> BlockResponse</code>
 - <code title="patch /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">update</a>(blockLabel, { ...params }) -> BlockResponse</code>
 - <code title="get /v1/agents/{agent_id}/core-memory/blocks">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">list</a>(agentID, { ...params }) -> BlockResponsesArrayPage</code>
-- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">attach</a>(blockID, { ...params }) -> AgentState</code>
-- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">detach</a>(blockID, { ...params }) -> AgentState</code>
+- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">attach</a>(blockID, { ...params }) -> AgentState | null</code>
+- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}">client.agents.blocks.<a href="./src/resources/agents/blocks.ts">detach</a>(blockID, { ...params }) -> AgentState | null</code>
 
 ## Tools
 
@@ -143,8 +143,8 @@ Types:
 Methods:
 
 - <code title="get /v1/agents/{agent_id}/folders">client.agents.folders.<a href="./src/resources/agents/folders.ts">list</a>(agentID, { ...params }) -> FolderListResponsesArrayPage</code>
-- <code title="patch /v1/agents/{agent_id}/folders/attach/{folder_id}">client.agents.folders.<a href="./src/resources/agents/folders.ts">attach</a>(folderID, { ...params }) -> AgentState</code>
-- <code title="patch /v1/agents/{agent_id}/folders/detach/{folder_id}">client.agents.folders.<a href="./src/resources/agents/folders.ts">detach</a>(folderID, { ...params }) -> AgentState</code>
+- <code title="patch /v1/agents/{agent_id}/folders/attach/{folder_id}">client.agents.folders.<a href="./src/resources/agents/folders.ts">attach</a>(folderID, { ...params }) -> AgentState | null</code>
+- <code title="patch /v1/agents/{agent_id}/folders/detach/{folder_id}">client.agents.folders.<a href="./src/resources/agents/folders.ts">detach</a>(folderID, { ...params }) -> AgentState | null</code>
 
 ## Files
 
@@ -346,7 +346,6 @@ Types:
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerRetrieveResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerUpdateResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerListResponse</a></code>
-- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerConnectResponse</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpServerRefreshResponse</a></code>
 
 Methods:
@@ -356,7 +355,6 @@ Methods:
 - <code title="patch /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">update</a>(mcpServerID, { ...params }) -> McpServerUpdateResponse</code>
 - <code title="get /v1/mcp-servers/">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">list</a>() -> McpServerListResponse</code>
 - <code title="delete /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">delete</a>(mcpServerID) -> void</code>
-- <code title="get /v1/mcp-servers/connect/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">connect</a>(mcpServerID) -> unknown</code>
 - <code title="patch /v1/mcp-servers/{mcp_server_id}/refresh">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">refresh</a>(mcpServerID, { ...params }) -> unknown</code>
 
 ## Tools

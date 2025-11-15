@@ -55,14 +55,6 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Connect to an MCP server with support for OAuth via SSE. Returns a stream of
-   * events handling authorization state and exchange if OAuth is required.
-   */
-  connect(mcpServerID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.get(path`/v1/mcp-servers/connect/${mcpServerID}`, options);
-  }
-
-  /**
    * Refresh tools for an MCP server by:
    *
    * 1. Fetching current tools from the MCP server
@@ -438,8 +430,6 @@ export type McpServerUpdateResponse = StdioMcpServer | SseMcpServer | Streamable
 
 export type McpServerListResponse = Array<StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer>;
 
-export type McpServerConnectResponse = unknown;
-
 export type McpServerRefreshResponse = unknown;
 
 export type McpServerCreateParams =
@@ -647,7 +637,6 @@ export declare namespace McpServers {
     type McpServerRetrieveResponse as McpServerRetrieveResponse,
     type McpServerUpdateResponse as McpServerUpdateResponse,
     type McpServerListResponse as McpServerListResponse,
-    type McpServerConnectResponse as McpServerConnectResponse,
     type McpServerRefreshResponse as McpServerRefreshResponse,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,

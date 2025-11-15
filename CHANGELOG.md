@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.0-alpha.21 (2025-11-15)
+
+Full Changelog: [v1.0.0-alpha.20...v1.0.0-alpha.21](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.20...v1.0.0-alpha.21)
+
+### Features
+
+* make attach/detach routes return None if version is 1.0 [LET-5844] ([9681272](https://github.com/letta-ai/letta-node/commit/9681272d5d81a5101bec87080b0d9d240f7df6c1))
+
+
+### Chores
+
+* remove mcp-servers connect for stainless [LET-6166] ([fbaa041](https://github.com/letta-ai/letta-node/commit/fbaa041aae7a21d9e3ba0be4516fcacc52c32cbe))
+* rename summarize to compact in sdk ([9f58804](https://github.com/letta-ai/letta-node/commit/9f5880448cf253b15ef69e36bac6a29394699e7c))
+
 ## 1.0.0-alpha.20 (2025-11-12)
 
 Full Changelog: [v1.0.0-alpha.19...v1.0.0-alpha.20](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.19...v1.0.0-alpha.20)

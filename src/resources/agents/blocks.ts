@@ -59,7 +59,7 @@ export class Blocks extends APIResource {
     blockID: string,
     params: BlockAttachParams,
     options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
+  ): APIPromise<AgentsAPI.AgentState | null> {
     const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/attach/${blockID}`, options);
   }
@@ -71,7 +71,7 @@ export class Blocks extends APIResource {
     blockID: string,
     params: BlockDetachParams,
     options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
+  ): APIPromise<AgentsAPI.AgentState | null> {
     const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/detach/${blockID}`, options);
   }

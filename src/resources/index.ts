@@ -120,7 +120,6 @@ export {
   type McpServerRetrieveResponse,
   type McpServerUpdateResponse,
   type McpServerListResponse,
-  type McpServerConnectResponse,
   type McpServerRefreshResponse,
   type McpServerCreateParams,
   type McpServerUpdateParams,
