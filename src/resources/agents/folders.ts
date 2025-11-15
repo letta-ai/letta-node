@@ -31,7 +31,7 @@ export class Folders extends APIResource {
     folderID: string,
     params: FolderAttachParams,
     options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
+  ): APIPromise<AgentsAPI.AgentState | null> {
     const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/folders/attach/${folderID}`, options);
   }
@@ -43,7 +43,7 @@ export class Folders extends APIResource {
     folderID: string,
     params: FolderDetachParams,
     options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
+  ): APIPromise<AgentsAPI.AgentState | null> {
     const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/folders/detach/${folderID}`, options);
   }
