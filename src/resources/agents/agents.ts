@@ -314,7 +314,8 @@ export interface AgentState {
   name: string;
 
   /**
-   * The sources used by the agent.
+   * @deprecated Deprecated: Use `folders` field instead. The sources used by the
+   * agent.
    */
   sources: Array<AgentState.Source>;
 
@@ -561,7 +562,8 @@ export namespace AgentState {
       is_open: boolean;
 
       /**
-       * Unique identifier of the source.
+       * @deprecated Deprecated: Use `folder_id` field instead. Unique identifier of the
+       * source.
        */
       source_id: string;
 
@@ -1499,6 +1501,11 @@ export interface AgentCreateParams {
   enable_sleeptime?: boolean | null;
 
   /**
+   * The ids of the folders used by the agent.
+   */
+  folder_ids?: Array<string> | null;
+
+  /**
    * @deprecated Deprecated: please use the 'create agents from a template' endpoint
    * instead.
    */
@@ -1662,7 +1669,8 @@ export interface AgentCreateParams {
   secrets?: { [key: string]: string } | null;
 
   /**
-   * The ids of the sources used by the agent.
+   * @deprecated Deprecated: Use `folder_ids` field instead. The ids of the sources
+   * used by the agent.
    */
   source_ids?: Array<string> | null;
 
@@ -1783,6 +1791,11 @@ export interface AgentUpdateParams {
    * If set to True, memory management will move to a background agent thread.
    */
   enable_sleeptime?: boolean | null;
+
+  /**
+   * The ids of the folders used by the agent.
+   */
+  folder_ids?: Array<string> | null;
 
   /**
    * If set to True, the agent will be hidden.
@@ -1909,7 +1922,8 @@ export interface AgentUpdateParams {
   secrets?: { [key: string]: string } | null;
 
   /**
-   * The ids of the sources used by the agent.
+   * @deprecated Deprecated: Use `folder_ids` field instead. The ids of the sources
+   * used by the agent.
    */
   source_ids?: Array<string> | null;
 
