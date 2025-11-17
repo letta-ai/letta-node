@@ -101,7 +101,8 @@ export interface PassageCreateResponse {
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The data source of the passage.
+   * @deprecated Deprecated: Use `folder_id` field instead. The data source of the
+   * passage.
    */
   source_id?: string | null;
 
