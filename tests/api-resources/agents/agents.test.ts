@@ -154,11 +154,14 @@ describe('resource agents', () => {
     const response = await client.agents.importFile({
       file: await toFile(Buffer.from('# my file contents'), 'README.md'),
       append_copy_suffix: true,
+      embedding: 'embedding',
       env_vars_json: 'env_vars_json',
+      name: 'name',
       override_embedding_handle: 'override_embedding_handle',
       override_existing_tools: true,
       override_name: 'override_name',
       project_id: 'project_id',
+      secrets: 'secrets',
       strip_messages: true,
       'x-override-embedding-model': 'x-override-embedding-model',
     });

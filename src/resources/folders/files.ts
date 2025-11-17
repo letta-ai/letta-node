@@ -63,7 +63,8 @@ export interface FileListResponse {
   id: string;
 
   /**
-   * The unique identifier of the source associated with the document.
+   * @deprecated Deprecated: Use `folder_id` field instead. The unique identifier of
+   * the source associated with the document.
    */
   source_id: string;
 
@@ -150,7 +151,8 @@ export interface FileUploadResponse {
   id: string;
 
   /**
-   * The unique identifier of the source associated with the document.
+   * @deprecated Deprecated: Use `folder_id` field instead. The unique identifier of
+   * the source associated with the document.
    */
   source_id: string;
 

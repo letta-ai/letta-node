@@ -314,7 +314,8 @@ export interface AgentState {
   name: string;
 
   /**
-   * The sources used by the agent.
+   * @deprecated Deprecated: Use `folders` field instead. The sources used by the
+   * agent.
    */
   sources: Array<AgentState.Source>;
 
@@ -561,7 +562,8 @@ export namespace AgentState {
       is_open: boolean;
 
       /**
-       * Unique identifier of the source.
+       * @deprecated Deprecated: Use `folder_id` field instead. Unique identifier of the
+       * source.
        */
       source_id: string;
 
@@ -744,6 +746,11 @@ export interface AnthropicModelSettings {
    * The maximum number of tokens the model can generate.
    */
   max_output_tokens?: number;
+
+  /**
+   * The structured output format for the model.
+   */
+  output_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
   /**
    * Whether to enable parallel tool calling.
@@ -1499,6 +1506,11 @@ export interface AgentCreateParams {
   enable_sleeptime?: boolean | null;
 
   /**
+   * The ids of the folders used by the agent.
+   */
+  folder_ids?: Array<string> | null;
+
+  /**
    * @deprecated Deprecated: please use the 'create agents from a template' endpoint
    * instead.
    */
@@ -1662,7 +1674,8 @@ export interface AgentCreateParams {
   secrets?: { [key: string]: string } | null;
 
   /**
-   * The ids of the sources used by the agent.
+   * @deprecated Deprecated: Use `folder_ids` field instead. The ids of the sources
+   * used by the agent.
    */
   source_ids?: Array<string> | null;
 
@@ -1783,6 +1796,11 @@ export interface AgentUpdateParams {
    * If set to True, memory management will move to a background agent thread.
    */
   enable_sleeptime?: boolean | null;
+
+  /**
+   * The ids of the folders used by the agent.
+   */
+  folder_ids?: Array<string> | null;
 
   /**
    * If set to True, the agent will be hidden.
@@ -1909,7 +1927,8 @@ export interface AgentUpdateParams {
   secrets?: { [key: string]: string } | null;
 
   /**
-   * The ids of the sources used by the agent.
+   * @deprecated Deprecated: Use `folder_ids` field instead. The ids of the sources
+   * used by the agent.
    */
   source_ids?: Array<string> | null;
 
@@ -2073,13 +2092,24 @@ export interface AgentImportFileParams {
   append_copy_suffix?: boolean;
 
   /**
-   * Body param: Environment variables as a JSON string to pass to the agent for tool
-   * execution.
+   * Body param: Embedding handle to override with.
+   */
+  embedding?: string | null;
+
+  /**
+   * @deprecated Body param: Environment variables as a JSON string to pass to the
+   * agent for tool execution. Use 'secrets' instead.
    */
   env_vars_json?: string | null;
 
   /**
-   * Body param: Override import with specific embedding handle.
+   * Body param: If provided, overrides the agent name with this value.
+   */
+  name?: string | null;
+
+  /**
+   * @deprecated Body param: Override import with specific embedding handle. Use
+   * 'embedding' instead.
    */
   override_embedding_handle?: string | null;
 
@@ -2091,14 +2121,21 @@ export interface AgentImportFileParams {
   override_existing_tools?: boolean;
 
   /**
-   * Body param: If provided, overrides the agent name with this value.
+   * @deprecated Body param: If provided, overrides the agent name with this value.
+   * Use 'name' instead.
    */
   override_name?: string | null;
 
   /**
-   * Body param: The project ID to associate the uploaded agent with.
+   * @deprecated Body param: The project ID to associate the uploaded agent with.
+   * This is now passed via headers.
    */
   project_id?: string | null;
+
+  /**
+   * Body param: Secrets as a JSON string to pass to the agent for tool execution.
+   */
+  secrets?: string | null;
 
   /**
    * Body param: If set to True, strips all messages from the agent before importing.

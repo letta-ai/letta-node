@@ -97,6 +97,16 @@ export class Messages extends APIResource {
   }
 
   /**
+   * Summarize an agent's conversation history.
+   */
+  compact(agentID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/agents/${agentID}/summarize`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Asynchronously process a user message and return a run object. The actual
    * processing happens in the background, and the status can be checked using the
    * run ID.
@@ -134,16 +144,6 @@ export class Messages extends APIResource {
       ...options,
       stream: true,
     }) as APIPromise<Stream<LettaStreamingResponse>>;
-  }
-
-  /**
-   * Summarize an agent's conversation history.
-   */
-  summarize(agentID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v1/agents/${agentID}/summarize`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 

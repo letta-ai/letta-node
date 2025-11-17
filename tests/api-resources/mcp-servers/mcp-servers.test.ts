@@ -84,18 +84,6 @@ describe('resource mcpServers', () => {
   });
 
   // Prism tests are disabled
-  test.skip('connect', async () => {
-    const responsePromise = client.mcpServers.connect('mcp_server_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
   test.skip('refresh', async () => {
     const responsePromise = client.mcpServers.refresh('mcp_server_id');
     const rawResponse = await responsePromise.asResponse();
