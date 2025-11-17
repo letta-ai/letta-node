@@ -125,7 +125,7 @@ export class Messages extends APIResource {
     agentID: string,
     body: MessageResetParams,
     options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
+  ): APIPromise<AgentsAPI.AgentState | null> {
     return this._client.patch(path`/v1/agents/${agentID}/reset-messages`, { body, ...options });
   }
 
