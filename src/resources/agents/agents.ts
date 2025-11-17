@@ -2092,13 +2092,24 @@ export interface AgentImportFileParams {
   append_copy_suffix?: boolean;
 
   /**
-   * Body param: Environment variables as a JSON string to pass to the agent for tool
-   * execution.
+   * Body param: Embedding handle to override with.
+   */
+  embedding?: string | null;
+
+  /**
+   * @deprecated Body param: Environment variables as a JSON string to pass to the
+   * agent for tool execution. Use 'secrets' instead.
    */
   env_vars_json?: string | null;
 
   /**
-   * Body param: Override import with specific embedding handle.
+   * Body param: If provided, overrides the agent name with this value.
+   */
+  name?: string | null;
+
+  /**
+   * @deprecated Body param: Override import with specific embedding handle. Use
+   * 'embedding' instead.
    */
   override_embedding_handle?: string | null;
 
@@ -2110,14 +2121,21 @@ export interface AgentImportFileParams {
   override_existing_tools?: boolean;
 
   /**
-   * Body param: If provided, overrides the agent name with this value.
+   * @deprecated Body param: If provided, overrides the agent name with this value.
+   * Use 'name' instead.
    */
   override_name?: string | null;
 
   /**
-   * Body param: The project ID to associate the uploaded agent with.
+   * @deprecated Body param: The project ID to associate the uploaded agent with.
+   * This is now passed via headers.
    */
   project_id?: string | null;
+
+  /**
+   * Body param: Secrets as a JSON string to pass to the agent for tool execution.
+   */
+  secrets?: string | null;
 
   /**
    * Body param: If set to True, strips all messages from the agent before importing.
