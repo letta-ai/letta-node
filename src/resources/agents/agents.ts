@@ -748,6 +748,11 @@ export interface AnthropicModelSettings {
   max_output_tokens?: number;
 
   /**
+   * The structured output format for the model.
+   */
+  output_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
    * Whether to enable parallel tool calling.
    */
   parallel_tool_calls?: boolean;
