@@ -317,7 +317,7 @@ export interface LlmConfig {
   /**
    * The reasoning effort to use when generating text reasoning models
    */
-  reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high' | null;
+  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | null;
 
   /**
    * The temperature to use when generating text with the model. A higher temperature
@@ -466,7 +466,7 @@ export interface Model {
    * @deprecated Deprecated: The reasoning effort to use when generating text
    * reasoning models.
    */
-  reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high' | null;
+  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | null;
 
   /**
    * @deprecated Deprecated: The temperature to use when generating text with the
