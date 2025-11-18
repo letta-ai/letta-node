@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0-alpha.22 (2025-11-18)
+
+Full Changelog: [v1.0.0-alpha.21...v1.0.0-alpha.22](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.21...v1.0.0-alpha.22)
+
+### Features
+
+* make config for mcp_servers and messages.modify nested ([3ce1bc2](https://github.com/letta-ai/letta-node/commit/3ce1bc2c17000fbf9de21410675ad00e2fc7e2fb))
+
+
+### Bug Fixes
+
+* make attach/detach routes return None if sdk verion 1.0 ([95ab434](https://github.com/letta-ai/letta-node/commit/95ab4342ac7e201f9cd7ac85d35503205b76abad))
+
 ## 1.0.0-alpha.21 (2025-11-17)
 
 Full Changelog: [v1.0.0-alpha.20...v1.0.0-alpha.21](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.20...v1.0.0-alpha.21)

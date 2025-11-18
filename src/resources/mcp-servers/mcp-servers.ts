@@ -82,11 +82,6 @@ export class McpServers extends APIResource {
  */
 export interface CreateSseMcpServer {
   /**
-   * The name of the server
-   */
-  server_name: string;
-
-  /**
    * The URL of the server
    */
   server_url: string;
@@ -106,7 +101,7 @@ export interface CreateSseMcpServer {
    */
   custom_headers?: { [key: string]: string } | null;
 
-  type?: 'sse' | 'stdio' | 'streamable_http';
+  mcp_server_type?: 'sse';
 }
 
 /**
@@ -124,27 +119,17 @@ export interface CreateStdioMcpServer {
   command: string;
 
   /**
-   * The name of the server
-   */
-  server_name: string;
-
-  /**
    * Environment variables to set
    */
   env?: { [key: string]: string } | null;
 
-  type?: 'sse' | 'stdio' | 'streamable_http';
+  mcp_server_type?: 'stdio';
 }
 
 /**
  * Create a new Streamable HTTP MCP server
  */
 export interface CreateStreamableHTTPMcpServer {
-  /**
-   * The name of the server
-   */
-  server_name: string;
-
   /**
    * The URL of the server
    */
@@ -165,7 +150,7 @@ export interface CreateStreamableHTTPMcpServer {
    */
   custom_headers?: { [key: string]: string } | null;
 
-  type?: 'sse' | 'stdio' | 'streamable_http';
+  mcp_server_type?: 'streamable_http';
 }
 
 /**
@@ -183,7 +168,7 @@ export interface McpToolExecuteRequest {
  */
 export interface SseMcpServer {
   /**
-   * The name of the server
+   * The name of the MCP server
    */
   server_name: string;
 
@@ -212,7 +197,7 @@ export interface SseMcpServer {
    */
   custom_headers?: { [key: string]: string } | null;
 
-  type?: 'sse' | 'stdio' | 'streamable_http';
+  mcp_server_type?: 'sse';
 }
 
 /**
@@ -230,7 +215,7 @@ export interface StdioMcpServer {
   command: string;
 
   /**
-   * The name of the server
+   * The name of the MCP server
    */
   server_name: string;
 
@@ -244,7 +229,7 @@ export interface StdioMcpServer {
    */
   env?: { [key: string]: string } | null;
 
-  type?: 'sse' | 'stdio' | 'streamable_http';
+  mcp_server_type?: 'stdio';
 }
 
 /**
@@ -252,7 +237,7 @@ export interface StdioMcpServer {
  */
 export interface StreamableHTTPMcpServer {
   /**
-   * The name of the server
+   * The name of the MCP server
    */
   server_name: string;
 
@@ -281,7 +266,7 @@ export interface StreamableHTTPMcpServer {
    */
   custom_headers?: { [key: string]: string } | null;
 
-  type?: 'sse' | 'stdio' | 'streamable_http';
+  mcp_server_type?: 'streamable_http';
 }
 
 export interface ToolExecutionResult {
@@ -323,9 +308,9 @@ export interface ToolExecutionResult {
  */
 export interface UpdateSseMcpServer {
   /**
-   * The authentication token (internal)
+   * The URL of the server
    */
-  token?: string | null;
+  server_url: string | null;
 
   /**
    * The name of the authentication header (e.g., 'Authorization')
@@ -338,19 +323,11 @@ export interface UpdateSseMcpServer {
   auth_token?: string | null;
 
   /**
-   * Custom headers to send with requests
+   * Custom HTTP headers to include with requests
    */
   custom_headers?: { [key: string]: string } | null;
 
-  /**
-   * The name of the MCP server
-   */
-  server_name?: string | null;
-
-  /**
-   * The URL of the SSE MCP server
-   */
-  server_url?: string | null;
+  mcp_server_type?: 'sse';
 }
 
 /**
@@ -360,22 +337,19 @@ export interface UpdateStdioMcpServer {
   /**
    * The arguments to pass to the command
    */
-  args?: Array<string> | null;
+  args: Array<string> | null;
 
   /**
-   * The command to run the MCP server
+   * The command to run (MCP 'local' client will run this command)
    */
-  command?: string | null;
+  command: string | null;
 
   /**
    * Environment variables to set
    */
   env?: { [key: string]: string } | null;
 
-  /**
-   * The name of the MCP server
-   */
-  server_name?: string | null;
+  mcp_server_type?: 'stdio';
 }
 
 /**
@@ -383,9 +357,9 @@ export interface UpdateStdioMcpServer {
  */
 export interface UpdateStreamableHTTPMcpServer {
   /**
-   * The authentication token (internal)
+   * The URL of the server
    */
-  token?: string | null;
+  server_url: string | null;
 
   /**
    * The name of the authentication header (e.g., 'Authorization')
@@ -398,19 +372,11 @@ export interface UpdateStreamableHTTPMcpServer {
   auth_token?: string | null;
 
   /**
-   * Custom headers to send with requests
+   * Custom HTTP headers to include with requests
    */
   custom_headers?: { [key: string]: string } | null;
 
-  /**
-   * The name of the MCP server
-   */
-  server_name?: string | null;
-
-  /**
-   * The URL of the Streamable HTTP MCP server
-   */
-  server_url?: string | null;
+  mcp_server_type?: 'streamable_http';
 }
 
 /**
@@ -432,186 +398,28 @@ export type McpServerListResponse = Array<StdioMcpServer | SseMcpServer | Stream
 
 export type McpServerRefreshResponse = unknown;
 
-export type McpServerCreateParams =
-  | McpServerCreateParams.CreateStdioMcpServer
-  | McpServerCreateParams.CreateSseMcpServer
-  | McpServerCreateParams.CreateStreamableHTTPMcpServer;
+export interface McpServerCreateParams {
+  /**
+   * The MCP server configuration (Stdio, SSE, or Streamable HTTP)
+   */
+  config: CreateStdioMcpServer | CreateSseMcpServer | CreateStreamableHTTPMcpServer;
 
-export declare namespace McpServerCreateParams {
-  export interface CreateStdioMcpServer {
-    /**
-     * The arguments to pass to the command
-     */
-    args: Array<string>;
-
-    /**
-     * The command to run (MCP 'local' client will run this command)
-     */
-    command: string;
-
-    /**
-     * The name of the server
-     */
-    server_name: string;
-
-    /**
-     * Environment variables to set
-     */
-    env?: { [key: string]: string } | null;
-
-    type?: 'sse' | 'stdio' | 'streamable_http';
-  }
-
-  export interface CreateSseMcpServer {
-    /**
-     * The name of the server
-     */
-    server_name: string;
-
-    /**
-     * The URL of the server
-     */
-    server_url: string;
-
-    /**
-     * The name of the authentication header (e.g., 'Authorization')
-     */
-    auth_header?: string | null;
-
-    /**
-     * The authentication token or API key value
-     */
-    auth_token?: string | null;
-
-    /**
-     * Custom HTTP headers to include with requests
-     */
-    custom_headers?: { [key: string]: string } | null;
-
-    type?: 'sse' | 'stdio' | 'streamable_http';
-  }
-
-  export interface CreateStreamableHTTPMcpServer {
-    /**
-     * The name of the server
-     */
-    server_name: string;
-
-    /**
-     * The URL of the server
-     */
-    server_url: string;
-
-    /**
-     * The name of the authentication header (e.g., 'Authorization')
-     */
-    auth_header?: string | null;
-
-    /**
-     * The authentication token or API key value
-     */
-    auth_token?: string | null;
-
-    /**
-     * Custom HTTP headers to include with requests
-     */
-    custom_headers?: { [key: string]: string } | null;
-
-    type?: 'sse' | 'stdio' | 'streamable_http';
-  }
+  /**
+   * The name of the MCP server
+   */
+  server_name: string;
 }
 
-export type McpServerUpdateParams =
-  | McpServerUpdateParams.UpdateStdioMcpServer
-  | McpServerUpdateParams.UpdateSseMcpServer
-  | McpServerUpdateParams.UpdateStreamableHTTPMcpServer;
+export interface McpServerUpdateParams {
+  /**
+   * The MCP server configuration updates (Stdio, SSE, or Streamable HTTP)
+   */
+  config: UpdateStdioMcpServer | UpdateSseMcpServer | UpdateStreamableHTTPMcpServer;
 
-export declare namespace McpServerUpdateParams {
-  export interface UpdateStdioMcpServer {
-    /**
-     * The arguments to pass to the command
-     */
-    args?: Array<string> | null;
-
-    /**
-     * The command to run the MCP server
-     */
-    command?: string | null;
-
-    /**
-     * Environment variables to set
-     */
-    env?: { [key: string]: string } | null;
-
-    /**
-     * The name of the MCP server
-     */
-    server_name?: string | null;
-  }
-
-  export interface UpdateSseMcpServer {
-    /**
-     * The authentication token (internal)
-     */
-    token?: string | null;
-
-    /**
-     * The name of the authentication header (e.g., 'Authorization')
-     */
-    auth_header?: string | null;
-
-    /**
-     * The authentication token or API key value
-     */
-    auth_token?: string | null;
-
-    /**
-     * Custom headers to send with requests
-     */
-    custom_headers?: { [key: string]: string } | null;
-
-    /**
-     * The name of the MCP server
-     */
-    server_name?: string | null;
-
-    /**
-     * The URL of the SSE MCP server
-     */
-    server_url?: string | null;
-  }
-
-  export interface UpdateStreamableHTTPMcpServer {
-    /**
-     * The authentication token (internal)
-     */
-    token?: string | null;
-
-    /**
-     * The name of the authentication header (e.g., 'Authorization')
-     */
-    auth_header?: string | null;
-
-    /**
-     * The authentication token or API key value
-     */
-    auth_token?: string | null;
-
-    /**
-     * Custom headers to send with requests
-     */
-    custom_headers?: { [key: string]: string } | null;
-
-    /**
-     * The name of the MCP server
-     */
-    server_name?: string | null;
-
-    /**
-     * The URL of the Streamable HTTP MCP server
-     */
-    server_url?: string | null;
-  }
+  /**
+   * The name of the MCP server
+   */
+  server_name?: string | null;
 }
 
 export interface McpServerRefreshParams {
