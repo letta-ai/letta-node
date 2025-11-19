@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.0 (2025-11-19)
+
+Full Changelog: [v1.0.0-alpha.22...v1.0.0](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.22...v1.0.0)
+
+### Features
+
+* add client side access tokens to stainless ([9c79dd0](https://github.com/letta-ai/letta-node/commit/9c79dd06df9871369568323bbe30b4cbf2f97727))
+* hack at gpt51 [LET-6178] ([1f3743e](https://github.com/letta-ai/letta-node/commit/1f3743e56c0544f4e8e59c1a7219b462a0e2dec7))
+* Revert "feat: support anthropic structured outputs [LET-6190]" ([1b7a65a](https://github.com/letta-ai/letta-node/commit/1b7a65a66999dbfbd1d43f1d6592a0278251d299))
+
 ## 1.0.0-alpha.22 (2025-11-18)
 
 Full Changelog: [v1.0.0-alpha.21...v1.0.0-alpha.22](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.21...v1.0.0-alpha.22)
