@@ -746,11 +746,6 @@ export interface AnthropicModelSettings {
   max_output_tokens?: number;
 
   /**
-   * The structured output format for the model.
-   */
-  output_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
-
-  /**
    * Whether to enable parallel tool calling.
    */
   parallel_tool_calls?: boolean;
@@ -1284,7 +1279,7 @@ export namespace OpenAIModelSettings {
     /**
      * The reasoning effort to use when generating text reasoning models
      */
-    reasoning_effort?: 'minimal' | 'low' | 'medium' | 'high';
+    reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high';
   }
 }
 
