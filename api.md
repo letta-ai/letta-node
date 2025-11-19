@@ -564,3 +564,17 @@ Methods:
 Methods:
 
 - <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/resources/batches/messages.ts">list</a>(batchID, { ...params }) -> InternalMessagesObjectPage</code>
+
+# AccessTokens
+
+Types:
+
+- <code><a href="./src/resources/access-tokens.ts">AccessTokenCreateResponse</a></code>
+- <code><a href="./src/resources/access-tokens.ts">AccessTokenListResponse</a></code>
+- <code><a href="./src/resources/access-tokens.ts">AccessTokenDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/client-side-access-tokens">client.accessTokens.<a href="./src/resources/access-tokens.ts">create</a>({ ...params }) -> AccessTokenCreateResponse</code>
+- <code title="get /v1/client-side-access-tokens">client.accessTokens.<a href="./src/resources/access-tokens.ts">list</a>({ ...params }) -> AccessTokenListResponse</code>
+- <code title="delete /v1/client-side-access-tokens/{token}">client.accessTokens.<a href="./src/resources/access-tokens.ts">delete</a>(token, { ...params }) -> unknown</code>
