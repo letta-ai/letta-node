@@ -207,14 +207,11 @@ Give agents access to files:
 ```typescript
 import { createReadStream } from 'fs';
 
-// Get an available embedding config
-const embeddingConfigs = await client.models.embeddings.list();
-
 // Create folder and upload file
 const folder = await client.folders.create({
   name: "my_folder",
-  embeddingConfig: embeddingConfigs[0]
 });
+
 await client.folders.files.upload(createReadStream("file.txt"), folder.id);
 
 // Attach to agent
@@ -226,7 +223,7 @@ await client.agents.folders.attach(agent.id, folder.id);
 Background execution with resumable streaming:
 
 ```typescript
-const stream = await client.agents.messages.stream(agent.id, {
+const stream = await client.agents.messages.create(agent.id, {
   messages: [{ role: "user", content: "Analyze this dataset" }],
   background: true
 });
