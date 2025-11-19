@@ -27,7 +27,7 @@ In the example below, we'll create a stateful agent with two memory blocks. We'l
 ```typescript
 import { LettaClient } from '@letta-ai/letta-client';
 
-const client = new LettaClient({ token: "LETTA_API_KEY" });
+const client = new LettaClient({ apiKey: "LETTA_API_KEY" });
 // const client = new LettaClient({ baseUrl: "http://localhost:8283" });  // if self-hosting
 
 const agentState = await client.agents.create({
@@ -116,8 +116,8 @@ const agent = await client.agents.create({
   ]
 });
 
-// Modify blocks manually
-await client.agents.blocks.modify(agent.id, "human", {
+// Update blocks manually
+await client.agents.blocks.update(agent.id, "human", {
   value: "Updated user information"
 });
 
@@ -170,10 +170,10 @@ import { readFileSync } from 'fs';
 
 // Import agent
 const file = new Blob([readFileSync('/path/to/agent.af')]);
-const agent = await client.agents.importAgentSerialized(file);
+const agent = await client.agents.importFile(file);
 
 // Export agent
-const schema = await client.agents.exportAgentSerialized(agent.id);
+const schema = await client.agents.exportFile(agent.id);
 ```
 
 ### MCP Tools ([full guide](https://docs.letta.com/guides/mcp/overview))
@@ -181,8 +181,17 @@ const schema = await client.agents.exportAgentSerialized(agent.id);
 Connect to Model Context Protocol servers:
 
 ```typescript
-// Add tool from MCP server
-const tool = await client.tools.addMcpTool("weather-server", "get_weather");
+// First, create an MCP server (example: weather server)
+const weatherServer = await client.mcpServers.create({
+  server_name: "weather-server",
+  config: {
+    mcp_server_type: "streamable_http",
+    server_url: "https://weather-mcp.example.com/mcp",
+  },
+});
+
+// List tools available from the MCP server
+const tools = await client.mcpServers.tools.list(weatherServer.id);
 
 // Create agent with MCP tool
 const agent = await client.agents.create({
@@ -199,7 +208,7 @@ Give agents access to files:
 import { createReadStream } from 'fs';
 
 // Get an available embedding config
-const embeddingConfigs = await client.embeddingModels.list();
+const embeddingConfigs = await client.models.embeddings.list();
 
 // Create folder and upload file
 const folder = await client.folders.create({
@@ -217,7 +226,7 @@ await client.agents.folders.attach(agent.id, folder.id);
 Background execution with resumable streaming:
 
 ```typescript
-const stream = await client.agents.messages.createStream(agent.id, {
+const stream = await client.agents.messages.stream(agent.id, {
   messages: [{ role: "user", content: "Analyze this dataset" }],
   background: true
 });
@@ -239,7 +248,7 @@ for await (const chunk of client.runs.stream(runId, { startingAfter: lastSeqId }
 Stream responses in real-time:
 
 ```typescript
-const stream = await client.agents.messages.createStream(agent.id, {
+const stream = await client.agents.messages.stream(agent.id, {
   messages: [{ role: "user", content: "Hello!" }]
 });
 
