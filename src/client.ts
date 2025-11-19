@@ -29,6 +29,15 @@ import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 import { HealthResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
+import {
+  AccessTokenCreateParams,
+  AccessTokenCreateResponse,
+  AccessTokenDeleteParams,
+  AccessTokenDeleteResponse,
+  AccessTokenListParams,
+  AccessTokenListResponse,
+  AccessTokens,
+} from './resources/access-tokens';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
 import {
   NpmRequirement,
@@ -957,6 +966,7 @@ export class Letta {
   identities: API.Identities = new API.Identities(this);
   groups: API.Groups = new API.Groups(this);
   batches: API.Batches = new API.Batches(this);
+  accessTokens: API.AccessTokens = new API.AccessTokens(this);
 }
 
 Letta.Agents = Agents;
@@ -973,6 +983,7 @@ Letta.Tags = Tags;
 Letta.Identities = Identities;
 Letta.Groups = Groups;
 Letta.Batches = Batches;
+Letta.AccessTokens = AccessTokens;
 
 export declare namespace Letta {
   export type RequestOptions = Opts.RequestOptions;
@@ -1170,5 +1181,15 @@ export declare namespace Letta {
     type BatchJobsArrayPage as BatchJobsArrayPage,
     type BatchCreateParams as BatchCreateParams,
     type BatchListParams as BatchListParams,
+  };
+
+  export {
+    AccessTokens as AccessTokens,
+    type AccessTokenCreateResponse as AccessTokenCreateResponse,
+    type AccessTokenListResponse as AccessTokenListResponse,
+    type AccessTokenDeleteResponse as AccessTokenDeleteResponse,
+    type AccessTokenCreateParams as AccessTokenCreateParams,
+    type AccessTokenListParams as AccessTokenListParams,
+    type AccessTokenDeleteParams as AccessTokenDeleteParams,
   };
 }
