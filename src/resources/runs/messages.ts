@@ -25,7 +25,7 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Retrieve Stream
+   * Retrieve Stream For Run
    */
   stream(
     runID: string,

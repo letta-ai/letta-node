@@ -1626,7 +1626,7 @@ export interface AgentCreateParams {
   name?: string;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure parallel tool calls
+   * @deprecated Deprecated: Use `model_settings` to configure parallel tool calls
    * instead. If set to True, enables parallel tool calling.
    */
   parallel_tool_calls?: boolean | null;
@@ -1886,7 +1886,7 @@ export interface AgentUpdateParams {
   name?: string | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure parallel tool calls
+   * @deprecated Deprecated: Use `model_settings` to configure parallel tool calls
    * instead. If set to True, enables parallel tool calling.
    */
   parallel_tool_calls?: boolean | null;
