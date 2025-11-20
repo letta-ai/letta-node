@@ -293,7 +293,8 @@ export interface LlmConfig {
   model_wrapper?: string | null;
 
   /**
-   * If set to True, enables parallel tool calling. Defaults to False.
+   * @deprecated Deprecated: Use model_settings to configure parallel tool calls
+   * instead. If set to True, enables parallel tool calling. Defaults to False.
    */
   parallel_tool_calls?: boolean | null;
 
