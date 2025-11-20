@@ -1096,6 +1096,7 @@ export type LettaStreamingResponse =
   | ApprovalRequestMessage
   | ApprovalResponseMessage
   | LettaStreamingResponse.LettaPing
+  | LettaStreamingResponse.LettaErrorMessage
   | LettaStreamingResponse.LettaStopReason
   | LettaStreamingResponse.LettaUsageStatistics;
 
@@ -1109,6 +1110,37 @@ export namespace LettaStreamingResponse {
      * The type of the message.
      */
     message_type: 'ping';
+  }
+
+  /**
+   * Error messages are used to notify the client of an error that occurred during
+   * the agent's execution.
+   */
+  export interface LettaErrorMessage {
+    /**
+     * The type of error.
+     */
+    error_type: string;
+
+    /**
+     * The error message.
+     */
+    message: string;
+
+    /**
+     * The type of the message.
+     */
+    message_type: 'error_message';
+
+    /**
+     * The ID of the run.
+     */
+    run_id: string;
+
+    /**
+     * An optional error detail.
+     */
+    detail?: string;
   }
 
   /**

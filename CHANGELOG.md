@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0 (2025-11-20)
+
+Full Changelog: [v1.0.0...v1.1.0](https://github.com/letta-ai/letta-node/compare/v1.0.0...v1.1.0)
+
+### Features
+
+* add new letta error message stream response type ([73f7390](https://github.com/letta-ai/letta-node/commit/73f7390b152384fdcba76eacfa22e583295f50a4))
+* rename upsert properties endpoint ([1ea2dc2](https://github.com/letta-ai/letta-node/commit/1ea2dc2e7119aaeed1d8c208c09401012d0d1f0f))
+
 ## 1.0.0 (2025-11-19)
 
 Full Changelog: [v1.0.0-alpha.22...v1.0.0](https://github.com/letta-ai/letta-node/compare/v1.0.0-alpha.22...v1.0.0)
