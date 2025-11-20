@@ -8,7 +8,7 @@ import { path } from '../../internal/utils/path';
 
 export class Properties extends APIResource {
   /**
-   * Upsert Identity Properties
+   * Upsert Properties For Identity
    */
   upsert(identityID: string, params: PropertyUpsertParams, options?: RequestOptions): APIPromise<unknown> {
     const { body } = params;
