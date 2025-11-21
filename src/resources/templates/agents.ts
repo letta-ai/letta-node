@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -14,13 +13,29 @@ export class Agents extends APIResource {
     templateVersion: string,
     body: AgentCreateParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.post(path`/v1/templates/${templateVersion}/agents`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  ): APIPromise<AgentCreateResponse> {
+    return this._client.post(path`/v1/templates/${templateVersion}/agents`, { body, ...options });
   }
+}
+
+/**
+ * Response containing created agent IDs and associated metadata
+ */
+export interface AgentCreateResponse {
+  /**
+   * Array of created agent IDs
+   */
+  agent_ids: Array<string>;
+
+  /**
+   * The deployment ID for the created agents
+   */
+  deployment_id: string;
+
+  /**
+   * Optional group ID if agents were created in a group
+   */
+  group_id: string | null;
 }
 
 export interface AgentCreateParams {
@@ -76,5 +91,5 @@ export namespace AgentCreateParams {
 }
 
 export declare namespace Agents {
-  export { type AgentCreateParams as AgentCreateParams };
+  export { type AgentCreateResponse as AgentCreateResponse, type AgentCreateParams as AgentCreateParams };
 }

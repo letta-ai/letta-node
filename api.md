@@ -454,9 +454,13 @@ Methods:
 
 ## Agents
 
+Types:
+
+- <code><a href="./src/resources/templates/agents.ts">AgentCreateResponse</a></code>
+
 Methods:
 
-- <code title="post /v1/templates/{template_version}/agents">client.templates.agents.<a href="./src/resources/templates/agents.ts">create</a>(templateVersion, { ...params }) -> void</code>
+- <code title="post /v1/templates/{template_version}/agents">client.templates.agents.<a href="./src/resources/templates/agents.ts">create</a>(templateVersion, { ...params }) -> AgentCreateResponse</code>
 
 # Tags
 

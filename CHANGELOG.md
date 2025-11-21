@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.1 (2025-11-21)
+
+Full Changelog: [v1.1.0...v1.1.1](https://github.com/letta-ai/letta-node/compare/v1.1.0...v1.1.1)
+
+### Features
+
+* parallel tool calling in model settings ([146e4ec](https://github.com/letta-ai/letta-node/commit/146e4ec7b5110ca862e026c5e3da3d75c35c16cc))
+
+
+### Bug Fixes
+
+* create agent for template openapi response schema ([fc5cb3b](https://github.com/letta-ai/letta-node/commit/fc5cb3b6aa286ab022c58563b1ebbb8e51f6d1f5))
+
 ## 1.1.0 (2025-11-20)
 
 Full Changelog: [v1.0.0...v1.1.0](https://github.com/letta-ai/letta-node/compare/v1.0.0...v1.1.0)
