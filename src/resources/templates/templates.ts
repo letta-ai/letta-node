@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
-import { AgentCreateParams, Agents } from './agents';
+import { AgentCreateParams, AgentCreateResponse, Agents } from './agents';
 
 export class Templates extends APIResource {
   agents: AgentsAPI.Agents = new AgentsAPI.Agents(this._client);
@@ -11,5 +11,9 @@ export class Templates extends APIResource {
 Templates.Agents = Agents;
 
 export declare namespace Templates {
-  export { Agents as Agents, type AgentCreateParams as AgentCreateParams };
+  export {
+    Agents as Agents,
+    type AgentCreateResponse as AgentCreateResponse,
+    type AgentCreateParams as AgentCreateParams,
+  };
 }
