@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.2 (2025-11-21)
+
+Full Changelog: [v1.1.1...v1.1.2](https://github.com/letta-ai/letta-node/compare/v1.1.1...v1.1.2)
+
+### Bug Fixes
+
+* api key not optional for stainless sdk ([f9fdd65](https://github.com/letta-ai/letta-node/commit/f9fdd65d2ae2e3b6a86e719081bb4d61032cd6fd))
+
 ## 1.1.1 (2025-11-21)
 
 Full Changelog: [v1.1.0...v1.1.1](https://github.com/letta-ai/letta-node/compare/v1.1.0...v1.1.1)
