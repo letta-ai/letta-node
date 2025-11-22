@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0 (2025-11-22)
+
+Full Changelog: [v1.1.2...v1.2.0](https://github.com/letta-ai/letta-node/compare/v1.1.2...v1.2.0)
+
+### Features
+
+* add search routes ([8c0e374](https://github.com/letta-ai/letta-node/commit/8c0e374c587f0bc327eefc1bd03e4241947ba42a))
+
 ## 1.1.2 (2025-11-21)
 
 Full Changelog: [v1.1.1...v1.1.2](https://github.com/letta-ai/letta-node/compare/v1.1.1...v1.1.2)
