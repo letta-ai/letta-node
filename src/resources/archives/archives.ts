@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as PassagesAPI from './passages';
-import { PassageCreateParams, PassageDeleteParams, Passages } from './passages';
+import { PassageCreateParams, PassageCreateResponse, PassageDeleteParams, Passages } from './passages';
 import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
@@ -167,6 +167,7 @@ export declare namespace Archives {
 
   export {
     Passages as Passages,
+    type PassageCreateResponse as PassageCreateResponse,
     type PassageCreateParams as PassageCreateParams,
     type PassageDeleteParams as PassageDeleteParams,
   };
