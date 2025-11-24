@@ -741,6 +741,12 @@ export type AgentType =
 
 export interface AnthropicModelSettings {
   /**
+   * Effort level for Opus 4.5 model (controls token conservation). Not setting this
+   * gives similar performance to 'high'.
+   */
+  effort?: 'low' | 'medium' | 'high' | null;
+
+  /**
    * The maximum number of tokens the model can generate.
    */
   max_output_tokens?: number;
