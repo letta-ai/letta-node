@@ -1752,10 +1752,10 @@ export interface AgentRetrieveParams {
   >;
 
   /**
-   * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
-   * in the response. If not provided, all relationships are loaded by default. Using
-   * this can optimize performance by reducing unnecessary joins.This is a legacy
-   * parameter, and no longer supported after 1.0.0 SDK versions.
+   * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
+   * to include in the response. If not provided, all relationships are loaded by
+   * default. Using this can optimize performance by reducing unnecessary joins.This
+   * is a legacy parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
 }
@@ -2014,10 +2014,10 @@ export interface AgentListParams extends ArrayPageParams {
   >;
 
   /**
-   * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
-   * in the response. If not provided, all relationships are loaded by default. Using
-   * this can optimize performance by reducing unnecessary joins.This is a legacy
-   * parameter, and no longer supported after 1.0.0 SDK versions.
+   * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
+   * to include in the response. If not provided, all relationships are loaded by
+   * default. Using this can optimize performance by reducing unnecessary joins.This
+   * is a legacy parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
 
