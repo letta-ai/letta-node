@@ -1663,7 +1663,8 @@ export interface AgentCreateParams {
   reasoning?: boolean | null;
 
   /**
-   * The response format for the agent.
+   * @deprecated Deprecated: Use `model_settings` field to configure response format
+   * instead. The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
@@ -1915,8 +1916,8 @@ export interface AgentUpdateParams {
   reasoning?: boolean | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure response format instead.
-   * The response format for the agent.
+   * @deprecated Deprecated: Use `model_settings` field to configure response format
+   * instead. The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
