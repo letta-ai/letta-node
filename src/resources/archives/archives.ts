@@ -6,6 +6,7 @@ import { PassageCreateParams, PassageCreateResponse, PassageDeleteParams, Passag
 import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -47,8 +48,11 @@ export class Archives extends APIResource {
   /**
    * Delete an archive by its ID.
    */
-  delete(archiveID: string, options?: RequestOptions): APIPromise<Archive> {
-    return this._client.delete(path`/v1/archives/${archiveID}`, options);
+  delete(archiveID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v1/archives/${archiveID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
