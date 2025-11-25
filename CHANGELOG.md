@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.2.0 (2025-11-25)
+
+Full Changelog: [v1.1.2...v1.2.0](https://github.com/letta-ai/letta-node/compare/v1.1.2...v1.2.0)
+
+### Features
+
+* add search routes ([8c0e374](https://github.com/letta-ai/letta-node/commit/8c0e374c587f0bc327eefc1bd03e4241947ba42a))
+* add support for new model ([20d7565](https://github.com/letta-ai/letta-node/commit/20d7565cb016dd5d85434a9918cdf32af4848f9e))
+
+
+### Bug Fixes
+
+* disable messages + passages for now ([9077911](https://github.com/letta-ai/letta-node/commit/9077911efcc7046a57390baef1c883557e4cb511))
+* properly limit runs query ([c4dc26a](https://github.com/letta-ai/letta-node/commit/c4dc26a42fc3715e0dcc4801f3d0217dfa418957))
+
 ## 1.1.2 (2025-11-21)
 
 Full Changelog: [v1.1.1...v1.1.2](https://github.com/letta-ai/letta-node/compare/v1.1.1...v1.1.2)
