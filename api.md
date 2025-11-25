@@ -252,13 +252,9 @@ Methods:
 
 ## Passages
 
-Types:
-
-- <code><a href="./src/resources/archives/passages.ts">PassageCreateResponse</a></code>
-
 Methods:
 
-- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/resources/archives/passages.ts">create</a>(archiveID, { ...params }) -> PassageCreateResponse</code>
+- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/resources/archives/passages.ts">create</a>(archiveID, { ...params }) -> Passage</code>
 - <code title="delete /v1/archives/{archive_id}/passages/{passage_id}">client.archives.passages.<a href="./src/resources/archives/passages.ts">delete</a>(passageID, { ...params }) -> void</code>
 
 # Folders
@@ -548,6 +544,31 @@ Methods:
 - <code title="get /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">list</a>(groupID, { ...params }) -> MessagesArrayPage</code>
 - <code title="patch /v1/groups/{group_id}/reset-messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">reset</a>(groupID) -> unknown</code>
 - <code title="post /v1/groups/{group_id}/messages/stream">client.groups.messages.<a href="./src/resources/groups/messages.ts">stream</a>(groupID, { ...params }) -> unknown</code>
+
+# Messages
+
+Types:
+
+- <code><a href="./src/resources/messages.ts">MessageSearchRequest</a></code>
+- <code><a href="./src/resources/messages.ts">MessageSearchResult</a></code>
+- <code><a href="./src/resources/messages.ts">MessageListResponse</a></code>
+- <code><a href="./src/resources/messages.ts">MessageSearchResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/messages/">client.messages.<a href="./src/resources/messages.ts">list</a>({ ...params }) -> MessageListResponse</code>
+- <code title="post /v1/messages/search">client.messages.<a href="./src/resources/messages.ts">search</a>({ ...params }) -> MessageSearchResponse</code>
+
+# Passages
+
+Types:
+
+- <code><a href="./src/resources/passages.ts">Passage</a></code>
+- <code><a href="./src/resources/passages.ts">PassageSearchResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/passages/search">client.passages.<a href="./src/resources/passages.ts">search</a>({ ...params }) -> PassageSearchResponse</code>
 
 # Batches
 
