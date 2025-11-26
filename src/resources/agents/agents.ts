@@ -107,7 +107,16 @@ import {
   UserMessage,
 } from './messages';
 import * as AgentsToolsAPI from './tools';
-import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
+import {
+  ToolAttachParams,
+  ToolDetachParams,
+  ToolExecuteRequest,
+  ToolExecutionResult,
+  ToolListParams,
+  ToolRunParams,
+  ToolUpdateApprovalParams,
+  Tools,
+} from './tools';
 import * as ArchivesArchivesAPI from '../archives/archives';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
@@ -760,6 +769,11 @@ export interface AnthropicModelSettings {
    * The type of the provider.
    */
   provider_type?: 'anthropic';
+
+  /**
+   * The response format for the model.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
   /**
    * The temperature of the model.
@@ -1663,7 +1677,8 @@ export interface AgentCreateParams {
   reasoning?: boolean | null;
 
   /**
-   * The response format for the agent.
+   * @deprecated Deprecated: Use `model_settings` field to configure response format
+   * instead. The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
@@ -1752,10 +1767,10 @@ export interface AgentRetrieveParams {
   >;
 
   /**
-   * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
-   * in the response. If not provided, all relationships are loaded by default. Using
-   * this can optimize performance by reducing unnecessary joins.This is a legacy
-   * parameter, and no longer supported after 1.0.0 SDK versions.
+   * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
+   * to include in the response. If not provided, all relationships are loaded by
+   * default. Using this can optimize performance by reducing unnecessary joins.This
+   * is a legacy parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
 }
@@ -1915,8 +1930,8 @@ export interface AgentUpdateParams {
   reasoning?: boolean | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure response format instead.
-   * The response format for the agent.
+   * @deprecated Deprecated: Use `model_settings` field to configure response format
+   * instead. The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
@@ -2014,10 +2029,10 @@ export interface AgentListParams extends ArrayPageParams {
   >;
 
   /**
-   * Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
-   * in the response. If not provided, all relationships are loaded by default. Using
-   * this can optimize performance by reducing unnecessary joins.This is a legacy
-   * parameter, and no longer supported after 1.0.0 SDK versions.
+   * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
+   * to include in the response. If not provided, all relationships are loaded by
+   * default. Using this can optimize performance by reducing unnecessary joins.This
+   * is a legacy parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
 
@@ -2263,9 +2278,12 @@ export declare namespace Agents {
 
   export {
     Tools as Tools,
+    type ToolExecuteRequest as ToolExecuteRequest,
+    type ToolExecutionResult as ToolExecutionResult,
     type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
+    type ToolRunParams as ToolRunParams,
     type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
   };
 

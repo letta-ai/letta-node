@@ -125,11 +125,17 @@ Methods:
 
 ## Tools
 
+Types:
+
+- <code><a href="./src/resources/agents/tools.ts">ToolExecuteRequest</a></code>
+- <code><a href="./src/resources/agents/tools.ts">ToolExecutionResult</a></code>
+
 Methods:
 
 - <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/resources/agents/tools.ts">list</a>(agentID, { ...params }) -> ToolsArrayPage</code>
 - <code title="patch /v1/agents/{agent_id}/tools/attach/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">attach</a>(toolID, { ...params }) -> AgentState | null</code>
 - <code title="patch /v1/agents/{agent_id}/tools/detach/{tool_id}">client.agents.tools.<a href="./src/resources/agents/tools.ts">detach</a>(toolID, { ...params }) -> AgentState | null</code>
+- <code title="post /v1/agents/{agent_id}/tools/{tool_name}/run">client.agents.tools.<a href="./src/resources/agents/tools.ts">run</a>(toolName, { ...params }) -> ToolExecutionResult</code>
 - <code title="patch /v1/agents/{agent_id}/tools/approval/{tool_name}">client.agents.tools.<a href="./src/resources/agents/tools.ts">updateApproval</a>(toolName, { ...params }) -> AgentState | null</code>
 
 ## Folders
@@ -199,8 +205,11 @@ Types:
 - <code><a href="./src/resources/tools.ts">Tool</a></code>
 - <code><a href="./src/resources/tools.ts">ToolCreate</a></code>
 - <code><a href="./src/resources/tools.ts">ToolReturnMessage</a></code>
+- <code><a href="./src/resources/tools.ts">ToolSearchRequest</a></code>
+- <code><a href="./src/resources/tools.ts">ToolSearchResult</a></code>
 - <code><a href="./src/resources/tools.ts">ToolType</a></code>
 - <code><a href="./src/resources/tools.ts">ToolDeleteResponse</a></code>
+- <code><a href="./src/resources/tools.ts">ToolSearchResponse</a></code>
 - <code><a href="./src/resources/tools.ts">ToolUpsertBaseToolsResponse</a></code>
 
 Methods:
@@ -210,6 +219,7 @@ Methods:
 - <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">update</a>(toolID, { ...params }) -> Tool</code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/resources/tools.ts">list</a>({ ...params }) -> ToolsArrayPage</code>
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolID) -> unknown</code>
+- <code title="post /v1/tools/search">client.tools.<a href="./src/resources/tools.ts">search</a>({ ...params }) -> ToolSearchResponse</code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/resources/tools.ts">upsert</a>({ ...params }) -> Tool</code>
 - <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/resources/tools.ts">upsertBaseTools</a>() -> ToolUpsertBaseToolsResponse</code>
 
@@ -252,13 +262,9 @@ Methods:
 
 ## Passages
 
-Types:
-
-- <code><a href="./src/resources/archives/passages.ts">PassageCreateResponse</a></code>
-
 Methods:
 
-- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/resources/archives/passages.ts">create</a>(archiveID, { ...params }) -> PassageCreateResponse</code>
+- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/resources/archives/passages.ts">create</a>(archiveID, { ...params }) -> Passage</code>
 - <code title="delete /v1/archives/{archive_id}/passages/{passage_id}">client.archives.passages.<a href="./src/resources/archives/passages.ts">delete</a>(passageID, { ...params }) -> void</code>
 
 # Folders
@@ -332,11 +338,9 @@ Types:
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">CreateSseMcpServer</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">CreateStdioMcpServer</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">CreateStreamableHTTPMcpServer</a></code>
-- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">McpToolExecuteRequest</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">SseMcpServer</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">StdioMcpServer</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">StreamableHTTPMcpServer</a></code>
-- <code><a href="./src/resources/mcp-servers/mcp-servers.ts">ToolExecutionResult</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">UpdateSseMcpServer</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">UpdateStdioMcpServer</a></code>
 - <code><a href="./src/resources/mcp-servers/mcp-servers.ts">UpdateStreamableHTTPMcpServer</a></code>
@@ -548,6 +552,31 @@ Methods:
 - <code title="get /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">list</a>(groupID, { ...params }) -> MessagesArrayPage</code>
 - <code title="patch /v1/groups/{group_id}/reset-messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">reset</a>(groupID) -> unknown</code>
 - <code title="post /v1/groups/{group_id}/messages/stream">client.groups.messages.<a href="./src/resources/groups/messages.ts">stream</a>(groupID, { ...params }) -> unknown</code>
+
+# Messages
+
+Types:
+
+- <code><a href="./src/resources/messages.ts">MessageSearchRequest</a></code>
+- <code><a href="./src/resources/messages.ts">MessageSearchResult</a></code>
+- <code><a href="./src/resources/messages.ts">MessageListResponse</a></code>
+- <code><a href="./src/resources/messages.ts">MessageSearchResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/messages/">client.messages.<a href="./src/resources/messages.ts">list</a>({ ...params }) -> MessageListResponse</code>
+- <code title="post /v1/messages/search">client.messages.<a href="./src/resources/messages.ts">search</a>({ ...params }) -> MessageSearchResponse</code>
+
+# Passages
+
+Types:
+
+- <code><a href="./src/resources/passages.ts">Passage</a></code>
+- <code><a href="./src/resources/passages.ts">PassageSearchResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/passages/search">client.passages.<a href="./src/resources/passages.ts">search</a>({ ...params }) -> PassageSearchResponse</code>
 
 # Batches
 

@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.3.1 (2025-11-26)
+
+Full Changelog: [v1.2.0...v1.3.1](https://github.com/letta-ai/letta-node/compare/v1.2.0...v1.3.1)
+
+### Features
+
+* add messages + passages to stainless.yml ([c4957d5](https://github.com/letta-ai/letta-node/commit/c4957d5e8ed5cff472325a9b393f754222b17954))
+* Fix template alignment ([ceb1074](https://github.com/letta-ai/letta-node/commit/ceb1074159b0ecfc9a67a511af13f7a8f74e726c))
+* query param validation block label, name, and search ([2ecce01](https://github.com/letta-ai/letta-node/commit/2ecce01c4d8a19290e68a944a918af5834986c91))
+* run tool by  for a given agent ([37ed5b5](https://github.com/letta-ai/letta-node/commit/37ed5b551f6399d4f8512aff2fe0687457c0aaf7))
+* Shub/let 6339 add endpoint for counting non hidden agents [LET-6339] ([4a04d5d](https://github.com/letta-ai/letta-node/commit/4a04d5d350283563bc87d3ad5cec2b7f4edc6ff7))
+* structured outputs for anthropic ([a51ca49](https://github.com/letta-ai/letta-node/commit/a51ca49e6f58d2e8d1ed7ba70d1741cde708d5e5))
+* structured outputs for openai [LET-6233] ([f4176a8](https://github.com/letta-ai/letta-node/commit/f4176a8293c2b9b561a9f9ac56b0d2fe37ab6131))
+
+
+### Chores
+
+* add tools search to stainless ([6075baa](https://github.com/letta-ai/letta-node/commit/6075baa9541061c70e91558d7a759d591e80b1aa))
+* use main branch in sdk repos ([34b461b](https://github.com/letta-ai/letta-node/commit/34b461ba35a28ac29d5fc6af72bcbd3fb39d56c4))
+
 ## 1.2.0 (2025-11-25)
 
 Full Changelog: [v1.1.2...v1.2.0](https://github.com/letta-ai/letta-node/compare/v1.1.2...v1.2.0)

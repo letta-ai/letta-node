@@ -140,8 +140,11 @@ export {
 } from './messages';
 export {
   Tools,
+  type ToolExecuteRequest,
+  type ToolExecutionResult,
   type ToolListParams,
   type ToolAttachParams,
   type ToolDetachParams,
+  type ToolRunParams,
   type ToolUpdateApprovalParams,
 } from './tools';

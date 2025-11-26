@@ -75,6 +75,28 @@ describe('resource tools', () => {
   });
 
   // Prism tests are disabled
+  test.skip('run: only required params', async () => {
+    const responsePromise = client.agents.tools.run('tool_name', {
+      agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('run: required and optional params', async () => {
+    const response = await client.agents.tools.run('tool_name', {
+      agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
+      args: { foo: 'bar' },
+    });
+  });
+
+  // Prism tests are disabled
   test.skip('updateApproval: only required params', async () => {
     const responsePromise = client.agents.tools.updateApproval('tool_name', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',

@@ -38,6 +38,16 @@ import {
   AccessTokenListResponse,
   AccessTokens,
 } from './resources/access-tokens';
+import {
+  MessageListParams,
+  MessageListResponse,
+  MessageSearchParams,
+  MessageSearchRequest,
+  MessageSearchResponse,
+  MessageSearchResult,
+  Messages,
+} from './resources/messages';
+import { Passage, PassageSearchParams, PassageSearchResponse, Passages } from './resources/passages';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
 import {
   NpmRequirement,
@@ -48,6 +58,10 @@ import {
   ToolDeleteResponse,
   ToolListParams,
   ToolReturnMessage,
+  ToolSearchParams,
+  ToolSearchRequest,
+  ToolSearchResponse,
+  ToolSearchResult,
   ToolType,
   ToolUpdateParams,
   ToolUpsertBaseToolsResponse,
@@ -171,11 +185,9 @@ import {
   McpServerUpdateParams,
   McpServerUpdateResponse,
   McpServers,
-  McpToolExecuteRequest,
   SseMcpServer,
   StdioMcpServer,
   StreamableHTTPMcpServer,
-  ToolExecutionResult,
   UpdateSseMcpServer,
   UpdateStdioMcpServer,
   UpdateStreamableHTTPMcpServer,
@@ -956,6 +968,8 @@ export class Letta {
   tags: API.Tags = new API.Tags(this);
   identities: API.Identities = new API.Identities(this);
   groups: API.Groups = new API.Groups(this);
+  messages: API.Messages = new API.Messages(this);
+  passages: API.Passages = new API.Passages(this);
   batches: API.Batches = new API.Batches(this);
   accessTokens: API.AccessTokens = new API.AccessTokens(this);
 }
@@ -973,6 +987,8 @@ Letta.Templates = Templates;
 Letta.Tags = Tags;
 Letta.Identities = Identities;
 Letta.Groups = Groups;
+Letta.Messages = Messages;
+Letta.Passages = Passages;
 Letta.Batches = Batches;
 Letta.AccessTokens = AccessTokens;
 
@@ -1041,13 +1057,17 @@ export declare namespace Letta {
     type Tool as Tool,
     type ToolCreate as ToolCreate,
     type ToolReturnMessage as ToolReturnMessage,
+    type ToolSearchRequest as ToolSearchRequest,
+    type ToolSearchResult as ToolSearchResult,
     type ToolType as ToolType,
     type ToolDeleteResponse as ToolDeleteResponse,
+    type ToolSearchResponse as ToolSearchResponse,
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
+    type ToolSearchParams as ToolSearchParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 
@@ -1099,11 +1119,9 @@ export declare namespace Letta {
     type CreateSseMcpServer as CreateSseMcpServer,
     type CreateStdioMcpServer as CreateStdioMcpServer,
     type CreateStreamableHTTPMcpServer as CreateStreamableHTTPMcpServer,
-    type McpToolExecuteRequest as McpToolExecuteRequest,
     type SseMcpServer as SseMcpServer,
     type StdioMcpServer as StdioMcpServer,
     type StreamableHTTPMcpServer as StreamableHTTPMcpServer,
-    type ToolExecutionResult as ToolExecutionResult,
     type UpdateSseMcpServer as UpdateSseMcpServer,
     type UpdateStdioMcpServer as UpdateStdioMcpServer,
     type UpdateStreamableHTTPMcpServer as UpdateStreamableHTTPMcpServer,
@@ -1163,6 +1181,23 @@ export declare namespace Letta {
     type GroupCreateParams as GroupCreateParams,
     type GroupUpdateParams as GroupUpdateParams,
     type GroupListParams as GroupListParams,
+  };
+
+  export {
+    Messages as Messages,
+    type MessageSearchRequest as MessageSearchRequest,
+    type MessageSearchResult as MessageSearchResult,
+    type MessageListResponse as MessageListResponse,
+    type MessageSearchResponse as MessageSearchResponse,
+    type MessageListParams as MessageListParams,
+    type MessageSearchParams as MessageSearchParams,
+  };
+
+  export {
+    Passages as Passages,
+    type Passage as Passage,
+    type PassageSearchResponse as PassageSearchResponse,
+    type PassageSearchParams as PassageSearchParams,
   };
 
   export {
