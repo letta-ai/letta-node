@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.3.0 (2025-11-26)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/letta-ai/letta-node/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* add messages + passages to stainless.yml ([c4957d5](https://github.com/letta-ai/letta-node/commit/c4957d5e8ed5cff472325a9b393f754222b17954))
+* query param validation block label, name, and search ([2ecce01](https://github.com/letta-ai/letta-node/commit/2ecce01c4d8a19290e68a944a918af5834986c91))
+* structured outputs for openai [LET-6233] ([f4176a8](https://github.com/letta-ai/letta-node/commit/f4176a8293c2b9b561a9f9ac56b0d2fe37ab6131))
+
+
+### Chores
+
+* use main branch in sdk repos ([34b461b](https://github.com/letta-ai/letta-node/commit/34b461ba35a28ac29d5fc6af72bcbd3fb39d56c4))
+
 ## 1.2.0 (2025-11-25)
 
 Full Changelog: [v1.1.2...v1.2.0](https://github.com/letta-ai/letta-node/compare/v1.1.2...v1.2.0)
