@@ -762,6 +762,11 @@ export interface AnthropicModelSettings {
   provider_type?: 'anthropic';
 
   /**
+   * The response format for the model.
+   */
+  response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
    * The temperature of the model.
    */
   temperature?: number;
