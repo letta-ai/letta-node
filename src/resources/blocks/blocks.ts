@@ -394,8 +394,8 @@ export interface BlockListParams extends ArrayPageParams {
   connected_to_agents_count_lt?: number | null;
 
   /**
-   * Search blocks by description. If provided, returns blocks that match this
-   * description. This is a full-text search on block descriptions.
+   * Search blocks by description. If provided, returns blocks whose description
+   * matches the search query. This is a full-text search on block descriptions.
    */
   description_search?: string | null;
 
@@ -405,23 +405,23 @@ export interface BlockListParams extends ArrayPageParams {
   identifier_keys?: Array<string> | null;
 
   /**
-   * Search agents by identifier id
+   * The ID of the identity in the format 'identity-<uuid4>'
    */
   identity_id?: string | null;
 
   /**
-   * Labels to include (e.g. human, persona)
+   * Label to include (alphanumeric, hyphens, underscores only)
    */
   label?: string | null;
 
   /**
-   * Search blocks by label. If provided, returns blocks that match this label. This
-   * is a full-text search on labels.
+   * Search blocks by label. If provided, returns blocks whose label matches the
+   * search query. This is a full-text search on block labels.
    */
   label_search?: string | null;
 
   /**
-   * Name of the block
+   * Name filter (alphanumeric, spaces, hyphens, underscores)
    */
   name?: string | null;
 
@@ -436,7 +436,8 @@ export interface BlockListParams extends ArrayPageParams {
   templates_only?: boolean;
 
   /**
-   * Search blocks by value. If provided, returns blocks that match this value.
+   * Search blocks by value. If provided, returns blocks whose value matches the
+   * search query. This is a full-text search on block values.
    */
   value_search?: string | null;
 }
