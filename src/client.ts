@@ -58,6 +58,10 @@ import {
   ToolDeleteResponse,
   ToolListParams,
   ToolReturnMessage,
+  ToolSearchParams,
+  ToolSearchRequest,
+  ToolSearchResponse,
+  ToolSearchResult,
   ToolType,
   ToolUpdateParams,
   ToolUpsertBaseToolsResponse,
@@ -206,6 +210,8 @@ import {
   TemplateCreateResponse,
   TemplateDeleteParams,
   TemplateDeleteResponse,
+  TemplateUpdateParams,
+  TemplateUpdateResponse,
   Templates,
 } from './resources/templates/templates';
 import { type Fetch } from './internal/builtin-types';
@@ -1059,13 +1065,17 @@ export declare namespace Letta {
     type Tool as Tool,
     type ToolCreate as ToolCreate,
     type ToolReturnMessage as ToolReturnMessage,
+    type ToolSearchRequest as ToolSearchRequest,
+    type ToolSearchResult as ToolSearchResult,
     type ToolType as ToolType,
     type ToolDeleteResponse as ToolDeleteResponse,
+    type ToolSearchResponse as ToolSearchResponse,
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
+    type ToolSearchParams as ToolSearchParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 
@@ -1151,8 +1161,10 @@ export declare namespace Letta {
   export {
     Templates as Templates,
     type TemplateCreateResponse as TemplateCreateResponse,
+    type TemplateUpdateResponse as TemplateUpdateResponse,
     type TemplateDeleteResponse as TemplateDeleteResponse,
     type TemplateCreateParams as TemplateCreateParams,
+    type TemplateUpdateParams as TemplateUpdateParams,
     type TemplateDeleteParams as TemplateDeleteParams,
   };
 

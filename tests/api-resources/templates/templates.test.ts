@@ -26,6 +26,27 @@ describe('resource templates', () => {
   });
 
   // Prism tests are disabled
+  test.skip('update: only required params', async () => {
+    const responsePromise = client.templates.update('template_name', { agent_file_json: { foo: 'bar' } });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('update: required and optional params', async () => {
+    const response = await client.templates.update('template_name', {
+      agent_file_json: { foo: 'bar' },
+      save_existing_changes: true,
+      update_existing_tools: true,
+    });
+  });
+
+  // Prism tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.templates.delete('template_name');
     const rawResponse = await responsePromise.asResponse();
