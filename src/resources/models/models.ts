@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AgentsAPI from '../agents/agents';
 import * as EmbeddingsAPI from './embeddings';
 import { EmbeddingListResponse, Embeddings } from './embeddings';
 import { APIPromise } from '../../core/api-promise';
@@ -328,16 +327,6 @@ export interface LlmConfig {
   reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | null;
 
   /**
-   * The response format for the model's output. Supports text, json_object, and
-   * json_schema (structured outputs). Can be set via model_settings.
-   */
-  response_format?:
-    | AgentsAPI.TextResponseFormat
-    | AgentsAPI.JsonSchemaResponseFormat
-    | AgentsAPI.JsonObjectResponseFormat
-    | null;
-
-  /**
    * The temperature to use when generating text with the model. A higher temperature
    * will result in more random text.
    */
@@ -491,16 +480,6 @@ export interface Model {
    * reasoning models.
    */
   reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | null;
-
-  /**
-   * The response format for the model's output. Supports text, json_object, and
-   * json_schema (structured outputs). Can be set via model_settings.
-   */
-  response_format?:
-    | AgentsAPI.TextResponseFormat
-    | AgentsAPI.JsonSchemaResponseFormat
-    | AgentsAPI.JsonObjectResponseFormat
-    | null;
 
   /**
    * @deprecated Deprecated: The temperature to use when generating text with the
