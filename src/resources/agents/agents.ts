@@ -107,7 +107,16 @@ import {
   UserMessage,
 } from './messages';
 import * as AgentsToolsAPI from './tools';
-import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
+import {
+  ToolAttachParams,
+  ToolDetachParams,
+  ToolExecuteRequest,
+  ToolExecutionResult,
+  ToolListParams,
+  ToolRunParams,
+  ToolUpdateApprovalParams,
+  Tools,
+} from './tools';
 import * as ArchivesArchivesAPI from '../archives/archives';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
@@ -2269,9 +2278,12 @@ export declare namespace Agents {
 
   export {
     Tools as Tools,
+    type ToolExecuteRequest as ToolExecuteRequest,
+    type ToolExecutionResult as ToolExecutionResult,
     type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
+    type ToolRunParams as ToolRunParams,
     type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
   };
 
