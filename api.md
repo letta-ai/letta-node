@@ -205,11 +205,8 @@ Types:
 - <code><a href="./src/resources/tools.ts">Tool</a></code>
 - <code><a href="./src/resources/tools.ts">ToolCreate</a></code>
 - <code><a href="./src/resources/tools.ts">ToolReturnMessage</a></code>
-- <code><a href="./src/resources/tools.ts">ToolSearchRequest</a></code>
-- <code><a href="./src/resources/tools.ts">ToolSearchResult</a></code>
 - <code><a href="./src/resources/tools.ts">ToolType</a></code>
 - <code><a href="./src/resources/tools.ts">ToolDeleteResponse</a></code>
-- <code><a href="./src/resources/tools.ts">ToolSearchResponse</a></code>
 - <code><a href="./src/resources/tools.ts">ToolUpsertBaseToolsResponse</a></code>
 
 Methods:
@@ -219,7 +216,6 @@ Methods:
 - <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">update</a>(toolID, { ...params }) -> Tool</code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/resources/tools.ts">list</a>({ ...params }) -> ToolsArrayPage</code>
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolID) -> unknown</code>
-- <code title="post /v1/tools/search">client.tools.<a href="./src/resources/tools.ts">search</a>({ ...params }) -> ToolSearchResponse</code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/resources/tools.ts">upsert</a>({ ...params }) -> Tool</code>
 - <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/resources/tools.ts">upsertBaseTools</a>() -> ToolUpsertBaseToolsResponse</code>
 
@@ -455,6 +451,16 @@ Methods:
 - <code title="get /v1/steps/{step_id}/messages">client.steps.messages.<a href="./src/resources/steps/messages.ts">list</a>(stepID, { ...params }) -> MessageListResponsesArrayPage</code>
 
 # Templates
+
+Types:
+
+- <code><a href="./src/resources/templates/templates.ts">TemplateCreateResponse</a></code>
+- <code><a href="./src/resources/templates/templates.ts">TemplateDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/templates">client.templates.<a href="./src/resources/templates/templates.ts">create</a>({ ...params }) -> TemplateCreateResponse</code>
+- <code title="delete /v1/templates/{template_name}">client.templates.<a href="./src/resources/templates/templates.ts">delete</a>(templateName) -> TemplateDeleteResponse</code>
 
 ## Agents
 
