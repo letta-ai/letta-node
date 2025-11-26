@@ -18,6 +18,17 @@ export class Templates extends APIResource {
   }
 
   /**
+   * Updates the current working version of a template from an agent file
+   */
+  update(
+    templateName: string,
+    body: TemplateUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<TemplateUpdateResponse> {
+    return this._client.patch(path`/v1/templates/${templateName}`, { body, ...options });
+  }
+
+  /**
    * Deletes all versions of a template with the specified name
    */
   delete(
@@ -57,6 +68,12 @@ export interface TemplateCreateResponse {
   updated_at: string;
 
   description?: string;
+}
+
+export interface TemplateUpdateResponse {
+  success: boolean;
+
+  message?: string;
 }
 
 export interface TemplateDeleteResponse {
@@ -104,6 +121,25 @@ export declare namespace TemplateCreateParams {
   }
 }
 
+export interface TemplateUpdateParams {
+  /**
+   * The agent file to update the current template version from
+   */
+  agent_file_json: { [key: string]: unknown };
+
+  /**
+   * If true, Letta will automatically save any changes as a version before updating
+   * the template
+   */
+  save_existing_changes?: boolean;
+
+  /**
+   * If true, update existing custom tools source_code and json_schema (source_type
+   * cannot be changed)
+   */
+  update_existing_tools?: boolean;
+}
+
 export interface TemplateDeleteParams {}
 
 Templates.Agents = Agents;
@@ -111,8 +147,10 @@ Templates.Agents = Agents;
 export declare namespace Templates {
   export {
     type TemplateCreateResponse as TemplateCreateResponse,
+    type TemplateUpdateResponse as TemplateUpdateResponse,
     type TemplateDeleteResponse as TemplateDeleteResponse,
     type TemplateCreateParams as TemplateCreateParams,
+    type TemplateUpdateParams as TemplateUpdateParams,
     type TemplateDeleteParams as TemplateDeleteParams,
   };
 

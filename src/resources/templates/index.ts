@@ -4,7 +4,9 @@ export { Agents, type AgentCreateResponse, type AgentCreateParams } from './agen
 export {
   Templates,
   type TemplateCreateResponse,
+  type TemplateUpdateResponse,
   type TemplateDeleteResponse,
   type TemplateCreateParams,
+  type TemplateUpdateParams,
   type TemplateDeleteParams,
 } from './templates';
