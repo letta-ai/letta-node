@@ -49,17 +49,6 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Trigger a tool by name on a specific agent, providing the necessary arguments.
-   *
-   * This endpoint executes a tool that is attached to the agent, using the agent's
-   * state and environment variables for execution context.
-   */
-  run(toolName: string, params: ToolRunParams, options?: RequestOptions): APIPromise<ToolExecutionResult> {
-    const { agent_id, ...body } = params;
-    return this._client.post(path`/v1/agents/${agent_id}/tools/${toolName}/run`, { body, ...options });
-  }
-
-  /**
    * Modify the approval requirement for a tool attached to an agent.
    *
    * Accepts requires_approval via request body (preferred) or query parameter
@@ -79,50 +68,6 @@ export class Tools extends APIResource {
   }
 }
 
-/**
- * Request to execute a tool.
- */
-export interface ToolExecuteRequest {
-  /**
-   * Arguments to pass to the tool
-   */
-  args?: { [key: string]: unknown };
-}
-
-export interface ToolExecutionResult {
-  /**
-   * The status of the tool execution and return object
-   */
-  status: 'success' | 'error';
-
-  /**
-   * Representation of an agent's state. This is the state of the agent at a given
-   * time, and is persisted in the DB backend. The state has all the information
-   * needed to recreate a persisted agent.
-   */
-  agent_state?: AgentsAPI.AgentState | null;
-
-  /**
-   * The function return object
-   */
-  func_return?: unknown;
-
-  /**
-   * The fingerprint of the config for the sandbox
-   */
-  sandbox_config_fingerprint?: string | null;
-
-  /**
-   * Captured stderr from the function invocation
-   */
-  stderr?: Array<string> | null;
-
-  /**
-   * Captured stdout (prints, logs) from function invocation
-   */
-  stdout?: Array<string> | null;
-}
-
 export interface ToolListParams extends ArrayPageParams {}
 
 export interface ToolAttachParams {
@@ -137,18 +82,6 @@ export interface ToolDetachParams {
    * The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
-}
-
-export interface ToolRunParams {
-  /**
-   * Path param: The ID of the agent in the format 'agent-<uuid4>'
-   */
-  agent_id: string;
-
-  /**
-   * Body param: Arguments to pass to the tool
-   */
-  args?: { [key: string]: unknown };
 }
 
 export interface ToolUpdateApprovalParams {
@@ -170,12 +103,9 @@ export interface ToolUpdateApprovalParams {
 
 export declare namespace Tools {
   export {
-    type ToolExecuteRequest as ToolExecuteRequest,
-    type ToolExecutionResult as ToolExecutionResult,
     type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
-    type ToolRunParams as ToolRunParams,
     type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
   };
 }
