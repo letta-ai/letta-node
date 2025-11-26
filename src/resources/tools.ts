@@ -47,18 +47,6 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Search tools using semantic search.
-   *
-   * Requires tool embedding to be enabled (embed_tools=True). Uses vector search,
-   * full-text search, or hybrid mode to find tools matching the query.
-   *
-   * Returns tools ranked by relevance with their search scores.
-   */
-  search(body: ToolSearchParams, options?: RequestOptions): APIPromise<ToolSearchResponse> {
-    return this._client.post('/v1/tools/search', { body, ...options });
-  }
-
-  /**
    * Create or update a tool
    */
   upsert(body: ToolUpsertParams, options?: RequestOptions): APIPromise<Tool> {
@@ -316,66 +304,6 @@ export interface ToolReturnMessage {
   tool_returns?: Array<MessagesAPI.ToolReturn> | null;
 }
 
-/**
- * Request model for searching tools using semantic search.
- */
-export interface ToolSearchRequest {
-  /**
-   * Maximum number of results to return.
-   */
-  limit?: number;
-
-  /**
-   * Text query for semantic search.
-   */
-  query?: string | null;
-
-  /**
-   * Search mode: vector, fts, or hybrid.
-   */
-  search_mode?: 'vector' | 'fts' | 'hybrid';
-
-  /**
-   * Filter by tags (match any).
-   */
-  tags?: Array<string> | null;
-
-  /**
-   * Filter by tool types (e.g., 'custom', 'letta_core').
-   */
-  tool_types?: Array<string> | null;
-}
-
-/**
- * Result from a tool search operation.
- */
-export interface ToolSearchResult {
-  /**
-   * Combined relevance score (RRF for hybrid mode).
-   */
-  combined_score: number;
-
-  /**
-   * The matched tool.
-   */
-  tool: Tool;
-
-  /**
-   * The embedded text content used for matching.
-   */
-  embedded_text?: string | null;
-
-  /**
-   * Full-text search rank position.
-   */
-  fts_rank?: number | null;
-
-  /**
-   * Vector search rank position.
-   */
-  vector_rank?: number | null;
-}
-
 export type ToolType =
   | 'custom'
   | 'letta_core'
@@ -390,8 +318,6 @@ export type ToolType =
   | 'external_mcp';
 
 export type ToolDeleteResponse = unknown;
-
-export type ToolSearchResponse = Array<ToolSearchResult>;
 
 export type ToolUpsertBaseToolsResponse = Array<Tool>;
 
@@ -555,33 +481,6 @@ export interface ToolListParams extends ArrayPageParams {
   tool_types?: Array<string> | null;
 }
 
-export interface ToolSearchParams {
-  /**
-   * Maximum number of results to return.
-   */
-  limit?: number;
-
-  /**
-   * Text query for semantic search.
-   */
-  query?: string | null;
-
-  /**
-   * Search mode: vector, fts, or hybrid.
-   */
-  search_mode?: 'vector' | 'fts' | 'hybrid';
-
-  /**
-   * Filter by tags (match any).
-   */
-  tags?: Array<string> | null;
-
-  /**
-   * Filter by tool types (e.g., 'custom', 'letta_core').
-   */
-  tool_types?: Array<string> | null;
-}
-
 export interface ToolUpsertParams {
   /**
    * The source code of the function.
@@ -648,17 +547,13 @@ export declare namespace Tools {
     type Tool as Tool,
     type ToolCreate as ToolCreate,
     type ToolReturnMessage as ToolReturnMessage,
-    type ToolSearchRequest as ToolSearchRequest,
-    type ToolSearchResult as ToolSearchResult,
     type ToolType as ToolType,
     type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolSearchResponse as ToolSearchResponse,
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolSearchParams as ToolSearchParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 }

@@ -58,10 +58,6 @@ import {
   ToolDeleteResponse,
   ToolListParams,
   ToolReturnMessage,
-  ToolSearchParams,
-  ToolSearchRequest,
-  ToolSearchResponse,
-  ToolSearchResult,
   ToolType,
   ToolUpdateParams,
   ToolUpsertBaseToolsResponse,
@@ -205,7 +201,13 @@ import {
 } from './resources/models/models';
 import { Job, RunListParams, Runs, StopReasonType } from './resources/runs/runs';
 import { ProviderTrace, Step, StepListParams, Steps, StepsArrayPage } from './resources/steps/steps';
-import { Templates } from './resources/templates/templates';
+import {
+  TemplateCreateParams,
+  TemplateCreateResponse,
+  TemplateDeleteParams,
+  TemplateDeleteResponse,
+  Templates,
+} from './resources/templates/templates';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -1057,17 +1059,13 @@ export declare namespace Letta {
     type Tool as Tool,
     type ToolCreate as ToolCreate,
     type ToolReturnMessage as ToolReturnMessage,
-    type ToolSearchRequest as ToolSearchRequest,
-    type ToolSearchResult as ToolSearchResult,
     type ToolType as ToolType,
     type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolSearchResponse as ToolSearchResponse,
     type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolSearchParams as ToolSearchParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
 
@@ -1150,7 +1148,13 @@ export declare namespace Letta {
     type StepListParams as StepListParams,
   };
 
-  export { Templates as Templates };
+  export {
+    Templates as Templates,
+    type TemplateCreateResponse as TemplateCreateResponse,
+    type TemplateDeleteResponse as TemplateDeleteResponse,
+    type TemplateCreateParams as TemplateCreateParams,
+    type TemplateDeleteParams as TemplateDeleteParams,
+  };
 
   export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
 
