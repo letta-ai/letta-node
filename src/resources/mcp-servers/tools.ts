@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as ToolsAPI from '../tools';
-import * as McpServersAPI from './mcp-servers';
+import * as AgentsToolsAPI from '../agents/tools';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -26,14 +26,14 @@ export class Tools extends APIResource {
   /**
    * Execute a specific MCP tool
    *
-   * The request body should contain the tool arguments in the MCPToolExecuteRequest
+   * The request body should contain the tool arguments in the ToolExecuteRequest
    * format.
    */
   run(
     toolID: string,
     params: ToolRunParams,
     options?: RequestOptions,
-  ): APIPromise<McpServersAPI.ToolExecutionResult> {
+  ): APIPromise<AgentsToolsAPI.ToolExecutionResult> {
     const { mcp_server_id, ...body } = params;
     return this._client.post(path`/v1/mcp-servers/${mcp_server_id}/tools/${toolID}/run`, {
       body,
@@ -55,7 +55,7 @@ export interface ToolRunParams {
   mcp_server_id: string;
 
   /**
-   * Body param: Arguments to pass to the MCP tool
+   * Body param: Arguments to pass to the tool
    */
   args?: { [key: string]: unknown };
 }
