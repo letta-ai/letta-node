@@ -117,9 +117,11 @@ export {
   type CreateSseMcpServer,
   type CreateStdioMcpServer,
   type CreateStreamableHTTPMcpServer,
+  type McpToolExecuteRequest,
   type SseMcpServer,
   type StdioMcpServer,
   type StreamableHTTPMcpServer,
+  type ToolExecutionResult,
   type UpdateSseMcpServer,
   type UpdateStdioMcpServer,
   type UpdateStreamableHTTPMcpServer,
@@ -133,6 +135,15 @@ export {
   type McpServerRefreshParams,
 } from './mcp-servers/mcp-servers';
 export {
+  Messages,
+  type MessageSearchRequest,
+  type MessageSearchResult,
+  type MessageListResponse,
+  type MessageSearchResponse,
+  type MessageListParams,
+  type MessageSearchParams,
+} from './messages';
+export {
   Models,
   type EmbeddingConfig,
   type EmbeddingModel,
@@ -143,6 +154,7 @@ export {
   type ModelListResponse,
   type ModelListParams,
 } from './models/models';
+export { Passages, type Passage, type PassageSearchResponse, type PassageSearchParams } from './passages';
 export { Runs, type Job, type StopReasonType, type RunListParams } from './runs/runs';
 export {
   Steps,

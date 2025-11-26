@@ -107,16 +107,7 @@ import {
   UserMessage,
 } from './messages';
 import * as AgentsToolsAPI from './tools';
-import {
-  ToolAttachParams,
-  ToolDetachParams,
-  ToolExecuteRequest,
-  ToolExecutionResult,
-  ToolListParams,
-  ToolRunParams,
-  ToolUpdateApprovalParams,
-  Tools,
-} from './tools';
+import { ToolAttachParams, ToolDetachParams, ToolListParams, ToolUpdateApprovalParams, Tools } from './tools';
 import * as ArchivesArchivesAPI from '../archives/archives';
 import * as BlocksBlocksAPI from '../blocks/blocks';
 import * as GroupsGroupsAPI from '../groups/groups';
@@ -1672,7 +1663,8 @@ export interface AgentCreateParams {
   reasoning?: boolean | null;
 
   /**
-   * The response format for the agent.
+   * @deprecated Deprecated: Use `model_settings` field to configure response format
+   * instead. The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
@@ -1924,8 +1916,8 @@ export interface AgentUpdateParams {
   reasoning?: boolean | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure response format instead.
-   * The response format for the agent.
+   * @deprecated Deprecated: Use `model_settings` field to configure response format
+   * instead. The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
@@ -2272,12 +2264,9 @@ export declare namespace Agents {
 
   export {
     Tools as Tools,
-    type ToolExecuteRequest as ToolExecuteRequest,
-    type ToolExecutionResult as ToolExecutionResult,
     type ToolListParams as ToolListParams,
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
-    type ToolRunParams as ToolRunParams,
     type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
   };
 

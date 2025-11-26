@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AgentsAPI from '../agents/agents';
 import * as ToolsAPI from './tools';
 import { ToolListResponse, ToolRetrieveParams, ToolRunParams, Tools } from './tools';
 import { APIPromise } from '../../core/api-promise';
@@ -153,6 +154,16 @@ export interface CreateStreamableHTTPMcpServer {
 }
 
 /**
+ * Request to execute an MCP tool by IDs.
+ */
+export interface McpToolExecuteRequest {
+  /**
+   * Arguments to pass to the MCP tool
+   */
+  args?: { [key: string]: unknown };
+}
+
+/**
  * An SSE MCP server
  */
 export interface SseMcpServer {
@@ -256,6 +267,40 @@ export interface StreamableHTTPMcpServer {
   custom_headers?: { [key: string]: string } | null;
 
   mcp_server_type?: 'streamable_http';
+}
+
+export interface ToolExecutionResult {
+  /**
+   * The status of the tool execution and return object
+   */
+  status: 'success' | 'error';
+
+  /**
+   * Representation of an agent's state. This is the state of the agent at a given
+   * time, and is persisted in the DB backend. The state has all the information
+   * needed to recreate a persisted agent.
+   */
+  agent_state?: AgentsAPI.AgentState | null;
+
+  /**
+   * The function return object
+   */
+  func_return?: unknown;
+
+  /**
+   * The fingerprint of the config for the sandbox
+   */
+  sandbox_config_fingerprint?: string | null;
+
+  /**
+   * Captured stderr from the function invocation
+   */
+  stderr?: Array<string> | null;
+
+  /**
+   * Captured stdout (prints, logs) from function invocation
+   */
+  stdout?: Array<string> | null;
 }
 
 /**
@@ -388,9 +433,11 @@ export declare namespace McpServers {
     type CreateSseMcpServer as CreateSseMcpServer,
     type CreateStdioMcpServer as CreateStdioMcpServer,
     type CreateStreamableHTTPMcpServer as CreateStreamableHTTPMcpServer,
+    type McpToolExecuteRequest as McpToolExecuteRequest,
     type SseMcpServer as SseMcpServer,
     type StdioMcpServer as StdioMcpServer,
     type StreamableHTTPMcpServer as StreamableHTTPMcpServer,
+    type ToolExecutionResult as ToolExecutionResult,
     type UpdateSseMcpServer as UpdateSseMcpServer,
     type UpdateStdioMcpServer as UpdateStdioMcpServer,
     type UpdateStreamableHTTPMcpServer as UpdateStreamableHTTPMcpServer,
