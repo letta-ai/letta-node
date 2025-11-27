@@ -183,7 +183,6 @@ export {
   type ToolType,
   type ToolDeleteResponse,
   type ToolSearchResponse,
-  type ToolUpsertBaseToolsResponse,
   type ToolCreateParams,
   type ToolUpdateParams,
   type ToolListParams,

@@ -64,13 +64,6 @@ export class Tools extends APIResource {
   upsert(body: ToolUpsertParams, options?: RequestOptions): APIPromise<Tool> {
     return this._client.put('/v1/tools/', { body, ...options });
   }
-
-  /**
-   * Upsert base tools
-   */
-  upsertBaseTools(options?: RequestOptions): APIPromise<ToolUpsertBaseToolsResponse> {
-    return this._client.post('/v1/tools/add-base-tools', options);
-  }
 }
 
 export type ToolsArrayPage = ArrayPage<Tool>;
@@ -393,8 +386,6 @@ export type ToolDeleteResponse = unknown;
 
 export type ToolSearchResponse = Array<ToolSearchResult>;
 
-export type ToolUpsertBaseToolsResponse = Array<Tool>;
-
 export interface ToolCreateParams {
   /**
    * The source code of the function.
@@ -653,7 +644,6 @@ export declare namespace Tools {
     type ToolType as ToolType,
     type ToolDeleteResponse as ToolDeleteResponse,
     type ToolSearchResponse as ToolSearchResponse,
-    type ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,

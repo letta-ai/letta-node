@@ -210,7 +210,6 @@ Types:
 - <code><a href="./src/resources/tools.ts">ToolType</a></code>
 - <code><a href="./src/resources/tools.ts">ToolDeleteResponse</a></code>
 - <code><a href="./src/resources/tools.ts">ToolSearchResponse</a></code>
-- <code><a href="./src/resources/tools.ts">ToolUpsertBaseToolsResponse</a></code>
 
 Methods:
 
@@ -221,7 +220,6 @@ Methods:
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolID) -> unknown</code>
 - <code title="post /v1/tools/search">client.tools.<a href="./src/resources/tools.ts">search</a>({ ...params }) -> ToolSearchResponse</code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/resources/tools.ts">upsert</a>({ ...params }) -> Tool</code>
-- <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/resources/tools.ts">upsertBaseTools</a>() -> ToolUpsertBaseToolsResponse</code>
 
 # Blocks
 
