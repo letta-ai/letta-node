@@ -25,15 +25,15 @@ In the example below, we'll create a stateful agent with two memory blocks. We'l
 *To run the examples, you'll need to get a `LETTA_API_KEY` from [Letta Cloud](https://app.letta.com/api-keys), or run your own self-hosted server (see [our guide](https://docs.letta.com/guides/selfhosting))*
 
 ```typescript
-import { LettaClient } from '@letta-ai/letta-client';
+import { Letta } from "@letta-ai/letta-client";
 
-const client = new LettaClient({ apiKey: "LETTA_API_KEY" });
-// const client = new LettaClient({ baseUrl: "http://localhost:8283" });  // if self-hosting
+const client = new Letta({ apiKey: process.env.LETTA_API_KEY });
+// const client = new Letta({ baseUrl: "http://localhost:8283" });  // if self-hosting
 
 const agentState = await client.agents.create({
-    model: "openai/gpt-4o-mini",
+    model: "openai/gpt-4.1",
     embedding: "openai/text-embedding-3-small",
-    memoryBlocks: [
+    memory_blocks: [
         {
           label: "human",
           value: "The human's name is Chad. They like vibe coding."
@@ -46,16 +46,10 @@ const agentState = await client.agents.create({
     tools: ["web_search", "run_code"]
 });
 
-console.log(agentState.id);
-// agent-d9be...0846
+console.log("Agent created with ID:", agentState.id);
 
 const response = await client.agents.messages.create(agentState.id, {
-    messages: [
-        {
-            role: "user",
-            content: "Hey, nice to meet you, my name is Brad."
-        }
-    ]
+    input: "Hey, nice to meet you, my name is Brad."
 });
 
 // the agent will think, then edit its memory using a tool
@@ -66,7 +60,7 @@ for (const message of response.messages) {
 // The content of this memory block will be something like
 // "The human's name is Brad. They like vibe coding."
 // Fetch this block's content with:
-const human_block = await client.agents.blocks.retrieve(agentState.id, "human");
+const human_block = await client.agents.blocks.retrieve("human", { agent_id: agentState.id });
 console.log(human_block.value);
 ```
 
@@ -84,7 +78,7 @@ Letta is built on the [MemGPT](https://arxiv.org/abs/2310.08560) research paper,
 Connect to a local Letta server instead of the cloud:
 
 ```typescript
-const client = new LettaClient({
+const client = new Letta({
   baseUrl: "http://localhost:8283"
 });
 ```
@@ -110,19 +104,20 @@ Memory blocks are persistent, editable sections of an agent's context window:
 ```typescript
 // Create agent with memory blocks
 const agent = await client.agents.create({
-  memoryBlocks: [
+  memory_blocks: [
     { label: "persona", value: "I'm a helpful assistant." },
     { label: "human", value: "User preferences and info." }
   ]
 });
 
 // Update blocks manually
-await client.agents.blocks.update(agent.id, "human", {
+await client.agents.blocks.update("human", {
+  agent_id: agent.id,
   value: "Updated user information"
 });
 
 // Retrieve a block
-const block = await client.agents.blocks.retrieve(agent.id, "human");
+const block = await client.agents.blocks.retrieve("human", { agent_id: agent.id });
 ```
 
 ### Multi-agent Shared Memory ([full guide](https://docs.letta.com/guides/agents/multi-agent-shared-memory))
@@ -140,13 +135,13 @@ const sharedBlock = await client.blocks.create({
 
 // Attach to multiple agents
 const agent1 = await client.agents.create({
-  memoryBlocks: [{ label: "persona", value: "I am a supervisor" }],
-  blockIds: [sharedBlock.id]
+  memory_blocks: [{ label: "persona", value: "I am a supervisor" }],
+  block_ids: [sharedBlock.id]
 });
 
 const agent2 = await client.agents.create({
-  memoryBlocks: [{ label: "persona", value: "I am a worker" }],
-  blockIds: [sharedBlock.id]
+  memory_blocks: [{ label: "persona", value: "I am a worker" }],
+  block_ids: [sharedBlock.id]
 });
 ```
 
@@ -156,8 +151,8 @@ Background agents that share memory with your primary agent:
 
 ```typescript
 const agent = await client.agents.create({
-  model: "openai/gpt-4o-mini",
-  enableSleeptime: true  // creates a sleep-time agent
+  model: "openai/gpt-4.1",
+  enable_sleeptime: true  // creates a sleep-time agent
 });
 ```
 
@@ -195,8 +190,8 @@ const tools = await client.mcpServers.tools.list(weatherServer.id);
 
 // Create agent with MCP tool
 const agent = await client.agents.create({
-  model: "openai/gpt-4o-mini",
-  toolIds: [tool.id]
+  model: "openai/gpt-4.1",
+  tool_ids: [tool.id]
 });
 ```
 
@@ -224,18 +219,20 @@ Background execution with resumable streaming:
 
 ```typescript
 const stream = await client.agents.messages.create(agent.id, {
-  messages: [{ role: "user", content: "Analyze this dataset" }],
+  messages: [
+    { role: "user", content: "Analyze this dataset" }
+  ],
   background: true
 });
 
-let runId, lastSeqId;
+let run_id, last_seq_id;
 for await (const chunk of stream) {
-  runId = chunk.runId;
-  lastSeqId = chunk.seqId;
+  run_id = chunk.run_id;
+  last_seq_id = chunk.seq_id;
 }
 
 // Resume if disconnected
-for await (const chunk of client.runs.stream(runId, { startingAfter: lastSeqId })) {
+for await (const chunk of client.runs.stream(run_id, { starting_after: last_seq_id })) {
   console.log(chunk);
 }
 ```
@@ -246,7 +243,9 @@ Stream responses in real-time:
 
 ```typescript
 const stream = await client.agents.messages.stream(agent.id, {
-  messages: [{ role: "user", content: "Hello!" }]
+  messages: [
+    { role: "user", content: "Hello!" }
+  ]
 });
 
 for await (const chunk of stream) {
@@ -256,13 +255,13 @@ for await (const chunk of stream) {
 
 ### Message Types ([full guide](https://docs.letta.com/guides/agents/message-types))
 
-Agent responses contain different message types. Handle them with the `messageType` discriminator:
+Agent responses contain different message types. Handle them with the `message_type` discriminator:
 
 ```typescript
-const messages = await client.agents.messages.list(agent.id);
+const messagesPage = await client.agents.messages.list(agent.id);
 
-for (const message of messages) {
-  switch (message.messageType) {
+for await (const message of messagesPage) {
+  switch (message.message_type) {
     case "user_message":
       console.log("User:", message.content);
       break;
@@ -273,10 +272,10 @@ for (const message of messages) {
       console.log("Reasoning:", message.reasoning);
       break;
     case "tool_call_message":
-      console.log("Tool:", message.toolCall.name);
+      console.log("Tool:", message.tool_call.name);
       break;
     case "tool_return_message":
-      console.log("Result:", message.toolReturn);
+      console.log("Result:", message.tool_return);
       break;
   }
 }
@@ -290,8 +289,8 @@ Full TypeScript support with exported types:
 import { Letta } from "@letta-ai/letta-client";
 
 const request: Letta.CreateAgentRequest = {
-  model: "openai/gpt-4o-mini",
-  memoryBlocks: [...]
+  model: "openai/gpt-4.1",
+  memory_blocks: [...]
 };
 ```
 
@@ -338,44 +337,6 @@ const response = await client.agents.create({...}, {
   }
 });
 ```
-
-### Abort Requests
-
-```typescript
-const controller = new AbortController();
-const response = await client.agents.create({...}, {
-  abortSignal: controller.signal
-});
-controller.abort();
-```
-
-### Raw Response Access
-
-```typescript
-const { data, rawResponse } = await client.agents
-  .create({...})
-  .withRawResponse();
-
-console.log(rawResponse.headers['X-My-Header']);
-```
-
-### Custom Fetch Client
-
-```typescript
-const client = new LettaClient({
-  fetcher: yourCustomFetchImplementation
-});
-```
-
-## Runtime Compatibility
-
-Works in:
-- Node.js 18+
-- Vercel
-- Cloudflare Workers
-- Deno v1.25+
-- Bun 1.0+
-- React Native
 
 ## Contributing
 
