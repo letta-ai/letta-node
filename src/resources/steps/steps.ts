@@ -111,7 +111,7 @@ export interface Step {
   completion_tokens?: number | null;
 
   /**
-   * Metadata for the agent.
+   * Detailed completion token breakdown (e.g., reasoning_tokens).
    */
   completion_tokens_details?: { [key: string]: unknown } | null;
 
@@ -165,6 +165,12 @@ export interface Step {
    * The number of tokens in the prompt during this step.
    */
   prompt_tokens?: number | null;
+
+  /**
+   * Detailed prompt token breakdown (e.g., cached_tokens, cache_read_tokens,
+   * cache_creation_tokens).
+   */
+  prompt_tokens_details?: { [key: string]: unknown } | null;
 
   /**
    * The category of the provider used for this step.

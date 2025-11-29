@@ -32,6 +32,10 @@ export namespace UsageRetrieveResponse {
   }
 
   export interface PromptTokensDetails {
+    cache_creation_tokens?: number;
+
+    cache_read_tokens?: number;
+
     cached_tokens?: number;
   }
 }
