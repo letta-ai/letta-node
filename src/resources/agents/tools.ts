@@ -96,9 +96,9 @@ export interface ToolExecutionResult {
   status: 'success' | 'error';
 
   /**
-   * Representation of an agent's state. This is the state of the agent at a given
-   * time, and is persisted in the DB backend. The state has all the information
-   * needed to recreate a persisted agent.
+   * @deprecated Representation of an agent's state. This is the state of the agent
+   * at a given time, and is persisted in the DB backend. The state has all the
+   * information needed to recreate a persisted agent.
    */
   agent_state?: AgentsAPI.AgentState | null;
 

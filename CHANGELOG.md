@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.3.2 (2025-12-01)
+
+Full Changelog: [v1.3.1...v1.3.2](https://github.com/letta-ai/letta-node/compare/v1.3.1...v1.3.2)
+
+### Features
+
+* add delete/create template endpoint ([f08f54e](https://github.com/letta-ai/letta-node/commit/f08f54e2723ea8d4b7d71fed9ec1ed71e2157ba6))
+* add tracking of advanced usage data (eg caching) [LET-6372] ([8d2645e](https://github.com/letta-ai/letta-node/commit/8d2645e67bf220c4f5d201105b3d87d736c953bd))
+* patch tool calling endpoint and add SDK testing ([4d4c9aa](https://github.com/letta-ai/letta-node/commit/4d4c9aa91400758b0c0786dfbee7ee998f92ba10))
+
+
+### Bug Fixes
+
+* **core:** distinguish between null and 0 for prompt caching ([b0b4131](https://github.com/letta-ai/letta-node/commit/b0b41315c289aad6a777a0eff9b7a01891eef039))
+* remove project_id from identities list ([9855e05](https://github.com/letta-ai/letta-node/commit/9855e05dcdd8346435a3be18d33453f9d7c56547))
+* remove upsert base tools from sdk ([350ca06](https://github.com/letta-ai/letta-node/commit/350ca06226e4d480cac11bc8222fcaeeaefd72d6))
+
+
+### Chores
+
+* **client:** fix logger property type ([b1c28b1](https://github.com/letta-ai/letta-node/commit/b1c28b18f5585372f5162645c9cd1a4445601899))
+* update endpoints ([6637e56](https://github.com/letta-ai/letta-node/commit/6637e56262768a47a7f0dfbe1b03eb5638b11358))
+
 ## 1.3.1 (2025-11-26)
 
 Full Changelog: [v1.2.0...v1.3.1](https://github.com/letta-ai/letta-node/compare/v1.2.0...v1.3.1)

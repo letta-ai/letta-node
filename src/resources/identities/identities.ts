@@ -213,6 +213,10 @@ export interface IdentityListParams extends ArrayPageParams {
 
   name?: string | null;
 
+  /**
+   * @deprecated [DEPRECATED: Use X-Project-Id header instead] Filter identities by
+   * project ID
+   */
   project_id?: string | null;
 }
 

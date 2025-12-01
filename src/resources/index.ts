@@ -162,7 +162,15 @@ export {
   type StepsArrayPage,
 } from './steps/steps';
 export { Tags, type TagListResponse, type TagListParams } from './tags';
-export { Templates } from './templates/templates';
+export {
+  Templates,
+  type TemplateCreateResponse,
+  type TemplateUpdateResponse,
+  type TemplateDeleteResponse,
+  type TemplateCreateParams,
+  type TemplateUpdateParams,
+  type TemplateDeleteParams,
+} from './templates/templates';
 export {
   Tools,
   type NpmRequirement,
@@ -175,7 +183,6 @@ export {
   type ToolType,
   type ToolDeleteResponse,
   type ToolSearchResponse,
-  type ToolUpsertBaseToolsResponse,
   type ToolCreateParams,
   type ToolUpdateParams,
   type ToolListParams,

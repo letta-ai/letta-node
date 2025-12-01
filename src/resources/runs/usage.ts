@@ -28,11 +28,15 @@ export interface UsageRetrieveResponse {
 
 export namespace UsageRetrieveResponse {
   export interface CompletionTokensDetails {
-    reasoning_tokens?: number;
+    reasoning_tokens?: number | null;
   }
 
   export interface PromptTokensDetails {
-    cached_tokens?: number;
+    cache_creation_tokens?: number | null;
+
+    cache_read_tokens?: number | null;
+
+    cached_tokens?: number | null;
   }
 }
 
