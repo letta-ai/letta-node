@@ -139,6 +139,17 @@ export {
   type InternalMessagesObjectPage,
 } from './messages';
 export {
+  Passages,
+  type PassageCreateResponse,
+  type PassageListResponse,
+  type PassageDeleteResponse,
+  type PassageSearchResponse,
+  type PassageCreateParams,
+  type PassageListParams,
+  type PassageDeleteParams,
+  type PassageSearchParams,
+} from './passages';
+export {
   Tools,
   type ToolExecuteRequest,
   type ToolExecutionResult,
