@@ -158,6 +158,11 @@ export interface Tool {
   pip_requirements?: Array<PipRequirement> | null;
 
   /**
+   * The project id of the tool.
+   */
+  project_id?: string | null;
+
+  /**
    * The maximum number of characters in the response.
    */
   return_char_limit?: number;
