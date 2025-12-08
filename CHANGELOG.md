@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.3.3 (2025-12-08)
+
+Full Changelog: [v1.3.2...v1.3.3](https://github.com/letta-ai/letta-node/compare/v1.3.2...v1.3.3)
+
+### Features
+
+* add project id scoping backend changes ([b18bfc1](https://github.com/letta-ai/letta-node/commit/b18bfc12984d2eae57eb7ead98351a941d323b49))
+
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([a237a15](https://github.com/letta-ai/letta-node/commit/a237a1570709249a795aed41778d9828253f8dae))
+* **mcp:** return correct lines on typescript errors ([9df50bd](https://github.com/letta-ai/letta-node/commit/9df50bd5d1d2130dbac28d39a7b18cb4e876828d))
+
+
+### Chores
+
+* add letta source header ([#63](https://github.com/letta-ai/letta-node/issues/63)) ([c5af4a0](https://github.com/letta-ai/letta-node/commit/c5af4a0bdc36faaed8afac68a76c6e6ab8a803c0))
+* add passages convenience sdk methods to agents route ([5de40e5](https://github.com/letta-ai/letta-node/commit/5de40e5bbe164a24abffb0be591d656a57c1c366))
+* **internal:** codegen related update ([3f16695](https://github.com/letta-ai/letta-node/commit/3f16695f6b34d9aed665be3bca761a52f27f8c8f))
+* **internal:** codegen related update ([6fa8eea](https://github.com/letta-ai/letta-node/commit/6fa8eea83ed90cab37e9fccce0c71de1e631e0b9))
+* **internal:** upgrade eslint ([1593767](https://github.com/letta-ai/letta-node/commit/15937670c55df106ac6fae7500a046c15af81cdb))
+
 ## 1.3.2 (2025-12-01)
 
 Full Changelog: [v1.3.1...v1.3.2](https://github.com/letta-ai/letta-node/compare/v1.3.1...v1.3.2)
