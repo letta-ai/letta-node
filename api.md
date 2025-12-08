@@ -184,6 +184,22 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}/archives/attach/{archive_id}">client.agents.archives.<a href="./src/resources/agents/archives.ts">attach</a>(archiveID, { ...params }) -> unknown</code>
 - <code title="patch /v1/agents/{agent_id}/archives/detach/{archive_id}">client.agents.archives.<a href="./src/resources/agents/archives.ts">detach</a>(archiveID, { ...params }) -> unknown</code>
 
+## Passages
+
+Types:
+
+- <code><a href="./src/resources/agents/passages.ts">PassageCreateResponse</a></code>
+- <code><a href="./src/resources/agents/passages.ts">PassageListResponse</a></code>
+- <code><a href="./src/resources/agents/passages.ts">PassageDeleteResponse</a></code>
+- <code><a href="./src/resources/agents/passages.ts">PassageSearchResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/agents/{agent_id}/archival-memory">client.agents.passages.<a href="./src/resources/agents/passages.ts">create</a>(agentID, { ...params }) -> PassageCreateResponse</code>
+- <code title="get /v1/agents/{agent_id}/archival-memory">client.agents.passages.<a href="./src/resources/agents/passages.ts">list</a>(agentID, { ...params }) -> PassageListResponse</code>
+- <code title="delete /v1/agents/{agent_id}/archival-memory/{memory_id}">client.agents.passages.<a href="./src/resources/agents/passages.ts">delete</a>(memoryID, { ...params }) -> unknown</code>
+- <code title="get /v1/agents/{agent_id}/archival-memory/search">client.agents.passages.<a href="./src/resources/agents/passages.ts">search</a>(agentID, { ...params }) -> PassageSearchResponse</code>
+
 ## Identities
 
 Types:

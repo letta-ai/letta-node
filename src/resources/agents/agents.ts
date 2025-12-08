@@ -106,6 +106,18 @@ import {
   UpdateUserMessage,
   UserMessage,
 } from './messages';
+import * as PassagesAPI from './passages';
+import {
+  PassageCreateParams,
+  PassageCreateResponse,
+  PassageDeleteParams,
+  PassageDeleteResponse,
+  PassageListParams,
+  PassageListResponse,
+  PassageSearchParams,
+  PassageSearchResponse,
+  Passages,
+} from './passages';
 import * as AgentsToolsAPI from './tools';
 import {
   ToolAttachParams,
@@ -139,6 +151,7 @@ export class Agents extends APIResource {
   files: FilesAPI.Files = new FilesAPI.Files(this._client);
   groups: GroupsAPI.Groups = new GroupsAPI.Groups(this._client);
   archives: ArchivesAPI.Archives = new ArchivesAPI.Archives(this._client);
+  passages: PassagesAPI.Passages = new PassagesAPI.Passages(this._client);
   identities: IdentitiesAPI.Identities = new IdentitiesAPI.Identities(this._client);
 
   /**
@@ -2169,6 +2182,7 @@ Agents.Folders = Folders;
 Agents.Files = Files;
 Agents.Groups = Groups;
 Agents.Archives = Archives;
+Agents.Passages = Passages;
 Agents.Identities = Identities;
 
 export declare namespace Agents {
@@ -2316,6 +2330,18 @@ export declare namespace Agents {
     type ArchiveDetachResponse as ArchiveDetachResponse,
     type ArchiveAttachParams as ArchiveAttachParams,
     type ArchiveDetachParams as ArchiveDetachParams,
+  };
+
+  export {
+    Passages as Passages,
+    type PassageCreateResponse as PassageCreateResponse,
+    type PassageListResponse as PassageListResponse,
+    type PassageDeleteResponse as PassageDeleteResponse,
+    type PassageSearchResponse as PassageSearchResponse,
+    type PassageCreateParams as PassageCreateParams,
+    type PassageListParams as PassageListParams,
+    type PassageDeleteParams as PassageDeleteParams,
+    type PassageSearchParams as PassageSearchParams,
   };
 
   export {
