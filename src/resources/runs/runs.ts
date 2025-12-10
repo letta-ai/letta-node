@@ -143,7 +143,8 @@ export type StopReasonType =
   | 'no_tool_call'
   | 'tool_rule'
   | 'cancelled'
-  | 'requires_approval';
+  | 'requires_approval'
+  | 'context_window_overflow_in_system_prompt';
 
 export interface RunListParams extends ArrayPageParams {
   /**
