@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.0 (2025-12-11)
+
+Full Changelog: [v1.3.3...v1.4.0](https://github.com/letta-ai/letta-node/compare/v1.3.3...v1.4.0)
+
+### Features
+
+* add `compaction_settings` to agents ([59ec25e](https://github.com/letta-ai/letta-node/commit/59ec25eb586d34a022e48e270a75476cec951422))
+* refactor summarization and message persistence code ([71e60a4](https://github.com/letta-ai/letta-node/commit/71e60a405833a3e8b64cef8478ef4e469b681384))
+
 ## 1.3.3 (2025-12-08)
 
 Full Changelog: [v1.3.2...v1.3.3](https://github.com/letta-ai/letta-node/compare/v1.3.2...v1.3.3)

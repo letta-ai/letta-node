@@ -360,6 +360,11 @@ export interface AgentState {
   base_template_id?: string | null;
 
   /**
+   * The compaction settings configuration used for compaction.
+   */
+  compaction_settings?: AgentState.CompactionSettings | null;
+
+  /**
    * The timestamp when the object was created.
    */
   created_at?: string | null;
@@ -744,6 +749,61 @@ export namespace AgentState {
      * The vector database provider used for this source's passages
      */
     vector_db_provider?: ArchivesArchivesAPI.VectorDBProvider;
+  }
+
+  /**
+   * The compaction settings configuration used for compaction.
+   */
+  export interface CompactionSettings {
+    /**
+     * The model settings to use for summarization.
+     */
+    model_settings: CompactionSettings.ModelSettings;
+
+    /**
+     * The prompt to use for summarization.
+     */
+    prompt: string;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement: string;
+
+    /**
+     * The maximum length of the summary in characters. If none, no clipping is
+     * performed.
+     */
+    clip_chars?: number | null;
+
+    /**
+     * The type of summarization technique use.
+     */
+    mode?: 'all' | 'sliding_window';
+
+    /**
+     * The percentage of the context window to keep post-summarization (only used in
+     * sliding window mode).
+     */
+    sliding_window_percentage?: number;
+  }
+
+  export namespace CompactionSettings {
+    /**
+     * The model settings to use for summarization.
+     */
+    export interface ModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+    }
   }
 }
 
@@ -1495,6 +1555,11 @@ export interface AgentCreateParams {
   block_ids?: Array<string> | null;
 
   /**
+   * The compaction settings configuration used for compaction.
+   */
+  compaction_settings?: AgentCreateParams.CompactionSettings | null;
+
+  /**
    * The context window limit used by the agent.
    */
   context_window_limit?: number | null;
@@ -1764,6 +1829,63 @@ export interface AgentCreateParams {
   tools?: Array<string> | null;
 }
 
+export namespace AgentCreateParams {
+  /**
+   * The compaction settings configuration used for compaction.
+   */
+  export interface CompactionSettings {
+    /**
+     * The model settings to use for summarization.
+     */
+    model_settings: CompactionSettings.ModelSettings;
+
+    /**
+     * The prompt to use for summarization.
+     */
+    prompt: string;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement: string;
+
+    /**
+     * The maximum length of the summary in characters. If none, no clipping is
+     * performed.
+     */
+    clip_chars?: number | null;
+
+    /**
+     * The type of summarization technique use.
+     */
+    mode?: 'all' | 'sliding_window';
+
+    /**
+     * The percentage of the context window to keep post-summarization (only used in
+     * sliding window mode).
+     */
+    sliding_window_percentage?: number;
+  }
+
+  export namespace CompactionSettings {
+    /**
+     * The model settings to use for summarization.
+     */
+    export interface ModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+    }
+  }
+}
+
 export interface AgentRetrieveParams {
   /**
    * Specify which relational fields to include in the response. No relationships are
@@ -1798,6 +1920,11 @@ export interface AgentUpdateParams {
    * The ids of the blocks used by the agent.
    */
   block_ids?: Array<string> | null;
+
+  /**
+   * The compaction settings configuration used for compaction.
+   */
+  compaction_settings?: AgentUpdateParams.CompactionSettings | null;
 
   /**
    * The context window limit used by the agent.
@@ -2003,6 +2130,63 @@ export interface AgentUpdateParams {
     | ParentToolRule
     | RequiresApprovalToolRule
   > | null;
+}
+
+export namespace AgentUpdateParams {
+  /**
+   * The compaction settings configuration used for compaction.
+   */
+  export interface CompactionSettings {
+    /**
+     * The model settings to use for summarization.
+     */
+    model_settings: CompactionSettings.ModelSettings;
+
+    /**
+     * The prompt to use for summarization.
+     */
+    prompt: string;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement: string;
+
+    /**
+     * The maximum length of the summary in characters. If none, no clipping is
+     * performed.
+     */
+    clip_chars?: number | null;
+
+    /**
+     * The type of summarization technique use.
+     */
+    mode?: 'all' | 'sliding_window';
+
+    /**
+     * The percentage of the context window to keep post-summarization (only used in
+     * sliding window mode).
+     */
+    sliding_window_percentage?: number;
+  }
+
+  export namespace CompactionSettings {
+    /**
+     * The model settings to use for summarization.
+     */
+    export interface ModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+    }
+  }
 }
 
 export interface AgentListParams extends ArrayPageParams {
