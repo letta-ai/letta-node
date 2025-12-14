@@ -704,9 +704,15 @@ export namespace InternalMessage {
     }
   }
 
+  /**
+   * A call to a function tool created by the model.
+   */
   export interface ToolCall {
     id: string;
 
+    /**
+     * The function that the model called.
+     */
     function: ToolCall.Function;
 
     type: 'function';
@@ -715,6 +721,9 @@ export namespace InternalMessage {
   }
 
   export namespace ToolCall {
+    /**
+     * The function that the model called.
+     */
     export interface Function {
       arguments: string;
 

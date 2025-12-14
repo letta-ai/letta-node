@@ -1372,7 +1372,7 @@ export namespace OpenAIModelSettings {
     /**
      * The reasoning effort to use when generating text reasoning models
      */
-    reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high';
+    reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
   }
 }
 

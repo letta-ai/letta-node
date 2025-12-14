@@ -325,7 +325,7 @@ export interface LlmConfig {
   /**
    * The reasoning effort to use when generating text reasoning models
    */
-  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | null;
+  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | null;
 
   /**
    * The response format for the model's output. Supports text, json_object, and
@@ -490,7 +490,7 @@ export interface Model {
    * @deprecated Deprecated: The reasoning effort to use when generating text
    * reasoning models.
    */
-  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | null;
+  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | null;
 
   /**
    * The response format for the model's output. Supports text, json_object, and
