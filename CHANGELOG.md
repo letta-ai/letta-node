@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.4.0 (2025-12-15)
+
+Full Changelog: [v1.3.3...v1.4.0](https://github.com/letta-ai/letta-node/compare/v1.3.3...v1.4.0)
+
+### Features
+
+* add  `agent_id` to search results ([47e7d64](https://github.com/letta-ai/letta-node/commit/47e7d64990fe215a066a306de58898cdf25f4ae0))
+* add `compaction_settings` to agents ([59ec25e](https://github.com/letta-ai/letta-node/commit/59ec25eb586d34a022e48e270a75476cec951422))
+* Add max tokens exceeded to stop reasons [LET-6480] ([b0db847](https://github.com/letta-ai/letta-node/commit/b0db8478b11fedce6e53463557b771295b9bd004))
+* refactor summarization and message persistence code ([71e60a4](https://github.com/letta-ai/letta-node/commit/71e60a405833a3e8b64cef8478ef4e469b681384))
+
+
+### Bug Fixes
+
+* fix `prompt_acknowledgement` usage ([fb347b2](https://github.com/letta-ai/letta-node/commit/fb347b20b438d2643ae88616c49a01acc02ae912))
+* use `model` instead of `model_settings` ([e2d2951](https://github.com/letta-ai/letta-node/commit/e2d29514d2c31000d77b3e669bf49e52aae2db9e))
+
 ## 1.3.3 (2025-12-08)
 
 Full Changelog: [v1.3.2...v1.3.3](https://github.com/letta-ai/letta-node/compare/v1.3.2...v1.3.3)
