@@ -360,7 +360,11 @@ export interface AgentState {
   base_template_id?: string | null;
 
   /**
-   * The compaction settings configuration used for compaction.
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
    */
   compaction_settings?: AgentState.CompactionSettings | null;
 
@@ -752,13 +756,17 @@ export namespace AgentState {
   }
 
   /**
-   * The compaction settings configuration used for compaction.
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
    */
   export interface CompactionSettings {
     /**
-     * The model settings to use for summarization.
+     * Model handle to use for summarization (format: provider/model-name).
      */
-    model_settings: CompactionSettings.ModelSettings;
+    model: string;
 
     /**
      * The prompt to use for summarization.
@@ -783,27 +791,26 @@ export namespace AgentState {
     mode?: 'all' | 'sliding_window';
 
     /**
+     * Optional model settings used to override defaults for the summarizer model.
+     */
+    model_settings?:
+      | AgentsAPI.OpenAIModelSettings
+      | AgentsAPI.AnthropicModelSettings
+      | AgentsAPI.GoogleAIModelSettings
+      | AgentsAPI.GoogleVertexModelSettings
+      | AgentsAPI.AzureModelSettings
+      | AgentsAPI.XaiModelSettings
+      | AgentsAPI.GroqModelSettings
+      | AgentsAPI.DeepseekModelSettings
+      | AgentsAPI.TogetherModelSettings
+      | AgentsAPI.BedrockModelSettings
+      | null;
+
+    /**
      * The percentage of the context window to keep post-summarization (only used in
      * sliding window mode).
      */
     sliding_window_percentage?: number;
-  }
-
-  export namespace CompactionSettings {
-    /**
-     * The model settings to use for summarization.
-     */
-    export interface ModelSettings {
-      /**
-       * The maximum number of tokens the model can generate.
-       */
-      max_output_tokens?: number;
-
-      /**
-       * Whether to enable parallel tool calling.
-       */
-      parallel_tool_calls?: boolean;
-    }
   }
 }
 
@@ -1555,7 +1562,11 @@ export interface AgentCreateParams {
   block_ids?: Array<string> | null;
 
   /**
-   * The compaction settings configuration used for compaction.
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
    */
   compaction_settings?: AgentCreateParams.CompactionSettings | null;
 
@@ -1831,13 +1842,17 @@ export interface AgentCreateParams {
 
 export namespace AgentCreateParams {
   /**
-   * The compaction settings configuration used for compaction.
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
    */
   export interface CompactionSettings {
     /**
-     * The model settings to use for summarization.
+     * Model handle to use for summarization (format: provider/model-name).
      */
-    model_settings: CompactionSettings.ModelSettings;
+    model: string;
 
     /**
      * The prompt to use for summarization.
@@ -1862,27 +1877,26 @@ export namespace AgentCreateParams {
     mode?: 'all' | 'sliding_window';
 
     /**
+     * Optional model settings used to override defaults for the summarizer model.
+     */
+    model_settings?:
+      | AgentsAPI.OpenAIModelSettings
+      | AgentsAPI.AnthropicModelSettings
+      | AgentsAPI.GoogleAIModelSettings
+      | AgentsAPI.GoogleVertexModelSettings
+      | AgentsAPI.AzureModelSettings
+      | AgentsAPI.XaiModelSettings
+      | AgentsAPI.GroqModelSettings
+      | AgentsAPI.DeepseekModelSettings
+      | AgentsAPI.TogetherModelSettings
+      | AgentsAPI.BedrockModelSettings
+      | null;
+
+    /**
      * The percentage of the context window to keep post-summarization (only used in
      * sliding window mode).
      */
     sliding_window_percentage?: number;
-  }
-
-  export namespace CompactionSettings {
-    /**
-     * The model settings to use for summarization.
-     */
-    export interface ModelSettings {
-      /**
-       * The maximum number of tokens the model can generate.
-       */
-      max_output_tokens?: number;
-
-      /**
-       * Whether to enable parallel tool calling.
-       */
-      parallel_tool_calls?: boolean;
-    }
   }
 }
 
@@ -1922,7 +1936,11 @@ export interface AgentUpdateParams {
   block_ids?: Array<string> | null;
 
   /**
-   * The compaction settings configuration used for compaction.
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
    */
   compaction_settings?: AgentUpdateParams.CompactionSettings | null;
 
@@ -2134,13 +2152,17 @@ export interface AgentUpdateParams {
 
 export namespace AgentUpdateParams {
   /**
-   * The compaction settings configuration used for compaction.
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
    */
   export interface CompactionSettings {
     /**
-     * The model settings to use for summarization.
+     * Model handle to use for summarization (format: provider/model-name).
      */
-    model_settings: CompactionSettings.ModelSettings;
+    model: string;
 
     /**
      * The prompt to use for summarization.
@@ -2165,27 +2187,26 @@ export namespace AgentUpdateParams {
     mode?: 'all' | 'sliding_window';
 
     /**
+     * Optional model settings used to override defaults for the summarizer model.
+     */
+    model_settings?:
+      | AgentsAPI.OpenAIModelSettings
+      | AgentsAPI.AnthropicModelSettings
+      | AgentsAPI.GoogleAIModelSettings
+      | AgentsAPI.GoogleVertexModelSettings
+      | AgentsAPI.AzureModelSettings
+      | AgentsAPI.XaiModelSettings
+      | AgentsAPI.GroqModelSettings
+      | AgentsAPI.DeepseekModelSettings
+      | AgentsAPI.TogetherModelSettings
+      | AgentsAPI.BedrockModelSettings
+      | null;
+
+    /**
      * The percentage of the context window to keep post-summarization (only used in
      * sliding window mode).
      */
     sliding_window_percentage?: number;
-  }
-
-  export namespace CompactionSettings {
-    /**
-     * The model settings to use for summarization.
-     */
-    export interface ModelSettings {
-      /**
-       * The maximum number of tokens the model can generate.
-       */
-      max_output_tokens?: number;
-
-      /**
-       * Whether to enable parallel tool calling.
-       */
-      parallel_tool_calls?: boolean;
-    }
   }
 }
 
