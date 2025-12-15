@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as ToolsAPI from './tools';
 import * as AgentsMessagesAPI from './agents/messages';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
@@ -88,18 +87,109 @@ export interface MessageSearchResult {
 export type MessageListResponse = Array<AgentsMessagesAPI.Message>;
 
 export type MessageSearchResponse = Array<
-  | AgentsMessagesAPI.SystemMessage
-  | AgentsMessagesAPI.UserMessage
-  | AgentsMessagesAPI.ReasoningMessage
-  | AgentsMessagesAPI.HiddenReasoningMessage
-  | AgentsMessagesAPI.ToolCallMessage
-  | ToolsAPI.ToolReturnMessage
-  | AgentsMessagesAPI.AssistantMessage
-  | AgentsMessagesAPI.ApprovalRequestMessage
-  | AgentsMessagesAPI.ApprovalResponseMessage
-  | AgentsMessagesAPI.SummaryMessage
-  | AgentsMessagesAPI.EventMessage
+  | MessageSearchResponse.SystemMessageListResult
+  | MessageSearchResponse.UserMessageListResult
+  | MessageSearchResponse.ReasoningMessageListResult
+  | MessageSearchResponse.AssistantMessageListResult
 >;
+
+export namespace MessageSearchResponse {
+  /**
+   * System message list result with agent context.
+   *
+   * Shape is identical to UpdateSystemMessage but includes the owning agent_id.
+   */
+  export interface SystemMessageListResult {
+    /**
+     * The message content sent by the system (can be a string or an array of
+     * multi-modal content parts)
+     */
+    content: string;
+
+    /**
+     * The time the message was created in ISO format.
+     */
+    created_at: string;
+
+    /**
+     * The unique identifier of the agent that owns the message.
+     */
+    agent_id?: string | null;
+
+    message_type?: 'system_message';
+  }
+
+  /**
+   * User message list result with agent context.
+   *
+   * Shape is identical to UpdateUserMessage but includes the owning agent_id.
+   */
+  export interface UserMessageListResult {
+    /**
+     * The message content sent by the user (can be a string or an array of multi-modal
+     * content parts)
+     */
+    content: Array<AgentsMessagesAPI.LettaUserMessageContentUnion> | string;
+
+    /**
+     * The time the message was created in ISO format.
+     */
+    created_at: string;
+
+    /**
+     * The unique identifier of the agent that owns the message.
+     */
+    agent_id?: string | null;
+
+    message_type?: 'user_message';
+  }
+
+  /**
+   * Reasoning message list result with agent context.
+   *
+   * Shape is identical to UpdateReasoningMessage but includes the owning agent_id.
+   */
+  export interface ReasoningMessageListResult {
+    /**
+     * The time the message was created in ISO format.
+     */
+    created_at: string;
+
+    reasoning: string;
+
+    /**
+     * The unique identifier of the agent that owns the message.
+     */
+    agent_id?: string | null;
+
+    message_type?: 'reasoning_message';
+  }
+
+  /**
+   * Assistant message list result with agent context.
+   *
+   * Shape is identical to UpdateAssistantMessage but includes the owning agent_id.
+   */
+  export interface AssistantMessageListResult {
+    /**
+     * The message content sent by the assistant (can be a string or an array of
+     * content parts)
+     */
+    content: Array<AgentsMessagesAPI.LettaAssistantMessageContentUnion> | string;
+
+    /**
+     * The time the message was created in ISO format.
+     */
+    created_at: string;
+
+    /**
+     * The unique identifier of the agent that owns the message.
+     */
+    agent_id?: string | null;
+
+    message_type?: 'assistant_message';
+  }
+}
 
 export interface MessageListParams {
   /**
