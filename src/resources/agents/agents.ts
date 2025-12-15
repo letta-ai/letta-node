@@ -769,17 +769,6 @@ export namespace AgentState {
     model: string;
 
     /**
-     * The prompt to use for summarization.
-     */
-    prompt: string;
-
-    /**
-     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
-     * outputs).
-     */
-    prompt_acknowledgement: string;
-
-    /**
      * The maximum length of the summary in characters. If none, no clipping is
      * performed.
      */
@@ -805,6 +794,17 @@ export namespace AgentState {
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
       | null;
+
+    /**
+     * The prompt to use for summarization.
+     */
+    prompt?: string;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement?: boolean;
 
     /**
      * The percentage of the context window to keep post-summarization (only used in
@@ -1855,17 +1855,6 @@ export namespace AgentCreateParams {
     model: string;
 
     /**
-     * The prompt to use for summarization.
-     */
-    prompt: string;
-
-    /**
-     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
-     * outputs).
-     */
-    prompt_acknowledgement: string;
-
-    /**
      * The maximum length of the summary in characters. If none, no clipping is
      * performed.
      */
@@ -1891,6 +1880,17 @@ export namespace AgentCreateParams {
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
       | null;
+
+    /**
+     * The prompt to use for summarization.
+     */
+    prompt?: string;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement?: boolean;
 
     /**
      * The percentage of the context window to keep post-summarization (only used in
@@ -2165,17 +2165,6 @@ export namespace AgentUpdateParams {
     model: string;
 
     /**
-     * The prompt to use for summarization.
-     */
-    prompt: string;
-
-    /**
-     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
-     * outputs).
-     */
-    prompt_acknowledgement: string;
-
-    /**
      * The maximum length of the summary in characters. If none, no clipping is
      * performed.
      */
@@ -2201,6 +2190,17 @@ export namespace AgentUpdateParams {
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
       | null;
+
+    /**
+     * The prompt to use for summarization.
+     */
+    prompt?: string;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement?: boolean;
 
     /**
      * The percentage of the context window to keep post-summarization (only used in
