@@ -97,7 +97,8 @@ export namespace MessageSearchResponse {
   /**
    * System message list result with agent context.
    *
-   * Shape is identical to UpdateSystemMessage but includes the owning agent_id.
+   * Shape is identical to UpdateSystemMessage but includes the owning agent_id and
+   * message id.
    */
   export interface SystemMessageListResult {
     /**
@@ -112,6 +113,11 @@ export namespace MessageSearchResponse {
     created_at: string;
 
     /**
+     * The unique identifier of the message.
+     */
+    message_id: string;
+
+    /**
      * The unique identifier of the agent that owns the message.
      */
     agent_id?: string | null;
@@ -122,7 +128,8 @@ export namespace MessageSearchResponse {
   /**
    * User message list result with agent context.
    *
-   * Shape is identical to UpdateUserMessage but includes the owning agent_id.
+   * Shape is identical to UpdateUserMessage but includes the owning agent_id and
+   * message id.
    */
   export interface UserMessageListResult {
     /**
@@ -137,6 +144,11 @@ export namespace MessageSearchResponse {
     created_at: string;
 
     /**
+     * The unique identifier of the message.
+     */
+    message_id: string;
+
+    /**
      * The unique identifier of the agent that owns the message.
      */
     agent_id?: string | null;
@@ -147,13 +159,19 @@ export namespace MessageSearchResponse {
   /**
    * Reasoning message list result with agent context.
    *
-   * Shape is identical to UpdateReasoningMessage but includes the owning agent_id.
+   * Shape is identical to UpdateReasoningMessage but includes the owning agent_id
+   * and message id.
    */
   export interface ReasoningMessageListResult {
     /**
      * The time the message was created in ISO format.
      */
     created_at: string;
+
+    /**
+     * The unique identifier of the message.
+     */
+    message_id: string;
 
     reasoning: string;
 
@@ -168,7 +186,8 @@ export namespace MessageSearchResponse {
   /**
    * Assistant message list result with agent context.
    *
-   * Shape is identical to UpdateAssistantMessage but includes the owning agent_id.
+   * Shape is identical to UpdateAssistantMessage but includes the owning agent_id
+   * and message id.
    */
   export interface AssistantMessageListResult {
     /**
@@ -181,6 +200,11 @@ export namespace MessageSearchResponse {
      * The time the message was created in ISO format.
      */
     created_at: string;
+
+    /**
+     * The unique identifier of the message.
+     */
+    message_id: string;
 
     /**
      * The unique identifier of the agent that owns the message.
