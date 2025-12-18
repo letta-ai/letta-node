@@ -8,7 +8,6 @@ import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, ObjectPage, PagePromise } from '../../core/pagination';
 import { Stream } from '../../core/streaming';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -91,12 +90,8 @@ export class Messages extends APIResource {
     agentID: string,
     body: MessageCompactParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.post(path`/v1/agents/${agentID}/summarize`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  ): APIPromise<MessageCompactResponse> {
+    return this._client.post(path`/v1/agents/${agentID}/summarize`, { body, ...options });
   }
 
   /**
@@ -1783,6 +1778,14 @@ export interface UserMessage {
 
 export type MessageCancelResponse = { [key: string]: unknown };
 
+export interface MessageCompactResponse {
+  num_messages_after: number;
+
+  num_messages_before: number;
+
+  summary_message: string;
+}
+
 export type MessageCreateParams = MessageCreateParamsNonStreaming | MessageCreateParamsStreaming;
 
 export interface MessageCreateParamsBase {
@@ -2321,6 +2324,7 @@ export declare namespace Messages {
     type UpdateUserMessage as UpdateUserMessage,
     type UserMessage as UserMessage,
     type MessageCancelResponse as MessageCancelResponse,
+    type MessageCompactResponse as MessageCompactResponse,
     type MessagesArrayPage as MessagesArrayPage,
     type MessageCreateParams as MessageCreateParams,
     type MessageCreateParamsNonStreaming as MessageCreateParamsNonStreaming,

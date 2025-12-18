@@ -126,6 +126,7 @@ export {
   type UpdateUserMessage,
   type UserMessage,
   type MessageCancelResponse,
+  type MessageCompactResponse,
   type MessageCreateParams,
   type MessageCreateParamsNonStreaming,
   type MessageCreateParamsStreaming,
