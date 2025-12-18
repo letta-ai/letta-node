@@ -92,6 +92,35 @@ describe('resource messages', () => {
   });
 
   // Prism tests are disabled
+  test.skip('compact: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.agents.messages.compact(
+        'agent-123e4567-e89b-42d3-8456-426614174000',
+        {
+          compaction_settings: {
+            model: 'model',
+            clip_chars: 0,
+            mode: 'all',
+            model_settings: {
+              max_output_tokens: 0,
+              parallel_tool_calls: true,
+              provider_type: 'openai',
+              reasoning: { reasoning_effort: 'none' },
+              response_format: { type: 'text' },
+              temperature: 0,
+            },
+            prompt: 'prompt',
+            prompt_acknowledgement: true,
+            sliding_window_percentage: 0,
+          },
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  // Prism tests are disabled
   test.skip('createAsync', async () => {
     const responsePromise = client.agents.messages.createAsync(
       'agent-123e4567-e89b-42d3-8456-426614174000',

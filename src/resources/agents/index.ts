@@ -131,6 +131,7 @@ export {
   type MessageCreateParamsStreaming,
   type MessageListParams,
   type MessageCancelParams,
+  type MessageCompactParams,
   type MessageCreateAsyncParams,
   type MessageResetParams,
   type MessageStreamParams,
