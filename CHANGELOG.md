@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.5.0 (2025-12-18)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/letta-ai/letta-node/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* add msg id to search endpoint response ([875cbac](https://github.com/letta-ai/letta-node/commit/875cbac4d11e9c26e9c7d5c94d380172c3fe689b))
+* allow for configuration compaction and return message delta ([e7dce7b](https://github.com/letta-ai/letta-node/commit/e7dce7b6be4f20c385383483110ba19443f82d41))
+
+
+### Chores
+
+* add publish config ([#65](https://github.com/letta-ai/letta-node/issues/65)) ([f3ddf93](https://github.com/letta-ai/letta-node/commit/f3ddf933bb8cecaa4139a74f0beee0c4190ca0c9))
+
 ## 1.4.0 (2025-12-15)
 
 Full Changelog: [v1.3.3...v1.4.0](https://github.com/letta-ai/letta-node/compare/v1.3.3...v1.4.0)
