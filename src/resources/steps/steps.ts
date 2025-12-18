@@ -188,6 +188,11 @@ export interface Step {
   provider_name?: string | null;
 
   /**
+   * The API request log ID from cloud-api for correlating steps with API requests.
+   */
+  request_id?: string | null;
+
+  /**
    * The unique identifier of the run that this step belongs to. Only included for
    * async calls.
    */
