@@ -97,13 +97,14 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">UpdateUserMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">UserMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">MessageCancelResponse</a></code>
+- <code><a href="./src/resources/agents/messages.ts">MessageCompactResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">create</a>(agentID, { ...params }) -> LettaResponse</code>
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">list</a>(agentID, { ...params }) -> MessagesArrayPage</code>
 - <code title="post /v1/agents/{agent_id}/messages/cancel">client.agents.messages.<a href="./src/resources/agents/messages.ts">cancel</a>(agentID, { ...params }) -> MessageCancelResponse</code>
-- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">compact</a>(agentID, { ...params }) -> void</code>
+- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">compact</a>(agentID, { ...params }) -> MessageCompactResponse</code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/resources/agents/messages.ts">createAsync</a>(agentID, { ...params }) -> Run</code>
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState | null</code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/resources/agents/messages.ts">stream</a>(agentID, { ...params }) -> LettaStreamingResponse</code>
