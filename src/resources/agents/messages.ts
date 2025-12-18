@@ -87,8 +87,13 @@ export class Messages extends APIResource {
   /**
    * Summarize an agent's conversation history.
    */
-  compact(agentID: string, options?: RequestOptions): APIPromise<void> {
+  compact(
+    agentID: string,
+    body: MessageCompactParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
     return this._client.post(path`/v1/agents/${agentID}/summarize`, {
+      body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
@@ -1961,6 +1966,77 @@ export interface MessageCancelParams {
   run_ids?: Array<string> | null;
 }
 
+export interface MessageCompactParams {
+  /**
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
+   */
+  compaction_settings?: MessageCompactParams.CompactionSettings | null;
+}
+
+export namespace MessageCompactParams {
+  /**
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
+   */
+  export interface CompactionSettings {
+    /**
+     * Model handle to use for summarization (format: provider/model-name).
+     */
+    model: string;
+
+    /**
+     * The maximum length of the summary in characters. If none, no clipping is
+     * performed.
+     */
+    clip_chars?: number | null;
+
+    /**
+     * The type of summarization technique use.
+     */
+    mode?: 'all' | 'sliding_window';
+
+    /**
+     * Optional model settings used to override defaults for the summarizer model.
+     */
+    model_settings?:
+      | AgentsAPI.OpenAIModelSettings
+      | AgentsAPI.AnthropicModelSettings
+      | AgentsAPI.GoogleAIModelSettings
+      | AgentsAPI.GoogleVertexModelSettings
+      | AgentsAPI.AzureModelSettings
+      | AgentsAPI.XaiModelSettings
+      | AgentsAPI.GroqModelSettings
+      | AgentsAPI.DeepseekModelSettings
+      | AgentsAPI.TogetherModelSettings
+      | AgentsAPI.BedrockModelSettings
+      | null;
+
+    /**
+     * The prompt to use for summarization.
+     */
+    prompt?: string;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement?: boolean;
+
+    /**
+     * The percentage of the context window to keep post-summarization (only used in
+     * sliding window mode).
+     */
+    sliding_window_percentage?: number;
+  }
+}
+
 export interface MessageCreateAsyncParams {
   /**
    * @deprecated The name of the message argument in the designated message tool.
@@ -2251,6 +2327,7 @@ export declare namespace Messages {
     type MessageCreateParamsStreaming as MessageCreateParamsStreaming,
     type MessageListParams as MessageListParams,
     type MessageCancelParams as MessageCancelParams,
+    type MessageCompactParams as MessageCompactParams,
     type MessageCreateAsyncParams as MessageCreateAsyncParams,
     type MessageResetParams as MessageResetParams,
     type MessageStreamParams as MessageStreamParams,
