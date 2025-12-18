@@ -1783,7 +1783,7 @@ export interface MessageCompactResponse {
 
   num_messages_before: number;
 
-  summary_message: string;
+  summary: string;
 }
 
 export type MessageCreateParams = MessageCreateParamsNonStreaming | MessageCreateParamsStreaming;

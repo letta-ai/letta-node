@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.1 (2025-12-18)
+
+Full Changelog: [v1.6.0...v1.6.1](https://github.com/letta-ai/letta-node/compare/v1.6.0...v1.6.1)
+
+### Bug Fixes
+
+* fix summary message return for compaction ([e1df66e](https://github.com/letta-ai/letta-node/commit/e1df66ee1169844d1a920fca1cea733b6b951933))
+
 ## 1.6.0 (2025-12-18)
 
 Full Changelog: [v1.5.0...v1.6.0](https://github.com/letta-ai/letta-node/compare/v1.5.0...v1.6.0)
