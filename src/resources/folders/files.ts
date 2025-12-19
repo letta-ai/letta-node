@@ -11,6 +11,18 @@ import { path } from '../../internal/utils/path';
 
 export class Files extends APIResource {
   /**
+   * Retrieve a file from a folder by ID.
+   */
+  retrieve(
+    fileID: string,
+    params: FileRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<FileRetrieveResponse> {
+    const { folder_id, ...query } = params;
+    return this._client.get(path`/v1/folders/${folder_id}/files/${fileID}`, { query, ...options });
+  }
+
+  /**
    * List paginated files associated with a data folder.
    */
   list(
@@ -52,6 +64,94 @@ export class Files extends APIResource {
 }
 
 export type FileListResponsesArrayPage = ArrayPage<FileListResponse>;
+
+/**
+ * Representation of a single FileMetadata
+ */
+export interface FileRetrieveResponse {
+  /**
+   * The human-friendly ID of the File
+   */
+  id: string;
+
+  /**
+   * @deprecated Deprecated: Use `folder_id` field instead. The unique identifier of
+   * the source associated with the document.
+   */
+  source_id: string;
+
+  /**
+   * Number of chunks that have been embedded.
+   */
+  chunks_embedded?: number | null;
+
+  /**
+   * Optional full-text content of the file; only populated on demand due to its
+   * size.
+   */
+  content?: string | null;
+
+  /**
+   * The creation date of the file.
+   */
+  created_at?: string | null;
+
+  /**
+   * Optional error message if the file failed processing.
+   */
+  error_message?: string | null;
+
+  /**
+   * The creation date of the file.
+   */
+  file_creation_date?: string | null;
+
+  /**
+   * The last modified date of the file.
+   */
+  file_last_modified_date?: string | null;
+
+  /**
+   * The name of the file.
+   */
+  file_name?: string | null;
+
+  /**
+   * The path to the file.
+   */
+  file_path?: string | null;
+
+  /**
+   * The size of the file in bytes.
+   */
+  file_size?: number | null;
+
+  /**
+   * The type of the file (MIME type).
+   */
+  file_type?: string | null;
+
+  /**
+   * The original name of the file as uploaded.
+   */
+  original_file_name?: string | null;
+
+  /**
+   * The current processing status of the file (e.g. pending, parsing, embedding,
+   * completed, error).
+   */
+  processing_status?: 'pending' | 'parsing' | 'embedding' | 'completed' | 'error';
+
+  /**
+   * Total number of chunks for the file.
+   */
+  total_chunks?: number | null;
+
+  /**
+   * The update date of the file.
+   */
+  updated_at?: string | null;
+}
 
 /**
  * Representation of a single FileMetadata
@@ -229,6 +329,18 @@ export interface FileUploadResponse {
   updated_at?: string | null;
 }
 
+export interface FileRetrieveParams {
+  /**
+   * Path param: The ID of the source in the format 'source-<uuid4>'
+   */
+  folder_id: string;
+
+  /**
+   * Query param: Whether to include full file content
+   */
+  include_content?: boolean;
+}
+
 export interface FileListParams extends ArrayPageParams {
   /**
    * Whether to include full file content
@@ -262,9 +374,11 @@ export interface FileUploadParams {
 
 export declare namespace Files {
   export {
+    type FileRetrieveResponse as FileRetrieveResponse,
     type FileListResponse as FileListResponse,
     type FileUploadResponse as FileUploadResponse,
     type FileListResponsesArrayPage as FileListResponsesArrayPage,
+    type FileRetrieveParams as FileRetrieveParams,
     type FileListParams as FileListParams,
     type FileDeleteParams as FileDeleteParams,
     type FileUploadParams as FileUploadParams,
