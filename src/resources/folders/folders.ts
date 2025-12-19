@@ -9,6 +9,8 @@ import {
   FileListParams,
   FileListResponse,
   FileListResponsesArrayPage,
+  FileRetrieveParams,
+  FileRetrieveResponse,
   FileUploadParams,
   FileUploadResponse,
   Files,
@@ -207,9 +209,11 @@ export declare namespace Folders {
 
   export {
     Files as Files,
+    type FileRetrieveResponse as FileRetrieveResponse,
     type FileListResponse as FileListResponse,
     type FileUploadResponse as FileUploadResponse,
     type FileListResponsesArrayPage as FileListResponsesArrayPage,
+    type FileRetrieveParams as FileRetrieveParams,
     type FileListParams as FileListParams,
     type FileDeleteParams as FileDeleteParams,
     type FileUploadParams as FileUploadParams,
