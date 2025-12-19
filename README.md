@@ -32,6 +32,26 @@ const archive = await client.archives.create({ name: 'name' });
 console.log(archive.id);
 ```
 
+## Streaming responses
+
+We provide support for streaming responses using Server Sent Events (SSE).
+
+```ts
+import Letta from '@letta-ai/letta-client';
+
+const client = new Letta();
+
+const stream = await client.agents.messages.create('agent-123e4567-e89b-42d3-8456-426614174000', {
+  streaming: true,
+});
+for await (const lettaStreamingResponse of stream) {
+  console.log(lettaStreamingResponse.messages);
+}
+```
+
+If you need to cancel a stream, you can `break` from the loop
+or call `stream.controller.abort()`.
+
 ### Request & Response types
 
 This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
@@ -153,6 +173,37 @@ await client.archives.create({ name: 'name' }, {
 On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
+
+## Auto-pagination
+
+List methods in the Letta API are paginated.
+You can use the `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllAgentStates(params) {
+  const allAgentStates = [];
+  // Automatically fetches more pages as needed.
+  for await (const agentState of client.agents.list()) {
+    allAgentStates.push(agentState);
+  }
+  return allAgentStates;
+}
+```
+
+Alternatively, you can request a single page at a time:
+
+```ts
+let page = await client.agents.list();
+for (const agentState of page.items) {
+  console.log(agentState);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = await page.getNextPage();
+  // ...
+}
+```
 
 ## Advanced Usage
 
