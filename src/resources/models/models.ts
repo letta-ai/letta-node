@@ -240,7 +240,8 @@ export interface LlmConfig {
     | 'together'
     | 'bedrock'
     | 'deepseek'
-    | 'xai';
+    | 'xai'
+    | 'zai';
 
   /**
    * The framework compatibility type for the model.
@@ -396,7 +397,8 @@ export interface Model {
     | 'together'
     | 'bedrock'
     | 'deepseek'
-    | 'xai';
+    | 'xai'
+    | 'zai';
 
   /**
    * The actual model name used by the provider
@@ -538,7 +540,8 @@ export type ProviderType =
   | 'openai'
   | 'together'
   | 'vllm'
-  | 'xai';
+  | 'xai'
+  | 'zai';
 
 export type ModelListResponse = Array<Model>;
 
