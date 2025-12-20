@@ -313,12 +313,6 @@ export interface AgentState {
   blocks: Array<BlocksAPI.Block>;
 
   /**
-   * @deprecated Deprecated: Use `embedding` field instead. The embedding
-   * configuration used by the agent.
-   */
-  embedding_config: ModelsAPI.EmbeddingConfig;
-
-  /**
    * @deprecated Deprecated: Use `model` field instead. The LLM configuration used by
    * the agent.
    */
@@ -394,6 +388,12 @@ export interface AgentState {
    * The embedding model handle used by the agent (format: provider/model-name).
    */
   embedding?: string | null;
+
+  /**
+   * @deprecated Configuration for embedding model connection and processing
+   * parameters.
+   */
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
    * If set to True, memory management will move to a background agent thread.
