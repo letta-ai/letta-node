@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.6.2 (2025-12-22)
+
+Full Changelog: [v1.6.1...v1.6.2](https://github.com/letta-ai/letta-node/compare/v1.6.1...v1.6.2)
+
+### Features
+
+* add request-id for steps [LET-6587] ([e85178a](https://github.com/letta-ai/letta-node/commit/e85178aa530e1bdeb4410eb0d096ba53204d1de6))
+* add retrieve_file endpoint to get file content ([9678655](https://github.com/letta-ai/letta-node/commit/9678655c6a5258f33725be888be69873770801d3))
+* add zai provider support ([34e49db](https://github.com/letta-ai/letta-node/commit/34e49db1de3c8e2dc90e33b060d93f7a10ba3e1b))
+* make embedding_config optional on agent creation ([a7e9ef0](https://github.com/letta-ai/letta-node/commit/a7e9ef029f7dd8fd453257239b50a2669473687c))
+
+
+### Documentation
+
+* add more examples ([a9d422a](https://github.com/letta-ai/letta-node/commit/a9d422ae40097044a387f1faf8558c7c0ec844cb))
+
 ## 1.6.1 (2025-12-18)
 
 Full Changelog: [v1.6.0...v1.6.1](https://github.com/letta-ai/letta-node/compare/v1.6.0...v1.6.1)
