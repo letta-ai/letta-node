@@ -9,6 +9,28 @@ const client = new Letta({
 
 describe('resource files', () => {
   // Prism tests are disabled
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.folders.files.retrieve('file-123e4567-e89b-42d3-8456-426614174000', {
+      folder_id: 'source-123e4567-e89b-42d3-8456-426614174000',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.folders.files.retrieve('file-123e4567-e89b-42d3-8456-426614174000', {
+      folder_id: 'source-123e4567-e89b-42d3-8456-426614174000',
+      include_content: true,
+    });
+  });
+
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.folders.files.list('source-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();

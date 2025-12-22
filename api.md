@@ -301,11 +301,13 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/folders/files.ts">FileRetrieveResponse</a></code>
 - <code><a href="./src/resources/folders/files.ts">FileListResponse</a></code>
 - <code><a href="./src/resources/folders/files.ts">FileUploadResponse</a></code>
 
 Methods:
 
+- <code title="get /v1/folders/{folder_id}/files/{file_id}">client.folders.files.<a href="./src/resources/folders/files.ts">retrieve</a>(fileID, { ...params }) -> FileRetrieveResponse</code>
 - <code title="get /v1/folders/{folder_id}/files">client.folders.files.<a href="./src/resources/folders/files.ts">list</a>(folderID, { ...params }) -> FileListResponsesArrayPage</code>
 - <code title="delete /v1/folders/{folder_id}/{file_id}">client.folders.files.<a href="./src/resources/folders/files.ts">delete</a>(fileID, { ...params }) -> void</code>
 - <code title="post /v1/folders/{folder_id}/upload">client.folders.files.<a href="./src/resources/folders/files.ts">upload</a>(folderID, { ...params }) -> FileUploadResponse</code>

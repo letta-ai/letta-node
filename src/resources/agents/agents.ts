@@ -313,12 +313,6 @@ export interface AgentState {
   blocks: Array<BlocksAPI.Block>;
 
   /**
-   * @deprecated Deprecated: Use `embedding` field instead. The embedding
-   * configuration used by the agent.
-   */
-  embedding_config: ModelsAPI.EmbeddingConfig;
-
-  /**
    * @deprecated Deprecated: Use `model` field instead. The LLM configuration used by
    * the agent.
    */
@@ -394,6 +388,12 @@ export interface AgentState {
    * The embedding model handle used by the agent (format: provider/model-name).
    */
   embedding?: string | null;
+
+  /**
+   * @deprecated Configuration for embedding model connection and processing
+   * parameters.
+   */
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
    * If set to True, memory management will move to a background agent thread.
@@ -484,6 +484,7 @@ export interface AgentState {
     | GoogleVertexModelSettings
     | AzureModelSettings
     | XaiModelSettings
+    | AgentState.ZaiModelSettings
     | GroqModelSettings
     | DeepseekModelSettings
     | TogetherModelSettings
@@ -791,6 +792,7 @@ export namespace AgentState {
       | AgentsAPI.GoogleVertexModelSettings
       | AgentsAPI.AzureModelSettings
       | AgentsAPI.XaiModelSettings
+      | CompactionSettings.ZaiModelSettings
       | AgentsAPI.GroqModelSettings
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
@@ -813,6 +815,76 @@ export namespace AgentState {
      * sliding window mode).
      */
     sliding_window_percentage?: number;
+  }
+
+  export namespace CompactionSettings {
+    /**
+     * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+     */
+    export interface ZaiModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+  }
+
+  /**
+   * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+   */
+  export interface ZaiModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
   }
 }
 
@@ -1725,6 +1797,7 @@ export interface AgentCreateParams {
     | GoogleVertexModelSettings
     | AzureModelSettings
     | XaiModelSettings
+    | AgentCreateParams.ZaiModelSettings
     | GroqModelSettings
     | DeepseekModelSettings
     | TogetherModelSettings
@@ -1877,6 +1950,7 @@ export namespace AgentCreateParams {
       | AgentsAPI.GoogleVertexModelSettings
       | AgentsAPI.AzureModelSettings
       | AgentsAPI.XaiModelSettings
+      | CompactionSettings.ZaiModelSettings
       | AgentsAPI.GroqModelSettings
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
@@ -1899,6 +1973,76 @@ export namespace AgentCreateParams {
      * sliding window mode).
      */
     sliding_window_percentage?: number;
+  }
+
+  export namespace CompactionSettings {
+    /**
+     * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+     */
+    export interface ZaiModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+  }
+
+  /**
+   * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+   */
+  export interface ZaiModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
   }
 }
 
@@ -2055,6 +2199,7 @@ export interface AgentUpdateParams {
     | GoogleVertexModelSettings
     | AzureModelSettings
     | XaiModelSettings
+    | AgentUpdateParams.ZaiModelSettings
     | GroqModelSettings
     | DeepseekModelSettings
     | TogetherModelSettings
@@ -2187,6 +2332,7 @@ export namespace AgentUpdateParams {
       | AgentsAPI.GoogleVertexModelSettings
       | AgentsAPI.AzureModelSettings
       | AgentsAPI.XaiModelSettings
+      | CompactionSettings.ZaiModelSettings
       | AgentsAPI.GroqModelSettings
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
@@ -2209,6 +2355,76 @@ export namespace AgentUpdateParams {
      * sliding window mode).
      */
     sliding_window_percentage?: number;
+  }
+
+  export namespace CompactionSettings {
+    /**
+     * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+     */
+    export interface ZaiModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+  }
+
+  /**
+   * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+   */
+  export interface ZaiModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
   }
 }
 
