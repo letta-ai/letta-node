@@ -410,7 +410,7 @@ export interface BlockListParams extends ArrayPageParams {
   identity_id?: string | null;
 
   /**
-   * Label to include (alphanumeric, hyphens, underscores only)
+   * Label to include (alphanumeric, hyphens, underscores, forward slashes)
    */
   label?: string | null;
 
