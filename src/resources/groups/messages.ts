@@ -117,6 +117,13 @@ export interface MessageCreateParams {
   assistant_message_tool_name?: string;
 
   /**
+   * Client-side tools that the agent can call. When the agent calls a client-side
+   * tool, execution pauses and returns control to the client to execute the tool and
+   * provide the result via a ToolReturn.
+   */
+  client_tools?: Array<MessageCreateParams.ClientTool> | null;
+
+  /**
    * @deprecated If set to True, enables reasoning before responses or tool calls
    * from the agent.
    */
@@ -165,6 +172,30 @@ export interface MessageCreateParams {
 }
 
 export namespace MessageCreateParams {
+  /**
+   * Schema for a client-side tool passed in the request.
+   *
+   * Client-side tools are executed by the client, not the server. When the agent
+   * calls a client-side tool, execution pauses and returns control to the client to
+   * execute the tool and provide the result.
+   */
+  export interface ClientTool {
+    /**
+     * The name of the tool function
+     */
+    name: string;
+
+    /**
+     * Description of what the tool does
+     */
+    description?: string | null;
+
+    /**
+     * JSON Schema for the function parameters
+     */
+    parameters?: { [key: string]: unknown } | null;
+  }
+
   /**
    * The style of reasoning content returned by the OpenAI Responses API
    */
@@ -322,6 +353,13 @@ export interface MessageStreamParams {
   background?: boolean;
 
   /**
+   * Client-side tools that the agent can call. When the agent calls a client-side
+   * tool, execution pauses and returns control to the client to execute the tool and
+   * provide the result via a ToolReturn.
+   */
+  client_tools?: Array<MessageStreamParams.ClientTool> | null;
+
+  /**
    * @deprecated If set to True, enables reasoning before responses or tool calls
    * from the agent.
    */
@@ -388,6 +426,30 @@ export interface MessageStreamParams {
 }
 
 export namespace MessageStreamParams {
+  /**
+   * Schema for a client-side tool passed in the request.
+   *
+   * Client-side tools are executed by the client, not the server. When the agent
+   * calls a client-side tool, execution pauses and returns control to the client to
+   * execute the tool and provide the result.
+   */
+  export interface ClientTool {
+    /**
+     * The name of the tool function
+     */
+    name: string;
+
+    /**
+     * Description of what the tool does
+     */
+    description?: string | null;
+
+    /**
+     * JSON Schema for the function parameters
+     */
+    parameters?: { [key: string]: unknown } | null;
+  }
+
   /**
    * The style of reasoning content returned by the OpenAI Responses API
    */
