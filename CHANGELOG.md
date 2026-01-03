@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.6.3 (2026-01-03)
+
+Full Changelog: [v1.6.2...v1.6.3](https://github.com/letta-ai/letta-node/compare/v1.6.2...v1.6.3)
+
+### Features
+
+* allow client-side tools to be specified in request ([9d286a8](https://github.com/letta-ai/letta-node/commit/9d286a8c11e9611239cf2016c328f09aeeb8f516))
+
+
+### Bug Fixes
+
+* validation failure on blocks retrieve [LET-6709] ([49de0a3](https://github.com/letta-ai/letta-node/commit/49de0a3f4ca86f2cd61d188987dda61c51be677c))
+
 ## 1.6.2 (2025-12-22)
 
 Full Changelog: [v1.6.1...v1.6.2](https://github.com/letta-ai/letta-node/compare/v1.6.1...v1.6.2)
