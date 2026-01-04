@@ -47,6 +47,7 @@ describe('resource messages', () => {
   test.skip('search: required and optional params', async () => {
     const response = await client.messages.search({
       query: 'query',
+      agent_id: 'agent_id',
       end_date: '2019-12-27T18:11:19.117Z',
       limit: 1,
       search_mode: 'vector',
