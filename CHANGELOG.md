@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.4 (2026-01-04)
+
+Full Changelog: [v1.6.3...v1.6.4](https://github.com/letta-ai/letta-node/compare/v1.6.3...v1.6.4)
+
+### Features
+
+* expose agent_id to the messages search api endpoint ([02e571d](https://github.com/letta-ai/letta-node/commit/02e571d3fc1ff614e8212a9caee46c257d418c0a))
+
 ## 1.6.3 (2026-01-03)
 
 Full Changelog: [v1.6.2...v1.6.3](https://github.com/letta-ai/letta-node/compare/v1.6.2...v1.6.3)

@@ -34,6 +34,11 @@ export interface MessageSearchRequest {
   query: string;
 
   /**
+   * Filter messages by agent ID
+   */
+  agent_id?: string | null;
+
+  /**
    * Filter messages created on or before this date
    */
   end_date?: string | null;
@@ -245,6 +250,11 @@ export interface MessageSearchParams {
    * Text query for full-text search
    */
   query: string;
+
+  /**
+   * Filter messages by agent ID
+   */
+  agent_id?: string | null;
 
   /**
    * Filter messages created on or before this date
