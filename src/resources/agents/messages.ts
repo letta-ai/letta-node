@@ -1491,6 +1491,11 @@ export interface Run {
   completed_at?: string | null;
 
   /**
+   * The unique identifier of the conversation associated with the run.
+   */
+  conversation_id?: string | null;
+
+  /**
    * The timestamp when the run was created.
    */
   created_at?: string;

@@ -77,6 +77,14 @@ export {
   type BlockResponsesArrayPage,
 } from './blocks/blocks';
 export {
+  Conversations,
+  type Conversation,
+  type CreateConversation,
+  type ConversationListResponse,
+  type ConversationCreateParams,
+  type ConversationListParams,
+} from './conversations/conversations';
+export {
   Folders,
   type Folder,
   type FolderDeleteResponse,

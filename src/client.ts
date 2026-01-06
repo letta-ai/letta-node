@@ -136,6 +136,14 @@ import {
   CreateBlock,
 } from './resources/blocks/blocks';
 import {
+  Conversation,
+  ConversationCreateParams,
+  ConversationListParams,
+  ConversationListResponse,
+  Conversations,
+  CreateConversation,
+} from './resources/conversations/conversations';
+import {
   Folder,
   FolderCreateParams,
   FolderDeleteResponse,
@@ -978,6 +986,7 @@ export class Letta {
   messages: API.Messages = new API.Messages(this);
   passages: API.Passages = new API.Passages(this);
   batches: API.Batches = new API.Batches(this);
+  conversations: API.Conversations = new API.Conversations(this);
   accessTokens: API.AccessTokens = new API.AccessTokens(this);
 }
 
@@ -997,6 +1006,7 @@ Letta.Groups = Groups;
 Letta.Messages = Messages;
 Letta.Passages = Passages;
 Letta.Batches = Batches;
+Letta.Conversations = Conversations;
 Letta.AccessTokens = AccessTokens;
 
 export declare namespace Letta {
@@ -1221,6 +1231,15 @@ export declare namespace Letta {
     type BatchJobsArrayPage as BatchJobsArrayPage,
     type BatchCreateParams as BatchCreateParams,
     type BatchListParams as BatchListParams,
+  };
+
+  export {
+    Conversations as Conversations,
+    type Conversation as Conversation,
+    type CreateConversation as CreateConversation,
+    type ConversationListResponse as ConversationListResponse,
+    type ConversationCreateParams as ConversationCreateParams,
+    type ConversationListParams as ConversationListParams,
   };
 
   export {
