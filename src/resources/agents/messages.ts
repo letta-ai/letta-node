@@ -2062,12 +2062,6 @@ export interface MessageListParams extends ArrayPageParams {
   include_err?: boolean | null;
 
   /**
-   * Filter to only return specified message types. If None (default), returns all
-   * message types.
-   */
-  message_types?: Array<MessageType> | null;
-
-  /**
    * @deprecated Whether to use assistant messages
    */
   use_assistant_message?: boolean;
