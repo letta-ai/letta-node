@@ -12,7 +12,13 @@ describe('resource accessTokens', () => {
   test.skip('create: only required params', async () => {
     const responsePromise = client.accessTokens.create({
       hostname: 'https://example.com',
-      policy: [{ id: 'id', access: ['read_messages'], type: 'agent' }],
+      policy: [
+        {
+          id: 'id',
+          access: ['read_messages'],
+          type: 'agent',
+        },
+      ],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -27,7 +33,13 @@ describe('resource accessTokens', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.accessTokens.create({
       hostname: 'https://example.com',
-      policy: [{ id: 'id', access: ['read_messages'], type: 'agent' }],
+      policy: [
+        {
+          id: 'id',
+          access: ['read_messages'],
+          type: 'agent',
+        },
+      ],
       expires_at: 'expires_at',
     });
   });
@@ -49,7 +61,11 @@ describe('resource accessTokens', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.accessTokens.list(
-        { agentId: 'agentId', limit: 0, offset: 0 },
+        {
+          agentId: 'agentId',
+          limit: 0,
+          offset: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

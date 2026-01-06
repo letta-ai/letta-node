@@ -28,14 +28,26 @@ describe('resource batches', () => {
           agent_id: 'agent_id',
           assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
           assistant_message_tool_name: 'assistant_message_tool_name',
-          client_tools: [{ name: 'name', description: 'description', parameters: { foo: 'bar' } }],
+          client_tools: [
+            {
+              name: 'name',
+              description: 'description',
+              parameters: { foo: 'bar' },
+            },
+          ],
           enable_thinking: 'enable_thinking',
           include_return_message_types: ['system_message'],
           input: 'string',
           max_steps: 0,
           messages: [
             {
-              content: [{ text: 'text', signature: 'signature', type: 'text' }],
+              content: [
+                {
+                  text: 'text',
+                  signature: 'signature',
+                  type: 'text',
+                },
+              ],
               role: 'user',
               batch_item_id: 'batch_item_id',
               group_id: 'group_id',
@@ -81,7 +93,13 @@ describe('resource batches', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.batches.list(
-        { after: 'after', before: 'before', limit: 0, order: 'asc', order_by: 'created_at' },
+        {
+          after: 'after',
+          before: 'before',
+          limit: 0,
+          order: 'asc',
+          order_by: 'created_at',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
