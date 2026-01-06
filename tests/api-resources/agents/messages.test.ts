@@ -46,7 +46,6 @@ describe('resource messages', () => {
           group_id: 'group_id',
           include_err: true,
           limit: 0,
-          message_types: ['system_message', 'user_message'],
           order: 'asc',
           order_by: 'created_at',
           use_assistant_message: true,
