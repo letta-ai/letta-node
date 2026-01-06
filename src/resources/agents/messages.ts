@@ -118,9 +118,16 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Process a user message and return the agent's response. This endpoint accepts a
-   * message from a user and processes it through the agent. It will stream the steps
-   * of the response always, and stream the tokens if 'stream_tokens' is set to True.
+   * Process a user message and return the agent's response.
+   *
+   * Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
+   * in the request body instead.
+   *
+   * This endpoint accepts a message from a user and processes it through the agent.
+   * It will stream the steps of the response always, and stream the tokens if
+   * 'stream_tokens' is set to True.
+   *
+   * @deprecated
    */
   stream(
     agentID: string,
@@ -1491,6 +1498,11 @@ export interface Run {
   completed_at?: string | null;
 
   /**
+   * The unique identifier of the conversation associated with the run.
+   */
+  conversation_id?: string | null;
+
+  /**
    * The timestamp when the run was created.
    */
   created_at?: string;
@@ -2048,6 +2060,12 @@ export interface MessageListParams extends ArrayPageParams {
    * only.
    */
   include_err?: boolean | null;
+
+  /**
+   * Filter to only return specified message types. If None (default), returns all
+   * message types.
+   */
+  message_types?: Array<MessageType> | null;
 
   /**
    * @deprecated Whether to use assistant messages
