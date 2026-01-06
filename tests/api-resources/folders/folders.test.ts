@@ -85,7 +85,14 @@ describe('resource folders', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.folders.list(
-        { after: 'after', before: 'before', limit: 0, name: 'name', order: 'asc', order_by: 'created_at' },
+        {
+          after: 'after',
+          before: 'before',
+          limit: 0,
+          name: 'name',
+          order: 'asc',
+          order_by: 'created_at',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

@@ -12,7 +12,15 @@ describe('resource properties', () => {
   test.skip('upsert: only required params', async () => {
     const responsePromise = client.identities.properties.upsert(
       'identity-123e4567-e89b-42d3-8456-426614174000',
-      { body: [{ key: 'key', type: 'string', value: 'string' }] },
+      {
+        body: [
+          {
+            key: 'key',
+            type: 'string',
+            value: 'string',
+          },
+        ],
+      },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -27,7 +35,15 @@ describe('resource properties', () => {
   test.skip('upsert: required and optional params', async () => {
     const response = await client.identities.properties.upsert(
       'identity-123e4567-e89b-42d3-8456-426614174000',
-      { body: [{ key: 'key', type: 'string', value: 'string' }] },
+      {
+        body: [
+          {
+            key: 'key',
+            type: 'string',
+            value: 'string',
+          },
+        ],
+      },
     );
   });
 });

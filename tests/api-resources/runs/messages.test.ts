@@ -26,7 +26,13 @@ describe('resource messages', () => {
     await expect(
       client.runs.messages.list(
         'run_id',
-        { after: 'after', before: 'before', limit: 0, order: 'asc', order_by: 'created_at' },
+        {
+          after: 'after',
+          before: 'before',
+          limit: 0,
+          order: 'asc',
+          order_by: 'created_at',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
@@ -50,7 +56,12 @@ describe('resource messages', () => {
     await expect(
       client.runs.messages.stream(
         'run_id',
-        { batch_size: 0, include_pings: true, poll_interval: 0, starting_after: 0 },
+        {
+          batch_size: 0,
+          include_pings: true,
+          poll_interval: 0,
+          starting_after: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

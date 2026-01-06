@@ -223,7 +223,9 @@ const response = await client.archives.create({ name: 'name' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: archive, response: raw } = await client.archives.create({ name: 'name' }).withResponse();
+const { data: archive, response: raw } = await client.archives
+  .create({ name: 'name' })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(archive.id);
 ```

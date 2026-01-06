@@ -33,7 +33,13 @@ describe('resource identities', () => {
       agent_ids: ['string'],
       block_ids: ['string'],
       project_id: 'project_id',
-      properties: [{ key: 'key', type: 'string', value: 'string' }],
+      properties: [
+        {
+          key: 'key',
+          type: 'string',
+          value: 'string',
+        },
+      ],
     });
   });
 
@@ -131,7 +137,13 @@ describe('resource identities', () => {
       agent_ids: ['string'],
       block_ids: ['string'],
       project_id: 'project_id',
-      properties: [{ key: 'key', type: 'string', value: 'string' }],
+      properties: [
+        {
+          key: 'key',
+          type: 'string',
+          value: 'string',
+        },
+      ],
     });
   });
 });

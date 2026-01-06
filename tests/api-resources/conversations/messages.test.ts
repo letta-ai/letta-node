@@ -41,7 +41,11 @@ describe('resource messages', () => {
     await expect(
       client.conversations.messages.list(
         'conv-123e4567-e89b-42d3-8456-426614174000',
-        { after: 'after', before: 'before', limit: 0 },
+        {
+          after: 'after',
+          before: 'before',
+          limit: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
@@ -65,7 +69,12 @@ describe('resource messages', () => {
     await expect(
       client.conversations.messages.stream(
         'conv-123e4567-e89b-42d3-8456-426614174000',
-        { batch_size: 0, include_pings: true, poll_interval: 0, starting_after: 0 },
+        {
+          batch_size: 0,
+          include_pings: true,
+          poll_interval: 0,
+          starting_after: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
