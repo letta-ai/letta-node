@@ -33,6 +33,7 @@ export interface AgentListParams extends ArrayPageParams {
     | 'agent.blocks'
     | 'agent.identities'
     | 'agent.managed_group'
+    | 'agent.pending_approval'
     | 'agent.secrets'
     | 'agent.sources'
     | 'agent.tags'
