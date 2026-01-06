@@ -627,6 +627,33 @@ Methods:
 
 - <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/resources/batches/messages.ts">list</a>(batchID, { ...params }) -> InternalMessagesObjectPage</code>
 
+# Conversations
+
+Types:
+
+- <code><a href="./src/resources/conversations/conversations.ts">Conversation</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">CreateConversation</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">ConversationListResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">create</a>({ ...params }) -> Conversation</code>
+- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(conversationID) -> Conversation</code>
+- <code title="get /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
+
+## Messages
+
+Types:
+
+- <code><a href="./src/resources/conversations/messages.ts">MessageListResponse</a></code>
+- <code><a href="./src/resources/conversations/messages.ts">MessageStreamResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">create</a>(conversationID, { ...params }) -> LettaStreamingResponse</code>
+- <code title="get /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">list</a>(conversationID, { ...params }) -> MessageListResponse</code>
+- <code title="post /v1/conversations/{conversation_id}/stream">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">stream</a>(conversationID, { ...params }) -> unknown</code>
+
 # AccessTokens
 
 Types:
