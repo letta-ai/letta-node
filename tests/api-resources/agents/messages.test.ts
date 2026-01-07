@@ -43,6 +43,7 @@ describe('resource messages', () => {
           assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
           assistant_message_tool_name: 'assistant_message_tool_name',
           before: 'before',
+          conversation_id: 'conversation_id',
           group_id: 'group_id',
           include_err: true,
           limit: 0,
