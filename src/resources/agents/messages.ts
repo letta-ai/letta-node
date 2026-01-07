@@ -508,6 +508,7 @@ export namespace ImageContent {
  *         tool_returns (List[ToolReturn]): The list of tool returns requested.
  *         group_id (str): The multi-agent group that the message was sent in.
  *         sender_id (str): The id of the sender of the message, can be an identity id or agent id.
+ *         conversation_id (str): The conversation this message belongs to.
  *
  * t
  */
@@ -561,6 +562,11 @@ export interface InternalMessage {
     | OmittedReasoningContent
     | InternalMessage.SummarizedReasoningContent
   > | null;
+
+  /**
+   * The conversation this message belongs to
+   */
+  conversation_id?: string | null;
 
   /**
    * The timestamp when the object was created.
@@ -2049,6 +2055,11 @@ export interface MessageListParams extends ArrayPageParams {
    * @deprecated The name of the designated message tool.
    */
   assistant_message_tool_name?: string;
+
+  /**
+   * Conversation ID to filter messages by.
+   */
+  conversation_id?: string | null;
 
   /**
    * Group ID to filter messages by.

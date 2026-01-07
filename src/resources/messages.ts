@@ -39,6 +39,11 @@ export interface MessageSearchRequest {
   agent_id?: string | null;
 
   /**
+   * Filter messages by conversation ID
+   */
+  conversation_id?: string | null;
+
+  /**
    * Filter messages created on or before this date
    */
   end_date?: string | null;
@@ -234,6 +239,11 @@ export interface MessageListParams {
   before?: string | null;
 
   /**
+   * Conversation ID to filter messages by
+   */
+  conversation_id?: string | null;
+
+  /**
    * Maximum number of messages to return
    */
   limit?: number | null;
@@ -255,6 +265,11 @@ export interface MessageSearchParams {
    * Filter messages by agent ID
    */
   agent_id?: string | null;
+
+  /**
+   * Filter messages by conversation ID
+   */
+  conversation_id?: string | null;
 
   /**
    * Filter messages created on or before this date
