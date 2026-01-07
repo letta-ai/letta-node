@@ -109,6 +109,22 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState | null</code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/resources/agents/messages.ts">stream</a>(agentID, { ...params }) -> LettaStreamingResponse</code>
 
+## Schedule
+
+Types:
+
+- <code><a href="./src/resources/agents/schedule.ts">ScheduleCreateResponse</a></code>
+- <code><a href="./src/resources/agents/schedule.ts">ScheduleRetrieveResponse</a></code>
+- <code><a href="./src/resources/agents/schedule.ts">ScheduleListResponse</a></code>
+- <code><a href="./src/resources/agents/schedule.ts">ScheduleDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/agents/{agent_id}/schedule">client.agents.schedule.<a href="./src/resources/agents/schedule.ts">create</a>(agentID, { ...params }) -> ScheduleCreateResponse</code>
+- <code title="get /v1/agents/{agent_id}/schedule/{scheduled_message_id}">client.agents.schedule.<a href="./src/resources/agents/schedule.ts">retrieve</a>(scheduledMessageID, { ...params }) -> ScheduleRetrieveResponse</code>
+- <code title="get /v1/agents/{agent_id}/schedule">client.agents.schedule.<a href="./src/resources/agents/schedule.ts">list</a>(agentID, { ...params }) -> ScheduleListResponse</code>
+- <code title="delete /v1/agents/{agent_id}/schedule/{scheduled_message_id}">client.agents.schedule.<a href="./src/resources/agents/schedule.ts">delete</a>(scheduledMessageID, { ...params }) -> ScheduleDeleteResponse</code>
+
 ## Blocks
 
 Types:
