@@ -176,6 +176,11 @@ export interface RunListParams extends ArrayPageParams {
   background?: boolean | null;
 
   /**
+   * Filter runs by conversation ID.
+   */
+  conversation_id?: string | null;
+
+  /**
    * Filter runs by status. Can specify multiple statuses.
    */
   statuses?: Array<string> | null;
