@@ -134,6 +134,11 @@ export interface BlockResponse {
   read_only?: boolean;
 
   /**
+   * The tags associated with the block.
+   */
+  tags?: Array<string> | null;
+
+  /**
    * @deprecated (Deprecated) The id of the template.
    */
   template_id?: string | null;
@@ -209,6 +214,11 @@ export interface CreateBlock {
    * Whether the agent has read-only access to the block.
    */
   read_only?: boolean;
+
+  /**
+   * The tags to associate with the block.
+   */
+  tags?: Array<string> | null;
 
   /**
    * The id of the template.
@@ -287,6 +297,11 @@ export interface BlockCreateParams {
   read_only?: boolean;
 
   /**
+   * The tags to associate with the block.
+   */
+  tags?: Array<string> | null;
+
+  /**
    * The id of the template.
    */
   template_id?: string | null;
@@ -359,6 +374,11 @@ export interface BlockUpdateParams {
   read_only?: boolean;
 
   /**
+   * The tags to associate with the block.
+   */
+  tags?: Array<string> | null;
+
+  /**
    * The id of the template.
    */
   template_id?: string | null;
@@ -421,6 +441,12 @@ export interface BlockListParams extends ArrayPageParams {
   label_search?: string | null;
 
   /**
+   * If True, only returns blocks that match ALL given tags. Otherwise, return blocks
+   * that have ANY of the passed-in tags.
+   */
+  match_all_tags?: boolean;
+
+  /**
    * Name filter (alphanumeric, spaces, hyphens, underscores)
    */
   name?: string | null;
@@ -429,6 +455,11 @@ export interface BlockListParams extends ArrayPageParams {
    * Search blocks by project id
    */
   project_id?: string | null;
+
+  /**
+   * List of tags to filter blocks by
+   */
+  tags?: Array<string> | null;
 
   /**
    * Whether to include only templates

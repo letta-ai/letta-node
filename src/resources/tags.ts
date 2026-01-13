@@ -6,7 +6,7 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Tags extends APIResource {
   /**
-   * Get the list of all agent tags that have been created.
+   * Get the list of all tags (from agents and blocks) that have been created.
    */
   list(query: TagListParams | null | undefined = {}, options?: RequestOptions): APIPromise<TagListResponse> {
     return this._client.get('/v1/tags/', { query, ...options });
