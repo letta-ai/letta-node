@@ -59,6 +59,7 @@ describe('resource blocks', () => {
       preserve_on_migration: true,
       project_id: 'project_id',
       read_only: true,
+      tags: ['string'],
       template_id: 'template_id',
       template_name: 'template_name',
       value: 'value',
