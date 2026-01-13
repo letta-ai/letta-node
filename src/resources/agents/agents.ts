@@ -2573,7 +2573,7 @@ export interface AgentExportFileParams {
 
 export interface AgentImportFileParams {
   /**
-   * Body param:
+   * Body param
    */
   file: Uploadable;
 
@@ -2635,7 +2635,7 @@ export interface AgentImportFileParams {
   strip_messages?: boolean;
 
   /**
-   * Header param:
+   * Header param
    */
   'x-override-embedding-model'?: string;
 }

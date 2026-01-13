@@ -50,7 +50,7 @@ export interface ToolRetrieveParams {
 
 export interface ToolRunParams {
   /**
-   * Path param:
+   * Path param
    */
   mcp_server_id: string;
 

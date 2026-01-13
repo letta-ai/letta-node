@@ -256,7 +256,7 @@ export declare namespace MessageUpdateParams {
     content: string;
 
     /**
-     * Body param:
+     * Body param
      */
     message_type?: 'system_message';
   }
@@ -274,7 +274,7 @@ export declare namespace MessageUpdateParams {
     content: Array<MessagesAPI.LettaUserMessageContentUnion> | string;
 
     /**
-     * Body param:
+     * Body param
      */
     message_type?: 'user_message';
   }
@@ -286,12 +286,12 @@ export declare namespace MessageUpdateParams {
     group_id: string;
 
     /**
-     * Body param:
+     * Body param
      */
     reasoning: string;
 
     /**
-     * Body param:
+     * Body param
      */
     message_type?: 'reasoning_message';
   }
@@ -309,7 +309,7 @@ export declare namespace MessageUpdateParams {
     content: Array<MessagesAPI.LettaAssistantMessageContentUnion> | string;
 
     /**
-     * Body param:
+     * Body param
      */
     message_type?: 'assistant_message';
   }
