@@ -958,6 +958,12 @@ export interface AnthropicModelSettings {
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
   /**
+   * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+   * match JSON schemas.
+   */
+  strict?: boolean;
+
+  /**
    * The temperature of the model.
    */
   temperature?: number;
@@ -1466,6 +1472,12 @@ export interface OpenAIModelSettings {
    * The response format for the model.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
+
+  /**
+   * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+   * match JSON schemas.
+   */
+  strict?: boolean;
 
   /**
    * The temperature of the model.
