@@ -109,7 +109,6 @@ describe('resource messages', () => {
               provider_type: 'openai',
               reasoning: { reasoning_effort: 'none' },
               response_format: { type: 'text' },
-              strict: true,
               temperature: 0,
             },
             prompt: 'prompt',
