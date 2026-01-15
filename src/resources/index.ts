@@ -72,9 +72,11 @@ export {
   Conversations,
   type Conversation,
   type CreateConversation,
+  type UpdateConversation,
   type ConversationListResponse,
   type ConversationCancelResponse,
   type ConversationCreateParams,
+  type ConversationUpdateParams,
   type ConversationListParams,
 } from './conversations/conversations';
 export {

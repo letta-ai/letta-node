@@ -32,6 +32,17 @@ export class Conversations extends APIResource {
   }
 
   /**
+   * Update a conversation.
+   */
+  update(
+    conversationID: string,
+    body: ConversationUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<Conversation> {
+    return this._client.patch(path`/v1/conversations/${conversationID}`, { body, ...options });
+  }
+
+  /**
    * List all conversations for an agent.
    */
   list(query: ConversationListParams, options?: RequestOptions): APIPromise<ConversationListResponse> {
@@ -116,6 +127,16 @@ export interface CreateConversation {
   summary?: string | null;
 }
 
+/**
+ * Request model for updating a conversation.
+ */
+export interface UpdateConversation {
+  /**
+   * A summary of the conversation.
+   */
+  summary?: string | null;
+}
+
 export type ConversationListResponse = Array<Conversation>;
 
 export type ConversationCancelResponse = { [key: string]: unknown };
@@ -135,6 +156,13 @@ export interface ConversationCreateParams {
 
   /**
    * Body param: A summary of the conversation.
+   */
+  summary?: string | null;
+}
+
+export interface ConversationUpdateParams {
+  /**
+   * A summary of the conversation.
    */
   summary?: string | null;
 }
@@ -162,9 +190,11 @@ export declare namespace Conversations {
   export {
     type Conversation as Conversation,
     type CreateConversation as CreateConversation,
+    type UpdateConversation as UpdateConversation,
     type ConversationListResponse as ConversationListResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationCreateParams as ConversationCreateParams,
+    type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
   };
 
