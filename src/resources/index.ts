@@ -144,6 +144,7 @@ export {
   Messages,
   type MessageSearchRequest,
   type MessageSearchResult,
+  type MessageRetrieveResponse,
   type MessageListResponse,
   type MessageSearchResponse,
   type MessageListParams,
