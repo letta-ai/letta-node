@@ -37,6 +37,15 @@ export class Conversations extends APIResource {
   list(query: ConversationListParams, options?: RequestOptions): APIPromise<ConversationListResponse> {
     return this._client.get('/v1/conversations/', { query, ...options });
   }
+
+  /**
+   * Cancel runs associated with a conversation.
+   *
+   * Note: To cancel active runs, Redis is required.
+   */
+  cancel(conversationID: string, options?: RequestOptions): APIPromise<ConversationCancelResponse> {
+    return this._client.post(path`/v1/conversations/${conversationID}/cancel`, options);
+  }
 }
 
 /**
@@ -109,6 +118,8 @@ export interface CreateConversation {
 
 export type ConversationListResponse = Array<Conversation>;
 
+export type ConversationCancelResponse = { [key: string]: unknown };
+
 export interface ConversationCreateParams {
   /**
    * Query param: The agent ID to create a conversation for
@@ -152,6 +163,7 @@ export declare namespace Conversations {
     type Conversation as Conversation,
     type CreateConversation as CreateConversation,
     type ConversationListResponse as ConversationListResponse,
+    type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationListParams as ConversationListParams,
   };
