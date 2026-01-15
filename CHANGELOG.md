@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.6.7 (2026-01-15)
+
+Full Changelog: [v1.6.6...v1.6.7](https://github.com/letta-ai/letta-node/compare/v1.6.6...v1.6.7)
+
+### Features
+
+* add retrieve message endpoint and to client sdk ([d2cb258](https://github.com/letta-ai/letta-node/commit/d2cb2581ababfd306ff2edb125b1548196202535))
+* query param parity for conversation messages ([d7cd0e9](https://github.com/letta-ai/letta-node/commit/d7cd0e9178c7715035fbd850b97ae1acfea4f493))
+
+
+### Chores
+
+* deprecate identities/groups APIs and remove from SDK ([d097b38](https://github.com/letta-ai/letta-node/commit/d097b3847f30703e45667aa180d2657a64d9e410))
+* **internal:** upgrade babel, qs, js-yaml ([47e25e8](https://github.com/letta-ai/letta-node/commit/47e25e8c4c13fd75d1d405922beb459d1551aefe))
+
 ## 1.6.6 (2026-01-15)
 
 Full Changelog: [v1.6.5...v1.6.6](https://github.com/letta-ai/letta-node/compare/v1.6.5...v1.6.6)

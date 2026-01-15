@@ -10,7 +10,6 @@ export {
 } from './conversations';
 export {
   Messages,
-  type MessageListResponse,
   type MessageStreamResponse,
   type MessageCreateParams,
   type MessageListParams,

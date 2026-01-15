@@ -3,7 +3,9 @@
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from '../agents/agents';
 import * as MessagesAPI from '../agents/messages';
+import { MessagesArrayPage } from '../agents/messages';
 import { APIPromise } from '../../core/api-promise';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { Stream } from '../../core/streaming';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -31,15 +33,18 @@ export class Messages extends APIResource {
    * List all messages in a conversation.
    *
    * Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
-   * messages in the conversation, ordered by position (oldest first), with support
-   * for cursor-based pagination.
+   * messages in the conversation, with support for cursor-based pagination.
    */
   list(
     conversationID: string,
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessageListResponse> {
-    return this._client.get(path`/v1/conversations/${conversationID}/messages`, { query, ...options });
+  ): PagePromise<MessagesArrayPage, MessagesAPI.Message> {
+    return this._client.getAPIList(
+      path`/v1/conversations/${conversationID}/messages`,
+      ArrayPage<MessagesAPI.Message>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -60,8 +65,6 @@ export class Messages extends APIResource {
     }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
   }
 }
-
-export type MessageListResponse = Array<MessagesAPI.Message>;
 
 export type MessageStreamResponse = unknown;
 
@@ -223,23 +226,17 @@ export namespace MessageCreateParams {
   }
 }
 
-export interface MessageListParams {
+export interface MessageListParams extends ArrayPageParams {
   /**
-   * Message ID cursor for pagination. Returns messages that come after this message
-   * ID in the conversation
+   * Group ID to filter messages by.
    */
-  after?: string | null;
+  group_id?: string | null;
 
   /**
-   * Message ID cursor for pagination. Returns messages that come before this message
-   * ID in the conversation
+   * Whether to include error messages and error statuses. For debugging purposes
+   * only.
    */
-  before?: string | null;
-
-  /**
-   * Maximum number of messages to return
-   */
-  limit?: number | null;
+  include_err?: boolean | null;
 }
 
 export interface MessageStreamParams {
@@ -268,10 +265,11 @@ export interface MessageStreamParams {
 
 export declare namespace Messages {
   export {
-    type MessageListResponse as MessageListResponse,
     type MessageStreamResponse as MessageStreamResponse,
     type MessageCreateParams as MessageCreateParams,
     type MessageListParams as MessageListParams,
     type MessageStreamParams as MessageStreamParams,
   };
 }
+
+export { type MessagesArrayPage };

@@ -44,7 +44,11 @@ describe('resource messages', () => {
         {
           after: 'after',
           before: 'before',
+          group_id: 'group_id',
+          include_err: true,
           limit: 0,
+          order: 'asc',
+          order_by: 'created_at',
         },
         { path: '/_stainless_unknown_path' },
       ),

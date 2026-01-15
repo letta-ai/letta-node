@@ -6,7 +6,7 @@ import * as ToolsAPI from '../tools';
 import * as AgentsAPI from './agents';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
-import { ArrayPage, type ArrayPageParams, ObjectPage, PagePromise } from '../../core/pagination';
+import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { Stream } from '../../core/streaming';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -145,8 +145,6 @@ export class Messages extends APIResource {
 export type MessagesArrayPage = ArrayPage<Message>;
 
 export type RunsArrayPage = ArrayPage<Run>;
-
-export type InternalMessagesObjectPage = ObjectPage<InternalMessage>;
 
 /**
  * Input to approve or deny a tool call request

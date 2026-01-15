@@ -4,8 +4,16 @@ import { APIResource } from '../core/resource';
 import * as AgentsMessagesAPI from './agents/messages';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class Messages extends APIResource {
+  /**
+   * Retrieve a message by ID.
+   */
+  retrieve(messageID: string, options?: RequestOptions): APIPromise<MessageRetrieveResponse> {
+    return this._client.get(path`/v1/messages/${messageID}`, options);
+  }
+
   /**
    * List messages across all agents for the current user.
    */
@@ -93,6 +101,8 @@ export interface MessageSearchResult {
    */
   vector_rank?: number | null;
 }
+
+export type MessageRetrieveResponse = Array<AgentsMessagesAPI.Message>;
 
 export type MessageListResponse = Array<AgentsMessagesAPI.Message>;
 
@@ -296,6 +306,7 @@ export declare namespace Messages {
   export {
     type MessageSearchRequest as MessageSearchRequest,
     type MessageSearchResult as MessageSearchResult,
+    type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageListResponse as MessageListResponse,
     type MessageSearchResponse as MessageSearchResponse,
     type MessageListParams as MessageListParams,
