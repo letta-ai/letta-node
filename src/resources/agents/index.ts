@@ -76,7 +76,6 @@ export {
   type FolderDetachParams,
   type FolderListResponsesArrayPage,
 } from './folders';
-export { Groups, type GroupListParams } from './groups';
 export {
   Identities,
   type IdentityAttachResponse,
@@ -138,7 +137,6 @@ export {
   type MessageStreamParams,
   type RunsArrayPage,
   type MessagesArrayPage,
-  type InternalMessagesObjectPage,
 } from './messages';
 export {
   Passages,
@@ -151,17 +149,6 @@ export {
   type PassageDeleteParams,
   type PassageSearchParams,
 } from './passages';
-export {
-  Schedule,
-  type ScheduleCreateResponse,
-  type ScheduleRetrieveResponse,
-  type ScheduleListResponse,
-  type ScheduleDeleteResponse,
-  type ScheduleCreateParams,
-  type ScheduleRetrieveParams,
-  type ScheduleListParams,
-  type ScheduleDeleteParams,
-} from './schedule';
 export {
   Tools,
   type ToolExecuteRequest,

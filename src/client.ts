@@ -119,14 +119,6 @@ import {
   VectorDBProvider,
 } from './resources/archives/archives';
 import {
-  BatchCancelResponse,
-  BatchCreateParams,
-  BatchJob,
-  BatchJobsArrayPage,
-  BatchListParams,
-  Batches,
-} from './resources/batches/batches';
-import {
   BlockCreateParams,
   BlockDeleteResponse,
   BlockListParams,
@@ -153,33 +145,6 @@ import {
   Folders,
   FoldersArrayPage,
 } from './resources/folders/folders';
-import {
-  DynamicManager,
-  Group,
-  GroupCreateParams,
-  GroupDeleteResponse,
-  GroupListParams,
-  GroupUpdateParams,
-  Groups,
-  GroupsArrayPage,
-  ManagerType,
-  RoundRobinManager,
-  SleeptimeManager,
-  SupervisorManager,
-  VoiceSleeptimeManager,
-} from './resources/groups/groups';
-import {
-  Identities,
-  IdentitiesArrayPage,
-  Identity,
-  IdentityCreateParams,
-  IdentityDeleteResponse,
-  IdentityListParams,
-  IdentityProperty,
-  IdentityType,
-  IdentityUpdateParams,
-  IdentityUpsertParams,
-} from './resources/identities/identities';
 import {
   CreateSseMcpServer,
   CreateStdioMcpServer,
@@ -982,11 +947,8 @@ export class Letta {
   steps: API.Steps = new API.Steps(this);
   templates: API.Templates = new API.Templates(this);
   tags: API.Tags = new API.Tags(this);
-  identities: API.Identities = new API.Identities(this);
-  groups: API.Groups = new API.Groups(this);
   messages: API.Messages = new API.Messages(this);
   passages: API.Passages = new API.Passages(this);
-  batches: API.Batches = new API.Batches(this);
   conversations: API.Conversations = new API.Conversations(this);
   accessTokens: API.AccessTokens = new API.AccessTokens(this);
 }
@@ -1002,11 +964,8 @@ Letta.Runs = Runs;
 Letta.Steps = Steps;
 Letta.Templates = Templates;
 Letta.Tags = Tags;
-Letta.Identities = Identities;
-Letta.Groups = Groups;
 Letta.Messages = Messages;
 Letta.Passages = Passages;
-Letta.Batches = Batches;
 Letta.Conversations = Conversations;
 Letta.AccessTokens = AccessTokens;
 
@@ -1180,35 +1139,6 @@ export declare namespace Letta {
   export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
 
   export {
-    Identities as Identities,
-    type Identity as Identity,
-    type IdentityProperty as IdentityProperty,
-    type IdentityType as IdentityType,
-    type IdentityDeleteResponse as IdentityDeleteResponse,
-    type IdentitiesArrayPage as IdentitiesArrayPage,
-    type IdentityCreateParams as IdentityCreateParams,
-    type IdentityUpdateParams as IdentityUpdateParams,
-    type IdentityListParams as IdentityListParams,
-    type IdentityUpsertParams as IdentityUpsertParams,
-  };
-
-  export {
-    Groups as Groups,
-    type DynamicManager as DynamicManager,
-    type Group as Group,
-    type ManagerType as ManagerType,
-    type RoundRobinManager as RoundRobinManager,
-    type SleeptimeManager as SleeptimeManager,
-    type SupervisorManager as SupervisorManager,
-    type VoiceSleeptimeManager as VoiceSleeptimeManager,
-    type GroupDeleteResponse as GroupDeleteResponse,
-    type GroupsArrayPage as GroupsArrayPage,
-    type GroupCreateParams as GroupCreateParams,
-    type GroupUpdateParams as GroupUpdateParams,
-    type GroupListParams as GroupListParams,
-  };
-
-  export {
     Messages as Messages,
     type MessageSearchRequest as MessageSearchRequest,
     type MessageSearchResult as MessageSearchResult,
@@ -1224,15 +1154,6 @@ export declare namespace Letta {
     type Passage as Passage,
     type PassageSearchResponse as PassageSearchResponse,
     type PassageSearchParams as PassageSearchParams,
-  };
-
-  export {
-    Batches as Batches,
-    type BatchJob as BatchJob,
-    type BatchCancelResponse as BatchCancelResponse,
-    type BatchJobsArrayPage as BatchJobsArrayPage,
-    type BatchCreateParams as BatchCreateParams,
-    type BatchListParams as BatchListParams,
   };
 
   export {

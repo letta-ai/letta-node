@@ -109,22 +109,6 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState | null</code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/resources/agents/messages.ts">stream</a>(agentID, { ...params }) -> LettaStreamingResponse</code>
 
-## Schedule
-
-Types:
-
-- <code><a href="./src/resources/agents/schedule.ts">ScheduleCreateResponse</a></code>
-- <code><a href="./src/resources/agents/schedule.ts">ScheduleRetrieveResponse</a></code>
-- <code><a href="./src/resources/agents/schedule.ts">ScheduleListResponse</a></code>
-- <code><a href="./src/resources/agents/schedule.ts">ScheduleDeleteResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/agents/{agent_id}/schedule">client.agents.schedule.<a href="./src/resources/agents/schedule.ts">create</a>(agentID, { ...params }) -> ScheduleCreateResponse</code>
-- <code title="get /v1/agents/{agent_id}/schedule/{scheduled_message_id}">client.agents.schedule.<a href="./src/resources/agents/schedule.ts">retrieve</a>(scheduledMessageID, { ...params }) -> ScheduleRetrieveResponse</code>
-- <code title="get /v1/agents/{agent_id}/schedule">client.agents.schedule.<a href="./src/resources/agents/schedule.ts">list</a>(agentID, { ...params }) -> ScheduleListResponse</code>
-- <code title="delete /v1/agents/{agent_id}/schedule/{scheduled_message_id}">client.agents.schedule.<a href="./src/resources/agents/schedule.ts">delete</a>(scheduledMessageID, { ...params }) -> ScheduleDeleteResponse</code>
-
 ## Blocks
 
 Types:
@@ -182,12 +166,6 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/close">client.agents.files.<a href="./src/resources/agents/files.ts">close</a>(fileID, { ...params }) -> unknown</code>
 - <code title="patch /v1/agents/{agent_id}/files/close-all">client.agents.files.<a href="./src/resources/agents/files.ts">closeAll</a>(agentID) -> FileCloseAllResponse</code>
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/open">client.agents.files.<a href="./src/resources/agents/files.ts">open</a>(fileID, { ...params }) -> FileOpenResponse</code>
-
-## Groups
-
-Methods:
-
-- <code title="get /v1/agents/{agent_id}/groups">client.agents.groups.<a href="./src/resources/agents/groups.ts">list</a>(agentID, { ...params }) -> GroupsArrayPage</code>
 
 ## Archives
 
@@ -531,83 +509,6 @@ Methods:
 
 - <code title="get /v1/tags/">client.tags.<a href="./src/resources/tags.ts">list</a>({ ...params }) -> TagListResponse</code>
 
-# Identities
-
-Types:
-
-- <code><a href="./src/resources/identities/identities.ts">Identity</a></code>
-- <code><a href="./src/resources/identities/identities.ts">IdentityProperty</a></code>
-- <code><a href="./src/resources/identities/identities.ts">IdentityType</a></code>
-- <code><a href="./src/resources/identities/identities.ts">IdentityDeleteResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/identities/">client.identities.<a href="./src/resources/identities/identities.ts">create</a>({ ...params }) -> Identity</code>
-- <code title="get /v1/identities/{identity_id}">client.identities.<a href="./src/resources/identities/identities.ts">retrieve</a>(identityID) -> Identity</code>
-- <code title="patch /v1/identities/{identity_id}">client.identities.<a href="./src/resources/identities/identities.ts">update</a>(identityID, { ...params }) -> Identity</code>
-- <code title="get /v1/identities/">client.identities.<a href="./src/resources/identities/identities.ts">list</a>({ ...params }) -> IdentitiesArrayPage</code>
-- <code title="delete /v1/identities/{identity_id}">client.identities.<a href="./src/resources/identities/identities.ts">delete</a>(identityID) -> unknown</code>
-- <code title="put /v1/identities/">client.identities.<a href="./src/resources/identities/identities.ts">upsert</a>({ ...params }) -> Identity</code>
-
-## Properties
-
-Types:
-
-- <code><a href="./src/resources/identities/properties.ts">PropertyUpsertResponse</a></code>
-
-Methods:
-
-- <code title="put /v1/identities/{identity_id}/properties">client.identities.properties.<a href="./src/resources/identities/properties.ts">upsert</a>(identityID, [ ...body ]) -> unknown</code>
-
-## Agents
-
-Methods:
-
-- <code title="get /v1/identities/{identity_id}/agents">client.identities.agents.<a href="./src/resources/identities/agents.ts">list</a>(identityID, { ...params }) -> AgentStatesArrayPage</code>
-
-## Blocks
-
-Methods:
-
-- <code title="get /v1/identities/{identity_id}/blocks">client.identities.blocks.<a href="./src/resources/identities/blocks.ts">list</a>(identityID, { ...params }) -> BlockResponsesArrayPage</code>
-
-# Groups
-
-Types:
-
-- <code><a href="./src/resources/groups/groups.ts">DynamicManager</a></code>
-- <code><a href="./src/resources/groups/groups.ts">Group</a></code>
-- <code><a href="./src/resources/groups/groups.ts">ManagerType</a></code>
-- <code><a href="./src/resources/groups/groups.ts">RoundRobinManager</a></code>
-- <code><a href="./src/resources/groups/groups.ts">SleeptimeManager</a></code>
-- <code><a href="./src/resources/groups/groups.ts">SupervisorManager</a></code>
-- <code><a href="./src/resources/groups/groups.ts">VoiceSleeptimeManager</a></code>
-- <code><a href="./src/resources/groups/groups.ts">GroupDeleteResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/groups/">client.groups.<a href="./src/resources/groups/groups.ts">create</a>({ ...params }) -> Group</code>
-- <code title="get /v1/groups/{group_id}">client.groups.<a href="./src/resources/groups/groups.ts">retrieve</a>(groupID) -> Group</code>
-- <code title="patch /v1/groups/{group_id}">client.groups.<a href="./src/resources/groups/groups.ts">update</a>(groupID, { ...params }) -> Group</code>
-- <code title="get /v1/groups/">client.groups.<a href="./src/resources/groups/groups.ts">list</a>({ ...params }) -> GroupsArrayPage</code>
-- <code title="delete /v1/groups/{group_id}">client.groups.<a href="./src/resources/groups/groups.ts">delete</a>(groupID) -> unknown</code>
-
-## Messages
-
-Types:
-
-- <code><a href="./src/resources/groups/messages.ts">MessageUpdateResponse</a></code>
-- <code><a href="./src/resources/groups/messages.ts">MessageResetResponse</a></code>
-- <code><a href="./src/resources/groups/messages.ts">MessageStreamResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">create</a>(groupID, { ...params }) -> LettaResponse</code>
-- <code title="patch /v1/groups/{group_id}/messages/{message_id}">client.groups.messages.<a href="./src/resources/groups/messages.ts">update</a>(messageID, { ...params }) -> MessageUpdateResponse</code>
-- <code title="get /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">list</a>(groupID, { ...params }) -> MessagesArrayPage</code>
-- <code title="patch /v1/groups/{group_id}/reset-messages">client.groups.messages.<a href="./src/resources/groups/messages.ts">reset</a>(groupID) -> unknown</code>
-- <code title="post /v1/groups/{group_id}/messages/stream">client.groups.messages.<a href="./src/resources/groups/messages.ts">stream</a>(groupID, { ...params }) -> unknown</code>
-
 # Messages
 
 Types:
@@ -634,26 +535,6 @@ Types:
 Methods:
 
 - <code title="post /v1/passages/search">client.passages.<a href="./src/resources/passages.ts">search</a>({ ...params }) -> PassageSearchResponse</code>
-
-# Batches
-
-Types:
-
-- <code><a href="./src/resources/batches/batches.ts">BatchJob</a></code>
-- <code><a href="./src/resources/batches/batches.ts">BatchCancelResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/messages/batches">client.batches.<a href="./src/resources/batches/batches.ts">create</a>({ ...params }) -> BatchJob</code>
-- <code title="get /v1/messages/batches/{batch_id}">client.batches.<a href="./src/resources/batches/batches.ts">retrieve</a>(batchID) -> BatchJob</code>
-- <code title="get /v1/messages/batches">client.batches.<a href="./src/resources/batches/batches.ts">list</a>({ ...params }) -> BatchJobsArrayPage</code>
-- <code title="patch /v1/messages/batches/{batch_id}/cancel">client.batches.<a href="./src/resources/batches/batches.ts">cancel</a>(batchID) -> unknown</code>
-
-## Messages
-
-Methods:
-
-- <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/resources/batches/messages.ts">list</a>(batchID, { ...params }) -> InternalMessagesObjectPage</code>
 
 # Conversations
 
