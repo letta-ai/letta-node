@@ -443,6 +443,16 @@ Methods:
 
 - <code title="get /v1/runs/{run_id}/steps">client.runs.steps.<a href="./src/resources/runs/steps.ts">list</a>(runID, { ...params }) -> StepsArrayPage</code>
 
+## Trace
+
+Types:
+
+- <code><a href="./src/resources/runs/trace.ts">TraceRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/runs/{run_id}/trace">client.runs.trace.<a href="./src/resources/runs/trace.ts">retrieve</a>(runID, { ...params }) -> TraceRetrieveResponse</code>
+
 # Steps
 
 Types:
