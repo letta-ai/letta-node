@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.8 (2026-01-15)
+
+Full Changelog: [v1.6.7...v1.6.8](https://github.com/letta-ai/letta-node/compare/v1.6.7...v1.6.8)
+
+### Bug Fixes
+
+* fix apis ([45f885b](https://github.com/letta-ai/letta-node/commit/45f885b9f841a8905c41114c17eb0f3fac72fc04))
+
 ## 1.6.7 (2026-01-15)
 
 Full Changelog: [v1.6.6...v1.6.7](https://github.com/letta-ai/letta-node/compare/v1.6.6...v1.6.7)

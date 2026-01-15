@@ -130,6 +130,7 @@ import {
 } from './resources/blocks/blocks';
 import {
   Conversation,
+  ConversationCancelResponse,
   ConversationCreateParams,
   ConversationListParams,
   ConversationListResponse,
@@ -1161,6 +1162,7 @@ export declare namespace Letta {
     type Conversation as Conversation,
     type CreateConversation as CreateConversation,
     type ConversationListResponse as ConversationListResponse,
+    type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationListParams as ConversationListParams,
   };

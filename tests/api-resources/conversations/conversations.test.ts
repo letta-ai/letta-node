@@ -61,4 +61,16 @@ describe('resource conversations', () => {
       limit: 0,
     });
   });
+
+  // Prism tests are disabled
+  test.skip('cancel', async () => {
+    const responsePromise = client.conversations.cancel('conv-123e4567-e89b-42d3-8456-426614174000');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
 });
