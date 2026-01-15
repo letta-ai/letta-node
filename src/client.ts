@@ -41,6 +41,7 @@ import {
 import {
   MessageListParams,
   MessageListResponse,
+  MessageRetrieveResponse,
   MessageSearchParams,
   MessageSearchRequest,
   MessageSearchResponse,
@@ -1211,6 +1212,7 @@ export declare namespace Letta {
     Messages as Messages,
     type MessageSearchRequest as MessageSearchRequest,
     type MessageSearchResult as MessageSearchResult,
+    type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageListResponse as MessageListResponse,
     type MessageSearchResponse as MessageSearchResponse,
     type MessageListParams as MessageListParams,
