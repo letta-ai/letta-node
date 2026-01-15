@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.6.6 (2026-01-15)
+
+Full Changelog: [v1.6.5...v1.6.6](https://github.com/letta-ai/letta-node/compare/v1.6.5...v1.6.6)
+
+### Features
+
+* add /v1/metadata/user [LET-6845] ([abff8de](https://github.com/letta-ai/letta-node/commit/abff8deaf038c2e0653fa64323aa3c264a8b7661))
+* add /v1/runs/{run_id}/trace endpoint for OTEL traces ([4c64e3d](https://github.com/letta-ai/letta-node/commit/4c64e3d209c80f2c57ea2b3788c66e8077e0b5a4))
+* add conversation_id filter to list runs ([572cde3](https://github.com/letta-ai/letta-node/commit/572cde3d5a4943beab6c6c1937dfed796a8e6737))
+* Add conversation_id filtering to message endpoints ([4f0a0a7](https://github.com/letta-ai/letta-node/commit/4f0a0a78c00276b01e5bae708ba93b17c86594bf))
+* add ids to archival memory search ([f6d8e39](https://github.com/letta-ai/letta-node/commit/f6d8e39af6d22384961ab68c0472ebf907dc503c))
+* add pending approval field on agent state ([1bd34cb](https://github.com/letta-ai/letta-node/commit/1bd34cbf1519cbec6c8d590945e6d3dbe09003ef))
+* add strict tool calling setting [LET-6902] ([751e177](https://github.com/letta-ai/letta-node/commit/751e1774f9456d50d2cb524e3da31469ca154015))
+* add tags support to blocks ([45c106f](https://github.com/letta-ai/letta-node/commit/45c106fe9ed435fe35b0897c92d14a9452416ce4))
+* allow for conversation-level isolation of blocks ([6469f15](https://github.com/letta-ai/letta-node/commit/6469f15b4a7d061db843b9d0fbc00f201e14224f))
+* Revert "feat: add strict tool calling setting [LET-6902]" ([e8a772d](https://github.com/letta-ai/letta-node/commit/e8a772d77b0b80af79e41537a2dcc6ccda6015d2))
+
+
+### Chores
+
+* add scheduled message api ([d1ca076](https://github.com/letta-ai/letta-node/commit/d1ca076cef5c703aab270cf3243681b127adee74))
+* break long lines in snippets into multiline ([ea2c33d](https://github.com/letta-ai/letta-node/commit/ea2c33dc37f583533460fd2c264e2e731c0812b6))
+* fix typo in descriptions ([57e33d3](https://github.com/letta-ai/letta-node/commit/57e33d30374da36c0c1f197985f4a133642c3432))
+
 ## 1.6.5 (2026-01-06)
 
 Full Changelog: [v1.6.4...v1.6.5](https://github.com/letta-ai/letta-node/compare/v1.6.4...v1.6.5)
