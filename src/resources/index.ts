@@ -59,14 +59,6 @@ export {
   type ArchivesArrayPage,
 } from './archives/archives';
 export {
-  Batches,
-  type BatchJob,
-  type BatchCancelResponse,
-  type BatchCreateParams,
-  type BatchListParams,
-  type BatchJobsArrayPage,
-} from './batches/batches';
-export {
   Blocks,
   type BlockResponse,
   type CreateBlock,
@@ -93,33 +85,6 @@ export {
   type FolderListParams,
   type FoldersArrayPage,
 } from './folders/folders';
-export {
-  Groups,
-  type DynamicManager,
-  type Group,
-  type ManagerType,
-  type RoundRobinManager,
-  type SleeptimeManager,
-  type SupervisorManager,
-  type VoiceSleeptimeManager,
-  type GroupDeleteResponse,
-  type GroupCreateParams,
-  type GroupUpdateParams,
-  type GroupListParams,
-  type GroupsArrayPage,
-} from './groups/groups';
-export {
-  Identities,
-  type Identity,
-  type IdentityProperty,
-  type IdentityType,
-  type IdentityDeleteResponse,
-  type IdentityCreateParams,
-  type IdentityUpdateParams,
-  type IdentityListParams,
-  type IdentityUpsertParams,
-  type IdentitiesArrayPage,
-} from './identities/identities';
 export {
   McpServers,
   type CreateSseMcpServer,
