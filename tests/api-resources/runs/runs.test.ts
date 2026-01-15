@@ -45,6 +45,7 @@ describe('resource runs', () => {
           ascending: true,
           background: true,
           before: 'before',
+          conversation_id: 'conversation_id',
           limit: 1,
           order: 'asc',
           order_by: 'created_at',

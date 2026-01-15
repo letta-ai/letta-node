@@ -162,6 +162,11 @@ export interface Block {
   read_only?: boolean;
 
   /**
+   * The tags associated with the block.
+   */
+  tags?: Array<string> | null;
+
+  /**
    * The id of the template.
    */
   template_id?: string | null;
@@ -235,6 +240,11 @@ export interface BlockUpdate {
    * Whether the agent has read-only access to the block.
    */
   read_only?: boolean;
+
+  /**
+   * The tags to associate with the block.
+   */
+  tags?: Array<string> | null;
 
   /**
    * The id of the template.
@@ -324,6 +334,11 @@ export interface BlockUpdateParams {
    * Body param: Whether the agent has read-only access to the block.
    */
   read_only?: boolean;
+
+  /**
+   * Body param: The tags to associate with the block.
+   */
+  tags?: Array<string> | null;
 
   /**
    * Body param: The id of the template.

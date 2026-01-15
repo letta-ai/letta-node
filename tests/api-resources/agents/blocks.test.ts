@@ -59,6 +59,7 @@ describe('resource blocks', () => {
       preserve_on_migration: true,
       project_id: 'project_id',
       read_only: true,
+      tags: ['string'],
       template_id: 'template_id',
       template_name: 'template_name',
       value: 'value',
@@ -83,7 +84,13 @@ describe('resource blocks', () => {
     await expect(
       client.agents.blocks.list(
         'agent-123e4567-e89b-42d3-8456-426614174000',
-        { after: 'after', before: 'before', limit: 0, order: 'asc', order_by: 'created_at' },
+        {
+          after: 'after',
+          before: 'before',
+          limit: 0,
+          order: 'asc',
+          order_by: 'created_at',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

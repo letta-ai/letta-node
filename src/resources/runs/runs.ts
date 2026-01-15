@@ -7,6 +7,8 @@ import * as RunsMessagesAPI from './messages';
 import { MessageListParams, MessageStreamParams, MessageStreamResponse, Messages } from './messages';
 import * as StepsAPI from './steps';
 import { StepListParams, Steps } from './steps';
+import * as TraceAPI from './trace';
+import { Trace, TraceRetrieveParams, TraceRetrieveResponse } from './trace';
 import * as UsageAPI from './usage';
 import { Usage, UsageRetrieveResponse } from './usage';
 import { APIPromise } from '../../core/api-promise';
@@ -18,6 +20,7 @@ export class Runs extends APIResource {
   messages: RunsMessagesAPI.Messages = new RunsMessagesAPI.Messages(this._client);
   usage: UsageAPI.Usage = new UsageAPI.Usage(this._client);
   steps: StepsAPI.Steps = new StepsAPI.Steps(this._client);
+  trace: TraceAPI.Trace = new TraceAPI.Trace(this._client);
 
   /**
    * Get the status of a run.
@@ -176,6 +179,11 @@ export interface RunListParams extends ArrayPageParams {
   background?: boolean | null;
 
   /**
+   * Filter runs by conversation ID.
+   */
+  conversation_id?: string | null;
+
+  /**
    * Filter runs by status. Can specify multiple statuses.
    */
   statuses?: Array<string> | null;
@@ -189,6 +197,7 @@ export interface RunListParams extends ArrayPageParams {
 Runs.Messages = Messages;
 Runs.Usage = Usage;
 Runs.Steps = Steps;
+Runs.Trace = Trace;
 
 export declare namespace Runs {
   export { type Job as Job, type StopReasonType as StopReasonType, type RunListParams as RunListParams };
@@ -203,6 +212,12 @@ export declare namespace Runs {
   export { Usage as Usage, type UsageRetrieveResponse as UsageRetrieveResponse };
 
   export { Steps as Steps, type StepListParams as StepListParams };
+
+  export {
+    Trace as Trace,
+    type TraceRetrieveResponse as TraceRetrieveResponse,
+    type TraceRetrieveParams as TraceRetrieveParams,
+  };
 }
 
 export { type RunsArrayPage };

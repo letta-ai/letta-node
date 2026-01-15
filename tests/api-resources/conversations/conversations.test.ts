@@ -22,7 +22,11 @@ describe('resource conversations', () => {
 
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.conversations.create({ agent_id: 'agent_id', summary: 'summary' });
+    const response = await client.conversations.create({
+      agent_id: 'agent_id',
+      isolated_block_labels: ['string'],
+      summary: 'summary',
+    });
   });
 
   // Prism tests are disabled
@@ -51,6 +55,10 @@ describe('resource conversations', () => {
 
   // Prism tests are disabled
   test.skip('list: required and optional params', async () => {
-    const response = await client.conversations.list({ agent_id: 'agent_id', after: 'after', limit: 0 });
+    const response = await client.conversations.list({
+      agent_id: 'agent_id',
+      after: 'after',
+      limit: 0,
+    });
   });
 });

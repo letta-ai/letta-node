@@ -357,7 +357,7 @@ export interface FileDeleteParams {
 
 export interface FileUploadParams {
   /**
-   * Body param:
+   * Body param
    */
   file: Uploadable;
 

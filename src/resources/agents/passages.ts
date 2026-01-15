@@ -84,6 +84,11 @@ export interface PassageSearchResponse {
 export namespace PassageSearchResponse {
   export interface Result {
     /**
+     * Unique identifier of the archival memory passage
+     */
+    id: string;
+
+    /**
      * Text content of the archival memory passage
      */
     content: string;

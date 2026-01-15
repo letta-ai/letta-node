@@ -22,7 +22,11 @@ describe('resource templates', () => {
 
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.templates.create({ agent_id: 'agent_id', type: 'agent', name: 'name' });
+    const response = await client.templates.create({
+      agent_id: 'agent_id',
+      type: 'agent',
+      name: 'name',
+    });
   });
 
   // Prism tests are disabled

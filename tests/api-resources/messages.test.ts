@@ -25,7 +25,13 @@ describe('resource messages', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messages.list(
-        { after: 'after', before: 'before', limit: 0, order: 'asc' },
+        {
+          after: 'after',
+          before: 'before',
+          conversation_id: 'conversation_id',
+          limit: 0,
+          order: 'asc',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
@@ -48,6 +54,7 @@ describe('resource messages', () => {
     const response = await client.messages.search({
       query: 'query',
       agent_id: 'agent_id',
+      conversation_id: 'conversation_id',
       end_date: '2019-12-27T18:11:19.117Z',
       limit: 1,
       search_mode: 'vector',

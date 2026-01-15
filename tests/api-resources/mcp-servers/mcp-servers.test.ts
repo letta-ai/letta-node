@@ -11,7 +11,11 @@ describe('resource mcpServers', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.mcpServers.create({
-      config: { args: ['string'], command: 'command', mcp_server_type: 'stdio' },
+      config: {
+        args: ['string'],
+        command: 'command',
+        mcp_server_type: 'stdio',
+      },
       server_name: 'server_name',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -26,7 +30,12 @@ describe('resource mcpServers', () => {
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.mcpServers.create({
-      config: { args: ['string'], command: 'command', env: { foo: 'string' }, mcp_server_type: 'stdio' },
+      config: {
+        args: ['string'],
+        command: 'command',
+        env: { foo: 'string' },
+        mcp_server_type: 'stdio',
+      },
       server_name: 'server_name',
     });
   });
@@ -46,7 +55,11 @@ describe('resource mcpServers', () => {
   // Prism tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.mcpServers.update('mcp_server_id', {
-      config: { args: ['string'], command: 'command', mcp_server_type: 'stdio' },
+      config: {
+        args: ['string'],
+        command: 'command',
+        mcp_server_type: 'stdio',
+      },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -60,7 +73,12 @@ describe('resource mcpServers', () => {
   // Prism tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.mcpServers.update('mcp_server_id', {
-      config: { args: ['string'], command: 'command', env: { foo: 'string' }, mcp_server_type: 'stdio' },
+      config: {
+        args: ['string'],
+        command: 'command',
+        env: { foo: 'string' },
+        mcp_server_type: 'stdio',
+      },
       server_name: 'server_name',
     });
   });

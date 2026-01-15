@@ -26,7 +26,13 @@ describe('resource steps', () => {
     await expect(
       client.runs.steps.list(
         'run_id',
-        { after: 'after', before: 'before', limit: 0, order: 'asc', order_by: 'created_at' },
+        {
+          after: 'after',
+          before: 'before',
+          limit: 0,
+          order: 'asc',
+          order_by: 'created_at',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

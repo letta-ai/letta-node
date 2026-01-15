@@ -70,6 +70,12 @@ export interface Conversation {
   in_context_message_ids?: Array<string>;
 
   /**
+   * IDs of blocks that are isolated (specific to this conversation, overriding agent
+   * defaults).
+   */
+  isolated_block_ids?: Array<string>;
+
+  /**
    * The id of the user that made this object.
    */
   last_updated_by_id?: string | null;
@@ -90,6 +96,13 @@ export interface Conversation {
  */
 export interface CreateConversation {
   /**
+   * List of block labels that should be isolated (conversation-specific) rather than
+   * shared across conversations. New blocks will be created as copies of the agent's
+   * blocks with these labels.
+   */
+  isolated_block_labels?: Array<string> | null;
+
+  /**
    * A summary of the conversation.
    */
   summary?: string | null;
@@ -102,6 +115,13 @@ export interface ConversationCreateParams {
    * Query param: The agent ID to create a conversation for
    */
   agent_id: string;
+
+  /**
+   * Body param: List of block labels that should be isolated (conversation-specific)
+   * rather than shared across conversations. New blocks will be created as copies of
+   * the agent's blocks with these labels.
+   */
+  isolated_block_labels?: Array<string> | null;
 
   /**
    * Body param: A summary of the conversation.

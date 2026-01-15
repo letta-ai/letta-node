@@ -26,7 +26,13 @@ describe('resource blocks', () => {
     await expect(
       client.identities.blocks.list(
         'identity-123e4567-e89b-42d3-8456-426614174000',
-        { after: 'after', before: 'before', limit: 0, order: 'asc', order_by: 'created_at' },
+        {
+          after: 'after',
+          before: 'before',
+          limit: 0,
+          order: 'asc',
+          order_by: 'created_at',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
