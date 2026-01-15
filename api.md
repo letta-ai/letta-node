@@ -543,12 +543,14 @@ Types:
 - <code><a href="./src/resources/conversations/conversations.ts">Conversation</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">CreateConversation</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationListResponse</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">ConversationCancelResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">create</a>({ ...params }) -> Conversation</code>
 - <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(conversationID) -> Conversation</code>
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
+- <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/resources/conversations/conversations.ts">cancel</a>(conversationID) -> ConversationCancelResponse</code>
 
 ## Messages
 

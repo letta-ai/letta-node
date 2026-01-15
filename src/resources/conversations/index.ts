@@ -5,6 +5,7 @@ export {
   type Conversation,
   type CreateConversation,
   type ConversationListResponse,
+  type ConversationCancelResponse,
   type ConversationCreateParams,
   type ConversationListParams,
 } from './conversations';
