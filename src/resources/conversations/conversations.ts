@@ -5,7 +5,6 @@ import * as MessagesAPI from './messages';
 import {
   MessageCreateParams,
   MessageListParams,
-  MessageListResponse,
   MessageStreamParams,
   MessageStreamResponse,
   Messages,
@@ -159,7 +158,6 @@ export declare namespace Conversations {
 
   export {
     Messages as Messages,
-    type MessageListResponse as MessageListResponse,
     type MessageStreamResponse as MessageStreamResponse,
     type MessageCreateParams as MessageCreateParams,
     type MessageListParams as MessageListParams,
