@@ -134,8 +134,10 @@ import {
   ConversationCreateParams,
   ConversationListParams,
   ConversationListResponse,
+  ConversationUpdateParams,
   Conversations,
   CreateConversation,
+  UpdateConversation,
 } from './resources/conversations/conversations';
 import {
   Folder,
@@ -1161,9 +1163,11 @@ export declare namespace Letta {
     Conversations as Conversations,
     type Conversation as Conversation,
     type CreateConversation as CreateConversation,
+    type UpdateConversation as UpdateConversation,
     type ConversationListResponse as ConversationListResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationCreateParams as ConversationCreateParams,
+    type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
   };
 
