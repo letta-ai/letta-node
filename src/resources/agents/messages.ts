@@ -1201,14 +1201,36 @@ export type LettaStreamingResponse =
 
 export namespace LettaStreamingResponse {
   /**
-   * Ping messages are a keep-alive to prevent SSE streams from timing out during
+   * A ping message used as a keepalive to prevent SSE streams from timing out during
    * long running requests.
+   *
+   * Args: id (str): The ID of the message date (datetime): The date the message was
+   * created in ISO format
    */
   export interface LettaPing {
+    id: string;
+
+    date: string;
+
+    is_err?: boolean | null;
+
     /**
-     * The type of the message.
+     * The type of the message. Ping messages are a keep-alive to prevent SSE streams
+     * from timing out during long running requests.
      */
-    message_type: 'ping';
+    message_type?: 'ping';
+
+    name?: string | null;
+
+    otid?: string | null;
+
+    run_id?: string | null;
+
+    sender_id?: string | null;
+
+    seq_id?: number | null;
+
+    step_id?: string | null;
   }
 
   /**
