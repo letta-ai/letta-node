@@ -858,6 +858,13 @@ export interface LettaRequest {
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
 
   /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
+
+  /**
    * @deprecated Whether the server should parse specific tool call arguments
    * (default `send_message`) as `AssistantMessage` objects. Still supported for
    * legacy agent types, but deprecated for letta_v1_agent onward.
@@ -1094,6 +1101,13 @@ export interface LettaStreamingRequest {
    * The messages to be sent to the agent.
    */
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+
+  /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
@@ -1962,6 +1976,13 @@ export interface MessageCreateParamsBase {
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
 
   /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
+
+  /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
    * per step (only used when streaming=true).
    */
@@ -2280,6 +2301,13 @@ export interface MessageCreateAsyncParams {
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
 
   /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
+
+  /**
    * @deprecated Whether the server should parse specific tool call arguments
    * (default `send_message`) as `AssistantMessage` objects. Still supported for
    * legacy agent types, but deprecated for letta_v1_agent onward.
@@ -2431,6 +2459,13 @@ export interface MessageStreamParams {
    * The messages to be sent to the agent.
    */
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+
+  /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming

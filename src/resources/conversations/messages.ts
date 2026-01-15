@@ -142,6 +142,13 @@ export interface MessageCreateParams {
   messages?: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate> | null;
 
   /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
+
+  /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
    * per step (only used when streaming=true).
    */
