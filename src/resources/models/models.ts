@@ -340,6 +340,13 @@ export interface LlmConfig {
     | null;
 
   /**
+   * Enable strict mode for tool calling. When true, tool schemas include strict:
+   * true and additionalProperties: false, guaranteeing tool outputs match JSON
+   * schemas.
+   */
+  strict?: boolean;
+
+  /**
    * The temperature to use when generating text with the model. A higher temperature
    * will result in more random text.
    */
@@ -505,6 +512,13 @@ export interface Model {
     | AgentsAPI.JsonSchemaResponseFormat
     | AgentsAPI.JsonObjectResponseFormat
     | null;
+
+  /**
+   * Enable strict mode for tool calling. When true, tool schemas include strict:
+   * true and additionalProperties: false, guaranteeing tool outputs match JSON
+   * schemas.
+   */
+  strict?: boolean;
 
   /**
    * @deprecated Deprecated: The temperature to use when generating text with the
