@@ -2177,6 +2177,7 @@ export namespace MessageCompactParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
     /**
@@ -2230,6 +2231,48 @@ export namespace MessageCompactParams {
        * The temperature of the model.
        */
       temperature?: number;
+    }
+
+    /**
+     * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+     */
+    export interface ChatGptoAuthModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'chatgpt_oauth';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    export namespace ChatGptoAuthModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort level for GPT-5.x and o-series models.
+         */
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
     }
   }
 }
