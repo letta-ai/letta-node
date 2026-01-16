@@ -1276,6 +1276,11 @@ export namespace LettaStreamingResponse {
      * An optional error detail.
      */
     detail?: string;
+
+    /**
+     * The sequence ID for cursor-based pagination.
+     */
+    seq_id?: number;
   }
 
   /**
