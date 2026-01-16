@@ -484,6 +484,7 @@ export interface AgentState {
     | DeepseekModelSettings
     | TogetherModelSettings
     | BedrockModelSettings
+    | AgentState.ChatGptoAuthModelSettings
     | null;
 
   /**
@@ -807,6 +808,7 @@ export namespace AgentState {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
     /**
@@ -860,6 +862,48 @@ export namespace AgentState {
        * The temperature of the model.
        */
       temperature?: number;
+    }
+
+    /**
+     * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+     */
+    export interface ChatGptoAuthModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'chatgpt_oauth';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    export namespace ChatGptoAuthModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort level for GPT-5.x and o-series models.
+         */
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
     }
   }
 
@@ -1030,6 +1074,48 @@ export namespace AgentState {
      * The temperature of the model.
      */
     temperature?: number;
+  }
+
+  /**
+   * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+   */
+  export interface ChatGptoAuthModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'chatgpt_oauth';
+
+    /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  export namespace ChatGptoAuthModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort level for GPT-5.x and o-series models.
+       */
+      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+    }
   }
 
   /**
@@ -2019,6 +2105,7 @@ export interface AgentCreateParams {
     | DeepseekModelSettings
     | TogetherModelSettings
     | BedrockModelSettings
+    | AgentCreateParams.ChatGptoAuthModelSettings
     | null;
 
   /**
@@ -2172,6 +2259,7 @@ export namespace AgentCreateParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
     /**
@@ -2226,6 +2314,48 @@ export namespace AgentCreateParams {
        */
       temperature?: number;
     }
+
+    /**
+     * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+     */
+    export interface ChatGptoAuthModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'chatgpt_oauth';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    export namespace ChatGptoAuthModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort level for GPT-5.x and o-series models.
+         */
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
   }
 
   /**
@@ -2260,6 +2390,48 @@ export namespace AgentCreateParams {
      * The temperature of the model.
      */
     temperature?: number;
+  }
+
+  /**
+   * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+   */
+  export interface ChatGptoAuthModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'chatgpt_oauth';
+
+    /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  export namespace ChatGptoAuthModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort level for GPT-5.x and o-series models.
+       */
+      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+    }
   }
 }
 
@@ -2422,6 +2594,7 @@ export interface AgentUpdateParams {
     | DeepseekModelSettings
     | TogetherModelSettings
     | BedrockModelSettings
+    | AgentUpdateParams.ChatGptoAuthModelSettings
     | null;
 
   /**
@@ -2555,6 +2728,7 @@ export namespace AgentUpdateParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
     /**
@@ -2609,6 +2783,48 @@ export namespace AgentUpdateParams {
        */
       temperature?: number;
     }
+
+    /**
+     * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+     */
+    export interface ChatGptoAuthModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'chatgpt_oauth';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    export namespace ChatGptoAuthModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort level for GPT-5.x and o-series models.
+         */
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
   }
 
   /**
@@ -2643,6 +2859,48 @@ export namespace AgentUpdateParams {
      * The temperature of the model.
      */
     temperature?: number;
+  }
+
+  /**
+   * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+   */
+  export interface ChatGptoAuthModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'chatgpt_oauth';
+
+    /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  export namespace ChatGptoAuthModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort level for GPT-5.x and o-series models.
+       */
+      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+    }
   }
 }
 

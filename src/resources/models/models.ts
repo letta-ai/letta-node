@@ -241,7 +241,8 @@ export interface LlmConfig {
     | 'bedrock'
     | 'deepseek'
     | 'xai'
-    | 'zai';
+    | 'zai'
+    | 'chatgpt_oauth';
 
   /**
    * The framework compatibility type for the model.
@@ -398,7 +399,8 @@ export interface Model {
     | 'bedrock'
     | 'deepseek'
     | 'xai'
-    | 'zai';
+    | 'zai'
+    | 'chatgpt_oauth';
 
   /**
    * The actual model name used by the provider
@@ -528,6 +530,7 @@ export type ProviderType =
   | 'azure'
   | 'bedrock'
   | 'cerebras'
+  | 'chatgpt_oauth'
   | 'deepseek'
   | 'google_ai'
   | 'google_vertex'
