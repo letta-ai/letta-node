@@ -858,6 +858,13 @@ export interface LettaRequest {
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
 
   /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
+
+  /**
    * @deprecated Whether the server should parse specific tool call arguments
    * (default `send_message`) as `AssistantMessage` objects. Still supported for
    * legacy agent types, but deprecated for letta_v1_agent onward.
@@ -1096,6 +1103,13 @@ export interface LettaStreamingRequest {
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
 
   /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
+
+  /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
    * per step (only used when streaming=true).
    */
@@ -1201,14 +1215,36 @@ export type LettaStreamingResponse =
 
 export namespace LettaStreamingResponse {
   /**
-   * Ping messages are a keep-alive to prevent SSE streams from timing out during
+   * A ping message used as a keepalive to prevent SSE streams from timing out during
    * long running requests.
+   *
+   * Args: id (str): The ID of the message date (datetime): The date the message was
+   * created in ISO format
    */
   export interface LettaPing {
+    id: string;
+
+    date: string;
+
+    is_err?: boolean | null;
+
     /**
-     * The type of the message.
+     * The type of the message. Ping messages are a keep-alive to prevent SSE streams
+     * from timing out during long running requests.
      */
-    message_type: 'ping';
+    message_type?: 'ping';
+
+    name?: string | null;
+
+    otid?: string | null;
+
+    run_id?: string | null;
+
+    sender_id?: string | null;
+
+    seq_id?: number | null;
+
+    step_id?: string | null;
   }
 
   /**
@@ -1940,6 +1976,13 @@ export interface MessageCreateParamsBase {
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
 
   /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
+
+  /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
    * per step (only used when streaming=true).
    */
@@ -2258,6 +2301,13 @@ export interface MessageCreateAsyncParams {
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
 
   /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
+
+  /**
    * @deprecated Whether the server should parse specific tool call arguments
    * (default `send_message`) as `AssistantMessage` objects. Still supported for
    * legacy agent types, but deprecated for letta_v1_agent onward.
@@ -2409,6 +2459,13 @@ export interface MessageStreamParams {
    * The messages to be sent to the agent.
    */
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+
+  /**
+   * Model handle to use for this request instead of the agent's default model. This
+   * allows sending a message to a different model without changing the agent's
+   * configuration.
+   */
+  override_model?: string | null;
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming

@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.7.1 (2026-01-16)
+
+Full Changelog: [v1.6.8...v1.7.1](https://github.com/letta-ai/letta-node/compare/v1.6.8...v1.7.1)
+
+### Features
+
+* add override_model to message endpoints ([afe1e97](https://github.com/letta-ai/letta-node/commit/afe1e975aa8ddc9189ddade773f8a440626d96cc))
+* add PATCH route for updating conversation summary ([2f881b6](https://github.com/letta-ai/letta-node/commit/2f881b6d0934cd9ccca32a0eb8733f27b134b89e))
+
+
+### Bug Fixes
+
+* remove letta ping schema override ([a972e28](https://github.com/letta-ai/letta-node/commit/a972e28acac17fd024fa303809feee52355ff1be))
+
 ## 1.6.8 (2026-01-15)
 
 Full Changelog: [v1.6.7...v1.6.8](https://github.com/letta-ai/letta-node/compare/v1.6.7...v1.6.8)
