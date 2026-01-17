@@ -3006,6 +3006,12 @@ export interface AgentListParams extends ArrayPageParams {
 
 export interface AgentExportFileParams {
   /**
+   * Conversation ID to export. If provided, uses messages from this conversation
+   * instead of the agent's global message history.
+   */
+  conversation_id?: string | null;
+
+  /**
    * @deprecated
    */
   max_steps?: number;
