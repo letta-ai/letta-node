@@ -48,9 +48,12 @@ export type StepsArrayPage = ArrayPage<Step>;
  * Attributes: id (str): The unique identifier of the provider trace. request_json
  * (Dict[str, Any]): JSON content of the provider request. response_json (Dict[str,
  * Any]): JSON content of the provider response. step_id (str): ID of the step that
- * this trace is associated with. organization_id (str): The unique identifier of
- * the organization. created_at (datetime): The timestamp when the object was
- * created.
+ * this trace is associated with. agent_id (str): ID of the agent that generated
+ * this trace. agent_tags (list[str]): Tags associated with the agent for
+ * filtering. call_type (str): Type of call (agent_step, summarization, etc.).
+ * run_id (str): ID of the run this trace is associated with. organization_id
+ * (str): The unique identifier of the organization. created_at (datetime): The
+ * timestamp when the object was created.
  */
 export interface ProviderTrace {
   /**
@@ -69,6 +72,21 @@ export interface ProviderTrace {
   id?: string;
 
   /**
+   * ID of the agent that generated this trace
+   */
+  agent_id?: string | null;
+
+  /**
+   * Tags associated with the agent for filtering
+   */
+  agent_tags?: Array<string> | null;
+
+  /**
+   * Type of call (agent_step, summarization, etc.)
+   */
+  call_type?: string | null;
+
+  /**
    * The timestamp when the object was created.
    */
   created_at?: string;
@@ -82,6 +100,11 @@ export interface ProviderTrace {
    * The id of the user that made this object.
    */
   last_updated_by_id?: string | null;
+
+  /**
+   * ID of the run this trace is associated with
+   */
+  run_id?: string | null;
 
   /**
    * ID of the step that this trace is associated with

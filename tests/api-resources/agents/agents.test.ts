@@ -129,7 +129,11 @@ describe('resource agents', () => {
     await expect(
       client.agents.exportFile(
         'agent_id',
-        { max_steps: 0, use_legacy_format: true },
+        {
+          conversation_id: 'conversation_id',
+          max_steps: 0,
+          use_legacy_format: true,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

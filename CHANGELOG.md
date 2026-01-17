@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.8.0 (2026-01-17)
+
+Full Changelog: [v1.7.1...v1.8.0](https://github.com/letta-ai/letta-node/compare/v1.7.1...v1.8.0)
+
+### Features
+
+* add chatgpt oauth client for codex routing ([afbdd1d](https://github.com/letta-ai/letta-node/commit/afbdd1d25b83d56431a415db3ea2a3a8e01aa901))
+* add conversation_id to export export and compact ([6778b72](https://github.com/letta-ai/letta-node/commit/6778b7219a170e18bea2408187027dd26a51cceb))
+* add provider trace backend abstraction for multi-backend telemetry ([7ff0c2b](https://github.com/letta-ai/letta-node/commit/7ff0c2b66396d5dc52121dca36093b3a6338fa9e))
+* add seq id to error chunks ([7cfd658](https://github.com/letta-ai/letta-node/commit/7cfd658e3f5239f9dcd503945b319cbb0c58c13b))
+* strict tool calling setting ([c155960](https://github.com/letta-ai/letta-node/commit/c1559602c8f4cf7af9698f1690e914856536be8d))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([5067876](https://github.com/letta-ai/letta-node/commit/5067876e87a832f1cb0e168319dbea9f79c233e2))
+
 ## 1.7.1 (2026-01-16)
 
 Full Changelog: [v1.6.8...v1.7.1](https://github.com/letta-ai/letta-node/compare/v1.6.8...v1.7.1)
