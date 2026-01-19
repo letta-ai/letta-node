@@ -51,7 +51,8 @@ export type StepsArrayPage = ArrayPage<Step>;
  * this trace is associated with. agent_id (str): ID of the agent that generated
  * this trace. agent_tags (list[str]): Tags associated with the agent for
  * filtering. call_type (str): Type of call (agent_step, summarization, etc.).
- * run_id (str): ID of the run this trace is associated with. organization_id
+ * run_id (str): ID of the run this trace is associated with. source (str): Source
+ * service that generated this trace (memgpt-server, lettuce-py). organization_id
  * (str): The unique identifier of the organization. created_at (datetime): The
  * timestamp when the object was created.
  */
@@ -105,6 +106,11 @@ export interface ProviderTrace {
    * ID of the run this trace is associated with
    */
   run_id?: string | null;
+
+  /**
+   * Source service that generated this trace (memgpt-server, lettuce-py)
+   */
+  source?: string | null;
 
   /**
    * ID of the step that this trace is associated with
