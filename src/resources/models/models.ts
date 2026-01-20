@@ -557,6 +557,7 @@ export type ProviderType =
   | 'openai'
   | 'together'
   | 'vllm'
+  | 'sglang'
   | 'xai'
   | 'zai';
 
