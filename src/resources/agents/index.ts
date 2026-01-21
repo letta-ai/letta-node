@@ -150,6 +150,17 @@ export {
   type PassageSearchParams,
 } from './passages';
 export {
+  Schedule,
+  type ScheduleCreateResponse,
+  type ScheduleRetrieveResponse,
+  type ScheduleListResponse,
+  type ScheduleDeleteResponse,
+  type ScheduleCreateParams,
+  type ScheduleRetrieveParams,
+  type ScheduleListParams,
+  type ScheduleDeleteParams,
+} from './schedule';
+export {
   Tools,
   type ToolExecuteRequest,
   type ToolExecutionResult,
