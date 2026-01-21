@@ -535,7 +535,7 @@ export interface InternalMessage {
   /**
    * The list of approvals for this message.
    */
-  approvals?: Array<ApprovalReturn | InternalMessage.LettaSchemasMessageToolReturn> | null;
+  approvals?: Array<ApprovalReturn | InternalMessage.LettaSchemasMessageToolReturnOutput> | null;
 
   /**
    * Whether tool call is approved.
@@ -649,16 +649,16 @@ export interface InternalMessage {
 }
 
 export namespace InternalMessage {
-  export interface LettaSchemasMessageToolReturn {
+  export interface LettaSchemasMessageToolReturnOutput {
     /**
      * The status of the tool call
      */
     status: 'success' | 'error';
 
     /**
-     * The function response string
+     * The function response - either a string or list of content parts (text/image)
      */
-    func_response?: string | null;
+    func_response?: string | Array<MessagesAPI.TextContent | MessagesAPI.ImageContent> | null;
 
     /**
      * Captured stderr from the tool invocation
@@ -751,9 +751,9 @@ export namespace InternalMessage {
     status: 'success' | 'error';
 
     /**
-     * The function response string
+     * The function response - either a string or list of content parts (text/image)
      */
-    func_response?: string | null;
+    func_response?: string | Array<MessagesAPI.TextContent | MessagesAPI.ImageContent> | null;
 
     /**
      * Captured stderr from the tool invocation
@@ -1276,6 +1276,11 @@ export namespace LettaStreamingResponse {
      * An optional error detail.
      */
     detail?: string;
+
+    /**
+     * The sequence ID for cursor-based pagination.
+     */
+    seq_id?: number;
   }
 
   /**
@@ -1779,7 +1784,10 @@ export interface ToolReturn {
 
   tool_call_id: string;
 
-  tool_return: string;
+  /**
+   * The tool return value - either a string or list of content parts (text/image)
+   */
+  tool_return: Array<TextContent | ImageContent> | string;
 
   stderr?: Array<string> | null;
 
@@ -2177,6 +2185,7 @@ export namespace MessageCompactParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
     /**
@@ -2230,6 +2239,48 @@ export namespace MessageCompactParams {
        * The temperature of the model.
        */
       temperature?: number;
+    }
+
+    /**
+     * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+     */
+    export interface ChatGptoAuthModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'chatgpt_oauth';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    export namespace ChatGptoAuthModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort level for GPT-5.x and o-series models.
+         */
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
     }
   }
 }

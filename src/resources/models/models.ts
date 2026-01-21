@@ -241,7 +241,8 @@ export interface LlmConfig {
     | 'bedrock'
     | 'deepseek'
     | 'xai'
-    | 'zai';
+    | 'zai'
+    | 'chatgpt_oauth';
 
   /**
    * The framework compatibility type for the model.
@@ -339,6 +340,13 @@ export interface LlmConfig {
     | null;
 
   /**
+   * Enable strict mode for tool calling. When true, tool schemas include strict:
+   * true and additionalProperties: false, guaranteeing tool outputs match JSON
+   * schemas.
+   */
+  strict?: boolean;
+
+  /**
    * The temperature to use when generating text with the model. A higher temperature
    * will result in more random text.
    */
@@ -398,7 +406,8 @@ export interface Model {
     | 'bedrock'
     | 'deepseek'
     | 'xai'
-    | 'zai';
+    | 'zai'
+    | 'chatgpt_oauth';
 
   /**
    * The actual model name used by the provider
@@ -505,6 +514,13 @@ export interface Model {
     | null;
 
   /**
+   * Enable strict mode for tool calling. When true, tool schemas include strict:
+   * true and additionalProperties: false, guaranteeing tool outputs match JSON
+   * schemas.
+   */
+  strict?: boolean;
+
+  /**
    * @deprecated Deprecated: The temperature to use when generating text with the
    * model.
    */
@@ -528,6 +544,7 @@ export type ProviderType =
   | 'azure'
   | 'bedrock'
   | 'cerebras'
+  | 'chatgpt_oauth'
   | 'deepseek'
   | 'google_ai'
   | 'google_vertex'
@@ -540,6 +557,7 @@ export type ProviderType =
   | 'openai'
   | 'together'
   | 'vllm'
+  | 'sglang'
   | 'xai'
   | 'zai';
 
