@@ -535,7 +535,7 @@ export interface InternalMessage {
   /**
    * The list of approvals for this message.
    */
-  approvals?: Array<ApprovalReturn | InternalMessage.LettaSchemasMessageToolReturn> | null;
+  approvals?: Array<ApprovalReturn | InternalMessage.LettaSchemasMessageToolReturnOutput> | null;
 
   /**
    * Whether tool call is approved.
@@ -649,16 +649,16 @@ export interface InternalMessage {
 }
 
 export namespace InternalMessage {
-  export interface LettaSchemasMessageToolReturn {
+  export interface LettaSchemasMessageToolReturnOutput {
     /**
      * The status of the tool call
      */
     status: 'success' | 'error';
 
     /**
-     * The function response string
+     * The function response - either a string or list of content parts (text/image)
      */
-    func_response?: string | null;
+    func_response?: string | Array<MessagesAPI.TextContent | MessagesAPI.ImageContent> | null;
 
     /**
      * Captured stderr from the tool invocation
@@ -751,9 +751,9 @@ export namespace InternalMessage {
     status: 'success' | 'error';
 
     /**
-     * The function response string
+     * The function response - either a string or list of content parts (text/image)
      */
-    func_response?: string | null;
+    func_response?: string | Array<MessagesAPI.TextContent | MessagesAPI.ImageContent> | null;
 
     /**
      * Captured stderr from the tool invocation
@@ -1784,7 +1784,10 @@ export interface ToolReturn {
 
   tool_call_id: string;
 
-  tool_return: string;
+  /**
+   * The tool return value - either a string or list of content parts (text/image)
+   */
+  tool_return: Array<TextContent | ImageContent> | string;
 
   stderr?: Array<string> | null;
 
