@@ -70,6 +70,8 @@ export {
 } from './blocks/blocks';
 export {
   Conversations,
+  type CompactionRequest,
+  type CompactionResponse,
   type Conversation,
   type CreateConversation,
   type UpdateConversation,
@@ -78,6 +80,7 @@ export {
   type ConversationCreateParams,
   type ConversationUpdateParams,
   type ConversationListParams,
+  type ConversationCompactParams,
 } from './conversations/conversations';
 export {
   Folders,
