@@ -74,11 +74,6 @@ export interface Archive {
   created_at: string;
 
   /**
-   * Embedding configuration for passages in this archive
-   */
-  embedding_config: ModelsAPI.EmbeddingConfig;
-
-  /**
    * The name of the archive
    */
   name: string;
@@ -92,6 +87,11 @@ export interface Archive {
    * A description of the archive
    */
   description?: string | null;
+
+  /**
+   * Configuration for embedding model connection and processing parameters.
+   */
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
    * The id of the user that made this object.
