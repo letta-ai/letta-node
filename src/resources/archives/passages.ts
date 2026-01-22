@@ -34,13 +34,33 @@ export class Passages extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Create multiple passages in an archive.
+   *
+   * This adds passages to the archive and creates embeddings for vector storage.
+   */
+  createMany(
+    archiveID: string,
+    body: PassageCreateManyParams,
+    options?: RequestOptions,
+  ): APIPromise<PassageCreateManyResponse> {
+    return this._client.post(path`/v1/archives/${archiveID}/passages/batch`, { body, ...options });
+  }
 }
+
+export type PassageCreateManyResponse = Array<PassagesAPI.Passage>;
 
 export interface PassageCreateParams {
   /**
    * The text content of the passage
    */
   text: string;
+
+  /**
+   * Optional creation datetime for the passage (ISO 8601 format)
+   */
+  created_at?: string | null;
 
   /**
    * Optional metadata for the passage
@@ -60,6 +80,45 @@ export interface PassageDeleteParams {
   archive_id: string;
 }
 
+export interface PassageCreateManyParams {
+  /**
+   * Passages to create in the archive
+   */
+  passages: Array<PassageCreateManyParams.Passage>;
+}
+
+export namespace PassageCreateManyParams {
+  /**
+   * Request model for creating a passage in an archive.
+   */
+  export interface Passage {
+    /**
+     * The text content of the passage
+     */
+    text: string;
+
+    /**
+     * Optional creation datetime for the passage (ISO 8601 format)
+     */
+    created_at?: string | null;
+
+    /**
+     * Optional metadata for the passage
+     */
+    metadata?: { [key: string]: unknown } | null;
+
+    /**
+     * Optional tags for categorizing the passage
+     */
+    tags?: Array<string> | null;
+  }
+}
+
 export declare namespace Passages {
-  export { type PassageCreateParams as PassageCreateParams, type PassageDeleteParams as PassageDeleteParams };
+  export {
+    type PassageCreateManyResponse as PassageCreateManyResponse,
+    type PassageCreateParams as PassageCreateParams,
+    type PassageDeleteParams as PassageDeleteParams,
+    type PassageCreateManyParams as PassageCreateManyParams,
+  };
 }
