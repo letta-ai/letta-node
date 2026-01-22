@@ -74,7 +74,6 @@ import {
   MessageCancelParams,
   MessageCancelResponse,
   MessageCompactParams,
-  MessageCompactResponse,
   MessageCreateAsyncParams,
   MessageCreateParams,
   MessageCreateParamsNonStreaming,
@@ -118,6 +117,18 @@ import {
   PassageSearchResponse,
   Passages,
 } from './passages';
+import * as ScheduleAPI from './schedule';
+import {
+  Schedule,
+  ScheduleCreateParams,
+  ScheduleCreateResponse,
+  ScheduleDeleteParams,
+  ScheduleDeleteResponse,
+  ScheduleListParams,
+  ScheduleListResponse,
+  ScheduleRetrieveParams,
+  ScheduleRetrieveResponse,
+} from './schedule';
 import * as AgentsToolsAPI from './tools';
 import {
   ToolAttachParams,
@@ -143,6 +154,7 @@ import { path } from '../../internal/utils/path';
 
 export class Agents extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
+  schedule: ScheduleAPI.Schedule = new ScheduleAPI.Schedule(this._client);
   blocks: BlocksAPI.Blocks = new BlocksAPI.Blocks(this._client);
   tools: AgentsToolsAPI.Tools = new AgentsToolsAPI.Tools(this._client);
   folders: FoldersAPI.Folders = new FoldersAPI.Folders(this._client);
@@ -3094,6 +3106,7 @@ export interface AgentImportFileParams {
 }
 
 Agents.Messages = Messages;
+Agents.Schedule = Schedule;
 Agents.Blocks = Blocks;
 Agents.Tools = Tools;
 Agents.Folders = Folders;
@@ -3185,7 +3198,6 @@ export declare namespace Agents {
     type UpdateUserMessage as UpdateUserMessage,
     type UserMessage as UserMessage,
     type MessageCancelResponse as MessageCancelResponse,
-    type MessageCompactResponse as MessageCompactResponse,
     type MessagesArrayPage as MessagesArrayPage,
     type MessageCreateParams as MessageCreateParams,
     type MessageCreateParamsNonStreaming as MessageCreateParamsNonStreaming,
@@ -3196,6 +3208,18 @@ export declare namespace Agents {
     type MessageCreateAsyncParams as MessageCreateAsyncParams,
     type MessageResetParams as MessageResetParams,
     type MessageStreamParams as MessageStreamParams,
+  };
+
+  export {
+    Schedule as Schedule,
+    type ScheduleCreateResponse as ScheduleCreateResponse,
+    type ScheduleRetrieveResponse as ScheduleRetrieveResponse,
+    type ScheduleListResponse as ScheduleListResponse,
+    type ScheduleDeleteResponse as ScheduleDeleteResponse,
+    type ScheduleCreateParams as ScheduleCreateParams,
+    type ScheduleRetrieveParams as ScheduleRetrieveParams,
+    type ScheduleListParams as ScheduleListParams,
+    type ScheduleDeleteParams as ScheduleDeleteParams,
   };
 
   export {

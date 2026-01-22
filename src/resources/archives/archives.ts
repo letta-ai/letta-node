@@ -2,7 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as PassagesAPI from './passages';
-import { PassageCreateParams, PassageDeleteParams, Passages } from './passages';
+import {
+  PassageCreateManyParams,
+  PassageCreateManyResponse,
+  PassageCreateParams,
+  PassageDeleteParams,
+  Passages,
+} from './passages';
 import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
@@ -74,11 +80,6 @@ export interface Archive {
   created_at: string;
 
   /**
-   * Embedding configuration for passages in this archive
-   */
-  embedding_config: ModelsAPI.EmbeddingConfig;
-
-  /**
    * The name of the archive
    */
   name: string;
@@ -92,6 +93,11 @@ export interface Archive {
    * A description of the archive
    */
   description?: string | null;
+
+  /**
+   * Configuration for embedding model connection and processing parameters.
+   */
+  embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
    * The id of the user that made this object.
@@ -167,7 +173,9 @@ export declare namespace Archives {
 
   export {
     Passages as Passages,
+    type PassageCreateManyResponse as PassageCreateManyResponse,
     type PassageCreateParams as PassageCreateParams,
     type PassageDeleteParams as PassageDeleteParams,
+    type PassageCreateManyParams as PassageCreateManyParams,
   };
 }

@@ -57,7 +57,7 @@ export interface Passage {
   /**
    * The creation date of the passage.
    */
-  created_at?: string;
+  created_at?: string | null;
 
   /**
    * The id of the user that made this object.
@@ -132,11 +132,6 @@ export namespace PassageSearchResponse {
 
 export interface PassageSearchParams {
   /**
-   * Text query for semantic search
-   */
-  query: string;
-
-  /**
    * Filter passages by agent ID
    */
   agent_id?: string | null;
@@ -155,6 +150,11 @@ export interface PassageSearchParams {
    * Maximum number of results to return
    */
   limit?: number;
+
+  /**
+   * Text query for semantic search
+   */
+  query?: string | null;
 
   /**
    * Filter results to passages created after this datetime

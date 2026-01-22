@@ -53,8 +53,12 @@ export type StepsArrayPage = ArrayPage<Step>;
  * filtering. call_type (str): Type of call (agent_step, summarization, etc.).
  * run_id (str): ID of the run this trace is associated with. source (str): Source
  * service that generated this trace (memgpt-server, lettuce-py). organization_id
- * (str): The unique identifier of the organization. created_at (datetime): The
- * timestamp when the object was created.
+ * (str): The unique identifier of the organization. user_id (str): The unique
+ * identifier of the user who initiated the request. compaction_settings (Dict[str,
+ * Any]): Compaction/summarization settings (only for summarization calls).
+ * llm_config (Dict[str, Any]): LLM configuration used for this call (only for
+ * non-summarization calls). created_at (datetime): The timestamp when the object
+ * was created.
  */
 export interface ProviderTrace {
   /**
@@ -88,6 +92,11 @@ export interface ProviderTrace {
   call_type?: string | null;
 
   /**
+   * Compaction/summarization settings (summarization calls only)
+   */
+  compaction_settings?: { [key: string]: unknown } | null;
+
+  /**
    * The timestamp when the object was created.
    */
   created_at?: string;
@@ -101,6 +110,16 @@ export interface ProviderTrace {
    * The id of the user that made this object.
    */
   last_updated_by_id?: string | null;
+
+  /**
+   * LLM configuration used for this call (non-summarization calls only)
+   */
+  llm_config?: { [key: string]: unknown } | null;
+
+  /**
+   * ID of the organization
+   */
+  org_id?: string | null;
 
   /**
    * ID of the run this trace is associated with

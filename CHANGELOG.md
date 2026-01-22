@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.7.3 (2026-01-22)
+
+Full Changelog: [v1.7.2...v1.7.3](https://github.com/letta-ai/letta-node/compare/v1.7.2...v1.7.3)
+
+### Features
+
+* add batch passage create and optional search `query` ([733b94c](https://github.com/letta-ai/letta-node/commit/733b94c3e02ce03d70c64856ea86dd6dc4b4b234))
+* add conversation compact endpoint to SDK and add integration tests ([cc301d8](https://github.com/letta-ai/letta-node/commit/cc301d8ff27de4aff4670f621c331a294d702017))
+* **crouton:** add orgId, userId, Compaction_Settings and LLM_Config ([8f686a0](https://github.com/letta-ai/letta-node/commit/8f686a09a60635d258fa1627cd88e1529a5f0cdd))
+* re-enable schedule endpoints in stainless ([5a01e15](https://github.com/letta-ai/letta-node/commit/5a01e1530ae988c56366e4531213e81d598a5776))
+
+
+### Bug Fixes
+
+* don't need embedding model for self hosted [LET-7009] ([95b9b6d](https://github.com/letta-ai/letta-node/commit/95b9b6d8a67db72e49491ab105596c3cc0bc244e))
+
 ## 1.7.2 (2026-01-21)
 
 Full Changelog: [v1.7.1...v1.7.2](https://github.com/letta-ai/letta-node/compare/v1.7.1...v1.7.2)

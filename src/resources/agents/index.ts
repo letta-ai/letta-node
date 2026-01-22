@@ -125,7 +125,6 @@ export {
   type UpdateUserMessage,
   type UserMessage,
   type MessageCancelResponse,
-  type MessageCompactResponse,
   type MessageCreateParams,
   type MessageCreateParamsNonStreaming,
   type MessageCreateParamsStreaming,
@@ -149,6 +148,17 @@ export {
   type PassageDeleteParams,
   type PassageSearchParams,
 } from './passages';
+export {
+  Schedule,
+  type ScheduleCreateResponse,
+  type ScheduleRetrieveResponse,
+  type ScheduleListResponse,
+  type ScheduleDeleteResponse,
+  type ScheduleCreateParams,
+  type ScheduleRetrieveParams,
+  type ScheduleListParams,
+  type ScheduleDeleteParams,
+} from './schedule';
 export {
   Tools,
   type ToolExecuteRequest,
