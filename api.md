@@ -97,14 +97,13 @@ Types:
 - <code><a href="./src/resources/agents/messages.ts">UpdateUserMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">UserMessage</a></code>
 - <code><a href="./src/resources/agents/messages.ts">MessageCancelResponse</a></code>
-- <code><a href="./src/resources/agents/messages.ts">MessageCompactResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">create</a>(agentID, { ...params }) -> LettaResponse</code>
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">list</a>(agentID, { ...params }) -> MessagesArrayPage</code>
 - <code title="post /v1/agents/{agent_id}/messages/cancel">client.agents.messages.<a href="./src/resources/agents/messages.ts">cancel</a>(agentID, { ...params }) -> MessageCancelResponse</code>
-- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">compact</a>(agentID, { ...params }) -> MessageCompactResponse</code>
+- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/resources/agents/messages.ts">compact</a>(agentID, { ...params }) -> CompactionResponse</code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/resources/agents/messages.ts">createAsync</a>(agentID, { ...params }) -> Run</code>
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/resources/agents/messages.ts">reset</a>(agentID, { ...params }) -> AgentState | null</code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/resources/agents/messages.ts">stream</a>(agentID, { ...params }) -> LettaStreamingResponse</code>
@@ -556,6 +555,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/conversations/conversations.ts">CompactionRequest</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">CompactionResponse</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">Conversation</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">CreateConversation</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">UpdateConversation</a></code>
@@ -569,6 +570,7 @@ Methods:
 - <code title="patch /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">update</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
 - <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/resources/conversations/conversations.ts">cancel</a>(conversationID) -> ConversationCancelResponse</code>
+- <code title="post /v1/conversations/{conversation_id}/compact">client.conversations.<a href="./src/resources/conversations/conversations.ts">compact</a>(conversationID, { ...params }) -> CompactionResponse</code>
 
 ## Messages
 
