@@ -560,8 +560,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/conversations/conversations.ts">CompactionRequest</a></code>
-- <code><a href="./src/resources/conversations/conversations.ts">CompactionResponse</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">Conversation</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">CreateConversation</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">UpdateConversation</a></code>
@@ -575,18 +573,20 @@ Methods:
 - <code title="patch /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">update</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
 - <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/resources/conversations/conversations.ts">cancel</a>(conversationID) -> ConversationCancelResponse</code>
-- <code title="post /v1/conversations/{conversation_id}/compact">client.conversations.<a href="./src/resources/conversations/conversations.ts">compact</a>(conversationID, { ...params }) -> CompactionResponse</code>
 
 ## Messages
 
 Types:
 
+- <code><a href="./src/resources/conversations/messages.ts">CompactionRequest</a></code>
+- <code><a href="./src/resources/conversations/messages.ts">CompactionResponse</a></code>
 - <code><a href="./src/resources/conversations/messages.ts">MessageStreamResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">create</a>(conversationID, { ...params }) -> LettaStreamingResponse</code>
 - <code title="get /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">list</a>(conversationID, { ...params }) -> MessagesArrayPage</code>
+- <code title="post /v1/conversations/{conversation_id}/compact">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">compact</a>(conversationID, { ...params }) -> CompactionResponse</code>
 - <code title="post /v1/conversations/{conversation_id}/stream">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">stream</a>(conversationID, { ...params }) -> unknown</code>
 
 # AccessTokens

@@ -129,11 +129,8 @@ import {
   CreateBlock,
 } from './resources/blocks/blocks';
 import {
-  CompactionRequest,
-  CompactionResponse,
   Conversation,
   ConversationCancelResponse,
-  ConversationCompactParams,
   ConversationCreateParams,
   ConversationListParams,
   ConversationListResponse,
@@ -1164,8 +1161,6 @@ export declare namespace Letta {
 
   export {
     Conversations as Conversations,
-    type CompactionRequest as CompactionRequest,
-    type CompactionResponse as CompactionResponse,
     type Conversation as Conversation,
     type CreateConversation as CreateConversation,
     type UpdateConversation as UpdateConversation,
@@ -1174,7 +1169,6 @@ export declare namespace Letta {
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
-    type ConversationCompactParams as ConversationCompactParams,
   };
 
   export {
