@@ -17,7 +17,7 @@ npm install @letta-ai/letta-client
 
 ## Simple Hello World example
 
-Below is a quick example of creating a stateful agent and sending it a message (requires a [Letta API key](https://app.letta.com), or setting `base_url=...` to point at a [Docker server](https://docs.letta.com/guides/docker)).
+Below is a quick example of creating a stateful agent and sending it a message (requires a [Letta API key](https://app.letta.com), or setting `baseUrl=...` to point at a [Docker server](https://docs.letta.com/guides/docker)).
 See the full [quickstart guide](https://docs.letta.com/quickstart) for complete documentation.
 
 ```typescript
