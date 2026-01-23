@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
 import * as ToolsAPI from '../tools';
 import * as AgentsAPI from './agents';
-import * as ConversationsAPI from '../conversations/conversations';
+import * as ConversationsMessagesAPI from '../conversations/messages';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
@@ -91,7 +91,7 @@ export class Messages extends APIResource {
     agentID: string,
     body: MessageCompactParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ConversationsAPI.CompactionResponse> {
+  ): APIPromise<ConversationsMessagesAPI.CompactionResponse> {
     return this._client.post(path`/v1/agents/${agentID}/summarize`, { body, ...options });
   }
 

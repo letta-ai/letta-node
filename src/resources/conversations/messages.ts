@@ -12,10 +12,11 @@ import { path } from '../../internal/utils/path';
 
 export class Messages extends APIResource {
   /**
-   * Send a message to a conversation and get a streaming response.
+   * Send a message to a conversation and get a response.
    *
-   * This endpoint sends a message to an existing conversation and streams the
-   * agent's response back.
+   * This endpoint sends a message to an existing conversation. By default
+   * (stream=true), returns a streaming response (Server-Sent Events). Set
+   * stream=false to get a complete JSON response.
    */
   create(
     conversationID: string,
@@ -48,6 +49,20 @@ export class Messages extends APIResource {
   }
 
   /**
+   * Compact (summarize) a conversation's message history.
+   *
+   * This endpoint summarizes the in-context messages for a specific conversation,
+   * reducing the message count while preserving important context.
+   */
+  compact(
+    conversationID: string,
+    body: MessageCompactParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<CompactionResponse> {
+    return this._client.post(path`/v1/conversations/${conversationID}/compact`, { body, ...options });
+  }
+
+  /**
    * Resume the stream for the most recent active run in a conversation.
    *
    * This endpoint allows you to reconnect to an active background stream for a
@@ -64,6 +79,165 @@ export class Messages extends APIResource {
       stream: true,
     }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
   }
+}
+
+export interface CompactionRequest {
+  /**
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
+   */
+  compaction_settings?: CompactionRequest.CompactionSettings | null;
+}
+
+export namespace CompactionRequest {
+  /**
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
+   */
+  export interface CompactionSettings {
+    /**
+     * Model handle to use for summarization (format: provider/model-name).
+     */
+    model: string;
+
+    /**
+     * The maximum length of the summary in characters. If none, no clipping is
+     * performed.
+     */
+    clip_chars?: number | null;
+
+    /**
+     * The type of summarization technique use.
+     */
+    mode?: 'all' | 'sliding_window';
+
+    /**
+     * Optional model settings used to override defaults for the summarizer model.
+     */
+    model_settings?:
+      | AgentsAPI.OpenAIModelSettings
+      | AgentsAPI.AnthropicModelSettings
+      | AgentsAPI.GoogleAIModelSettings
+      | AgentsAPI.GoogleVertexModelSettings
+      | AgentsAPI.AzureModelSettings
+      | AgentsAPI.XaiModelSettings
+      | CompactionSettings.ZaiModelSettings
+      | AgentsAPI.GroqModelSettings
+      | AgentsAPI.DeepseekModelSettings
+      | AgentsAPI.TogetherModelSettings
+      | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
+      | null;
+
+    /**
+     * The prompt to use for summarization.
+     */
+    prompt?: string;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement?: boolean;
+
+    /**
+     * The percentage of the context window to keep post-summarization (only used in
+     * sliding window mode).
+     */
+    sliding_window_percentage?: number;
+  }
+
+  export namespace CompactionSettings {
+    /**
+     * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+     */
+    export interface ZaiModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
+     * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+     */
+    export interface ChatGptoAuthModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'chatgpt_oauth';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    export namespace ChatGptoAuthModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort level for GPT-5.x and o-series models.
+         */
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
+  }
+}
+
+export interface CompactionResponse {
+  num_messages_after: number;
+
+  num_messages_before: number;
+
+  summary: string;
 }
 
 export type MessageStreamResponse = unknown;
@@ -83,8 +257,7 @@ export interface MessageCreateParams {
   assistant_message_tool_name?: string;
 
   /**
-   * Whether to process the request in the background (only used when
-   * streaming=true).
+   * Whether to process the request in the background (only used when stream=true).
    */
   background?: boolean;
 
@@ -103,7 +276,7 @@ export interface MessageCreateParams {
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
-   * connection timeouts (only used when streaming=true).
+   * connection timeouts (only used when stream=true).
    */
   include_pings?: boolean;
 
@@ -149,16 +322,16 @@ export interface MessageCreateParams {
   override_model?: string | null;
 
   /**
-   * Flag to determine if individual tokens should be streamed, rather than streaming
-   * per step (only used when streaming=true).
+   * If True (default), returns a streaming response (Server-Sent Events). If False,
+   * returns a complete JSON response.
    */
-  stream_tokens?: boolean;
+  stream?: boolean;
 
   /**
-   * If True, returns a streaming response (Server-Sent Events). If False (default),
-   * returns a complete response.
+   * Flag to determine if individual tokens should be streamed, rather than streaming
+   * per step (only used when stream=true).
    */
-  streaming?: boolean;
+  stream_tokens?: boolean;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -246,6 +419,157 @@ export interface MessageListParams extends ArrayPageParams {
   include_err?: boolean | null;
 }
 
+export interface MessageCompactParams {
+  /**
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
+   */
+  compaction_settings?: MessageCompactParams.CompactionSettings | null;
+}
+
+export namespace MessageCompactParams {
+  /**
+   * Configuration for conversation compaction / summarization.
+   *
+   * `model` is the only required user-facing field – it specifies the summarizer
+   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+   * tokens, etc.) are derived from the default configuration for that handle.
+   */
+  export interface CompactionSettings {
+    /**
+     * Model handle to use for summarization (format: provider/model-name).
+     */
+    model: string;
+
+    /**
+     * The maximum length of the summary in characters. If none, no clipping is
+     * performed.
+     */
+    clip_chars?: number | null;
+
+    /**
+     * The type of summarization technique use.
+     */
+    mode?: 'all' | 'sliding_window';
+
+    /**
+     * Optional model settings used to override defaults for the summarizer model.
+     */
+    model_settings?:
+      | AgentsAPI.OpenAIModelSettings
+      | AgentsAPI.AnthropicModelSettings
+      | AgentsAPI.GoogleAIModelSettings
+      | AgentsAPI.GoogleVertexModelSettings
+      | AgentsAPI.AzureModelSettings
+      | AgentsAPI.XaiModelSettings
+      | CompactionSettings.ZaiModelSettings
+      | AgentsAPI.GroqModelSettings
+      | AgentsAPI.DeepseekModelSettings
+      | AgentsAPI.TogetherModelSettings
+      | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
+      | null;
+
+    /**
+     * The prompt to use for summarization.
+     */
+    prompt?: string;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement?: boolean;
+
+    /**
+     * The percentage of the context window to keep post-summarization (only used in
+     * sliding window mode).
+     */
+    sliding_window_percentage?: number;
+  }
+
+  export namespace CompactionSettings {
+    /**
+     * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+     */
+    export interface ZaiModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
+     * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+     */
+    export interface ChatGptoAuthModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'chatgpt_oauth';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    export namespace ChatGptoAuthModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort level for GPT-5.x and o-series models.
+         */
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
+  }
+}
+
 export interface MessageStreamParams {
   /**
    * Number of entries to read per batch.
@@ -272,9 +596,12 @@ export interface MessageStreamParams {
 
 export declare namespace Messages {
   export {
+    type CompactionRequest as CompactionRequest,
+    type CompactionResponse as CompactionResponse,
     type MessageStreamResponse as MessageStreamResponse,
     type MessageCreateParams as MessageCreateParams,
     type MessageListParams as MessageListParams,
+    type MessageCompactParams as MessageCompactParams,
     type MessageStreamParams as MessageStreamParams,
   };
 }
