@@ -3060,6 +3060,13 @@ export interface AgentImportFileParams {
   env_vars_json?: string | null;
 
   /**
+   * Body param: Model handle to override the agent's default model. This allows the
+   * imported agent to use a different model while keeping other defaults (e.g.,
+   * context size) from the original configuration.
+   */
+  model?: string | null;
+
+  /**
    * Body param: If provided, overrides the agent name with this value.
    */
   name?: string | null;
@@ -3076,6 +3083,12 @@ export interface AgentImportFileParams {
    * updated externally.
    */
   override_existing_tools?: boolean;
+
+  /**
+   * @deprecated Body param: Model handle to override the agent's default model. Use
+   * 'model' instead.
+   */
+  override_model_handle?: string | null;
 
   /**
    * @deprecated Body param: If provided, overrides the agent name with this value.
