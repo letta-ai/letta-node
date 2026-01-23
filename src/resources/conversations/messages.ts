@@ -12,10 +12,11 @@ import { path } from '../../internal/utils/path';
 
 export class Messages extends APIResource {
   /**
-   * Send a message to a conversation and get a streaming response.
+   * Send a message to a conversation and get a response.
    *
-   * This endpoint sends a message to an existing conversation and streams the
-   * agent's response back.
+   * This endpoint sends a message to an existing conversation. By default
+   * (stream=true), returns a streaming response (Server-Sent Events). Set
+   * stream=false to get a complete JSON response.
    */
   create(
     conversationID: string,
@@ -83,8 +84,7 @@ export interface MessageCreateParams {
   assistant_message_tool_name?: string;
 
   /**
-   * Whether to process the request in the background (only used when
-   * streaming=true).
+   * Whether to process the request in the background (only used when stream=true).
    */
   background?: boolean;
 
@@ -103,7 +103,7 @@ export interface MessageCreateParams {
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
-   * connection timeouts (only used when streaming=true).
+   * connection timeouts (only used when stream=true).
    */
   include_pings?: boolean;
 
@@ -149,16 +149,16 @@ export interface MessageCreateParams {
   override_model?: string | null;
 
   /**
-   * Flag to determine if individual tokens should be streamed, rather than streaming
-   * per step (only used when streaming=true).
+   * If True (default), returns a streaming response (Server-Sent Events). If False,
+   * returns a complete JSON response.
    */
-  stream_tokens?: boolean;
+  stream?: boolean;
 
   /**
-   * If True, returns a streaming response (Server-Sent Events). If False (default),
-   * returns a complete response.
+   * Flag to determine if individual tokens should be streamed, rather than streaming
+   * per step (only used when stream=true).
    */
-  streaming?: boolean;
+  stream_tokens?: boolean;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
