@@ -142,6 +142,11 @@ export namespace MessageSearchResponse {
      */
     agent_id?: string | null;
 
+    /**
+     * The unique identifier of the conversation that the message belongs to.
+     */
+    conversation_id?: string | null;
+
     message_type?: 'system_message';
   }
 
@@ -173,6 +178,11 @@ export namespace MessageSearchResponse {
      */
     agent_id?: string | null;
 
+    /**
+     * The unique identifier of the conversation that the message belongs to.
+     */
+    conversation_id?: string | null;
+
     message_type?: 'user_message';
   }
 
@@ -199,6 +209,11 @@ export namespace MessageSearchResponse {
      * The unique identifier of the agent that owns the message.
      */
     agent_id?: string | null;
+
+    /**
+     * The unique identifier of the conversation that the message belongs to.
+     */
+    conversation_id?: string | null;
 
     message_type?: 'reasoning_message';
   }
@@ -230,6 +245,11 @@ export namespace MessageSearchResponse {
      * The unique identifier of the agent that owns the message.
      */
     agent_id?: string | null;
+
+    /**
+     * The unique identifier of the conversation that the message belongs to.
+     */
+    conversation_id?: string | null;
 
     message_type?: 'assistant_message';
   }
