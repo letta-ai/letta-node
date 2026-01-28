@@ -243,6 +243,7 @@ export interface LlmConfig {
     | 'deepseek'
     | 'xai'
     | 'zai'
+    | 'openrouter'
     | 'chatgpt_oauth';
 
   /**
@@ -409,6 +410,7 @@ export interface Model {
     | 'deepseek'
     | 'xai'
     | 'zai'
+    | 'openrouter'
     | 'chatgpt_oauth';
 
   /**
@@ -561,6 +563,7 @@ export type ProviderType =
   | 'together'
   | 'vllm'
   | 'sglang'
+  | 'openrouter'
   | 'xai'
   | 'zai';
 
