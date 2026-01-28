@@ -71,6 +71,7 @@ describe('resource conversations', () => {
       agent_id: 'agent_id',
       after: 'after',
       limit: 0,
+      summary_search: 'summary_search',
     });
   });
 
