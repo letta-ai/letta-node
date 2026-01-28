@@ -132,6 +132,7 @@ export namespace CompactionRequest {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
@@ -172,6 +173,40 @@ export namespace CompactionRequest {
        * The type of the provider.
        */
       provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
+     * OpenRouter model configuration (OpenAI-compatible).
+     */
+    export interface OpenRouterModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'openrouter';
 
       /**
        * The response format for the model.
@@ -471,6 +506,7 @@ export namespace MessageCompactParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
@@ -511,6 +547,40 @@ export namespace MessageCompactParams {
        * The type of the provider.
        */
       provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
+     * OpenRouter model configuration (OpenAI-compatible).
+     */
+    export interface OpenRouterModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'openrouter';
 
       /**
        * The response format for the model.
