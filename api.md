@@ -584,7 +584,7 @@ Types:
 
 Methods:
 
-- <code title="post /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">create</a>(conversationID, { ...params }) -> LettaStreamingResponse</code>
+- <code title="post /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">create</a>(conversationID, { ...params }) -> LettaResponse</code>
 - <code title="get /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">list</a>(conversationID, { ...params }) -> MessagesArrayPage</code>
 - <code title="post /v1/conversations/{conversation_id}/compact">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">compact</a>(conversationID, { ...params }) -> CompactionResponse</code>
 - <code title="post /v1/conversations/{conversation_id}/stream">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">stream</a>(conversationID, { ...params }) -> unknown</code>

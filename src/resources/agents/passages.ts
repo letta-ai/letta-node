@@ -9,8 +9,6 @@ import { path } from '../../internal/utils/path';
 export class Passages extends APIResource {
   /**
    * Insert a memory into an agent's archival memory store.
-   *
-   * @deprecated
    */
   create(
     agentID: string,
@@ -22,8 +20,6 @@ export class Passages extends APIResource {
 
   /**
    * Retrieve the memories in an agent's archival memory store (paginated query).
-   *
-   * @deprecated
    */
   list(
     agentID: string,
@@ -35,8 +31,6 @@ export class Passages extends APIResource {
 
   /**
    * Delete a memory from an agent's archival memory store.
-   *
-   * @deprecated
    */
   delete(memoryID: string, params: PassageDeleteParams, options?: RequestOptions): APIPromise<unknown> {
     const { agent_id } = params;
@@ -51,8 +45,6 @@ export class Passages extends APIResource {
    * users to query an agent's archival memory store directly via the API. The search
    * uses the same functionality as the agent's archival_memory_search tool but is
    * accessible for external API usage.
-   *
-   * @deprecated
    */
   search(
     agentID: string,
