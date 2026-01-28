@@ -10,10 +10,7 @@ const client = new Letta({
 describe('resource messages', () => {
   // Prism tests are disabled
   test.skip('create', async () => {
-    const responsePromise = client.conversations.messages.create(
-      'conv-123e4567-e89b-42d3-8456-426614174000',
-      {},
-    );
+    const responsePromise = client.conversations.messages.create('default', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,7 +22,7 @@ describe('resource messages', () => {
 
   // Prism tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.conversations.messages.list('conv-123e4567-e89b-42d3-8456-426614174000');
+    const responsePromise = client.conversations.messages.list('default');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -40,7 +37,7 @@ describe('resource messages', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.conversations.messages.list(
-        'conv-123e4567-e89b-42d3-8456-426614174000',
+        'default',
         {
           after: 'after',
           before: 'before',
@@ -57,9 +54,7 @@ describe('resource messages', () => {
 
   // Prism tests are disabled
   test.skip('compact', async () => {
-    const responsePromise = client.conversations.messages.compact(
-      'conv-123e4567-e89b-42d3-8456-426614174000',
-    );
+    const responsePromise = client.conversations.messages.compact('default');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -74,7 +69,7 @@ describe('resource messages', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.conversations.messages.compact(
-        'conv-123e4567-e89b-42d3-8456-426614174000',
+        'default',
         {
           compaction_settings: {
             model: 'model',
@@ -101,7 +96,7 @@ describe('resource messages', () => {
 
   // Prism tests are disabled
   test.skip('stream', async () => {
-    const responsePromise = client.conversations.messages.stream('conv-123e4567-e89b-42d3-8456-426614174000');
+    const responsePromise = client.conversations.messages.stream('default');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -116,7 +111,7 @@ describe('resource messages', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.conversations.messages.stream(
-        'conv-123e4567-e89b-42d3-8456-426614174000',
+        'default',
         {
           batch_size: 0,
           include_pings: true,
