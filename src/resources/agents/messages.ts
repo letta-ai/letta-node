@@ -17,6 +17,12 @@ export class Messages extends APIResource {
    * Process a user message and return the agent's response. This endpoint accepts a
    * message from a user and processes it through the agent.
    *
+   * **Note:** Sending multiple concurrent requests to the same agent can lead to
+   * undefined behavior. Each agent processes messages sequentially, and concurrent
+   * requests may interleave in unexpected ways. Wait for each request to complete
+   * before sending the next one. Use separate agents or conversations for parallel
+   * processing.
+   *
    * The response format is controlled by the `streaming` field in the request body:
    *
    * - If `streaming=false` (default): Returns a complete LettaResponse with all
@@ -102,6 +108,12 @@ export class Messages extends APIResource {
    *
    * This is "asynchronous" in the sense that it's a background run and explicitly
    * must be fetched by the run ID.
+   *
+   * **Note:** Sending multiple concurrent requests to the same agent can lead to
+   * undefined behavior. Each agent processes messages sequentially, and concurrent
+   * requests may interleave in unexpected ways. Wait for each request to complete
+   * before sending the next one. Use separate agents or conversations for parallel
+   * processing.
    */
   createAsync(agentID: string, body: MessageCreateAsyncParams, options?: RequestOptions): APIPromise<Run> {
     return this._client.post(path`/v1/agents/${agentID}/messages/async`, { body, ...options });
@@ -123,6 +135,12 @@ export class Messages extends APIResource {
    *
    * Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
    * in the request body instead.
+   *
+   * **Note:** Sending multiple concurrent requests to the same agent can lead to
+   * undefined behavior. Each agent processes messages sequentially, and concurrent
+   * requests may interleave in unexpected ways. Wait for each request to complete
+   * before sending the next one. Use separate agents or conversations for parallel
+   * processing.
    *
    * This endpoint accepts a message from a user and processes it through the agent.
    * It will stream the steps of the response always, and stream the tokens if
