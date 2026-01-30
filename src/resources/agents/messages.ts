@@ -1656,6 +1656,11 @@ export interface SummaryMessage {
 
   summary: string;
 
+  /**
+   * Statistics about a memory compaction operation.
+   */
+  compaction_stats?: SummaryMessage.CompactionStats | null;
+
   is_err?: boolean | null;
 
   message_type?: 'summary_message';
@@ -1671,6 +1676,46 @@ export interface SummaryMessage {
   seq_id?: number | null;
 
   step_id?: string | null;
+}
+
+export namespace SummaryMessage {
+  /**
+   * Statistics about a memory compaction operation.
+   */
+  export interface CompactionStats {
+    /**
+     * The model's context window size
+     */
+    context_window: number;
+
+    /**
+     * Number of messages after compaction
+     */
+    messages_count_after: number;
+
+    /**
+     * Number of messages before compaction
+     */
+    messages_count_before: number;
+
+    /**
+     * What triggered the compaction (e.g., 'context_window_exceeded',
+     * 'post_step_context_check')
+     */
+    trigger: string;
+
+    /**
+     * Token count after compaction (message tokens only, does not include tool
+     * definitions)
+     */
+    context_tokens_after?: number | null;
+
+    /**
+     * Token count before compaction (from LLM usage stats, includes full context sent
+     * to LLM)
+     */
+    context_tokens_before?: number | null;
+  }
 }
 
 /**
