@@ -236,12 +236,14 @@ export interface LlmConfig {
     | 'koboldcpp'
     | 'vllm'
     | 'hugging-face'
+    | 'minimax'
     | 'mistral'
     | 'together'
     | 'bedrock'
     | 'deepseek'
     | 'xai'
     | 'zai'
+    | 'openrouter'
     | 'chatgpt_oauth';
 
   /**
@@ -401,12 +403,14 @@ export interface Model {
     | 'koboldcpp'
     | 'vllm'
     | 'hugging-face'
+    | 'minimax'
     | 'mistral'
     | 'together'
     | 'bedrock'
     | 'deepseek'
     | 'xai'
     | 'zai'
+    | 'openrouter'
     | 'chatgpt_oauth';
 
   /**
@@ -552,12 +556,14 @@ export type ProviderType =
   | 'hugging-face'
   | 'letta'
   | 'lmstudio_openai'
+  | 'minimax'
   | 'mistral'
   | 'ollama'
   | 'openai'
   | 'together'
   | 'vllm'
   | 'sglang'
+  | 'openrouter'
   | 'xai'
   | 'zai';
 

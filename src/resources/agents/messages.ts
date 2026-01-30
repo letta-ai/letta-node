@@ -17,6 +17,12 @@ export class Messages extends APIResource {
    * Process a user message and return the agent's response. This endpoint accepts a
    * message from a user and processes it through the agent.
    *
+   * **Note:** Sending multiple concurrent requests to the same agent can lead to
+   * undefined behavior. Each agent processes messages sequentially, and concurrent
+   * requests may interleave in unexpected ways. Wait for each request to complete
+   * before sending the next one. Use separate agents or conversations for parallel
+   * processing.
+   *
    * The response format is controlled by the `streaming` field in the request body:
    *
    * - If `streaming=false` (default): Returns a complete LettaResponse with all
@@ -102,6 +108,12 @@ export class Messages extends APIResource {
    *
    * This is "asynchronous" in the sense that it's a background run and explicitly
    * must be fetched by the run ID.
+   *
+   * **Note:** Sending multiple concurrent requests to the same agent can lead to
+   * undefined behavior. Each agent processes messages sequentially, and concurrent
+   * requests may interleave in unexpected ways. Wait for each request to complete
+   * before sending the next one. Use separate agents or conversations for parallel
+   * processing.
    */
   createAsync(agentID: string, body: MessageCreateAsyncParams, options?: RequestOptions): APIPromise<Run> {
     return this._client.post(path`/v1/agents/${agentID}/messages/async`, { body, ...options });
@@ -123,6 +135,12 @@ export class Messages extends APIResource {
    *
    * Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
    * in the request body instead.
+   *
+   * **Note:** Sending multiple concurrent requests to the same agent can lead to
+   * undefined behavior. Each agent processes messages sequentially, and concurrent
+   * requests may interleave in unexpected ways. Wait for each request to complete
+   * before sending the next one. Use separate agents or conversations for parallel
+   * processing.
    *
    * This endpoint accepts a message from a user and processes it through the agent.
    * It will stream the steps of the response always, and stream the tokens if
@@ -357,7 +375,7 @@ export interface EventMessage {
 
   is_err?: boolean | null;
 
-  message_type?: 'event';
+  message_type?: 'event_message';
 
   name?: string | null;
 
@@ -825,6 +843,12 @@ export interface LettaRequest {
   enable_thinking?: string;
 
   /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
+
+  /**
    * Only return specified message types in the response. If `None` (default) returns
    * all messages.
    */
@@ -1062,6 +1086,12 @@ export interface LettaStreamingRequest {
    * from the agent.
    */
   enable_thinking?: string;
+
+  /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
@@ -1381,7 +1411,7 @@ export type Message =
   | SummaryMessage
   | EventMessage;
 
-export type MessageRole = 'assistant' | 'user' | 'tool' | 'function' | 'system' | 'approval';
+export type MessageRole = 'assistant' | 'user' | 'tool' | 'function' | 'system' | 'approval' | 'summary';
 
 export type MessageType =
   | 'system_message'
@@ -1392,7 +1422,9 @@ export type MessageType =
   | 'tool_call_message'
   | 'tool_return_message'
   | 'approval_request_message'
-  | 'approval_response_message';
+  | 'approval_response_message'
+  | 'summary_message'
+  | 'event_message';
 
 /**
  * A placeholder for reasoning content we know is present, but isn't returned by
@@ -1624,9 +1656,14 @@ export interface SummaryMessage {
 
   summary: string;
 
+  /**
+   * Statistics about a memory compaction operation.
+   */
+  compaction_stats?: SummaryMessage.CompactionStats | null;
+
   is_err?: boolean | null;
 
-  message_type?: 'summary';
+  message_type?: 'summary_message';
 
   name?: string | null;
 
@@ -1639,6 +1676,46 @@ export interface SummaryMessage {
   seq_id?: number | null;
 
   step_id?: string | null;
+}
+
+export namespace SummaryMessage {
+  /**
+   * Statistics about a memory compaction operation.
+   */
+  export interface CompactionStats {
+    /**
+     * The model's context window size
+     */
+    context_window: number;
+
+    /**
+     * Number of messages after compaction
+     */
+    messages_count_after: number;
+
+    /**
+     * Number of messages before compaction
+     */
+    messages_count_before: number;
+
+    /**
+     * What triggered the compaction (e.g., 'context_window_exceeded',
+     * 'post_step_context_check')
+     */
+    trigger: string;
+
+    /**
+     * Token count after compaction (message tokens only, does not include tool
+     * definitions)
+     */
+    context_tokens_after?: number | null;
+
+    /**
+     * Token count before compaction (from LLM usage stats, includes full context sent
+     * to LLM)
+     */
+    context_tokens_before?: number | null;
+  }
 }
 
 /**
@@ -1937,6 +2014,12 @@ export interface MessageCreateParamsBase {
   enable_thinking?: string;
 
   /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
+
+  /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
    * connection timeouts (only used when streaming=true).
    */
@@ -2178,6 +2261,7 @@ export namespace MessageCompactParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
@@ -2218,6 +2302,40 @@ export namespace MessageCompactParams {
        * The type of the provider.
        */
       provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
+     * OpenRouter model configuration (OpenAI-compatible).
+     */
+    export interface OpenRouterModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'openrouter';
 
       /**
        * The response format for the model.
@@ -2309,6 +2427,12 @@ export interface MessageCreateAsyncParams {
    * from the agent.
    */
   enable_thinking?: string;
+
+  /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
 
   /**
    * Only return specified message types in the response. If `None` (default) returns
@@ -2463,6 +2587,12 @@ export interface MessageStreamParams {
    * from the agent.
    */
   enable_thinking?: string;
+
+  /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent

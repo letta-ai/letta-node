@@ -185,6 +185,11 @@ export interface ConversationListParams {
    * Maximum number of conversations to return
    */
   limit?: number;
+
+  /**
+   * Search for text within conversation summaries
+   */
+  summary_search?: string | null;
 }
 
 Conversations.Messages = Messages;

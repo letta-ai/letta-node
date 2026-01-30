@@ -31,7 +31,7 @@ describe('resource conversations', () => {
 
   // Prism tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.conversations.retrieve('conv-123e4567-e89b-42d3-8456-426614174000');
+    const responsePromise = client.conversations.retrieve('default');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -43,7 +43,7 @@ describe('resource conversations', () => {
 
   // Prism tests are disabled
   test.skip('update', async () => {
-    const responsePromise = client.conversations.update('conv-123e4567-e89b-42d3-8456-426614174000', {});
+    const responsePromise = client.conversations.update('default', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -71,12 +71,13 @@ describe('resource conversations', () => {
       agent_id: 'agent_id',
       after: 'after',
       limit: 0,
+      summary_search: 'summary_search',
     });
   });
 
   // Prism tests are disabled
   test.skip('cancel', async () => {
-    const responsePromise = client.conversations.cancel('conv-123e4567-e89b-42d3-8456-426614174000');
+    const responsePromise = client.conversations.cancel('default');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

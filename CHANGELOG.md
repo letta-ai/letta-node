@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.7.7 (2026-01-30)
+
+Full Changelog: [v1.7.6...v1.7.7](https://github.com/letta-ai/letta-node/compare/v1.7.6...v1.7.7)
+
+### Features
+
+* add compaction stats ([d5bc87c](https://github.com/letta-ai/letta-node/commit/d5bc87c859f8e6ad7ff981e92edb716ae48fd55f))
+* add ID format validation to group schemas ([82ee3ce](https://github.com/letta-ai/letta-node/commit/82ee3ce3a3ae0bcdefea0c7db7fce5d73b7f6df0))
+* add MiniMax provider support ([ddb9d4b](https://github.com/letta-ai/letta-node/commit/ddb9d4bc46e95b603001189a6289e8c0b12a93ce))
+* add summary message and event on compaction ([faa64d2](https://github.com/letta-ai/letta-node/commit/faa64d235a3fa75a7374ea63c7fbd9679b95a9b0))
+* openrouter byok ([a687a0d](https://github.com/letta-ai/letta-node/commit/a687a0dde1a06291d5b4a486c93782813513cbe4))
+* Release webhook code ([bca9350](https://github.com/letta-ai/letta-node/commit/bca9350b66ebe46158b79b2b22cc805ecaa30c07))
+
+
+### Bug Fixes
+
+* openrouter provider ([783879a](https://github.com/letta-ai/letta-node/commit/783879a9bedb10efcbf4a0b78c6809db577561c9))
+* remove deprecation from agent passages endpoints ([f73522d](https://github.com/letta-ai/letta-node/commit/f73522dc642c1aac92dc02c43deab21445579d6e))
+* warning ([8f87e9b](https://github.com/letta-ai/letta-node/commit/8f87e9b13bef556eb40d77383c8a6dd3203f0680))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([3e4a5fa](https://github.com/letta-ai/letta-node/commit/3e4a5fa6904de3ce577a852dd207244907b33a9b))
+* rebuild api requests ([fd4cfd1](https://github.com/letta-ai/letta-node/commit/fd4cfd1278500f98af04b9551a9d9a25673e46c8))
+
 ## 1.7.6 (2026-01-23)
 
 Full Changelog: [v1.7.5...v1.7.6](https://github.com/letta-ai/letta-node/compare/v1.7.5...v1.7.6)

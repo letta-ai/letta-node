@@ -15,8 +15,8 @@ export class Messages extends APIResource {
    * Send a message to a conversation and get a response.
    *
    * This endpoint sends a message to an existing conversation. By default
-   * (stream=true), returns a streaming response (Server-Sent Events). Set
-   * stream=false to get a complete JSON response.
+   * (streaming=true), returns a streaming response (Server-Sent Events). Set
+   * streaming=false to get a complete JSON response.
    */
   create(
     conversationID: string,
@@ -132,6 +132,7 @@ export namespace CompactionRequest {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
@@ -172,6 +173,40 @@ export namespace CompactionRequest {
        * The type of the provider.
        */
       provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
+     * OpenRouter model configuration (OpenAI-compatible).
+     */
+    export interface OpenRouterModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'openrouter';
 
       /**
        * The response format for the model.
@@ -257,7 +292,8 @@ export interface MessageCreateParams {
   assistant_message_tool_name?: string;
 
   /**
-   * Whether to process the request in the background (only used when stream=true).
+   * Whether to process the request in the background (only used when
+   * streaming=true).
    */
   background?: boolean;
 
@@ -275,8 +311,14 @@ export interface MessageCreateParams {
   enable_thinking?: string;
 
   /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
+
+  /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
-   * connection timeouts (only used when stream=true).
+   * connection timeouts (only used when streaming=true).
    */
   include_pings?: boolean;
 
@@ -322,16 +364,16 @@ export interface MessageCreateParams {
   override_model?: string | null;
 
   /**
+   * Flag to determine if individual tokens should be streamed, rather than streaming
+   * per step (only used when streaming=true).
+   */
+  stream_tokens?: boolean;
+
+  /**
    * If True (default), returns a streaming response (Server-Sent Events). If False,
    * returns a complete JSON response.
    */
-  stream?: boolean;
-
-  /**
-   * Flag to determine if individual tokens should be streamed, rather than streaming
-   * per step (only used when stream=true).
-   */
-  stream_tokens?: boolean;
+  streaming?: boolean;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -470,6 +512,7 @@ export namespace MessageCompactParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
 
@@ -510,6 +553,40 @@ export namespace MessageCompactParams {
        * The type of the provider.
        */
       provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
+     * OpenRouter model configuration (OpenAI-compatible).
+     */
+    export interface OpenRouterModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'openrouter';
 
       /**
        * The response format for the model.
