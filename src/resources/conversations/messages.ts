@@ -311,6 +311,12 @@ export interface MessageCreateParams {
   enable_thinking?: string;
 
   /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
+
+  /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
    * connection timeouts (only used when streaming=true).
    */

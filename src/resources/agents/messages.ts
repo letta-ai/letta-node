@@ -375,7 +375,7 @@ export interface EventMessage {
 
   is_err?: boolean | null;
 
-  message_type?: 'event';
+  message_type?: 'event_message';
 
   name?: string | null;
 
@@ -843,6 +843,12 @@ export interface LettaRequest {
   enable_thinking?: string;
 
   /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
+
+  /**
    * Only return specified message types in the response. If `None` (default) returns
    * all messages.
    */
@@ -1080,6 +1086,12 @@ export interface LettaStreamingRequest {
    * from the agent.
    */
   enable_thinking?: string;
+
+  /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
@@ -1399,7 +1411,7 @@ export type Message =
   | SummaryMessage
   | EventMessage;
 
-export type MessageRole = 'assistant' | 'user' | 'tool' | 'function' | 'system' | 'approval';
+export type MessageRole = 'assistant' | 'user' | 'tool' | 'function' | 'system' | 'approval' | 'summary';
 
 export type MessageType =
   | 'system_message'
@@ -1410,7 +1422,9 @@ export type MessageType =
   | 'tool_call_message'
   | 'tool_return_message'
   | 'approval_request_message'
-  | 'approval_response_message';
+  | 'approval_response_message'
+  | 'summary_message'
+  | 'event_message';
 
 /**
  * A placeholder for reasoning content we know is present, but isn't returned by
@@ -1644,7 +1658,7 @@ export interface SummaryMessage {
 
   is_err?: boolean | null;
 
-  message_type?: 'summary';
+  message_type?: 'summary_message';
 
   name?: string | null;
 
@@ -1953,6 +1967,12 @@ export interface MessageCreateParamsBase {
    * from the agent.
    */
   enable_thinking?: string;
+
+  /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
@@ -2364,6 +2384,12 @@ export interface MessageCreateAsyncParams {
   enable_thinking?: string;
 
   /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
+
+  /**
    * Only return specified message types in the response. If `None` (default) returns
    * all messages.
    */
@@ -2516,6 +2542,12 @@ export interface MessageStreamParams {
    * from the agent.
    */
   enable_thinking?: string;
+
+  /**
+   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+   * types. If False (default), compaction messages are not included in the response.
+   */
+  include_compaction_messages?: boolean;
 
   /**
    * Whether to include periodic keepalive ping messages in the stream to prevent
