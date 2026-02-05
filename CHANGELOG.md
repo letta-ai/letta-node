@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.7.8 (2026-02-05)
+
+Full Changelog: [v1.7.7...v1.7.8](https://github.com/letta-ai/letta-node/compare/v1.7.7...v1.7.8)
+
+### Features
+
+* add context token estimates to llm usage ([44d749a](https://github.com/letta-ai/letta-node/commit/44d749a52d5884094ba3f95b3d3ec02638aa3c0f))
+* add reasoning zai openrouter ([a57d00b](https://github.com/letta-ai/letta-node/commit/a57d00b5a7b795abdb955571c539c55c2a919b32))
+* add usage columns to steps table ([d68f005](https://github.com/letta-ai/letta-node/commit/d68f0051af868c57eb60642d34e886fc51bc4cad))
+
+
+### Bug Fixes
+
+* **client:** avoid memory leak with abort signals ([85aa80d](https://github.com/letta-ai/letta-node/commit/85aa80d24fb7bc180a5d8f09cf4cd254a461a3cc))
+
+
+### Chores
+
+* **client:** do not parse responses with empty content-length ([5bf34ab](https://github.com/letta-ai/letta-node/commit/5bf34ab37f562d82aa158cff789dd497e32b8338))
+* **client:** restructure abort controller binding ([964f04c](https://github.com/letta-ai/letta-node/commit/964f04c52fa1584458e6fa450211786e2f70f973))
+
 ## 1.7.7 (2026-01-30)
 
 Full Changelog: [v1.7.6...v1.7.7](https://github.com/letta-ai/letta-node/compare/v1.7.6...v1.7.7)

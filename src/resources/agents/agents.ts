@@ -876,6 +876,28 @@ export namespace AgentState {
        * The temperature of the model.
        */
       temperature?: number;
+
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      thinking?: ZaiModelSettings.Thinking;
+    }
+
+    export namespace ZaiModelSettings {
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      export interface Thinking {
+        /**
+         * If False, preserved thinking is used (recommended for agents).
+         */
+        clear_thinking?: boolean;
+
+        /**
+         * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
     }
 
     /**
@@ -1122,6 +1144,28 @@ export namespace AgentState {
      * The temperature of the model.
      */
     temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiModelSettings.Thinking;
+  }
+
+  export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
   }
 
   /**
@@ -2409,6 +2453,28 @@ export namespace AgentCreateParams {
        * The temperature of the model.
        */
       temperature?: number;
+
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      thinking?: ZaiModelSettings.Thinking;
+    }
+
+    export namespace ZaiModelSettings {
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      export interface Thinking {
+        /**
+         * If False, preserved thinking is used (recommended for agents).
+         */
+        clear_thinking?: boolean;
+
+        /**
+         * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
     }
 
     /**
@@ -2520,6 +2586,28 @@ export namespace AgentCreateParams {
      * The temperature of the model.
      */
     temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiModelSettings.Thinking;
+  }
+
+  export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
   }
 
   /**
@@ -2948,6 +3036,28 @@ export namespace AgentUpdateParams {
        * The temperature of the model.
        */
       temperature?: number;
+
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      thinking?: ZaiModelSettings.Thinking;
+    }
+
+    export namespace ZaiModelSettings {
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      export interface Thinking {
+        /**
+         * If False, preserved thinking is used (recommended for agents).
+         */
+        clear_thinking?: boolean;
+
+        /**
+         * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
     }
 
     /**
@@ -3059,6 +3169,28 @@ export namespace AgentUpdateParams {
      * The temperature of the model.
      */
     temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiModelSettings.Thinking;
+  }
+
+  export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
   }
 
   /**
