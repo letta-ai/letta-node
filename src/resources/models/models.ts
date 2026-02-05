@@ -257,10 +257,11 @@ export interface LlmConfig {
   display_name?: string | null;
 
   /**
-   * The effort level for Anthropic Opus 4.5 model (controls token spending). Not
-   * setting this gives similar performance to 'high'.
+   * The effort level for Anthropic models that support it (Opus 4.5, Opus 4.6).
+   * Controls token spending and thinking behavior. Not setting this gives similar
+   * performance to 'high'.
    */
-  effort?: 'low' | 'medium' | 'high' | null;
+  effort?: 'low' | 'medium' | 'high' | 'max' | null;
 
   /**
    * Whether or not the model should use extended thinking if it is a 'reasoning'
@@ -434,10 +435,11 @@ export interface Model {
   display_name?: string | null;
 
   /**
-   * The effort level for Anthropic Opus 4.5 model (controls token spending). Not
-   * setting this gives similar performance to 'high'.
+   * The effort level for Anthropic models that support it (Opus 4.5, Opus 4.6).
+   * Controls token spending and thinking behavior. Not setting this gives similar
+   * performance to 'high'.
    */
-  effort?: 'low' | 'medium' | 'high' | null;
+  effort?: 'low' | 'medium' | 'high' | 'max' | null;
 
   /**
    * @deprecated Deprecated: Whether or not the model should use extended thinking if
