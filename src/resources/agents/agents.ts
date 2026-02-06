@@ -595,6 +595,11 @@ export namespace AgentState {
     file_blocks?: Array<Memory.FileBlock>;
 
     /**
+     * Whether this agent uses git-backed memory with structured labels.
+     */
+    git_enabled?: boolean;
+
+    /**
      * Deprecated. Ignored for performance.
      */
     prompt_template?: string;
