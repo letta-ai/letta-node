@@ -880,7 +880,7 @@ export interface LettaRequest {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | LettaRequest.ToolReturnCreate> | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -959,6 +959,25 @@ export namespace LettaRequest {
        */
       text: string;
     }
+  }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
   }
 }
 
@@ -1136,7 +1155,7 @@ export interface LettaStreamingRequest {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | LettaStreamingRequest.ToolReturnCreate> | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -1227,6 +1246,25 @@ export namespace LettaStreamingRequest {
        */
       text: string;
     }
+  }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
   }
 }
 
@@ -2067,7 +2105,7 @@ export interface MessageCreateParamsBase {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | MessageCreateParams.ToolReturnCreate> | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -2158,6 +2196,25 @@ export namespace MessageCreateParams {
        */
       text: string;
     }
+  }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
   }
 
   export type MessageCreateParamsNonStreaming = MessagesAPI.MessageCreateParamsNonStreaming;
@@ -2498,7 +2555,9 @@ export interface MessageCreateAsyncParams {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<
+    AgentsAPI.MessageCreate | ApprovalCreate | MessageCreateAsyncParams.ToolReturnCreate
+  > | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -2577,6 +2636,25 @@ export namespace MessageCreateAsyncParams {
        */
       text: string;
     }
+  }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
   }
 }
 
@@ -2664,7 +2742,7 @@ export interface MessageStreamParams {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | MessageStreamParams.ToolReturnCreate> | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -2755,6 +2833,25 @@ export namespace MessageStreamParams {
        */
       text: string;
     }
+  }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
   }
 }
 
