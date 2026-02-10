@@ -3376,6 +3376,12 @@ export interface AgentExportFileParams {
   max_steps?: number;
 
   /**
+   * If True, excludes all messages from the export. Useful for sharing agent configs
+   * without conversation history.
+   */
+  scrub_messages?: boolean;
+
+  /**
    * @deprecated If True, exports using the legacy single-agent 'v1' format with
    * inline tools/blocks. If False, exports using the new multi-entity 'v2' format,
    * with separate agents, tools, blocks, files, etc.
