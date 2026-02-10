@@ -890,6 +890,27 @@ export interface LettaRequest {
   override_model?: string | null;
 
   /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
+
+  /**
    * @deprecated Whether the server should parse specific tool call arguments
    * (default `send_message`) as `AssistantMessage` objects. Still supported for
    * legacy agent types, but deprecated for letta_v1_agent onward.
@@ -1005,6 +1026,19 @@ export interface LettaResponse {
    * The usage statistics of the agent.
    */
   usage: LettaResponse.Usage;
+
+  /**
+   * Log probabilities of the output tokens from the last LLM call. Only present if
+   * return_logprobs was enabled.
+   */
+  logprobs?: LettaResponse.Logprobs | null;
+
+  /**
+   * Token data for all LLM generations in multi-turn agent interaction. Includes
+   * token IDs and logprobs for each assistant turn, plus tool result content. Only
+   * present if return_token_ids was enabled. Used for RL training with loss masking.
+   */
+  turns?: Array<LettaResponse.Turn> | null;
 }
 
 export namespace LettaResponse {
@@ -1075,6 +1109,94 @@ export namespace LettaResponse {
      * The total number of tokens processed by the agent.
      */
     total_tokens?: number;
+  }
+
+  /**
+   * Log probabilities of the output tokens from the last LLM call. Only present if
+   * return_logprobs was enabled.
+   */
+  export interface Logprobs {
+    content?: Array<Logprobs.Content> | null;
+
+    refusal?: Array<Logprobs.Refusal> | null;
+  }
+
+  export namespace Logprobs {
+    export interface Content {
+      token: string;
+
+      logprob: number;
+
+      top_logprobs: Array<Content.TopLogprob>;
+
+      bytes?: Array<number> | null;
+    }
+
+    export namespace Content {
+      export interface TopLogprob {
+        token: string;
+
+        logprob: number;
+
+        bytes?: Array<number> | null;
+      }
+    }
+
+    export interface Refusal {
+      token: string;
+
+      logprob: number;
+
+      top_logprobs: Array<Refusal.TopLogprob>;
+
+      bytes?: Array<number> | null;
+    }
+
+    export namespace Refusal {
+      export interface TopLogprob {
+        token: string;
+
+        logprob: number;
+
+        bytes?: Array<number> | null;
+      }
+    }
+  }
+
+  /**
+   * Token data for a single LLM generation turn in a multi-turn agent interaction.
+   *
+   * Used for RL training to track token IDs and logprobs across all LLM calls, not
+   * just the final one. Tool results are included so the client can tokenize them
+   * with loss_mask=0 (non-trainable).
+   */
+  export interface Turn {
+    /**
+     * Role of this turn: 'assistant' for LLM generations (trainable), 'tool' for tool
+     * results (non-trainable).
+     */
+    role: 'assistant' | 'tool';
+
+    /**
+     * Text content. For tool turns, client tokenizes this with loss_mask=0.
+     */
+    content?: string | null;
+
+    /**
+     * Token IDs from SGLang native endpoint. Only present for assistant turns.
+     */
+    output_ids?: Array<number> | null;
+
+    /**
+     * Logprobs from SGLang: [[logprob, token_id, top_logprob_or_null], ...]. Only
+     * present for assistant turns.
+     */
+    output_token_logprobs?: Array<Array<unknown>> | null;
+
+    /**
+     * Name of the tool called. Only present for tool turns.
+     */
+    tool_name?: string | null;
   }
 }
 
@@ -1165,6 +1287,21 @@ export interface LettaStreamingRequest {
   override_model?: string | null;
 
   /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
+
+  /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
    * per step (only used when streaming=true).
    */
@@ -1175,6 +1312,12 @@ export interface LettaStreamingRequest {
    * returns a complete response.
    */
   streaming?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -2115,6 +2258,21 @@ export interface MessageCreateParamsBase {
   override_model?: string | null;
 
   /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
+
+  /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
    * per step (only used when streaming=true).
    */
@@ -2125,6 +2283,12 @@ export interface MessageCreateParamsBase {
    * returns a complete response.
    */
   streaming?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -2567,6 +2731,27 @@ export interface MessageCreateAsyncParams {
   override_model?: string | null;
 
   /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
+
+  /**
    * @deprecated Whether the server should parse specific tool call arguments
    * (default `send_message`) as `AssistantMessage` objects. Still supported for
    * legacy agent types, but deprecated for letta_v1_agent onward.
@@ -2752,6 +2937,21 @@ export interface MessageStreamParams {
   override_model?: string | null;
 
   /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
+
+  /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
    * per step (only used when streaming=true).
    */
@@ -2762,6 +2962,12 @@ export interface MessageStreamParams {
    * returns a complete response.
    */
   streaming?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments

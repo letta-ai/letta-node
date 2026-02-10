@@ -388,6 +388,21 @@ export interface MessageCreateParams {
   override_model?: string | null;
 
   /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
+
+  /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
    * per step (only used when streaming=true).
    */
@@ -398,6 +413,12 @@ export interface MessageCreateParams {
    * returns a complete JSON response.
    */
   streaming?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments

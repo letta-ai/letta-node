@@ -343,6 +343,19 @@ export interface LlmConfig {
     | null;
 
   /**
+   * Whether to return log probabilities of the output tokens. Useful for RL
+   * training.
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * Whether to return token IDs for all LLM generations via SGLang native endpoint.
+   * Required for multi-turn RL training with loss masking. Only works with SGLang
+   * provider.
+   */
+  return_token_ids?: boolean;
+
+  /**
    * Enable strict mode for tool calling. When true, tool schemas include strict:
    * true and additionalProperties: false, guaranteeing tool outputs match JSON
    * schemas.
@@ -359,6 +372,12 @@ export interface LlmConfig {
    * The cost tier for the model (cloud only).
    */
   tier?: string | null;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * Soft control for how verbose model output should be, used for GPT-5 models.
@@ -520,6 +539,19 @@ export interface Model {
     | null;
 
   /**
+   * Whether to return log probabilities of the output tokens. Useful for RL
+   * training.
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * Whether to return token IDs for all LLM generations via SGLang native endpoint.
+   * Required for multi-turn RL training with loss masking. Only works with SGLang
+   * provider.
+   */
+  return_token_ids?: boolean;
+
+  /**
    * Enable strict mode for tool calling. When true, tool schemas include strict:
    * true and additionalProperties: false, guaranteeing tool outputs match JSON
    * schemas.
@@ -536,6 +568,12 @@ export interface Model {
    * @deprecated Deprecated: The cost tier for the model (cloud only).
    */
   tier?: string | null;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Deprecated: Soft control for how verbose model output should be.
