@@ -132,6 +132,7 @@ describe('resource agents', () => {
         {
           conversation_id: 'conversation_id',
           max_steps: 0,
+          scrub_messages: true,
           use_legacy_format: true,
         },
         { path: '/_stainless_unknown_path' },
