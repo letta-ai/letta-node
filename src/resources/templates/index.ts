@@ -6,7 +6,9 @@ export {
   type TemplateCreateResponse,
   type TemplateUpdateResponse,
   type TemplateDeleteResponse,
+  type TemplateRollbackResponse,
   type TemplateCreateParams,
   type TemplateUpdateParams,
   type TemplateDeleteParams,
+  type TemplateRollbackParams,
 } from './templates';

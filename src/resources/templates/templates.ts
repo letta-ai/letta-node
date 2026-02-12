@@ -38,6 +38,19 @@ export class Templates extends APIResource {
   ): APIPromise<TemplateDeleteResponse> {
     return this._client.delete(path`/v1/templates/${templateName}`, { body, ...options });
   }
+
+  /**
+   * Rollback the current working version of a template to a previous saved version.
+   * If the current version has unsaved changes, they will be automatically saved as
+   * a new version before rollback.
+   */
+  rollback(
+    templateName: string,
+    body: TemplateRollbackParams,
+    options?: RequestOptions,
+  ): APIPromise<TemplateRollbackResponse> {
+    return this._client.post(path`/v1/templates/${templateName}/rollback`, { body, ...options });
+  }
 }
 
 export interface TemplateCreateResponse {
@@ -78,6 +91,12 @@ export interface TemplateUpdateResponse {
 
 export interface TemplateDeleteResponse {
   success: boolean;
+}
+
+export interface TemplateRollbackResponse {
+  success: boolean;
+
+  message?: string;
 }
 
 export type TemplateCreateParams = TemplateCreateParams.Variant0 | TemplateCreateParams.Variant1;
@@ -142,6 +161,14 @@ export interface TemplateUpdateParams {
 
 export interface TemplateDeleteParams {}
 
+export interface TemplateRollbackParams {
+  /**
+   * The target version to rollback to (e.g., "1", "2", "latest"). Cannot be
+   * "current" or "dev".
+   */
+  version: string;
+}
+
 Templates.Agents = Agents;
 
 export declare namespace Templates {
@@ -149,9 +176,11 @@ export declare namespace Templates {
     type TemplateCreateResponse as TemplateCreateResponse,
     type TemplateUpdateResponse as TemplateUpdateResponse,
     type TemplateDeleteResponse as TemplateDeleteResponse,
+    type TemplateRollbackResponse as TemplateRollbackResponse,
     type TemplateCreateParams as TemplateCreateParams,
     type TemplateUpdateParams as TemplateUpdateParams,
     type TemplateDeleteParams as TemplateDeleteParams,
+    type TemplateRollbackParams as TemplateRollbackParams,
   };
 
   export {
