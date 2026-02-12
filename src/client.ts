@@ -186,6 +186,8 @@ import {
   TemplateCreateResponse,
   TemplateDeleteParams,
   TemplateDeleteResponse,
+  TemplateRollbackParams,
+  TemplateRollbackResponse,
   TemplateUpdateParams,
   TemplateUpdateResponse,
   Templates,
@@ -1146,9 +1148,11 @@ export declare namespace Letta {
     type TemplateCreateResponse as TemplateCreateResponse,
     type TemplateUpdateResponse as TemplateUpdateResponse,
     type TemplateDeleteResponse as TemplateDeleteResponse,
+    type TemplateRollbackResponse as TemplateRollbackResponse,
     type TemplateCreateParams as TemplateCreateParams,
     type TemplateUpdateParams as TemplateUpdateParams,
     type TemplateDeleteParams as TemplateDeleteParams,
+    type TemplateRollbackParams as TemplateRollbackParams,
   };
 
   export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };

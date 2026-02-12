@@ -69,4 +69,21 @@ describe('resource templates', () => {
       client.templates.delete('template_name', {}, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Letta.NotFoundError);
   });
+
+  // Prism tests are disabled
+  test.skip('rollback: only required params', async () => {
+    const responsePromise = client.templates.rollback('template_name', { version: 'version' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('rollback: required and optional params', async () => {
+    const response = await client.templates.rollback('template_name', { version: 'version' });
+  });
 });
