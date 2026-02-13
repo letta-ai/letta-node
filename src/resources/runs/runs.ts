@@ -147,6 +147,7 @@ export type StopReasonType =
   | 'no_tool_call'
   | 'tool_rule'
   | 'cancelled'
+  | 'insufficient_credits'
   | 'requires_approval'
   | 'context_window_overflow_in_system_prompt';
 

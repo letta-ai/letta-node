@@ -51,6 +51,17 @@ export class Templates extends APIResource {
   ): APIPromise<TemplateRollbackResponse> {
     return this._client.post(path`/v1/templates/${templateName}/rollback`, { body, ...options });
   }
+
+  /**
+   * Saves the current version of the template as a new version
+   */
+  save(
+    templateName: string,
+    body: TemplateSaveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TemplateSaveResponse> {
+    return this._client.post(path`/v1/templates/${templateName}/save`, { body, ...options });
+  }
 }
 
 export interface TemplateCreateResponse {
@@ -97,6 +108,36 @@ export interface TemplateRollbackResponse {
   success: boolean;
 
   message?: string;
+}
+
+export interface TemplateSaveResponse {
+  id: string;
+
+  /**
+   * The latest version of the template
+   */
+  latest_version: string;
+
+  /**
+   * The exact name of the template
+   */
+  name: string;
+
+  project_id: string;
+
+  project_slug: string;
+
+  /**
+   * The full name of the template, including version and project slug
+   */
+  template_deployment_slug: string;
+
+  /**
+   * When the template was last updated
+   */
+  updated_at: string;
+
+  description?: string;
 }
 
 export type TemplateCreateParams = TemplateCreateParams.Variant0 | TemplateCreateParams.Variant1;
@@ -169,6 +210,45 @@ export interface TemplateRollbackParams {
   version: string;
 }
 
+export interface TemplateSaveParams {
+  /**
+   * Strategy for reconciling memory blocks during migration: "reconcile-all" deletes
+   * blocks not in the template, "preserve-deleted" keeps them. Defaults to
+   * "preserve-deleted".
+   */
+  block_reconciliation_strategy?: 'reconcile-all' | 'preserve-deleted';
+
+  /**
+   * A message to describe the changes made in this template version
+   */
+  message?: string;
+
+  /**
+   * If true, existing agents attached to this template will be migrated to the new
+   * template version
+   */
+  migrate_agents?: boolean;
+
+  /**
+   * If true, the core memories will be preserved in the template version when
+   * migrating agents
+   */
+  preserve_core_memories_on_migration?: boolean;
+
+  /**
+   * If true, the environment variables will be preserved in the template version
+   * when migrating agents
+   */
+  preserve_environment_variables_on_migration?: boolean;
+
+  /**
+   * If true, existing agent folders/sources will be preserved and merged with
+   * template sources during migration. If false, agent sources will be replaced with
+   * template sources.
+   */
+  preserve_sources_on_migration?: boolean;
+}
+
 Templates.Agents = Agents;
 
 export declare namespace Templates {
@@ -177,10 +257,12 @@ export declare namespace Templates {
     type TemplateUpdateResponse as TemplateUpdateResponse,
     type TemplateDeleteResponse as TemplateDeleteResponse,
     type TemplateRollbackResponse as TemplateRollbackResponse,
+    type TemplateSaveResponse as TemplateSaveResponse,
     type TemplateCreateParams as TemplateCreateParams,
     type TemplateUpdateParams as TemplateUpdateParams,
     type TemplateDeleteParams as TemplateDeleteParams,
     type TemplateRollbackParams as TemplateRollbackParams,
+    type TemplateSaveParams as TemplateSaveParams,
   };
 
   export {

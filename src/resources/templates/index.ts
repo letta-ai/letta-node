@@ -7,8 +7,10 @@ export {
   type TemplateUpdateResponse,
   type TemplateDeleteResponse,
   type TemplateRollbackResponse,
+  type TemplateSaveResponse,
   type TemplateCreateParams,
   type TemplateUpdateParams,
   type TemplateDeleteParams,
   type TemplateRollbackParams,
+  type TemplateSaveParams,
 } from './templates';

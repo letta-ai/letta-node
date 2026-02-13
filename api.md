@@ -503,6 +503,7 @@ Types:
 - <code><a href="./src/resources/templates/templates.ts">TemplateUpdateResponse</a></code>
 - <code><a href="./src/resources/templates/templates.ts">TemplateDeleteResponse</a></code>
 - <code><a href="./src/resources/templates/templates.ts">TemplateRollbackResponse</a></code>
+- <code><a href="./src/resources/templates/templates.ts">TemplateSaveResponse</a></code>
 
 Methods:
 
@@ -510,6 +511,7 @@ Methods:
 - <code title="patch /v1/templates/{template_name}">client.templates.<a href="./src/resources/templates/templates.ts">update</a>(templateName, { ...params }) -> TemplateUpdateResponse</code>
 - <code title="delete /v1/templates/{template_name}">client.templates.<a href="./src/resources/templates/templates.ts">delete</a>(templateName) -> TemplateDeleteResponse</code>
 - <code title="post /v1/templates/{template_name}/rollback">client.templates.<a href="./src/resources/templates/templates.ts">rollback</a>(templateName, { ...params }) -> TemplateRollbackResponse</code>
+- <code title="post /v1/templates/{template_name}/save">client.templates.<a href="./src/resources/templates/templates.ts">save</a>(templateName, { ...params }) -> TemplateSaveResponse</code>
 
 ## Agents
 
