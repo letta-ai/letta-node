@@ -2497,9 +2497,9 @@ export namespace MessageCompactParams {
       | null;
 
     /**
-     * The prompt to use for summarization.
+     * The prompt to use for summarization. If None, uses mode-specific default.
      */
-    prompt?: string;
+    prompt?: string | null;
 
     /**
      * Whether to include an acknowledgement post-prompt (helps prevent non-summary
