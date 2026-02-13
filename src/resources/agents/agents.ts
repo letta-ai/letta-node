@@ -831,9 +831,9 @@ export namespace AgentState {
       | null;
 
     /**
-     * The prompt to use for summarization.
+     * The prompt to use for summarization. If None, uses mode-specific default.
      */
-    prompt?: string;
+    prompt?: string | null;
 
     /**
      * Whether to include an acknowledgement post-prompt (helps prevent non-summary
@@ -2408,9 +2408,9 @@ export namespace AgentCreateParams {
       | null;
 
     /**
-     * The prompt to use for summarization.
+     * The prompt to use for summarization. If None, uses mode-specific default.
      */
-    prompt?: string;
+    prompt?: string | null;
 
     /**
      * Whether to include an acknowledgement post-prompt (helps prevent non-summary
@@ -2991,9 +2991,9 @@ export namespace AgentUpdateParams {
       | null;
 
     /**
-     * The prompt to use for summarization.
+     * The prompt to use for summarization. If None, uses mode-specific default.
      */
-    prompt?: string;
+    prompt?: string | null;
 
     /**
      * Whether to include an acknowledgement post-prompt (helps prevent non-summary
