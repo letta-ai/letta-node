@@ -2462,11 +2462,6 @@ export namespace MessageCompactParams {
    */
   export interface CompactionSettings {
     /**
-     * Model handle to use for summarization (format: provider/model-name).
-     */
-    model: string;
-
-    /**
      * The maximum length of the summary in characters. If none, no clipping is
      * performed.
      */
@@ -2475,7 +2470,13 @@ export namespace MessageCompactParams {
     /**
      * The type of summarization technique use.
      */
-    mode?: 'all' | 'sliding_window';
+    mode?: 'all' | 'sliding_window' | 'self';
+
+    /**
+     * Model handle to use for summarization (format: provider/model-name). If None,
+     * uses lightweight provider-specific defaults.
+     */
+    model?: string | null;
 
     /**
      * Optional model settings used to override defaults for the summarizer model.

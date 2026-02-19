@@ -100,9 +100,9 @@ describe('resource messages', () => {
         'agent-123e4567-e89b-42d3-8456-426614174000',
         {
           compaction_settings: {
-            model: 'model',
             clip_chars: 0,
             mode: 'all',
+            model: 'model',
             model_settings: {
               max_output_tokens: 0,
               parallel_tool_calls: true,

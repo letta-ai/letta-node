@@ -72,9 +72,9 @@ describe('resource messages', () => {
         'default',
         {
           compaction_settings: {
-            model: 'model',
             clip_chars: 0,
             mode: 'all',
+            model: 'model',
             model_settings: {
               max_output_tokens: 0,
               parallel_tool_calls: true,
