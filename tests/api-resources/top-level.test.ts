@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('top level methods', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('health', async () => {
     const responsePromise = client.health();
     const rawResponse = await responsePromise.asResponse();

@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource files', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.agents.files.list('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource files', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -40,7 +40,7 @@ describe('resource files', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('close: only required params', async () => {
     const responsePromise = client.agents.files.close('file-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -54,14 +54,14 @@ describe('resource files', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('close: required and optional params', async () => {
     const response = await client.agents.files.close('file-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('closeAll', async () => {
     const responsePromise = client.agents.files.closeAll('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -73,7 +73,7 @@ describe('resource files', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('open: only required params', async () => {
     const responsePromise = client.agents.files.open('file-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -87,7 +87,7 @@ describe('resource files', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('open: required and optional params', async () => {
     const response = await client.agents.files.open('file-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',

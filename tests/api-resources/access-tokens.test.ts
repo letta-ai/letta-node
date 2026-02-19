@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource accessTokens', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.accessTokens.create({
       hostname: 'https://example.com',
@@ -29,7 +29,7 @@ describe('resource accessTokens', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.accessTokens.create({
       hostname: 'https://example.com',
@@ -44,7 +44,7 @@ describe('resource accessTokens', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.accessTokens.list();
     const rawResponse = await responsePromise.asResponse();
@@ -56,7 +56,7 @@ describe('resource accessTokens', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -71,7 +71,7 @@ describe('resource accessTokens', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.accessTokens.delete('token');
     const rawResponse = await responsePromise.asResponse();
@@ -83,7 +83,7 @@ describe('resource accessTokens', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
