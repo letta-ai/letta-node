@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource passages', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.archives.passages.create('archive-123e4567-e89b-42d3-8456-426614174000', {
       text: 'text',
@@ -22,7 +22,7 @@ describe('resource passages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.archives.passages.create('archive-123e4567-e89b-42d3-8456-426614174000', {
       text: 'text',
@@ -32,7 +32,7 @@ describe('resource passages', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.archives.passages.delete('passage-123e4567-e89b-42d3-8456-426614174000', {
       archive_id: 'archive-123e4567-e89b-42d3-8456-426614174000',
@@ -46,14 +46,14 @@ describe('resource passages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.archives.passages.delete('passage-123e4567-e89b-42d3-8456-426614174000', {
       archive_id: 'archive-123e4567-e89b-42d3-8456-426614174000',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createMany: only required params', async () => {
     const responsePromise = client.archives.passages.createMany(
       'archive-123e4567-e89b-42d3-8456-426614174000',
@@ -68,7 +68,7 @@ describe('resource passages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createMany: required and optional params', async () => {
     const response = await client.archives.passages.createMany(
       'archive-123e4567-e89b-42d3-8456-426614174000',

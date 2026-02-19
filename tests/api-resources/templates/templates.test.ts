@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource templates', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.templates.create({ agent_id: 'agent_id', type: 'agent' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource templates', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.templates.create({
       agent_id: 'agent_id',
@@ -29,7 +29,7 @@ describe('resource templates', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.templates.update('template_name', { agent_file_json: { foo: 'bar' } });
     const rawResponse = await responsePromise.asResponse();
@@ -41,7 +41,7 @@ describe('resource templates', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.templates.update('template_name', {
       agent_file_json: { foo: 'bar' },
@@ -50,7 +50,7 @@ describe('resource templates', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.templates.delete('template_name');
     const rawResponse = await responsePromise.asResponse();
@@ -62,7 +62,7 @@ describe('resource templates', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -70,7 +70,7 @@ describe('resource templates', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('rollback: only required params', async () => {
     const responsePromise = client.templates.rollback('template_name', { version: 'version' });
     const rawResponse = await responsePromise.asResponse();
@@ -82,12 +82,12 @@ describe('resource templates', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('rollback: required and optional params', async () => {
     const response = await client.templates.rollback('template_name', { version: 'version' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('save', async () => {
     const responsePromise = client.templates.save('template_name');
     const rawResponse = await responsePromise.asResponse();
@@ -99,7 +99,7 @@ describe('resource templates', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('save: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

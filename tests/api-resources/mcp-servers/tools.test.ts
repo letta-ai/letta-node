@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource tools', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.mcpServers.tools.retrieve('tool_id', { mcp_server_id: 'mcp_server_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,12 +20,12 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.mcpServers.tools.retrieve('tool_id', { mcp_server_id: 'mcp_server_id' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.mcpServers.tools.list('mcp_server_id');
     const rawResponse = await responsePromise.asResponse();
@@ -37,7 +37,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('run: only required params', async () => {
     const responsePromise = client.mcpServers.tools.run('tool_id', { mcp_server_id: 'mcp_server_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -49,7 +49,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('run: required and optional params', async () => {
     const response = await client.mcpServers.tools.run('tool_id', {
       mcp_server_id: 'mcp_server_id',

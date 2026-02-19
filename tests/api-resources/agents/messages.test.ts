@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource messages', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.agents.messages.create('agent-123e4567-e89b-42d3-8456-426614174000', {});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.agents.messages.list('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -56,7 +56,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('cancel', async () => {
     const responsePromise = client.agents.messages.cancel('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -68,7 +68,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('cancel: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -80,7 +80,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('compact', async () => {
     const responsePromise = client.agents.messages.compact('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -92,7 +92,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('compact: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -122,7 +122,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createAsync', async () => {
     const responsePromise = client.agents.messages.createAsync(
       'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -137,7 +137,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('reset', async () => {
     const responsePromise = client.agents.messages.reset('agent-123e4567-e89b-42d3-8456-426614174000', {});
     const rawResponse = await responsePromise.asResponse();
@@ -149,7 +149,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('stream', async () => {
     const responsePromise = client.agents.messages.stream('agent-123e4567-e89b-42d3-8456-426614174000', {});
     const rawResponse = await responsePromise.asResponse();

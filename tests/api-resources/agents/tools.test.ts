@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource tools', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.agents.tools.list('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -38,7 +38,7 @@ describe('resource tools', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('attach: only required params', async () => {
     const responsePromise = client.agents.tools.attach('tool-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -52,14 +52,14 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('attach: required and optional params', async () => {
     const response = await client.agents.tools.attach('tool-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('detach: only required params', async () => {
     const responsePromise = client.agents.tools.detach('tool-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -73,14 +73,14 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('detach: required and optional params', async () => {
     const response = await client.agents.tools.detach('tool-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('run: only required params', async () => {
     const responsePromise = client.agents.tools.run('tool_name', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -94,7 +94,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('run: required and optional params', async () => {
     const response = await client.agents.tools.run('tool_name', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -102,7 +102,7 @@ describe('resource tools', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateApproval: only required params', async () => {
     const responsePromise = client.agents.tools.updateApproval('tool_name', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -117,7 +117,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateApproval: required and optional params', async () => {
     const response = await client.agents.tools.updateApproval('tool_name', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',

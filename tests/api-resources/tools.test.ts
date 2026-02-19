@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource tools', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.tools.create({ source_code: 'source_code' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.tools.create({
       source_code: 'source_code',
@@ -37,7 +37,7 @@ describe('resource tools', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.tools.retrieve('tool-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -49,7 +49,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.tools.update('tool-123e4567-e89b-42d3-8456-426614174000', {});
     const rawResponse = await responsePromise.asResponse();
@@ -61,7 +61,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.tools.list();
     const rawResponse = await responsePromise.asResponse();
@@ -73,7 +73,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -97,7 +97,7 @@ describe('resource tools', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.tools.delete('tool-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -109,7 +109,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('search', async () => {
     const responsePromise = client.tools.search({});
     const rawResponse = await responsePromise.asResponse();
@@ -121,7 +121,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('upsert: only required params', async () => {
     const responsePromise = client.tools.upsert({ source_code: 'source_code' });
     const rawResponse = await responsePromise.asResponse();
@@ -133,7 +133,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('upsert: required and optional params', async () => {
     const response = await client.tools.upsert({
       source_code: 'source_code',

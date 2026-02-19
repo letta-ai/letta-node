@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource conversations', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.conversations.create({ agent_id: 'agent_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.conversations.create({
       agent_id: 'agent_id',
@@ -29,7 +29,7 @@ describe('resource conversations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.conversations.retrieve('default');
     const rawResponse = await responsePromise.asResponse();
@@ -41,7 +41,7 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.conversations.update('default', {});
     const rawResponse = await responsePromise.asResponse();
@@ -53,7 +53,7 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.conversations.list({ agent_id: 'agent_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -65,7 +65,7 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.conversations.list({
       agent_id: 'agent_id',
@@ -75,7 +75,7 @@ describe('resource conversations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('cancel', async () => {
     const responsePromise = client.conversations.cancel('default');
     const rawResponse = await responsePromise.asResponse();

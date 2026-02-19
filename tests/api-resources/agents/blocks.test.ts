@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource blocks', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.agents.blocks.retrieve('block_label', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -22,14 +22,14 @@ describe('resource blocks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.agents.blocks.retrieve('block_label', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.agents.blocks.update('block_label', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -43,7 +43,7 @@ describe('resource blocks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.agents.blocks.update('block_label', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -66,7 +66,7 @@ describe('resource blocks', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.agents.blocks.list('agent-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -78,7 +78,7 @@ describe('resource blocks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -96,7 +96,7 @@ describe('resource blocks', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('attach: only required params', async () => {
     const responsePromise = client.agents.blocks.attach('block-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -110,14 +110,14 @@ describe('resource blocks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('attach: required and optional params', async () => {
     const response = await client.agents.blocks.attach('block-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('detach: only required params', async () => {
     const responsePromise = client.agents.blocks.detach('block-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -131,7 +131,7 @@ describe('resource blocks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('detach: required and optional params', async () => {
     const response = await client.agents.blocks.detach('block-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',

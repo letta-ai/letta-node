@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource files', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.folders.files.retrieve('file-123e4567-e89b-42d3-8456-426614174000', {
       folder_id: 'source-123e4567-e89b-42d3-8456-426614174000',
@@ -22,7 +22,7 @@ describe('resource files', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.folders.files.retrieve('file-123e4567-e89b-42d3-8456-426614174000', {
       folder_id: 'source-123e4567-e89b-42d3-8456-426614174000',
@@ -30,7 +30,7 @@ describe('resource files', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.folders.files.list('source-123e4567-e89b-42d3-8456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -42,7 +42,7 @@ describe('resource files', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -61,7 +61,7 @@ describe('resource files', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.folders.files.delete('file-123e4567-e89b-42d3-8456-426614174000', {
       folder_id: 'source-123e4567-e89b-42d3-8456-426614174000',
@@ -75,14 +75,14 @@ describe('resource files', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.folders.files.delete('file-123e4567-e89b-42d3-8456-426614174000', {
       folder_id: 'source-123e4567-e89b-42d3-8456-426614174000',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('upload: only required params', async () => {
     const responsePromise = client.folders.files.upload('source-123e4567-e89b-42d3-8456-426614174000', {
       file: await toFile(Buffer.from('# my file contents'), 'README.md'),
@@ -96,7 +96,7 @@ describe('resource files', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('upload: required and optional params', async () => {
     const response = await client.folders.files.upload('source-123e4567-e89b-42d3-8456-426614174000', {
       file: await toFile(Buffer.from('# my file contents'), 'README.md'),
