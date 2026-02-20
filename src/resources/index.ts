@@ -74,6 +74,7 @@ export {
   type CreateConversation,
   type UpdateConversation,
   type ConversationListResponse,
+  type ConversationDeleteResponse,
   type ConversationCancelResponse,
   type ConversationCreateParams,
   type ConversationUpdateParams,

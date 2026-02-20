@@ -57,6 +57,17 @@ export class Conversations extends APIResource {
   }
 
   /**
+   * Delete a conversation (soft delete).
+   *
+   * This marks the conversation as deleted but does not permanently remove it from
+   * the database. The conversation will no longer appear in list operations. Any
+   * isolated blocks associated with the conversation will be permanently deleted.
+   */
+  delete(conversationID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.delete(path`/v1/conversations/${conversationID}`, options);
+  }
+
+  /**
    * Cancel runs associated with a conversation.
    *
    * Note: To cancel active runs, Redis is required.
@@ -146,6 +157,8 @@ export interface UpdateConversation {
 
 export type ConversationListResponse = Array<Conversation>;
 
+export type ConversationDeleteResponse = unknown;
+
 export type ConversationCancelResponse = { [key: string]: unknown };
 
 export interface ConversationCreateParams {
@@ -205,6 +218,7 @@ export declare namespace Conversations {
     type CreateConversation as CreateConversation,
     type UpdateConversation as UpdateConversation,
     type ConversationListResponse as ConversationListResponse,
+    type ConversationDeleteResponse as ConversationDeleteResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
