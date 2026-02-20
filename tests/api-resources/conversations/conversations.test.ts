@@ -54,8 +54,8 @@ describe('resource conversations', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.conversations.list({ agent_id: 'agent_id' });
+  test.skip('list', async () => {
+    const responsePromise = client.conversations.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -66,13 +66,19 @@ describe('resource conversations', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.conversations.list({
-      agent_id: 'agent_id',
-      after: 'after',
-      limit: 0,
-      summary_search: 'summary_search',
-    });
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.conversations.list(
+        {
+          after: 'after',
+          agent_id: 'agent_id',
+          limit: 0,
+          summary_search: 'summary_search',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled

@@ -46,9 +46,13 @@ export class Conversations extends APIResource {
   }
 
   /**
-   * List all conversations for an agent.
+   * List all conversations for an agent (or all conversations if agent_id not
+   * provided).
    */
-  list(query: ConversationListParams, options?: RequestOptions): APIPromise<ConversationListResponse> {
+  list(
+    query: ConversationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConversationListResponse> {
     return this._client.get('/v1/conversations/', { query, ...options });
   }
 
@@ -172,14 +176,15 @@ export interface ConversationUpdateParams {
 
 export interface ConversationListParams {
   /**
-   * The agent ID to list conversations for
-   */
-  agent_id: string;
-
-  /**
    * Cursor for pagination (conversation ID)
    */
   after?: string | null;
+
+  /**
+   * The agent ID to list conversations for (optional - returns all conversations if
+   * not provided)
+   */
+  agent_id?: string | null;
 
   /**
    * Maximum number of conversations to return
