@@ -60,7 +60,7 @@ $ yarn link @letta-ai/letta-client
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global @letta-ai/letta-client
+$ pnpm link --global @letta-ai/letta-client
 ```
 
 ## Running tests
