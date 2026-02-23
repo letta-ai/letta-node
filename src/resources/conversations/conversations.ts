@@ -205,6 +205,16 @@ export interface ConversationListParams {
   limit?: number;
 
   /**
+   * Sort order for conversations. 'asc' for oldest first, 'desc' for newest first
+   */
+  order?: 'asc' | 'desc';
+
+  /**
+   * Field to sort by
+   */
+  order_by?: 'created_at' | 'last_run_completion';
+
+  /**
    * Search for text within conversation summaries
    */
   summary_search?: string | null;

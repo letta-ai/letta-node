@@ -74,6 +74,8 @@ describe('resource conversations', () => {
           after: 'after',
           agent_id: 'agent_id',
           limit: 0,
+          order: 'asc',
+          order_by: 'created_at',
           summary_search: 'summary_search',
         },
         { path: '/_stainless_unknown_path' },
