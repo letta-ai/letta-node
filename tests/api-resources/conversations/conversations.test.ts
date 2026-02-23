@@ -25,6 +25,16 @@ describe('resource conversations', () => {
     const response = await client.conversations.create({
       agent_id: 'agent_id',
       isolated_block_labels: ['string'],
+      model: 'model',
+      model_settings: {
+        max_output_tokens: 0,
+        parallel_tool_calls: true,
+        provider_type: 'openai',
+        reasoning: { reasoning_effort: 'none' },
+        response_format: { type: 'text' },
+        strict: true,
+        temperature: 0,
+      },
       summary: 'summary',
     });
   });
