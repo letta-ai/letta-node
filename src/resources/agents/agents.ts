@@ -365,9 +365,8 @@ export interface AgentState {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   compaction_settings?: AgentState.CompactionSettings | null;
 
@@ -790,9 +789,8 @@ export namespace AgentState {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   export interface CompactionSettings {
     /**
@@ -804,11 +802,11 @@ export namespace AgentState {
     /**
      * The type of summarization technique use.
      */
-    mode?: 'all' | 'sliding_window' | 'self';
+    mode?: 'all' | 'sliding_window' | 'self_compact_all' | 'self_compact_sliding_window';
 
     /**
-     * Model handle to use for summarization (format: provider/model-name). If None,
-     * uses lightweight provider-specific defaults.
+     * Model handle to use for sliding_window/all summarization (format:
+     * provider/model-name). If None, uses lightweight provider-specific defaults.
      */
     model?: string | null;
 
@@ -844,7 +842,7 @@ export namespace AgentState {
 
     /**
      * The percentage of the context window to keep post-summarization (only used in
-     * sliding window mode).
+     * sliding window modes).
      */
     sliding_window_percentage?: number;
   }
@@ -2085,9 +2083,8 @@ export interface AgentCreateParams {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   compaction_settings?: AgentCreateParams.CompactionSettings | null;
 
@@ -2368,9 +2365,8 @@ export namespace AgentCreateParams {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   export interface CompactionSettings {
     /**
@@ -2382,11 +2378,11 @@ export namespace AgentCreateParams {
     /**
      * The type of summarization technique use.
      */
-    mode?: 'all' | 'sliding_window' | 'self';
+    mode?: 'all' | 'sliding_window' | 'self_compact_all' | 'self_compact_sliding_window';
 
     /**
-     * Model handle to use for summarization (format: provider/model-name). If None,
-     * uses lightweight provider-specific defaults.
+     * Model handle to use for sliding_window/all summarization (format:
+     * provider/model-name). If None, uses lightweight provider-specific defaults.
      */
     model?: string | null;
 
@@ -2422,7 +2418,7 @@ export namespace AgentCreateParams {
 
     /**
      * The percentage of the context window to keep post-summarization (only used in
-     * sliding window mode).
+     * sliding window modes).
      */
     sliding_window_percentage?: number;
   }
@@ -2733,9 +2729,8 @@ export interface AgentUpdateParams {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   compaction_settings?: AgentUpdateParams.CompactionSettings | null;
 
@@ -2952,9 +2947,8 @@ export namespace AgentUpdateParams {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   export interface CompactionSettings {
     /**
@@ -2966,11 +2960,11 @@ export namespace AgentUpdateParams {
     /**
      * The type of summarization technique use.
      */
-    mode?: 'all' | 'sliding_window' | 'self';
+    mode?: 'all' | 'sliding_window' | 'self_compact_all' | 'self_compact_sliding_window';
 
     /**
-     * Model handle to use for summarization (format: provider/model-name). If None,
-     * uses lightweight provider-specific defaults.
+     * Model handle to use for sliding_window/all summarization (format:
+     * provider/model-name). If None, uses lightweight provider-specific defaults.
      */
     model?: string | null;
 
@@ -3006,7 +3000,7 @@ export namespace AgentUpdateParams {
 
     /**
      * The percentage of the context window to keep post-summarization (only used in
-     * sliding window mode).
+     * sliding window modes).
      */
     sliding_window_percentage?: number;
   }
