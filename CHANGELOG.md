@@ -1,5 +1,41 @@
 # Changelog
 
+## 1.7.9 (2026-02-26)
+
+Full Changelog: [v1.7.8...v1.7.9](https://github.com/letta-ai/letta-node/compare/v1.7.8...v1.7.9)
+
+### Features
+
+* add Anthropic Opus 4.6 (fka claude-fudge-eap) model support ([4e138f3](https://github.com/letta-ai/letta-node/commit/4e138f32662d2779293d96ea566759bab930f501))
+* add conversation deletion endpoint (soft delete) [LET-7286] ([f8bdba2](https://github.com/letta-ai/letta-node/commit/f8bdba2853391dcd91dc3182afc7585284cd4e94))
+* add credit verification before agent message endpoints [LET-XXXX] ([967a0e6](https://github.com/letta-ai/letta-node/commit/967a0e6f09b04a88f5332e7035536dab50353d02))
+* add log probabilities from OpenAI-compatible servers ([ab7d527](https://github.com/letta-ai/letta-node/commit/ab7d527aeffee9c1e4caf484446df49392ea22ae))
+* add order_by and order params to /v1/conversations list endpoin… ([8356341](https://github.com/letta-ai/letta-node/commit/8356341f48efec88f094046533d5174bc961cfd0))
+* Add self-summarization and dropping tool returns as options for compaction ([68d775d](https://github.com/letta-ai/letta-node/commit/68d775d773064255a0bfb70a2c3644a54d9b9234))
+* add template rollback endpoint [LET-7423] ([72f82b9](https://github.com/letta-ai/letta-node/commit/72f82b952a1e279dbba127fbbccf011e32d90114))
+* add ToolReturnCreate to MessageCreateParams [LET-7366] ([b536930](https://github.com/letta-ai/letta-node/commit/b5369308d296c6ec52672810e9213e618133bdaa))
+* allow users to specify via query to stip messages [LET-7392] ([6407c5a](https://github.com/letta-ai/letta-node/commit/6407c5a5f5b0ebdd85e2fdf27c0db0e2ac542ffa))
+* **core:** structure memory directory and block labels [LET-7336] ([759a9b4](https://github.com/letta-ai/letta-node/commit/759a9b497263e5e4e15661c6042046906adfc3c1))
+* Default to lightweight compaction model instead of agent's model ([bea68ff](https://github.com/letta-ai/letta-node/commit/bea68ffe3ba8f1ecec924d92951f2b53ea27d383))
+* make agent_id optional in conversations list endpoint [LET-7612] ([5d89571](https://github.com/letta-ai/letta-node/commit/5d89571b903f576b57a5d1246b6c86a06b30655f))
+* New prompts/defaults for `sliding_window` and `all` compaction ([1f3ad9c](https://github.com/letta-ai/letta-node/commit/1f3ad9cd1a819bd0feb1c61bd5c46ac3113bf410))
+* parallel tool calling minimax provider [LET-7647] ([27f92f1](https://github.com/letta-ai/letta-node/commit/27f92f1f392adaf7cdad95f0e56de8a61db3514b))
+
+
+### Bug Fixes
+
+* **client:** avoid removing abort listener too early ([2736ca5](https://github.com/letta-ai/letta-node/commit/2736ca58d745320fdea9177b88c7e355a3052582))
+* **docs/contributing:** correct pnpm link command ([268dfa1](https://github.com/letta-ai/letta-node/commit/268dfa1624a14e10580800f3b4315208ac0f8022))
+
+
+### Chores
+
+* **internal/client:** fix form-urlencoded requests ([449eae9](https://github.com/letta-ai/letta-node/commit/449eae9d5487aa26eda8b146fdb0159398dd0065))
+* **internal:** avoid type checking errors with ts-reset ([51f673d](https://github.com/letta-ai/letta-node/commit/51f673d088fecb9452b3f35aef80d0555437608e))
+* **internal:** fix pagination internals not accepting option promises ([3dbc2b8](https://github.com/letta-ai/letta-node/commit/3dbc2b82bfa4905cc957acbbe8ebef310ca2f83a))
+* **internal:** remove mock server code ([289effb](https://github.com/letta-ai/letta-node/commit/289effbed4a43f9961f1e391a432c31810c57ba0))
+* update mock server docs ([768d0da](https://github.com/letta-ai/letta-node/commit/768d0da7d2f24c40d9fde23e650fb4bec9950ea7))
+
 ## 1.7.8 (2026-02-05)
 
 Full Changelog: [v1.7.7...v1.7.8](https://github.com/letta-ai/letta-node/compare/v1.7.7...v1.7.8)
