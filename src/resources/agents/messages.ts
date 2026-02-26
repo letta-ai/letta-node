@@ -880,7 +880,7 @@ export interface LettaRequest {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | LettaRequest.ToolReturnCreate> | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -888,6 +888,27 @@ export interface LettaRequest {
    * configuration.
    */
   override_model?: string | null;
+
+  /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -960,6 +981,25 @@ export namespace LettaRequest {
       text: string;
     }
   }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
+  }
 }
 
 /**
@@ -986,6 +1026,19 @@ export interface LettaResponse {
    * The usage statistics of the agent.
    */
   usage: LettaResponse.Usage;
+
+  /**
+   * Log probabilities of the output tokens from the last LLM call. Only present if
+   * return_logprobs was enabled.
+   */
+  logprobs?: LettaResponse.Logprobs | null;
+
+  /**
+   * Token data for all LLM generations in multi-turn agent interaction. Includes
+   * token IDs and logprobs for each assistant turn, plus tool result content. Only
+   * present if return_token_ids was enabled. Used for RL training with loss masking.
+   */
+  turns?: Array<LettaResponse.Turn> | null;
 }
 
 export namespace LettaResponse {
@@ -1056,6 +1109,94 @@ export namespace LettaResponse {
      * The total number of tokens processed by the agent.
      */
     total_tokens?: number;
+  }
+
+  /**
+   * Log probabilities of the output tokens from the last LLM call. Only present if
+   * return_logprobs was enabled.
+   */
+  export interface Logprobs {
+    content?: Array<Logprobs.Content> | null;
+
+    refusal?: Array<Logprobs.Refusal> | null;
+  }
+
+  export namespace Logprobs {
+    export interface Content {
+      token: string;
+
+      logprob: number;
+
+      top_logprobs: Array<Content.TopLogprob>;
+
+      bytes?: Array<number> | null;
+    }
+
+    export namespace Content {
+      export interface TopLogprob {
+        token: string;
+
+        logprob: number;
+
+        bytes?: Array<number> | null;
+      }
+    }
+
+    export interface Refusal {
+      token: string;
+
+      logprob: number;
+
+      top_logprobs: Array<Refusal.TopLogprob>;
+
+      bytes?: Array<number> | null;
+    }
+
+    export namespace Refusal {
+      export interface TopLogprob {
+        token: string;
+
+        logprob: number;
+
+        bytes?: Array<number> | null;
+      }
+    }
+  }
+
+  /**
+   * Token data for a single LLM generation turn in a multi-turn agent interaction.
+   *
+   * Used for RL training to track token IDs and logprobs across all LLM calls, not
+   * just the final one. Tool results are included so the client can tokenize them
+   * with loss_mask=0 (non-trainable).
+   */
+  export interface Turn {
+    /**
+     * Role of this turn: 'assistant' for LLM generations (trainable), 'tool' for tool
+     * results (non-trainable).
+     */
+    role: 'assistant' | 'tool';
+
+    /**
+     * Text content. For tool turns, client tokenizes this with loss_mask=0.
+     */
+    content?: string | null;
+
+    /**
+     * Token IDs from SGLang native endpoint. Only present for assistant turns.
+     */
+    output_ids?: Array<number> | null;
+
+    /**
+     * Logprobs from SGLang: [[logprob, token_id, top_logprob_or_null], ...]. Only
+     * present for assistant turns.
+     */
+    output_token_logprobs?: Array<Array<unknown>> | null;
+
+    /**
+     * Name of the tool called. Only present for tool turns.
+     */
+    tool_name?: string | null;
   }
 }
 
@@ -1136,7 +1277,7 @@ export interface LettaStreamingRequest {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | LettaStreamingRequest.ToolReturnCreate> | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -1144,6 +1285,21 @@ export interface LettaStreamingRequest {
    * configuration.
    */
   override_model?: string | null;
+
+  /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
@@ -1156,6 +1312,12 @@ export interface LettaStreamingRequest {
    * returns a complete response.
    */
   streaming?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -1227,6 +1389,25 @@ export namespace LettaStreamingRequest {
        */
       text: string;
     }
+  }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
   }
 }
 
@@ -2067,7 +2248,7 @@ export interface MessageCreateParamsBase {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | MessageCreateParams.ToolReturnCreate> | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -2075,6 +2256,21 @@ export interface MessageCreateParamsBase {
    * configuration.
    */
   override_model?: string | null;
+
+  /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
@@ -2087,6 +2283,12 @@ export interface MessageCreateParamsBase {
    * returns a complete response.
    */
   streaming?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -2160,6 +2362,25 @@ export namespace MessageCreateParams {
     }
   }
 
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
+  }
+
   export type MessageCreateParamsNonStreaming = MessagesAPI.MessageCreateParamsNonStreaming;
   export type MessageCreateParamsStreaming = MessagesAPI.MessageCreateParamsStreaming;
 }
@@ -2224,9 +2445,8 @@ export interface MessageCompactParams {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   compaction_settings?: MessageCompactParams.CompactionSettings | null;
 }
@@ -2235,16 +2455,10 @@ export namespace MessageCompactParams {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   export interface CompactionSettings {
-    /**
-     * Model handle to use for summarization (format: provider/model-name).
-     */
-    model: string;
-
     /**
      * The maximum length of the summary in characters. If none, no clipping is
      * performed.
@@ -2254,7 +2468,13 @@ export namespace MessageCompactParams {
     /**
      * The type of summarization technique use.
      */
-    mode?: 'all' | 'sliding_window';
+    mode?: 'all' | 'sliding_window' | 'self_compact_all' | 'self_compact_sliding_window';
+
+    /**
+     * Model handle to use for sliding_window/all summarization (format:
+     * provider/model-name). If None, uses lightweight provider-specific defaults.
+     */
+    model?: string | null;
 
     /**
      * Optional model settings used to override defaults for the summarizer model.
@@ -2276,9 +2496,9 @@ export namespace MessageCompactParams {
       | null;
 
     /**
-     * The prompt to use for summarization.
+     * The prompt to use for summarization. If None, uses mode-specific default.
      */
-    prompt?: string;
+    prompt?: string | null;
 
     /**
      * Whether to include an acknowledgement post-prompt (helps prevent non-summary
@@ -2288,7 +2508,7 @@ export namespace MessageCompactParams {
 
     /**
      * The percentage of the context window to keep post-summarization (only used in
-     * sliding window mode).
+     * sliding window modes).
      */
     sliding_window_percentage?: number;
   }
@@ -2498,7 +2718,9 @@ export interface MessageCreateAsyncParams {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<
+    AgentsAPI.MessageCreate | ApprovalCreate | MessageCreateAsyncParams.ToolReturnCreate
+  > | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -2506,6 +2728,27 @@ export interface MessageCreateAsyncParams {
    * configuration.
    */
   override_model?: string | null;
+
+  /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -2577,6 +2820,25 @@ export namespace MessageCreateAsyncParams {
        */
       text: string;
     }
+  }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
   }
 }
 
@@ -2664,7 +2926,7 @@ export interface MessageStreamParams {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate> | null;
+  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | MessageStreamParams.ToolReturnCreate> | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -2672,6 +2934,21 @@ export interface MessageStreamParams {
    * configuration.
    */
   override_model?: string | null;
+
+  /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
@@ -2684,6 +2961,12 @@ export interface MessageStreamParams {
    * returns a complete response.
    */
   streaming?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -2755,6 +3038,25 @@ export namespace MessageStreamParams {
        */
       text: string;
     }
+  }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
   }
 }
 

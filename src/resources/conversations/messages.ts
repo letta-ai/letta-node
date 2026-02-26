@@ -85,9 +85,8 @@ export interface CompactionRequest {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   compaction_settings?: CompactionRequest.CompactionSettings | null;
 }
@@ -96,16 +95,10 @@ export namespace CompactionRequest {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   export interface CompactionSettings {
-    /**
-     * Model handle to use for summarization (format: provider/model-name).
-     */
-    model: string;
-
     /**
      * The maximum length of the summary in characters. If none, no clipping is
      * performed.
@@ -115,7 +108,13 @@ export namespace CompactionRequest {
     /**
      * The type of summarization technique use.
      */
-    mode?: 'all' | 'sliding_window';
+    mode?: 'all' | 'sliding_window' | 'self_compact_all' | 'self_compact_sliding_window';
+
+    /**
+     * Model handle to use for sliding_window/all summarization (format:
+     * provider/model-name). If None, uses lightweight provider-specific defaults.
+     */
+    model?: string | null;
 
     /**
      * Optional model settings used to override defaults for the summarizer model.
@@ -137,9 +136,9 @@ export namespace CompactionRequest {
       | null;
 
     /**
-     * The prompt to use for summarization.
+     * The prompt to use for summarization. If None, uses mode-specific default.
      */
-    prompt?: string;
+    prompt?: string | null;
 
     /**
      * Whether to include an acknowledgement post-prompt (helps prevent non-summary
@@ -149,7 +148,7 @@ export namespace CompactionRequest {
 
     /**
      * The percentage of the context window to keep post-summarization (only used in
-     * sliding window mode).
+     * sliding window modes).
      */
     sliding_window_percentage?: number;
   }
@@ -376,7 +375,9 @@ export interface MessageCreateParams {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate> | null;
+  messages?: Array<
+    AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate | MessageCreateParams.ToolReturnCreate
+  > | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -384,6 +385,21 @@ export interface MessageCreateParams {
    * configuration.
    */
   override_model?: string | null;
+
+  /**
+   * If True, returns log probabilities of the output tokens in the response. Useful
+   * for RL training. Only supported for OpenAI-compatible providers (including
+   * SGLang).
+   */
+  return_logprobs?: boolean;
+
+  /**
+   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
+   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
+   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
+   * proper multi-turn RL training with loss masking.
+   */
+  return_token_ids?: boolean;
 
   /**
    * Flag to determine if individual tokens should be streamed, rather than streaming
@@ -396,6 +412,12 @@ export interface MessageCreateParams {
    * returns a complete JSON response.
    */
   streaming?: boolean;
+
+  /**
+   * Number of most likely tokens to return at each position (0-20). Requires
+   * return_logprobs=True.
+   */
+  top_logprobs?: number | null;
 
   /**
    * @deprecated Whether the server should parse specific tool call arguments
@@ -468,6 +490,25 @@ export namespace MessageCreateParams {
       text: string;
     }
   }
+
+  /**
+   * Submit tool return(s) from client-side tool execution.
+   *
+   * This is the preferred way to send tool results back to the agent after
+   * client-side tool execution. It is equivalent to sending an ApprovalCreate with
+   * tool return approvals, but provides a cleaner API for the common case.
+   */
+  export interface ToolReturnCreate {
+    /**
+     * List of tool returns from client-side execution
+     */
+    tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The message type to be created.
+     */
+    type?: 'tool_return';
+  }
 }
 
 export interface MessageListParams extends ArrayPageParams {
@@ -487,9 +528,8 @@ export interface MessageCompactParams {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   compaction_settings?: MessageCompactParams.CompactionSettings | null;
 }
@@ -498,16 +538,10 @@ export namespace MessageCompactParams {
   /**
    * Configuration for conversation compaction / summarization.
    *
-   * `model` is the only required user-facing field – it specifies the summarizer
-   * model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-   * tokens, etc.) are derived from the default configuration for that handle.
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
    */
   export interface CompactionSettings {
-    /**
-     * Model handle to use for summarization (format: provider/model-name).
-     */
-    model: string;
-
     /**
      * The maximum length of the summary in characters. If none, no clipping is
      * performed.
@@ -517,7 +551,13 @@ export namespace MessageCompactParams {
     /**
      * The type of summarization technique use.
      */
-    mode?: 'all' | 'sliding_window';
+    mode?: 'all' | 'sliding_window' | 'self_compact_all' | 'self_compact_sliding_window';
+
+    /**
+     * Model handle to use for sliding_window/all summarization (format:
+     * provider/model-name). If None, uses lightweight provider-specific defaults.
+     */
+    model?: string | null;
 
     /**
      * Optional model settings used to override defaults for the summarizer model.
@@ -539,9 +579,9 @@ export namespace MessageCompactParams {
       | null;
 
     /**
-     * The prompt to use for summarization.
+     * The prompt to use for summarization. If None, uses mode-specific default.
      */
-    prompt?: string;
+    prompt?: string | null;
 
     /**
      * Whether to include an acknowledgement post-prompt (helps prevent non-summary
@@ -551,7 +591,7 @@ export namespace MessageCompactParams {
 
     /**
      * The percentage of the context window to keep post-summarization (only used in
-     * sliding window mode).
+     * sliding window modes).
      */
     sliding_window_percentage?: number;
   }

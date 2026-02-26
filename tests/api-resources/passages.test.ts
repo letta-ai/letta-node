@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource passages', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('search', async () => {
     const responsePromise = client.passages.search({});
     const rawResponse = await responsePromise.asResponse();

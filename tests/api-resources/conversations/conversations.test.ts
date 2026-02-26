@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource conversations', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.conversations.create({ agent_id: 'agent_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,16 +20,26 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.conversations.create({
       agent_id: 'agent_id',
       isolated_block_labels: ['string'],
+      model: 'model',
+      model_settings: {
+        max_output_tokens: 0,
+        parallel_tool_calls: true,
+        provider_type: 'openai',
+        reasoning: { reasoning_effort: 'none' },
+        response_format: { type: 'text' },
+        strict: true,
+        temperature: 0,
+      },
       summary: 'summary',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.conversations.retrieve('default');
     const rawResponse = await responsePromise.asResponse();
@@ -41,7 +51,7 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.conversations.update('default', {});
     const rawResponse = await responsePromise.asResponse();
@@ -53,9 +63,9 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.conversations.list({ agent_id: 'agent_id' });
+  // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.conversations.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -65,17 +75,37 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.conversations.list({
-      agent_id: 'agent_id',
-      after: 'after',
-      limit: 0,
-      summary_search: 'summary_search',
-    });
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.conversations.list(
+        {
+          after: 'after',
+          agent_id: 'agent_id',
+          limit: 0,
+          order: 'asc',
+          order_by: 'created_at',
+          summary_search: 'summary_search',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.conversations.delete('default');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('cancel', async () => {
     const responsePromise = client.conversations.cancel('default');
     const rawResponse = await responsePromise.asResponse();

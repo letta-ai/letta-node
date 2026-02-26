@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource embeddings', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.models.embeddings.list();
     const rawResponse = await responsePromise.asResponse();

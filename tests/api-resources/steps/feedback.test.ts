@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource feedback', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.steps.feedback.create('step-123e4567-e89b-42d3-8456-426614174000', {});
     const rawResponse = await responsePromise.asResponse();

@@ -74,6 +74,7 @@ export {
   type CreateConversation,
   type UpdateConversation,
   type ConversationListResponse,
+  type ConversationDeleteResponse,
   type ConversationCancelResponse,
   type ConversationCreateParams,
   type ConversationUpdateParams,
@@ -144,9 +145,13 @@ export {
   type TemplateCreateResponse,
   type TemplateUpdateResponse,
   type TemplateDeleteResponse,
+  type TemplateRollbackResponse,
+  type TemplateSaveResponse,
   type TemplateCreateParams,
   type TemplateUpdateParams,
   type TemplateDeleteParams,
+  type TemplateRollbackParams,
+  type TemplateSaveParams,
 } from './templates/templates';
 export {
   Tools,

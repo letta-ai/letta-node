@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource usage', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.runs.usage.retrieve('run_id');
     const rawResponse = await responsePromise.asResponse();

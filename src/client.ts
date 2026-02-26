@@ -132,6 +132,7 @@ import {
   Conversation,
   ConversationCancelResponse,
   ConversationCreateParams,
+  ConversationDeleteResponse,
   ConversationListParams,
   ConversationListResponse,
   ConversationUpdateParams,
@@ -186,6 +187,10 @@ import {
   TemplateCreateResponse,
   TemplateDeleteParams,
   TemplateDeleteResponse,
+  TemplateRollbackParams,
+  TemplateRollbackResponse,
+  TemplateSaveParams,
+  TemplateSaveResponse,
   TemplateUpdateParams,
   TemplateUpdateResponse,
   Templates,
@@ -652,7 +657,7 @@ export class Letta {
       loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
 
       const errText = await response.text().catch((err: any) => castToError(err).message);
-      const errJSON = safeJSON(errText);
+      const errJSON = safeJSON(errText) as any;
       const errMessage = errJSON ? undefined : errText;
 
       loggerFor(this).debug(
@@ -689,9 +694,14 @@ export class Letta {
   getAPIList<Item, PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>>(
     path: string,
     Page: new (...args: any[]) => PageClass,
-    opts?: RequestOptions,
+    opts?: PromiseOrValue<RequestOptions>,
   ): Pagination.PagePromise<PageClass, Item> {
-    return this.requestAPIList(Page, { method: 'get', path, ...opts });
+    return this.requestAPIList(
+      Page,
+      opts && 'then' in opts ?
+        opts.then((opts) => ({ method: 'get', path, ...opts }))
+      : { method: 'get', path, ...opts },
+    );
   }
 
   requestAPIList<
@@ -699,7 +709,7 @@ export class Letta {
     PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>,
   >(
     Page: new (...args: ConstructorParameters<typeof Pagination.AbstractPage>) => PageClass,
-    options: FinalRequestOptions,
+    options: PromiseOrValue<FinalRequestOptions>,
   ): Pagination.PagePromise<PageClass, Item> {
     const request = this.makeRequest(options, null, undefined);
     return new Pagination.PagePromise<PageClass, Item>(this as any as Letta, request, Page);
@@ -738,7 +748,6 @@ export class Letta {
       return await this.fetch.call(undefined, url, fetchOptions);
     } finally {
       clearTimeout(timeout);
-      if (signal) signal.removeEventListener('abort', abort);
     }
   }
 
@@ -923,6 +932,14 @@ export class Letta {
         (Symbol.iterator in body && 'next' in body && typeof body.next === 'function'))
     ) {
       return { bodyHeaders: undefined, body: Shims.ReadableStreamFrom(body as AsyncIterable<Uint8Array>) };
+    } else if (
+      typeof body === 'object' &&
+      headers.values.get('content-type') === 'application/x-www-form-urlencoded'
+    ) {
+      return {
+        bodyHeaders: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: this.stringifyQuery(body as Record<string, unknown>),
+      };
     } else {
       return this.#encoder({ body, headers });
     }
@@ -1142,9 +1159,13 @@ export declare namespace Letta {
     type TemplateCreateResponse as TemplateCreateResponse,
     type TemplateUpdateResponse as TemplateUpdateResponse,
     type TemplateDeleteResponse as TemplateDeleteResponse,
+    type TemplateRollbackResponse as TemplateRollbackResponse,
+    type TemplateSaveResponse as TemplateSaveResponse,
     type TemplateCreateParams as TemplateCreateParams,
     type TemplateUpdateParams as TemplateUpdateParams,
     type TemplateDeleteParams as TemplateDeleteParams,
+    type TemplateRollbackParams as TemplateRollbackParams,
+    type TemplateSaveParams as TemplateSaveParams,
   };
 
   export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
@@ -1173,6 +1194,7 @@ export declare namespace Letta {
     type CreateConversation as CreateConversation,
     type UpdateConversation as UpdateConversation,
     type ConversationListResponse as ConversationListResponse,
+    type ConversationDeleteResponse as ConversationDeleteResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,

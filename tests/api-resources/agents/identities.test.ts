@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource identities', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('attach: only required params', async () => {
     const responsePromise = client.agents.identities.attach('identity_id', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -22,14 +22,14 @@ describe('resource identities', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('attach: required and optional params', async () => {
     const response = await client.agents.identities.attach('identity_id', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('detach: only required params', async () => {
     const responsePromise = client.agents.identities.detach('identity_id', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
@@ -43,7 +43,7 @@ describe('resource identities', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('detach: required and optional params', async () => {
     const response = await client.agents.identities.detach('identity_id', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',

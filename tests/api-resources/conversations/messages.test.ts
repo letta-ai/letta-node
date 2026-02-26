@@ -8,7 +8,7 @@ const client = new Letta({
 });
 
 describe('resource messages', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.conversations.messages.create('default', {});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.conversations.messages.list('default');
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -52,7 +52,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('compact', async () => {
     const responsePromise = client.conversations.messages.compact('default');
     const rawResponse = await responsePromise.asResponse();
@@ -64,7 +64,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('compact: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -72,9 +72,9 @@ describe('resource messages', () => {
         'default',
         {
           compaction_settings: {
-            model: 'model',
             clip_chars: 0,
             mode: 'all',
+            model: 'model',
             model_settings: {
               max_output_tokens: 0,
               parallel_tool_calls: true,
@@ -94,7 +94,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('stream', async () => {
     const responsePromise = client.conversations.messages.stream('default');
     const rawResponse = await responsePromise.asResponse();
@@ -106,7 +106,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('stream: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
