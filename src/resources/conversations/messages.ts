@@ -17,6 +17,9 @@ export class Messages extends APIResource {
    * This endpoint sends a message to an existing conversation. By default
    * (streaming=true), returns a streaming response (Server-Sent Events). Set
    * streaming=false to get a complete JSON response.
+   *
+   * If conversation_id is an agent ID (starts with "agent-"), routes to agent-direct
+   * mode with locking but without conversation-specific features.
    */
   create(
     conversationID: string,
@@ -35,6 +38,9 @@ export class Messages extends APIResource {
    *
    * Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
    * messages in the conversation, with support for cursor-based pagination.
+   *
+   * If conversation_id is an agent ID (starts with "agent-"), returns messages from
+   * the agent's default conversation (no conversation isolation).
    */
   list(
     conversationID: string,
@@ -67,6 +73,9 @@ export class Messages extends APIResource {
    *
    * This endpoint allows you to reconnect to an active background stream for a
    * conversation, enabling recovery from network interruptions.
+   *
+   * If conversation_id is an agent ID (starts with "agent-"), retrieves the stream
+   * for the agent's most recent active run.
    */
   stream(
     conversationID: string,
