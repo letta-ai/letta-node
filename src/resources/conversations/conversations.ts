@@ -72,6 +72,9 @@ export class Conversations extends APIResource {
    * Cancel runs associated with a conversation.
    *
    * Note: To cancel active runs, Redis is required.
+   *
+   * If conversation_id is an agent ID (starts with "agent-"), cancels runs for the
+   * agent's default conversation.
    */
   cancel(conversationID: string, options?: RequestOptions): APIPromise<ConversationCancelResponse> {
     return this._client.post(path`/v1/conversations/${conversationID}/cancel`, options);
