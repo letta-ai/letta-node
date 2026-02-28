@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.8.0 (2026-02-28)
+
+Full Changelog: [v1.7.9...v1.8.0](https://github.com/letta-ai/letta-node/compare/v1.7.9...v1.8.0)
+
+### Features
+
+* add debug logs in telem endpoint ([c4263a7](https://github.com/letta-ai/letta-node/commit/c4263a736a3da61a50e2b7cc54d52d774e60a679))
+* support default convo in list and cancel endpoints ([212c1dc](https://github.com/letta-ai/letta-node/commit/212c1dc4f1c043e0e37a9f413cd650a2af21c110))
+
+
+### Chores
+
+* **internal:** move stringifyQuery implementation to internal function ([7ae6a5e](https://github.com/letta-ai/letta-node/commit/7ae6a5eb5f492e210aabf9e8839f9524525846bc))
+
 ## 1.7.9 (2026-02-26)
 
 Full Changelog: [v1.7.8...v1.7.9](https://github.com/letta-ai/letta-node/compare/v1.7.8...v1.7.9)
