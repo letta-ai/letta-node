@@ -27,6 +27,9 @@ describe('resource files', () => {
     const response = await client.folders.files.retrieve('file-123e4567-e89b-42d3-8456-426614174000', {
       folder_id: 'source-123e4567-e89b-42d3-8456-426614174000',
       include_content: true,
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -55,6 +58,9 @@ describe('resource files', () => {
           limit: 0,
           order: 'asc',
           order_by: 'created_at',
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -79,6 +85,9 @@ describe('resource files', () => {
   test.skip('delete: required and optional params', async () => {
     const response = await client.folders.files.delete('file-123e4567-e89b-42d3-8456-426614174000', {
       folder_id: 'source-123e4567-e89b-42d3-8456-426614174000',
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -102,6 +111,9 @@ describe('resource files', () => {
       file: await toFile(Buffer.from('# my file contents'), 'README.md'),
       duplicate_handling: 'skip',
       name: 'name',
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 });

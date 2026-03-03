@@ -8,11 +8,12 @@ import { Feedback, FeedbackCreateParams } from './feedback';
 import * as StepsMessagesAPI from './messages';
 import { MessageListParams, MessageListResponse, MessageListResponsesArrayPage, Messages } from './messages';
 import * as MetricsAPI from './metrics';
-import { MetricRetrieveResponse, Metrics } from './metrics';
+import { MetricRetrieveParams, MetricRetrieveResponse, Metrics } from './metrics';
 import * as TraceAPI from './trace';
-import { Trace } from './trace';
+import { Trace, TraceRetrieveParams } from './trace';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -25,18 +26,54 @@ export class Steps extends APIResource {
   /**
    * Get a step by ID.
    */
-  retrieve(stepID: string, options?: RequestOptions): APIPromise<Step> {
-    return this._client.get(path`/v1/steps/${stepID}`, options);
+  retrieve(
+    stepID: string,
+    params: StepRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Step> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params ?? {};
+    return this._client.get(path`/v1/steps/${stepID}`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
    * List steps with optional pagination and date filters.
    */
   list(
-    query: StepListParams | null | undefined = {},
+    params: StepListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<StepsArrayPage, Step> {
-    return this._client.getAPIList('/v1/steps/', ArrayPage<Step>, { query, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
+    return this._client.getAPIList('/v1/steps/', ArrayPage<Step>, {
+      query,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -85,6 +122,11 @@ export interface ProviderTrace {
    * Tags associated with the agent for filtering
    */
   agent_tags?: Array<string> | null;
+
+  /**
+   * Billing context for LLM request cost tracking.
+   */
+  billing_context?: ProviderTrace.BillingContext | null;
 
   /**
    * Type of call (agent_step, summarization, etc.)
@@ -140,6 +182,28 @@ export interface ProviderTrace {
    * The timestamp when the object was last updated.
    */
   updated_at?: string | null;
+}
+
+export namespace ProviderTrace {
+  /**
+   * Billing context for LLM request cost tracking.
+   */
+  export interface BillingContext {
+    /**
+     * Cost source: 'quota' or 'credits'
+     */
+    cost_source?: string | null;
+
+    /**
+     * Customer ID for billing records
+     */
+    customer_id?: string | null;
+
+    /**
+     * Subscription tier
+     */
+    plan_type?: string | null;
+  }
 }
 
 export interface Step {
@@ -299,51 +363,77 @@ export interface Step {
   trace_id?: string | null;
 }
 
+export interface StepRetrieveParams {
+  'x-billing-cost-source'?: string;
+
+  'x-billing-customer-id'?: string;
+
+  'x-billing-plan-type'?: string;
+}
+
 export interface StepListParams extends ArrayPageParams {
   /**
-   * Filter by the ID of the agent that performed the step
+   * Query param: Filter by the ID of the agent that performed the step
    */
   agent_id?: string | null;
 
   /**
-   * Return steps before this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
+   * Query param: Return steps before this ISO datetime (e.g.
+   * "2025-01-29T15:01:19-08:00")
    */
   end_date?: string | null;
 
   /**
-   * Filter by feedback
+   * Query param: Filter by feedback
    */
   feedback?: 'positive' | 'negative' | null;
 
   /**
-   * Filter by whether steps have feedback (true) or not (false)
+   * Query param: Filter by whether steps have feedback (true) or not (false)
    */
   has_feedback?: boolean | null;
 
   /**
-   * Filter by the name of the model used for the step
+   * Query param: Filter by the name of the model used for the step
    */
   model?: string | null;
 
   /**
-   * Filter by the project ID that is associated with the step (cloud only).
+   * Query param: Filter by the project ID that is associated with the step (cloud
+   * only).
    */
   project_id?: string | null;
 
   /**
-   * Return steps after this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
+   * Query param: Return steps after this ISO datetime (e.g.
+   * "2025-01-29T15:01:19-08:00")
    */
   start_date?: string | null;
 
   /**
-   * Filter by tags
+   * Query param: Filter by tags
    */
   tags?: Array<string> | null;
 
   /**
-   * Filter by trace ids returned by the server
+   * Query param: Filter by trace ids returned by the server
    */
   trace_ids?: Array<string> | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 Steps.Metrics = Metrics;
@@ -356,12 +446,17 @@ export declare namespace Steps {
     type ProviderTrace as ProviderTrace,
     type Step as Step,
     type StepsArrayPage as StepsArrayPage,
+    type StepRetrieveParams as StepRetrieveParams,
     type StepListParams as StepListParams,
   };
 
-  export { Metrics as Metrics, type MetricRetrieveResponse as MetricRetrieveResponse };
+  export {
+    Metrics as Metrics,
+    type MetricRetrieveResponse as MetricRetrieveResponse,
+    type MetricRetrieveParams as MetricRetrieveParams,
+  };
 
-  export { Trace as Trace };
+  export { Trace as Trace, type TraceRetrieveParams as TraceRetrieveParams };
 
   export { Feedback as Feedback, type FeedbackCreateParams as FeedbackCreateParams };
 

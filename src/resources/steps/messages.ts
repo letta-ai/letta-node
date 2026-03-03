@@ -4,6 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as ToolsAPI from '../tools';
 import * as MessagesAPI from '../agents/messages';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -13,12 +14,26 @@ export class Messages extends APIResource {
    */
   list(
     stepID: string,
-    query: MessageListParams | null | undefined = {},
+    params: MessageListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<MessageListResponsesArrayPage, MessageListResponse> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
     return this._client.getAPIList(path`/v1/steps/${stepID}/messages`, ArrayPage<MessageListResponse>, {
       query,
       ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 }
@@ -46,7 +61,22 @@ export type MessageListResponse =
   | MessagesAPI.SummaryMessage
   | MessagesAPI.EventMessage;
 
-export interface MessageListParams extends ArrayPageParams {}
+export interface MessageListParams extends ArrayPageParams {
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
+}
 
 export declare namespace Messages {
   export {

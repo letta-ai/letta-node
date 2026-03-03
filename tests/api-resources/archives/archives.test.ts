@@ -38,6 +38,9 @@ describe('resource archives', () => {
         embedding_endpoint: 'embedding_endpoint',
         handle: 'handle',
       },
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -51,6 +54,22 @@ describe('resource archives', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.archives.retrieve(
+        'archive-123e4567-e89b-42d3-8456-426614174000',
+        {
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -90,6 +109,9 @@ describe('resource archives', () => {
           name: 'name',
           order: 'asc',
           order_by: 'created_at',
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -106,5 +128,21 @@ describe('resource archives', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.archives.delete(
+        'archive-123e4567-e89b-42d3-8456-426614174000',
+        {
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 });

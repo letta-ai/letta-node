@@ -7,7 +7,9 @@ export {
   type CreateBlock,
   type BlockDeleteResponse,
   type BlockCreateParams,
+  type BlockRetrieveParams,
   type BlockUpdateParams,
   type BlockListParams,
+  type BlockDeleteParams,
   type BlockResponsesArrayPage,
 } from './blocks';

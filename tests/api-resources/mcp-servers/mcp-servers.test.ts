@@ -37,6 +37,9 @@ describe('resource mcpServers', () => {
         mcp_server_type: 'stdio',
       },
       server_name: 'server_name',
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -50,6 +53,22 @@ describe('resource mcpServers', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.mcpServers.retrieve(
+        'mcp_server_id',
+        {
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -80,6 +99,9 @@ describe('resource mcpServers', () => {
         mcp_server_type: 'stdio',
       },
       server_name: 'server_name',
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -96,6 +118,21 @@ describe('resource mcpServers', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.mcpServers.list(
+        {
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.mcpServers.delete('mcp_server_id');
     const rawResponse = await responsePromise.asResponse();
@@ -105,6 +142,22 @@ describe('resource mcpServers', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.mcpServers.delete(
+        'mcp_server_id',
+        {
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -125,7 +178,12 @@ describe('resource mcpServers', () => {
     await expect(
       client.mcpServers.refresh(
         'mcp_server_id',
-        { agent_id: 'agent_id' },
+        {
+          agent_id: 'agent_id',
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

@@ -18,8 +18,25 @@ export class Files extends APIResource {
     params: FileRetrieveParams,
     options?: RequestOptions,
   ): APIPromise<FileRetrieveResponse> {
-    const { folder_id, ...query } = params;
-    return this._client.get(path`/v1/folders/${folder_id}/files/${fileID}`, { query, ...options });
+    const {
+      folder_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params;
+    return this._client.get(path`/v1/folders/${folder_id}/files/${fileID}`, {
+      query,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -27,12 +44,26 @@ export class Files extends APIResource {
    */
   list(
     folderID: string,
-    query: FileListParams | null | undefined = {},
+    params: FileListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<FileListResponsesArrayPage, FileListResponse> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
     return this._client.getAPIList(path`/v1/folders/${folderID}/files`, ArrayPage<FileListResponse>, {
       query,
       ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 
@@ -40,10 +71,23 @@ export class Files extends APIResource {
    * Delete a file from a folder.
    */
   delete(fileID: string, params: FileDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { folder_id } = params;
+    const {
+      folder_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params;
     return this._client.delete(path`/v1/folders/${folder_id}/${fileID}`, {
       ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([
+        {
+          Accept: '*/*',
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 
@@ -55,10 +99,32 @@ export class Files extends APIResource {
     params: FileUploadParams,
     options?: RequestOptions,
   ): APIPromise<FileUploadResponse> {
-    const { duplicate_handling, name, ...body } = params;
+    const {
+      duplicate_handling,
+      name,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
     return this._client.post(
       path`/v1/folders/${folderID}/upload`,
-      multipartFormRequestOptions({ query: { duplicate_handling, name }, body, ...options }, this._client),
+      multipartFormRequestOptions(
+        {
+          query: { duplicate_handling, name },
+          body,
+          ...options,
+          headers: buildHeaders([
+            {
+              ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+              ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+              ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+            },
+            options?.headers,
+          ]),
+        },
+        this._client,
+      ),
     );
   }
 }
@@ -339,20 +405,65 @@ export interface FileRetrieveParams {
    * Query param: Whether to include full file content
    */
   include_content?: boolean;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface FileListParams extends ArrayPageParams {
   /**
-   * Whether to include full file content
+   * Query param: Whether to include full file content
    */
   include_content?: boolean;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface FileDeleteParams {
   /**
-   * The ID of the source in the format 'source-<uuid4>'
+   * Path param: The ID of the source in the format 'source-<uuid4>'
    */
   folder_id: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface FileUploadParams {
@@ -370,6 +481,21 @@ export interface FileUploadParams {
    * Query param: Optional custom name to override the uploaded file's name
    */
   name?: string | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Files {

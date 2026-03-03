@@ -6,6 +6,7 @@ import { ToolsArrayPage } from '../tools';
 import * as AgentsAPI from './agents';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -15,12 +16,26 @@ export class Tools extends APIResource {
    */
   list(
     agentID: string,
-    query: ToolListParams | null | undefined = {},
+    params: ToolListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<ToolsArrayPage, ToolsAPI.Tool> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
     return this._client.getAPIList(path`/v1/agents/${agentID}/tools`, ArrayPage<ToolsAPI.Tool>, {
       query,
       ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 
@@ -32,8 +47,23 @@ export class Tools extends APIResource {
     params: ToolAttachParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/tools/attach/${toolID}`, options);
+    const {
+      agent_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/tools/attach/${toolID}`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -44,8 +74,23 @@ export class Tools extends APIResource {
     params: ToolDetachParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/tools/detach/${toolID}`, options);
+    const {
+      agent_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/tools/detach/${toolID}`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -55,8 +100,25 @@ export class Tools extends APIResource {
    * state and environment variables for execution context.
    */
   run(toolName: string, params: ToolRunParams, options?: RequestOptions): APIPromise<ToolExecutionResult> {
-    const { agent_id, ...body } = params;
-    return this._client.post(path`/v1/agents/${agent_id}/tools/${toolName}/run`, { body, ...options });
+    const {
+      agent_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
+    return this._client.post(path`/v1/agents/${agent_id}/tools/${toolName}/run`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -70,11 +132,26 @@ export class Tools extends APIResource {
     params: ToolUpdateApprovalParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id, query_requires_approval, ...body } = params;
+    const {
+      agent_id,
+      query_requires_approval,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/tools/approval/${toolName}`, {
       query: { requires_approval: query_requires_approval },
       body,
       ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 }
@@ -123,20 +200,65 @@ export interface ToolExecutionResult {
   stdout?: Array<string> | null;
 }
 
-export interface ToolListParams extends ArrayPageParams {}
+export interface ToolListParams extends ArrayPageParams {
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
+}
 
 export interface ToolAttachParams {
   /**
-   * The ID of the agent in the format 'agent-<uuid4>'
+   * Path param: The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface ToolDetachParams {
   /**
-   * The ID of the agent in the format 'agent-<uuid4>'
+   * Path param: The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface ToolRunParams {
@@ -149,6 +271,21 @@ export interface ToolRunParams {
    * Body param: Arguments to pass to the tool
    */
   args?: { [key: string]: unknown };
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface ToolUpdateApprovalParams {
@@ -166,6 +303,21 @@ export interface ToolUpdateApprovalParams {
    * @deprecated Query param: Whether the tool requires approval before execution
    */
   query_requires_approval?: boolean | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Tools {

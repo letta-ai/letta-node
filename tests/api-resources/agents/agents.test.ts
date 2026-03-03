@@ -38,7 +38,13 @@ describe('resource agents', () => {
     await expect(
       client.agents.retrieve(
         'agent-123e4567-e89b-42d3-8456-426614174000',
-        { include: ['agent.blocks'], include_relationships: ['string', 'string'] },
+        {
+          include: ['agent.blocks'],
+          include_relationships: ['string', 'string'],
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
@@ -93,6 +99,9 @@ describe('resource agents', () => {
           sort_by: 'sort_by',
           tags: ['string', 'string'],
           template_id: 'template_id',
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -109,6 +118,22 @@ describe('resource agents', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.agents.delete(
+        'agent-123e4567-e89b-42d3-8456-426614174000',
+        {
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -134,6 +159,9 @@ describe('resource agents', () => {
           max_steps: 0,
           scrub_messages: true,
           use_legacy_format: true,
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -170,6 +198,9 @@ describe('resource agents', () => {
       project_id: 'project_id',
       secrets: 'secrets',
       strip_messages: true,
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
       'x-override-embedding-model': 'x-override-embedding-model',
     });
   });

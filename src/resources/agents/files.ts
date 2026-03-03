@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
 import { NextFilesPage, type NextFilesPageParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -12,12 +13,26 @@ export class Files extends APIResource {
    */
   list(
     agentID: string,
-    query: FileListParams | null | undefined = {},
+    params: FileListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<FileListResponsesNextFilesPage, FileListResponse> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
     return this._client.getAPIList(path`/v1/agents/${agentID}/files`, NextFilesPage<FileListResponse>, {
       query,
       ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 
@@ -28,8 +43,23 @@ export class Files extends APIResource {
    * file will be removed from the agent's working memory view.
    */
   close(fileID: string, params: FileCloseParams, options?: RequestOptions): APIPromise<unknown> {
-    const { agent_id } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/files/${fileID}/close`, options);
+    const {
+      agent_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/files/${fileID}/close`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -38,8 +68,27 @@ export class Files extends APIResource {
    * This endpoint updates the file state for the agent so that no files are marked
    * as open. Typically used to reset the working memory view for the agent.
    */
-  closeAll(agentID: string, options?: RequestOptions): APIPromise<FileCloseAllResponse> {
-    return this._client.patch(path`/v1/agents/${agentID}/files/close-all`, options);
+  closeAll(
+    agentID: string,
+    params: FileCloseAllParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<FileCloseAllResponse> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params ?? {};
+    return this._client.patch(path`/v1/agents/${agentID}/files/close-all`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -50,8 +99,23 @@ export class Files extends APIResource {
    * names that were closed due to LRU eviction.
    */
   open(fileID: string, params: FileOpenParams, options?: RequestOptions): APIPromise<FileOpenResponse> {
-    const { agent_id } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/files/${fileID}/open`, options);
+    const {
+      agent_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/files/${fileID}/open`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -120,29 +184,82 @@ export type FileOpenResponse = Array<string>;
 
 export interface FileListParams extends NextFilesPageParams {
   /**
-   * @deprecated Pagination cursor from previous response (deprecated, use
-   * before/after)
+   * @deprecated Query param: Pagination cursor from previous response (deprecated,
+   * use before/after)
    */
   cursor?: string | null;
 
   /**
-   * Filter by open status (true for open files, false for closed files)
+   * Query param: Filter by open status (true for open files, false for closed files)
    */
   is_open?: boolean | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface FileCloseParams {
   /**
-   * The ID of the agent in the format 'agent-<uuid4>'
+   * Path param: The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
+}
+
+export interface FileCloseAllParams {
+  'x-billing-cost-source'?: string;
+
+  'x-billing-customer-id'?: string;
+
+  'x-billing-plan-type'?: string;
 }
 
 export interface FileOpenParams {
   /**
-   * The ID of the agent in the format 'agent-<uuid4>'
+   * Path param: The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Files {
@@ -154,6 +271,7 @@ export declare namespace Files {
     type FileListResponsesNextFilesPage as FileListResponsesNextFilesPage,
     type FileListParams as FileListParams,
     type FileCloseParams as FileCloseParams,
+    type FileCloseAllParams as FileCloseAllParams,
     type FileOpenParams as FileOpenParams,
   };
 }
