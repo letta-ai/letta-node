@@ -3,8 +3,9 @@
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from '../agents/agents';
 import * as EmbeddingsAPI from './embeddings';
-import { EmbeddingListResponse, Embeddings } from './embeddings';
+import { EmbeddingListParams, EmbeddingListResponse, Embeddings } from './embeddings';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Models extends APIResource {
@@ -19,10 +20,27 @@ export class Models extends APIResource {
    * backward compatibility.
    */
   list(
-    query: ModelListParams | null | undefined = {},
+    params: ModelListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<ModelListResponse> {
-    return this._client.get('/v1/models/', { query, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
+    return this._client.get('/v1/models/', {
+      query,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -610,11 +628,35 @@ export type ProviderType =
 export type ModelListResponse = Array<Model>;
 
 export interface ModelListParams {
+  /**
+   * Query param
+   */
   provider_category?: Array<ProviderCategory> | null;
 
+  /**
+   * Query param
+   */
   provider_name?: string | null;
 
+  /**
+   * Query param
+   */
   provider_type?: ProviderType | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 Models.Embeddings = Embeddings;
@@ -631,5 +673,9 @@ export declare namespace Models {
     type ModelListParams as ModelListParams,
   };
 
-  export { Embeddings as Embeddings, type EmbeddingListResponse as EmbeddingListResponse };
+  export {
+    Embeddings as Embeddings,
+    type EmbeddingListResponse as EmbeddingListResponse,
+    type EmbeddingListParams as EmbeddingListParams,
+  };
 }

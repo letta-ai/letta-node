@@ -6,6 +6,7 @@ import * as ArchivesAPI from '../archives/archives';
 import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -15,12 +16,26 @@ export class Folders extends APIResource {
    */
   list(
     agentID: string,
-    query: FolderListParams | null | undefined = {},
+    params: FolderListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<FolderListResponsesArrayPage, FolderListResponse> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
     return this._client.getAPIList(path`/v1/agents/${agentID}/folders`, ArrayPage<FolderListResponse>, {
       query,
       ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 
@@ -32,8 +47,23 @@ export class Folders extends APIResource {
     params: FolderAttachParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/folders/attach/${folderID}`, options);
+    const {
+      agent_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/folders/attach/${folderID}`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -44,8 +74,23 @@ export class Folders extends APIResource {
     params: FolderDetachParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/folders/detach/${folderID}`, options);
+    const {
+      agent_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/folders/detach/${folderID}`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -112,20 +157,65 @@ export interface FolderListResponse {
   vector_db_provider?: ArchivesAPI.VectorDBProvider;
 }
 
-export interface FolderListParams extends ArrayPageParams {}
+export interface FolderListParams extends ArrayPageParams {
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
+}
 
 export interface FolderAttachParams {
   /**
-   * The ID of the agent in the format 'agent-<uuid4>'
+   * Path param: The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface FolderDetachParams {
   /**
-   * The ID of the agent in the format 'agent-<uuid4>'
+   * Path param: The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Folders {

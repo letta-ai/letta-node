@@ -22,22 +22,75 @@ export class Archives extends APIResource {
   /**
    * Create a new archive.
    */
-  create(body: ArchiveCreateParams, options?: RequestOptions): APIPromise<Archive> {
-    return this._client.post('/v1/archives/', { body, ...options });
+  create(params: ArchiveCreateParams, options?: RequestOptions): APIPromise<Archive> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
+    return this._client.post('/v1/archives/', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
    * Get a single archive by its ID.
    */
-  retrieve(archiveID: string, options?: RequestOptions): APIPromise<Archive> {
-    return this._client.get(path`/v1/archives/${archiveID}`, options);
+  retrieve(
+    archiveID: string,
+    params: ArchiveRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Archive> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params ?? {};
+    return this._client.get(path`/v1/archives/${archiveID}`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
    * Update an existing archive's name and/or description.
    */
-  update(archiveID: string, body: ArchiveUpdateParams, options?: RequestOptions): APIPromise<Archive> {
-    return this._client.patch(path`/v1/archives/${archiveID}`, { body, ...options });
+  update(archiveID: string, params: ArchiveUpdateParams, options?: RequestOptions): APIPromise<Archive> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
+    return this._client.patch(path`/v1/archives/${archiveID}`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -45,19 +98,53 @@ export class Archives extends APIResource {
    * and pagination.
    */
   list(
-    query: ArchiveListParams | null | undefined = {},
+    params: ArchiveListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<ArchivesArrayPage, Archive> {
-    return this._client.getAPIList('/v1/archives/', ArrayPage<Archive>, { query, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
+    return this._client.getAPIList('/v1/archives/', ArrayPage<Archive>, {
+      query,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
    * Delete an archive by its ID.
    */
-  delete(archiveID: string, options?: RequestOptions): APIPromise<void> {
+  delete(
+    archiveID: string,
+    params: ArchiveDeleteParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params ?? {};
     return this._client.delete(path`/v1/archives/${archiveID}`, {
       ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([
+        {
+          Accept: '*/*',
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 }
@@ -126,37 +213,111 @@ export interface Archive {
 export type VectorDBProvider = 'native' | 'tpuf' | 'pinecone';
 
 export interface ArchiveCreateParams {
+  /**
+   * Body param
+   */
   name: string;
 
+  /**
+   * Body param
+   */
   description?: string | null;
 
   /**
-   * Embedding model handle for the archive
+   * Body param: Embedding model handle for the archive
    */
   embedding?: string | null;
 
   /**
-   * Configuration for embedding model connection and processing parameters.
+   * Body param: Configuration for embedding model connection and processing
+   * parameters.
    */
   embedding_config?: ModelsAPI.EmbeddingConfig | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
+}
+
+export interface ArchiveRetrieveParams {
+  'x-billing-cost-source'?: string;
+
+  'x-billing-customer-id'?: string;
+
+  'x-billing-plan-type'?: string;
 }
 
 export interface ArchiveUpdateParams {
+  /**
+   * Body param
+   */
   description?: string | null;
 
+  /**
+   * Body param
+   */
   name?: string | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface ArchiveListParams extends ArrayPageParams {
   /**
-   * Only archives attached to this agent ID
+   * Query param: Only archives attached to this agent ID
    */
   agent_id?: string | null;
 
   /**
-   * Filter by archive name (exact match)
+   * Query param: Filter by archive name (exact match)
    */
   name?: string | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
+}
+
+export interface ArchiveDeleteParams {
+  'x-billing-cost-source'?: string;
+
+  'x-billing-customer-id'?: string;
+
+  'x-billing-plan-type'?: string;
 }
 
 Archives.Passages = Passages;
@@ -167,8 +328,10 @@ export declare namespace Archives {
     type VectorDBProvider as VectorDBProvider,
     type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
+    type ArchiveRetrieveParams as ArchiveRetrieveParams,
     type ArchiveUpdateParams as ArchiveUpdateParams,
     type ArchiveListParams as ArchiveListParams,
+    type ArchiveDeleteParams as ArchiveDeleteParams,
   };
 
   export {

@@ -24,6 +24,7 @@ import {
 } from './blocks';
 import * as FilesAPI from './files';
 import {
+  FileCloseAllParams,
   FileCloseAllResponse,
   FileCloseParams,
   FileCloseResponse,
@@ -166,8 +167,25 @@ export class Agents extends APIResource {
   /**
    * Create an agent.
    */
-  create(body: AgentCreateParams, options?: RequestOptions): APIPromise<AgentState> {
-    return this._client.post('/v1/agents/', { body, ...options });
+  create(params: AgentCreateParams, options?: RequestOptions): APIPromise<AgentState> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
+    return this._client.post('/v1/agents/', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -175,34 +193,104 @@ export class Agents extends APIResource {
    */
   retrieve(
     agentID: string,
-    query: AgentRetrieveParams | null | undefined = {},
+    params: AgentRetrieveParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<AgentState> {
-    return this._client.get(path`/v1/agents/${agentID}`, { query, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
+    return this._client.get(path`/v1/agents/${agentID}`, {
+      query,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
    * Update an existing agent.
    */
-  update(agentID: string, body: AgentUpdateParams, options?: RequestOptions): APIPromise<AgentState> {
-    return this._client.patch(path`/v1/agents/${agentID}`, { body, ...options });
+  update(agentID: string, params: AgentUpdateParams, options?: RequestOptions): APIPromise<AgentState> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
+    return this._client.patch(path`/v1/agents/${agentID}`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
    * Get a list of all agents.
    */
   list(
-    query: AgentListParams | null | undefined = {},
+    params: AgentListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<AgentStatesArrayPage, AgentState> {
-    return this._client.getAPIList('/v1/agents/', ArrayPage<AgentState>, { query, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
+    return this._client.getAPIList('/v1/agents/', ArrayPage<AgentState>, {
+      query,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
    * Delete an agent.
    */
-  delete(agentID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.delete(path`/v1/agents/${agentID}`, options);
+  delete(
+    agentID: string,
+    params: AgentDeleteParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<unknown> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params ?? {};
+    return this._client.delete(path`/v1/agents/${agentID}`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -211,10 +299,27 @@ export class Agents extends APIResource {
    */
   exportFile(
     agentID: string,
-    query: AgentExportFileParams | null | undefined = {},
+    params: AgentExportFileParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<string> {
-    return this._client.get(path`/v1/agents/${agentID}/export`, { query, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
+    return this._client.get(path`/v1/agents/${agentID}/export`, {
+      query,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -222,7 +327,13 @@ export class Agents extends APIResource {
    * the IDs of all imported agents.
    */
   importFile(params: AgentImportFileParams, options?: RequestOptions): APIPromise<AgentImportFileResponse> {
-    const { 'x-override-embedding-model': xOverrideEmbeddingModel, ...body } = params;
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      'x-override-embedding-model': xOverrideEmbeddingModel,
+      ...body
+    } = params;
     return this._client.post(
       '/v1/agents/import',
       multipartFormRequestOptions(
@@ -231,6 +342,9 @@ export class Agents extends APIResource {
           ...options,
           headers: buildHeaders([
             {
+              ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+              ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+              ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
               ...(xOverrideEmbeddingModel != null ?
                 { 'x-override-embedding-model': xOverrideEmbeddingModel }
               : undefined),
@@ -2066,22 +2180,23 @@ export interface AgentImportFileResponse {
 
 export interface AgentCreateParams {
   /**
-   * The type of agent.
+   * Body param: The type of agent.
    */
   agent_type?: AgentType;
 
   /**
-   * @deprecated Deprecated: No longer used. The base template id of the agent.
+   * @deprecated Body param: Deprecated: No longer used. The base template id of the
+   * agent.
    */
   base_template_id?: string | null;
 
   /**
-   * The ids of the blocks used by the agent.
+   * Body param: The ids of the blocks used by the agent.
    */
   block_ids?: Array<string> | null;
 
   /**
-   * Configuration for conversation compaction / summarization.
+   * Body param: Configuration for conversation compaction / summarization.
    *
    * Per-model settings (temperature, max tokens, etc.) are derived from the default
    * configuration for that handle.
@@ -2089,94 +2204,99 @@ export interface AgentCreateParams {
   compaction_settings?: AgentCreateParams.CompactionSettings | null;
 
   /**
-   * The context window limit used by the agent.
+   * Body param: The context window limit used by the agent.
    */
   context_window_limit?: number | null;
 
   /**
-   * The description of the agent.
+   * Body param: The description of the agent.
    */
   description?: string | null;
 
   /**
-   * The embedding model handle used by the agent (format: provider/model-name).
+   * Body param: The embedding model handle used by the agent (format:
+   * provider/model-name).
    */
   embedding?: string | null;
 
   /**
-   * @deprecated Deprecated: No longer used. The embedding chunk size used by the
-   * agent.
+   * @deprecated Body param: Deprecated: No longer used. The embedding chunk size
+   * used by the agent.
    */
   embedding_chunk_size?: number | null;
 
   /**
-   * Configuration for embedding model connection and processing parameters.
+   * Body param: Configuration for embedding model connection and processing
+   * parameters.
    */
   embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure reasoning instead.
-   * Whether to enable internal extended thinking step for a reasoner model.
+   * @deprecated Body param: Deprecated: Use `model` field to configure reasoning
+   * instead. Whether to enable internal extended thinking step for a reasoner model.
    */
   enable_reasoner?: boolean | null;
 
   /**
-   * If set to True, memory management will move to a background agent thread.
+   * Body param: If set to True, memory management will move to a background agent
+   * thread.
    */
   enable_sleeptime?: boolean | null;
 
   /**
-   * The ids of the folders used by the agent.
+   * Body param: The ids of the folders used by the agent.
    */
   folder_ids?: Array<string> | null;
 
   /**
-   * @deprecated Deprecated: please use the 'create agents from a template' endpoint
-   * instead.
+   * @deprecated Body param: Deprecated: please use the 'create agents from a
+   * template' endpoint instead.
    */
   from_template?: string | null;
 
   /**
-   * @deprecated Deprecated: No longer used. If set to True, the agent will be
-   * hidden.
+   * @deprecated Body param: Deprecated: No longer used. If set to True, the agent
+   * will be hidden.
    */
   hidden?: boolean | null;
 
   /**
-   * The ids of the identities associated with this agent.
+   * Body param: The ids of the identities associated with this agent.
    */
   identity_ids?: Array<string> | null;
 
   /**
-   * If true, attaches the Letta base tool rules (e.g. deny all tools not explicitly
-   * allowed).
+   * Body param: If true, attaches the Letta base tool rules (e.g. deny all tools not
+   * explicitly allowed).
    */
   include_base_tool_rules?: boolean | null;
 
   /**
-   * If true, attaches the Letta core tools (e.g. core_memory related functions).
+   * Body param: If true, attaches the Letta core tools (e.g. core_memory related
+   * functions).
    */
   include_base_tools?: boolean;
 
   /**
-   * @deprecated If true, automatically creates and attaches a default data source
-   * for this agent.
+   * @deprecated Body param: If true, automatically creates and attaches a default
+   * data source for this agent.
    */
   include_default_source?: boolean;
 
   /**
-   * If true, attaches the Letta multi-agent tools (e.g. sending a message to another
-   * agent).
+   * Body param: If true, attaches the Letta multi-agent tools (e.g. sending a
+   * message to another agent).
    */
   include_multi_agent_tools?: boolean;
 
   /**
-   * The initial set of messages to put in the agent's in-context memory.
+   * Body param: The initial set of messages to put in the agent's in-context memory.
    */
   initial_message_sequence?: Array<MessageCreate> | null;
 
   /**
-   * Configuration for Language Model (LLM) connection and generation parameters.
+   * Body param: Configuration for Language Model (LLM) connection and generation
+   * parameters.
    *
    * .. deprecated:: LLMConfig is deprecated and should not be used as an input or
    * return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
@@ -2186,53 +2306,54 @@ export interface AgentCreateParams {
   llm_config?: ModelsAPI.LlmConfig | null;
 
   /**
-   * Maximum number of files that can be open at once for this agent. Setting this
-   * too high may exceed the context window, which will break the agent.
+   * Body param: Maximum number of files that can be open at once for this agent.
+   * Setting this too high may exceed the context window, which will break the agent.
    */
   max_files_open?: number | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure reasoning tokens instead.
-   * The maximum number of tokens to generate for reasoning step.
+   * @deprecated Body param: Deprecated: Use `model` field to configure reasoning
+   * tokens instead. The maximum number of tokens to generate for reasoning step.
    */
   max_reasoning_tokens?: number | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure max output tokens
-   * instead. The maximum number of tokens to generate, including reasoning step.
+   * @deprecated Body param: Deprecated: Use `model` field to configure max output
+   * tokens instead. The maximum number of tokens to generate, including reasoning
+   * step.
    */
   max_tokens?: number | null;
 
   /**
-   * The blocks to create in the agent's in-context memory.
+   * Body param: The blocks to create in the agent's in-context memory.
    */
   memory_blocks?: Array<BlocksBlocksAPI.CreateBlock> | null;
 
   /**
-   * @deprecated Deprecated: Only relevant for creating agents from a template. Use
-   * the 'create agents from a template' endpoint instead.
+   * @deprecated Body param: Deprecated: Only relevant for creating agents from a
+   * template. Use the 'create agents from a template' endpoint instead.
    */
   memory_variables?: { [key: string]: string } | null;
 
   /**
-   * If set to True, the agent will not remember previous messages (though the agent
-   * will still retain state via core memory blocks and archival/recall memory). Not
-   * recommended unless you have an advanced use case.
+   * Body param: If set to True, the agent will not remember previous messages
+   * (though the agent will still retain state via core memory blocks and
+   * archival/recall memory). Not recommended unless you have an advanced use case.
    */
   message_buffer_autoclear?: boolean;
 
   /**
-   * The metadata of the agent.
+   * Body param: The metadata of the agent.
    */
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The model handle for the agent to use (format: provider/model-name).
+   * Body param: The model handle for the agent to use (format: provider/model-name).
    */
   model?: string | null;
 
   /**
-   * The model settings for the agent.
+   * Body param: The model settings for the agent.
    */
   model_settings?:
     | OpenAIModelSettings
@@ -2251,97 +2372,97 @@ export interface AgentCreateParams {
     | null;
 
   /**
-   * The name of the agent.
+   * Body param: The name of the agent.
    */
   name?: string;
 
   /**
-   * @deprecated Deprecated: Use `model_settings` to configure parallel tool calls
-   * instead. If set to True, enables parallel tool calling.
+   * @deprecated Body param: Deprecated: Use `model_settings` to configure parallel
+   * tool calls instead. If set to True, enables parallel tool calling.
    */
   parallel_tool_calls?: boolean | null;
 
   /**
-   * The per-file view window character limit for this agent. Setting this too high
-   * may exceed the context window, which will break the agent.
+   * Body param: The per-file view window character limit for this agent. Setting
+   * this too high may exceed the context window, which will break the agent.
    */
   per_file_view_window_char_limit?: number | null;
 
   /**
-   * @deprecated Deprecated: Project should now be passed via the X-Project header
-   * instead of in the request body. If using the SDK, this can be done via the
-   * x_project parameter.
+   * @deprecated Body param: Deprecated: Project should now be passed via the
+   * X-Project header instead of in the request body. If using the SDK, this can be
+   * done via the x_project parameter.
    */
   project?: string | null;
 
   /**
-   * @deprecated Deprecated: No longer used. The id of the project the agent belongs
-   * to.
+   * @deprecated Body param: Deprecated: No longer used. The id of the project the
+   * agent belongs to.
    */
   project_id?: string | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure reasoning instead.
-   * Whether to enable reasoning for this agent.
+   * @deprecated Body param: Deprecated: Use `model` field to configure reasoning
+   * instead. Whether to enable reasoning for this agent.
    */
   reasoning?: boolean | null;
 
   /**
-   * @deprecated Deprecated: Use `model_settings` field to configure response format
-   * instead. The response format for the agent.
+   * @deprecated Body param: Deprecated: Use `model_settings` field to configure
+   * response format instead. The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
   /**
-   * The environment variables for tool execution specific to this agent.
+   * Body param: The environment variables for tool execution specific to this agent.
    */
   secrets?: { [key: string]: string } | null;
 
   /**
-   * @deprecated Deprecated: Use `folder_ids` field instead. The ids of the sources
-   * used by the agent.
+   * @deprecated Body param: Deprecated: Use `folder_ids` field instead. The ids of
+   * the sources used by the agent.
    */
   source_ids?: Array<string> | null;
 
   /**
-   * The system prompt used by the agent.
+   * Body param: The system prompt used by the agent.
    */
   system?: string | null;
 
   /**
-   * The tags associated with the agent.
+   * Body param: The tags associated with the agent.
    */
   tags?: Array<string> | null;
 
   /**
-   * @deprecated Deprecated: No longer used.
+   * @deprecated Body param: Deprecated: No longer used.
    */
   template?: boolean;
 
   /**
-   * @deprecated Deprecated: No longer used. The id of the template the agent belongs
-   * to.
+   * @deprecated Body param: Deprecated: No longer used. The id of the template the
+   * agent belongs to.
    */
   template_id?: string | null;
 
   /**
-   * The timezone of the agent (IANA format).
+   * Body param: The timezone of the agent (IANA format).
    */
   timezone?: string | null;
 
   /**
-   * @deprecated Deprecated: Use `secrets` field instead. Environment variables for
-   * tool execution.
+   * @deprecated Body param: Deprecated: Use `secrets` field instead. Environment
+   * variables for tool execution.
    */
   tool_exec_environment_variables?: { [key: string]: string } | null;
 
   /**
-   * The ids of the tools used by the agent.
+   * Body param: The ids of the tools used by the agent.
    */
   tool_ids?: Array<string> | null;
 
   /**
-   * The tool rules governing the agent.
+   * Body param: The tool rules governing the agent.
    */
   tool_rules?: Array<
     | ChildToolRule
@@ -2356,9 +2477,24 @@ export interface AgentCreateParams {
   > | null;
 
   /**
-   * The tools used by the agent.
+   * Body param: The tools used by the agent.
    */
   tools?: Array<string> | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export namespace AgentCreateParams {
@@ -2692,8 +2828,8 @@ export namespace AgentCreateParams {
 
 export interface AgentRetrieveParams {
   /**
-   * Specify which relational fields to include in the response. No relationships are
-   * included by default.
+   * Query param: Specify which relational fields to include in the response. No
+   * relationships are included by default.
    */
   include?: Array<
     | 'agent.blocks'
@@ -2707,27 +2843,43 @@ export interface AgentRetrieveParams {
   >;
 
   /**
-   * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
-   * to include in the response. If not provided, all relationships are loaded by
-   * default. Using this can optimize performance by reducing unnecessary joins.This
-   * is a legacy parameter, and no longer supported after 1.0.0 SDK versions.
+   * @deprecated Query param: Specify which relational fields (e.g., 'tools',
+   * 'sources', 'memory') to include in the response. If not provided, all
+   * relationships are loaded by default. Using this can optimize performance by
+   * reducing unnecessary joins.This is a legacy parameter, and no longer supported
+   * after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface AgentUpdateParams {
   /**
-   * The base template id of the agent.
+   * Body param: The base template id of the agent.
    */
   base_template_id?: string | null;
 
   /**
-   * The ids of the blocks used by the agent.
+   * Body param: The ids of the blocks used by the agent.
    */
   block_ids?: Array<string> | null;
 
   /**
-   * Configuration for conversation compaction / summarization.
+   * Body param: Configuration for conversation compaction / summarization.
    *
    * Per-model settings (temperature, max tokens, etc.) are derived from the default
    * configuration for that handle.
@@ -2735,62 +2887,66 @@ export interface AgentUpdateParams {
   compaction_settings?: AgentUpdateParams.CompactionSettings | null;
 
   /**
-   * The context window limit used by the agent.
+   * Body param: The context window limit used by the agent.
    */
   context_window_limit?: number | null;
 
   /**
-   * The description of the agent.
+   * Body param: The description of the agent.
    */
   description?: string | null;
 
   /**
-   * The embedding model handle used by the agent (format: provider/model-name).
+   * Body param: The embedding model handle used by the agent (format:
+   * provider/model-name).
    */
   embedding?: string | null;
 
   /**
-   * Configuration for embedding model connection and processing parameters.
+   * Body param: Configuration for embedding model connection and processing
+   * parameters.
    */
   embedding_config?: ModelsAPI.EmbeddingConfig | null;
 
   /**
-   * If set to True, memory management will move to a background agent thread.
+   * Body param: If set to True, memory management will move to a background agent
+   * thread.
    */
   enable_sleeptime?: boolean | null;
 
   /**
-   * The ids of the folders used by the agent.
+   * Body param: The ids of the folders used by the agent.
    */
   folder_ids?: Array<string> | null;
 
   /**
-   * If set to True, the agent will be hidden.
+   * Body param: If set to True, the agent will be hidden.
    */
   hidden?: boolean | null;
 
   /**
-   * The ids of the identities associated with this agent.
+   * Body param: The ids of the identities associated with this agent.
    */
   identity_ids?: Array<string> | null;
 
   /**
-   * The timestamp when the agent last completed a run.
+   * Body param: The timestamp when the agent last completed a run.
    */
   last_run_completion?: string | null;
 
   /**
-   * The duration in milliseconds of the agent's last run.
+   * Body param: The duration in milliseconds of the agent's last run.
    */
   last_run_duration_ms?: number | null;
 
   /**
-   * The stop reason from the agent's last run.
+   * Body param: The stop reason from the agent's last run.
    */
   last_stop_reason?: RunsAPI.StopReasonType | null;
 
   /**
-   * Configuration for Language Model (LLM) connection and generation parameters.
+   * Body param: Configuration for Language Model (LLM) connection and generation
+   * parameters.
    *
    * .. deprecated:: LLMConfig is deprecated and should not be used as an input or
    * return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
@@ -2800,41 +2956,42 @@ export interface AgentUpdateParams {
   llm_config?: ModelsAPI.LlmConfig | null;
 
   /**
-   * Maximum number of files that can be open at once for this agent. Setting this
-   * too high may exceed the context window, which will break the agent.
+   * Body param: Maximum number of files that can be open at once for this agent.
+   * Setting this too high may exceed the context window, which will break the agent.
    */
   max_files_open?: number | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure max output tokens
-   * instead. The maximum number of tokens to generate, including reasoning step.
+   * @deprecated Body param: Deprecated: Use `model` field to configure max output
+   * tokens instead. The maximum number of tokens to generate, including reasoning
+   * step.
    */
   max_tokens?: number | null;
 
   /**
-   * If set to True, the agent will not remember previous messages (though the agent
-   * will still retain state via core memory blocks and archival/recall memory). Not
-   * recommended unless you have an advanced use case.
+   * Body param: If set to True, the agent will not remember previous messages
+   * (though the agent will still retain state via core memory blocks and
+   * archival/recall memory). Not recommended unless you have an advanced use case.
    */
   message_buffer_autoclear?: boolean | null;
 
   /**
-   * The ids of the messages in the agent's in-context memory.
+   * Body param: The ids of the messages in the agent's in-context memory.
    */
   message_ids?: Array<string> | null;
 
   /**
-   * The metadata of the agent.
+   * Body param: The metadata of the agent.
    */
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * The model handle used by the agent (format: provider/model-name).
+   * Body param: The model handle used by the agent (format: provider/model-name).
    */
   model?: string | null;
 
   /**
-   * The model settings for the agent.
+   * Body param: The model settings for the agent.
    */
   model_settings?:
     | OpenAIModelSettings
@@ -2853,82 +3010,82 @@ export interface AgentUpdateParams {
     | null;
 
   /**
-   * The name of the agent.
+   * Body param: The name of the agent.
    */
   name?: string | null;
 
   /**
-   * @deprecated Deprecated: Use `model_settings` to configure parallel tool calls
-   * instead. If set to True, enables parallel tool calling.
+   * @deprecated Body param: Deprecated: Use `model_settings` to configure parallel
+   * tool calls instead. If set to True, enables parallel tool calling.
    */
   parallel_tool_calls?: boolean | null;
 
   /**
-   * The per-file view window character limit for this agent. Setting this too high
-   * may exceed the context window, which will break the agent.
+   * Body param: The per-file view window character limit for this agent. Setting
+   * this too high may exceed the context window, which will break the agent.
    */
   per_file_view_window_char_limit?: number | null;
 
   /**
-   * The id of the project the agent belongs to.
+   * Body param: The id of the project the agent belongs to.
    */
   project_id?: string | null;
 
   /**
-   * @deprecated Deprecated: Use `model` field to configure reasoning instead.
-   * Whether to enable reasoning for this agent.
+   * @deprecated Body param: Deprecated: Use `model` field to configure reasoning
+   * instead. Whether to enable reasoning for this agent.
    */
   reasoning?: boolean | null;
 
   /**
-   * @deprecated Deprecated: Use `model_settings` field to configure response format
-   * instead. The response format for the agent.
+   * @deprecated Body param: Deprecated: Use `model_settings` field to configure
+   * response format instead. The response format for the agent.
    */
   response_format?: TextResponseFormat | JsonSchemaResponseFormat | JsonObjectResponseFormat | null;
 
   /**
-   * The environment variables for tool execution specific to this agent.
+   * Body param: The environment variables for tool execution specific to this agent.
    */
   secrets?: { [key: string]: string } | null;
 
   /**
-   * @deprecated Deprecated: Use `folder_ids` field instead. The ids of the sources
-   * used by the agent.
+   * @deprecated Body param: Deprecated: Use `folder_ids` field instead. The ids of
+   * the sources used by the agent.
    */
   source_ids?: Array<string> | null;
 
   /**
-   * The system prompt used by the agent.
+   * Body param: The system prompt used by the agent.
    */
   system?: string | null;
 
   /**
-   * The tags associated with the agent.
+   * Body param: The tags associated with the agent.
    */
   tags?: Array<string> | null;
 
   /**
-   * The id of the template the agent belongs to.
+   * Body param: The id of the template the agent belongs to.
    */
   template_id?: string | null;
 
   /**
-   * The timezone of the agent (IANA format).
+   * Body param: The timezone of the agent (IANA format).
    */
   timezone?: string | null;
 
   /**
-   * Deprecated: use `secrets` field instead
+   * Body param: Deprecated: use `secrets` field instead
    */
   tool_exec_environment_variables?: { [key: string]: string } | null;
 
   /**
-   * The ids of the tools used by the agent.
+   * Body param: The ids of the tools used by the agent.
    */
   tool_ids?: Array<string> | null;
 
   /**
-   * The tool rules governing the agent.
+   * Body param: The tool rules governing the agent.
    */
   tool_rules?: Array<
     | ChildToolRule
@@ -2941,6 +3098,21 @@ export interface AgentUpdateParams {
     | ParentToolRule
     | RequiresApprovalToolRule
   > | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export namespace AgentUpdateParams {
@@ -3274,29 +3446,29 @@ export namespace AgentUpdateParams {
 
 export interface AgentListParams extends ArrayPageParams {
   /**
-   * @deprecated Whether to sort agents oldest to newest (True) or newest to oldest
-   * (False, default)
+   * @deprecated Query param: Whether to sort agents oldest to newest (True) or
+   * newest to oldest (False, default)
    */
   ascending?: boolean;
 
   /**
-   * Search agents by base template ID
+   * Query param: Search agents by base template ID
    */
   base_template_id?: string | null;
 
   /**
-   * Search agents by identifier keys
+   * Query param: Search agents by identifier keys
    */
   identifier_keys?: Array<string> | null;
 
   /**
-   * Search agents by identity ID
+   * Query param: Search agents by identity ID
    */
   identity_id?: string | null;
 
   /**
-   * Specify which relational fields to include in the response. No relationships are
-   * included by default.
+   * Query param: Specify which relational fields to include in the response. No
+   * relationships are included by default.
    */
   include?: Array<
     | 'agent.blocks'
@@ -3310,80 +3482,120 @@ export interface AgentListParams extends ArrayPageParams {
   >;
 
   /**
-   * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
-   * to include in the response. If not provided, all relationships are loaded by
-   * default. Using this can optimize performance by reducing unnecessary joins.This
-   * is a legacy parameter, and no longer supported after 1.0.0 SDK versions.
+   * @deprecated Query param: Specify which relational fields (e.g., 'tools',
+   * 'sources', 'memory') to include in the response. If not provided, all
+   * relationships are loaded by default. Using this can optimize performance by
+   * reducing unnecessary joins.This is a legacy parameter, and no longer supported
+   * after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
 
   /**
-   * Filter agents by their last stop reason.
+   * Query param: Filter agents by their last stop reason.
    */
   last_stop_reason?: RunsAPI.StopReasonType | null;
 
   /**
-   * If True, only returns agents that match ALL given tags. Otherwise, return agents
-   * that have ANY of the passed-in tags.
+   * Query param: If True, only returns agents that match ALL given tags. Otherwise,
+   * return agents that have ANY of the passed-in tags.
    */
   match_all_tags?: boolean;
 
   /**
-   * Name of the agent
+   * Query param: Name of the agent
    */
   name?: string | null;
 
   /**
-   * Search agents by project ID - this will default to your default project on cloud
+   * Query param: Search agents by project ID - this will default to your default
+   * project on cloud
    */
   project_id?: string | null;
 
   /**
-   * Search agents by name
+   * Query param: Search agents by name
    */
   query_text?: string | null;
 
   /**
-   * @deprecated Field to sort by. Options: 'created_at' (default),
+   * @deprecated Query param: Field to sort by. Options: 'created_at' (default),
    * 'last_run_completion'
    */
   sort_by?: string | null;
 
   /**
-   * List of tags to filter agents by
+   * Query param: List of tags to filter agents by
    */
   tags?: Array<string> | null;
 
   /**
-   * Search agents by template ID
+   * Query param: Search agents by template ID
    */
   template_id?: string | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
+}
+
+export interface AgentDeleteParams {
+  'x-billing-cost-source'?: string;
+
+  'x-billing-customer-id'?: string;
+
+  'x-billing-plan-type'?: string;
 }
 
 export interface AgentExportFileParams {
   /**
-   * Conversation ID to export. If provided, uses messages from this conversation
-   * instead of the agent's global message history.
+   * Query param: Conversation ID to export. If provided, uses messages from this
+   * conversation instead of the agent's global message history.
    */
   conversation_id?: string | null;
 
   /**
-   * @deprecated
+   * @deprecated Query param
    */
   max_steps?: number;
 
   /**
-   * If True, excludes all messages from the export. Useful for sharing agent configs
-   * without conversation history.
+   * Query param: If True, excludes all messages from the export. Useful for sharing
+   * agent configs without conversation history.
    */
   scrub_messages?: boolean;
 
   /**
-   * @deprecated If True, exports using the legacy single-agent 'v1' format with
-   * inline tools/blocks. If False, exports using the new multi-entity 'v2' format,
-   * with separate agents, tools, blocks, files, etc.
+   * @deprecated Query param: If True, exports using the legacy single-agent 'v1'
+   * format with inline tools/blocks. If False, exports using the new multi-entity
+   * 'v2' format, with separate agents, tools, blocks, files, etc.
    */
   use_legacy_format?: boolean;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface AgentImportFileParams {
@@ -3465,6 +3677,21 @@ export interface AgentImportFileParams {
   /**
    * Header param
    */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
+
+  /**
+   * Header param
+   */
   'x-override-embedding-model'?: string;
 }
 
@@ -3515,6 +3742,7 @@ export declare namespace Agents {
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
+    type AgentDeleteParams as AgentDeleteParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
   };
@@ -3625,6 +3853,7 @@ export declare namespace Agents {
     type FileListResponsesNextFilesPage as FileListResponsesNextFilesPage,
     type FileListParams as FileListParams,
     type FileCloseParams as FileCloseParams,
+    type FileCloseAllParams as FileCloseAllParams,
     type FileOpenParams as FileOpenParams,
   };
 

@@ -36,6 +36,7 @@ export {
   type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
+  type AgentDeleteParams,
   type AgentExportFileParams,
   type AgentImportFileParams,
   type AgentStatesArrayPage,
@@ -65,6 +66,7 @@ export {
   type FileOpenResponse,
   type FileListParams,
   type FileCloseParams,
+  type FileCloseAllParams,
   type FileOpenParams,
   type FileListResponsesNextFilesPage,
 } from './files';

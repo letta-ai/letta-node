@@ -19,4 +19,19 @@ describe('resource embeddings', () => {
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
   });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.models.embeddings.list(
+        {
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
+  });
 });

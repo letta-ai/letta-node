@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -9,8 +10,27 @@ export class Metrics extends APIResource {
   /**
    * Get step metrics by step ID.
    */
-  retrieve(stepID: string, options?: RequestOptions): APIPromise<MetricRetrieveResponse> {
-    return this._client.get(path`/v1/steps/${stepID}/metrics`, options);
+  retrieve(
+    stepID: string,
+    params: MetricRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<MetricRetrieveResponse> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params ?? {};
+    return this._client.get(path`/v1/steps/${stepID}/metrics`, {
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -76,6 +96,17 @@ export interface MetricRetrieveResponse {
   tool_execution_ns?: number | null;
 }
 
+export interface MetricRetrieveParams {
+  'x-billing-cost-source'?: string;
+
+  'x-billing-customer-id'?: string;
+
+  'x-billing-plan-type'?: string;
+}
+
 export declare namespace Metrics {
-  export { type MetricRetrieveResponse as MetricRetrieveResponse };
+  export {
+    type MetricRetrieveResponse as MetricRetrieveResponse,
+    type MetricRetrieveParams as MetricRetrieveParams,
+  };
 }

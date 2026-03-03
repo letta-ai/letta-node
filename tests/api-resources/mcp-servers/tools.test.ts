@@ -22,7 +22,12 @@ describe('resource tools', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.mcpServers.tools.retrieve('tool_id', { mcp_server_id: 'mcp_server_id' });
+    const response = await client.mcpServers.tools.retrieve('tool_id', {
+      mcp_server_id: 'mcp_server_id',
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
+    });
   });
 
   // Mock server tests are disabled
@@ -35,6 +40,22 @@ describe('resource tools', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.mcpServers.tools.list(
+        'mcp_server_id',
+        {
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -54,6 +75,9 @@ describe('resource tools', () => {
     const response = await client.mcpServers.tools.run('tool_id', {
       mcp_server_id: 'mcp_server_id',
       args: { foo: 'bar' },
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 });

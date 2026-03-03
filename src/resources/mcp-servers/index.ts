@@ -17,7 +17,16 @@ export {
   type McpServerListResponse,
   type McpServerRefreshResponse,
   type McpServerCreateParams,
+  type McpServerRetrieveParams,
   type McpServerUpdateParams,
+  type McpServerListParams,
+  type McpServerDeleteParams,
   type McpServerRefreshParams,
 } from './mcp-servers';
-export { Tools, type ToolListResponse, type ToolRetrieveParams, type ToolRunParams } from './tools';
+export {
+  Tools,
+  type ToolListResponse,
+  type ToolRetrieveParams,
+  type ToolListParams,
+  type ToolRunParams,
+} from './tools';

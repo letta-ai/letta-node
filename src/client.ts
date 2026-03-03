@@ -41,6 +41,7 @@ import {
 import {
   MessageListParams,
   MessageListResponse,
+  MessageRetrieveParams,
   MessageRetrieveResponse,
   MessageSearchParams,
   MessageSearchRequest,
@@ -56,8 +57,10 @@ import {
   Tool,
   ToolCreate,
   ToolCreateParams,
+  ToolDeleteParams,
   ToolDeleteResponse,
   ToolListParams,
+  ToolRetrieveParams,
   ToolReturnMessage,
   ToolSearchParams,
   ToolSearchRequest,
@@ -71,6 +74,7 @@ import {
 } from './resources/tools';
 import {
   AgentCreateParams,
+  AgentDeleteParams,
   AgentDeleteResponse,
   AgentEnvironmentVariable,
   AgentExportFileParams,
@@ -112,7 +116,9 @@ import {
 import {
   Archive,
   ArchiveCreateParams,
+  ArchiveDeleteParams,
   ArchiveListParams,
+  ArchiveRetrieveParams,
   ArchiveUpdateParams,
   Archives,
   ArchivesArrayPage,
@@ -120,21 +126,26 @@ import {
 } from './resources/archives/archives';
 import {
   BlockCreateParams,
+  BlockDeleteParams,
   BlockDeleteResponse,
   BlockListParams,
   BlockResponse,
   BlockResponsesArrayPage,
+  BlockRetrieveParams,
   BlockUpdateParams,
   Blocks,
   CreateBlock,
 } from './resources/blocks/blocks';
 import {
   Conversation,
+  ConversationCancelParams,
   ConversationCancelResponse,
   ConversationCreateParams,
+  ConversationDeleteParams,
   ConversationDeleteResponse,
   ConversationListParams,
   ConversationListResponse,
+  ConversationRetrieveParams,
   ConversationUpdateParams,
   Conversations,
   CreateConversation,
@@ -143,8 +154,10 @@ import {
 import {
   Folder,
   FolderCreateParams,
+  FolderDeleteParams,
   FolderDeleteResponse,
   FolderListParams,
+  FolderRetrieveParams,
   FolderUpdateParams,
   Folders,
   FoldersArrayPage,
@@ -155,9 +168,12 @@ import {
   CreateStreamableHTTPMcpServer,
   McpServerCreateParams,
   McpServerCreateResponse,
+  McpServerDeleteParams,
+  McpServerListParams,
   McpServerListResponse,
   McpServerRefreshParams,
   McpServerRefreshResponse,
+  McpServerRetrieveParams,
   McpServerRetrieveResponse,
   McpServerUpdateParams,
   McpServerUpdateResponse,
@@ -180,8 +196,15 @@ import {
   ProviderCategory,
   ProviderType,
 } from './resources/models/models';
-import { Job, RunListParams, Runs, StopReasonType } from './resources/runs/runs';
-import { ProviderTrace, Step, StepListParams, Steps, StepsArrayPage } from './resources/steps/steps';
+import { Job, RunListParams, RunRetrieveParams, Runs, StopReasonType } from './resources/runs/runs';
+import {
+  ProviderTrace,
+  Step,
+  StepListParams,
+  StepRetrieveParams,
+  Steps,
+  StepsArrayPage,
+} from './resources/steps/steps';
 import {
   TemplateCreateParams,
   TemplateCreateResponse,
@@ -1051,6 +1074,7 @@ export declare namespace Letta {
     type AgentRetrieveParams as AgentRetrieveParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
+    type AgentDeleteParams as AgentDeleteParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
   };
@@ -1069,8 +1093,10 @@ export declare namespace Letta {
     type ToolSearchResponse as ToolSearchResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
+    type ToolRetrieveParams as ToolRetrieveParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
+    type ToolDeleteParams as ToolDeleteParams,
     type ToolSearchParams as ToolSearchParams,
     type ToolUpsertParams as ToolUpsertParams,
   };
@@ -1082,8 +1108,10 @@ export declare namespace Letta {
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockResponsesArrayPage as BlockResponsesArrayPage,
     type BlockCreateParams as BlockCreateParams,
+    type BlockRetrieveParams as BlockRetrieveParams,
     type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
+    type BlockDeleteParams as BlockDeleteParams,
   };
 
   export {
@@ -1092,8 +1120,10 @@ export declare namespace Letta {
     type VectorDBProvider as VectorDBProvider,
     type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
+    type ArchiveRetrieveParams as ArchiveRetrieveParams,
     type ArchiveUpdateParams as ArchiveUpdateParams,
     type ArchiveListParams as ArchiveListParams,
+    type ArchiveDeleteParams as ArchiveDeleteParams,
   };
 
   export {
@@ -1102,8 +1132,10 @@ export declare namespace Letta {
     type FolderDeleteResponse as FolderDeleteResponse,
     type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
+    type FolderRetrieveParams as FolderRetrieveParams,
     type FolderUpdateParams as FolderUpdateParams,
     type FolderListParams as FolderListParams,
+    type FolderDeleteParams as FolderDeleteParams,
   };
 
   export {
@@ -1135,7 +1167,10 @@ export declare namespace Letta {
     type McpServerListResponse as McpServerListResponse,
     type McpServerRefreshResponse as McpServerRefreshResponse,
     type McpServerCreateParams as McpServerCreateParams,
+    type McpServerRetrieveParams as McpServerRetrieveParams,
     type McpServerUpdateParams as McpServerUpdateParams,
+    type McpServerListParams as McpServerListParams,
+    type McpServerDeleteParams as McpServerDeleteParams,
     type McpServerRefreshParams as McpServerRefreshParams,
   };
 
@@ -1143,6 +1178,7 @@ export declare namespace Letta {
     Runs as Runs,
     type Job as Job,
     type StopReasonType as StopReasonType,
+    type RunRetrieveParams as RunRetrieveParams,
     type RunListParams as RunListParams,
   };
 
@@ -1151,6 +1187,7 @@ export declare namespace Letta {
     type ProviderTrace as ProviderTrace,
     type Step as Step,
     type StepsArrayPage as StepsArrayPage,
+    type StepRetrieveParams as StepRetrieveParams,
     type StepListParams as StepListParams,
   };
 
@@ -1177,6 +1214,7 @@ export declare namespace Letta {
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageListResponse as MessageListResponse,
     type MessageSearchResponse as MessageSearchResponse,
+    type MessageRetrieveParams as MessageRetrieveParams,
     type MessageListParams as MessageListParams,
     type MessageSearchParams as MessageSearchParams,
   };
@@ -1197,8 +1235,11 @@ export declare namespace Letta {
     type ConversationDeleteResponse as ConversationDeleteResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationCreateParams as ConversationCreateParams,
+    type ConversationRetrieveParams as ConversationRetrieveParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
+    type ConversationDeleteParams as ConversationDeleteParams,
+    type ConversationCancelParams as ConversationCancelParams,
   };
 
   export {

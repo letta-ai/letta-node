@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -11,10 +12,27 @@ export class Agents extends APIResource {
    */
   list(
     folderID: string,
-    query: AgentListParams | null | undefined = {},
+    params: AgentListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<AgentListResponse> {
-    return this._client.get(path`/v1/folders/${folderID}/agents`, { query, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
+    return this._client.get(path`/v1/folders/${folderID}/agents`, {
+      query,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -22,32 +40,47 @@ export type AgentListResponse = Array<string>;
 
 export interface AgentListParams {
   /**
-   * Agent ID cursor for pagination. Returns agents that come after this agent ID in
-   * the specified sort order
+   * Query param: Agent ID cursor for pagination. Returns agents that come after this
+   * agent ID in the specified sort order
    */
   after?: string | null;
 
   /**
-   * Agent ID cursor for pagination. Returns agents that come before this agent ID in
-   * the specified sort order
+   * Query param: Agent ID cursor for pagination. Returns agents that come before
+   * this agent ID in the specified sort order
    */
   before?: string | null;
 
   /**
-   * Maximum number of agents to return
+   * Query param: Maximum number of agents to return
    */
   limit?: number | null;
 
   /**
-   * Sort order for agents by creation time. 'asc' for oldest first, 'desc' for
-   * newest first
+   * Query param: Sort order for agents by creation time. 'asc' for oldest first,
+   * 'desc' for newest first
    */
   order?: 'asc' | 'desc';
 
   /**
-   * Field to sort by
+   * Query param: Field to sort by
    */
   order_by?: 'created_at';
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Agents {

@@ -49,7 +49,7 @@ Methods:
 - <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">retrieve</a>(agentID, { ...params }) -> AgentState</code>
 - <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">update</a>(agentID, { ...params }) -> AgentState</code>
 - <code title="get /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">list</a>({ ...params }) -> AgentStatesArrayPage</code>
-- <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentID) -> unknown</code>
+- <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentID, { ...params }) -> unknown</code>
 - <code title="get /v1/agents/{agent_id}/export">client.agents.<a href="./src/resources/agents/agents.ts">exportFile</a>(agentID, { ...params }) -> string</code>
 - <code title="post /v1/agents/import">client.agents.<a href="./src/resources/agents/agents.ts">importFile</a>({ ...params }) -> AgentImportFileResponse</code>
 
@@ -179,7 +179,7 @@ Methods:
 
 - <code title="get /v1/agents/{agent_id}/files">client.agents.files.<a href="./src/resources/agents/files.ts">list</a>(agentID, { ...params }) -> FileListResponsesNextFilesPage</code>
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/close">client.agents.files.<a href="./src/resources/agents/files.ts">close</a>(fileID, { ...params }) -> unknown</code>
-- <code title="patch /v1/agents/{agent_id}/files/close-all">client.agents.files.<a href="./src/resources/agents/files.ts">closeAll</a>(agentID) -> FileCloseAllResponse</code>
+- <code title="patch /v1/agents/{agent_id}/files/close-all">client.agents.files.<a href="./src/resources/agents/files.ts">closeAll</a>(agentID, { ...params }) -> FileCloseAllResponse</code>
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/open">client.agents.files.<a href="./src/resources/agents/files.ts">open</a>(fileID, { ...params }) -> FileOpenResponse</code>
 
 ## Archives
@@ -240,10 +240,10 @@ Types:
 Methods:
 
 - <code title="post /v1/tools/">client.tools.<a href="./src/resources/tools.ts">create</a>({ ...params }) -> Tool</code>
-- <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">retrieve</a>(toolID) -> Tool</code>
+- <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">retrieve</a>(toolID, { ...params }) -> Tool</code>
 - <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">update</a>(toolID, { ...params }) -> Tool</code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/resources/tools.ts">list</a>({ ...params }) -> ToolsArrayPage</code>
-- <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolID) -> unknown</code>
+- <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/resources/tools.ts">delete</a>(toolID, { ...params }) -> unknown</code>
 - <code title="post /v1/tools/search">client.tools.<a href="./src/resources/tools.ts">search</a>({ ...params }) -> ToolSearchResponse</code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/resources/tools.ts">upsert</a>({ ...params }) -> Tool</code>
 
@@ -258,10 +258,10 @@ Types:
 Methods:
 
 - <code title="post /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">create</a>({ ...params }) -> BlockResponse</code>
-- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">retrieve</a>(blockID) -> BlockResponse</code>
+- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">retrieve</a>(blockID, { ...params }) -> BlockResponse</code>
 - <code title="patch /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">update</a>(blockID, { ...params }) -> BlockResponse</code>
 - <code title="get /v1/blocks/">client.blocks.<a href="./src/resources/blocks/blocks.ts">list</a>({ ...params }) -> BlockResponsesArrayPage</code>
-- <code title="delete /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">delete</a>(blockID) -> unknown</code>
+- <code title="delete /v1/blocks/{block_id}">client.blocks.<a href="./src/resources/blocks/blocks.ts">delete</a>(blockID, { ...params }) -> unknown</code>
 
 ## Agents
 
@@ -279,10 +279,10 @@ Types:
 Methods:
 
 - <code title="post /v1/archives/">client.archives.<a href="./src/resources/archives/archives.ts">create</a>({ ...params }) -> Archive</code>
-- <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives/archives.ts">retrieve</a>(archiveID) -> Archive</code>
+- <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives/archives.ts">retrieve</a>(archiveID, { ...params }) -> Archive</code>
 - <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives/archives.ts">update</a>(archiveID, { ...params }) -> Archive</code>
 - <code title="get /v1/archives/">client.archives.<a href="./src/resources/archives/archives.ts">list</a>({ ...params }) -> ArchivesArrayPage</code>
-- <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives/archives.ts">delete</a>(archiveID) -> void</code>
+- <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/resources/archives/archives.ts">delete</a>(archiveID, { ...params }) -> void</code>
 
 ## Passages
 
@@ -306,10 +306,10 @@ Types:
 Methods:
 
 - <code title="post /v1/folders/">client.folders.<a href="./src/resources/folders/folders.ts">create</a>({ ...params }) -> Folder</code>
-- <code title="get /v1/folders/{folder_id}">client.folders.<a href="./src/resources/folders/folders.ts">retrieve</a>(folderID) -> Folder</code>
+- <code title="get /v1/folders/{folder_id}">client.folders.<a href="./src/resources/folders/folders.ts">retrieve</a>(folderID, { ...params }) -> Folder</code>
 - <code title="patch /v1/folders/{folder_id}">client.folders.<a href="./src/resources/folders/folders.ts">update</a>(folderID, { ...params }) -> Folder</code>
 - <code title="get /v1/folders/">client.folders.<a href="./src/resources/folders/folders.ts">list</a>({ ...params }) -> FoldersArrayPage</code>
-- <code title="delete /v1/folders/{folder_id}">client.folders.<a href="./src/resources/folders/folders.ts">delete</a>(folderID) -> unknown</code>
+- <code title="delete /v1/folders/{folder_id}">client.folders.<a href="./src/resources/folders/folders.ts">delete</a>(folderID, { ...params }) -> unknown</code>
 
 ## Files
 
@@ -360,7 +360,7 @@ Types:
 
 Methods:
 
-- <code title="get /v1/models/embedding">client.models.embeddings.<a href="./src/resources/models/embeddings.ts">list</a>() -> EmbeddingListResponse</code>
+- <code title="get /v1/models/embedding">client.models.embeddings.<a href="./src/resources/models/embeddings.ts">list</a>({ ...params }) -> EmbeddingListResponse</code>
 
 # McpServers
 
@@ -384,10 +384,10 @@ Types:
 Methods:
 
 - <code title="post /v1/mcp-servers/">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">create</a>({ ...params }) -> McpServerCreateResponse</code>
-- <code title="get /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">retrieve</a>(mcpServerID) -> McpServerRetrieveResponse</code>
+- <code title="get /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">retrieve</a>(mcpServerID, { ...params }) -> McpServerRetrieveResponse</code>
 - <code title="patch /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">update</a>(mcpServerID, { ...params }) -> McpServerUpdateResponse</code>
-- <code title="get /v1/mcp-servers/">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">list</a>() -> McpServerListResponse</code>
-- <code title="delete /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">delete</a>(mcpServerID) -> void</code>
+- <code title="get /v1/mcp-servers/">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">list</a>({ ...params }) -> McpServerListResponse</code>
+- <code title="delete /v1/mcp-servers/{mcp_server_id}">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">delete</a>(mcpServerID, { ...params }) -> void</code>
 - <code title="patch /v1/mcp-servers/{mcp_server_id}/refresh">client.mcpServers.<a href="./src/resources/mcp-servers/mcp-servers.ts">refresh</a>(mcpServerID, { ...params }) -> unknown</code>
 
 ## Tools
@@ -399,7 +399,7 @@ Types:
 Methods:
 
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">retrieve</a>(toolID, { ...params }) -> Tool</code>
-- <code title="get /v1/mcp-servers/{mcp_server_id}/tools">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">list</a>(mcpServerID) -> ToolListResponse</code>
+- <code title="get /v1/mcp-servers/{mcp_server_id}/tools">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">list</a>(mcpServerID, { ...params }) -> ToolListResponse</code>
 - <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcpServers.tools.<a href="./src/resources/mcp-servers/tools.ts">run</a>(toolID, { ...params }) -> ToolExecutionResult</code>
 
 # Runs
@@ -411,7 +411,7 @@ Types:
 
 Methods:
 
-- <code title="get /v1/runs/{run_id}">client.runs.<a href="./src/resources/runs/runs.ts">retrieve</a>(runID) -> Run</code>
+- <code title="get /v1/runs/{run_id}">client.runs.<a href="./src/resources/runs/runs.ts">retrieve</a>(runID, { ...params }) -> Run</code>
 - <code title="get /v1/runs/">client.runs.<a href="./src/resources/runs/runs.ts">list</a>({ ...params }) -> RunsArrayPage</code>
 
 ## Messages
@@ -433,7 +433,7 @@ Types:
 
 Methods:
 
-- <code title="get /v1/runs/{run_id}/usage">client.runs.usage.<a href="./src/resources/runs/usage.ts">retrieve</a>(runID) -> UsageRetrieveResponse</code>
+- <code title="get /v1/runs/{run_id}/usage">client.runs.usage.<a href="./src/resources/runs/usage.ts">retrieve</a>(runID, { ...params }) -> UsageRetrieveResponse</code>
 
 ## Steps
 
@@ -460,7 +460,7 @@ Types:
 
 Methods:
 
-- <code title="get /v1/steps/{step_id}">client.steps.<a href="./src/resources/steps/steps.ts">retrieve</a>(stepID) -> Step</code>
+- <code title="get /v1/steps/{step_id}">client.steps.<a href="./src/resources/steps/steps.ts">retrieve</a>(stepID, { ...params }) -> Step</code>
 - <code title="get /v1/steps/">client.steps.<a href="./src/resources/steps/steps.ts">list</a>({ ...params }) -> StepsArrayPage</code>
 
 ## Metrics
@@ -471,13 +471,13 @@ Types:
 
 Methods:
 
-- <code title="get /v1/steps/{step_id}/metrics">client.steps.metrics.<a href="./src/resources/steps/metrics.ts">retrieve</a>(stepID) -> MetricRetrieveResponse</code>
+- <code title="get /v1/steps/{step_id}/metrics">client.steps.metrics.<a href="./src/resources/steps/metrics.ts">retrieve</a>(stepID, { ...params }) -> MetricRetrieveResponse</code>
 
 ## Trace
 
 Methods:
 
-- <code title="get /v1/steps/{step_id}/trace">client.steps.trace.<a href="./src/resources/steps/trace.ts">retrieve</a>(stepID) -> ProviderTrace | null</code>
+- <code title="get /v1/steps/{step_id}/trace">client.steps.trace.<a href="./src/resources/steps/trace.ts">retrieve</a>(stepID, { ...params }) -> ProviderTrace | null</code>
 
 ## Feedback
 
@@ -545,7 +545,7 @@ Types:
 
 Methods:
 
-- <code title="get /v1/messages/{message_id}">client.messages.<a href="./src/resources/messages.ts">retrieve</a>(messageID) -> MessageRetrieveResponse</code>
+- <code title="get /v1/messages/{message_id}">client.messages.<a href="./src/resources/messages.ts">retrieve</a>(messageID, { ...params }) -> MessageRetrieveResponse</code>
 - <code title="get /v1/messages/">client.messages.<a href="./src/resources/messages.ts">list</a>({ ...params }) -> MessageListResponse</code>
 - <code title="post /v1/messages/search">client.messages.<a href="./src/resources/messages.ts">search</a>({ ...params }) -> MessageSearchResponse</code>
 
@@ -574,11 +574,11 @@ Types:
 Methods:
 
 - <code title="post /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">create</a>({ ...params }) -> Conversation</code>
-- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(conversationID) -> Conversation</code>
+- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="patch /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">update</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
-- <code title="delete /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">delete</a>(conversationID) -> unknown</code>
-- <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/resources/conversations/conversations.ts">cancel</a>(conversationID) -> ConversationCancelResponse</code>
+- <code title="delete /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">delete</a>(conversationID, { ...params }) -> unknown</code>
+- <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/resources/conversations/conversations.ts">cancel</a>(conversationID, { ...params }) -> ConversationCancelResponse</code>
 
 ## Messages
 

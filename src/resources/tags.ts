@@ -2,14 +2,32 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
+import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 
 export class Tags extends APIResource {
   /**
    * Get the list of all tags (from agents and blocks) that have been created.
    */
-  list(query: TagListParams | null | undefined = {}, options?: RequestOptions): APIPromise<TagListResponse> {
-    return this._client.get('/v1/tags/', { query, ...options });
+  list(params: TagListParams | null | undefined = {}, options?: RequestOptions): APIPromise<TagListResponse> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
+    return this._client.get('/v1/tags/', {
+      query,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -17,43 +35,58 @@ export type TagListResponse = Array<string>;
 
 export interface TagListParams {
   /**
-   * Tag cursor for pagination. Returns tags that come after this tag in the
-   * specified sort order
+   * Query param: Tag cursor for pagination. Returns tags that come after this tag in
+   * the specified sort order
    */
   after?: string | null;
 
   /**
-   * Tag cursor for pagination. Returns tags that come before this tag in the
-   * specified sort order
+   * Query param: Tag cursor for pagination. Returns tags that come before this tag
+   * in the specified sort order
    */
   before?: string | null;
 
   /**
-   * Maximum number of tags to return
+   * Query param: Maximum number of tags to return
    */
   limit?: number | null;
 
   /**
-   * Filter tags by name
+   * Query param: Filter tags by name
    */
   name?: string | null;
 
   /**
-   * Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse
-   * alphabetical order
+   * Query param: Sort order for tags. 'asc' for alphabetical order, 'desc' for
+   * reverse alphabetical order
    */
   order?: 'asc' | 'desc';
 
   /**
-   * Field to sort by
+   * Query param: Field to sort by
    */
   order_by?: 'name';
 
   /**
-   * @deprecated Filter tags by text search. Deprecated, please use name field
-   * instead
+   * @deprecated Query param: Filter tags by text search. Deprecated, please use name
+   * field instead
    */
   query_text?: string | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Tags {

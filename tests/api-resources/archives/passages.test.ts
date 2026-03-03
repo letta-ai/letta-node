@@ -29,6 +29,9 @@ describe('resource passages', () => {
       created_at: 'created_at',
       metadata: { foo: 'bar' },
       tags: ['string'],
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -50,6 +53,9 @@ describe('resource passages', () => {
   test.skip('delete: required and optional params', async () => {
     const response = await client.archives.passages.delete('passage-123e4567-e89b-42d3-8456-426614174000', {
       archive_id: 'archive-123e4567-e89b-42d3-8456-426614174000',
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -81,6 +87,9 @@ describe('resource passages', () => {
             tags: ['string'],
           },
         ],
+        'x-billing-cost-source': 'x-billing-cost-source',
+        'x-billing-customer-id': 'x-billing-customer-id',
+        'x-billing-plan-type': 'x-billing-plan-type',
       },
     );
   });

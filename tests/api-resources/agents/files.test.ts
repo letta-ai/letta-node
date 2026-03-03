@@ -34,6 +34,9 @@ describe('resource files', () => {
           limit: 0,
           order: 'asc',
           order_by: 'created_at',
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -58,6 +61,9 @@ describe('resource files', () => {
   test.skip('close: required and optional params', async () => {
     const response = await client.agents.files.close('file-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -71,6 +77,22 @@ describe('resource files', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('closeAll: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.agents.files.closeAll(
+        'agent-123e4567-e89b-42d3-8456-426614174000',
+        {
+          'x-billing-cost-source': 'x-billing-cost-source',
+          'x-billing-customer-id': 'x-billing-customer-id',
+          'x-billing-plan-type': 'x-billing-plan-type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -91,6 +113,9 @@ describe('resource files', () => {
   test.skip('open: required and optional params', async () => {
     const response = await client.agents.files.open('file-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
+      'x-billing-cost-source': 'x-billing-cost-source',
+      'x-billing-customer-id': 'x-billing-customer-id',
+      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 });

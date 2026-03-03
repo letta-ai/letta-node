@@ -15,10 +15,27 @@ export class Passages extends APIResource {
    */
   create(
     archiveID: string,
-    body: PassageCreateParams,
+    params: PassageCreateParams,
     options?: RequestOptions,
   ): APIPromise<PassagesAPI.Passage> {
-    return this._client.post(path`/v1/archives/${archiveID}/passages`, { body, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
+    return this._client.post(path`/v1/archives/${archiveID}/passages`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -28,10 +45,23 @@ export class Passages extends APIResource {
    * (if applicable).
    */
   delete(passageID: string, params: PassageDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { archive_id } = params;
+    const {
+      archive_id,
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+    } = params;
     return this._client.delete(path`/v1/archives/${archive_id}/passages/${passageID}`, {
       ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([
+        {
+          Accept: '*/*',
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 
@@ -42,10 +72,27 @@ export class Passages extends APIResource {
    */
   createMany(
     archiveID: string,
-    body: PassageCreateManyParams,
+    params: PassageCreateManyParams,
     options?: RequestOptions,
   ): APIPromise<PassageCreateManyResponse> {
-    return this._client.post(path`/v1/archives/${archiveID}/passages/batch`, { body, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
+    return this._client.post(path`/v1/archives/${archiveID}/passages/batch`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -53,38 +100,83 @@ export type PassageCreateManyResponse = Array<PassagesAPI.Passage>;
 
 export interface PassageCreateParams {
   /**
-   * The text content of the passage
+   * Body param: The text content of the passage
    */
   text: string;
 
   /**
-   * Optional creation datetime for the passage (ISO 8601 format)
+   * Body param: Optional creation datetime for the passage (ISO 8601 format)
    */
   created_at?: string | null;
 
   /**
-   * Optional metadata for the passage
+   * Body param: Optional metadata for the passage
    */
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * Optional tags for categorizing the passage
+   * Body param: Optional tags for categorizing the passage
    */
   tags?: Array<string> | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface PassageDeleteParams {
   /**
-   * The ID of the archive in the format 'archive-<uuid4>'
+   * Path param: The ID of the archive in the format 'archive-<uuid4>'
    */
   archive_id: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface PassageCreateManyParams {
   /**
-   * Passages to create in the archive
+   * Body param: Passages to create in the archive
    */
   passages: Array<PassageCreateManyParams.Passage>;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export namespace PassageCreateManyParams {

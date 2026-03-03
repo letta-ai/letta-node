@@ -9,6 +9,7 @@ import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { Stream } from '../../core/streaming';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -37,28 +38,42 @@ export class Messages extends APIResource {
    */
   create(
     agentID: string,
-    body: MessageCreateParamsNonStreaming,
+    params: MessageCreateParamsNonStreaming,
     options?: RequestOptions,
   ): APIPromise<LettaResponse>;
   create(
     agentID: string,
-    body: MessageCreateParamsStreaming,
+    params: MessageCreateParamsStreaming,
     options?: RequestOptions,
   ): APIPromise<Stream<LettaStreamingResponse>>;
   create(
     agentID: string,
-    body: MessageCreateParamsBase,
+    params: MessageCreateParamsBase,
     options?: RequestOptions,
   ): APIPromise<Stream<LettaStreamingResponse> | LettaResponse>;
   create(
     agentID: string,
-    body: MessageCreateParams,
+    params: MessageCreateParams,
     options?: RequestOptions,
   ): APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
     return this._client.post(path`/v1/agents/${agentID}/messages`, {
       body,
       ...options,
-      stream: body.streaming ?? false,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+      stream: params.streaming ?? false,
     }) as APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>>;
   }
 
@@ -67,12 +82,26 @@ export class Messages extends APIResource {
    */
   list(
     agentID: string,
-    query: MessageListParams | null | undefined = {},
+    params: MessageListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<MessagesArrayPage, Message> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...query
+    } = params ?? {};
     return this._client.getAPIList(path`/v1/agents/${agentID}/messages`, ArrayPage<Message>, {
       query,
       ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 
@@ -84,10 +113,27 @@ export class Messages extends APIResource {
    */
   cancel(
     agentID: string,
-    body: MessageCancelParams | null | undefined = {},
+    params: MessageCancelParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<MessageCancelResponse> {
-    return this._client.post(path`/v1/agents/${agentID}/messages/cancel`, { body, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params ?? {};
+    return this._client.post(path`/v1/agents/${agentID}/messages/cancel`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -95,10 +141,27 @@ export class Messages extends APIResource {
    */
   compact(
     agentID: string,
-    body: MessageCompactParams | null | undefined = {},
+    params: MessageCompactParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<ConversationsMessagesAPI.CompactionResponse> {
-    return this._client.post(path`/v1/agents/${agentID}/summarize`, { body, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params ?? {};
+    return this._client.post(path`/v1/agents/${agentID}/summarize`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -115,8 +178,25 @@ export class Messages extends APIResource {
    * before sending the next one. Use separate agents or conversations for parallel
    * processing.
    */
-  createAsync(agentID: string, body: MessageCreateAsyncParams, options?: RequestOptions): APIPromise<Run> {
-    return this._client.post(path`/v1/agents/${agentID}/messages/async`, { body, ...options });
+  createAsync(agentID: string, params: MessageCreateAsyncParams, options?: RequestOptions): APIPromise<Run> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
+    return this._client.post(path`/v1/agents/${agentID}/messages/async`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -124,10 +204,27 @@ export class Messages extends APIResource {
    */
   reset(
     agentID: string,
-    body: MessageResetParams,
+    params: MessageResetParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState | null> {
-    return this._client.patch(path`/v1/agents/${agentID}/reset-messages`, { body, ...options });
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
+    return this._client.patch(path`/v1/agents/${agentID}/reset-messages`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -150,12 +247,26 @@ export class Messages extends APIResource {
    */
   stream(
     agentID: string,
-    body: MessageStreamParams,
+    params: MessageStreamParams,
     options?: RequestOptions,
   ): APIPromise<Stream<LettaStreamingResponse>> {
+    const {
+      'x-billing-cost-source': xBillingCostSource,
+      'x-billing-customer-id': xBillingCustomerID,
+      'x-billing-plan-type': xBillingPlanType,
+      ...body
+    } = params;
     return this._client.post(path`/v1/agents/${agentID}/messages/stream`, {
       body,
       ...options,
+      headers: buildHeaders([
+        {
+          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
+          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
+          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
+        },
+        options?.headers,
+      ]),
       stream: true,
     }) as APIPromise<Stream<LettaStreamingResponse>>;
   }
@@ -2173,58 +2284,59 @@ export type MessageCreateParams = MessageCreateParamsNonStreaming | MessageCreat
 
 export interface MessageCreateParamsBase {
   /**
-   * @deprecated The name of the message argument in the designated message tool.
-   * Still supported for legacy agent types, but deprecated for letta_v1_agent
-   * onward.
+   * @deprecated Body param: The name of the message argument in the designated
+   * message tool. Still supported for legacy agent types, but deprecated for
+   * letta_v1_agent onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * @deprecated The name of the designated message tool. Still supported for legacy
-   * agent types, but deprecated for letta_v1_agent onward.
+   * @deprecated Body param: The name of the designated message tool. Still supported
+   * for legacy agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * Whether to process the request in the background (only used when
+   * Body param: Whether to process the request in the background (only used when
    * streaming=true).
    */
   background?: boolean;
 
   /**
-   * Client-side tools that the agent can call. When the agent calls a client-side
-   * tool, execution pauses and returns control to the client to execute the tool and
-   * provide the result via a ToolReturn.
+   * Body param: Client-side tools that the agent can call. When the agent calls a
+   * client-side tool, execution pauses and returns control to the client to execute
+   * the tool and provide the result via a ToolReturn.
    */
   client_tools?: Array<MessageCreateParams.ClientTool> | null;
 
   /**
-   * @deprecated If set to True, enables reasoning before responses or tool calls
-   * from the agent.
+   * @deprecated Body param: If set to True, enables reasoning before responses or
+   * tool calls from the agent.
    */
   enable_thinking?: string;
 
   /**
-   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
-   * types. If False (default), compaction messages are not included in the response.
+   * Body param: If True, compaction events emit structured `SummaryMessage` and
+   * `EventMessage` types. If False (default), compaction messages are not included
+   * in the response.
    */
   include_compaction_messages?: boolean;
 
   /**
-   * Whether to include periodic keepalive ping messages in the stream to prevent
-   * connection timeouts (only used when streaming=true).
+   * Body param: Whether to include periodic keepalive ping messages in the stream to
+   * prevent connection timeouts (only used when streaming=true).
    */
   include_pings?: boolean;
 
   /**
-   * Only return specified message types in the response. If `None` (default) returns
-   * all messages.
+   * Body param: Only return specified message types in the response. If `None`
+   * (default) returns all messages.
    */
   include_return_message_types?: Array<MessageType> | null;
 
   /**
-   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-   * 'user', 'content': input}].
+   * Body param: Syntactic sugar for a single user message. Equivalent to
+   * messages=[{'role': 'user', 'content': input}].
    */
   input?:
     | string
@@ -2241,61 +2353,77 @@ export interface MessageCreateParamsBase {
     | null;
 
   /**
-   * Maximum number of steps the agent should take to process the request.
+   * Body param: Maximum number of steps the agent should take to process the
+   * request.
    */
   max_steps?: number;
 
   /**
-   * The messages to be sent to the agent.
+   * Body param: The messages to be sent to the agent.
    */
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | MessageCreateParams.ToolReturnCreate> | null;
 
   /**
-   * Model handle to use for this request instead of the agent's default model. This
-   * allows sending a message to a different model without changing the agent's
-   * configuration.
+   * Body param: Model handle to use for this request instead of the agent's default
+   * model. This allows sending a message to a different model without changing the
+   * agent's configuration.
    */
   override_model?: string | null;
 
   /**
-   * If True, returns log probabilities of the output tokens in the response. Useful
-   * for RL training. Only supported for OpenAI-compatible providers (including
-   * SGLang).
+   * Body param: If True, returns log probabilities of the output tokens in the
+   * response. Useful for RL training. Only supported for OpenAI-compatible providers
+   * (including SGLang).
    */
   return_logprobs?: boolean;
 
   /**
-   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
-   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
-   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
-   * proper multi-turn RL training with loss masking.
+   * Body param: If True, returns token IDs and logprobs for ALL LLM generations in
+   * the agent step, not just the last one. Uses SGLang native /generate endpoint.
+   * Returns 'turns' field with TurnTokenData for each assistant/tool turn. Required
+   * for proper multi-turn RL training with loss masking.
    */
   return_token_ids?: boolean;
 
   /**
-   * Flag to determine if individual tokens should be streamed, rather than streaming
-   * per step (only used when streaming=true).
+   * Body param: Flag to determine if individual tokens should be streamed, rather
+   * than streaming per step (only used when streaming=true).
    */
   stream_tokens?: boolean;
 
   /**
-   * If True, returns a streaming response (Server-Sent Events). If False (default),
-   * returns a complete response.
+   * Body param: If True, returns a streaming response (Server-Sent Events). If False
+   * (default), returns a complete response.
    */
   streaming?: boolean;
 
   /**
-   * Number of most likely tokens to return at each position (0-20). Requires
-   * return_logprobs=True.
+   * Body param: Number of most likely tokens to return at each position (0-20).
+   * Requires return_logprobs=True.
    */
   top_logprobs?: number | null;
 
   /**
-   * @deprecated Whether the server should parse specific tool call arguments
-   * (default `send_message`) as `AssistantMessage` objects. Still supported for
-   * legacy agent types, but deprecated for letta_v1_agent onward.
+   * @deprecated Body param: Whether the server should parse specific tool call
+   * arguments (default `send_message`) as `AssistantMessage` objects. Still
+   * supported for legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export namespace MessageCreateParams {
@@ -2387,68 +2515,113 @@ export namespace MessageCreateParams {
 
 export interface MessageCreateParamsNonStreaming extends MessageCreateParamsBase {
   /**
-   * If True, returns a streaming response (Server-Sent Events). If False (default),
-   * returns a complete response.
+   * Body param: If True, returns a streaming response (Server-Sent Events). If False
+   * (default), returns a complete response.
    */
   streaming?: false;
 }
 
 export interface MessageCreateParamsStreaming extends MessageCreateParamsBase {
   /**
-   * If True, returns a streaming response (Server-Sent Events). If False (default),
-   * returns a complete response.
+   * Body param: If True, returns a streaming response (Server-Sent Events). If False
+   * (default), returns a complete response.
    */
   streaming: true;
 }
 
 export interface MessageListParams extends ArrayPageParams {
   /**
-   * @deprecated The name of the message argument.
+   * @deprecated Query param: The name of the message argument.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * @deprecated The name of the designated message tool.
+   * @deprecated Query param: The name of the designated message tool.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * Conversation ID to filter messages by.
+   * Query param: Conversation ID to filter messages by.
    */
   conversation_id?: string | null;
 
   /**
-   * Group ID to filter messages by.
+   * Query param: Group ID to filter messages by.
    */
   group_id?: string | null;
 
   /**
-   * Whether to include error messages and error statuses. For debugging purposes
-   * only.
+   * Query param: Whether to include error messages and error statuses. For debugging
+   * purposes only.
    */
   include_err?: boolean | null;
 
   /**
-   * @deprecated Whether to use assistant messages
+   * @deprecated Query param: Whether to use assistant messages
    */
   use_assistant_message?: boolean;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface MessageCancelParams {
   /**
-   * Optional list of run IDs to cancel
+   * Body param: Optional list of run IDs to cancel
    */
   run_ids?: Array<string> | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface MessageCompactParams {
   /**
-   * Configuration for conversation compaction / summarization.
+   * Body param: Configuration for conversation compaction / summarization.
    *
    * Per-model settings (temperature, max tokens, etc.) are derived from the default
    * configuration for that handle.
    */
   compaction_settings?: MessageCompactParams.CompactionSettings | null;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export namespace MessageCompactParams {
@@ -2650,51 +2823,52 @@ export namespace MessageCompactParams {
 
 export interface MessageCreateAsyncParams {
   /**
-   * @deprecated The name of the message argument in the designated message tool.
-   * Still supported for legacy agent types, but deprecated for letta_v1_agent
-   * onward.
+   * @deprecated Body param: The name of the message argument in the designated
+   * message tool. Still supported for legacy agent types, but deprecated for
+   * letta_v1_agent onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * @deprecated The name of the designated message tool. Still supported for legacy
-   * agent types, but deprecated for letta_v1_agent onward.
+   * @deprecated Body param: The name of the designated message tool. Still supported
+   * for legacy agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * Optional callback URL to POST to when the job completes
+   * Body param: Optional callback URL to POST to when the job completes
    */
   callback_url?: string | null;
 
   /**
-   * Client-side tools that the agent can call. When the agent calls a client-side
-   * tool, execution pauses and returns control to the client to execute the tool and
-   * provide the result via a ToolReturn.
+   * Body param: Client-side tools that the agent can call. When the agent calls a
+   * client-side tool, execution pauses and returns control to the client to execute
+   * the tool and provide the result via a ToolReturn.
    */
   client_tools?: Array<MessageCreateAsyncParams.ClientTool> | null;
 
   /**
-   * @deprecated If set to True, enables reasoning before responses or tool calls
-   * from the agent.
+   * @deprecated Body param: If set to True, enables reasoning before responses or
+   * tool calls from the agent.
    */
   enable_thinking?: string;
 
   /**
-   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
-   * types. If False (default), compaction messages are not included in the response.
+   * Body param: If True, compaction events emit structured `SummaryMessage` and
+   * `EventMessage` types. If False (default), compaction messages are not included
+   * in the response.
    */
   include_compaction_messages?: boolean;
 
   /**
-   * Only return specified message types in the response. If `None` (default) returns
-   * all messages.
+   * Body param: Only return specified message types in the response. If `None`
+   * (default) returns all messages.
    */
   include_return_message_types?: Array<MessageType> | null;
 
   /**
-   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-   * 'user', 'content': input}].
+   * Body param: Syntactic sugar for a single user message. Equivalent to
+   * messages=[{'role': 'user', 'content': input}].
    */
   input?:
     | string
@@ -2711,51 +2885,67 @@ export interface MessageCreateAsyncParams {
     | null;
 
   /**
-   * Maximum number of steps the agent should take to process the request.
+   * Body param: Maximum number of steps the agent should take to process the
+   * request.
    */
   max_steps?: number;
 
   /**
-   * The messages to be sent to the agent.
+   * Body param: The messages to be sent to the agent.
    */
   messages?: Array<
     AgentsAPI.MessageCreate | ApprovalCreate | MessageCreateAsyncParams.ToolReturnCreate
   > | null;
 
   /**
-   * Model handle to use for this request instead of the agent's default model. This
-   * allows sending a message to a different model without changing the agent's
-   * configuration.
+   * Body param: Model handle to use for this request instead of the agent's default
+   * model. This allows sending a message to a different model without changing the
+   * agent's configuration.
    */
   override_model?: string | null;
 
   /**
-   * If True, returns log probabilities of the output tokens in the response. Useful
-   * for RL training. Only supported for OpenAI-compatible providers (including
-   * SGLang).
+   * Body param: If True, returns log probabilities of the output tokens in the
+   * response. Useful for RL training. Only supported for OpenAI-compatible providers
+   * (including SGLang).
    */
   return_logprobs?: boolean;
 
   /**
-   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
-   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
-   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
-   * proper multi-turn RL training with loss masking.
+   * Body param: If True, returns token IDs and logprobs for ALL LLM generations in
+   * the agent step, not just the last one. Uses SGLang native /generate endpoint.
+   * Returns 'turns' field with TurnTokenData for each assistant/tool turn. Required
+   * for proper multi-turn RL training with loss masking.
    */
   return_token_ids?: boolean;
 
   /**
-   * Number of most likely tokens to return at each position (0-20). Requires
-   * return_logprobs=True.
+   * Body param: Number of most likely tokens to return at each position (0-20).
+   * Requires return_logprobs=True.
    */
   top_logprobs?: number | null;
 
   /**
-   * @deprecated Whether the server should parse specific tool call arguments
-   * (default `send_message`) as `AssistantMessage` objects. Still supported for
-   * legacy agent types, but deprecated for letta_v1_agent onward.
+   * @deprecated Body param: Whether the server should parse specific tool call
+   * arguments (default `send_message`) as `AssistantMessage` objects. Still
+   * supported for legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export namespace MessageCreateAsyncParams {
@@ -2844,65 +3034,81 @@ export namespace MessageCreateAsyncParams {
 
 export interface MessageResetParams {
   /**
-   * If true, adds the default initial messages after resetting.
+   * Body param: If true, adds the default initial messages after resetting.
    */
   add_default_initial_messages?: boolean;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export interface MessageStreamParams {
   /**
-   * @deprecated The name of the message argument in the designated message tool.
-   * Still supported for legacy agent types, but deprecated for letta_v1_agent
-   * onward.
+   * @deprecated Body param: The name of the message argument in the designated
+   * message tool. Still supported for legacy agent types, but deprecated for
+   * letta_v1_agent onward.
    */
   assistant_message_tool_kwarg?: string;
 
   /**
-   * @deprecated The name of the designated message tool. Still supported for legacy
-   * agent types, but deprecated for letta_v1_agent onward.
+   * @deprecated Body param: The name of the designated message tool. Still supported
+   * for legacy agent types, but deprecated for letta_v1_agent onward.
    */
   assistant_message_tool_name?: string;
 
   /**
-   * Whether to process the request in the background (only used when
+   * Body param: Whether to process the request in the background (only used when
    * streaming=true).
    */
   background?: boolean;
 
   /**
-   * Client-side tools that the agent can call. When the agent calls a client-side
-   * tool, execution pauses and returns control to the client to execute the tool and
-   * provide the result via a ToolReturn.
+   * Body param: Client-side tools that the agent can call. When the agent calls a
+   * client-side tool, execution pauses and returns control to the client to execute
+   * the tool and provide the result via a ToolReturn.
    */
   client_tools?: Array<MessageStreamParams.ClientTool> | null;
 
   /**
-   * @deprecated If set to True, enables reasoning before responses or tool calls
-   * from the agent.
+   * @deprecated Body param: If set to True, enables reasoning before responses or
+   * tool calls from the agent.
    */
   enable_thinking?: string;
 
   /**
-   * If True, compaction events emit structured `SummaryMessage` and `EventMessage`
-   * types. If False (default), compaction messages are not included in the response.
+   * Body param: If True, compaction events emit structured `SummaryMessage` and
+   * `EventMessage` types. If False (default), compaction messages are not included
+   * in the response.
    */
   include_compaction_messages?: boolean;
 
   /**
-   * Whether to include periodic keepalive ping messages in the stream to prevent
-   * connection timeouts (only used when streaming=true).
+   * Body param: Whether to include periodic keepalive ping messages in the stream to
+   * prevent connection timeouts (only used when streaming=true).
    */
   include_pings?: boolean;
 
   /**
-   * Only return specified message types in the response. If `None` (default) returns
-   * all messages.
+   * Body param: Only return specified message types in the response. If `None`
+   * (default) returns all messages.
    */
   include_return_message_types?: Array<MessageType> | null;
 
   /**
-   * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-   * 'user', 'content': input}].
+   * Body param: Syntactic sugar for a single user message. Equivalent to
+   * messages=[{'role': 'user', 'content': input}].
    */
   input?:
     | string
@@ -2919,61 +3125,77 @@ export interface MessageStreamParams {
     | null;
 
   /**
-   * Maximum number of steps the agent should take to process the request.
+   * Body param: Maximum number of steps the agent should take to process the
+   * request.
    */
   max_steps?: number;
 
   /**
-   * The messages to be sent to the agent.
+   * Body param: The messages to be sent to the agent.
    */
   messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | MessageStreamParams.ToolReturnCreate> | null;
 
   /**
-   * Model handle to use for this request instead of the agent's default model. This
-   * allows sending a message to a different model without changing the agent's
-   * configuration.
+   * Body param: Model handle to use for this request instead of the agent's default
+   * model. This allows sending a message to a different model without changing the
+   * agent's configuration.
    */
   override_model?: string | null;
 
   /**
-   * If True, returns log probabilities of the output tokens in the response. Useful
-   * for RL training. Only supported for OpenAI-compatible providers (including
-   * SGLang).
+   * Body param: If True, returns log probabilities of the output tokens in the
+   * response. Useful for RL training. Only supported for OpenAI-compatible providers
+   * (including SGLang).
    */
   return_logprobs?: boolean;
 
   /**
-   * If True, returns token IDs and logprobs for ALL LLM generations in the agent
-   * step, not just the last one. Uses SGLang native /generate endpoint. Returns
-   * 'turns' field with TurnTokenData for each assistant/tool turn. Required for
-   * proper multi-turn RL training with loss masking.
+   * Body param: If True, returns token IDs and logprobs for ALL LLM generations in
+   * the agent step, not just the last one. Uses SGLang native /generate endpoint.
+   * Returns 'turns' field with TurnTokenData for each assistant/tool turn. Required
+   * for proper multi-turn RL training with loss masking.
    */
   return_token_ids?: boolean;
 
   /**
-   * Flag to determine if individual tokens should be streamed, rather than streaming
-   * per step (only used when streaming=true).
+   * Body param: Flag to determine if individual tokens should be streamed, rather
+   * than streaming per step (only used when streaming=true).
    */
   stream_tokens?: boolean;
 
   /**
-   * If True, returns a streaming response (Server-Sent Events). If False (default),
-   * returns a complete response.
+   * Body param: If True, returns a streaming response (Server-Sent Events). If False
+   * (default), returns a complete response.
    */
   streaming?: boolean;
 
   /**
-   * Number of most likely tokens to return at each position (0-20). Requires
-   * return_logprobs=True.
+   * Body param: Number of most likely tokens to return at each position (0-20).
+   * Requires return_logprobs=True.
    */
   top_logprobs?: number | null;
 
   /**
-   * @deprecated Whether the server should parse specific tool call arguments
-   * (default `send_message`) as `AssistantMessage` objects. Still supported for
-   * legacy agent types, but deprecated for letta_v1_agent onward.
+   * @deprecated Body param: Whether the server should parse specific tool call
+   * arguments (default `send_message`) as `AssistantMessage` objects. Still
+   * supported for legacy agent types, but deprecated for letta_v1_agent onward.
    */
   use_assistant_message?: boolean;
+
+  /**
+   * Header param
+   */
+  'x-billing-cost-source'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-customer-id'?: string;
+
+  /**
+   * Header param
+   */
+  'x-billing-plan-type'?: string;
 }
 
 export namespace MessageStreamParams {
