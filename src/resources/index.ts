@@ -45,7 +45,6 @@ export {
   type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
-  type AgentDeleteParams,
   type AgentExportFileParams,
   type AgentImportFileParams,
   type AgentStatesArrayPage,
@@ -55,10 +54,8 @@ export {
   type Archive,
   type VectorDBProvider,
   type ArchiveCreateParams,
-  type ArchiveRetrieveParams,
   type ArchiveUpdateParams,
   type ArchiveListParams,
-  type ArchiveDeleteParams,
   type ArchivesArrayPage,
 } from './archives/archives';
 export {
@@ -67,10 +64,8 @@ export {
   type CreateBlock,
   type BlockDeleteResponse,
   type BlockCreateParams,
-  type BlockRetrieveParams,
   type BlockUpdateParams,
   type BlockListParams,
-  type BlockDeleteParams,
   type BlockResponsesArrayPage,
 } from './blocks/blocks';
 export {
@@ -82,21 +77,16 @@ export {
   type ConversationDeleteResponse,
   type ConversationCancelResponse,
   type ConversationCreateParams,
-  type ConversationRetrieveParams,
   type ConversationUpdateParams,
   type ConversationListParams,
-  type ConversationDeleteParams,
-  type ConversationCancelParams,
 } from './conversations/conversations';
 export {
   Folders,
   type Folder,
   type FolderDeleteResponse,
   type FolderCreateParams,
-  type FolderRetrieveParams,
   type FolderUpdateParams,
   type FolderListParams,
-  type FolderDeleteParams,
   type FoldersArrayPage,
 } from './folders/folders';
 export {
@@ -116,10 +106,7 @@ export {
   type McpServerListResponse,
   type McpServerRefreshResponse,
   type McpServerCreateParams,
-  type McpServerRetrieveParams,
   type McpServerUpdateParams,
-  type McpServerListParams,
-  type McpServerDeleteParams,
   type McpServerRefreshParams,
 } from './mcp-servers/mcp-servers';
 export {
@@ -129,7 +116,6 @@ export {
   type MessageRetrieveResponse,
   type MessageListResponse,
   type MessageSearchResponse,
-  type MessageRetrieveParams,
   type MessageListParams,
   type MessageSearchParams,
 } from './messages';
@@ -145,12 +131,11 @@ export {
   type ModelListParams,
 } from './models/models';
 export { Passages, type Passage, type PassageSearchResponse, type PassageSearchParams } from './passages';
-export { Runs, type Job, type StopReasonType, type RunRetrieveParams, type RunListParams } from './runs/runs';
+export { Runs, type Job, type StopReasonType, type RunListParams } from './runs/runs';
 export {
   Steps,
   type ProviderTrace,
   type Step,
-  type StepRetrieveParams,
   type StepListParams,
   type StepsArrayPage,
 } from './steps/steps';
@@ -181,10 +166,8 @@ export {
   type ToolDeleteResponse,
   type ToolSearchResponse,
   type ToolCreateParams,
-  type ToolRetrieveParams,
   type ToolUpdateParams,
   type ToolListParams,
-  type ToolDeleteParams,
   type ToolSearchParams,
   type ToolUpsertParams,
   type ToolsArrayPage,

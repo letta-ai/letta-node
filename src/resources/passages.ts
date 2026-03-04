@@ -4,7 +4,6 @@ import { APIResource } from '../core/resource';
 import * as PassagesAPI from './passages';
 import * as ModelsAPI from './models/models';
 import { APIPromise } from '../core/api-promise';
-import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 
 export class Passages extends APIResource {
@@ -21,25 +20,8 @@ export class Passages extends APIResource {
    * - If archive_id is provided, searches passages within that specific archive
    * - If both are provided, agent_id takes precedence
    */
-  search(params: PassageSearchParams, options?: RequestOptions): APIPromise<PassageSearchResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.post('/v1/passages/search', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  search(body: PassageSearchParams, options?: RequestOptions): APIPromise<PassageSearchResponse> {
+    return this._client.post('/v1/passages/search', { body, ...options });
   }
 }
 
@@ -150,60 +132,45 @@ export namespace PassageSearchResponse {
 
 export interface PassageSearchParams {
   /**
-   * Body param: Filter passages by agent ID
+   * Filter passages by agent ID
    */
   agent_id?: string | null;
 
   /**
-   * Body param: Filter passages by archive ID
+   * Filter passages by archive ID
    */
   archive_id?: string | null;
 
   /**
-   * Body param: Filter results to passages created before this datetime
+   * Filter results to passages created before this datetime
    */
   end_date?: string | null;
 
   /**
-   * Body param: Maximum number of results to return
+   * Maximum number of results to return
    */
   limit?: number;
 
   /**
-   * Body param: Text query for semantic search
+   * Text query for semantic search
    */
   query?: string | null;
 
   /**
-   * Body param: Filter results to passages created after this datetime
+   * Filter results to passages created after this datetime
    */
   start_date?: string | null;
 
   /**
-   * Body param: How to match tags - 'any' to match passages with any of the tags,
-   * 'all' to match only passages with all tags
+   * How to match tags - 'any' to match passages with any of the tags, 'all' to match
+   * only passages with all tags
    */
   tag_match_mode?: 'any' | 'all';
 
   /**
-   * Body param: Optional list of tags to filter search results
+   * Optional list of tags to filter search results
    */
   tags?: Array<string> | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Passages {

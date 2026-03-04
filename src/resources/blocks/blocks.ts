@@ -5,7 +5,6 @@ import * as AgentsAPI from './agents';
 import { AgentListParams, Agents } from './agents';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -15,128 +14,39 @@ export class Blocks extends APIResource {
   /**
    * Create Block
    */
-  create(params: BlockCreateParams, options?: RequestOptions): APIPromise<BlockResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.post('/v1/blocks/', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  create(body: BlockCreateParams, options?: RequestOptions): APIPromise<BlockResponse> {
+    return this._client.post('/v1/blocks/', { body, ...options });
   }
 
   /**
    * Retrieve Block
    */
-  retrieve(
-    blockID: string,
-    params: BlockRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<BlockResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.get(path`/v1/blocks/${blockID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  retrieve(blockID: string, options?: RequestOptions): APIPromise<BlockResponse> {
+    return this._client.get(path`/v1/blocks/${blockID}`, options);
   }
 
   /**
    * Update Block
    */
-  update(blockID: string, params: BlockUpdateParams, options?: RequestOptions): APIPromise<BlockResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.patch(path`/v1/blocks/${blockID}`, {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  update(blockID: string, body: BlockUpdateParams, options?: RequestOptions): APIPromise<BlockResponse> {
+    return this._client.patch(path`/v1/blocks/${blockID}`, { body, ...options });
   }
 
   /**
    * List Blocks
    */
   list(
-    params: BlockListParams | null | undefined = {},
+    query: BlockListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<BlockResponsesArrayPage, BlockResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params ?? {};
-    return this._client.getAPIList('/v1/blocks/', ArrayPage<BlockResponse>, {
-      query,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.getAPIList('/v1/blocks/', ArrayPage<BlockResponse>, { query, ...options });
   }
 
   /**
    * Delete Block
    */
-  delete(
-    blockID: string,
-    params: BlockDeleteParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<unknown> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.delete(path`/v1/blocks/${blockID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  delete(blockID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.delete(path`/v1/blocks/${blockID}`, options);
   }
 }
 
@@ -325,308 +235,242 @@ export type BlockDeleteResponse = unknown;
 
 export interface BlockCreateParams {
   /**
-   * Body param: Label of the block.
+   * Label of the block.
    */
   label: string;
 
   /**
-   * Body param: Value of the block.
+   * Value of the block.
    */
   value: string;
 
   /**
-   * Body param: The base template id of the block.
+   * The base template id of the block.
    */
   base_template_id?: string | null;
 
   /**
-   * Body param: The id of the deployment.
+   * The id of the deployment.
    */
   deployment_id?: string | null;
 
   /**
-   * Body param: Description of the block.
+   * Description of the block.
    */
   description?: string | null;
 
   /**
-   * Body param: The id of the entity within the template.
+   * The id of the entity within the template.
    */
   entity_id?: string | null;
 
   /**
-   * Body param: If set to True, the block will be hidden.
+   * If set to True, the block will be hidden.
    */
   hidden?: boolean | null;
 
-  /**
-   * Body param
-   */
   is_template?: boolean;
 
   /**
-   * Body param: Character limit of the block.
+   * Character limit of the block.
    */
   limit?: number;
 
   /**
-   * Body param: Metadata of the block.
+   * Metadata of the block.
    */
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: Preserve the block on template migration.
+   * Preserve the block on template migration.
    */
   preserve_on_migration?: boolean | null;
 
   /**
-   * Body param: The associated project id.
+   * The associated project id.
    */
   project_id?: string | null;
 
   /**
-   * Body param: Whether the agent has read-only access to the block.
+   * Whether the agent has read-only access to the block.
    */
   read_only?: boolean;
 
   /**
-   * Body param: The tags to associate with the block.
+   * The tags to associate with the block.
    */
   tags?: Array<string> | null;
 
   /**
-   * Body param: The id of the template.
+   * The id of the template.
    */
   template_id?: string | null;
 
   /**
-   * Body param: Name of the block if it is a template.
+   * Name of the block if it is a template.
    */
   template_name?: string | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
-}
-
-export interface BlockRetrieveParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
 }
 
 export interface BlockUpdateParams {
   /**
-   * Body param: The base template id of the block.
+   * The base template id of the block.
    */
   base_template_id?: string | null;
 
   /**
-   * Body param: The id of the deployment.
+   * The id of the deployment.
    */
   deployment_id?: string | null;
 
   /**
-   * Body param: Description of the block.
+   * Description of the block.
    */
   description?: string | null;
 
   /**
-   * Body param: The id of the entity within the template.
+   * The id of the entity within the template.
    */
   entity_id?: string | null;
 
   /**
-   * Body param: If set to True, the block will be hidden.
+   * If set to True, the block will be hidden.
    */
   hidden?: boolean | null;
 
   /**
-   * Body param: Whether the block is a template (e.g. saved human/persona options).
+   * Whether the block is a template (e.g. saved human/persona options).
    */
   is_template?: boolean;
 
   /**
-   * Body param: Label of the block (e.g. 'human', 'persona') in the context window.
+   * Label of the block (e.g. 'human', 'persona') in the context window.
    */
   label?: string | null;
 
   /**
-   * Body param: Character limit of the block.
+   * Character limit of the block.
    */
   limit?: number | null;
 
   /**
-   * Body param: Metadata of the block.
+   * Metadata of the block.
    */
   metadata?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: Preserve the block on template migration.
+   * Preserve the block on template migration.
    */
   preserve_on_migration?: boolean | null;
 
   /**
-   * Body param: The associated project id.
+   * The associated project id.
    */
   project_id?: string | null;
 
   /**
-   * Body param: Whether the agent has read-only access to the block.
+   * Whether the agent has read-only access to the block.
    */
   read_only?: boolean;
 
   /**
-   * Body param: The tags to associate with the block.
+   * The tags to associate with the block.
    */
   tags?: Array<string> | null;
 
   /**
-   * Body param: The id of the template.
+   * The id of the template.
    */
   template_id?: string | null;
 
   /**
-   * Body param: Name of the block if it is a template.
+   * Name of the block if it is a template.
    */
   template_name?: string | null;
 
   /**
-   * Body param: Value of the block.
+   * Value of the block.
    */
   value?: string | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export interface BlockListParams extends ArrayPageParams {
   /**
-   * Query param: Filter blocks by the exact number of connected agents. If provided,
-   * returns blocks that have exactly this number of connected agents.
+   * Filter blocks by the exact number of connected agents. If provided, returns
+   * blocks that have exactly this number of connected agents.
    */
   connected_to_agents_count_eq?: Array<number> | null;
 
   /**
-   * Query param: Filter blocks by the number of connected agents. If provided,
-   * returns blocks that have more than this number of connected agents.
+   * Filter blocks by the number of connected agents. If provided, returns blocks
+   * that have more than this number of connected agents.
    */
   connected_to_agents_count_gt?: number | null;
 
   /**
-   * Query param: Filter blocks by the number of connected agents. If provided,
-   * returns blocks that have less than this number of connected agents.
+   * Filter blocks by the number of connected agents. If provided, returns blocks
+   * that have less than this number of connected agents.
    */
   connected_to_agents_count_lt?: number | null;
 
   /**
-   * Query param: Search blocks by description. If provided, returns blocks whose
-   * description matches the search query. This is a full-text search on block
-   * descriptions.
+   * Search blocks by description. If provided, returns blocks whose description
+   * matches the search query. This is a full-text search on block descriptions.
    */
   description_search?: string | null;
 
   /**
-   * Query param: Search agents by identifier keys
+   * Search agents by identifier keys
    */
   identifier_keys?: Array<string> | null;
 
   /**
-   * Query param: The ID of the identity in the format 'identity-<uuid4>'
+   * The ID of the identity in the format 'identity-<uuid4>'
    */
   identity_id?: string | null;
 
   /**
-   * Query param: Label to include (alphanumeric, hyphens, underscores, forward
-   * slashes)
+   * Label to include (alphanumeric, hyphens, underscores, forward slashes)
    */
   label?: string | null;
 
   /**
-   * Query param: Search blocks by label. If provided, returns blocks whose label
-   * matches the search query. This is a full-text search on block labels.
+   * Search blocks by label. If provided, returns blocks whose label matches the
+   * search query. This is a full-text search on block labels.
    */
   label_search?: string | null;
 
   /**
-   * Query param: If True, only returns blocks that match ALL given tags. Otherwise,
-   * return blocks that have ANY of the passed-in tags.
+   * If True, only returns blocks that match ALL given tags. Otherwise, return blocks
+   * that have ANY of the passed-in tags.
    */
   match_all_tags?: boolean;
 
   /**
-   * Query param: Name filter (alphanumeric, spaces, hyphens, underscores)
+   * Name filter (alphanumeric, spaces, hyphens, underscores)
    */
   name?: string | null;
 
   /**
-   * Query param: Search blocks by project id
+   * Search blocks by project id
    */
   project_id?: string | null;
 
   /**
-   * Query param: List of tags to filter blocks by
+   * List of tags to filter blocks by
    */
   tags?: Array<string> | null;
 
   /**
-   * Query param: Whether to include only templates
+   * Whether to include only templates
    */
   templates_only?: boolean;
 
   /**
-   * Query param: Search blocks by value. If provided, returns blocks whose value
-   * matches the search query. This is a full-text search on block values.
+   * Search blocks by value. If provided, returns blocks whose value matches the
+   * search query. This is a full-text search on block values.
    */
   value_search?: string | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
-}
-
-export interface BlockDeleteParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
 }
 
 Blocks.Agents = Agents;
@@ -638,10 +482,8 @@ export declare namespace Blocks {
     type BlockDeleteResponse as BlockDeleteResponse,
     type BlockResponsesArrayPage as BlockResponsesArrayPage,
     type BlockCreateParams as BlockCreateParams,
-    type BlockRetrieveParams as BlockRetrieveParams,
     type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
-    type BlockDeleteParams as BlockDeleteParams,
   };
 
   export { Agents as Agents, type AgentListParams as AgentListParams };

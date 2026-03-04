@@ -4,7 +4,6 @@ import { APIResource } from '../../core/resource';
 import * as AgentsAPI from '../agents/agents';
 import { AgentStatesArrayPage } from '../agents/agents';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -15,34 +14,20 @@ export class Agents extends APIResource {
    */
   list(
     blockID: string,
-    params: AgentListParams | null | undefined = {},
+    query: AgentListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<AgentStatesArrayPage, AgentsAPI.AgentState> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params ?? {};
     return this._client.getAPIList(path`/v1/blocks/${blockID}/agents`, ArrayPage<AgentsAPI.AgentState>, {
       query,
       ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
     });
   }
 }
 
 export interface AgentListParams extends ArrayPageParams {
   /**
-   * Query param: Specify which relational fields to include in the response. No
-   * relationships are included by default.
+   * Specify which relational fields to include in the response. No relationships are
+   * included by default.
    */
   include?: Array<
     | 'agent.blocks'
@@ -56,28 +41,12 @@ export interface AgentListParams extends ArrayPageParams {
   >;
 
   /**
-   * @deprecated Query param: Specify which relational fields (e.g., 'tools',
-   * 'sources', 'memory') to include in the response. If not provided, all
-   * relationships are loaded by default. Using this can optimize performance by
-   * reducing unnecessary joins.This is a legacy parameter, and no longer supported
-   * after 1.0.0 SDK versions.
+   * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
+   * to include in the response. If not provided, all relationships are loaded by
+   * default. Using this can optimize performance by reducing unnecessary joins.This
+   * is a legacy parameter, and no longer supported after 1.0.0 SDK versions.
    */
   include_relationships?: Array<string> | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Agents {

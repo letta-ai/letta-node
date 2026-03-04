@@ -6,7 +6,6 @@ import * as BlocksBlocksAPI from '../blocks/blocks';
 import { BlockResponsesArrayPage } from '../blocks/blocks';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -19,23 +18,8 @@ export class Blocks extends APIResource {
     params: BlockRetrieveParams,
     options?: RequestOptions,
   ): APIPromise<BlocksBlocksAPI.BlockResponse> {
-    const {
-      agent_id,
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params;
-    return this._client.get(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    const { agent_id } = params;
+    return this._client.get(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, options);
   }
 
   /**
@@ -46,24 +30,10 @@ export class Blocks extends APIResource {
     params: BlockUpdateParams,
     options?: RequestOptions,
   ): APIPromise<BlocksBlocksAPI.BlockResponse> {
-    const {
-      agent_id,
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
+    const { agent_id, ...body } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, {
       body,
       ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
     });
   }
 
@@ -72,30 +42,13 @@ export class Blocks extends APIResource {
    */
   list(
     agentID: string,
-    params: BlockListParams | null | undefined = {},
+    query: BlockListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<BlockResponsesArrayPage, BlocksBlocksAPI.BlockResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params ?? {};
     return this._client.getAPIList(
       path`/v1/agents/${agentID}/core-memory/blocks`,
       ArrayPage<BlocksBlocksAPI.BlockResponse>,
-      {
-        query,
-        ...options,
-        headers: buildHeaders([
-          {
-            ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-            ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-            ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-          },
-          options?.headers,
-        ]),
-      },
+      { query, ...options },
     );
   }
 
@@ -107,23 +60,8 @@ export class Blocks extends APIResource {
     params: BlockAttachParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState> {
-    const {
-      agent_id,
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/attach/${blockID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    const { agent_id } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/attach/${blockID}`, options);
   }
 
   /**
@@ -134,23 +72,8 @@ export class Blocks extends APIResource {
     params: BlockDetachParams,
     options?: RequestOptions,
   ): APIPromise<AgentsAPI.AgentState> {
-    const {
-      agent_id,
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/detach/${blockID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    const { agent_id } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/detach/${blockID}`, options);
   }
 }
 
@@ -341,24 +264,9 @@ export interface BlockUpdate {
 
 export interface BlockRetrieveParams {
   /**
-   * Path param: The ID of the agent in the format 'agent-<uuid4>'
+   * The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export interface BlockUpdateParams {
@@ -446,82 +354,22 @@ export interface BlockUpdateParams {
    * Body param: Value of the block.
    */
   value?: string | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
-export interface BlockListParams extends ArrayPageParams {
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
-}
+export interface BlockListParams extends ArrayPageParams {}
 
 export interface BlockAttachParams {
   /**
-   * Path param: The ID of the agent in the format 'agent-<uuid4>'
+   * The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export interface BlockDetachParams {
   /**
-   * Path param: The ID of the agent in the format 'agent-<uuid4>'
+   * The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Blocks {

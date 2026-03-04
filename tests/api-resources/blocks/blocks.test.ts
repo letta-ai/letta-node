@@ -39,9 +39,6 @@ describe('resource blocks', () => {
       tags: ['string'],
       template_id: 'template_id',
       template_name: 'template_name',
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -55,22 +52,6 @@ describe('resource blocks', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.blocks.retrieve(
-        'block-123e4567-e89b-42d3-8456-426614174000',
-        {
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -122,9 +103,6 @@ describe('resource blocks', () => {
           tags: ['string', 'string'],
           templates_only: true,
           value_search: 'x',
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -141,21 +119,5 @@ describe('resource blocks', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.blocks.delete(
-        'block-123e4567-e89b-42d3-8456-426614174000',
-        {
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 });

@@ -32,9 +32,6 @@ describe('resource tools', () => {
           limit: 0,
           order: 'asc',
           order_by: 'created_at',
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -59,9 +56,6 @@ describe('resource tools', () => {
   test.skip('attach: required and optional params', async () => {
     const response = await client.agents.tools.attach('tool-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -83,9 +77,6 @@ describe('resource tools', () => {
   test.skip('detach: required and optional params', async () => {
     const response = await client.agents.tools.detach('tool-123e4567-e89b-42d3-8456-426614174000', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -108,9 +99,6 @@ describe('resource tools', () => {
     const response = await client.agents.tools.run('tool_name', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
       args: { foo: 'bar' },
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -135,9 +123,6 @@ describe('resource tools', () => {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
       body_requires_approval: true,
       query_requires_approval: true,
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 });

@@ -14,7 +14,6 @@ import {
   Messages,
 } from './messages';
 import { APIPromise } from '../../core/api-promise';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -25,52 +24,15 @@ export class Conversations extends APIResource {
    * Create a new conversation for an agent.
    */
   create(params: ConversationCreateParams, options?: RequestOptions): APIPromise<Conversation> {
-    const {
-      agent_id,
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.post('/v1/conversations/', {
-      query: { agent_id },
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    const { agent_id, ...body } = params;
+    return this._client.post('/v1/conversations/', { query: { agent_id }, body, ...options });
   }
 
   /**
    * Retrieve a specific conversation.
    */
-  retrieve(
-    conversationID: string,
-    params: ConversationRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<Conversation> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.get(path`/v1/conversations/${conversationID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  retrieve(conversationID: string, options?: RequestOptions): APIPromise<Conversation> {
+    return this._client.get(path`/v1/conversations/${conversationID}`, options);
   }
 
   /**
@@ -78,27 +40,10 @@ export class Conversations extends APIResource {
    */
   update(
     conversationID: string,
-    params: ConversationUpdateParams,
+    body: ConversationUpdateParams,
     options?: RequestOptions,
   ): APIPromise<Conversation> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.patch(path`/v1/conversations/${conversationID}`, {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.patch(path`/v1/conversations/${conversationID}`, { body, ...options });
   }
 
   /**
@@ -106,27 +51,10 @@ export class Conversations extends APIResource {
    * provided).
    */
   list(
-    params: ConversationListParams | null | undefined = {},
+    query: ConversationListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<ConversationListResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params ?? {};
-    return this._client.get('/v1/conversations/', {
-      query,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.get('/v1/conversations/', { query, ...options });
   }
 
   /**
@@ -136,27 +64,8 @@ export class Conversations extends APIResource {
    * the database. The conversation will no longer appear in list operations. Any
    * isolated blocks associated with the conversation will be permanently deleted.
    */
-  delete(
-    conversationID: string,
-    params: ConversationDeleteParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<unknown> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.delete(path`/v1/conversations/${conversationID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  delete(conversationID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.delete(path`/v1/conversations/${conversationID}`, options);
   }
 
   /**
@@ -167,27 +76,8 @@ export class Conversations extends APIResource {
    * If conversation_id is an agent ID (starts with "agent-"), cancels runs for the
    * agent's default conversation.
    */
-  cancel(
-    conversationID: string,
-    params: ConversationCancelParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ConversationCancelResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.post(path`/v1/conversations/${conversationID}/cancel`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  cancel(conversationID: string, options?: RequestOptions): APIPromise<ConversationCancelResponse> {
+    return this._client.post(path`/v1/conversations/${conversationID}/cancel`, options);
   }
 }
 
@@ -795,21 +685,6 @@ export interface ConversationCreateParams {
    * Body param: A summary of the conversation.
    */
   summary?: string | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export namespace ConversationCreateParams {
@@ -946,24 +821,15 @@ export namespace ConversationCreateParams {
   }
 }
 
-export interface ConversationRetrieveParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
-}
-
 export interface ConversationUpdateParams {
   /**
-   * Body param: The model handle for this conversation (overrides agent's model).
-   * Format: provider/model-name.
+   * The model handle for this conversation (overrides agent's model). Format:
+   * provider/model-name.
    */
   model?: string | null;
 
   /**
-   * Body param: The model settings for this conversation (overrides agent's model
-   * settings).
+   * The model settings for this conversation (overrides agent's model settings).
    */
   model_settings?:
     | AgentsAPI.OpenAIModelSettings
@@ -982,24 +848,9 @@ export interface ConversationUpdateParams {
     | null;
 
   /**
-   * Body param: A summary of the conversation.
+   * A summary of the conversation.
    */
   summary?: string | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export namespace ConversationUpdateParams {
@@ -1138,67 +989,35 @@ export namespace ConversationUpdateParams {
 
 export interface ConversationListParams {
   /**
-   * Query param: Cursor for pagination (conversation ID)
+   * Cursor for pagination (conversation ID)
    */
   after?: string | null;
 
   /**
-   * Query param: The agent ID to list conversations for (optional - returns all
-   * conversations if not provided)
+   * The agent ID to list conversations for (optional - returns all conversations if
+   * not provided)
    */
   agent_id?: string | null;
 
   /**
-   * Query param: Maximum number of conversations to return
+   * Maximum number of conversations to return
    */
   limit?: number;
 
   /**
-   * Query param: Sort order for conversations. 'asc' for oldest first, 'desc' for
-   * newest first
+   * Sort order for conversations. 'asc' for oldest first, 'desc' for newest first
    */
   order?: 'asc' | 'desc';
 
   /**
-   * Query param: Field to sort by
+   * Field to sort by
    */
   order_by?: 'created_at' | 'last_run_completion';
 
   /**
-   * Query param: Search for text within conversation summaries
+   * Search for text within conversation summaries
    */
   summary_search?: string | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
-}
-
-export interface ConversationDeleteParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
-}
-
-export interface ConversationCancelParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
 }
 
 Conversations.Messages = Messages;
@@ -1212,11 +1031,8 @@ export declare namespace Conversations {
     type ConversationDeleteResponse as ConversationDeleteResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationCreateParams as ConversationCreateParams,
-    type ConversationRetrieveParams as ConversationRetrieveParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
-    type ConversationDeleteParams as ConversationDeleteParams,
-    type ConversationCancelParams as ConversationCancelParams,
   };
 
   export {

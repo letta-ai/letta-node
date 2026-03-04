@@ -28,9 +28,6 @@ describe('resource passages', () => {
       text: 'text',
       created_at: '2019-12-27T18:11:19.117Z',
       tags: ['string'],
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -58,9 +55,6 @@ describe('resource passages', () => {
           before: 'before',
           limit: 0,
           search: 'search',
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -85,9 +79,6 @@ describe('resource passages', () => {
   test.skip('delete: required and optional params', async () => {
     const response = await client.agents.passages.delete('memory_id', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -114,9 +105,6 @@ describe('resource passages', () => {
       tag_match_mode: 'any',
       tags: ['string', 'string'],
       top_k: 0,
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 });

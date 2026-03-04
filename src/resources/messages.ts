@@ -3,7 +3,6 @@
 import { APIResource } from '../core/resource';
 import * as AgentsMessagesAPI from './agents/messages';
 import { APIPromise } from '../core/api-promise';
-import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -11,54 +10,18 @@ export class Messages extends APIResource {
   /**
    * Retrieve a message by ID.
    */
-  retrieve(
-    messageID: string,
-    params: MessageRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<MessageRetrieveResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.get(path`/v1/messages/${messageID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  retrieve(messageID: string, options?: RequestOptions): APIPromise<MessageRetrieveResponse> {
+    return this._client.get(path`/v1/messages/${messageID}`, options);
   }
 
   /**
    * List messages across all agents for the current user.
    */
   list(
-    params: MessageListParams | null | undefined = {},
+    query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<MessageListResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params ?? {};
-    return this._client.get('/v1/messages/', {
-      query,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.get('/v1/messages/', { query, ...options });
   }
 
   /**
@@ -67,25 +30,8 @@ export class Messages extends APIResource {
    *
    * This is a cloud-only feature.
    */
-  search(params: MessageSearchParams, options?: RequestOptions): APIPromise<MessageSearchResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.post('/v1/messages/search', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  search(body: MessageSearchParams, options?: RequestOptions): APIPromise<MessageSearchResponse> {
+    return this._client.post('/v1/messages/search', { body, ...options });
   }
 }
 
@@ -309,109 +255,71 @@ export namespace MessageSearchResponse {
   }
 }
 
-export interface MessageRetrieveParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
-}
-
 export interface MessageListParams {
   /**
-   * Query param: Message ID cursor for pagination. Returns messages that come after
-   * this message ID in the specified sort order
+   * Message ID cursor for pagination. Returns messages that come after this message
+   * ID in the specified sort order
    */
   after?: string | null;
 
   /**
-   * Query param: Message ID cursor for pagination. Returns messages that come before
-   * this message ID in the specified sort order
+   * Message ID cursor for pagination. Returns messages that come before this message
+   * ID in the specified sort order
    */
   before?: string | null;
 
   /**
-   * Query param: Conversation ID to filter messages by
+   * Conversation ID to filter messages by
    */
   conversation_id?: string | null;
 
   /**
-   * Query param: Maximum number of messages to return
+   * Maximum number of messages to return
    */
   limit?: number | null;
 
   /**
-   * Query param: Sort order for messages by creation time. 'asc' for oldest first,
-   * 'desc' for newest first
+   * Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
+   * newest first
    */
   order?: 'asc' | 'desc';
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export interface MessageSearchParams {
   /**
-   * Body param: Text query for full-text search
+   * Text query for full-text search
    */
   query: string;
 
   /**
-   * Body param: Filter messages by agent ID
+   * Filter messages by agent ID
    */
   agent_id?: string | null;
 
   /**
-   * Body param: Filter messages by conversation ID
+   * Filter messages by conversation ID
    */
   conversation_id?: string | null;
 
   /**
-   * Body param: Filter messages created on or before this date
+   * Filter messages created on or before this date
    */
   end_date?: string | null;
 
   /**
-   * Body param: Maximum number of results to return
+   * Maximum number of results to return
    */
   limit?: number;
 
   /**
-   * Body param: Search mode to use
+   * Search mode to use
    */
   search_mode?: 'vector' | 'fts' | 'hybrid';
 
   /**
-   * Body param: Filter messages created after this date
+   * Filter messages created after this date
    */
   start_date?: string | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Messages {
@@ -421,7 +329,6 @@ export declare namespace Messages {
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageListResponse as MessageListResponse,
     type MessageSearchResponse as MessageSearchResponse,
-    type MessageRetrieveParams as MessageRetrieveParams,
     type MessageListParams as MessageListParams,
     type MessageSearchParams as MessageSearchParams,
   };

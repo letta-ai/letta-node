@@ -21,22 +21,6 @@ describe('resource runs', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.runs.retrieve(
-        'run_id',
-        {
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.runs.list();
     const rawResponse = await responsePromise.asResponse();
@@ -67,9 +51,6 @@ describe('resource runs', () => {
           order_by: 'created_at',
           statuses: ['string', 'string'],
           stop_reason: 'end_turn',
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),

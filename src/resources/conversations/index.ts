@@ -9,11 +9,8 @@ export {
   type ConversationDeleteResponse,
   type ConversationCancelResponse,
   type ConversationCreateParams,
-  type ConversationRetrieveParams,
   type ConversationUpdateParams,
   type ConversationListParams,
-  type ConversationDeleteParams,
-  type ConversationCancelParams,
 } from './conversations';
 export {
   Messages,

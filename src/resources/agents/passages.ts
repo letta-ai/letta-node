@@ -3,7 +3,6 @@
 import { APIResource } from '../../core/resource';
 import * as PassagesAPI from '../passages';
 import { APIPromise } from '../../core/api-promise';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -13,27 +12,10 @@ export class Passages extends APIResource {
    */
   create(
     agentID: string,
-    params: PassageCreateParams,
+    body: PassageCreateParams,
     options?: RequestOptions,
   ): APIPromise<PassageCreateResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.post(path`/v1/agents/${agentID}/archival-memory`, {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.post(path`/v1/agents/${agentID}/archival-memory`, { body, ...options });
   }
 
   /**
@@ -41,50 +23,18 @@ export class Passages extends APIResource {
    */
   list(
     agentID: string,
-    params: PassageListParams | null | undefined = {},
+    query: PassageListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<PassageListResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params ?? {};
-    return this._client.get(path`/v1/agents/${agentID}/archival-memory`, {
-      query,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.get(path`/v1/agents/${agentID}/archival-memory`, { query, ...options });
   }
 
   /**
    * Delete a memory from an agent's archival memory store.
    */
   delete(memoryID: string, params: PassageDeleteParams, options?: RequestOptions): APIPromise<unknown> {
-    const {
-      agent_id,
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params;
-    return this._client.delete(path`/v1/agents/${agent_id}/archival-memory/${memoryID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    const { agent_id } = params;
+    return this._client.delete(path`/v1/agents/${agent_id}/archival-memory/${memoryID}`, options);
   }
 
   /**
@@ -98,27 +48,10 @@ export class Passages extends APIResource {
    */
   search(
     agentID: string,
-    params: PassageSearchParams,
+    query: PassageSearchParams,
     options?: RequestOptions,
   ): APIPromise<PassageSearchResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params;
-    return this._client.get(path`/v1/agents/${agentID}/archival-memory/search`, {
-      query,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.get(path`/v1/agents/${agentID}/archival-memory/search`, { query, ...options });
   }
 }
 
@@ -166,148 +99,87 @@ export namespace PassageSearchResponse {
 
 export interface PassageCreateParams {
   /**
-   * Body param: Text to write to archival memory.
+   * Text to write to archival memory.
    */
   text: string;
 
   /**
-   * Body param: Optional timestamp for the memory (defaults to current UTC time).
+   * Optional timestamp for the memory (defaults to current UTC time).
    */
   created_at?: string | null;
 
   /**
-   * Body param: Optional list of tags to attach to the memory.
+   * Optional list of tags to attach to the memory.
    */
   tags?: Array<string> | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export interface PassageListParams {
   /**
-   * Query param: Unique ID of the memory to start the query range at.
+   * Unique ID of the memory to start the query range at.
    */
   after?: string | null;
 
   /**
-   * Query param: Whether to sort passages oldest to newest (True, default) or newest
-   * to oldest (False)
+   * Whether to sort passages oldest to newest (True, default) or newest to oldest
+   * (False)
    */
   ascending?: boolean | null;
 
   /**
-   * Query param: Unique ID of the memory to end the query range at.
+   * Unique ID of the memory to end the query range at.
    */
   before?: string | null;
 
   /**
-   * Query param: How many results to include in the response.
+   * How many results to include in the response.
    */
   limit?: number | null;
 
   /**
-   * Query param: Search passages by text
+   * Search passages by text
    */
   search?: string | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export interface PassageDeleteParams {
   /**
-   * Path param: The ID of the agent in the format 'agent-<uuid4>'
+   * The ID of the agent in the format 'agent-<uuid4>'
    */
   agent_id: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export interface PassageSearchParams {
   /**
-   * Query param: String to search for using semantic similarity
+   * String to search for using semantic similarity
    */
   query: string;
 
   /**
-   * Query param: Filter results to passages created before this datetime
+   * Filter results to passages created before this datetime
    */
   end_datetime?: string | null;
 
   /**
-   * Query param: Filter results to passages created after this datetime
+   * Filter results to passages created after this datetime
    */
   start_datetime?: string | null;
 
   /**
-   * Query param: How to match tags - 'any' to match passages with any of the tags,
-   * 'all' to match only passages with all tags
+   * How to match tags - 'any' to match passages with any of the tags, 'all' to match
+   * only passages with all tags
    */
   tag_match_mode?: 'any' | 'all';
 
   /**
-   * Query param: Optional list of tags to filter search results
+   * Optional list of tags to filter search results
    */
   tags?: Array<string> | null;
 
   /**
-   * Query param: Maximum number of results to return. Uses system default if not
-   * specified
+   * Maximum number of results to return. Uses system default if not specified
    */
   top_k?: number | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Passages {

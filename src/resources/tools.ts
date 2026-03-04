@@ -4,7 +4,6 @@ import { APIResource } from '../core/resource';
 import * as MessagesAPI from './agents/messages';
 import { APIPromise } from '../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../core/pagination';
-import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -12,128 +11,39 @@ export class Tools extends APIResource {
   /**
    * Create a new tool
    */
-  create(params: ToolCreateParams, options?: RequestOptions): APIPromise<Tool> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.post('/v1/tools/', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  create(body: ToolCreateParams, options?: RequestOptions): APIPromise<Tool> {
+    return this._client.post('/v1/tools/', { body, ...options });
   }
 
   /**
    * Get a tool by ID
    */
-  retrieve(
-    toolID: string,
-    params: ToolRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<Tool> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.get(path`/v1/tools/${toolID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  retrieve(toolID: string, options?: RequestOptions): APIPromise<Tool> {
+    return this._client.get(path`/v1/tools/${toolID}`, options);
   }
 
   /**
    * Update an existing tool
    */
-  update(toolID: string, params: ToolUpdateParams, options?: RequestOptions): APIPromise<Tool> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.patch(path`/v1/tools/${toolID}`, {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  update(toolID: string, body: ToolUpdateParams, options?: RequestOptions): APIPromise<Tool> {
+    return this._client.patch(path`/v1/tools/${toolID}`, { body, ...options });
   }
 
   /**
    * Get a list of all tools available to agents.
    */
   list(
-    params: ToolListParams | null | undefined = {},
+    query: ToolListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<ToolsArrayPage, Tool> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params ?? {};
-    return this._client.getAPIList('/v1/tools/', ArrayPage<Tool>, {
-      query,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.getAPIList('/v1/tools/', ArrayPage<Tool>, { query, ...options });
   }
 
   /**
    * Delete a tool by name
    */
-  delete(
-    toolID: string,
-    params: ToolDeleteParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<unknown> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.delete(path`/v1/tools/${toolID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  delete(toolID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.delete(path`/v1/tools/${toolID}`, options);
   }
 
   /**
@@ -144,49 +54,15 @@ export class Tools extends APIResource {
    *
    * Returns tools ranked by relevance with their search scores.
    */
-  search(params: ToolSearchParams, options?: RequestOptions): APIPromise<ToolSearchResponse> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.post('/v1/tools/search', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  search(body: ToolSearchParams, options?: RequestOptions): APIPromise<ToolSearchResponse> {
+    return this._client.post('/v1/tools/search', { body, ...options });
   }
 
   /**
    * Create or update a tool
    */
-  upsert(params: ToolUpsertParams, options?: RequestOptions): APIPromise<Tool> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...body
-    } = params;
-    return this._client.put('/v1/tools/', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  upsert(body: ToolUpsertParams, options?: RequestOptions): APIPromise<Tool> {
+    return this._client.put('/v1/tools/', { body, ...options });
   }
 }
 
@@ -517,342 +393,248 @@ export type ToolSearchResponse = Array<ToolSearchResult>;
 
 export interface ToolCreateParams {
   /**
-   * Body param: The source code of the function.
+   * The source code of the function.
    */
   source_code: string;
 
   /**
-   * Body param: The args JSON schema of the function.
+   * The args JSON schema of the function.
    */
   args_json_schema?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: Whether or not to require approval before executing this tool.
+   * Whether or not to require approval before executing this tool.
    */
   default_requires_approval?: boolean | null;
 
   /**
-   * Body param: The description of the tool.
+   * The description of the tool.
    */
   description?: string | null;
 
   /**
-   * Body param: If set to True, then this tool will potentially be executed
-   * concurrently with other tools. Default False.
+   * If set to True, then this tool will potentially be executed concurrently with
+   * other tools. Default False.
    */
   enable_parallel_execution?: boolean | null;
 
   /**
-   * Body param: The JSON schema of the function (auto-generated from source_code if
-   * not provided)
+   * The JSON schema of the function (auto-generated from source_code if not
+   * provided)
    */
   json_schema?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: Optional list of npm packages required by this tool.
+   * Optional list of npm packages required by this tool.
    */
   npm_requirements?: Array<NpmRequirement> | null;
 
   /**
-   * Body param: Optional list of pip packages required by this tool.
+   * Optional list of pip packages required by this tool.
    */
   pip_requirements?: Array<PipRequirement> | null;
 
   /**
-   * Body param: The maximum number of characters in the response.
+   * The maximum number of characters in the response.
    */
   return_char_limit?: number;
 
   /**
-   * Body param: The source type of the function.
+   * The source type of the function.
    */
   source_type?: string;
 
   /**
-   * Body param: Metadata tags.
+   * Metadata tags.
    */
   tags?: Array<string> | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
-}
-
-export interface ToolRetrieveParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
 }
 
 export interface ToolUpdateParams {
   /**
-   * Body param: The args JSON schema of the function.
+   * The args JSON schema of the function.
    */
   args_json_schema?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: Whether or not to require approval before executing this tool.
+   * Whether or not to require approval before executing this tool.
    */
   default_requires_approval?: boolean | null;
 
   /**
-   * Body param: The description of the tool.
+   * The description of the tool.
    */
   description?: string | null;
 
   /**
-   * Body param: If set to True, then this tool will potentially be executed
-   * concurrently with other tools. Default False.
+   * If set to True, then this tool will potentially be executed concurrently with
+   * other tools. Default False.
    */
   enable_parallel_execution?: boolean | null;
 
   /**
-   * Body param: The JSON schema of the function (auto-generated from source_code if
-   * not provided)
+   * The JSON schema of the function (auto-generated from source_code if not
+   * provided)
    */
   json_schema?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: A dictionary of additional metadata for the tool.
+   * A dictionary of additional metadata for the tool.
    */
   metadata_?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: Optional list of npm packages required by this tool.
+   * Optional list of npm packages required by this tool.
    */
   npm_requirements?: Array<NpmRequirement> | null;
 
   /**
-   * Body param: Optional list of pip packages required by this tool.
+   * Optional list of pip packages required by this tool.
    */
   pip_requirements?: Array<PipRequirement> | null;
 
   /**
-   * Body param: The maximum number of characters in the response.
+   * The maximum number of characters in the response.
    */
   return_char_limit?: number | null;
 
   /**
-   * Body param: The source code of the function.
+   * The source code of the function.
    */
   source_code?: string | null;
 
   /**
-   * Body param: The type of the source code.
+   * The type of the source code.
    */
   source_type?: string | null;
 
   /**
-   * Body param: Metadata tags.
+   * Metadata tags.
    */
   tags?: Array<string> | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export interface ToolListParams extends ArrayPageParams {
   /**
-   * Query param: Tool type(s) to exclude - accepts repeated params or
-   * comma-separated values
+   * Tool type(s) to exclude - accepts repeated params or comma-separated values
    */
   exclude_tool_types?: Array<string> | null;
 
   /**
-   * Query param: Filter by single tool name
+   * Filter by single tool name
    */
   name?: string | null;
 
   /**
-   * Query param: Filter by specific tool names
+   * Filter by specific tool names
    */
   names?: Array<string> | null;
 
   /**
-   * Query param: Return only tools with tool*type starting with 'letta*'
+   * Return only tools with tool*type starting with 'letta*'
    */
   return_only_letta_tools?: boolean | null;
 
   /**
-   * Query param: Search tool names (case-insensitive partial match)
+   * Search tool names (case-insensitive partial match)
    */
   search?: string | null;
 
   /**
-   * Query param: Filter by specific tool IDs - accepts repeated params or
-   * comma-separated values
+   * Filter by specific tool IDs - accepts repeated params or comma-separated values
    */
   tool_ids?: Array<string> | null;
 
   /**
-   * Query param: Filter by tool type(s) - accepts repeated params or comma-separated
-   * values
+   * Filter by tool type(s) - accepts repeated params or comma-separated values
    */
   tool_types?: Array<string> | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
-}
-
-export interface ToolDeleteParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
 }
 
 export interface ToolSearchParams {
   /**
-   * Body param: Maximum number of results to return.
+   * Maximum number of results to return.
    */
   limit?: number;
 
   /**
-   * Body param: Text query for semantic search.
+   * Text query for semantic search.
    */
   query?: string | null;
 
   /**
-   * Body param: Search mode: vector, fts, or hybrid.
+   * Search mode: vector, fts, or hybrid.
    */
   search_mode?: 'vector' | 'fts' | 'hybrid';
 
   /**
-   * Body param: Filter by tags (match any).
+   * Filter by tags (match any).
    */
   tags?: Array<string> | null;
 
   /**
-   * Body param: Filter by tool types (e.g., 'custom', 'letta_core').
+   * Filter by tool types (e.g., 'custom', 'letta_core').
    */
   tool_types?: Array<string> | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export interface ToolUpsertParams {
   /**
-   * Body param: The source code of the function.
+   * The source code of the function.
    */
   source_code: string;
 
   /**
-   * Body param: The args JSON schema of the function.
+   * The args JSON schema of the function.
    */
   args_json_schema?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: Whether or not to require approval before executing this tool.
+   * Whether or not to require approval before executing this tool.
    */
   default_requires_approval?: boolean | null;
 
   /**
-   * Body param: The description of the tool.
+   * The description of the tool.
    */
   description?: string | null;
 
   /**
-   * Body param: If set to True, then this tool will potentially be executed
-   * concurrently with other tools. Default False.
+   * If set to True, then this tool will potentially be executed concurrently with
+   * other tools. Default False.
    */
   enable_parallel_execution?: boolean | null;
 
   /**
-   * Body param: The JSON schema of the function (auto-generated from source_code if
-   * not provided)
+   * The JSON schema of the function (auto-generated from source_code if not
+   * provided)
    */
   json_schema?: { [key: string]: unknown } | null;
 
   /**
-   * Body param: Optional list of npm packages required by this tool.
+   * Optional list of npm packages required by this tool.
    */
   npm_requirements?: Array<NpmRequirement> | null;
 
   /**
-   * Body param: Optional list of pip packages required by this tool.
+   * Optional list of pip packages required by this tool.
    */
   pip_requirements?: Array<PipRequirement> | null;
 
   /**
-   * Body param: The maximum number of characters in the response.
+   * The maximum number of characters in the response.
    */
   return_char_limit?: number;
 
   /**
-   * Body param: The source type of the function.
+   * The source type of the function.
    */
   source_type?: string;
 
   /**
-   * Body param: Metadata tags.
+   * Metadata tags.
    */
   tags?: Array<string> | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 export declare namespace Tools {
@@ -869,10 +651,8 @@ export declare namespace Tools {
     type ToolSearchResponse as ToolSearchResponse,
     type ToolsArrayPage as ToolsArrayPage,
     type ToolCreateParams as ToolCreateParams,
-    type ToolRetrieveParams as ToolRetrieveParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
-    type ToolDeleteParams as ToolDeleteParams,
     type ToolSearchParams as ToolSearchParams,
     type ToolUpsertParams as ToolUpsertParams,
   };

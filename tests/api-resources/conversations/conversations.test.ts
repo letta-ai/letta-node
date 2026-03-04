@@ -36,9 +36,6 @@ describe('resource conversations', () => {
         temperature: 0,
       },
       summary: 'summary',
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -52,22 +49,6 @@ describe('resource conversations', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.conversations.retrieve(
-        'default',
-        {
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -106,9 +87,6 @@ describe('resource conversations', () => {
           order: 'asc',
           order_by: 'created_at',
           summary_search: 'summary_search',
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -128,22 +106,6 @@ describe('resource conversations', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('delete: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.conversations.delete(
-        'default',
-        {
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
-  });
-
-  // Mock server tests are disabled
   test.skip('cancel', async () => {
     const responsePromise = client.conversations.cancel('default');
     const rawResponse = await responsePromise.asResponse();
@@ -153,21 +115,5 @@ describe('resource conversations', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('cancel: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.conversations.cancel(
-        'default',
-        {
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
   });
 });

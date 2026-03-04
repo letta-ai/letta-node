@@ -26,9 +26,6 @@ describe('resource identities', () => {
   test.skip('attach: required and optional params', async () => {
     const response = await client.agents.identities.attach('identity_id', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 
@@ -50,9 +47,6 @@ describe('resource identities', () => {
   test.skip('detach: required and optional params', async () => {
     const response = await client.agents.identities.detach('identity_id', {
       agent_id: 'agent-123e4567-e89b-42d3-8456-426614174000',
-      'x-billing-cost-source': 'x-billing-cost-source',
-      'x-billing-customer-id': 'x-billing-customer-id',
-      'x-billing-plan-type': 'x-billing-plan-type',
     });
   });
 });
