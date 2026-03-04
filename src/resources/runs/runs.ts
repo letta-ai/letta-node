@@ -10,10 +10,9 @@ import { StepListParams, Steps } from './steps';
 import * as TraceAPI from './trace';
 import { Trace, TraceRetrieveParams, TraceRetrieveResponse } from './trace';
 import * as UsageAPI from './usage';
-import { Usage, UsageRetrieveParams, UsageRetrieveResponse } from './usage';
+import { Usage, UsageRetrieveResponse } from './usage';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -26,54 +25,18 @@ export class Runs extends APIResource {
   /**
    * Get the status of a run.
    */
-  retrieve(
-    runID: string,
-    params: RunRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<MessagesAPI.Run> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.get(path`/v1/runs/${runID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  retrieve(runID: string, options?: RequestOptions): APIPromise<MessagesAPI.Run> {
+    return this._client.get(path`/v1/runs/${runID}`, options);
   }
 
   /**
    * List all runs.
    */
   list(
-    params: RunListParams | null | undefined = {},
+    query: RunListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<RunsArrayPage, MessagesAPI.Run> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params ?? {};
-    return this._client.getAPIList('/v1/runs/', ArrayPage<MessagesAPI.Run>, {
-      query,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.getAPIList('/v1/runs/', ArrayPage<MessagesAPI.Run>, { query, ...options });
   }
 }
 
@@ -188,71 +151,48 @@ export type StopReasonType =
   | 'requires_approval'
   | 'context_window_overflow_in_system_prompt';
 
-export interface RunRetrieveParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
-}
-
 export interface RunListParams extends ArrayPageParams {
   /**
-   * Query param: Filter for active runs.
+   * Filter for active runs.
    */
   active?: boolean;
 
   /**
-   * Query param: The unique identifier of the agent associated with the run.
+   * The unique identifier of the agent associated with the run.
    */
   agent_id?: string | null;
 
   /**
-   * @deprecated Query param: The unique identifiers of the agents associated with
-   * the run. Deprecated in favor of agent_id field.
+   * @deprecated The unique identifiers of the agents associated with the run.
+   * Deprecated in favor of agent_id field.
    */
   agent_ids?: Array<string> | null;
 
   /**
-   * @deprecated Query param: Whether to sort agents oldest to newest (True) or
-   * newest to oldest (False, default). Deprecated in favor of order field.
+   * @deprecated Whether to sort agents oldest to newest (True) or newest to oldest
+   * (False, default). Deprecated in favor of order field.
    */
   ascending?: boolean;
 
   /**
-   * Query param: If True, filters for runs that were created in background mode.
+   * If True, filters for runs that were created in background mode.
    */
   background?: boolean | null;
 
   /**
-   * Query param: Filter runs by conversation ID.
+   * Filter runs by conversation ID.
    */
   conversation_id?: string | null;
 
   /**
-   * Query param: Filter runs by status. Can specify multiple statuses.
+   * Filter runs by status. Can specify multiple statuses.
    */
   statuses?: Array<string> | null;
 
   /**
-   * Query param: Filter runs by stop reason.
+   * Filter runs by stop reason.
    */
   stop_reason?: StopReasonType | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 Runs.Messages = Messages;
@@ -261,12 +201,7 @@ Runs.Steps = Steps;
 Runs.Trace = Trace;
 
 export declare namespace Runs {
-  export {
-    type Job as Job,
-    type StopReasonType as StopReasonType,
-    type RunRetrieveParams as RunRetrieveParams,
-    type RunListParams as RunListParams,
-  };
+  export { type Job as Job, type StopReasonType as StopReasonType, type RunListParams as RunListParams };
 
   export {
     Messages as Messages,
@@ -275,11 +210,7 @@ export declare namespace Runs {
     type MessageStreamParams as MessageStreamParams,
   };
 
-  export {
-    Usage as Usage,
-    type UsageRetrieveResponse as UsageRetrieveResponse,
-    type UsageRetrieveParams as UsageRetrieveParams,
-  };
+  export { Usage as Usage, type UsageRetrieveResponse as UsageRetrieveResponse };
 
   export { Steps as Steps, type StepListParams as StepListParams };
 

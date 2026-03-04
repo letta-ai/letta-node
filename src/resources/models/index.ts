@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Embeddings, type EmbeddingListResponse, type EmbeddingListParams } from './embeddings';
+export { Embeddings, type EmbeddingListResponse } from './embeddings';
 export {
   Models,
   type EmbeddingConfig,

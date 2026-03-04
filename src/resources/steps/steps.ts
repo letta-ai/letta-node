@@ -8,12 +8,11 @@ import { Feedback, FeedbackCreateParams } from './feedback';
 import * as StepsMessagesAPI from './messages';
 import { MessageListParams, MessageListResponse, MessageListResponsesArrayPage, Messages } from './messages';
 import * as MetricsAPI from './metrics';
-import { MetricRetrieveParams, MetricRetrieveResponse, Metrics } from './metrics';
+import { MetricRetrieveResponse, Metrics } from './metrics';
 import * as TraceAPI from './trace';
-import { Trace, TraceRetrieveParams } from './trace';
+import { Trace } from './trace';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -26,54 +25,18 @@ export class Steps extends APIResource {
   /**
    * Get a step by ID.
    */
-  retrieve(
-    stepID: string,
-    params: StepRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<Step> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-    } = params ?? {};
-    return this._client.get(path`/v1/steps/${stepID}`, {
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  retrieve(stepID: string, options?: RequestOptions): APIPromise<Step> {
+    return this._client.get(path`/v1/steps/${stepID}`, options);
   }
 
   /**
    * List steps with optional pagination and date filters.
    */
   list(
-    params: StepListParams | null | undefined = {},
+    query: StepListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<StepsArrayPage, Step> {
-    const {
-      'x-billing-cost-source': xBillingCostSource,
-      'x-billing-customer-id': xBillingCustomerID,
-      'x-billing-plan-type': xBillingPlanType,
-      ...query
-    } = params ?? {};
-    return this._client.getAPIList('/v1/steps/', ArrayPage<Step>, {
-      query,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(xBillingCostSource != null ? { 'x-billing-cost-source': xBillingCostSource } : undefined),
-          ...(xBillingCustomerID != null ? { 'x-billing-customer-id': xBillingCustomerID } : undefined),
-          ...(xBillingPlanType != null ? { 'x-billing-plan-type': xBillingPlanType } : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+    return this._client.getAPIList('/v1/steps/', ArrayPage<Step>, { query, ...options });
   }
 }
 
@@ -363,77 +326,51 @@ export interface Step {
   trace_id?: string | null;
 }
 
-export interface StepRetrieveParams {
-  'x-billing-cost-source'?: string;
-
-  'x-billing-customer-id'?: string;
-
-  'x-billing-plan-type'?: string;
-}
-
 export interface StepListParams extends ArrayPageParams {
   /**
-   * Query param: Filter by the ID of the agent that performed the step
+   * Filter by the ID of the agent that performed the step
    */
   agent_id?: string | null;
 
   /**
-   * Query param: Return steps before this ISO datetime (e.g.
-   * "2025-01-29T15:01:19-08:00")
+   * Return steps before this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
    */
   end_date?: string | null;
 
   /**
-   * Query param: Filter by feedback
+   * Filter by feedback
    */
   feedback?: 'positive' | 'negative' | null;
 
   /**
-   * Query param: Filter by whether steps have feedback (true) or not (false)
+   * Filter by whether steps have feedback (true) or not (false)
    */
   has_feedback?: boolean | null;
 
   /**
-   * Query param: Filter by the name of the model used for the step
+   * Filter by the name of the model used for the step
    */
   model?: string | null;
 
   /**
-   * Query param: Filter by the project ID that is associated with the step (cloud
-   * only).
+   * Filter by the project ID that is associated with the step (cloud only).
    */
   project_id?: string | null;
 
   /**
-   * Query param: Return steps after this ISO datetime (e.g.
-   * "2025-01-29T15:01:19-08:00")
+   * Return steps after this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
    */
   start_date?: string | null;
 
   /**
-   * Query param: Filter by tags
+   * Filter by tags
    */
   tags?: Array<string> | null;
 
   /**
-   * Query param: Filter by trace ids returned by the server
+   * Filter by trace ids returned by the server
    */
   trace_ids?: Array<string> | null;
-
-  /**
-   * Header param
-   */
-  'x-billing-cost-source'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-customer-id'?: string;
-
-  /**
-   * Header param
-   */
-  'x-billing-plan-type'?: string;
 }
 
 Steps.Metrics = Metrics;
@@ -446,17 +383,12 @@ export declare namespace Steps {
     type ProviderTrace as ProviderTrace,
     type Step as Step,
     type StepsArrayPage as StepsArrayPage,
-    type StepRetrieveParams as StepRetrieveParams,
     type StepListParams as StepListParams,
   };
 
-  export {
-    Metrics as Metrics,
-    type MetricRetrieveResponse as MetricRetrieveResponse,
-    type MetricRetrieveParams as MetricRetrieveParams,
-  };
+  export { Metrics as Metrics, type MetricRetrieveResponse as MetricRetrieveResponse };
 
-  export { Trace as Trace, type TraceRetrieveParams as TraceRetrieveParams };
+  export { Trace as Trace };
 
   export { Feedback as Feedback, type FeedbackCreateParams as FeedbackCreateParams };
 

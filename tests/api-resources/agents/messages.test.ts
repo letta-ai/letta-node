@@ -50,9 +50,6 @@ describe('resource messages', () => {
           order: 'asc',
           order_by: 'created_at',
           use_assistant_message: true,
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -77,12 +74,7 @@ describe('resource messages', () => {
     await expect(
       client.agents.messages.cancel(
         'agent-123e4567-e89b-42d3-8456-426614174000',
-        {
-          run_ids: ['string'],
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
-        },
+        { run_ids: ['string'] },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
@@ -124,9 +116,6 @@ describe('resource messages', () => {
             prompt_acknowledgement: true,
             sliding_window_percentage: 0,
           },
-          'x-billing-cost-source': 'x-billing-cost-source',
-          'x-billing-customer-id': 'x-billing-customer-id',
-          'x-billing-plan-type': 'x-billing-plan-type',
         },
         { path: '/_stainless_unknown_path' },
       ),
