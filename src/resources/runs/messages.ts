@@ -46,6 +46,12 @@ export interface MessageListParams extends ArrayPageParams {}
 
 export interface MessageStreamParams {
   /**
+   * Agent ID for agent-direct mode with 'default' conversation. Use with
+   * conversation_id='default' in the URL path.
+   */
+  agent_id?: string | null;
+
+  /**
    * Number of entries to read per batch.
    */
   batch_size?: number | null;

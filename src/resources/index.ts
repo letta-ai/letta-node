@@ -79,6 +79,7 @@ export {
   type ConversationCreateParams,
   type ConversationUpdateParams,
   type ConversationListParams,
+  type ConversationCancelParams,
 } from './conversations/conversations';
 export {
   Folders,

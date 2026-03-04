@@ -18,8 +18,11 @@ export class Messages extends APIResource {
    * (streaming=true), returns a streaming response (Server-Sent Events). Set
    * streaming=false to get a complete JSON response.
    *
-   * If conversation_id is an agent ID (starts with "agent-"), routes to agent-direct
-   * mode with locking but without conversation-specific features.
+   * **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
+   * body to send messages to the agent's default conversation with locking.
+   *
+   * **Deprecated**: Passing an agent ID as conversation_id still works but will be
+   * removed.
    */
   create(
     conversationID: string,
@@ -39,8 +42,11 @@ export class Messages extends APIResource {
    * Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
    * messages in the conversation, with support for cursor-based pagination.
    *
-   * If conversation_id is an agent ID (starts with "agent-"), returns messages from
-   * the agent's default conversation (no conversation isolation).
+   * **Agent-direct mode**: Pass conversation_id="default" with agent_id parameter to
+   * list messages from the agent's default conversation.
+   *
+   * **Deprecated**: Passing an agent ID as conversation_id still works but will be
+   * removed.
    */
   list(
     conversationID: string,
@@ -60,8 +66,11 @@ export class Messages extends APIResource {
    * This endpoint summarizes the in-context messages for a specific conversation,
    * reducing the message count while preserving important context.
    *
-   * If conversation_id is an agent ID (starts with "agent-"), compacts the agent's
-   * default conversation messages.
+   * **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
+   * body to compact the agent's default conversation messages.
+   *
+   * **Deprecated**: Passing an agent ID as conversation_id still works but will be
+   * removed.
    */
   compact(
     conversationID: string,
@@ -77,8 +86,11 @@ export class Messages extends APIResource {
    * This endpoint allows you to reconnect to an active background stream for a
    * conversation, enabling recovery from network interruptions.
    *
-   * If conversation_id is an agent ID (starts with "agent-"), retrieves the stream
-   * for the agent's most recent active run.
+   * **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
+   * body to retrieve the stream for the agent's most recent active run.
+   *
+   * **Deprecated**: Passing an agent ID as conversation_id still works but will be
+   * removed.
    */
   stream(
     conversationID: string,
@@ -312,6 +324,12 @@ export type MessageStreamResponse = unknown;
 
 export interface MessageCreateParams {
   /**
+   * Agent ID for agent-direct mode with 'default' conversation. Use with
+   * conversation_id='default' in the URL path.
+   */
+  agent_id?: string | null;
+
+  /**
    * @deprecated The name of the message argument in the designated message tool.
    * Still supported for legacy agent types, but deprecated for letta_v1_agent
    * onward.
@@ -525,6 +543,11 @@ export namespace MessageCreateParams {
 
 export interface MessageListParams extends ArrayPageParams {
   /**
+   * Agent ID for agent-direct mode with 'default' conversation
+   */
+  agent_id?: string | null;
+
+  /**
    * Group ID to filter messages by.
    */
   group_id?: string | null;
@@ -537,6 +560,12 @@ export interface MessageListParams extends ArrayPageParams {
 }
 
 export interface MessageCompactParams {
+  /**
+   * Agent ID for agent-direct mode with 'default' conversation. Use with
+   * conversation_id='default' in the URL path.
+   */
+  agent_id?: string | null;
+
   /**
    * Configuration for conversation compaction / summarization.
    *
@@ -744,6 +773,12 @@ export namespace MessageCompactParams {
 }
 
 export interface MessageStreamParams {
+  /**
+   * Agent ID for agent-direct mode with 'default' conversation. Use with
+   * conversation_id='default' in the URL path.
+   */
+  agent_id?: string | null;
+
   /**
    * Number of entries to read per batch.
    */
