@@ -87,6 +87,11 @@ export interface ProviderTrace {
   agent_tags?: Array<string> | null;
 
   /**
+   * Billing context for LLM request cost tracking.
+   */
+  billing_context?: ProviderTrace.BillingContext | null;
+
+  /**
    * Type of call (agent_step, summarization, etc.)
    */
   call_type?: string | null;
@@ -140,6 +145,28 @@ export interface ProviderTrace {
    * The timestamp when the object was last updated.
    */
   updated_at?: string | null;
+}
+
+export namespace ProviderTrace {
+  /**
+   * Billing context for LLM request cost tracking.
+   */
+  export interface BillingContext {
+    /**
+     * Cost source: 'quota' or 'credits'
+     */
+    cost_source?: string | null;
+
+    /**
+     * Customer ID for billing records
+     */
+    customer_id?: string | null;
+
+    /**
+     * Subscription tier
+     */
+    plan_type?: string | null;
+  }
 }
 
 export interface Step {

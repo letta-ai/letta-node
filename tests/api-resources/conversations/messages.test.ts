@@ -40,6 +40,7 @@ describe('resource messages', () => {
         'default',
         {
           after: 'after',
+          agent_id: 'agent_id',
           before: 'before',
           group_id: 'group_id',
           include_err: true,
@@ -71,6 +72,7 @@ describe('resource messages', () => {
       client.conversations.messages.compact(
         'default',
         {
+          agent_id: 'agent_id',
           compaction_settings: {
             clip_chars: 0,
             mode: 'all',
@@ -113,6 +115,7 @@ describe('resource messages', () => {
       client.conversations.messages.stream(
         'default',
         {
+          agent_id: 'agent_id',
           batch_size: 0,
           include_pings: true,
           poll_interval: 0,

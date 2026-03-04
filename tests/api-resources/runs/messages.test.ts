@@ -57,6 +57,7 @@ describe('resource messages', () => {
       client.runs.messages.stream(
         'run_id',
         {
+          agent_id: 'agent_id',
           batch_size: 0,
           include_pings: true,
           poll_interval: 0,
