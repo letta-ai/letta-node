@@ -11,6 +11,7 @@ export {
   type ConversationCreateParams,
   type ConversationUpdateParams,
   type ConversationListParams,
+  type ConversationCancelParams,
 } from './conversations';
 export {
   Messages,

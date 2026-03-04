@@ -73,11 +73,22 @@ export class Conversations extends APIResource {
    *
    * Note: To cancel active runs, Redis is required.
    *
-   * If conversation_id is an agent ID (starts with "agent-"), cancels runs for the
-   * agent's default conversation.
+   * **Agent-direct mode**: Pass conversation_id="default" with agent_id query
+   * parameter to cancel runs for the agent's default conversation.
+   *
+   * **Deprecated**: Passing an agent ID as conversation_id still works but will be
+   * removed.
    */
-  cancel(conversationID: string, options?: RequestOptions): APIPromise<ConversationCancelResponse> {
-    return this._client.post(path`/v1/conversations/${conversationID}/cancel`, options);
+  cancel(
+    conversationID: string,
+    params: ConversationCancelParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConversationCancelResponse> {
+    const { agent_id } = params ?? {};
+    return this._client.post(path`/v1/conversations/${conversationID}/cancel`, {
+      query: { agent_id },
+      ...options,
+    });
   }
 }
 
@@ -1020,6 +1031,13 @@ export interface ConversationListParams {
   summary_search?: string | null;
 }
 
+export interface ConversationCancelParams {
+  /**
+   * Agent ID for agent-direct mode with 'default' conversation
+   */
+  agent_id?: string | null;
+}
+
 Conversations.Messages = Messages;
 
 export declare namespace Conversations {
@@ -1033,6 +1051,7 @@ export declare namespace Conversations {
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
+    type ConversationCancelParams as ConversationCancelParams,
   };
 
   export {
