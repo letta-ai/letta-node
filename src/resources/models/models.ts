@@ -243,6 +243,7 @@ export interface LlmConfig {
     | 'deepseek'
     | 'xai'
     | 'zai'
+    | 'fireworks'
     | 'openrouter'
     | 'chatgpt_oauth';
 
@@ -590,6 +591,7 @@ export type ProviderType =
   | 'cerebras'
   | 'chatgpt_oauth'
   | 'deepseek'
+  | 'fireworks'
   | 'google_ai'
   | 'google_vertex'
   | 'groq'
