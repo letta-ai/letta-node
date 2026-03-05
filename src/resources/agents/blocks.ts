@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
-import * as BlocksBlocksAPI from '../blocks/blocks';
+import * as ResourcesBlocksAPI from '../blocks/blocks';
 import { BlockResponsesArrayPage } from '../blocks/blocks';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
@@ -17,7 +17,7 @@ export class Blocks extends APIResource {
     blockLabel: string,
     params: BlockRetrieveParams,
     options?: RequestOptions,
-  ): APIPromise<BlocksBlocksAPI.BlockResponse> {
+  ): APIPromise<ResourcesBlocksAPI.BlockResponse> {
     const { agent_id } = params;
     return this._client.get(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, options);
   }
@@ -29,7 +29,7 @@ export class Blocks extends APIResource {
     blockLabel: string,
     params: BlockUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<BlocksBlocksAPI.BlockResponse> {
+  ): APIPromise<ResourcesBlocksAPI.BlockResponse> {
     const { agent_id, ...body } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, {
       body,
@@ -44,10 +44,10 @@ export class Blocks extends APIResource {
     agentID: string,
     query: BlockListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<BlockResponsesArrayPage, BlocksBlocksAPI.BlockResponse> {
+  ): PagePromise<BlockResponsesArrayPage, ResourcesBlocksAPI.BlockResponse> {
     return this._client.getAPIList(
       path`/v1/agents/${agentID}/core-memory/blocks`,
-      ArrayPage<BlocksBlocksAPI.BlockResponse>,
+      ArrayPage<ResourcesBlocksAPI.BlockResponse>,
       { query, ...options },
     );
   }
