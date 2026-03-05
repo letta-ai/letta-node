@@ -41,12 +41,14 @@ export {
   type AgentDeleteResponse,
   type AgentExportFileResponse,
   type AgentImportFileResponse,
+  type AgentRecompileResponse,
   type AgentCreateParams,
   type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
   type AgentExportFileParams,
   type AgentImportFileParams,
+  type AgentRecompileParams,
   type AgentStatesArrayPage,
 } from './agents/agents';
 export {

@@ -78,6 +78,8 @@ import {
   AgentImportFileParams,
   AgentImportFileResponse,
   AgentListParams,
+  AgentRecompileParams,
+  AgentRecompileResponse,
   AgentRetrieveParams,
   AgentState,
   AgentStatesArrayPage,
@@ -1047,6 +1049,7 @@ export declare namespace Letta {
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,
+    type AgentRecompileResponse as AgentRecompileResponse,
     type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
@@ -1054,6 +1057,7 @@ export declare namespace Letta {
     type AgentListParams as AgentListParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
+    type AgentRecompileParams as AgentRecompileParams,
   };
 
   export {
