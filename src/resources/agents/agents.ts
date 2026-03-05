@@ -242,6 +242,21 @@ export class Agents extends APIResource {
       ),
     );
   }
+
+  /**
+   * Manually trigger system prompt recompilation for an agent.
+   */
+  recompile(
+    agentID: string,
+    params: AgentRecompileParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<string> {
+    const { dry_run, update_timestamp } = params ?? {};
+    return this._client.post(path`/v1/agents/${agentID}/recompile`, {
+      query: { dry_run, update_timestamp },
+      ...options,
+    });
+  }
 }
 
 export type AgentStatesArrayPage = ArrayPage<AgentState>;
@@ -2065,6 +2080,8 @@ export interface AgentImportFileResponse {
   agent_ids: Array<string>;
 }
 
+export type AgentRecompileResponse = string;
+
 export interface AgentCreateParams {
   /**
    * The type of agent.
@@ -3469,6 +3486,19 @@ export interface AgentImportFileParams {
   'x-override-embedding-model'?: string;
 }
 
+export interface AgentRecompileParams {
+  /**
+   * If True, do not persist changes; still returns the compiled system prompt.
+   */
+  dry_run?: boolean;
+
+  /**
+   * If True, update the in-context memory last edit timestamp embedded in the system
+   * prompt.
+   */
+  update_timestamp?: boolean;
+}
+
 Agents.Messages = Messages;
 Agents.Schedule = Schedule;
 Agents.Blocks = Blocks;
@@ -3511,6 +3541,7 @@ export declare namespace Agents {
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,
+    type AgentRecompileResponse as AgentRecompileResponse,
     type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
@@ -3518,6 +3549,7 @@ export declare namespace Agents {
     type AgentListParams as AgentListParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
+    type AgentRecompileParams as AgentRecompileParams,
   };
 
   export {

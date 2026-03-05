@@ -42,6 +42,7 @@ Types:
 - <code><a href="./src/resources/agents/agents.ts">AgentDeleteResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentExportFileResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentImportFileResponse</a></code>
+- <code><a href="./src/resources/agents/agents.ts">AgentRecompileResponse</a></code>
 
 Methods:
 
@@ -52,6 +53,7 @@ Methods:
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentID) -> unknown</code>
 - <code title="get /v1/agents/{agent_id}/export">client.agents.<a href="./src/resources/agents/agents.ts">exportFile</a>(agentID, { ...params }) -> string</code>
 - <code title="post /v1/agents/import">client.agents.<a href="./src/resources/agents/agents.ts">importFile</a>({ ...params }) -> AgentImportFileResponse</code>
+- <code title="post /v1/agents/{agent_id}/recompile">client.agents.<a href="./src/resources/agents/agents.ts">recompile</a>(agentID, { ...params }) -> string</code>
 
 ## Messages
 
