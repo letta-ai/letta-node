@@ -140,8 +140,8 @@ import {
   ToolUpdateApprovalParams,
   Tools,
 } from './tools';
-import * as ArchivesArchivesAPI from '../archives/archives';
-import * as BlocksBlocksAPI from '../blocks/blocks';
+import * as ResourcesArchivesAPI from '../archives/archives';
+import * as ResourcesBlocksAPI from '../blocks/blocks';
 import * as ModelsAPI from '../models/models';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
@@ -798,7 +798,7 @@ export namespace AgentState {
     /**
      * The vector database provider used for this source's passages
      */
-    vector_db_provider?: ArchivesArchivesAPI.VectorDBProvider;
+    vector_db_provider?: ResourcesArchivesAPI.VectorDBProvider;
   }
 
   /**
@@ -2224,7 +2224,7 @@ export interface AgentCreateParams {
   /**
    * The blocks to create in the agent's in-context memory.
    */
-  memory_blocks?: Array<BlocksBlocksAPI.CreateBlock> | null;
+  memory_blocks?: Array<ResourcesBlocksAPI.CreateBlock> | null;
 
   /**
    * @deprecated Deprecated: Only relevant for creating agents from a template. Use

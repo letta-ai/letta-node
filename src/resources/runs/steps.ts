@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as StepsStepsAPI from '../steps/steps';
+import * as ResourcesStepsAPI from '../steps/steps';
 import { StepsArrayPage } from '../steps/steps';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -15,8 +15,8 @@ export class Steps extends APIResource {
     runID: string,
     query: StepListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<StepsArrayPage, StepsStepsAPI.Step> {
-    return this._client.getAPIList(path`/v1/runs/${runID}/steps`, ArrayPage<StepsStepsAPI.Step>, {
+  ): PagePromise<StepsArrayPage, ResourcesStepsAPI.Step> {
+    return this._client.getAPIList(path`/v1/runs/${runID}/steps`, ArrayPage<ResourcesStepsAPI.Step>, {
       query,
       ...options,
     });
