@@ -417,7 +417,7 @@ export class Letta {
   }
 
   /**
-   * Async health check endpoint.
+   * Liveness endpoint; returns 200 when process is responsive.
    */
   health(options?: RequestOptions): APIPromise<TopLevelAPI.HealthResponse> {
     return this.get('/v1/health/', options);
