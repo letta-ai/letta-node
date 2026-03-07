@@ -78,6 +78,8 @@ import {
   AgentImportFileParams,
   AgentImportFileResponse,
   AgentListParams,
+  AgentRecompileParams,
+  AgentRecompileResponse,
   AgentRetrieveParams,
   AgentState,
   AgentStatesArrayPage,
@@ -136,6 +138,8 @@ import {
   ConversationDeleteResponse,
   ConversationListParams,
   ConversationListResponse,
+  ConversationRecompileParams,
+  ConversationRecompileResponse,
   ConversationUpdateParams,
   Conversations,
   CreateConversation,
@@ -415,7 +419,7 @@ export class Letta {
   }
 
   /**
-   * Async health check endpoint.
+   * Liveness endpoint; returns 200 when process is responsive.
    */
   health(options?: RequestOptions): APIPromise<TopLevelAPI.HealthResponse> {
     return this.get('/v1/health/', options);
@@ -469,8 +473,9 @@ export class Letta {
       : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
     const defaultQuery = this.defaultQuery();
-    if (!isEmptyObj(defaultQuery)) {
-      query = { ...defaultQuery, ...query };
+    const pathQuery = Object.fromEntries(url.searchParams);
+    if (!isEmptyObj(defaultQuery) || !isEmptyObj(pathQuery)) {
+      query = { ...pathQuery, ...defaultQuery, ...query };
     }
 
     if (typeof query === 'object' && query && !Array.isArray(query)) {
@@ -803,9 +808,9 @@ export class Letta {
       }
     }
 
-    // If the API asks us to wait a certain amount of time (and it's a reasonable amount),
-    // just do what it says, but otherwise calculate a default
-    if (!(timeoutMillis && 0 <= timeoutMillis && timeoutMillis < 60 * 1000)) {
+    // If the API asks us to wait a certain amount of time, just do what it
+    // says, but otherwise calculate a default
+    if (timeoutMillis === undefined) {
       const maxRetries = options.maxRetries ?? this.maxRetries;
       timeoutMillis = this.calculateDefaultRetryTimeoutMillis(retriesRemaining, maxRetries);
     }
@@ -1047,6 +1052,7 @@ export declare namespace Letta {
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,
+    type AgentRecompileResponse as AgentRecompileResponse,
     type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
@@ -1054,6 +1060,7 @@ export declare namespace Letta {
     type AgentListParams as AgentListParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
+    type AgentRecompileParams as AgentRecompileParams,
   };
 
   export {
@@ -1197,10 +1204,12 @@ export declare namespace Letta {
     type ConversationListResponse as ConversationListResponse,
     type ConversationDeleteResponse as ConversationDeleteResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
+    type ConversationRecompileResponse as ConversationRecompileResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
     type ConversationCancelParams as ConversationCancelParams,
+    type ConversationRecompileParams as ConversationRecompileParams,
   };
 
   export {

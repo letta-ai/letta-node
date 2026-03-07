@@ -41,12 +41,14 @@ export {
   type AgentDeleteResponse,
   type AgentExportFileResponse,
   type AgentImportFileResponse,
+  type AgentRecompileResponse,
   type AgentCreateParams,
   type AgentRetrieveParams,
   type AgentUpdateParams,
   type AgentListParams,
   type AgentExportFileParams,
   type AgentImportFileParams,
+  type AgentRecompileParams,
   type AgentStatesArrayPage,
 } from './agents/agents';
 export {
@@ -76,10 +78,12 @@ export {
   type ConversationListResponse,
   type ConversationDeleteResponse,
   type ConversationCancelResponse,
+  type ConversationRecompileResponse,
   type ConversationCreateParams,
   type ConversationUpdateParams,
   type ConversationListParams,
   type ConversationCancelParams,
+  type ConversationRecompileParams,
 } from './conversations/conversations';
 export {
   Folders,

@@ -42,6 +42,7 @@ Types:
 - <code><a href="./src/resources/agents/agents.ts">AgentDeleteResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentExportFileResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentImportFileResponse</a></code>
+- <code><a href="./src/resources/agents/agents.ts">AgentRecompileResponse</a></code>
 
 Methods:
 
@@ -52,6 +53,7 @@ Methods:
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentID) -> unknown</code>
 - <code title="get /v1/agents/{agent_id}/export">client.agents.<a href="./src/resources/agents/agents.ts">exportFile</a>(agentID, { ...params }) -> string</code>
 - <code title="post /v1/agents/import">client.agents.<a href="./src/resources/agents/agents.ts">importFile</a>({ ...params }) -> AgentImportFileResponse</code>
+- <code title="post /v1/agents/{agent_id}/recompile">client.agents.<a href="./src/resources/agents/agents.ts">recompile</a>(agentID, { ...params }) -> string</code>
 
 ## Messages
 
@@ -570,6 +572,7 @@ Types:
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationListResponse</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationDeleteResponse</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationCancelResponse</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">ConversationRecompileResponse</a></code>
 
 Methods:
 
@@ -579,6 +582,7 @@ Methods:
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
 - <code title="delete /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">delete</a>(conversationID) -> unknown</code>
 - <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/resources/conversations/conversations.ts">cancel</a>(conversationID, { ...params }) -> ConversationCancelResponse</code>
+- <code title="post /v1/conversations/{conversation_id}/recompile">client.conversations.<a href="./src/resources/conversations/conversations.ts">recompile</a>(conversationID, { ...params }) -> string</code>
 
 ## Messages
 

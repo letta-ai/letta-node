@@ -140,8 +140,8 @@ import {
   ToolUpdateApprovalParams,
   Tools,
 } from './tools';
-import * as ArchivesArchivesAPI from '../archives/archives';
-import * as BlocksBlocksAPI from '../blocks/blocks';
+import * as ResourcesArchivesAPI from '../archives/archives';
+import * as ResourcesBlocksAPI from '../blocks/blocks';
 import * as ModelsAPI from '../models/models';
 import * as RunsAPI from '../runs/runs';
 import { APIPromise } from '../../core/api-promise';
@@ -241,6 +241,21 @@ export class Agents extends APIResource {
         this._client,
       ),
     );
+  }
+
+  /**
+   * Manually trigger system prompt recompilation for an agent.
+   */
+  recompile(
+    agentID: string,
+    params: AgentRecompileParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<string> {
+    const { dry_run, update_timestamp } = params ?? {};
+    return this._client.post(path`/v1/agents/${agentID}/recompile`, {
+      query: { dry_run, update_timestamp },
+      ...options,
+    });
   }
 }
 
@@ -783,7 +798,7 @@ export namespace AgentState {
     /**
      * The vector database provider used for this source's passages
      */
-    vector_db_provider?: ArchivesArchivesAPI.VectorDBProvider;
+    vector_db_provider?: ResourcesArchivesAPI.VectorDBProvider;
   }
 
   /**
@@ -2065,6 +2080,8 @@ export interface AgentImportFileResponse {
   agent_ids: Array<string>;
 }
 
+export type AgentRecompileResponse = string;
+
 export interface AgentCreateParams {
   /**
    * The type of agent.
@@ -2207,7 +2224,7 @@ export interface AgentCreateParams {
   /**
    * The blocks to create in the agent's in-context memory.
    */
-  memory_blocks?: Array<BlocksBlocksAPI.CreateBlock> | null;
+  memory_blocks?: Array<ResourcesBlocksAPI.CreateBlock> | null;
 
   /**
    * @deprecated Deprecated: Only relevant for creating agents from a template. Use
@@ -3469,6 +3486,19 @@ export interface AgentImportFileParams {
   'x-override-embedding-model'?: string;
 }
 
+export interface AgentRecompileParams {
+  /**
+   * If True, do not persist changes; still returns the compiled system prompt.
+   */
+  dry_run?: boolean;
+
+  /**
+   * If True, update the in-context memory last edit timestamp embedded in the system
+   * prompt.
+   */
+  update_timestamp?: boolean;
+}
+
 Agents.Messages = Messages;
 Agents.Schedule = Schedule;
 Agents.Blocks = Blocks;
@@ -3511,6 +3541,7 @@ export declare namespace Agents {
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,
+    type AgentRecompileResponse as AgentRecompileResponse,
     type AgentStatesArrayPage as AgentStatesArrayPage,
     type AgentCreateParams as AgentCreateParams,
     type AgentRetrieveParams as AgentRetrieveParams,
@@ -3518,6 +3549,7 @@ export declare namespace Agents {
     type AgentListParams as AgentListParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
+    type AgentRecompileParams as AgentRecompileParams,
   };
 
   export {
