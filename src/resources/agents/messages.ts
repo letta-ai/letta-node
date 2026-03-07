@@ -830,6 +830,13 @@ export interface LettaRequest {
   assistant_message_tool_name?: string;
 
   /**
+   * Client-side skills available in the environment. These are rendered in the
+   * system prompt's available skills section alongside agent-scoped skills from
+   * MemFS.
+   */
+  client_skills?: Array<LettaRequest.ClientSkill> | null;
+
+  /**
    * Client-side tools that the agent can call. When the agent calls a client-side
    * tool, execution pauses and returns control to the client to execute the tool and
    * provide the result via a ToolReturn.
@@ -919,6 +926,30 @@ export interface LettaRequest {
 }
 
 export namespace LettaRequest {
+  /**
+   * Schema for a client-side skill passed in the request.
+   *
+   * Client-side skills represent environment-provided capabilities (e.g.
+   * project-scoped skills) that are not stored in the agent's MemFS but should
+   * appear in the system prompt's available skills section.
+   */
+  export interface ClientSkill {
+    /**
+     * Description of what the skill does
+     */
+    description: string;
+
+    /**
+     * Path or location hint for the skill (e.g. skills/my-skill/SKILL.md)
+     */
+    location: string;
+
+    /**
+     * The name of the skill
+     */
+    name: string;
+  }
+
   /**
    * Schema for a client-side tool passed in the request.
    *
@@ -1221,6 +1252,13 @@ export interface LettaStreamingRequest {
   background?: boolean;
 
   /**
+   * Client-side skills available in the environment. These are rendered in the
+   * system prompt's available skills section alongside agent-scoped skills from
+   * MemFS.
+   */
+  client_skills?: Array<LettaStreamingRequest.ClientSkill> | null;
+
+  /**
    * Client-side tools that the agent can call. When the agent calls a client-side
    * tool, execution pauses and returns control to the client to execute the tool and
    * provide the result via a ToolReturn.
@@ -1328,6 +1366,30 @@ export interface LettaStreamingRequest {
 }
 
 export namespace LettaStreamingRequest {
+  /**
+   * Schema for a client-side skill passed in the request.
+   *
+   * Client-side skills represent environment-provided capabilities (e.g.
+   * project-scoped skills) that are not stored in the agent's MemFS but should
+   * appear in the system prompt's available skills section.
+   */
+  export interface ClientSkill {
+    /**
+     * Description of what the skill does
+     */
+    description: string;
+
+    /**
+     * Path or location hint for the skill (e.g. skills/my-skill/SKILL.md)
+     */
+    location: string;
+
+    /**
+     * The name of the skill
+     */
+    name: string;
+  }
+
   /**
    * Schema for a client-side tool passed in the request.
    *
@@ -2192,6 +2254,13 @@ export interface MessageCreateParamsBase {
   background?: boolean;
 
   /**
+   * Client-side skills available in the environment. These are rendered in the
+   * system prompt's available skills section alongside agent-scoped skills from
+   * MemFS.
+   */
+  client_skills?: Array<MessageCreateParams.ClientSkill> | null;
+
+  /**
    * Client-side tools that the agent can call. When the agent calls a client-side
    * tool, execution pauses and returns control to the client to execute the tool and
    * provide the result via a ToolReturn.
@@ -2299,6 +2368,30 @@ export interface MessageCreateParamsBase {
 }
 
 export namespace MessageCreateParams {
+  /**
+   * Schema for a client-side skill passed in the request.
+   *
+   * Client-side skills represent environment-provided capabilities (e.g.
+   * project-scoped skills) that are not stored in the agent's MemFS but should
+   * appear in the system prompt's available skills section.
+   */
+  export interface ClientSkill {
+    /**
+     * Description of what the skill does
+     */
+    description: string;
+
+    /**
+     * Path or location hint for the skill (e.g. skills/my-skill/SKILL.md)
+     */
+    location: string;
+
+    /**
+     * The name of the skill
+     */
+    name: string;
+  }
+
   /**
    * Schema for a client-side tool passed in the request.
    *
@@ -2668,6 +2761,13 @@ export interface MessageCreateAsyncParams {
   callback_url?: string | null;
 
   /**
+   * Client-side skills available in the environment. These are rendered in the
+   * system prompt's available skills section alongside agent-scoped skills from
+   * MemFS.
+   */
+  client_skills?: Array<MessageCreateAsyncParams.ClientSkill> | null;
+
+  /**
    * Client-side tools that the agent can call. When the agent calls a client-side
    * tool, execution pauses and returns control to the client to execute the tool and
    * provide the result via a ToolReturn.
@@ -2759,6 +2859,30 @@ export interface MessageCreateAsyncParams {
 }
 
 export namespace MessageCreateAsyncParams {
+  /**
+   * Schema for a client-side skill passed in the request.
+   *
+   * Client-side skills represent environment-provided capabilities (e.g.
+   * project-scoped skills) that are not stored in the agent's MemFS but should
+   * appear in the system prompt's available skills section.
+   */
+  export interface ClientSkill {
+    /**
+     * Description of what the skill does
+     */
+    description: string;
+
+    /**
+     * Path or location hint for the skill (e.g. skills/my-skill/SKILL.md)
+     */
+    location: string;
+
+    /**
+     * The name of the skill
+     */
+    name: string;
+  }
+
   /**
    * Schema for a client-side tool passed in the request.
    *
@@ -2870,6 +2994,13 @@ export interface MessageStreamParams {
   background?: boolean;
 
   /**
+   * Client-side skills available in the environment. These are rendered in the
+   * system prompt's available skills section alongside agent-scoped skills from
+   * MemFS.
+   */
+  client_skills?: Array<MessageStreamParams.ClientSkill> | null;
+
+  /**
    * Client-side tools that the agent can call. When the agent calls a client-side
    * tool, execution pauses and returns control to the client to execute the tool and
    * provide the result via a ToolReturn.
@@ -2977,6 +3108,30 @@ export interface MessageStreamParams {
 }
 
 export namespace MessageStreamParams {
+  /**
+   * Schema for a client-side skill passed in the request.
+   *
+   * Client-side skills represent environment-provided capabilities (e.g.
+   * project-scoped skills) that are not stored in the agent's MemFS but should
+   * appear in the system prompt's available skills section.
+   */
+  export interface ClientSkill {
+    /**
+     * Description of what the skill does
+     */
+    description: string;
+
+    /**
+     * Path or location hint for the skill (e.g. skills/my-skill/SKILL.md)
+     */
+    location: string;
+
+    /**
+     * The name of the skill
+     */
+    name: string;
+  }
+
   /**
    * Schema for a client-side tool passed in the request.
    *
