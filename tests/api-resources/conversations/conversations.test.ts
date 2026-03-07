@@ -124,4 +124,48 @@ describe('resource conversations', () => {
       client.conversations.cancel('default', { agent_id: 'agent_id' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Letta.NotFoundError);
   });
+
+  // Mock server tests are disabled
+  test.skip('recompile', async () => {
+    const responsePromise = client.conversations.recompile('default');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('recompile: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.conversations.recompile(
+        'default',
+        {
+          dry_run: true,
+          agent_id: 'agent_id',
+          compaction_settings: {
+            clip_chars: 0,
+            mode: 'all',
+            model: 'model',
+            model_settings: {
+              max_output_tokens: 0,
+              parallel_tool_calls: true,
+              provider_type: 'openai',
+              reasoning: { reasoning_effort: 'none' },
+              response_format: { type: 'text' },
+              strict: true,
+              temperature: 0,
+            },
+            prompt: 'prompt',
+            prompt_acknowledgement: true,
+            sliding_window_percentage: 0,
+          },
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
+  });
 });

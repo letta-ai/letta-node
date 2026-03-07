@@ -138,6 +138,8 @@ import {
   ConversationDeleteResponse,
   ConversationListParams,
   ConversationListResponse,
+  ConversationRecompileParams,
+  ConversationRecompileResponse,
   ConversationUpdateParams,
   Conversations,
   CreateConversation,
@@ -1201,10 +1203,12 @@ export declare namespace Letta {
     type ConversationListResponse as ConversationListResponse,
     type ConversationDeleteResponse as ConversationDeleteResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
+    type ConversationRecompileResponse as ConversationRecompileResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
     type ConversationCancelParams as ConversationCancelParams,
+    type ConversationRecompileParams as ConversationRecompileParams,
   };
 
   export {

@@ -8,10 +8,12 @@ export {
   type ConversationListResponse,
   type ConversationDeleteResponse,
   type ConversationCancelResponse,
+  type ConversationRecompileResponse,
   type ConversationCreateParams,
   type ConversationUpdateParams,
   type ConversationListParams,
   type ConversationCancelParams,
+  type ConversationRecompileParams,
 } from './conversations';
 export {
   Messages,
