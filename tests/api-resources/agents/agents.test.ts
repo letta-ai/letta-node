@@ -143,7 +143,7 @@ describe('resource agents', () => {
   // Mock server tests are disabled
   test.skip('importFile: only required params', async () => {
     const responsePromise = client.agents.importFile({
-      file: await toFile(Buffer.from('# my file contents'), 'README.md'),
+      file: await toFile(Buffer.from('Example data'), 'README.md'),
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -157,7 +157,7 @@ describe('resource agents', () => {
   // Mock server tests are disabled
   test.skip('importFile: required and optional params', async () => {
     const response = await client.agents.importFile({
-      file: await toFile(Buffer.from('# my file contents'), 'README.md'),
+      file: await toFile(Buffer.from('Example data'), 'README.md'),
       append_copy_suffix: true,
       embedding: 'embedding',
       env_vars_json: 'env_vars_json',
