@@ -143,7 +143,7 @@ describe('resource agents', () => {
   // Mock server tests are disabled
   test.skip('importFile: only required params', async () => {
     const responsePromise = client.agents.importFile({
-      file: await toFile(Buffer.from('# my file contents'), 'README.md'),
+      file: await toFile(Buffer.from('Example data'), 'README.md'),
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -157,7 +157,7 @@ describe('resource agents', () => {
   // Mock server tests are disabled
   test.skip('importFile: required and optional params', async () => {
     const response = await client.agents.importFile({
-      file: await toFile(Buffer.from('# my file contents'), 'README.md'),
+      file: await toFile(Buffer.from('Example data'), 'README.md'),
       append_copy_suffix: true,
       embedding: 'embedding',
       env_vars_json: 'env_vars_json',
@@ -172,5 +172,29 @@ describe('resource agents', () => {
       strip_messages: true,
       'x-override-embedding-model': 'x-override-embedding-model',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('recompile', async () => {
+    const responsePromise = client.agents.recompile('agent-123e4567-e89b-42d3-8456-426614174000');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('recompile: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.agents.recompile(
+        'agent-123e4567-e89b-42d3-8456-426614174000',
+        { dry_run: true, update_timestamp: true },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 });

@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.7.12 (2026-03-09)
+
+Full Changelog: [v1.7.11...v1.7.12](https://github.com/letta-ai/letta-node/compare/v1.7.11...v1.7.12)
+
+### Features
+
+* add conversation recompile endpoint ([d5ca4a2](https://github.com/letta-ai/letta-node/commit/d5ca4a29535ba4a198a2f3b0188b7b28f273a03e))
+* add fireworks provider ([076a128](https://github.com/letta-ai/letta-node/commit/076a128e1a26e799c06fea88e9c59754fbe28486))
+* add recompile system endpoint to Stainless SDK ([4b2656b](https://github.com/letta-ai/letta-node/commit/4b2656bf99731ab6fd2404b178a7be64b697e1e8))
+* **core:** restructure memFS system prompt rendering + add client_skills [LET-7760] ([fe053dd](https://github.com/letta-ai/letta-node/commit/fe053dd11ef23220ccfc2a83c8185883ed7fe515))
+* **helm:** M3 multi-signal HPA external metrics + behavior (dev shadow, prod disabled) ([7c10557](https://github.com/letta-ai/letta-node/commit/7c10557cecf1329f0757b6b07a45f34b8d906599))
+* **readiness:** M2 readiness enforcement scaffold (default OFF) ([df8edac](https://github.com/letta-ai/letta-node/commit/df8edac31e86447d2dd7b359b2ec8e1e2b580643))
+
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([defbd26](https://github.com/letta-ai/letta-node/commit/defbd267eb46d5076b563a09560819f579b1e43a))
+* fix request delays for retrying to be more respectful of high requested delays ([6b99724](https://github.com/letta-ai/letta-node/commit/6b997247f8efee77c59fca2189e0910fa58cafaf))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([839806e](https://github.com/letta-ai/letta-node/commit/839806ebe1f39d9946f1380ac8b6f0b282bd65ea))
+* **internal:** improve import alias names ([4aceca2](https://github.com/letta-ai/letta-node/commit/4aceca2901af2a76f952bcf3a3759aebff28e031))
+* update placeholder string ([b50ef46](https://github.com/letta-ai/letta-node/commit/b50ef46319b07da43d8b57db8cae3fd0e9beb99e))
+
 ## 1.7.11 (2026-03-04)
 
 Full Changelog: [v1.7.10...v1.7.11](https://github.com/letta-ai/letta-node/compare/v1.7.10...v1.7.11)

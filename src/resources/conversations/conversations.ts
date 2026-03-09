@@ -90,6 +90,22 @@ export class Conversations extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * Manually trigger system prompt recompilation for a conversation.
+   */
+  recompile(
+    conversationID: string,
+    params: ConversationRecompileParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<string> {
+    const { dry_run, ...body } = params ?? {};
+    return this._client.post(path`/v1/conversations/${conversationID}/recompile`, {
+      query: { dry_run },
+      body,
+      ...options,
+    });
+  }
 }
 
 /**
@@ -653,6 +669,8 @@ export type ConversationDeleteResponse = unknown;
 
 export type ConversationCancelResponse = { [key: string]: unknown };
 
+export type ConversationRecompileResponse = string;
+
 export interface ConversationCreateParams {
   /**
    * Query param: The agent ID to create a conversation for
@@ -1038,6 +1056,225 @@ export interface ConversationCancelParams {
   agent_id?: string | null;
 }
 
+export interface ConversationRecompileParams {
+  /**
+   * Query param: If True, do not persist changes; still returns the compiled system
+   * prompt.
+   */
+  dry_run?: boolean;
+
+  /**
+   * Body param: Agent ID for agent-direct mode with 'default' conversation. Use with
+   * conversation_id='default' in the URL path.
+   */
+  agent_id?: string | null;
+
+  /**
+   * Body param: Configuration for conversation compaction / summarization.
+   *
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
+   */
+  compaction_settings?: ConversationRecompileParams.CompactionSettings | null;
+}
+
+export namespace ConversationRecompileParams {
+  /**
+   * Configuration for conversation compaction / summarization.
+   *
+   * Per-model settings (temperature, max tokens, etc.) are derived from the default
+   * configuration for that handle.
+   */
+  export interface CompactionSettings {
+    /**
+     * The maximum length of the summary in characters. If none, no clipping is
+     * performed.
+     */
+    clip_chars?: number | null;
+
+    /**
+     * The type of summarization technique use.
+     */
+    mode?: 'all' | 'sliding_window' | 'self_compact_all' | 'self_compact_sliding_window';
+
+    /**
+     * Model handle to use for sliding_window/all summarization (format:
+     * provider/model-name). If None, uses lightweight provider-specific defaults.
+     */
+    model?: string | null;
+
+    /**
+     * Optional model settings used to override defaults for the summarizer model.
+     */
+    model_settings?:
+      | AgentsAPI.OpenAIModelSettings
+      | AgentsAPI.AnthropicModelSettings
+      | AgentsAPI.GoogleAIModelSettings
+      | AgentsAPI.GoogleVertexModelSettings
+      | AgentsAPI.AzureModelSettings
+      | AgentsAPI.XaiModelSettings
+      | CompactionSettings.ZaiModelSettings
+      | AgentsAPI.GroqModelSettings
+      | AgentsAPI.DeepseekModelSettings
+      | AgentsAPI.TogetherModelSettings
+      | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.OpenRouterModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
+      | null;
+
+    /**
+     * The prompt to use for summarization. If None, uses mode-specific default.
+     */
+    prompt?: string | null;
+
+    /**
+     * Whether to include an acknowledgement post-prompt (helps prevent non-summary
+     * outputs).
+     */
+    prompt_acknowledgement?: boolean;
+
+    /**
+     * The percentage of the context window to keep post-summarization (only used in
+     * sliding window modes).
+     */
+    sliding_window_percentage?: number;
+  }
+
+  export namespace CompactionSettings {
+    /**
+     * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
+     */
+    export interface ZaiModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      thinking?: ZaiModelSettings.Thinking;
+    }
+
+    export namespace ZaiModelSettings {
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      export interface Thinking {
+        /**
+         * If False, preserved thinking is used (recommended for agents).
+         */
+        clear_thinking?: boolean;
+
+        /**
+         * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
+    }
+
+    /**
+     * OpenRouter model configuration (OpenAI-compatible).
+     */
+    export interface OpenRouterModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'openrouter';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
+     * ChatGPT OAuth model configuration (uses ChatGPT backend API).
+     */
+    export interface ChatGptoAuthModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'chatgpt_oauth';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: ChatGptoAuthModelSettings.Reasoning;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    export namespace ChatGptoAuthModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort level for GPT-5.x and o-series models.
+         */
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
+  }
+}
+
 Conversations.Messages = Messages;
 
 export declare namespace Conversations {
@@ -1048,10 +1285,12 @@ export declare namespace Conversations {
     type ConversationListResponse as ConversationListResponse,
     type ConversationDeleteResponse as ConversationDeleteResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
+    type ConversationRecompileResponse as ConversationRecompileResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
     type ConversationCancelParams as ConversationCancelParams,
+    type ConversationRecompileParams as ConversationRecompileParams,
   };
 
   export {
