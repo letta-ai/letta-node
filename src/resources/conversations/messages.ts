@@ -145,6 +145,7 @@ export namespace CompactionRequest {
      */
     model_settings?:
       | AgentsAPI.OpenAIModelSettings
+      | CompactionSettings.SgLangModelSettings
       | AgentsAPI.AnthropicModelSettings
       | AgentsAPI.GoogleAIModelSettings
       | AgentsAPI.GoogleVertexModelSettings
@@ -178,6 +179,69 @@ export namespace CompactionRequest {
   }
 
   export namespace CompactionSettings {
+    /**
+     * SGLang model configuration (OpenAI-compatible runtime with SGLang-specific
+     * parsing).
+     */
+    export interface SgLangModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'sglang';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: SgLangModelSettings.Reasoning;
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+       */
+      tool_call_parser?: string | null;
+    }
+
+    export namespace SgLangModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort to use when generating text reasoning models
+         */
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
+
     /**
      * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
      */
@@ -636,6 +700,7 @@ export namespace MessageCompactParams {
      */
     model_settings?:
       | AgentsAPI.OpenAIModelSettings
+      | CompactionSettings.SgLangModelSettings
       | AgentsAPI.AnthropicModelSettings
       | AgentsAPI.GoogleAIModelSettings
       | AgentsAPI.GoogleVertexModelSettings
@@ -669,6 +734,69 @@ export namespace MessageCompactParams {
   }
 
   export namespace CompactionSettings {
+    /**
+     * SGLang model configuration (OpenAI-compatible runtime with SGLang-specific
+     * parsing).
+     */
+    export interface SgLangModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'sglang';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: SgLangModelSettings.Reasoning;
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+       */
+      tool_call_parser?: string | null;
+    }
+
+    export namespace SgLangModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort to use when generating text reasoning models
+         */
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
+
     /**
      * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
      */

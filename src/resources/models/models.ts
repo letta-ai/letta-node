@@ -376,6 +376,12 @@ export interface LlmConfig {
   tier?: string | null;
 
   /**
+   * SGLang tool call parser name (e.g. 'glm47', 'qwen25', 'hermes'). Used by the
+   * SGLang native adapter to parse tool calls from raw model output.
+   */
+  tool_call_parser?: string | null;
+
+  /**
    * Number of most likely tokens to return at each position (0-20). Requires
    * return_logprobs=True.
    */
@@ -570,6 +576,12 @@ export interface Model {
    * @deprecated Deprecated: The cost tier for the model (cloud only).
    */
   tier?: string | null;
+
+  /**
+   * SGLang tool call parser name (e.g. 'glm47', 'qwen25', 'hermes'). Used by the
+   * SGLang native adapter to parse tool calls from raw model output.
+   */
+  tool_call_parser?: string | null;
 
   /**
    * Number of most likely tokens to return at each position (0-20). Requires
