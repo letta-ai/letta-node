@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.7.13 (2026-03-13)
+
+Full Changelog: [v1.7.12...v1.7.13](https://github.com/letta-ai/letta-node/compare/v1.7.12...v1.7.13)
+
+### Chores
+
+* **internal:** update dependencies to address dependabot vulnerabilities ([2074604](https://github.com/letta-ai/letta-node/commit/20746042d8107a5fd2a5a59152c583593bade6a8))
+
+
+### Refactors
+
+* **sglang:** use input_ids instead of text in native adapter ([08679c1](https://github.com/letta-ai/letta-node/commit/08679c16d8ce0818fe8f72e77ae5dd366affc819))
+
 ## 1.7.12 (2026-03-09)
 
 Full Changelog: [v1.7.11...v1.7.12](https://github.com/letta-ai/letta-node/compare/v1.7.11...v1.7.12)
