@@ -190,6 +190,11 @@ export interface ApprovalCreate {
   group_id?: string | null;
 
   /**
+   * The offline threading id associated with this message
+   */
+  otid?: string | null;
+
+  /**
    * @deprecated An optional explanation for the provided approval status
    */
   reason?: string | null;
@@ -1027,6 +1032,16 @@ export namespace LettaRequest {
     tool_returns: Array<MessagesAPI.ToolReturn>;
 
     /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id associated with this message
+     */
+    otid?: string | null;
+
+    /**
      * The message type to be created.
      */
     type?: 'tool_return';
@@ -1465,6 +1480,16 @@ export namespace LettaStreamingRequest {
      * List of tool returns from client-side execution
      */
     tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id associated with this message
+     */
+    otid?: string | null;
 
     /**
      * The message type to be created.
@@ -2469,6 +2494,16 @@ export namespace MessageCreateParams {
     tool_returns: Array<MessagesAPI.ToolReturn>;
 
     /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id associated with this message
+     */
+    otid?: string | null;
+
+    /**
      * The message type to be created.
      */
     type?: 'tool_return';
@@ -3024,6 +3059,16 @@ export namespace MessageCreateAsyncParams {
     tool_returns: Array<MessagesAPI.ToolReturn>;
 
     /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id associated with this message
+     */
+    otid?: string | null;
+
+    /**
      * The message type to be created.
      */
     type?: 'tool_return';
@@ -3271,6 +3316,16 @@ export namespace MessageStreamParams {
      * List of tool returns from client-side execution
      */
     tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id associated with this message
+     */
+    otid?: string | null;
 
     /**
      * The message type to be created.
