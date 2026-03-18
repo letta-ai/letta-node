@@ -630,6 +630,16 @@ export namespace MessageCreateParams {
     tool_returns: Array<MessagesAPI.ToolReturn>;
 
     /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id associated with this message
+     */
+    otid?: string | null;
+
+    /**
      * The message type to be created.
      */
     type?: 'tool_return';
