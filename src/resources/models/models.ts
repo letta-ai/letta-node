@@ -243,6 +243,7 @@ export interface LlmConfig {
     | 'deepseek'
     | 'xai'
     | 'zai'
+    | 'zai_coding'
     | 'baseten'
     | 'fireworks'
     | 'openrouter'
@@ -438,6 +439,7 @@ export interface Model {
     | 'deepseek'
     | 'xai'
     | 'zai'
+    | 'zai_coding'
     | 'openrouter'
     | 'chatgpt_oauth';
 
@@ -621,7 +623,8 @@ export type ProviderType =
   | 'sglang'
   | 'openrouter'
   | 'xai'
-  | 'zai';
+  | 'zai'
+  | 'zai_coding';
 
 export type ModelListResponse = Array<Model>;
 
