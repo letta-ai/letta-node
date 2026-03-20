@@ -500,6 +500,7 @@ export interface AgentState {
    */
   model_settings?:
     | OpenAIModelSettings
+    | AgentState.SgLangModelSettings
     | AnthropicModelSettings
     | GoogleAIModelSettings
     | GoogleVertexModelSettings
@@ -830,6 +831,7 @@ export namespace AgentState {
      */
     model_settings?:
       | AgentsAPI.OpenAIModelSettings
+      | CompactionSettings.SgLangModelSettings
       | AgentsAPI.AnthropicModelSettings
       | AgentsAPI.GoogleAIModelSettings
       | AgentsAPI.GoogleVertexModelSettings
@@ -863,6 +865,69 @@ export namespace AgentState {
   }
 
   export namespace CompactionSettings {
+    /**
+     * SGLang model configuration (OpenAI-compatible runtime with SGLang-specific
+     * parsing).
+     */
+    export interface SgLangModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'sglang';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: SgLangModelSettings.Reasoning;
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+       */
+      tool_call_parser?: string | null;
+    }
+
+    export namespace SgLangModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort to use when generating text reasoning models
+         */
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
+
     /**
      * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
      */
@@ -1129,6 +1194,69 @@ export namespace AgentState {
     termination_token?: string | null;
 
     turns_counter?: number | null;
+  }
+
+  /**
+   * SGLang model configuration (OpenAI-compatible runtime with SGLang-specific
+   * parsing).
+   */
+  export interface SgLangModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'sglang';
+
+    /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: SgLangModelSettings.Reasoning;
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+     */
+    tool_call_parser?: string | null;
+  }
+
+  export namespace SgLangModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort to use when generating text reasoning models
+       */
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+    }
   }
 
   /**
@@ -1853,7 +1981,9 @@ export interface MessageCreate {
   name?: string | null;
 
   /**
-   * The offline threading id associated with this message
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
    */
   otid?: string | null;
 
@@ -2254,6 +2384,7 @@ export interface AgentCreateParams {
    */
   model_settings?:
     | OpenAIModelSettings
+    | AgentCreateParams.SgLangModelSettings
     | AnthropicModelSettings
     | GoogleAIModelSettings
     | GoogleVertexModelSettings
@@ -2409,6 +2540,7 @@ export namespace AgentCreateParams {
      */
     model_settings?:
       | AgentsAPI.OpenAIModelSettings
+      | CompactionSettings.SgLangModelSettings
       | AgentsAPI.AnthropicModelSettings
       | AgentsAPI.GoogleAIModelSettings
       | AgentsAPI.GoogleVertexModelSettings
@@ -2442,6 +2574,69 @@ export namespace AgentCreateParams {
   }
 
   export namespace CompactionSettings {
+    /**
+     * SGLang model configuration (OpenAI-compatible runtime with SGLang-specific
+     * parsing).
+     */
+    export interface SgLangModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'sglang';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: SgLangModelSettings.Reasoning;
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+       */
+      tool_call_parser?: string | null;
+    }
+
+    export namespace SgLangModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort to use when generating text reasoning models
+         */
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
+
     /**
      * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
      */
@@ -2572,6 +2767,69 @@ export namespace AgentCreateParams {
          */
         reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
       }
+    }
+  }
+
+  /**
+   * SGLang model configuration (OpenAI-compatible runtime with SGLang-specific
+   * parsing).
+   */
+  export interface SgLangModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'sglang';
+
+    /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: SgLangModelSettings.Reasoning;
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+     */
+    tool_call_parser?: string | null;
+  }
+
+  export namespace SgLangModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort to use when generating text reasoning models
+       */
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
     }
   }
 
@@ -2856,6 +3114,7 @@ export interface AgentUpdateParams {
    */
   model_settings?:
     | OpenAIModelSettings
+    | AgentUpdateParams.SgLangModelSettings
     | AnthropicModelSettings
     | GoogleAIModelSettings
     | GoogleVertexModelSettings
@@ -2991,6 +3250,7 @@ export namespace AgentUpdateParams {
      */
     model_settings?:
       | AgentsAPI.OpenAIModelSettings
+      | CompactionSettings.SgLangModelSettings
       | AgentsAPI.AnthropicModelSettings
       | AgentsAPI.GoogleAIModelSettings
       | AgentsAPI.GoogleVertexModelSettings
@@ -3024,6 +3284,69 @@ export namespace AgentUpdateParams {
   }
 
   export namespace CompactionSettings {
+    /**
+     * SGLang model configuration (OpenAI-compatible runtime with SGLang-specific
+     * parsing).
+     */
+    export interface SgLangModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'sglang';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: SgLangModelSettings.Reasoning;
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+       */
+      tool_call_parser?: string | null;
+    }
+
+    export namespace SgLangModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort to use when generating text reasoning models
+         */
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
+
     /**
      * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
      */
@@ -3154,6 +3477,69 @@ export namespace AgentUpdateParams {
          */
         reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
       }
+    }
+  }
+
+  /**
+   * SGLang model configuration (OpenAI-compatible runtime with SGLang-specific
+   * parsing).
+   */
+  export interface SgLangModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'sglang';
+
+    /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: SgLangModelSettings.Reasoning;
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+     */
+    tool_call_parser?: string | null;
+  }
+
+  export namespace SgLangModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort to use when generating text reasoning models
+       */
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
     }
   }
 

@@ -243,6 +243,7 @@ export interface LlmConfig {
     | 'deepseek'
     | 'xai'
     | 'zai'
+    | 'zai_coding'
     | 'baseten'
     | 'fireworks'
     | 'openrouter'
@@ -376,6 +377,12 @@ export interface LlmConfig {
   tier?: string | null;
 
   /**
+   * SGLang tool call parser name (e.g. 'glm47', 'qwen25', 'hermes'). Used by the
+   * SGLang native adapter to parse tool calls from raw model output.
+   */
+  tool_call_parser?: string | null;
+
+  /**
    * Number of most likely tokens to return at each position (0-20). Requires
    * return_logprobs=True.
    */
@@ -432,6 +439,7 @@ export interface Model {
     | 'deepseek'
     | 'xai'
     | 'zai'
+    | 'zai_coding'
     | 'openrouter'
     | 'chatgpt_oauth';
 
@@ -572,6 +580,12 @@ export interface Model {
   tier?: string | null;
 
   /**
+   * SGLang tool call parser name (e.g. 'glm47', 'qwen25', 'hermes'). Used by the
+   * SGLang native adapter to parse tool calls from raw model output.
+   */
+  tool_call_parser?: string | null;
+
+  /**
    * Number of most likely tokens to return at each position (0-20). Requires
    * return_logprobs=True.
    */
@@ -609,7 +623,8 @@ export type ProviderType =
   | 'sglang'
   | 'openrouter'
   | 'xai'
-  | 'zai';
+  | 'zai'
+  | 'zai_coding';
 
 export type ModelListResponse = Array<Model>;
 

@@ -1,5 +1,35 @@
 # Changelog
 
+## 1.8.0 (2026-03-20)
+
+Full Changelog: [v1.7.12...v1.8.0](https://github.com/letta-ai/letta-node/compare/v1.7.12...v1.8.0)
+
+### Features
+
+* add zai coding provider ([88e56a9](https://github.com/letta-ai/letta-node/commit/88e56a9498385d6a37f2c96806c882a856cd6f68))
+* always create otid for request ([488b66b](https://github.com/letta-ai/letta-node/commit/488b66b6443a290d49e84a2d25d11b4c0b007822))
+
+
+### Bug Fixes
+
+* surface error when system prompt is large during compaction ([be4ef7f](https://github.com/letta-ai/letta-node/commit/be4ef7f6d547247430cda5f72e7bce1939896c27))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([176a3a7](https://github.com/letta-ai/letta-node/commit/176a3a71f8c12afb5cf27a4e9913509a2f4a360c))
+* **internal:** update dependencies to address dependabot vulnerabilities ([2074604](https://github.com/letta-ai/letta-node/commit/20746042d8107a5fd2a5a59152c583593bade6a8))
+
+
+### Documentation
+
+* add OTID field description for idempotency context ([7c59ce1](https://github.com/letta-ai/letta-node/commit/7c59ce1f8c38d8172e44b91fafee619dd0403c0d))
+
+
+### Refactors
+
+* **sglang:** use input_ids instead of text in native adapter ([08679c1](https://github.com/letta-ai/letta-node/commit/08679c16d8ce0818fe8f72e77ae5dd366affc819))
+
 ## 1.7.12 (2026-03-09)
 
 Full Changelog: [v1.7.11...v1.7.12](https://github.com/letta-ai/letta-node/compare/v1.7.11...v1.7.12)

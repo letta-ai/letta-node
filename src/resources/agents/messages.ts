@@ -190,6 +190,13 @@ export interface ApprovalCreate {
   group_id?: string | null;
 
   /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
+  otid?: string | null;
+
+  /**
    * @deprecated An optional explanation for the provided approval status
    */
   reason?: string | null;
@@ -227,6 +234,11 @@ export interface ApprovalRequestMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
@@ -283,6 +295,11 @@ export interface ApprovalResponseMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   /**
@@ -349,6 +366,11 @@ export interface AssistantMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
@@ -371,7 +393,7 @@ export interface EventMessage {
 
   event_data: { [key: string]: unknown };
 
-  event_type: 'compaction';
+  event_type: 'compaction' | 'context_warning';
 
   is_err?: boolean | null;
 
@@ -379,6 +401,11 @@ export interface EventMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
@@ -418,6 +445,11 @@ export interface HiddenReasoningMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
@@ -1027,6 +1059,18 @@ export namespace LettaRequest {
     tool_returns: Array<MessagesAPI.ToolReturn>;
 
     /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+     * for idempotency in background streaming mode — each message in a request must
+     * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+     */
+    otid?: string | null;
+
+    /**
      * The message type to be created.
      */
     type?: 'tool_return';
@@ -1467,6 +1511,18 @@ export namespace LettaStreamingRequest {
     tool_returns: Array<MessagesAPI.ToolReturn>;
 
     /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+     * for idempotency in background streaming mode — each message in a request must
+     * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+     */
+    otid?: string | null;
+
+    /**
      * The message type to be created.
      */
     type?: 'tool_return';
@@ -1515,6 +1571,11 @@ export namespace LettaStreamingResponse {
 
     name?: string | null;
 
+    /**
+     * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+     * for idempotency in background streaming mode — each message in a request must
+     * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+     */
     otid?: string | null;
 
     run_id?: string | null;
@@ -1747,6 +1808,11 @@ export interface ReasoningMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
@@ -1920,6 +1986,11 @@ export interface SummaryMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
@@ -1998,6 +2069,11 @@ export interface SystemMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
@@ -2097,6 +2173,11 @@ export interface ToolCallMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
@@ -2218,6 +2299,11 @@ export interface UserMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
@@ -2469,6 +2555,18 @@ export namespace MessageCreateParams {
     tool_returns: Array<MessagesAPI.ToolReturn>;
 
     /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+     * for idempotency in background streaming mode — each message in a request must
+     * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+     */
+    otid?: string | null;
+
+    /**
      * The message type to be created.
      */
     type?: 'tool_return';
@@ -2574,6 +2672,7 @@ export namespace MessageCompactParams {
      */
     model_settings?:
       | AgentsAPI.OpenAIModelSettings
+      | CompactionSettings.SgLangModelSettings
       | AgentsAPI.AnthropicModelSettings
       | AgentsAPI.GoogleAIModelSettings
       | AgentsAPI.GoogleVertexModelSettings
@@ -2607,6 +2706,69 @@ export namespace MessageCompactParams {
   }
 
   export namespace CompactionSettings {
+    /**
+     * SGLang model configuration (OpenAI-compatible runtime with SGLang-specific
+     * parsing).
+     */
+    export interface SgLangModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'sglang';
+
+      /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: SgLangModelSettings.Reasoning;
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes').
+       */
+      tool_call_parser?: string | null;
+    }
+
+    export namespace SgLangModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort to use when generating text reasoning models
+         */
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      }
+    }
+
     /**
      * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
      */
@@ -2960,6 +3122,18 @@ export namespace MessageCreateAsyncParams {
     tool_returns: Array<MessagesAPI.ToolReturn>;
 
     /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+     * for idempotency in background streaming mode — each message in a request must
+     * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+     */
+    otid?: string | null;
+
+    /**
      * The message type to be created.
      */
     type?: 'tool_return';
@@ -3207,6 +3381,18 @@ export namespace MessageStreamParams {
      * List of tool returns from client-side execution
      */
     tool_returns: Array<MessagesAPI.ToolReturn>;
+
+    /**
+     * The multi-agent group that the message was sent in
+     */
+    group_id?: string | null;
+
+    /**
+     * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+     * for idempotency in background streaming mode — each message in a request must
+     * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+     */
+    otid?: string | null;
 
     /**
      * The message type to be created.
