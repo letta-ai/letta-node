@@ -393,7 +393,7 @@ export interface EventMessage {
 
   event_data: { [key: string]: unknown };
 
-  event_type: 'compaction' | 'context_warning';
+  event_type: 'compaction';
 
   is_err?: boolean | null;
 
