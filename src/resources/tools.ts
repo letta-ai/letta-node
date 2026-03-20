@@ -291,6 +291,11 @@ export interface ToolReturnMessage {
 
   name?: string | null;
 
+  /**
+   * The offline threading id (OTID). Set by the client to deduplicate requests. Used
+   * for idempotency in background streaming mode — each message in a request must
+   * have a unique OTID. Retries of the same request should reuse the same OTIDs.
+   */
   otid?: string | null;
 
   run_id?: string | null;
