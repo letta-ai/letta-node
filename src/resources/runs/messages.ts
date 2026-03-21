@@ -63,9 +63,21 @@ export interface MessageStreamParams {
   include_pings?: boolean | null;
 
   /**
+   * Offline threading ID to look up the run_id. Bypasses active run lookup if run_id
+   * not provided.
+   */
+  otid?: string | null;
+
+  /**
    * Seconds to wait between polls when no new data.
    */
   poll_interval?: number | null;
+
+  /**
+   * Run ID to stream directly, bypassing run lookup. Use for recovery from duplicate
+   * requests.
+   */
+  run_id?: string | null;
 
   /**
    * Sequence id to use as a cursor for pagination. Response will start streaming
