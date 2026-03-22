@@ -78,6 +78,7 @@ describe('resource agents', () => {
           ascending: true,
           base_template_id: 'base_template_id',
           before: 'before',
+          created_by_id: 'created_by_id',
           identifier_keys: ['string', 'string'],
           identity_id: 'identity_id',
           include: ['agent.blocks'],
