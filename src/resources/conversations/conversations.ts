@@ -144,6 +144,11 @@ export interface Conversation {
   isolated_block_ids?: Array<string>;
 
   /**
+   * Timestamp of the most recent message request sent to this conversation.
+   */
+  last_message_at?: string | null;
+
+  /**
    * The id of the user that made this object.
    */
   last_updated_by_id?: string | null;
@@ -627,6 +632,11 @@ export namespace CreateConversation {
  */
 export interface UpdateConversation {
   /**
+   * Timestamp of the most recent message request sent to this conversation.
+   */
+  last_message_at?: string | null;
+
+  /**
    * The model handle for this conversation (overrides agent's model). Format:
    * provider/model-name.
    */
@@ -1108,6 +1118,11 @@ export namespace ConversationCreateParams {
 
 export interface ConversationUpdateParams {
   /**
+   * Timestamp of the most recent message request sent to this conversation.
+   */
+  last_message_at?: string | null;
+
+  /**
    * The model handle for this conversation (overrides agent's model). Format:
    * provider/model-name.
    */
@@ -1361,7 +1376,7 @@ export interface ConversationListParams {
   /**
    * Field to sort by
    */
-  order_by?: 'created_at' | 'last_run_completion';
+  order_by?: 'created_at' | 'last_run_completion' | 'last_message_at';
 
   /**
    * Search for text within conversation summaries
