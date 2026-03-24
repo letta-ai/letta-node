@@ -3689,6 +3689,11 @@ export interface AgentListParams extends ArrayPageParams {
   base_template_id?: string | null;
 
   /**
+   * Filter agents by the user who created them.
+   */
+  created_by_id?: string | null;
+
+  /**
    * Search agents by identifier keys
    */
   identifier_keys?: Array<string> | null;

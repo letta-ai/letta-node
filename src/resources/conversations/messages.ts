@@ -89,6 +89,12 @@ export class Messages extends APIResource {
    * **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
    * body to retrieve the stream for the agent's most recent active run.
    *
+   * **Direct run access**: Pass run_id directly to skip run lookup entirely. Useful
+   * for recovery from duplicate request 409 errors.
+   *
+   * **OTID lookup**: Pass otid to look up the run_id from Redis. Useful when you
+   * have the otid from a 409 error response.
+   *
    * **Deprecated**: Passing an agent ID as conversation_id still works but will be
    * removed.
    */
@@ -962,9 +968,21 @@ export interface MessageStreamParams {
   include_pings?: boolean | null;
 
   /**
+   * Offline threading ID to look up the run_id. Bypasses active run lookup if run_id
+   * not provided.
+   */
+  otid?: string | null;
+
+  /**
    * Seconds to wait between polls when no new data.
    */
   poll_interval?: number | null;
+
+  /**
+   * Run ID to stream directly, bypassing run lookup. Use for recovery from duplicate
+   * requests.
+   */
+  run_id?: string | null;
 
   /**
    * Sequence id to use as a cursor for pagination. Response will start streaming
