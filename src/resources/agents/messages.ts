@@ -929,6 +929,13 @@ export interface LettaRequest {
   override_model?: string | null;
 
   /**
+   * Optional per-request system prompt override. When set, this is passed directly
+   * to the underlying LLM request and bypasses the persisted/compiled system message
+   * for that request.
+   */
+  override_system?: string | null;
+
+  /**
    * If True, returns log probabilities of the output tokens in the response. Useful
    * for RL training. Only supported for OpenAI-compatible providers (including
    * SGLang).
@@ -1367,6 +1374,13 @@ export interface LettaStreamingRequest {
    * configuration.
    */
   override_model?: string | null;
+
+  /**
+   * Optional per-request system prompt override. When set, this is passed directly
+   * to the underlying LLM request and bypasses the persisted/compiled system message
+   * for that request.
+   */
+  override_system?: string | null;
 
   /**
    * If True, returns log probabilities of the output tokens in the response. Useful
@@ -2413,6 +2427,13 @@ export interface MessageCreateParamsBase {
   override_model?: string | null;
 
   /**
+   * Optional per-request system prompt override. When set, this is passed directly
+   * to the underlying LLM request and bypasses the persisted/compiled system message
+   * for that request.
+   */
+  override_system?: string | null;
+
+  /**
    * If True, returns log probabilities of the output tokens in the response. Useful
    * for RL training. Only supported for OpenAI-compatible providers (including
    * SGLang).
@@ -2992,6 +3013,13 @@ export interface MessageCreateAsyncParams {
   override_model?: string | null;
 
   /**
+   * Optional per-request system prompt override. When set, this is passed directly
+   * to the underlying LLM request and bypasses the persisted/compiled system message
+   * for that request.
+   */
+  override_system?: string | null;
+
+  /**
    * If True, returns log probabilities of the output tokens in the response. Useful
    * for RL training. Only supported for OpenAI-compatible providers (including
    * SGLang).
@@ -3239,6 +3267,13 @@ export interface MessageStreamParams {
    * configuration.
    */
   override_model?: string | null;
+
+  /**
+   * Optional per-request system prompt override. When set, this is passed directly
+   * to the underlying LLM request and bypasses the persisted/compiled system message
+   * for that request.
+   */
+  override_system?: string | null;
 
   /**
    * If True, returns log probabilities of the output tokens in the response. Useful
