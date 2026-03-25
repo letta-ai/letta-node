@@ -44,6 +44,7 @@ describe('resource messages', () => {
           before: 'before',
           group_id: 'group_id',
           include_err: true,
+          include_return_message_types: ['system_message', 'user_message'],
           limit: 0,
           order: 'asc',
           order_by: 'created_at',

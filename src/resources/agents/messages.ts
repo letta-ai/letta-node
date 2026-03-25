@@ -2641,6 +2641,11 @@ export interface MessageListParams extends ArrayPageParams {
   include_err?: boolean | null;
 
   /**
+   * Message types to include in response. When null, all message types are returned.
+   */
+  include_return_message_types?: Array<MessageType> | null;
+
+  /**
    * @deprecated Whether to use assistant messages
    */
   use_assistant_message?: boolean;
