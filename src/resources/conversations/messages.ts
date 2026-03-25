@@ -677,6 +677,11 @@ export interface MessageListParams extends ArrayPageParams {
    * only.
    */
   include_err?: boolean | null;
+
+  /**
+   * Message types to include in response. When null, all message types are returned.
+   */
+  include_return_message_types?: Array<MessagesAPI.MessageType> | null;
 }
 
 export interface MessageCompactParams {
