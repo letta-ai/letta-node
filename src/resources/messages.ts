@@ -274,6 +274,11 @@ export interface MessageListParams {
   conversation_id?: string | null;
 
   /**
+   * Message types to include in response. When null, all message types are returned.
+   */
+  include_return_message_types?: Array<AgentsMessagesAPI.MessageType> | null;
+
+  /**
    * Maximum number of messages to return
    */
   limit?: number | null;
