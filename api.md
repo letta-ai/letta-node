@@ -582,7 +582,7 @@ Methods:
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
 - <code title="delete /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">delete</a>(conversationID) -> unknown</code>
 - <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/resources/conversations/conversations.ts">cancel</a>(conversationID, { ...params }) -> ConversationCancelResponse</code>
-- <code title="post /v1/conversations/{conversation_id}/fork">client.conversations.<a href="./src/resources/conversations/conversations.ts">fork</a>(conversationID) -> Conversation</code>
+- <code title="post /v1/conversations/{conversation_id}/fork">client.conversations.<a href="./src/resources/conversations/conversations.ts">fork</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="post /v1/conversations/{conversation_id}/recompile">client.conversations.<a href="./src/resources/conversations/conversations.ts">recompile</a>(conversationID, { ...params }) -> string</code>
 
 ## Messages
