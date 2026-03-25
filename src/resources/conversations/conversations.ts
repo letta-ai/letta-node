@@ -92,6 +92,18 @@ export class Conversations extends APIResource {
   }
 
   /**
+   * Fork an existing conversation.
+   *
+   * Creates a new conversation that shares the same in-context messages as the
+   * source conversation, but with a newly compiled system message reflecting the
+   * latest memory block values. The forked conversation belongs to the same agent as
+   * the source.
+   */
+  fork(conversationID: string, options?: RequestOptions): APIPromise<Conversation> {
+    return this._client.post(path`/v1/conversations/${conversationID}/fork`, options);
+  }
+
+  /**
    * Manually trigger system prompt recompilation for a conversation.
    */
   recompile(

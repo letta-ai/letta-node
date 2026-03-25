@@ -126,6 +126,18 @@ describe('resource conversations', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('fork', async () => {
+    const responsePromise = client.conversations.fork('conv-123e4567-e89b-42d3-8456-426614174000');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('recompile', async () => {
     const responsePromise = client.conversations.recompile('default');
     const rawResponse = await responsePromise.asResponse();
