@@ -13,6 +13,7 @@ export {
   type ConversationUpdateParams,
   type ConversationListParams,
   type ConversationCancelParams,
+  type ConversationForkParams,
   type ConversationRecompileParams,
 } from './conversations';
 export {
