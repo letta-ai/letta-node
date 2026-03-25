@@ -98,9 +98,24 @@ export class Conversations extends APIResource {
    * source conversation, but with a newly compiled system message reflecting the
    * latest memory block values. The forked conversation belongs to the same agent as
    * the source.
+   *
+   * **Agent-direct mode**: Pass conversation_id="default" with agent_id query
+   * parameter to fork the agent's default (agent-direct) message history into a new
+   * conversation.
+   *
+   * **Deprecated**: Passing an agent ID as conversation_id still works but will be
+   * removed.
    */
-  fork(conversationID: string, options?: RequestOptions): APIPromise<Conversation> {
-    return this._client.post(path`/v1/conversations/${conversationID}/fork`, options);
+  fork(
+    conversationID: string,
+    params: ConversationForkParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Conversation> {
+    const { agent_id } = params ?? {};
+    return this._client.post(path`/v1/conversations/${conversationID}/fork`, {
+      query: { agent_id },
+      ...options,
+    });
   }
 
   /**
@@ -1403,6 +1418,13 @@ export interface ConversationCancelParams {
   agent_id?: string | null;
 }
 
+export interface ConversationForkParams {
+  /**
+   * Agent ID for agent-direct mode with 'default' conversation
+   */
+  agent_id?: string | null;
+}
+
 export interface ConversationRecompileParams {
   /**
    * Query param: If True, do not persist changes; still returns the compiled system
@@ -1701,6 +1723,7 @@ export declare namespace Conversations {
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
     type ConversationCancelParams as ConversationCancelParams,
+    type ConversationForkParams as ConversationForkParams,
     type ConversationRecompileParams as ConversationRecompileParams,
   };
 

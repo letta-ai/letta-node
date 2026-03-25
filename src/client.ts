@@ -136,6 +136,7 @@ import {
   ConversationCancelResponse,
   ConversationCreateParams,
   ConversationDeleteResponse,
+  ConversationForkParams,
   ConversationListParams,
   ConversationListResponse,
   ConversationRecompileParams,
@@ -1209,6 +1210,7 @@ export declare namespace Letta {
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
     type ConversationCancelParams as ConversationCancelParams,
+    type ConversationForkParams as ConversationForkParams,
     type ConversationRecompileParams as ConversationRecompileParams,
   };
 
