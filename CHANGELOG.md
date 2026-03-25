@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.9.0 (2026-03-25)
+
+Full Changelog: [v1.8.1...v1.9.0](https://github.com/letta-ai/letta-node/compare/v1.8.1...v1.9.0)
+
+### Features
+
+* **core:** add request-scoped system override for conversation messages ([762e55e](https://github.com/letta-ai/letta-node/commit/762e55e09d412f8310176bbe7a6a9da906f60c7c))
+* expose conversation fork endpoint in Stainless SDK ([29fda4e](https://github.com/letta-ai/letta-node/commit/29fda4edc88d36dcb8d8f5284e73623e844b4f7a))
+
 ## 1.8.1 (2026-03-24)
 
 Full Changelog: [v1.8.0...v1.8.1](https://github.com/letta-ai/letta-node/compare/v1.8.0...v1.8.1)
