@@ -511,6 +511,7 @@ export interface AgentState {
     | DeepseekModelSettings
     | TogetherModelSettings
     | BedrockModelSettings
+    | AgentState.BasetenModelSettings
     | AgentState.OpenRouterModelSettings
     | AgentState.ChatGptoAuthModelSettings
     | null;
@@ -842,6 +843,7 @@ export namespace AgentState {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.BasetenModelSettings
       | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
@@ -982,6 +984,31 @@ export namespace AgentState {
          */
         type?: 'enabled' | 'disabled';
       }
+    }
+
+    /**
+     * Baseten model configuration (OpenAI-compatible).
+     */
+    export interface BasetenModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'baseten';
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
     }
 
     /**
@@ -1313,6 +1340,31 @@ export namespace AgentState {
        */
       type?: 'enabled' | 'disabled';
     }
+  }
+
+  /**
+   * Baseten model configuration (OpenAI-compatible).
+   */
+  export interface BasetenModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'baseten';
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
   }
 
   /**
@@ -2395,6 +2447,7 @@ export interface AgentCreateParams {
     | DeepseekModelSettings
     | TogetherModelSettings
     | BedrockModelSettings
+    | AgentCreateParams.BasetenModelSettings
     | AgentCreateParams.OpenRouterModelSettings
     | AgentCreateParams.ChatGptoAuthModelSettings
     | null;
@@ -2551,6 +2604,7 @@ export namespace AgentCreateParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.BasetenModelSettings
       | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
@@ -2691,6 +2745,31 @@ export namespace AgentCreateParams {
          */
         type?: 'enabled' | 'disabled';
       }
+    }
+
+    /**
+     * Baseten model configuration (OpenAI-compatible).
+     */
+    export interface BasetenModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'baseten';
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
     }
 
     /**
@@ -2887,6 +2966,31 @@ export namespace AgentCreateParams {
        */
       type?: 'enabled' | 'disabled';
     }
+  }
+
+  /**
+   * Baseten model configuration (OpenAI-compatible).
+   */
+  export interface BasetenModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'baseten';
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
   }
 
   /**
@@ -3125,6 +3229,7 @@ export interface AgentUpdateParams {
     | DeepseekModelSettings
     | TogetherModelSettings
     | BedrockModelSettings
+    | AgentUpdateParams.BasetenModelSettings
     | AgentUpdateParams.OpenRouterModelSettings
     | AgentUpdateParams.ChatGptoAuthModelSettings
     | null;
@@ -3261,6 +3366,7 @@ export namespace AgentUpdateParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.BasetenModelSettings
       | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
@@ -3401,6 +3507,31 @@ export namespace AgentUpdateParams {
          */
         type?: 'enabled' | 'disabled';
       }
+    }
+
+    /**
+     * Baseten model configuration (OpenAI-compatible).
+     */
+    export interface BasetenModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'baseten';
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
     }
 
     /**
@@ -3597,6 +3728,31 @@ export namespace AgentUpdateParams {
        */
       type?: 'enabled' | 'disabled';
     }
+  }
+
+  /**
+   * Baseten model configuration (OpenAI-compatible).
+   */
+  export interface BasetenModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'baseten';
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
   }
 
   /**
