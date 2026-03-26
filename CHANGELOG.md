@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.10.1 (2026-03-26)
+
+Full Changelog: [v1.9.1...v1.10.1](https://github.com/letta-ai/letta-node/compare/v1.9.1...v1.10.1)
+
+### Features
+
+* **core:** add include_tool_calls param to message list endpoints ([89446d7](https://github.com/letta-ai/letta-node/commit/89446d76d14643a77ae840bfd0585e84dfcfd16b))
+* **core:** add tpuf cache warming for message search ([fe238cc](https://github.com/letta-ai/letta-node/commit/fe238cc7434288eb23cce4ac5ad7682687d8e3d9))
+
+
+### Chores
+
+* fix release manifest ([441acf7](https://github.com/letta-ai/letta-node/commit/441acf771fbe57909a0415399a604b1c9d37aab5))
+
 ## 1.10.0 (2026-03-25)
 
 Full Changelog: [v1.9.0...v1.10.0](https://github.com/letta-ai/letta-node/compare/v1.9.0...v1.10.0)
