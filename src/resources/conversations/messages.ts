@@ -162,6 +162,7 @@ export namespace CompactionRequest {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.BasetenModelSettings
       | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
@@ -302,6 +303,31 @@ export namespace CompactionRequest {
          */
         type?: 'enabled' | 'disabled';
       }
+    }
+
+    /**
+     * Baseten model configuration (OpenAI-compatible).
+     */
+    export interface BasetenModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'baseten';
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
     }
 
     /**
@@ -741,6 +767,7 @@ export namespace MessageCompactParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.BasetenModelSettings
       | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
@@ -881,6 +908,31 @@ export namespace MessageCompactParams {
          */
         type?: 'enabled' | 'disabled';
       }
+    }
+
+    /**
+     * Baseten model configuration (OpenAI-compatible).
+     */
+    export interface BasetenModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'baseten';
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
     }
 
     /**
