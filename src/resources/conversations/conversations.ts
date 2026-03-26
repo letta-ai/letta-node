@@ -202,6 +202,7 @@ export interface Conversation {
     | AgentsAPI.DeepseekModelSettings
     | AgentsAPI.TogetherModelSettings
     | AgentsAPI.BedrockModelSettings
+    | Conversation.BasetenModelSettings
     | Conversation.OpenRouterModelSettings
     | Conversation.ChatGptoAuthModelSettings
     | null;
@@ -338,6 +339,31 @@ export namespace Conversation {
   }
 
   /**
+   * Baseten model configuration (OpenAI-compatible).
+   */
+  export interface BasetenModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'baseten';
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
    * OpenRouter model configuration (OpenAI-compatible).
    */
   export interface OpenRouterModelSettings {
@@ -447,6 +473,7 @@ export interface CreateConversation {
     | AgentsAPI.DeepseekModelSettings
     | AgentsAPI.TogetherModelSettings
     | AgentsAPI.BedrockModelSettings
+    | CreateConversation.BasetenModelSettings
     | CreateConversation.OpenRouterModelSettings
     | CreateConversation.ChatGptoAuthModelSettings
     | null;
@@ -578,6 +605,31 @@ export namespace CreateConversation {
   }
 
   /**
+   * Baseten model configuration (OpenAI-compatible).
+   */
+  export interface BasetenModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'baseten';
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
    * OpenRouter model configuration (OpenAI-compatible).
    */
   export interface OpenRouterModelSettings {
@@ -685,6 +737,7 @@ export interface UpdateConversation {
     | AgentsAPI.DeepseekModelSettings
     | AgentsAPI.TogetherModelSettings
     | AgentsAPI.BedrockModelSettings
+    | UpdateConversation.BasetenModelSettings
     | UpdateConversation.OpenRouterModelSettings
     | UpdateConversation.ChatGptoAuthModelSettings
     | null;
@@ -816,6 +869,31 @@ export namespace UpdateConversation {
   }
 
   /**
+   * Baseten model configuration (OpenAI-compatible).
+   */
+  export interface BasetenModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'baseten';
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
    * OpenRouter model configuration (OpenAI-compatible).
    */
   export interface OpenRouterModelSettings {
@@ -936,6 +1014,7 @@ export interface ConversationCreateParams {
     | AgentsAPI.DeepseekModelSettings
     | AgentsAPI.TogetherModelSettings
     | AgentsAPI.BedrockModelSettings
+    | ConversationCreateParams.BasetenModelSettings
     | ConversationCreateParams.OpenRouterModelSettings
     | ConversationCreateParams.ChatGptoAuthModelSettings
     | null;
@@ -1067,6 +1146,31 @@ export namespace ConversationCreateParams {
   }
 
   /**
+   * Baseten model configuration (OpenAI-compatible).
+   */
+  export interface BasetenModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'baseten';
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
    * OpenRouter model configuration (OpenAI-compatible).
    */
   export interface OpenRouterModelSettings {
@@ -1171,6 +1275,7 @@ export interface ConversationUpdateParams {
     | AgentsAPI.DeepseekModelSettings
     | AgentsAPI.TogetherModelSettings
     | AgentsAPI.BedrockModelSettings
+    | ConversationUpdateParams.BasetenModelSettings
     | ConversationUpdateParams.OpenRouterModelSettings
     | ConversationUpdateParams.ChatGptoAuthModelSettings
     | null;
@@ -1299,6 +1404,31 @@ export namespace ConversationUpdateParams {
        */
       type?: 'enabled' | 'disabled';
     }
+  }
+
+  /**
+   * Baseten model configuration (OpenAI-compatible).
+   */
+  export interface BasetenModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'baseten';
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
   }
 
   /**
@@ -1488,6 +1618,7 @@ export namespace ConversationRecompileParams {
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
       | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.BasetenModelSettings
       | CompactionSettings.OpenRouterModelSettings
       | CompactionSettings.ChatGptoAuthModelSettings
       | null;
@@ -1628,6 +1759,31 @@ export namespace ConversationRecompileParams {
          */
         type?: 'enabled' | 'disabled';
       }
+    }
+
+    /**
+     * Baseten model configuration (OpenAI-compatible).
+     */
+    export interface BasetenModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'baseten';
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
     }
 
     /**

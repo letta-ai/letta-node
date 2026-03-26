@@ -432,6 +432,7 @@ export interface Model {
     | 'koboldcpp'
     | 'vllm'
     | 'hugging-face'
+    | 'baseten'
     | 'minimax'
     | 'mistral'
     | 'together'
