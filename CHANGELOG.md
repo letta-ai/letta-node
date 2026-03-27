@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.10.2 (2026-03-27)
+
+Full Changelog: [v1.10.1...v1.10.2](https://github.com/letta-ai/letta-node/compare/v1.10.1...v1.10.2)
+
+### Chores
+
+* **internal:** codegen related update ([7c0740b](https://github.com/letta-ai/letta-node/commit/7c0740b9a55758af98c4846cb2874f44abaf19c3))
+
 ## 1.10.1 (2026-03-26)
 
 Full Changelog: [v1.9.1...v1.10.1](https://github.com/letta-ai/letta-node/compare/v1.9.1...v1.10.1)
