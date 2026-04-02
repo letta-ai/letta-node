@@ -83,6 +83,7 @@ describe('resource conversations', () => {
         {
           after: 'after',
           agent_id: 'agent_id',
+          archive_status: 'unarchived',
           limit: 0,
           order: 'asc',
           order_by: 'created_at',
