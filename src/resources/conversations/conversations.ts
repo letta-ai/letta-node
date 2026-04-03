@@ -150,6 +150,16 @@ export interface Conversation {
   agent_id: string;
 
   /**
+   * Whether the conversation is archived.
+   */
+  archived?: boolean;
+
+  /**
+   * Timestamp of when the conversation was archived.
+   */
+  archived_at?: string | null;
+
+  /**
    * The timestamp when the object was created.
    */
   created_at?: string | null;
@@ -711,6 +721,11 @@ export namespace CreateConversation {
  */
 export interface UpdateConversation {
   /**
+   * Whether the conversation is archived.
+   */
+  archived?: boolean | null;
+
+  /**
    * Timestamp of the most recent message request sent to this conversation.
    */
   last_message_at?: string | null;
@@ -1249,6 +1264,11 @@ export namespace ConversationCreateParams {
 
 export interface ConversationUpdateParams {
   /**
+   * Whether the conversation is archived.
+   */
+  archived?: boolean | null;
+
+  /**
    * Timestamp of the most recent message request sent to this conversation.
    */
   last_message_at?: string | null;
@@ -1519,6 +1539,12 @@ export interface ConversationListParams {
    * not provided)
    */
   agent_id?: string | null;
+
+  /**
+   * Whether to return unarchived conversations only, archived conversations only, or
+   * all conversations
+   */
+  archive_status?: 'unarchived' | 'archived' | 'all';
 
   /**
    * Maximum number of conversations to return
