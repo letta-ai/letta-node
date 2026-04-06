@@ -160,6 +160,12 @@ export interface Conversation {
   archived_at?: string | null;
 
   /**
+   * The context window limit for this conversation (overrides agent's context
+   * window).
+   */
+  context_window_limit?: number | null;
+
+  /**
    * The timestamp when the object was created.
    */
   created_at?: string | null;
@@ -455,6 +461,12 @@ export namespace Conversation {
  */
 export interface CreateConversation {
   /**
+   * The context window limit for this conversation (overrides agent's context
+   * window).
+   */
+  context_window_limit?: number | null;
+
+  /**
    * List of block labels that should be isolated (conversation-specific) rather than
    * shared across conversations. New blocks will be created as copies of the agent's
    * blocks with these labels.
@@ -724,6 +736,12 @@ export interface UpdateConversation {
    * Whether the conversation is archived.
    */
   archived?: boolean | null;
+
+  /**
+   * The context window limit for this conversation (overrides agent's context
+   * window).
+   */
+  context_window_limit?: number | null;
 
   /**
    * Timestamp of the most recent message request sent to this conversation.
@@ -1000,6 +1018,12 @@ export interface ConversationCreateParams {
   agent_id: string;
 
   /**
+   * Body param: The context window limit for this conversation (overrides agent's
+   * context window).
+   */
+  context_window_limit?: number | null;
+
+  /**
    * Body param: List of block labels that should be isolated (conversation-specific)
    * rather than shared across conversations. New blocks will be created as copies of
    * the agent's blocks with these labels.
@@ -1267,6 +1291,12 @@ export interface ConversationUpdateParams {
    * Whether the conversation is archived.
    */
   archived?: boolean | null;
+
+  /**
+   * The context window limit for this conversation (overrides agent's context
+   * window).
+   */
+  context_window_limit?: number | null;
 
   /**
    * Timestamp of the most recent message request sent to this conversation.

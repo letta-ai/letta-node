@@ -24,6 +24,7 @@ describe('resource conversations', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.conversations.create({
       agent_id: 'agent_id',
+      context_window_limit: 0,
       isolated_block_labels: ['string'],
       model: 'model',
       model_settings: {
