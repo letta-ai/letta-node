@@ -2365,12 +2365,6 @@ export interface AgentCreateParams {
   include_default_source?: boolean;
 
   /**
-   * If true, attaches the Letta multi-agent tools (e.g. sending a message to another
-   * agent).
-   */
-  include_multi_agent_tools?: boolean;
-
-  /**
    * The initial set of messages to put in the agent's in-context memory.
    */
   initial_message_sequence?: Array<MessageCreate> | null;
