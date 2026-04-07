@@ -117,6 +117,11 @@ export interface ProviderTrace {
   last_updated_by_id?: string | null;
 
   /**
+   * LLM request latency in milliseconds
+   */
+  latency_ms?: number | null;
+
+  /**
    * LLM configuration used for this call (non-summarization calls only)
    */
   llm_config?: { [key: string]: unknown } | null;
