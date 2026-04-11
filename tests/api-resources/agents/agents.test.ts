@@ -38,7 +38,7 @@ describe('resource agents', () => {
     await expect(
       client.agents.retrieve(
         'agent-123e4567-e89b-42d3-8456-426614174000',
-        { include: ['agent.blocks'], include_relationships: ['string', 'string'] },
+        { include: ['agent.blocks', 'agent.identities'], include_relationships: ['string', 'string'] },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
@@ -81,7 +81,7 @@ describe('resource agents', () => {
           created_by_id: 'created_by_id',
           identifier_keys: ['string', 'string'],
           identity_id: 'identity_id',
-          include: ['agent.blocks'],
+          include: ['agent.blocks', 'agent.identities'],
           include_relationships: ['string', 'string'],
           last_stop_reason: 'end_turn',
           limit: 0,
