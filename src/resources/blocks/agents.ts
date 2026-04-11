@@ -38,7 +38,7 @@ export interface AgentListParams extends ArrayPageParams {
     | 'agent.sources'
     | 'agent.tags'
     | 'agent.tools'
-  >;
+  > | null;
 
   /**
    * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')

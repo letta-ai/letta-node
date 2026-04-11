@@ -29,7 +29,7 @@ describe('resource agents', () => {
         {
           after: 'after',
           before: 'before',
-          include: ['agent.blocks'],
+          include: ['agent.blocks', 'agent.identities'],
           include_relationships: ['string', 'string'],
           limit: 0,
           order: 'asc',
