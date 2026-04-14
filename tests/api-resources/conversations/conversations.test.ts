@@ -143,7 +143,11 @@ describe('resource conversations', () => {
   test.skip('fork: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.conversations.fork('default', { agent_id: 'agent_id' }, { path: '/_stainless_unknown_path' }),
+      client.conversations.fork(
+        'default',
+        { agent_id: 'agent_id', hidden: true },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Letta.NotFoundError);
   });
 
