@@ -111,9 +111,9 @@ export class Conversations extends APIResource {
     params: ConversationForkParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<Conversation> {
-    const { agent_id } = params ?? {};
+    const { agent_id, hidden } = params ?? {};
     return this._client.post(path`/v1/conversations/${conversationID}/fork`, {
-      query: { agent_id },
+      query: { agent_id, hidden },
       ...options,
     });
   }
@@ -1609,6 +1609,11 @@ export interface ConversationForkParams {
    * Agent ID for agent-direct mode with 'default' conversation
    */
   agent_id?: string | null;
+
+  /**
+   * Whether the forked conversation should be hidden from listings
+   */
+  hidden?: boolean;
 }
 
 export interface ConversationRecompileParams {
