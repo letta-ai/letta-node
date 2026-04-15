@@ -84,8 +84,8 @@ describe('resource blocks', () => {
     await expect(
       client.blocks.list(
         {
-          after: 'after',
-          before: 'before',
+          after: 'block-123e4567-e89b-42d3-8456-426614174000',
+          before: 'block-123e4567-e89b-42d3-8456-426614174000',
           connected_to_agents_count_eq: [0, 0],
           connected_to_agents_count_gt: 0,
           connected_to_agents_count_lt: 0,

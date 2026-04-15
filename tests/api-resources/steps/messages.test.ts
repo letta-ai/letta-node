@@ -27,8 +27,8 @@ describe('resource messages', () => {
       client.steps.messages.list(
         'step-123e4567-e89b-42d3-8456-426614174000',
         {
-          after: 'after',
-          before: 'before',
+          after: 'message-123e4567-e89b-42d3-8456-426614174000',
+          before: 'message-123e4567-e89b-42d3-8456-426614174000',
           limit: 0,
           order: 'asc',
           order_by: 'created_at',

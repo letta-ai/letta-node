@@ -38,9 +38,9 @@ describe('resource steps', () => {
     await expect(
       client.steps.list(
         {
-          after: 'after',
+          after: 'step-123e4567-e89b-42d3-8456-426614174000',
           agent_id: 'agent_id',
-          before: 'before',
+          before: 'step-123e4567-e89b-42d3-8456-426614174000',
           end_date: 'end_date',
           feedback: 'positive',
           has_feedback: true,

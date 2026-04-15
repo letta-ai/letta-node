@@ -79,8 +79,8 @@ describe('resource tools', () => {
     await expect(
       client.tools.list(
         {
-          after: 'after',
-          before: 'before',
+          after: 'tool-123e4567-e89b-42d3-8456-426614174000',
+          before: 'tool-123e4567-e89b-42d3-8456-426614174000',
           exclude_tool_types: ['string', 'string'],
           limit: 0,
           name: 'name',

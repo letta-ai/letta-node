@@ -39,10 +39,10 @@ describe('resource messages', () => {
       client.agents.messages.list(
         'agent-123e4567-e89b-42d3-8456-426614174000',
         {
-          after: 'after',
+          after: 'message-123e4567-e89b-42d3-8456-426614174000',
           assistant_message_tool_kwarg: 'assistant_message_tool_kwarg',
           assistant_message_tool_name: 'assistant_message_tool_name',
-          before: 'before',
+          before: 'message-123e4567-e89b-42d3-8456-426614174000',
           conversation_id: 'conversation_id',
           group_id: 'group_id',
           include_err: true,

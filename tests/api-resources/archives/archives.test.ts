@@ -83,9 +83,9 @@ describe('resource archives', () => {
     await expect(
       client.archives.list(
         {
-          after: 'after',
+          after: 'archive-123e4567-e89b-42d3-8456-426614174000',
           agent_id: 'agent_id',
-          before: 'before',
+          before: 'archive-123e4567-e89b-42d3-8456-426614174000',
           limit: 0,
           name: 'name',
           order: 'asc',
