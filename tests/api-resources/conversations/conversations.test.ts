@@ -82,7 +82,7 @@ describe('resource conversations', () => {
     await expect(
       client.conversations.list(
         {
-          after: 'after',
+          after: 'conv-123e4567-e89b-42d3-8456-426614174000',
           agent_id: 'agent_id',
           archive_status: 'unarchived',
           limit: 0,

@@ -22,14 +22,14 @@ export type AgentListResponse = Array<string>;
 
 export interface AgentListParams {
   /**
-   * Agent ID cursor for pagination. Returns agents that come after this agent ID in
-   * the specified sort order
+   * Cursor for pagination (agent ID). Returns results relative to this ID in the
+   * specified sort order. Expected format: 'agent-<uuid4>'
    */
   after?: string | null;
 
   /**
-   * Agent ID cursor for pagination. Returns agents that come before this agent ID in
-   * the specified sort order
+   * Cursor for pagination (agent ID). Returns results relative to this ID in the
+   * specified sort order. Expected format: 'agent-<uuid4>'
    */
   before?: string | null;
 

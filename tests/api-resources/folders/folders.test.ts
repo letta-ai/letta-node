@@ -86,8 +86,8 @@ describe('resource folders', () => {
     await expect(
       client.folders.list(
         {
-          after: 'after',
-          before: 'before',
+          after: 'source-123e4567-e89b-42d3-8456-426614174000',
+          before: 'source-123e4567-e89b-42d3-8456-426614174000',
           limit: 0,
           name: 'name',
           order: 'asc',

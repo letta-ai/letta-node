@@ -257,14 +257,14 @@ export namespace MessageSearchResponse {
 
 export interface MessageListParams {
   /**
-   * Message ID cursor for pagination. Returns messages that come after this message
-   * ID in the specified sort order
+   * Cursor for pagination (message ID). Returns results relative to this ID in the
+   * specified sort order. Expected format: 'message-<uuid4>'
    */
   after?: string | null;
 
   /**
-   * Message ID cursor for pagination. Returns messages that come before this message
-   * ID in the specified sort order
+   * Cursor for pagination (message ID). Returns results relative to this ID in the
+   * specified sort order. Expected format: 'message-<uuid4>'
    */
   before?: string | null;
 

@@ -27,8 +27,8 @@ describe('resource agents', () => {
       client.blocks.agents.list(
         'block-123e4567-e89b-42d3-8456-426614174000',
         {
-          after: 'after',
-          before: 'before',
+          after: 'agent-123e4567-e89b-42d3-8456-426614174000',
+          before: 'agent-123e4567-e89b-42d3-8456-426614174000',
           include: ['agent.blocks', 'agent.identities'],
           include_relationships: ['string', 'string'],
           limit: 0,
