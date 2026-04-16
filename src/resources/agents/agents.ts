@@ -1532,11 +1532,11 @@ export type AgentType =
 
 export interface AnthropicModelSettings {
   /**
-   * Effort level for supported Anthropic models (controls token spending). 'max' is
-   * only available on Opus 4.6. Not setting this gives similar performance to
-   * 'high'.
+   * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+   * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+   * to 'high'.
    */
-  effort?: 'low' | 'medium' | 'high' | 'max' | null;
+  effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
 
   /**
    * The maximum number of tokens the model can generate.
