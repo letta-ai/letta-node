@@ -467,6 +467,11 @@ export interface CreateConversation {
   context_window_limit?: number | null;
 
   /**
+   * Whether the new conversation should be hidden from listings.
+   */
+  hidden?: boolean;
+
+  /**
    * List of block labels that should be isolated (conversation-specific) rather than
    * shared across conversations. New blocks will be created as copies of the agent's
    * blocks with these labels.
@@ -1022,6 +1027,11 @@ export interface ConversationCreateParams {
    * context window).
    */
   context_window_limit?: number | null;
+
+  /**
+   * Body param: Whether the new conversation should be hidden from listings.
+   */
+  hidden?: boolean;
 
   /**
    * Body param: List of block labels that should be isolated (conversation-specific)

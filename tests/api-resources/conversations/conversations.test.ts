@@ -25,6 +25,7 @@ describe('resource conversations', () => {
     const response = await client.conversations.create({
       agent_id: 'agent_id',
       context_window_limit: 0,
+      hidden: true,
       isolated_block_labels: ['string'],
       model: 'model',
       model_settings: {
