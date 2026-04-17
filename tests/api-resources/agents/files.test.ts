@@ -27,8 +27,8 @@ describe('resource files', () => {
       client.agents.files.list(
         'agent-123e4567-e89b-42d3-8456-426614174000',
         {
-          after: 'after',
-          before: 'before',
+          after: 'file-123e4567-e89b-42d3-8456-426614174000',
+          before: 'file-123e4567-e89b-42d3-8456-426614174000',
           cursor: 'cursor',
           is_open: true,
           limit: 0,

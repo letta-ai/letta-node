@@ -1532,11 +1532,11 @@ export type AgentType =
 
 export interface AnthropicModelSettings {
   /**
-   * Effort level for supported Anthropic models (controls token spending). 'max' is
-   * only available on Opus 4.6. Not setting this gives similar performance to
-   * 'high'.
+   * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+   * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+   * to 'high'.
    */
-  effort?: 'low' | 'medium' | 'high' | 'max' | null;
+  effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
 
   /**
    * The maximum number of tokens the model can generate.
@@ -2365,12 +2365,6 @@ export interface AgentCreateParams {
   include_default_source?: boolean;
 
   /**
-   * If true, attaches the Letta multi-agent tools (e.g. sending a message to another
-   * agent).
-   */
-  include_multi_agent_tools?: boolean;
-
-  /**
    * The initial set of messages to put in the agent's in-context memory.
    */
   initial_message_sequence?: Array<MessageCreate> | null;
@@ -3084,7 +3078,7 @@ export interface AgentRetrieveParams {
     | 'agent.sources'
     | 'agent.tags'
     | 'agent.tools'
-  >;
+  > | null;
 
   /**
    * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
@@ -3872,7 +3866,7 @@ export interface AgentListParams extends ArrayPageParams {
     | 'agent.sources'
     | 'agent.tags'
     | 'agent.tools'
-  >;
+  > | null;
 
   /**
    * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')

@@ -39,12 +39,12 @@ describe('resource runs', () => {
       client.runs.list(
         {
           active: true,
-          after: 'after',
+          after: 'run-123e4567-e89b-42d3-8456-426614174000',
           agent_id: 'agent_id',
           agent_ids: ['string', 'string'],
           ascending: true,
           background: true,
-          before: 'before',
+          before: 'run-123e4567-e89b-42d3-8456-426614174000',
           conversation_id: 'conversation_id',
           limit: 1,
           order: 'asc',

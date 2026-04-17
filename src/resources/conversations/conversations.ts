@@ -111,9 +111,9 @@ export class Conversations extends APIResource {
     params: ConversationForkParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<Conversation> {
-    const { agent_id } = params ?? {};
+    const { agent_id, hidden } = params ?? {};
     return this._client.post(path`/v1/conversations/${conversationID}/fork`, {
-      query: { agent_id },
+      query: { agent_id, hidden },
       ...options,
     });
   }
@@ -158,6 +158,12 @@ export interface Conversation {
    * Timestamp of when the conversation was archived.
    */
   archived_at?: string | null;
+
+  /**
+   * The context window limit for this conversation (overrides agent's context
+   * window).
+   */
+  context_window_limit?: number | null;
 
   /**
    * The timestamp when the object was created.
@@ -455,6 +461,17 @@ export namespace Conversation {
  */
 export interface CreateConversation {
   /**
+   * The context window limit for this conversation (overrides agent's context
+   * window).
+   */
+  context_window_limit?: number | null;
+
+  /**
+   * Whether the new conversation should be hidden from listings.
+   */
+  hidden?: boolean;
+
+  /**
    * List of block labels that should be isolated (conversation-specific) rather than
    * shared across conversations. New blocks will be created as copies of the agent's
    * blocks with these labels.
@@ -724,6 +741,12 @@ export interface UpdateConversation {
    * Whether the conversation is archived.
    */
   archived?: boolean | null;
+
+  /**
+   * The context window limit for this conversation (overrides agent's context
+   * window).
+   */
+  context_window_limit?: number | null;
 
   /**
    * Timestamp of the most recent message request sent to this conversation.
@@ -1000,6 +1023,17 @@ export interface ConversationCreateParams {
   agent_id: string;
 
   /**
+   * Body param: The context window limit for this conversation (overrides agent's
+   * context window).
+   */
+  context_window_limit?: number | null;
+
+  /**
+   * Body param: Whether the new conversation should be hidden from listings.
+   */
+  hidden?: boolean;
+
+  /**
    * Body param: List of block labels that should be isolated (conversation-specific)
    * rather than shared across conversations. New blocks will be created as copies of
    * the agent's blocks with these labels.
@@ -1269,6 +1303,12 @@ export interface ConversationUpdateParams {
   archived?: boolean | null;
 
   /**
+   * The context window limit for this conversation (overrides agent's context
+   * window).
+   */
+  context_window_limit?: number | null;
+
+  /**
    * Timestamp of the most recent message request sent to this conversation.
    */
   last_message_at?: string | null;
@@ -1530,7 +1570,8 @@ export namespace ConversationUpdateParams {
 
 export interface ConversationListParams {
   /**
-   * Cursor for pagination (conversation ID)
+   * Cursor for pagination (conv ID). Returns results relative to this ID in the
+   * specified sort order. Expected format: 'conv-<uuid4>'
    */
   after?: string | null;
 
@@ -1579,6 +1620,11 @@ export interface ConversationForkParams {
    * Agent ID for agent-direct mode with 'default' conversation
    */
   agent_id?: string | null;
+
+  /**
+   * Whether the forked conversation should be hidden from listings
+   */
+  hidden?: boolean;
 }
 
 export interface ConversationRecompileParams {
