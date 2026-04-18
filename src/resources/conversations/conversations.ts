@@ -176,9 +176,10 @@ export interface Conversation {
   created_by_id?: string | null;
 
   /**
-   * The IDs of in-context messages for the conversation.
+   * The IDs of in-context messages for the conversation. Null means this field was
+   * not retrieved/hydrated for this response.
    */
-  in_context_message_ids?: Array<string>;
+  in_context_message_ids?: Array<string> | null;
 
   /**
    * IDs of blocks that are isolated (specific to this conversation, overriding agent
