@@ -26,7 +26,6 @@ describe('resource conversations', () => {
       agent_id: 'agent_id',
       context_window_limit: 0,
       hidden: true,
-      isolated_block_labels: ['string'],
       model: 'model',
       model_settings: {
         max_output_tokens: 0,
