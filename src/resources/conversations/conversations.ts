@@ -21,7 +21,8 @@ export class Conversations extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
 
   /**
-   * Create a new conversation for an agent.
+   * Create a new conversation for an agent. Deprecated isolated block inputs are
+   * ignored.
    */
   create(params: ConversationCreateParams, options?: RequestOptions): APIPromise<Conversation> {
     const { agent_id, ...body } = params;
@@ -58,11 +59,9 @@ export class Conversations extends APIResource {
   }
 
   /**
-   * Delete a conversation (soft delete).
+   * Delete a conversation.
    *
-   * This marks the conversation as deleted but does not permanently remove it from
-   * the database. The conversation will no longer appear in list operations. Any
-   * isolated blocks associated with the conversation will be permanently deleted.
+   * The conversation will no longer appear in list operations.
    */
   delete(conversationID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.delete(path`/v1/conversations/${conversationID}`, options);
@@ -182,8 +181,8 @@ export interface Conversation {
   in_context_message_ids?: Array<string> | null;
 
   /**
-   * IDs of blocks that are isolated (specific to this conversation, overriding agent
-   * defaults).
+   * @deprecated Deprecated legacy field for conversation-specific block overrides.
+   * New conversations will always return an empty list.
    */
   isolated_block_ids?: Array<string>;
 
@@ -473,9 +472,8 @@ export interface CreateConversation {
   hidden?: boolean;
 
   /**
-   * List of block labels that should be isolated (conversation-specific) rather than
-   * shared across conversations. New blocks will be created as copies of the agent's
-   * blocks with these labels.
+   * @deprecated Deprecated legacy field for isolated blocks. Accepted for
+   * compatibility but ignored when creating new conversations.
    */
   isolated_block_labels?: Array<string> | null;
 
@@ -1035,9 +1033,8 @@ export interface ConversationCreateParams {
   hidden?: boolean;
 
   /**
-   * Body param: List of block labels that should be isolated (conversation-specific)
-   * rather than shared across conversations. New blocks will be created as copies of
-   * the agent's blocks with these labels.
+   * @deprecated Body param: Deprecated legacy field for isolated blocks. Accepted
+   * for compatibility but ignored when creating new conversations.
    */
   isolated_block_labels?: Array<string> | null;
 
