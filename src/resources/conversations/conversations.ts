@@ -21,8 +21,7 @@ export class Conversations extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
 
   /**
-   * Create a new conversation for an agent. Deprecated isolated block inputs are
-   * ignored.
+   * Create a new conversation for an agent.
    */
   create(params: ConversationCreateParams, options?: RequestOptions): APIPromise<Conversation> {
     const { agent_id, ...body } = params;
@@ -179,12 +178,6 @@ export interface Conversation {
    * not retrieved/hydrated for this response.
    */
   in_context_message_ids?: Array<string> | null;
-
-  /**
-   * @deprecated Deprecated legacy field for conversation-specific block overrides.
-   * New conversations will always return an empty list.
-   */
-  isolated_block_ids?: Array<string>;
 
   /**
    * Timestamp of the most recent message request sent to this conversation.
@@ -470,12 +463,6 @@ export interface CreateConversation {
    * Whether the new conversation should be hidden from listings.
    */
   hidden?: boolean;
-
-  /**
-   * @deprecated Deprecated legacy field for isolated blocks. Accepted for
-   * compatibility but ignored when creating new conversations.
-   */
-  isolated_block_labels?: Array<string> | null;
 
   /**
    * The model handle for this conversation (overrides agent's model). Format:
@@ -1031,12 +1018,6 @@ export interface ConversationCreateParams {
    * Body param: Whether the new conversation should be hidden from listings.
    */
   hidden?: boolean;
-
-  /**
-   * @deprecated Body param: Deprecated legacy field for isolated blocks. Accepted
-   * for compatibility but ignored when creating new conversations.
-   */
-  isolated_block_labels?: Array<string> | null;
 
   /**
    * Body param: The model handle for this conversation (overrides agent's model).
