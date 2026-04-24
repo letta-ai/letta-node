@@ -12,7 +12,7 @@ export class Tools extends APIResource {
    * Get a specific MCP tool by its ID
    */
   retrieve(toolID: string, params: ToolRetrieveParams, options?: RequestOptions): APIPromise<ToolsAPI.Tool> {
-    const { mcp_server_id } = params;
+    const { mcp_server_id } = params
     return this._client.get(path`/v1/mcp-servers/${mcp_server_id}/tools/${toolID}`, options);
   }
 
@@ -29,20 +29,13 @@ export class Tools extends APIResource {
    * The request body should contain the tool arguments in the ToolExecuteRequest
    * format.
    */
-  run(
-    toolID: string,
-    params: ToolRunParams,
-    options?: RequestOptions,
-  ): APIPromise<AgentsToolsAPI.ToolExecutionResult> {
-    const { mcp_server_id, ...body } = params;
-    return this._client.post(path`/v1/mcp-servers/${mcp_server_id}/tools/${toolID}/run`, {
-      body,
-      ...options,
-    });
+  run(toolID: string, params: ToolRunParams, options?: RequestOptions): APIPromise<AgentsToolsAPI.ToolExecutionResult> {
+    const { mcp_server_id, ...body } = params
+    return this._client.post(path`/v1/mcp-servers/${mcp_server_id}/tools/${toolID}/run`, { body, ...options });
   }
 }
 
-export type ToolListResponse = Array<ToolsAPI.Tool>;
+export type ToolListResponse = Array<ToolsAPI.Tool>
 
 export interface ToolRetrieveParams {
   mcp_server_id: string;
@@ -64,6 +57,6 @@ export declare namespace Tools {
   export {
     type ToolListResponse as ToolListResponse,
     type ToolRetrieveParams as ToolRetrieveParams,
-    type ToolRunParams as ToolRunParams,
+    type ToolRunParams as ToolRunParams
   };
 }

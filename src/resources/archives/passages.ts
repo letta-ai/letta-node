@@ -13,11 +13,7 @@ export class Passages extends APIResource {
    *
    * This adds a passage to the archive and creates embeddings for vector storage.
    */
-  create(
-    archiveID: string,
-    body: PassageCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<PassagesAPI.Passage> {
+  create(archiveID: string, body: PassageCreateParams, options?: RequestOptions): APIPromise<PassagesAPI.Passage> {
     return this._client.post(path`/v1/archives/${archiveID}/passages`, { body, ...options });
   }
 
@@ -28,11 +24,8 @@ export class Passages extends APIResource {
    * (if applicable).
    */
   delete(passageID: string, params: PassageDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { archive_id } = params;
-    return this._client.delete(path`/v1/archives/${archive_id}/passages/${passageID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    const { archive_id } = params
+    return this._client.delete(path`/v1/archives/${archive_id}/passages/${passageID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -40,16 +33,12 @@ export class Passages extends APIResource {
    *
    * This adds passages to the archive and creates embeddings for vector storage.
    */
-  createMany(
-    archiveID: string,
-    body: PassageCreateManyParams,
-    options?: RequestOptions,
-  ): APIPromise<PassageCreateManyResponse> {
+  createMany(archiveID: string, body: PassageCreateManyParams, options?: RequestOptions): APIPromise<PassageCreateManyResponse> {
     return this._client.post(path`/v1/archives/${archiveID}/passages/batch`, { body, ...options });
   }
 }
 
-export type PassageCreateManyResponse = Array<PassagesAPI.Passage>;
+export type PassageCreateManyResponse = Array<PassagesAPI.Passage>
 
 export interface PassageCreateParams {
   /**
@@ -119,6 +108,6 @@ export declare namespace Passages {
     type PassageCreateManyResponse as PassageCreateManyResponse,
     type PassageCreateParams as PassageCreateParams,
     type PassageDeleteParams as PassageDeleteParams,
-    type PassageCreateManyParams as PassageCreateManyParams,
+    type PassageCreateManyParams as PassageCreateManyParams
   };
 }

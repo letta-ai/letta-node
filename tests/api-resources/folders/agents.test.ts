@@ -2,10 +2,7 @@
 
 import Letta from '@letta-ai/letta-client';
 
-const client = new Letta({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Letta({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource agents', () => {
   // Mock server tests are disabled
@@ -23,18 +20,14 @@ describe('resource agents', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.folders.agents.list(
-        'source-123e4567-e89b-42d3-8456-426614174000',
-        {
-          after: 'agent-123e4567-e89b-42d3-8456-426614174000',
-          before: 'agent-123e4567-e89b-42d3-8456-426614174000',
-          limit: 0,
-          order: 'asc',
-          order_by: 'created_at',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
+    await expect(client.folders.agents.list('source-123e4567-e89b-42d3-8456-426614174000', {
+    after: 'agent-123e4567-e89b-42d3-8456-426614174000',
+    before: 'agent-123e4567-e89b-42d3-8456-426614174000',
+    limit: 0,
+    order: 'asc',
+    order_by: 'created_at',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Letta.NotFoundError);
   });
 });

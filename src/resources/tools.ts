@@ -32,10 +32,7 @@ export class Tools extends APIResource {
   /**
    * Get a list of all tools available to agents.
    */
-  list(
-    query: ToolListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ToolsArrayPage, Tool> {
+  list(query: ToolListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ToolsArrayPage, Tool> {
     return this._client.getAPIList('/v1/tools/', ArrayPage<Tool>, { query, ...options });
   }
 
@@ -66,7 +63,7 @@ export class Tools extends APIResource {
   }
 }
 
-export type ToolsArrayPage = ArrayPage<Tool>;
+export type ToolsArrayPage = ArrayPage<Tool>
 
 export interface NpmRequirement {
   /**
@@ -379,22 +376,11 @@ export interface ToolSearchResult {
   vector_rank?: number | null;
 }
 
-export type ToolType =
-  | 'custom'
-  | 'letta_core'
-  | 'letta_memory_core'
-  | 'letta_multi_agent_core'
-  | 'letta_sleeptime_core'
-  | 'letta_voice_sleeptime_core'
-  | 'letta_builtin'
-  | 'letta_files_core'
-  | 'external_langchain'
-  | 'external_composio'
-  | 'external_mcp';
+export type ToolType = 'custom' | 'letta_core' | 'letta_memory_core' | 'letta_multi_agent_core' | 'letta_sleeptime_core' | 'letta_voice_sleeptime_core' | 'letta_builtin' | 'letta_files_core' | 'external_langchain' | 'external_composio' | 'external_mcp'
 
-export type ToolDeleteResponse = unknown;
+export type ToolDeleteResponse = unknown
 
-export type ToolSearchResponse = Array<ToolSearchResult>;
+export type ToolSearchResponse = Array<ToolSearchResult>
 
 export interface ToolCreateParams {
   /**
@@ -659,6 +645,6 @@ export declare namespace Tools {
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,
     type ToolSearchParams as ToolSearchParams,
-    type ToolUpsertParams as ToolUpsertParams,
+    type ToolUpsertParams as ToolUpsertParams
   };
 }

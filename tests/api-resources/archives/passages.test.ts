@@ -2,17 +2,12 @@
 
 import Letta from '@letta-ai/letta-client';
 
-const client = new Letta({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Letta({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource passages', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.archives.passages.create('archive-123e4567-e89b-42d3-8456-426614174000', {
-      text: 'text',
-    });
+    const responsePromise = client.archives.passages.create('archive-123e4567-e89b-42d3-8456-426614174000', { text: 'text' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,18 +20,16 @@ describe('resource passages', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.archives.passages.create('archive-123e4567-e89b-42d3-8456-426614174000', {
-      text: 'text',
-      created_at: 'created_at',
-      metadata: { foo: 'bar' },
-      tags: ['string'],
-    });
+    text: 'text',
+    created_at: 'created_at',
+    metadata: { foo: 'bar' },
+    tags: ['string'],
+  });
   });
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.archives.passages.delete('passage-123e4567-e89b-42d3-8456-426614174000', {
-      archive_id: 'archive-123e4567-e89b-42d3-8456-426614174000',
-    });
+    const responsePromise = client.archives.passages.delete('passage-123e4567-e89b-42d3-8456-426614174000', { archive_id: 'archive-123e4567-e89b-42d3-8456-426614174000' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -48,17 +41,12 @@ describe('resource passages', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.archives.passages.delete('passage-123e4567-e89b-42d3-8456-426614174000', {
-      archive_id: 'archive-123e4567-e89b-42d3-8456-426614174000',
-    });
+    const response = await client.archives.passages.delete('passage-123e4567-e89b-42d3-8456-426614174000', { archive_id: 'archive-123e4567-e89b-42d3-8456-426614174000' });
   });
 
   // Mock server tests are disabled
   test.skip('createMany: only required params', async () => {
-    const responsePromise = client.archives.passages.createMany(
-      'archive-123e4567-e89b-42d3-8456-426614174000',
-      { passages: [{ text: 'text' }] },
-    );
+    const responsePromise = client.archives.passages.createMany('archive-123e4567-e89b-42d3-8456-426614174000', { passages: [{ text: 'text' }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -70,18 +58,11 @@ describe('resource passages', () => {
 
   // Mock server tests are disabled
   test.skip('createMany: required and optional params', async () => {
-    const response = await client.archives.passages.createMany(
-      'archive-123e4567-e89b-42d3-8456-426614174000',
-      {
-        passages: [
-          {
-            text: 'text',
-            created_at: 'created_at',
-            metadata: { foo: 'bar' },
-            tags: ['string'],
-          },
-        ],
-      },
-    );
+    const response = await client.archives.passages.createMany('archive-123e4567-e89b-42d3-8456-426614174000', { passages: [{
+    text: 'text',
+    created_at: 'created_at',
+    metadata: { foo: 'bar' },
+    tags: ['string'],
+  }] });
   });
 });

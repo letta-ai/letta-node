@@ -2,10 +2,7 @@
 
 import Letta from '@letta-ai/letta-client';
 
-const client = new Letta({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Letta({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource passages', () => {
   // Mock server tests are disabled

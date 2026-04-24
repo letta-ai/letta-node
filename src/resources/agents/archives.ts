@@ -10,7 +10,7 @@ export class Archives extends APIResource {
    * Attach an archive to an agent.
    */
   attach(archiveID: string, params: ArchiveAttachParams, options?: RequestOptions): APIPromise<unknown> {
-    const { agent_id } = params;
+    const { agent_id } = params
     return this._client.patch(path`/v1/agents/${agent_id}/archives/attach/${archiveID}`, options);
   }
 
@@ -18,14 +18,14 @@ export class Archives extends APIResource {
    * Detach an archive from an agent.
    */
   detach(archiveID: string, params: ArchiveDetachParams, options?: RequestOptions): APIPromise<unknown> {
-    const { agent_id } = params;
+    const { agent_id } = params
     return this._client.patch(path`/v1/agents/${agent_id}/archives/detach/${archiveID}`, options);
   }
 }
 
-export type ArchiveAttachResponse = unknown;
+export type ArchiveAttachResponse = unknown
 
-export type ArchiveDetachResponse = unknown;
+export type ArchiveDetachResponse = unknown
 
 export interface ArchiveAttachParams {
   /**
@@ -46,6 +46,6 @@ export declare namespace Archives {
     type ArchiveAttachResponse as ArchiveAttachResponse,
     type ArchiveDetachResponse as ArchiveDetachResponse,
     type ArchiveAttachParams as ArchiveAttachParams,
-    type ArchiveDetachParams as ArchiveDetachParams,
+    type ArchiveDetachParams as ArchiveDetachParams
   };
 }

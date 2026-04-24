@@ -77,5 +77,7 @@ export interface MetricRetrieveResponse {
 }
 
 export declare namespace Metrics {
-  export { type MetricRetrieveResponse as MetricRetrieveResponse };
+  export {
+    type MetricRetrieveResponse as MetricRetrieveResponse
+  };
 }

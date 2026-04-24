@@ -17,10 +17,7 @@ export class Messages extends APIResource {
   /**
    * List messages across all agents for the current user.
    */
-  list(
-    query: MessageListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<MessageListResponse> {
+  list(query: MessageListParams | null | undefined = {}, options?: RequestOptions): APIPromise<MessageListResponse> {
     return this._client.get('/v1/messages/', { query, ...options });
   }
 
@@ -102,16 +99,11 @@ export interface MessageSearchResult {
   vector_rank?: number | null;
 }
 
-export type MessageRetrieveResponse = Array<AgentsMessagesAPI.Message>;
+export type MessageRetrieveResponse = Array<AgentsMessagesAPI.Message>
 
-export type MessageListResponse = Array<AgentsMessagesAPI.Message>;
+export type MessageListResponse = Array<AgentsMessagesAPI.Message>
 
-export type MessageSearchResponse = Array<
-  | MessageSearchResponse.SystemMessageListResult
-  | MessageSearchResponse.UserMessageListResult
-  | MessageSearchResponse.ReasoningMessageListResult
-  | MessageSearchResponse.AssistantMessageListResult
->;
+export type MessageSearchResponse = Array<MessageSearchResponse.SystemMessageListResult | MessageSearchResponse.UserMessageListResult | MessageSearchResponse.ReasoningMessageListResult | MessageSearchResponse.AssistantMessageListResult>
 
 export namespace MessageSearchResponse {
   /**
@@ -335,6 +327,6 @@ export declare namespace Messages {
     type MessageListResponse as MessageListResponse,
     type MessageSearchResponse as MessageSearchResponse,
     type MessageListParams as MessageListParams,
-    type MessageSearchParams as MessageSearchParams,
+    type MessageSearchParams as MessageSearchParams
   };
 }
