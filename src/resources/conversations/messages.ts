@@ -24,16 +24,8 @@ export class Messages extends APIResource {
    * **Deprecated**: Passing an agent ID as conversation_id still works but will be
    * removed.
    */
-  create(
-    conversationID: string,
-    body: MessageCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<Stream<MessagesAPI.LettaStreamingResponse>> {
-    return this._client.post(path`/v1/conversations/${conversationID}/messages`, {
-      body,
-      ...options,
-      stream: true,
-    }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
+  create(conversationID: string, body: MessageCreateParams, options?: RequestOptions): APIPromise<Stream<MessagesAPI.LettaStreamingResponse>> {
+    return this._client.post(path`/v1/conversations/${conversationID}/messages`, { body, ...options, stream: true }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
   }
 
   /**
@@ -48,16 +40,8 @@ export class Messages extends APIResource {
    * **Deprecated**: Passing an agent ID as conversation_id still works but will be
    * removed.
    */
-  list(
-    conversationID: string,
-    query: MessageListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MessagesArrayPage, MessagesAPI.Message> {
-    return this._client.getAPIList(
-      path`/v1/conversations/${conversationID}/messages`,
-      ArrayPage<MessagesAPI.Message>,
-      { query, ...options },
-    );
+  list(conversationID: string, query: MessageListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagesArrayPage, MessagesAPI.Message> {
+    return this._client.getAPIList(path`/v1/conversations/${conversationID}/messages`, ArrayPage<MessagesAPI.Message>, { query, ...options });
   }
 
   /**
@@ -72,11 +56,7 @@ export class Messages extends APIResource {
    * **Deprecated**: Passing an agent ID as conversation_id still works but will be
    * removed.
    */
-  compact(
-    conversationID: string,
-    body: MessageCompactParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<CompactionResponse> {
+  compact(conversationID: string, body: MessageCompactParams | null | undefined = {}, options?: RequestOptions): APIPromise<CompactionResponse> {
     return this._client.post(path`/v1/conversations/${conversationID}/compact`, { body, ...options });
   }
 
@@ -98,16 +78,8 @@ export class Messages extends APIResource {
    * **Deprecated**: Passing an agent ID as conversation_id still works but will be
    * removed.
    */
-  stream(
-    conversationID: string,
-    body: MessageStreamParams | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<Stream<MessagesAPI.LettaStreamingResponse>> {
-    return this._client.post(path`/v1/conversations/${conversationID}/stream`, {
-      body,
-      ...options,
-      stream: true,
-    }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
+  stream(conversationID: string, body: MessageStreamParams | undefined = {}, options?: RequestOptions): APIPromise<Stream<MessagesAPI.LettaStreamingResponse>> {
+    return this._client.post(path`/v1/conversations/${conversationID}/stream`, { body, ...options, stream: true }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
   }
 }
 
@@ -149,23 +121,7 @@ export namespace CompactionRequest {
     /**
      * Optional model settings used to override defaults for the summarizer model.
      */
-    model_settings?:
-      | AgentsAPI.OpenAIModelSettings
-      | CompactionSettings.SgLangModelSettings
-      | AgentsAPI.AnthropicModelSettings
-      | AgentsAPI.GoogleAIModelSettings
-      | AgentsAPI.GoogleVertexModelSettings
-      | AgentsAPI.AzureModelSettings
-      | AgentsAPI.XaiModelSettings
-      | CompactionSettings.ZaiModelSettings
-      | AgentsAPI.GroqModelSettings
-      | AgentsAPI.DeepseekModelSettings
-      | AgentsAPI.TogetherModelSettings
-      | AgentsAPI.BedrockModelSettings
-      | CompactionSettings.BasetenModelSettings
-      | CompactionSettings.OpenRouterModelSettings
-      | CompactionSettings.ChatGptoAuthModelSettings
-      | null;
+    model_settings?: AgentsAPI.OpenAIModelSettings | CompactionSettings.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CompactionSettings.ZaiModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CompactionSettings.BasetenModelSettings | CompactionSettings.OpenRouterModelSettings | CompactionSettings.ChatGptoAuthModelSettings | null;
 
     /**
      * The prompt to use for summarization. If None, uses mode-specific default.
@@ -214,11 +170,7 @@ export namespace CompactionRequest {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -271,11 +223,7 @@ export namespace CompactionRequest {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -352,11 +300,7 @@ export namespace CompactionRequest {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -416,7 +360,7 @@ export interface CompactionResponse {
   summary: string;
 }
 
-export type MessageStreamResponse = unknown;
+export type MessageStreamResponse = unknown
 
 export interface MessageCreateParams {
   /**
@@ -486,19 +430,7 @@ export interface MessageCreateParams {
    * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
    * 'user', 'content': input}].
    */
-  input?:
-    | string
-    | Array<
-        | MessagesAPI.TextContent
-        | MessagesAPI.ImageContent
-        | MessagesAPI.ToolCallContent
-        | MessagesAPI.ToolReturnContent
-        | MessagesAPI.ReasoningContent
-        | MessagesAPI.RedactedReasoningContent
-        | MessagesAPI.OmittedReasoningContent
-        | MessageCreateParams.SummarizedReasoningContent
-      >
-    | null;
+  input?: string | Array<MessagesAPI.TextContent | MessagesAPI.ImageContent | MessagesAPI.ToolCallContent | MessagesAPI.ToolReturnContent | MessagesAPI.ReasoningContent | MessagesAPI.RedactedReasoningContent | MessagesAPI.OmittedReasoningContent | MessageCreateParams.SummarizedReasoningContent> | null;
 
   /**
    * Maximum number of steps the agent should take to process the request.
@@ -508,9 +440,7 @@ export interface MessageCreateParams {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<
-    AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate | MessageCreateParams.ToolReturnCreate
-  > | null;
+  messages?: Array<AgentsAPI.MessageCreate | MessagesAPI.ApprovalCreate | MessageCreateParams.ToolReturnCreate> | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -754,23 +684,7 @@ export namespace MessageCompactParams {
     /**
      * Optional model settings used to override defaults for the summarizer model.
      */
-    model_settings?:
-      | AgentsAPI.OpenAIModelSettings
-      | CompactionSettings.SgLangModelSettings
-      | AgentsAPI.AnthropicModelSettings
-      | AgentsAPI.GoogleAIModelSettings
-      | AgentsAPI.GoogleVertexModelSettings
-      | AgentsAPI.AzureModelSettings
-      | AgentsAPI.XaiModelSettings
-      | CompactionSettings.ZaiModelSettings
-      | AgentsAPI.GroqModelSettings
-      | AgentsAPI.DeepseekModelSettings
-      | AgentsAPI.TogetherModelSettings
-      | AgentsAPI.BedrockModelSettings
-      | CompactionSettings.BasetenModelSettings
-      | CompactionSettings.OpenRouterModelSettings
-      | CompactionSettings.ChatGptoAuthModelSettings
-      | null;
+    model_settings?: AgentsAPI.OpenAIModelSettings | CompactionSettings.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CompactionSettings.ZaiModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CompactionSettings.BasetenModelSettings | CompactionSettings.OpenRouterModelSettings | CompactionSettings.ChatGptoAuthModelSettings | null;
 
     /**
      * The prompt to use for summarization. If None, uses mode-specific default.
@@ -819,11 +733,7 @@ export namespace MessageCompactParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -876,11 +786,7 @@ export namespace MessageCompactParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -957,11 +863,7 @@ export namespace MessageCompactParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -1063,8 +965,8 @@ export declare namespace Messages {
     type MessageCreateParams as MessageCreateParams,
     type MessageListParams as MessageListParams,
     type MessageCompactParams as MessageCompactParams,
-    type MessageStreamParams as MessageStreamParams,
+    type MessageStreamParams as MessageStreamParams
   };
 }
 
-export { type MessagesArrayPage };
+export { type MessagesArrayPage }

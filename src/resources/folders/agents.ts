@@ -9,16 +9,12 @@ export class Agents extends APIResource {
   /**
    * Get all agent IDs that have the specified folder attached.
    */
-  list(
-    folderID: string,
-    query: AgentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AgentListResponse> {
+  list(folderID: string, query: AgentListParams | null | undefined = {}, options?: RequestOptions): APIPromise<AgentListResponse> {
     return this._client.get(path`/v1/folders/${folderID}/agents`, { query, ...options });
   }
 }
 
-export type AgentListResponse = Array<string>;
+export type AgentListResponse = Array<string>
 
 export interface AgentListParams {
   /**
@@ -51,5 +47,8 @@ export interface AgentListParams {
 }
 
 export declare namespace Agents {
-  export { type AgentListResponse as AgentListResponse, type AgentListParams as AgentListParams };
+  export {
+    type AgentListResponse as AgentListResponse,
+    type AgentListParams as AgentListParams
+  };
 }

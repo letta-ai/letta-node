@@ -2,10 +2,7 @@
 
 import Letta from '@letta-ai/letta-client';
 
-const client = new Letta({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Letta({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource agents', () => {
   // Mock server tests are disabled
@@ -23,29 +20,23 @@ describe('resource agents', () => {
   // Mock server tests are disabled
   test.skip('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.templates.agents.create(
-        'template_version',
-        {
-          agent_name: 'agent_name',
-          identity_ids: ['string'],
-          initial_message_sequence: [
-            {
-              content: 'content',
-              role: 'user',
-              batch_item_id: 'batch_item_id',
-              group_id: 'group_id',
-              name: 'name',
-              otid: 'otid',
-              sender_id: 'sender_id',
-            },
-          ],
-          memory_variables: { foo: 'string' },
-          tags: ['-_'],
-          tool_variables: { foo: 'string' },
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Letta.NotFoundError);
+    await expect(client.templates.agents.create('template_version', {
+    agent_name: 'agent_name',
+    identity_ids: ['string'],
+    initial_message_sequence: [{
+    content: 'content',
+    role: 'user',
+    batch_item_id: 'batch_item_id',
+    group_id: 'group_id',
+    name: 'name',
+    otid: 'otid',
+    sender_id: 'sender_id',
+  }],
+    memory_variables: { foo: 'string' },
+    tags: ['-_'],
+    tool_variables: { foo: 'string' },
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Letta.NotFoundError);
   });
 });

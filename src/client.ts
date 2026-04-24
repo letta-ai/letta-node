@@ -15,203 +15,32 @@ import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
-import {
-  AbstractPage,
-  type ArrayPageParams,
-  ArrayPageResponse,
-  type NextFilesPageParams,
-  NextFilesPageResponse,
-  type ObjectPageParams,
-  ObjectPageResponse,
-} from './core/pagination';
+import { AbstractPage, type ArrayPageParams, ArrayPageResponse, type NextFilesPageParams, NextFilesPageResponse, type ObjectPageParams, ObjectPageResponse } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 import { HealthResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
-import {
-  AccessTokenCreateParams,
-  AccessTokenCreateResponse,
-  AccessTokenDeleteParams,
-  AccessTokenDeleteResponse,
-  AccessTokenListParams,
-  AccessTokenListResponse,
-  AccessTokens,
-} from './resources/access-tokens';
-import {
-  MessageListParams,
-  MessageListResponse,
-  MessageRetrieveResponse,
-  MessageSearchParams,
-  MessageSearchRequest,
-  MessageSearchResponse,
-  MessageSearchResult,
-  Messages,
-} from './resources/messages';
+import { AccessTokenCreateParams, AccessTokenCreateResponse, AccessTokenDeleteParams, AccessTokenDeleteResponse, AccessTokenListParams, AccessTokenListResponse, AccessTokens } from './resources/access-tokens';
+import { MessageListParams, MessageListResponse, MessageRetrieveResponse, MessageSearchParams, MessageSearchRequest, MessageSearchResponse, MessageSearchResult, Messages } from './resources/messages';
 import { Passage, PassageSearchParams, PassageSearchResponse, Passages } from './resources/passages';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
-import {
-  NpmRequirement,
-  PipRequirement,
-  Tool,
-  ToolCreate,
-  ToolCreateParams,
-  ToolDeleteResponse,
-  ToolListParams,
-  ToolReturnMessage,
-  ToolSearchParams,
-  ToolSearchRequest,
-  ToolSearchResponse,
-  ToolSearchResult,
-  ToolType,
-  ToolUpdateParams,
-  ToolUpsertParams,
-  Tools,
-  ToolsArrayPage,
-} from './resources/tools';
-import {
-  AgentCreateParams,
-  AgentDeleteResponse,
-  AgentEnvironmentVariable,
-  AgentExportFileParams,
-  AgentExportFileResponse,
-  AgentImportFileParams,
-  AgentImportFileResponse,
-  AgentListParams,
-  AgentRecompileParams,
-  AgentRecompileResponse,
-  AgentRetrieveParams,
-  AgentState,
-  AgentStatesArrayPage,
-  AgentType,
-  AgentUpdateParams,
-  Agents,
-  AnthropicModelSettings,
-  AzureModelSettings,
-  BedrockModelSettings,
-  ChildToolRule,
-  ConditionalToolRule,
-  ContinueToolRule,
-  DeepseekModelSettings,
-  GoogleAIModelSettings,
-  GoogleVertexModelSettings,
-  GroqModelSettings,
-  InitToolRule,
-  JsonObjectResponseFormat,
-  JsonSchemaResponseFormat,
-  LettaMessageContentUnion,
-  MaxCountPerStepToolRule,
-  MessageCreate,
-  OpenAIModelSettings,
-  ParentToolRule,
-  RequiredBeforeExitToolRule,
-  RequiresApprovalToolRule,
-  TerminalToolRule,
-  TextResponseFormat,
-  TogetherModelSettings,
-  XaiModelSettings,
-} from './resources/agents/agents';
-import {
-  Archive,
-  ArchiveCreateParams,
-  ArchiveListParams,
-  ArchiveUpdateParams,
-  Archives,
-  ArchivesArrayPage,
-  VectorDBProvider,
-} from './resources/archives/archives';
-import {
-  BlockCreateParams,
-  BlockDeleteResponse,
-  BlockListParams,
-  BlockResponse,
-  BlockResponsesArrayPage,
-  BlockUpdateParams,
-  Blocks,
-  CreateBlock,
-} from './resources/blocks/blocks';
-import {
-  Conversation,
-  ConversationCancelParams,
-  ConversationCancelResponse,
-  ConversationCreateParams,
-  ConversationDeleteResponse,
-  ConversationForkParams,
-  ConversationListParams,
-  ConversationListResponse,
-  ConversationRecompileParams,
-  ConversationRecompileResponse,
-  ConversationUpdateParams,
-  Conversations,
-  CreateConversation,
-  UpdateConversation,
-} from './resources/conversations/conversations';
-import {
-  Folder,
-  FolderCreateParams,
-  FolderDeleteResponse,
-  FolderListParams,
-  FolderUpdateParams,
-  Folders,
-  FoldersArrayPage,
-} from './resources/folders/folders';
-import {
-  CreateSseMcpServer,
-  CreateStdioMcpServer,
-  CreateStreamableHTTPMcpServer,
-  McpServerCreateParams,
-  McpServerCreateResponse,
-  McpServerListResponse,
-  McpServerRefreshParams,
-  McpServerRefreshResponse,
-  McpServerRetrieveResponse,
-  McpServerUpdateParams,
-  McpServerUpdateResponse,
-  McpServers,
-  SseMcpServer,
-  StdioMcpServer,
-  StreamableHTTPMcpServer,
-  UpdateSseMcpServer,
-  UpdateStdioMcpServer,
-  UpdateStreamableHTTPMcpServer,
-} from './resources/mcp-servers/mcp-servers';
-import {
-  EmbeddingConfig,
-  EmbeddingModel,
-  LlmConfig,
-  Model,
-  ModelListParams,
-  ModelListResponse,
-  Models,
-  ProviderCategory,
-  ProviderType,
-} from './resources/models/models';
+import { NpmRequirement, PipRequirement, Tool, ToolCreate, ToolCreateParams, ToolDeleteResponse, ToolListParams, ToolReturnMessage, ToolSearchParams, ToolSearchRequest, ToolSearchResponse, ToolSearchResult, ToolType, ToolUpdateParams, ToolUpsertParams, Tools, ToolsArrayPage } from './resources/tools';
+import { AgentCreateParams, AgentDeleteResponse, AgentEnvironmentVariable, AgentExportFileParams, AgentExportFileResponse, AgentImportFileParams, AgentImportFileResponse, AgentListParams, AgentRecompileParams, AgentRecompileResponse, AgentRetrieveParams, AgentState, AgentStatesArrayPage, AgentType, AgentUpdateParams, Agents, AnthropicModelSettings, AzureModelSettings, BedrockModelSettings, ChildToolRule, ConditionalToolRule, ContinueToolRule, DeepseekModelSettings, GoogleAIModelSettings, GoogleVertexModelSettings, GroqModelSettings, InitToolRule, JsonObjectResponseFormat, JsonSchemaResponseFormat, LettaMessageContentUnion, MaxCountPerStepToolRule, MessageCreate, OpenAIModelSettings, ParentToolRule, RequiredBeforeExitToolRule, RequiresApprovalToolRule, TerminalToolRule, TextResponseFormat, TogetherModelSettings, XaiModelSettings } from './resources/agents/agents';
+import { Archive, ArchiveCreateParams, ArchiveListParams, ArchiveUpdateParams, Archives, ArchivesArrayPage, VectorDBProvider } from './resources/archives/archives';
+import { BlockCreateParams, BlockDeleteResponse, BlockListParams, BlockResponse, BlockResponsesArrayPage, BlockUpdateParams, Blocks, CreateBlock } from './resources/blocks/blocks';
+import { Conversation, ConversationCancelParams, ConversationCancelResponse, ConversationCreateParams, ConversationDeleteResponse, ConversationForkParams, ConversationListParams, ConversationListResponse, ConversationRecompileParams, ConversationRecompileResponse, ConversationUpdateParams, Conversations, CreateConversation, UpdateConversation } from './resources/conversations/conversations';
+import { Folder, FolderCreateParams, FolderDeleteResponse, FolderListParams, FolderUpdateParams, Folders, FoldersArrayPage } from './resources/folders/folders';
+import { CreateSseMcpServer, CreateStdioMcpServer, CreateStreamableHTTPMcpServer, McpServerCreateParams, McpServerCreateResponse, McpServerListResponse, McpServerRefreshParams, McpServerRefreshResponse, McpServerRetrieveResponse, McpServerUpdateParams, McpServerUpdateResponse, McpServers, SseMcpServer, StdioMcpServer, StreamableHTTPMcpServer, UpdateSseMcpServer, UpdateStdioMcpServer, UpdateStreamableHTTPMcpServer } from './resources/mcp-servers/mcp-servers';
+import { EmbeddingConfig, EmbeddingModel, LlmConfig, Model, ModelListParams, ModelListResponse, Models, ProviderCategory, ProviderType } from './resources/models/models';
 import { Job, RunListParams, Runs, StopReasonType } from './resources/runs/runs';
 import { ProviderTrace, Step, StepListParams, Steps, StepsArrayPage } from './resources/steps/steps';
-import {
-  TemplateCreateParams,
-  TemplateCreateResponse,
-  TemplateDeleteParams,
-  TemplateDeleteResponse,
-  TemplateRollbackParams,
-  TemplateRollbackResponse,
-  TemplateSaveParams,
-  TemplateSaveResponse,
-  TemplateUpdateParams,
-  TemplateUpdateResponse,
-  Templates,
-} from './resources/templates/templates';
+import { TemplateCreateParams, TemplateCreateResponse, TemplateDeleteParams, TemplateDeleteResponse, TemplateRollbackParams, TemplateRollbackResponse, TemplateSaveParams, TemplateSaveResponse, TemplateUpdateParams, TemplateUpdateResponse, Templates } from './resources/templates/templates';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import { readEnv } from './internal/utils/env';
-import {
-  type LogLevel,
-  type Logger,
-  formatRequestDetails,
-  loggerFor,
-  parseLogLevel,
-} from './internal/utils/log';
+import { type LogLevel, type Logger, formatRequestDetails, loggerFor, parseLogLevel } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
@@ -312,7 +141,7 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Letta API.
+ * API Client for interfacing with the Letta API. 
  */
 export class Letta {
   apiKey: string | null;
@@ -353,6 +182,7 @@ export class Letta {
     project = null,
     ...opts
   }: ClientOptions = {}) {
+
     const options: ClientOptions = {
       apiKey,
       projectID,
@@ -364,8 +194,8 @@ export class Letta {
 
     if (baseURL && opts.environment) {
       throw new Errors.LettaError(
-        'Ambiguous URL; The `baseURL` option (or LETTA_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
-      );
+        'Ambiguous URL; The `baseURL` option (or LETTA_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null'
+      )
     }
 
     this.baseURL = options.baseURL || environments[options.environment || 'cloud'];
@@ -374,10 +204,7 @@ export class Letta {
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
-    this.logLevel =
-      parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('LETTA_LOG'), "process.env['LETTA_LOG']", this) ??
-      defaultLogLevel;
+    this.logLevel = parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ?? parseLogLevel(readEnv('LETTA_LOG'), 'process.env[\'LETTA_LOG\']', this) ?? defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
@@ -407,7 +234,7 @@ export class Letta {
       apiKey: this.apiKey,
       projectID: this.projectID,
       project: this.project,
-      ...options,
+      ...options
     });
     return client;
   }
@@ -427,7 +254,7 @@ export class Letta {
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
-    return this._options.defaultQuery;
+    return this._options.defaultQuery
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
@@ -462,11 +289,7 @@ export class Letta {
     return Errors.APIError.generate(status, error, message, headers);
   }
 
-  buildURL(
-    path: string,
-    query: Record<string, unknown> | null | undefined,
-    defaultBaseURL?: string | undefined,
-  ): string {
+  buildURL(path: string, query: Record<string, unknown> | null | undefined, defaultBaseURL?: string | undefined): string {
     const baseURL = (!this.#baseURLOverridden() && defaultBaseURL) || this.baseURL;
     const url =
       isAbsoluteURL(path) ?
@@ -554,9 +377,7 @@ export class Letta {
 
     await this.prepareOptions(options);
 
-    const { req, url, timeout } = await this.buildRequest(options, {
-      retryCount: maxRetries - retriesRemaining,
-    });
+    const { req, url, timeout } = await this.buildRequest(options, { retryCount: maxRetries - retriesRemaining });
 
     await this.prepareRequest(req, { url, options });
 
@@ -565,16 +386,7 @@ export class Letta {
     const retryLogStr = retryOfRequestLogID === undefined ? '' : `, retryOf: ${retryOfRequestLogID}`;
     const startTime = Date.now();
 
-    loggerFor(this).debug(
-      `[${requestLogID}] sending request`,
-      formatRequestDetails({
-        retryOfRequestLogID,
-        method: options.method,
-        url,
-        options,
-        headers: req.headers,
-      }),
-    );
+    loggerFor(this).debug(`[${requestLogID}] sending request`, formatRequestDetails({ retryOfRequestLogID, method: options.method, url, options, headers: req.headers }));
 
     if (options.signal?.aborted) {
       throw new Errors.APIUserAbortError();
@@ -593,45 +405,21 @@ export class Letta {
       // deno throws "TypeError: error sending request for url (https://example/): client error (Connect): tcp connect error: Operation timed out (os error 60): Operation timed out (os error 60)"
       // undici throws "TypeError: fetch failed" with cause "ConnectTimeoutError: Connect Timeout Error (attempted address: example:443, timeout: 1ms)"
       // others do not provide enough information to distinguish timeouts from other connection errors
-      const isTimeout =
-        isAbortError(response) ||
-        /timed? ?out/i.test(String(response) + ('cause' in response ? String(response.cause) : ''));
+      const isTimeout = isAbortError(response) || /timed? ?out/i.test(String(response) + ('cause' in response ? String(response.cause) : ''))
       if (retriesRemaining) {
-        loggerFor(this).info(
-          `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - ${retryMessage}`,
-        );
-        loggerFor(this).debug(
-          `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (${retryMessage})`,
-          formatRequestDetails({
-            retryOfRequestLogID,
-            url,
-            durationMs: headersTime - startTime,
-            message: response.message,
-          }),
-        );
+        loggerFor(this).info(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - ${retryMessage}`)
+        loggerFor(this).debug(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (${retryMessage})`, formatRequestDetails({ retryOfRequestLogID, url, durationMs: headersTime - startTime, message: response.message }));
         return this.retryRequest(options, retriesRemaining, retryOfRequestLogID ?? requestLogID);
       }
-      loggerFor(this).info(
-        `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - error; no more retries left`,
-      );
-      loggerFor(this).debug(
-        `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (error; no more retries left)`,
-        formatRequestDetails({
-          retryOfRequestLogID,
-          url,
-          durationMs: headersTime - startTime,
-          message: response.message,
-        }),
-      );
+      loggerFor(this).info(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - error; no more retries left`)
+      loggerFor(this).debug(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (error; no more retries left)`, formatRequestDetails({ retryOfRequestLogID, url, durationMs: headersTime - startTime, message: response.message }));
       if (isTimeout) {
         throw new Errors.APIConnectionTimeoutError();
       }
       throw new Errors.APIConnectionError({ cause: response });
     }
 
-    const responseInfo = `[${requestLogID}${retryLogStr}] ${req.method} ${url} ${
-      response.ok ? 'succeeded' : 'failed'
-    } with status ${response.status} in ${headersTime - startTime}ms`;
+    const responseInfo = `[${requestLogID}${retryLogStr}] ${req.method} ${url} ${response.ok ? 'succeeded' : 'failed'} with status ${response.status} in ${headersTime - startTime}ms`;
 
     if (!response.ok) {
       const shouldRetry = await this.shouldRetry(response);
@@ -640,60 +428,27 @@ export class Letta {
 
         // We don't need the body of this response.
         await Shims.CancelReadableStream(response.body);
-        loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
-        loggerFor(this).debug(
-          `[${requestLogID}] response error (${retryMessage})`,
-          formatRequestDetails({
-            retryOfRequestLogID,
-            url: response.url,
-            status: response.status,
-            headers: response.headers,
-            durationMs: headersTime - startTime,
-          }),
-        );
-        return this.retryRequest(
-          options,
-          retriesRemaining,
-          retryOfRequestLogID ?? requestLogID,
-          response.headers,
-        );
+        loggerFor(this).info(`${responseInfo} - ${retryMessage}`)
+        loggerFor(this).debug(`[${requestLogID}] response error (${retryMessage})`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, headers: response.headers, durationMs: headersTime - startTime }));
+        return this.retryRequest(options, retriesRemaining, retryOfRequestLogID ?? requestLogID, response.headers);
       }
 
       const retryMessage = shouldRetry ? `error; no more retries left` : `error; not retryable`;
 
-      loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
+      loggerFor(this).info(`${responseInfo} - ${retryMessage}`)
 
       const errText = await response.text().catch((err: any) => castToError(err).message);
       const errJSON = safeJSON(errText) as any;
       const errMessage = errJSON ? undefined : errText;
 
-      loggerFor(this).debug(
-        `[${requestLogID}] response error (${retryMessage})`,
-        formatRequestDetails({
-          retryOfRequestLogID,
-          url: response.url,
-          status: response.status,
-          headers: response.headers,
-          message: errMessage,
-          durationMs: Date.now() - startTime,
-        }),
-      );
+      loggerFor(this).debug(`[${requestLogID}] response error (${retryMessage})`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, headers: response.headers, message: errMessage, durationMs: Date.now() - startTime }));
 
       const err = this.makeStatusError(response.status, errJSON, errMessage, response.headers);
       throw err;
     }
 
-    loggerFor(this).info(responseInfo);
-    loggerFor(this).debug(
-      `[${requestLogID}] response start`,
-      formatRequestDetails({
-        retryOfRequestLogID,
-        url: response.url,
-        status: response.status,
-        headers: response.headers,
-        durationMs: headersTime - startTime,
-      }),
-    );
+    loggerFor(this).info(responseInfo)
+    loggerFor(this).debug(`[${requestLogID}] response start`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, headers: response.headers, durationMs: headersTime - startTime }));
 
     return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
   }
@@ -711,10 +466,7 @@ export class Letta {
     );
   }
 
-  requestAPIList<
-    Item = unknown,
-    PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>,
-  >(
+  requestAPIList<Item = unknown, PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>>(
     Page: new (...args: ConstructorParameters<typeof Pagination.AbstractPage>) => PageClass,
     options: PromiseOrValue<FinalRequestOptions>,
   ): Pagination.PagePromise<PageClass, Item> {
@@ -734,9 +486,7 @@ export class Letta {
 
     const timeout = setTimeout(abort, ms);
 
-    const isReadableBody =
-      ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) ||
-      (typeof options.body === 'object' && options.body !== null && Symbol.asyncIterator in options.body);
+    const isReadableBody = ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) || (typeof options.body === "object" && options.body !== null && Symbol.asyncIterator in options.body);
 
     const fetchOptions: RequestInit = {
       signal: controller.signal as any,
@@ -751,6 +501,7 @@ export class Letta {
     }
 
     try {
+
       // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
       return await this.fetch.call(undefined, url, fetchOptions);
     } finally {
@@ -851,12 +602,11 @@ export class Letta {
     const req: FinalizedRequestInit = {
       method,
       headers: reqHeaders,
-      ...(options.signal && { signal: options.signal }),
-      ...((globalThis as any).ReadableStream &&
-        body instanceof (globalThis as any).ReadableStream && { duplex: 'half' }),
+      ...(options.signal && { signal: options.signal}),
+      ...((globalThis as any).ReadableStream && body instanceof (globalThis as any).ReadableStream && { duplex: "half" }),
       ...(body && { body }),
-      ...((this.fetchOptions as any) ?? {}),
-      ...((options.fetchOptions as any) ?? {}),
+      ...(this.fetchOptions as any ?? {}),
+      ...(options.fetchOptions as any ?? {}),
     };
 
     return { req, url, timeout: options.timeout };
@@ -881,19 +631,17 @@ export class Letta {
 
     const headers = buildHeaders([
       idempotencyHeaders,
-      {
-        Accept: 'application/json',
-        'User-Agent': this.getUserAgent(),
-        'X-Stainless-Retry-Count': String(retryCount),
-        ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
-        ...getPlatformHeaders(),
-        'X-Project-Id': this.projectID,
-        'X-Project': this.project,
-      },
+      {Accept: 'application/json',
+      'User-Agent': this.getUserAgent(),
+      'X-Stainless-Retry-Count': String(retryCount),
+      ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
+      ...getPlatformHeaders(),
+      'X-Project-Id': this.projectID,
+      'X-Project': this.project},
       await this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
-      options.headers,
+      options.headers
     ]);
 
     this.validateHeaders(headers);
@@ -920,9 +668,11 @@ export class Letta {
       ArrayBuffer.isView(body) ||
       body instanceof ArrayBuffer ||
       body instanceof DataView ||
-      (typeof body === 'string' &&
+      (
+        typeof body === 'string' &&
         // Preserve legacy string encoding behavior for now
-        headers.values.has('content-type')) ||
+        headers.values.has('content-type')
+      ) ||
       // `Blob` is superset of `File`
       ((globalThis as any).Blob && body instanceof (globalThis as any).Blob) ||
       // `FormData` -> `multipart/form-data`
@@ -953,7 +703,7 @@ export class Letta {
   }
 
   static Letta = this;
-  static DEFAULT_TIMEOUT = 60000; // 1 minute
+  static DEFAULT_TIMEOUT = 60000 // 1 minute
 
   static LettaError = Errors.LettaError;
   static APIError = Errors.APIError;
@@ -1005,222 +755,234 @@ Letta.Conversations = Conversations;
 Letta.AccessTokens = AccessTokens;
 
 export declare namespace Letta {
-  export type RequestOptions = Opts.RequestOptions;
+      export type RequestOptions = Opts.RequestOptions;
 
-  export import ArrayPage = Pagination.ArrayPage;
-  export { type ArrayPageParams as ArrayPageParams, type ArrayPageResponse as ArrayPageResponse };
+      export import ArrayPage = Pagination.ArrayPage;
+export {
+  type ArrayPageParams as ArrayPageParams,
+  type ArrayPageResponse as ArrayPageResponse
+};
 
-  export import ObjectPage = Pagination.ObjectPage;
-  export { type ObjectPageParams as ObjectPageParams, type ObjectPageResponse as ObjectPageResponse };
+export import ObjectPage = Pagination.ObjectPage;
+export {
+  type ObjectPageParams as ObjectPageParams,
+  type ObjectPageResponse as ObjectPageResponse
+};
 
-  export import NextFilesPage = Pagination.NextFilesPage;
-  export {
-    type NextFilesPageParams as NextFilesPageParams,
-    type NextFilesPageResponse as NextFilesPageResponse,
-  };
+export import NextFilesPage = Pagination.NextFilesPage;
+export {
+  type NextFilesPageParams as NextFilesPageParams,
+  type NextFilesPageResponse as NextFilesPageResponse
+};
 
-  export { type HealthResponse as HealthResponse };
+export {
+  type HealthResponse as HealthResponse
+};
 
-  export {
-    Agents as Agents,
-    type AgentEnvironmentVariable as AgentEnvironmentVariable,
-    type AgentState as AgentState,
-    type AgentType as AgentType,
-    type AnthropicModelSettings as AnthropicModelSettings,
-    type AzureModelSettings as AzureModelSettings,
-    type BedrockModelSettings as BedrockModelSettings,
-    type ChildToolRule as ChildToolRule,
-    type ConditionalToolRule as ConditionalToolRule,
-    type ContinueToolRule as ContinueToolRule,
-    type DeepseekModelSettings as DeepseekModelSettings,
-    type GoogleAIModelSettings as GoogleAIModelSettings,
-    type GoogleVertexModelSettings as GoogleVertexModelSettings,
-    type GroqModelSettings as GroqModelSettings,
-    type InitToolRule as InitToolRule,
-    type JsonObjectResponseFormat as JsonObjectResponseFormat,
-    type JsonSchemaResponseFormat as JsonSchemaResponseFormat,
-    type LettaMessageContentUnion as LettaMessageContentUnion,
-    type MaxCountPerStepToolRule as MaxCountPerStepToolRule,
-    type MessageCreate as MessageCreate,
-    type OpenAIModelSettings as OpenAIModelSettings,
-    type ParentToolRule as ParentToolRule,
-    type RequiredBeforeExitToolRule as RequiredBeforeExitToolRule,
-    type RequiresApprovalToolRule as RequiresApprovalToolRule,
-    type TerminalToolRule as TerminalToolRule,
-    type TextResponseFormat as TextResponseFormat,
-    type TogetherModelSettings as TogetherModelSettings,
-    type XaiModelSettings as XaiModelSettings,
-    type AgentDeleteResponse as AgentDeleteResponse,
-    type AgentExportFileResponse as AgentExportFileResponse,
-    type AgentImportFileResponse as AgentImportFileResponse,
-    type AgentRecompileResponse as AgentRecompileResponse,
-    type AgentStatesArrayPage as AgentStatesArrayPage,
-    type AgentCreateParams as AgentCreateParams,
-    type AgentRetrieveParams as AgentRetrieveParams,
-    type AgentUpdateParams as AgentUpdateParams,
-    type AgentListParams as AgentListParams,
-    type AgentExportFileParams as AgentExportFileParams,
-    type AgentImportFileParams as AgentImportFileParams,
-    type AgentRecompileParams as AgentRecompileParams,
-  };
+export {
+  Agents as Agents,
+  type AgentEnvironmentVariable as AgentEnvironmentVariable,
+  type AgentState as AgentState,
+  type AgentType as AgentType,
+  type AnthropicModelSettings as AnthropicModelSettings,
+  type AzureModelSettings as AzureModelSettings,
+  type BedrockModelSettings as BedrockModelSettings,
+  type ChildToolRule as ChildToolRule,
+  type ConditionalToolRule as ConditionalToolRule,
+  type ContinueToolRule as ContinueToolRule,
+  type DeepseekModelSettings as DeepseekModelSettings,
+  type GoogleAIModelSettings as GoogleAIModelSettings,
+  type GoogleVertexModelSettings as GoogleVertexModelSettings,
+  type GroqModelSettings as GroqModelSettings,
+  type InitToolRule as InitToolRule,
+  type JsonObjectResponseFormat as JsonObjectResponseFormat,
+  type JsonSchemaResponseFormat as JsonSchemaResponseFormat,
+  type LettaMessageContentUnion as LettaMessageContentUnion,
+  type MaxCountPerStepToolRule as MaxCountPerStepToolRule,
+  type MessageCreate as MessageCreate,
+  type OpenAIModelSettings as OpenAIModelSettings,
+  type ParentToolRule as ParentToolRule,
+  type RequiredBeforeExitToolRule as RequiredBeforeExitToolRule,
+  type RequiresApprovalToolRule as RequiresApprovalToolRule,
+  type TerminalToolRule as TerminalToolRule,
+  type TextResponseFormat as TextResponseFormat,
+  type TogetherModelSettings as TogetherModelSettings,
+  type XaiModelSettings as XaiModelSettings,
+  type AgentDeleteResponse as AgentDeleteResponse,
+  type AgentExportFileResponse as AgentExportFileResponse,
+  type AgentImportFileResponse as AgentImportFileResponse,
+  type AgentRecompileResponse as AgentRecompileResponse,
+  type AgentStatesArrayPage as AgentStatesArrayPage,
+  type AgentCreateParams as AgentCreateParams,
+  type AgentRetrieveParams as AgentRetrieveParams,
+  type AgentUpdateParams as AgentUpdateParams,
+  type AgentListParams as AgentListParams,
+  type AgentExportFileParams as AgentExportFileParams,
+  type AgentImportFileParams as AgentImportFileParams,
+  type AgentRecompileParams as AgentRecompileParams
+};
 
-  export {
-    Tools as Tools,
-    type NpmRequirement as NpmRequirement,
-    type PipRequirement as PipRequirement,
-    type Tool as Tool,
-    type ToolCreate as ToolCreate,
-    type ToolReturnMessage as ToolReturnMessage,
-    type ToolSearchRequest as ToolSearchRequest,
-    type ToolSearchResult as ToolSearchResult,
-    type ToolType as ToolType,
-    type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolSearchResponse as ToolSearchResponse,
-    type ToolsArrayPage as ToolsArrayPage,
-    type ToolCreateParams as ToolCreateParams,
-    type ToolUpdateParams as ToolUpdateParams,
-    type ToolListParams as ToolListParams,
-    type ToolSearchParams as ToolSearchParams,
-    type ToolUpsertParams as ToolUpsertParams,
-  };
+export {
+  Tools as Tools,
+  type NpmRequirement as NpmRequirement,
+  type PipRequirement as PipRequirement,
+  type Tool as Tool,
+  type ToolCreate as ToolCreate,
+  type ToolReturnMessage as ToolReturnMessage,
+  type ToolSearchRequest as ToolSearchRequest,
+  type ToolSearchResult as ToolSearchResult,
+  type ToolType as ToolType,
+  type ToolDeleteResponse as ToolDeleteResponse,
+  type ToolSearchResponse as ToolSearchResponse,
+  type ToolsArrayPage as ToolsArrayPage,
+  type ToolCreateParams as ToolCreateParams,
+  type ToolUpdateParams as ToolUpdateParams,
+  type ToolListParams as ToolListParams,
+  type ToolSearchParams as ToolSearchParams,
+  type ToolUpsertParams as ToolUpsertParams
+};
 
-  export {
-    Blocks as Blocks,
-    type BlockResponse as BlockResponse,
-    type CreateBlock as CreateBlock,
-    type BlockDeleteResponse as BlockDeleteResponse,
-    type BlockResponsesArrayPage as BlockResponsesArrayPage,
-    type BlockCreateParams as BlockCreateParams,
-    type BlockUpdateParams as BlockUpdateParams,
-    type BlockListParams as BlockListParams,
-  };
+export {
+  Blocks as Blocks,
+  type BlockResponse as BlockResponse,
+  type CreateBlock as CreateBlock,
+  type BlockDeleteResponse as BlockDeleteResponse,
+  type BlockResponsesArrayPage as BlockResponsesArrayPage,
+  type BlockCreateParams as BlockCreateParams,
+  type BlockUpdateParams as BlockUpdateParams,
+  type BlockListParams as BlockListParams
+};
 
-  export {
-    Archives as Archives,
-    type Archive as Archive,
-    type VectorDBProvider as VectorDBProvider,
-    type ArchivesArrayPage as ArchivesArrayPage,
-    type ArchiveCreateParams as ArchiveCreateParams,
-    type ArchiveUpdateParams as ArchiveUpdateParams,
-    type ArchiveListParams as ArchiveListParams,
-  };
+export {
+  Archives as Archives,
+  type Archive as Archive,
+  type VectorDBProvider as VectorDBProvider,
+  type ArchivesArrayPage as ArchivesArrayPage,
+  type ArchiveCreateParams as ArchiveCreateParams,
+  type ArchiveUpdateParams as ArchiveUpdateParams,
+  type ArchiveListParams as ArchiveListParams
+};
 
-  export {
-    Folders as Folders,
-    type Folder as Folder,
-    type FolderDeleteResponse as FolderDeleteResponse,
-    type FoldersArrayPage as FoldersArrayPage,
-    type FolderCreateParams as FolderCreateParams,
-    type FolderUpdateParams as FolderUpdateParams,
-    type FolderListParams as FolderListParams,
-  };
+export {
+  Folders as Folders,
+  type Folder as Folder,
+  type FolderDeleteResponse as FolderDeleteResponse,
+  type FoldersArrayPage as FoldersArrayPage,
+  type FolderCreateParams as FolderCreateParams,
+  type FolderUpdateParams as FolderUpdateParams,
+  type FolderListParams as FolderListParams
+};
 
-  export {
-    Models as Models,
-    type EmbeddingConfig as EmbeddingConfig,
-    type EmbeddingModel as EmbeddingModel,
-    type LlmConfig as LlmConfig,
-    type Model as Model,
-    type ProviderCategory as ProviderCategory,
-    type ProviderType as ProviderType,
-    type ModelListResponse as ModelListResponse,
-    type ModelListParams as ModelListParams,
-  };
+export {
+  Models as Models,
+  type EmbeddingConfig as EmbeddingConfig,
+  type EmbeddingModel as EmbeddingModel,
+  type LlmConfig as LlmConfig,
+  type Model as Model,
+  type ProviderCategory as ProviderCategory,
+  type ProviderType as ProviderType,
+  type ModelListResponse as ModelListResponse,
+  type ModelListParams as ModelListParams
+};
 
-  export {
-    McpServers as McpServers,
-    type CreateSseMcpServer as CreateSseMcpServer,
-    type CreateStdioMcpServer as CreateStdioMcpServer,
-    type CreateStreamableHTTPMcpServer as CreateStreamableHTTPMcpServer,
-    type SseMcpServer as SseMcpServer,
-    type StdioMcpServer as StdioMcpServer,
-    type StreamableHTTPMcpServer as StreamableHTTPMcpServer,
-    type UpdateSseMcpServer as UpdateSseMcpServer,
-    type UpdateStdioMcpServer as UpdateStdioMcpServer,
-    type UpdateStreamableHTTPMcpServer as UpdateStreamableHTTPMcpServer,
-    type McpServerCreateResponse as McpServerCreateResponse,
-    type McpServerRetrieveResponse as McpServerRetrieveResponse,
-    type McpServerUpdateResponse as McpServerUpdateResponse,
-    type McpServerListResponse as McpServerListResponse,
-    type McpServerRefreshResponse as McpServerRefreshResponse,
-    type McpServerCreateParams as McpServerCreateParams,
-    type McpServerUpdateParams as McpServerUpdateParams,
-    type McpServerRefreshParams as McpServerRefreshParams,
-  };
+export {
+  McpServers as McpServers,
+  type CreateSseMcpServer as CreateSseMcpServer,
+  type CreateStdioMcpServer as CreateStdioMcpServer,
+  type CreateStreamableHTTPMcpServer as CreateStreamableHTTPMcpServer,
+  type SseMcpServer as SseMcpServer,
+  type StdioMcpServer as StdioMcpServer,
+  type StreamableHTTPMcpServer as StreamableHTTPMcpServer,
+  type UpdateSseMcpServer as UpdateSseMcpServer,
+  type UpdateStdioMcpServer as UpdateStdioMcpServer,
+  type UpdateStreamableHTTPMcpServer as UpdateStreamableHTTPMcpServer,
+  type McpServerCreateResponse as McpServerCreateResponse,
+  type McpServerRetrieveResponse as McpServerRetrieveResponse,
+  type McpServerUpdateResponse as McpServerUpdateResponse,
+  type McpServerListResponse as McpServerListResponse,
+  type McpServerRefreshResponse as McpServerRefreshResponse,
+  type McpServerCreateParams as McpServerCreateParams,
+  type McpServerUpdateParams as McpServerUpdateParams,
+  type McpServerRefreshParams as McpServerRefreshParams
+};
 
-  export {
-    Runs as Runs,
-    type Job as Job,
-    type StopReasonType as StopReasonType,
-    type RunListParams as RunListParams,
-  };
+export {
+  Runs as Runs,
+  type Job as Job,
+  type StopReasonType as StopReasonType,
+  type RunListParams as RunListParams
+};
 
-  export {
-    Steps as Steps,
-    type ProviderTrace as ProviderTrace,
-    type Step as Step,
-    type StepsArrayPage as StepsArrayPage,
-    type StepListParams as StepListParams,
-  };
+export {
+  Steps as Steps,
+  type ProviderTrace as ProviderTrace,
+  type Step as Step,
+  type StepsArrayPage as StepsArrayPage,
+  type StepListParams as StepListParams
+};
 
-  export {
-    Templates as Templates,
-    type TemplateCreateResponse as TemplateCreateResponse,
-    type TemplateUpdateResponse as TemplateUpdateResponse,
-    type TemplateDeleteResponse as TemplateDeleteResponse,
-    type TemplateRollbackResponse as TemplateRollbackResponse,
-    type TemplateSaveResponse as TemplateSaveResponse,
-    type TemplateCreateParams as TemplateCreateParams,
-    type TemplateUpdateParams as TemplateUpdateParams,
-    type TemplateDeleteParams as TemplateDeleteParams,
-    type TemplateRollbackParams as TemplateRollbackParams,
-    type TemplateSaveParams as TemplateSaveParams,
-  };
+export {
+  Templates as Templates,
+  type TemplateCreateResponse as TemplateCreateResponse,
+  type TemplateUpdateResponse as TemplateUpdateResponse,
+  type TemplateDeleteResponse as TemplateDeleteResponse,
+  type TemplateRollbackResponse as TemplateRollbackResponse,
+  type TemplateSaveResponse as TemplateSaveResponse,
+  type TemplateCreateParams as TemplateCreateParams,
+  type TemplateUpdateParams as TemplateUpdateParams,
+  type TemplateDeleteParams as TemplateDeleteParams,
+  type TemplateRollbackParams as TemplateRollbackParams,
+  type TemplateSaveParams as TemplateSaveParams
+};
 
-  export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
+export {
+  Tags as Tags,
+  type TagListResponse as TagListResponse,
+  type TagListParams as TagListParams
+};
 
-  export {
-    Messages as Messages,
-    type MessageSearchRequest as MessageSearchRequest,
-    type MessageSearchResult as MessageSearchResult,
-    type MessageRetrieveResponse as MessageRetrieveResponse,
-    type MessageListResponse as MessageListResponse,
-    type MessageSearchResponse as MessageSearchResponse,
-    type MessageListParams as MessageListParams,
-    type MessageSearchParams as MessageSearchParams,
-  };
+export {
+  Messages as Messages,
+  type MessageSearchRequest as MessageSearchRequest,
+  type MessageSearchResult as MessageSearchResult,
+  type MessageRetrieveResponse as MessageRetrieveResponse,
+  type MessageListResponse as MessageListResponse,
+  type MessageSearchResponse as MessageSearchResponse,
+  type MessageListParams as MessageListParams,
+  type MessageSearchParams as MessageSearchParams
+};
 
-  export {
-    Passages as Passages,
-    type Passage as Passage,
-    type PassageSearchResponse as PassageSearchResponse,
-    type PassageSearchParams as PassageSearchParams,
-  };
+export {
+  Passages as Passages,
+  type Passage as Passage,
+  type PassageSearchResponse as PassageSearchResponse,
+  type PassageSearchParams as PassageSearchParams
+};
 
-  export {
-    Conversations as Conversations,
-    type Conversation as Conversation,
-    type CreateConversation as CreateConversation,
-    type UpdateConversation as UpdateConversation,
-    type ConversationListResponse as ConversationListResponse,
-    type ConversationDeleteResponse as ConversationDeleteResponse,
-    type ConversationCancelResponse as ConversationCancelResponse,
-    type ConversationRecompileResponse as ConversationRecompileResponse,
-    type ConversationCreateParams as ConversationCreateParams,
-    type ConversationUpdateParams as ConversationUpdateParams,
-    type ConversationListParams as ConversationListParams,
-    type ConversationCancelParams as ConversationCancelParams,
-    type ConversationForkParams as ConversationForkParams,
-    type ConversationRecompileParams as ConversationRecompileParams,
-  };
+export {
+  Conversations as Conversations,
+  type Conversation as Conversation,
+  type CreateConversation as CreateConversation,
+  type UpdateConversation as UpdateConversation,
+  type ConversationListResponse as ConversationListResponse,
+  type ConversationDeleteResponse as ConversationDeleteResponse,
+  type ConversationCancelResponse as ConversationCancelResponse,
+  type ConversationRecompileResponse as ConversationRecompileResponse,
+  type ConversationCreateParams as ConversationCreateParams,
+  type ConversationUpdateParams as ConversationUpdateParams,
+  type ConversationListParams as ConversationListParams,
+  type ConversationCancelParams as ConversationCancelParams,
+  type ConversationForkParams as ConversationForkParams,
+  type ConversationRecompileParams as ConversationRecompileParams
+};
 
-  export {
-    AccessTokens as AccessTokens,
-    type AccessTokenCreateResponse as AccessTokenCreateResponse,
-    type AccessTokenListResponse as AccessTokenListResponse,
-    type AccessTokenDeleteResponse as AccessTokenDeleteResponse,
-    type AccessTokenCreateParams as AccessTokenCreateParams,
-    type AccessTokenListParams as AccessTokenListParams,
-    type AccessTokenDeleteParams as AccessTokenDeleteParams,
-  };
-}
+export {
+  AccessTokens as AccessTokens,
+  type AccessTokenCreateResponse as AccessTokenCreateResponse,
+  type AccessTokenListResponse as AccessTokenListResponse,
+  type AccessTokenDeleteResponse as AccessTokenDeleteResponse,
+  type AccessTokenCreateParams as AccessTokenCreateParams,
+  type AccessTokenListParams as AccessTokenListParams,
+  type AccessTokenDeleteParams as AccessTokenDeleteParams
+};
+    }

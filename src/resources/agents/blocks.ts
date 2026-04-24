@@ -13,66 +13,39 @@ export class Blocks extends APIResource {
   /**
    * Retrieve a core memory block from an agent.
    */
-  retrieve(
-    blockLabel: string,
-    params: BlockRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ResourcesBlocksAPI.BlockResponse> {
-    const { agent_id } = params;
+  retrieve(blockLabel: string, params: BlockRetrieveParams, options?: RequestOptions): APIPromise<ResourcesBlocksAPI.BlockResponse> {
+    const { agent_id } = params
     return this._client.get(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, options);
   }
 
   /**
    * Updates a core memory block of an agent.
    */
-  update(
-    blockLabel: string,
-    params: BlockUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<ResourcesBlocksAPI.BlockResponse> {
-    const { agent_id, ...body } = params;
-    return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, {
-      body,
-      ...options,
-    });
+  update(blockLabel: string, params: BlockUpdateParams, options?: RequestOptions): APIPromise<ResourcesBlocksAPI.BlockResponse> {
+    const { agent_id, ...body } = params
+    return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/${blockLabel}`, { body, ...options });
   }
 
   /**
    * Retrieve the core memory blocks of a specific agent.
    */
-  list(
-    agentID: string,
-    query: BlockListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<BlockResponsesArrayPage, ResourcesBlocksAPI.BlockResponse> {
-    return this._client.getAPIList(
-      path`/v1/agents/${agentID}/core-memory/blocks`,
-      ArrayPage<ResourcesBlocksAPI.BlockResponse>,
-      { query, ...options },
-    );
+  list(agentID: string, query: BlockListParams | null | undefined = {}, options?: RequestOptions): PagePromise<BlockResponsesArrayPage, ResourcesBlocksAPI.BlockResponse> {
+    return this._client.getAPIList(path`/v1/agents/${agentID}/core-memory/blocks`, ArrayPage<ResourcesBlocksAPI.BlockResponse>, { query, ...options });
   }
 
   /**
    * Attach a core memory block to an agent.
    */
-  attach(
-    blockID: string,
-    params: BlockAttachParams,
-    options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
-    const { agent_id } = params;
+  attach(blockID: string, params: BlockAttachParams, options?: RequestOptions): APIPromise<AgentsAPI.AgentState> {
+    const { agent_id } = params
     return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/attach/${blockID}`, options);
   }
 
   /**
    * Detach a core memory block from an agent.
    */
-  detach(
-    blockID: string,
-    params: BlockDetachParams,
-    options?: RequestOptions,
-  ): APIPromise<AgentsAPI.AgentState> {
-    const { agent_id } = params;
+  detach(blockID: string, params: BlockDetachParams, options?: RequestOptions): APIPromise<AgentsAPI.AgentState> {
+    const { agent_id } = params
     return this._client.patch(path`/v1/agents/${agent_id}/core-memory/blocks/detach/${blockID}`, options);
   }
 }
@@ -356,7 +329,8 @@ export interface BlockUpdateParams {
   value?: string | null;
 }
 
-export interface BlockListParams extends ArrayPageParams {}
+export interface BlockListParams extends ArrayPageParams {
+}
 
 export interface BlockAttachParams {
   /**
@@ -380,8 +354,8 @@ export declare namespace Blocks {
     type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
     type BlockAttachParams as BlockAttachParams,
-    type BlockDetachParams as BlockDetachParams,
+    type BlockDetachParams as BlockDetachParams
   };
 }
 
-export { type BlockResponsesArrayPage };
+export { type BlockResponsesArrayPage }

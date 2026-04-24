@@ -1,18 +1,4 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  Archives,
-  type Archive,
-  type VectorDBProvider,
-  type ArchiveCreateParams,
-  type ArchiveUpdateParams,
-  type ArchiveListParams,
-  type ArchivesArrayPage,
-} from './archives';
-export {
-  Passages,
-  type PassageCreateManyResponse,
-  type PassageCreateParams,
-  type PassageDeleteParams,
-  type PassageCreateManyParams,
-} from './passages';
+export { Archives, type Archive, type VectorDBProvider, type ArchiveCreateParams, type ArchiveUpdateParams, type ArchiveListParams, type ArchivesArrayPage } from './archives';;
+export { Passages, type PassageCreateManyResponse, type PassageCreateParams, type PassageDeleteParams, type PassageCreateManyParams } from './passages';;

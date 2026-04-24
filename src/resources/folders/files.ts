@@ -13,57 +13,36 @@ export class Files extends APIResource {
   /**
    * Retrieve a file from a folder by ID.
    */
-  retrieve(
-    fileID: string,
-    params: FileRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<FileRetrieveResponse> {
-    const { folder_id, ...query } = params;
+  retrieve(fileID: string, params: FileRetrieveParams, options?: RequestOptions): APIPromise<FileRetrieveResponse> {
+    const { folder_id, ...query } = params
     return this._client.get(path`/v1/folders/${folder_id}/files/${fileID}`, { query, ...options });
   }
 
   /**
    * List paginated files associated with a data folder.
    */
-  list(
-    folderID: string,
-    query: FileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FileListResponsesArrayPage, FileListResponse> {
-    return this._client.getAPIList(path`/v1/folders/${folderID}/files`, ArrayPage<FileListResponse>, {
-      query,
-      ...options,
-    });
+  list(folderID: string, query: FileListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FileListResponsesArrayPage, FileListResponse> {
+    return this._client.getAPIList(path`/v1/folders/${folderID}/files`, ArrayPage<FileListResponse>, { query, ...options });
   }
 
   /**
    * Delete a file from a folder.
    */
   delete(fileID: string, params: FileDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { folder_id } = params;
-    return this._client.delete(path`/v1/folders/${folder_id}/${fileID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    const { folder_id } = params
+    return this._client.delete(path`/v1/folders/${folder_id}/${fileID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
    * Upload a file to a data folder.
    */
-  upload(
-    folderID: string,
-    params: FileUploadParams,
-    options?: RequestOptions,
-  ): APIPromise<FileUploadResponse> {
-    const { duplicate_handling, name, ...body } = params;
-    return this._client.post(
-      path`/v1/folders/${folderID}/upload`,
-      multipartFormRequestOptions({ query: { duplicate_handling, name }, body, ...options }, this._client),
-    );
+  upload(folderID: string, params: FileUploadParams, options?: RequestOptions): APIPromise<FileUploadResponse> {
+    const { duplicate_handling, name, ...body } = params
+    return this._client.post(path`/v1/folders/${folderID}/upload`, multipartFormRequestOptions({ query: { duplicate_handling, name }, body, ...options }, this._client));
   }
 }
 
-export type FileListResponsesArrayPage = ArrayPage<FileListResponse>;
+export type FileListResponsesArrayPage = ArrayPage<FileListResponse>
 
 /**
  * Representation of a single FileMetadata
@@ -381,6 +360,6 @@ export declare namespace Files {
     type FileRetrieveParams as FileRetrieveParams,
     type FileListParams as FileListParams,
     type FileDeleteParams as FileDeleteParams,
-    type FileUploadParams as FileUploadParams,
+    type FileUploadParams as FileUploadParams
   };
 }

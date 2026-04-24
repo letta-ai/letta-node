@@ -13,7 +13,7 @@ export class Tags extends APIResource {
   }
 }
 
-export type TagListResponse = Array<string>;
+export type TagListResponse = Array<string>
 
 export interface TagListParams {
   /**
@@ -57,5 +57,8 @@ export interface TagListParams {
 }
 
 export declare namespace Tags {
-  export { type TagListResponse as TagListResponse, type TagListParams as TagListParams };
+  export {
+    type TagListResponse as TagListResponse,
+    type TagListParams as TagListParams
+  };
 }
