@@ -160,7 +160,7 @@ export interface Conversation {
   /**
    * The model settings for this conversation (overrides agent's model settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | Conversation.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | Conversation.ZaiModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | Conversation.BasetenModelSettings | Conversation.OpenRouterModelSettings | Conversation.ChatGptoAuthModelSettings | null;
+  model_settings?: AgentsAPI.OpenAIModelSettings | Conversation.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | Conversation.MoonshotModelSettings | Conversation.ZaiModelSettings | Conversation.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | Conversation.BasetenModelSettings | Conversation.OpenRouterModelSettings | Conversation.ChatGptoAuthModelSettings | null;
 
   /**
    * A summary of the conversation.
@@ -234,6 +234,42 @@ export namespace Conversation {
   }
 
   /**
+   * Moonshot/Kimi model configuration (OpenAI-compatible).
+   */
+  export interface MoonshotModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
    * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
    */
   export interface ZaiModelSettings {
@@ -280,6 +316,76 @@ export namespace Conversation {
 
       /**
        * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Kimi Code model configuration (Anthropic-compatible).
+   */
+  export interface MoonshotCodingModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot_coding';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MoonshotCodingModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MoonshotCodingModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
        */
       type?: 'enabled' | 'disabled';
     }
@@ -407,7 +513,7 @@ export interface CreateConversation {
   /**
    * The model settings for this conversation (overrides agent's model settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | CreateConversation.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CreateConversation.ZaiModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CreateConversation.BasetenModelSettings | CreateConversation.OpenRouterModelSettings | CreateConversation.ChatGptoAuthModelSettings | null;
+  model_settings?: AgentsAPI.OpenAIModelSettings | CreateConversation.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CreateConversation.MoonshotModelSettings | CreateConversation.ZaiModelSettings | CreateConversation.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CreateConversation.BasetenModelSettings | CreateConversation.OpenRouterModelSettings | CreateConversation.ChatGptoAuthModelSettings | null;
 
   /**
    * A summary of the conversation.
@@ -476,6 +582,42 @@ export namespace CreateConversation {
   }
 
   /**
+   * Moonshot/Kimi model configuration (OpenAI-compatible).
+   */
+  export interface MoonshotModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
    * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
    */
   export interface ZaiModelSettings {
@@ -522,6 +664,76 @@ export namespace CreateConversation {
 
       /**
        * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Kimi Code model configuration (Anthropic-compatible).
+   */
+  export interface MoonshotCodingModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot_coding';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MoonshotCodingModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MoonshotCodingModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
        */
       type?: 'enabled' | 'disabled';
     }
@@ -654,7 +866,7 @@ export interface UpdateConversation {
   /**
    * The model settings for this conversation (overrides agent's model settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | UpdateConversation.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | UpdateConversation.ZaiModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | UpdateConversation.BasetenModelSettings | UpdateConversation.OpenRouterModelSettings | UpdateConversation.ChatGptoAuthModelSettings | null;
+  model_settings?: AgentsAPI.OpenAIModelSettings | UpdateConversation.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | UpdateConversation.MoonshotModelSettings | UpdateConversation.ZaiModelSettings | UpdateConversation.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | UpdateConversation.BasetenModelSettings | UpdateConversation.OpenRouterModelSettings | UpdateConversation.ChatGptoAuthModelSettings | null;
 
   /**
    * A summary of the conversation.
@@ -723,6 +935,42 @@ export namespace UpdateConversation {
   }
 
   /**
+   * Moonshot/Kimi model configuration (OpenAI-compatible).
+   */
+  export interface MoonshotModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
    * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
    */
   export interface ZaiModelSettings {
@@ -769,6 +1017,76 @@ export namespace UpdateConversation {
 
       /**
        * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Kimi Code model configuration (Anthropic-compatible).
+   */
+  export interface MoonshotCodingModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot_coding';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MoonshotCodingModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MoonshotCodingModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
        */
       type?: 'enabled' | 'disabled';
     }
@@ -907,7 +1225,7 @@ export interface ConversationCreateParams {
    * Body param: The model settings for this conversation (overrides agent's model
    * settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | ConversationCreateParams.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | ConversationCreateParams.ZaiModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | ConversationCreateParams.BasetenModelSettings | ConversationCreateParams.OpenRouterModelSettings | ConversationCreateParams.ChatGptoAuthModelSettings | null;
+  model_settings?: AgentsAPI.OpenAIModelSettings | ConversationCreateParams.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | ConversationCreateParams.MoonshotModelSettings | ConversationCreateParams.ZaiModelSettings | ConversationCreateParams.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | ConversationCreateParams.BasetenModelSettings | ConversationCreateParams.OpenRouterModelSettings | ConversationCreateParams.ChatGptoAuthModelSettings | null;
 
   /**
    * Body param: A summary of the conversation.
@@ -976,6 +1294,42 @@ export namespace ConversationCreateParams {
   }
 
   /**
+   * Moonshot/Kimi model configuration (OpenAI-compatible).
+   */
+  export interface MoonshotModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
    * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
    */
   export interface ZaiModelSettings {
@@ -1022,6 +1376,76 @@ export namespace ConversationCreateParams {
 
       /**
        * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Kimi Code model configuration (Anthropic-compatible).
+   */
+  export interface MoonshotCodingModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot_coding';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MoonshotCodingModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MoonshotCodingModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
        */
       type?: 'enabled' | 'disabled';
     }
@@ -1151,7 +1575,7 @@ export interface ConversationUpdateParams {
   /**
    * The model settings for this conversation (overrides agent's model settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | ConversationUpdateParams.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | ConversationUpdateParams.ZaiModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | ConversationUpdateParams.BasetenModelSettings | ConversationUpdateParams.OpenRouterModelSettings | ConversationUpdateParams.ChatGptoAuthModelSettings | null;
+  model_settings?: AgentsAPI.OpenAIModelSettings | ConversationUpdateParams.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | ConversationUpdateParams.MoonshotModelSettings | ConversationUpdateParams.ZaiModelSettings | ConversationUpdateParams.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | ConversationUpdateParams.BasetenModelSettings | ConversationUpdateParams.OpenRouterModelSettings | ConversationUpdateParams.ChatGptoAuthModelSettings | null;
 
   /**
    * A summary of the conversation.
@@ -1220,6 +1644,42 @@ export namespace ConversationUpdateParams {
   }
 
   /**
+   * Moonshot/Kimi model configuration (OpenAI-compatible).
+   */
+  export interface MoonshotModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+  }
+
+  /**
    * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
    */
   export interface ZaiModelSettings {
@@ -1266,6 +1726,76 @@ export namespace ConversationUpdateParams {
 
       /**
        * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Kimi Code model configuration (Anthropic-compatible).
+   */
+  export interface MoonshotCodingModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'moonshot_coding';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MoonshotCodingModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MoonshotCodingModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
        */
       type?: 'enabled' | 'disabled';
     }
@@ -1478,7 +2008,7 @@ export namespace ConversationRecompileParams {
     /**
      * Optional model settings used to override defaults for the summarizer model.
      */
-    model_settings?: AgentsAPI.OpenAIModelSettings | CompactionSettings.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CompactionSettings.ZaiModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CompactionSettings.BasetenModelSettings | CompactionSettings.OpenRouterModelSettings | CompactionSettings.ChatGptoAuthModelSettings | null;
+    model_settings?: AgentsAPI.OpenAIModelSettings | CompactionSettings.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CompactionSettings.MoonshotModelSettings | CompactionSettings.ZaiModelSettings | CompactionSettings.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CompactionSettings.BasetenModelSettings | CompactionSettings.OpenRouterModelSettings | CompactionSettings.ChatGptoAuthModelSettings | null;
 
     /**
      * The prompt to use for summarization. If None, uses mode-specific default.
@@ -1559,6 +2089,42 @@ export namespace ConversationRecompileParams {
     }
 
     /**
+     * Moonshot/Kimi model configuration (OpenAI-compatible).
+     */
+    export interface MoonshotModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'moonshot';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
      * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
      */
     export interface ZaiModelSettings {
@@ -1605,6 +2171,76 @@ export namespace ConversationRecompileParams {
 
         /**
          * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
+    }
+
+    /**
+     * Kimi Code model configuration (Anthropic-compatible).
+     */
+    export interface MoonshotCodingModelSettings {
+      /**
+       * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+       * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+       * to 'high'.
+       */
+      effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'moonshot_coding';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for the model.
+       */
+      thinking?: MoonshotCodingModelSettings.Thinking;
+
+      /**
+       * Soft control for how verbose model output should be, used for GPT-5 models.
+       */
+      verbosity?: 'low' | 'medium' | 'high' | null;
+    }
+
+    export namespace MoonshotCodingModelSettings {
+      /**
+       * The thinking configuration for the model.
+       */
+      export interface Thinking {
+        /**
+         * The maximum number of tokens the model can use for extended thinking.
+         */
+        budget_tokens?: number;
+
+        /**
+         * The type of thinking to use.
          */
         type?: 'enabled' | 'disabled';
       }

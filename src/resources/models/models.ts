@@ -178,7 +178,7 @@ export interface LlmConfig {
   /**
    * The endpoint type for the model.
    */
-  model_endpoint_type: 'openai' | 'anthropic' | 'google_ai' | 'google_vertex' | 'azure' | 'groq' | 'ollama' | 'webui' | 'webui-legacy' | 'lmstudio' | 'lmstudio-legacy' | 'lmstudio-chatcompletions' | 'llamacpp' | 'koboldcpp' | 'vllm' | 'hugging-face' | 'minimax' | 'mistral' | 'together' | 'bedrock' | 'deepseek' | 'xai' | 'zai' | 'zai_coding' | 'baseten' | 'fireworks' | 'openrouter' | 'chatgpt_oauth';
+  model_endpoint_type: 'openai' | 'anthropic' | 'google_ai' | 'google_vertex' | 'azure' | 'groq' | 'ollama' | 'webui' | 'webui-legacy' | 'lmstudio' | 'lmstudio-legacy' | 'lmstudio-chatcompletions' | 'llamacpp' | 'koboldcpp' | 'vllm' | 'hugging-face' | 'minimax' | 'moonshot' | 'moonshot_coding' | 'mistral' | 'together' | 'bedrock' | 'deepseek' | 'xai' | 'zai' | 'zai_coding' | 'baseten' | 'fireworks' | 'openrouter' | 'chatgpt_oauth';
 
   /**
    * The framework compatibility type for the model.
@@ -342,7 +342,7 @@ export interface Model {
    * @deprecated Deprecated: Use 'provider_type' field instead. The endpoint type for
    * the model.
    */
-  model_endpoint_type: 'openai' | 'anthropic' | 'google_ai' | 'google_vertex' | 'azure' | 'groq' | 'ollama' | 'webui' | 'webui-legacy' | 'lmstudio' | 'lmstudio-legacy' | 'lmstudio-chatcompletions' | 'llamacpp' | 'koboldcpp' | 'vllm' | 'hugging-face' | 'baseten' | 'minimax' | 'mistral' | 'together' | 'bedrock' | 'deepseek' | 'xai' | 'zai' | 'zai_coding' | 'openrouter' | 'chatgpt_oauth';
+  model_endpoint_type: 'openai' | 'anthropic' | 'google_ai' | 'google_vertex' | 'azure' | 'groq' | 'ollama' | 'webui' | 'webui-legacy' | 'lmstudio' | 'lmstudio-legacy' | 'lmstudio-chatcompletions' | 'llamacpp' | 'koboldcpp' | 'vllm' | 'hugging-face' | 'baseten' | 'minimax' | 'moonshot' | 'moonshot_coding' | 'mistral' | 'together' | 'bedrock' | 'deepseek' | 'xai' | 'zai' | 'zai_coding' | 'openrouter' | 'chatgpt_oauth';
 
   /**
    * The actual model name used by the provider
@@ -496,7 +496,7 @@ export interface Model {
 
 export type ProviderCategory = 'base' | 'byok'
 
-export type ProviderType = 'anthropic' | 'azure' | 'baseten' | 'bedrock' | 'cerebras' | 'chatgpt_oauth' | 'deepseek' | 'fireworks' | 'google_ai' | 'google_vertex' | 'groq' | 'hugging-face' | 'letta' | 'lmstudio_openai' | 'minimax' | 'mistral' | 'ollama' | 'openai' | 'together' | 'vllm' | 'sglang' | 'openrouter' | 'xai' | 'zai' | 'zai_coding'
+export type ProviderType = 'anthropic' | 'azure' | 'baseten' | 'bedrock' | 'cerebras' | 'chatgpt_oauth' | 'deepseek' | 'fireworks' | 'google_ai' | 'google_vertex' | 'groq' | 'hugging-face' | 'letta' | 'lmstudio_openai' | 'minimax' | 'moonshot' | 'moonshot_coding' | 'mistral' | 'ollama' | 'openai' | 'together' | 'vllm' | 'sglang' | 'openrouter' | 'xai' | 'zai' | 'zai_coding'
 
 export type ModelListResponse = Array<Model>
 
