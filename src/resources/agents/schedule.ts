@@ -10,31 +10,50 @@ export class Schedule extends APIResource {
    * Schedule a message to be sent by the agent at a specified time or on a recurring
    * basis.
    */
-  create(agentID: string, body: ScheduleCreateParams, options?: RequestOptions): APIPromise<ScheduleCreateResponse> {
+  create(
+    agentID: string,
+    body: ScheduleCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<ScheduleCreateResponse> {
     return this._client.post(path`/v1/agents/${agentID}/schedule`, { body, ...options });
   }
 
   /**
    * Retrieve a scheduled message by its ID for a specific agent.
    */
-  retrieve(scheduledMessageID: string, params: ScheduleRetrieveParams, options?: RequestOptions): APIPromise<ScheduleRetrieveResponse> {
-    const { agent_id } = params
+  retrieve(
+    scheduledMessageID: string,
+    params: ScheduleRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ScheduleRetrieveResponse> {
+    const { agent_id } = params;
     return this._client.get(path`/v1/agents/${agent_id}/schedule/${scheduledMessageID}`, options);
   }
 
   /**
    * List all scheduled messages for a specific agent.
    */
-  list(agentID: string, query: ScheduleListParams | null | undefined = {}, options?: RequestOptions): APIPromise<ScheduleListResponse> {
+  list(
+    agentID: string,
+    query: ScheduleListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ScheduleListResponse> {
     return this._client.get(path`/v1/agents/${agentID}/schedule`, { query, ...options });
   }
 
   /**
    * Delete a scheduled message by its ID for a specific agent.
    */
-  delete(scheduledMessageID: string, params: ScheduleDeleteParams, options?: RequestOptions): APIPromise<ScheduleDeleteResponse> {
-    const { agent_id, ...body } = params
-    return this._client.delete(path`/v1/agents/${agent_id}/schedule/${scheduledMessageID}`, { body, ...options });
+  delete(
+    scheduledMessageID: string,
+    params: ScheduleDeleteParams,
+    options?: RequestOptions,
+  ): APIPromise<ScheduleDeleteResponse> {
+    const { agent_id, ...body } = params;
+    return this._client.delete(path`/v1/agents/${agent_id}/schedule/${scheduledMessageID}`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -62,7 +81,17 @@ export namespace ScheduleRetrieveResponse {
 
     callback_url?: string;
 
-    include_return_message_types?: Array<'system_message' | 'user_message' | 'assistant_message' | 'reasoning_message' | 'hidden_reasoning_message' | 'tool_call_message' | 'tool_return_message' | 'approval_request_message' | 'approval_response_message'>;
+    include_return_message_types?: Array<
+      | 'system_message'
+      | 'user_message'
+      | 'assistant_message'
+      | 'reasoning_message'
+      | 'hidden_reasoning_message'
+      | 'tool_call_message'
+      | 'tool_return_message'
+      | 'approval_request_message'
+      | 'approval_response_message'
+    >;
 
     max_steps?: number;
   }
@@ -149,7 +178,17 @@ export namespace ScheduleListResponse {
 
       callback_url?: string;
 
-      include_return_message_types?: Array<'system_message' | 'user_message' | 'assistant_message' | 'reasoning_message' | 'hidden_reasoning_message' | 'tool_call_message' | 'tool_return_message' | 'approval_request_message' | 'approval_response_message'>;
+      include_return_message_types?: Array<
+        | 'system_message'
+        | 'user_message'
+        | 'assistant_message'
+        | 'reasoning_message'
+        | 'hidden_reasoning_message'
+        | 'tool_call_message'
+        | 'tool_return_message'
+        | 'approval_request_message'
+        | 'approval_response_message'
+      >;
 
       max_steps?: number;
     }
@@ -223,7 +262,17 @@ export interface ScheduleCreateParams {
 
   callback_url?: string;
 
-  include_return_message_types?: Array<'system_message' | 'user_message' | 'assistant_message' | 'reasoning_message' | 'hidden_reasoning_message' | 'tool_call_message' | 'tool_return_message' | 'approval_request_message' | 'approval_response_message'>;
+  include_return_message_types?: Array<
+    | 'system_message'
+    | 'user_message'
+    | 'assistant_message'
+    | 'reasoning_message'
+    | 'hidden_reasoning_message'
+    | 'tool_call_message'
+    | 'tool_return_message'
+    | 'approval_request_message'
+    | 'approval_response_message'
+  >;
 
   max_steps?: number;
 }
@@ -307,6 +356,6 @@ export declare namespace Schedule {
     type ScheduleCreateParams as ScheduleCreateParams,
     type ScheduleRetrieveParams as ScheduleRetrieveParams,
     type ScheduleListParams as ScheduleListParams,
-    type ScheduleDeleteParams as ScheduleDeleteParams
+    type ScheduleDeleteParams as ScheduleDeleteParams,
   };
 }

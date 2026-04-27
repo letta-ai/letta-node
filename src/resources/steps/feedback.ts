@@ -28,7 +28,5 @@ export interface FeedbackCreateParams {
 }
 
 export declare namespace Feedback {
-  export {
-    type FeedbackCreateParams as FeedbackCreateParams
-  };
+  export { type FeedbackCreateParams as FeedbackCreateParams };
 }

@@ -13,23 +13,38 @@ export class Tools extends APIResource {
   /**
    * Get tools from an existing agent.
    */
-  list(agentID: string, query: ToolListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ToolsArrayPage, ToolsAPI.Tool> {
-    return this._client.getAPIList(path`/v1/agents/${agentID}/tools`, ArrayPage<ToolsAPI.Tool>, { query, ...options });
+  list(
+    agentID: string,
+    query: ToolListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ToolsArrayPage, ToolsAPI.Tool> {
+    return this._client.getAPIList(path`/v1/agents/${agentID}/tools`, ArrayPage<ToolsAPI.Tool>, {
+      query,
+      ...options,
+    });
   }
 
   /**
    * Attach a tool to an agent.
    */
-  attach(toolID: string, params: ToolAttachParams, options?: RequestOptions): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id } = params
+  attach(
+    toolID: string,
+    params: ToolAttachParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentsAPI.AgentState | null> {
+    const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/tools/attach/${toolID}`, options);
   }
 
   /**
    * Detach a tool from an agent.
    */
-  detach(toolID: string, params: ToolDetachParams, options?: RequestOptions): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id } = params
+  detach(
+    toolID: string,
+    params: ToolDetachParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentsAPI.AgentState | null> {
+    const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/tools/detach/${toolID}`, options);
   }
 
@@ -40,7 +55,7 @@ export class Tools extends APIResource {
    * state and environment variables for execution context.
    */
   run(toolName: string, params: ToolRunParams, options?: RequestOptions): APIPromise<ToolExecutionResult> {
-    const { agent_id, ...body } = params
+    const { agent_id, ...body } = params;
     return this._client.post(path`/v1/agents/${agent_id}/tools/${toolName}/run`, { body, ...options });
   }
 
@@ -50,9 +65,17 @@ export class Tools extends APIResource {
    * Accepts requires_approval via request body (preferred) or query parameter
    * (deprecated).
    */
-  updateApproval(toolName: string, params: ToolUpdateApprovalParams, options?: RequestOptions): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id, query_requires_approval, ...body } = params
-    return this._client.patch(path`/v1/agents/${agent_id}/tools/approval/${toolName}`, { query: { requires_approval: query_requires_approval }, body, ...options });
+  updateApproval(
+    toolName: string,
+    params: ToolUpdateApprovalParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentsAPI.AgentState | null> {
+    const { agent_id, query_requires_approval, ...body } = params;
+    return this._client.patch(path`/v1/agents/${agent_id}/tools/approval/${toolName}`, {
+      query: { requires_approval: query_requires_approval },
+      body,
+      ...options,
+    });
   }
 }
 
@@ -100,8 +123,7 @@ export interface ToolExecutionResult {
   stdout?: Array<string> | null;
 }
 
-export interface ToolListParams extends ArrayPageParams {
-}
+export interface ToolListParams extends ArrayPageParams {}
 
 export interface ToolAttachParams {
   /**
@@ -154,8 +176,8 @@ export declare namespace Tools {
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
     type ToolRunParams as ToolRunParams,
-    type ToolUpdateApprovalParams as ToolUpdateApprovalParams
+    type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
   };
 }
 
-export { type ToolsArrayPage }
+export { type ToolsArrayPage };

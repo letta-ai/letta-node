@@ -2,7 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as PassagesAPI from './passages';
-import { PassageCreateManyParams, PassageCreateManyResponse, PassageCreateParams, PassageDeleteParams, Passages } from './passages';
+import {
+  PassageCreateManyParams,
+  PassageCreateManyResponse,
+  PassageCreateParams,
+  PassageDeleteParams,
+  Passages,
+} from './passages';
 import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
@@ -38,7 +44,10 @@ export class Archives extends APIResource {
    * Get a list of all archives for the current organization with optional filters
    * and pagination.
    */
-  list(query: ArchiveListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ArchivesArrayPage, Archive> {
+  list(
+    query: ArchiveListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ArchivesArrayPage, Archive> {
     return this._client.getAPIList('/v1/archives/', ArrayPage<Archive>, { query, ...options });
   }
 
@@ -46,11 +55,14 @@ export class Archives extends APIResource {
    * Delete an archive by its ID.
    */
   delete(archiveID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/archives/${archiveID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v1/archives/${archiveID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type ArchivesArrayPage = ArrayPage<Archive>
+export type ArchivesArrayPage = ArrayPage<Archive>;
 
 /**
  * Representation of an archive - a collection of archival passages that can be
@@ -111,7 +123,7 @@ export interface Archive {
 /**
  * Supported vector database providers for archival memory
  */
-export type VectorDBProvider = 'native' | 'tpuf' | 'pinecone'
+export type VectorDBProvider = 'native' | 'tpuf' | 'pinecone';
 
 export interface ArchiveCreateParams {
   name: string;
@@ -156,7 +168,7 @@ export declare namespace Archives {
     type ArchivesArrayPage as ArchivesArrayPage,
     type ArchiveCreateParams as ArchiveCreateParams,
     type ArchiveUpdateParams as ArchiveUpdateParams,
-    type ArchiveListParams as ArchiveListParams
+    type ArchiveListParams as ArchiveListParams,
   };
 
   export {
@@ -164,6 +176,6 @@ export declare namespace Archives {
     type PassageCreateManyResponse as PassageCreateManyResponse,
     type PassageCreateParams as PassageCreateParams,
     type PassageDeleteParams as PassageDeleteParams,
-    type PassageCreateManyParams as PassageCreateManyParams
+    type PassageCreateManyParams as PassageCreateManyParams,
   };
 }

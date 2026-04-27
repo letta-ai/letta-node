@@ -32,12 +32,15 @@ export class Steps extends APIResource {
   /**
    * List steps with optional pagination and date filters.
    */
-  list(query: StepListParams | null | undefined = {}, options?: RequestOptions): PagePromise<StepsArrayPage, Step> {
+  list(
+    query: StepListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<StepsArrayPage, Step> {
     return this._client.getAPIList('/v1/steps/', ArrayPage<Step>, { query, ...options });
   }
 }
 
-export type StepsArrayPage = ArrayPage<Step>
+export type StepsArrayPage = ArrayPage<Step>;
 
 /**
  * Letta's internal representation of a provider trace.
@@ -385,27 +388,19 @@ export declare namespace Steps {
     type ProviderTrace as ProviderTrace,
     type Step as Step,
     type StepsArrayPage as StepsArrayPage,
-    type StepListParams as StepListParams
+    type StepListParams as StepListParams,
   };
 
-  export {
-    Metrics as Metrics,
-    type MetricRetrieveResponse as MetricRetrieveResponse
-  };
+  export { Metrics as Metrics, type MetricRetrieveResponse as MetricRetrieveResponse };
 
-  export {
-    Trace as Trace
-  };
+  export { Trace as Trace };
 
-  export {
-    Feedback as Feedback,
-    type FeedbackCreateParams as FeedbackCreateParams
-  };
+  export { Feedback as Feedback, type FeedbackCreateParams as FeedbackCreateParams };
 
   export {
     Messages as Messages,
     type MessageListResponse as MessageListResponse,
     type MessageListResponsesArrayPage as MessageListResponsesArrayPage,
-    type MessageListParams as MessageListParams
+    type MessageListParams as MessageListParams,
   };
 }

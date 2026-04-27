@@ -2,7 +2,10 @@
 
 import Letta from '@letta-ai/letta-client';
 
-const client = new Letta({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Letta({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource blocks', () => {
   // Mock server tests are disabled
@@ -20,23 +23,23 @@ describe('resource blocks', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.blocks.create({
-    label: 'label',
-    value: 'value',
-    base_template_id: 'base_template_id',
-    deployment_id: 'deployment_id',
-    description: 'description',
-    entity_id: 'entity_id',
-    hidden: true,
-    is_template: true,
-    limit: 0,
-    metadata: { foo: 'bar' },
-    preserve_on_migration: true,
-    project_id: 'project_id',
-    read_only: true,
-    tags: ['string'],
-    template_id: 'template_id',
-    template_name: 'template_name',
-  });
+      label: 'label',
+      value: 'value',
+      base_template_id: 'base_template_id',
+      deployment_id: 'deployment_id',
+      description: 'description',
+      entity_id: 'entity_id',
+      hidden: true,
+      is_template: true,
+      limit: 0,
+      metadata: { foo: 'bar' },
+      preserve_on_migration: true,
+      project_id: 'project_id',
+      read_only: true,
+      tags: ['string'],
+      template_id: 'template_id',
+      template_name: 'template_name',
+    });
   });
 
   // Mock server tests are disabled
@@ -78,29 +81,32 @@ describe('resource blocks', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.blocks.list({
-    after: 'block-123e4567-e89b-42d3-8456-426614174000',
-    before: 'block-123e4567-e89b-42d3-8456-426614174000',
-    connected_to_agents_count_eq: [0, 0],
-    connected_to_agents_count_gt: 0,
-    connected_to_agents_count_lt: 0,
-    description_search: 'x',
-    identifier_keys: ['string', 'string'],
-    identity_id: 'identity-123e4567-e89b-42d3-8456-426614174000',
-    label: 'human',
-    label_search: 'human',
-    limit: 0,
-    match_all_tags: true,
-    name: 'My Agent',
-    order: 'asc',
-    order_by: 'created_at',
-    project_id: 'project_id',
-    tags: ['string', 'string'],
-    templates_only: true,
-    value_search: 'x',
-  }, { path: '/_stainless_unknown_path' }))
-      .rejects
-      .toThrow(Letta.NotFoundError);
+    await expect(
+      client.blocks.list(
+        {
+          after: 'block-123e4567-e89b-42d3-8456-426614174000',
+          before: 'block-123e4567-e89b-42d3-8456-426614174000',
+          connected_to_agents_count_eq: [0, 0],
+          connected_to_agents_count_gt: 0,
+          connected_to_agents_count_lt: 0,
+          description_search: 'x',
+          identifier_keys: ['string', 'string'],
+          identity_id: 'identity-123e4567-e89b-42d3-8456-426614174000',
+          label: 'human',
+          label_search: 'human',
+          limit: 0,
+          match_all_tags: true,
+          name: 'My Agent',
+          order: 'asc',
+          order_by: 'created_at',
+          project_id: 'project_id',
+          tags: ['string', 'string'],
+          templates_only: true,
+          value_search: 'x',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled

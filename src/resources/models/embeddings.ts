@@ -19,10 +19,8 @@ export class Embeddings extends APIResource {
   }
 }
 
-export type EmbeddingListResponse = Array<ModelsAPI.EmbeddingModel>
+export type EmbeddingListResponse = Array<ModelsAPI.EmbeddingModel>;
 
 export declare namespace Embeddings {
-  export {
-    type EmbeddingListResponse as EmbeddingListResponse
-  };
+  export { type EmbeddingListResponse as EmbeddingListResponse };
 }

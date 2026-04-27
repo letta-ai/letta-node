@@ -10,7 +10,7 @@ export class Identities extends APIResource {
    * Attach an identity to an agent.
    */
   attach(identityID: string, params: IdentityAttachParams, options?: RequestOptions): APIPromise<unknown> {
-    const { agent_id } = params
+    const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/identities/attach/${identityID}`, options);
   }
 
@@ -18,14 +18,14 @@ export class Identities extends APIResource {
    * Detach an identity from an agent.
    */
   detach(identityID: string, params: IdentityDetachParams, options?: RequestOptions): APIPromise<unknown> {
-    const { agent_id } = params
+    const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/identities/detach/${identityID}`, options);
   }
 }
 
-export type IdentityAttachResponse = unknown
+export type IdentityAttachResponse = unknown;
 
-export type IdentityDetachResponse = unknown
+export type IdentityDetachResponse = unknown;
 
 export interface IdentityAttachParams {
   /**
@@ -46,6 +46,6 @@ export declare namespace Identities {
     type IdentityAttachResponse as IdentityAttachResponse,
     type IdentityDetachResponse as IdentityDetachResponse,
     type IdentityAttachParams as IdentityAttachParams,
-    type IdentityDetachParams as IdentityDetachParams
+    type IdentityDetachParams as IdentityDetachParams,
   };
 }

@@ -28,7 +28,11 @@ export class McpServers extends APIResource {
   /**
    * Update an existing MCP server configuration
    */
-  update(mcpServerID: string, body: McpServerUpdateParams, options?: RequestOptions): APIPromise<McpServerUpdateResponse> {
+  update(
+    mcpServerID: string,
+    body: McpServerUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<McpServerUpdateResponse> {
     return this._client.patch(path`/v1/mcp-servers/${mcpServerID}`, { body, ...options });
   }
 
@@ -43,7 +47,10 @@ export class McpServers extends APIResource {
    * Delete an MCP server by its ID
    */
   delete(mcpServerID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/mcp-servers/${mcpServerID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v1/mcp-servers/${mcpServerID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -56,9 +63,16 @@ export class McpServers extends APIResource {
    *
    * Returns a summary of changes made.
    */
-  refresh(mcpServerID: string, params: McpServerRefreshParams | null | undefined = {}, options?: RequestOptions): APIPromise<unknown> {
-    const { agent_id } = params ?? {}
-    return this._client.patch(path`/v1/mcp-servers/${mcpServerID}/refresh`, { query: { agent_id }, ...options });
+  refresh(
+    mcpServerID: string,
+    params: McpServerRefreshParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<unknown> {
+    const { agent_id } = params ?? {};
+    return this._client.patch(path`/v1/mcp-servers/${mcpServerID}/refresh`, {
+      query: { agent_id },
+      ...options,
+    });
   }
 }
 
@@ -323,21 +337,21 @@ export interface UpdateStreamableHTTPMcpServer {
 /**
  * A Stdio MCP server
  */
-export type McpServerCreateResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer
+export type McpServerCreateResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer;
 
 /**
  * A Stdio MCP server
  */
-export type McpServerRetrieveResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer
+export type McpServerRetrieveResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer;
 
 /**
  * A Stdio MCP server
  */
-export type McpServerUpdateResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer
+export type McpServerUpdateResponse = StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer;
 
-export type McpServerListResponse = Array<StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer>
+export type McpServerListResponse = Array<StdioMcpServer | SseMcpServer | StreamableHTTPMcpServer>;
 
-export type McpServerRefreshResponse = unknown
+export type McpServerRefreshResponse = unknown;
 
 export interface McpServerCreateParams {
   /**
@@ -387,13 +401,13 @@ export declare namespace McpServers {
     type McpServerRefreshResponse as McpServerRefreshResponse,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
-    type McpServerRefreshParams as McpServerRefreshParams
+    type McpServerRefreshParams as McpServerRefreshParams,
   };
 
   export {
     Tools as Tools,
     type ToolListResponse as ToolListResponse,
     type ToolRetrieveParams as ToolRetrieveParams,
-    type ToolRunParams as ToolRunParams
+    type ToolRunParams as ToolRunParams,
   };
 }

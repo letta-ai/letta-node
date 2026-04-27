@@ -13,28 +13,43 @@ export class Folders extends APIResource {
   /**
    * Get the folders associated with an agent.
    */
-  list(agentID: string, query: FolderListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FolderListResponsesArrayPage, FolderListResponse> {
-    return this._client.getAPIList(path`/v1/agents/${agentID}/folders`, ArrayPage<FolderListResponse>, { query, ...options });
+  list(
+    agentID: string,
+    query: FolderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FolderListResponsesArrayPage, FolderListResponse> {
+    return this._client.getAPIList(path`/v1/agents/${agentID}/folders`, ArrayPage<FolderListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
    * Attach a folder to an agent.
    */
-  attach(folderID: string, params: FolderAttachParams, options?: RequestOptions): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id } = params
+  attach(
+    folderID: string,
+    params: FolderAttachParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentsAPI.AgentState | null> {
+    const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/folders/attach/${folderID}`, options);
   }
 
   /**
    * Detach a folder from an agent.
    */
-  detach(folderID: string, params: FolderDetachParams, options?: RequestOptions): APIPromise<AgentsAPI.AgentState | null> {
-    const { agent_id } = params
+  detach(
+    folderID: string,
+    params: FolderDetachParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentsAPI.AgentState | null> {
+    const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/folders/detach/${folderID}`, options);
   }
 }
 
-export type FolderListResponsesArrayPage = ArrayPage<FolderListResponse>
+export type FolderListResponsesArrayPage = ArrayPage<FolderListResponse>;
 
 /**
  * (Deprecated: Use Folder) Representation of a source, which is a collection of
@@ -97,8 +112,7 @@ export interface FolderListResponse {
   vector_db_provider?: ArchivesAPI.VectorDBProvider;
 }
 
-export interface FolderListParams extends ArrayPageParams {
-}
+export interface FolderListParams extends ArrayPageParams {}
 
 export interface FolderAttachParams {
   /**
@@ -120,6 +134,6 @@ export declare namespace Folders {
     type FolderListResponsesArrayPage as FolderListResponsesArrayPage,
     type FolderListParams as FolderListParams,
     type FolderAttachParams as FolderAttachParams,
-    type FolderDetachParams as FolderDetachParams
+    type FolderDetachParams as FolderDetachParams,
   };
 }

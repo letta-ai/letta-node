@@ -3,7 +3,16 @@
 import { APIResource } from '../../core/resource';
 import * as AgentsAPI from '../agents/agents';
 import * as MessagesAPI from './messages';
-import { CompactionRequest, CompactionResponse, MessageCompactParams, MessageCreateParams, MessageListParams, MessageStreamParams, MessageStreamResponse, Messages } from './messages';
+import {
+  CompactionRequest,
+  CompactionResponse,
+  MessageCompactParams,
+  MessageCreateParams,
+  MessageListParams,
+  MessageStreamParams,
+  MessageStreamResponse,
+  Messages,
+} from './messages';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -15,7 +24,7 @@ export class Conversations extends APIResource {
    * Create a new conversation for an agent.
    */
   create(params: ConversationCreateParams, options?: RequestOptions): APIPromise<Conversation> {
-    const { agent_id, ...body } = params
+    const { agent_id, ...body } = params;
     return this._client.post('/v1/conversations/', { query: { agent_id }, body, ...options });
   }
 
@@ -29,7 +38,11 @@ export class Conversations extends APIResource {
   /**
    * Update a conversation.
    */
-  update(conversationID: string, body: ConversationUpdateParams, options?: RequestOptions): APIPromise<Conversation> {
+  update(
+    conversationID: string,
+    body: ConversationUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<Conversation> {
     return this._client.patch(path`/v1/conversations/${conversationID}`, { body, ...options });
   }
 
@@ -37,7 +50,10 @@ export class Conversations extends APIResource {
    * List all conversations for an agent (or all conversations if agent_id not
    * provided).
    */
-  list(query: ConversationListParams | null | undefined = {}, options?: RequestOptions): APIPromise<ConversationListResponse> {
+  list(
+    query: ConversationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConversationListResponse> {
     return this._client.get('/v1/conversations/', { query, ...options });
   }
 
@@ -61,9 +77,16 @@ export class Conversations extends APIResource {
    * **Deprecated**: Passing an agent ID as conversation_id still works but will be
    * removed.
    */
-  cancel(conversationID: string, params: ConversationCancelParams | null | undefined = {}, options?: RequestOptions): APIPromise<ConversationCancelResponse> {
-    const { agent_id } = params ?? {}
-    return this._client.post(path`/v1/conversations/${conversationID}/cancel`, { query: { agent_id }, ...options });
+  cancel(
+    conversationID: string,
+    params: ConversationCancelParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConversationCancelResponse> {
+    const { agent_id } = params ?? {};
+    return this._client.post(path`/v1/conversations/${conversationID}/cancel`, {
+      query: { agent_id },
+      ...options,
+    });
   }
 
   /**
@@ -81,17 +104,32 @@ export class Conversations extends APIResource {
    * **Deprecated**: Passing an agent ID as conversation_id still works but will be
    * removed.
    */
-  fork(conversationID: string, params: ConversationForkParams | null | undefined = {}, options?: RequestOptions): APIPromise<Conversation> {
-    const { agent_id, hidden } = params ?? {}
-    return this._client.post(path`/v1/conversations/${conversationID}/fork`, { query: { agent_id, hidden }, ...options });
+  fork(
+    conversationID: string,
+    params: ConversationForkParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Conversation> {
+    const { agent_id, hidden } = params ?? {};
+    return this._client.post(path`/v1/conversations/${conversationID}/fork`, {
+      query: { agent_id, hidden },
+      ...options,
+    });
   }
 
   /**
    * Manually trigger system prompt recompilation for a conversation.
    */
-  recompile(conversationID: string, params: ConversationRecompileParams | null | undefined = {}, options?: RequestOptions): APIPromise<string> {
-    const { dry_run, ...body } = params ?? {}
-    return this._client.post(path`/v1/conversations/${conversationID}/recompile`, { query: { dry_run }, body, ...options });
+  recompile(
+    conversationID: string,
+    params: ConversationRecompileParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<string> {
+    const { dry_run, ...body } = params ?? {};
+    return this._client.post(path`/v1/conversations/${conversationID}/recompile`, {
+      query: { dry_run },
+      body,
+      ...options,
+    });
   }
 }
 
@@ -160,7 +198,25 @@ export interface Conversation {
   /**
    * The model settings for this conversation (overrides agent's model settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | Conversation.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | Conversation.MoonshotModelSettings | Conversation.ZaiModelSettings | Conversation.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | Conversation.BasetenModelSettings | Conversation.OpenRouterModelSettings | Conversation.ChatGptoAuthModelSettings | null;
+  model_settings?:
+    | AgentsAPI.OpenAIModelSettings
+    | Conversation.SgLangModelSettings
+    | AgentsAPI.AnthropicModelSettings
+    | AgentsAPI.GoogleAIModelSettings
+    | AgentsAPI.GoogleVertexModelSettings
+    | AgentsAPI.AzureModelSettings
+    | AgentsAPI.XaiModelSettings
+    | Conversation.MoonshotModelSettings
+    | Conversation.ZaiModelSettings
+    | Conversation.MoonshotCodingModelSettings
+    | AgentsAPI.GroqModelSettings
+    | AgentsAPI.DeepseekModelSettings
+    | AgentsAPI.TogetherModelSettings
+    | AgentsAPI.BedrockModelSettings
+    | Conversation.BasetenModelSettings
+    | Conversation.OpenRouterModelSettings
+    | Conversation.ChatGptoAuthModelSettings
+    | null;
 
   /**
    * A summary of the conversation.
@@ -202,7 +258,11 @@ export namespace Conversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -255,7 +315,11 @@ export namespace Conversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -291,7 +355,11 @@ export namespace Conversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -350,7 +418,11 @@ export namespace Conversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -438,7 +510,11 @@ export namespace Conversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -513,7 +589,25 @@ export interface CreateConversation {
   /**
    * The model settings for this conversation (overrides agent's model settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | CreateConversation.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CreateConversation.MoonshotModelSettings | CreateConversation.ZaiModelSettings | CreateConversation.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CreateConversation.BasetenModelSettings | CreateConversation.OpenRouterModelSettings | CreateConversation.ChatGptoAuthModelSettings | null;
+  model_settings?:
+    | AgentsAPI.OpenAIModelSettings
+    | CreateConversation.SgLangModelSettings
+    | AgentsAPI.AnthropicModelSettings
+    | AgentsAPI.GoogleAIModelSettings
+    | AgentsAPI.GoogleVertexModelSettings
+    | AgentsAPI.AzureModelSettings
+    | AgentsAPI.XaiModelSettings
+    | CreateConversation.MoonshotModelSettings
+    | CreateConversation.ZaiModelSettings
+    | CreateConversation.MoonshotCodingModelSettings
+    | AgentsAPI.GroqModelSettings
+    | AgentsAPI.DeepseekModelSettings
+    | AgentsAPI.TogetherModelSettings
+    | AgentsAPI.BedrockModelSettings
+    | CreateConversation.BasetenModelSettings
+    | CreateConversation.OpenRouterModelSettings
+    | CreateConversation.ChatGptoAuthModelSettings
+    | null;
 
   /**
    * A summary of the conversation.
@@ -550,7 +644,11 @@ export namespace CreateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -603,7 +701,11 @@ export namespace CreateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -639,7 +741,11 @@ export namespace CreateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -698,7 +804,11 @@ export namespace CreateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -786,7 +896,11 @@ export namespace CreateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -866,7 +980,25 @@ export interface UpdateConversation {
   /**
    * The model settings for this conversation (overrides agent's model settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | UpdateConversation.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | UpdateConversation.MoonshotModelSettings | UpdateConversation.ZaiModelSettings | UpdateConversation.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | UpdateConversation.BasetenModelSettings | UpdateConversation.OpenRouterModelSettings | UpdateConversation.ChatGptoAuthModelSettings | null;
+  model_settings?:
+    | AgentsAPI.OpenAIModelSettings
+    | UpdateConversation.SgLangModelSettings
+    | AgentsAPI.AnthropicModelSettings
+    | AgentsAPI.GoogleAIModelSettings
+    | AgentsAPI.GoogleVertexModelSettings
+    | AgentsAPI.AzureModelSettings
+    | AgentsAPI.XaiModelSettings
+    | UpdateConversation.MoonshotModelSettings
+    | UpdateConversation.ZaiModelSettings
+    | UpdateConversation.MoonshotCodingModelSettings
+    | AgentsAPI.GroqModelSettings
+    | AgentsAPI.DeepseekModelSettings
+    | AgentsAPI.TogetherModelSettings
+    | AgentsAPI.BedrockModelSettings
+    | UpdateConversation.BasetenModelSettings
+    | UpdateConversation.OpenRouterModelSettings
+    | UpdateConversation.ChatGptoAuthModelSettings
+    | null;
 
   /**
    * A summary of the conversation.
@@ -903,7 +1035,11 @@ export namespace UpdateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -956,7 +1092,11 @@ export namespace UpdateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -992,7 +1132,11 @@ export namespace UpdateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -1051,7 +1195,11 @@ export namespace UpdateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1139,7 +1287,11 @@ export namespace UpdateConversation {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -1190,13 +1342,13 @@ export namespace UpdateConversation {
   }
 }
 
-export type ConversationListResponse = Array<Conversation>
+export type ConversationListResponse = Array<Conversation>;
 
-export type ConversationDeleteResponse = unknown
+export type ConversationDeleteResponse = unknown;
 
-export type ConversationCancelResponse = { [key: string]: unknown }
+export type ConversationCancelResponse = { [key: string]: unknown };
 
-export type ConversationRecompileResponse = string
+export type ConversationRecompileResponse = string;
 
 export interface ConversationCreateParams {
   /**
@@ -1225,7 +1377,25 @@ export interface ConversationCreateParams {
    * Body param: The model settings for this conversation (overrides agent's model
    * settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | ConversationCreateParams.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | ConversationCreateParams.MoonshotModelSettings | ConversationCreateParams.ZaiModelSettings | ConversationCreateParams.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | ConversationCreateParams.BasetenModelSettings | ConversationCreateParams.OpenRouterModelSettings | ConversationCreateParams.ChatGptoAuthModelSettings | null;
+  model_settings?:
+    | AgentsAPI.OpenAIModelSettings
+    | ConversationCreateParams.SgLangModelSettings
+    | AgentsAPI.AnthropicModelSettings
+    | AgentsAPI.GoogleAIModelSettings
+    | AgentsAPI.GoogleVertexModelSettings
+    | AgentsAPI.AzureModelSettings
+    | AgentsAPI.XaiModelSettings
+    | ConversationCreateParams.MoonshotModelSettings
+    | ConversationCreateParams.ZaiModelSettings
+    | ConversationCreateParams.MoonshotCodingModelSettings
+    | AgentsAPI.GroqModelSettings
+    | AgentsAPI.DeepseekModelSettings
+    | AgentsAPI.TogetherModelSettings
+    | AgentsAPI.BedrockModelSettings
+    | ConversationCreateParams.BasetenModelSettings
+    | ConversationCreateParams.OpenRouterModelSettings
+    | ConversationCreateParams.ChatGptoAuthModelSettings
+    | null;
 
   /**
    * Body param: A summary of the conversation.
@@ -1262,7 +1432,11 @@ export namespace ConversationCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1315,7 +1489,11 @@ export namespace ConversationCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1351,7 +1529,11 @@ export namespace ConversationCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -1410,7 +1592,11 @@ export namespace ConversationCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1498,7 +1684,11 @@ export namespace ConversationCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -1575,7 +1765,25 @@ export interface ConversationUpdateParams {
   /**
    * The model settings for this conversation (overrides agent's model settings).
    */
-  model_settings?: AgentsAPI.OpenAIModelSettings | ConversationUpdateParams.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | ConversationUpdateParams.MoonshotModelSettings | ConversationUpdateParams.ZaiModelSettings | ConversationUpdateParams.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | ConversationUpdateParams.BasetenModelSettings | ConversationUpdateParams.OpenRouterModelSettings | ConversationUpdateParams.ChatGptoAuthModelSettings | null;
+  model_settings?:
+    | AgentsAPI.OpenAIModelSettings
+    | ConversationUpdateParams.SgLangModelSettings
+    | AgentsAPI.AnthropicModelSettings
+    | AgentsAPI.GoogleAIModelSettings
+    | AgentsAPI.GoogleVertexModelSettings
+    | AgentsAPI.AzureModelSettings
+    | AgentsAPI.XaiModelSettings
+    | ConversationUpdateParams.MoonshotModelSettings
+    | ConversationUpdateParams.ZaiModelSettings
+    | ConversationUpdateParams.MoonshotCodingModelSettings
+    | AgentsAPI.GroqModelSettings
+    | AgentsAPI.DeepseekModelSettings
+    | AgentsAPI.TogetherModelSettings
+    | AgentsAPI.BedrockModelSettings
+    | ConversationUpdateParams.BasetenModelSettings
+    | ConversationUpdateParams.OpenRouterModelSettings
+    | ConversationUpdateParams.ChatGptoAuthModelSettings
+    | null;
 
   /**
    * A summary of the conversation.
@@ -1612,7 +1820,11 @@ export namespace ConversationUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1665,7 +1877,11 @@ export namespace ConversationUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1701,7 +1917,11 @@ export namespace ConversationUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -1760,7 +1980,11 @@ export namespace ConversationUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1848,7 +2072,11 @@ export namespace ConversationUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
 
     /**
      * The temperature of the model.
@@ -2008,7 +2236,25 @@ export namespace ConversationRecompileParams {
     /**
      * Optional model settings used to override defaults for the summarizer model.
      */
-    model_settings?: AgentsAPI.OpenAIModelSettings | CompactionSettings.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CompactionSettings.MoonshotModelSettings | CompactionSettings.ZaiModelSettings | CompactionSettings.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CompactionSettings.BasetenModelSettings | CompactionSettings.OpenRouterModelSettings | CompactionSettings.ChatGptoAuthModelSettings | null;
+    model_settings?:
+      | AgentsAPI.OpenAIModelSettings
+      | CompactionSettings.SgLangModelSettings
+      | AgentsAPI.AnthropicModelSettings
+      | AgentsAPI.GoogleAIModelSettings
+      | AgentsAPI.GoogleVertexModelSettings
+      | AgentsAPI.AzureModelSettings
+      | AgentsAPI.XaiModelSettings
+      | CompactionSettings.MoonshotModelSettings
+      | CompactionSettings.ZaiModelSettings
+      | CompactionSettings.MoonshotCodingModelSettings
+      | AgentsAPI.GroqModelSettings
+      | AgentsAPI.DeepseekModelSettings
+      | AgentsAPI.TogetherModelSettings
+      | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.BasetenModelSettings
+      | CompactionSettings.OpenRouterModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
+      | null;
 
     /**
      * The prompt to use for summarization. If None, uses mode-specific default.
@@ -2057,7 +2303,11 @@ export namespace ConversationRecompileParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -2110,7 +2360,11 @@ export namespace ConversationRecompileParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -2146,7 +2400,11 @@ export namespace ConversationRecompileParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * The temperature of the model.
@@ -2205,7 +2463,11 @@ export namespace ConversationRecompileParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -2293,7 +2555,11 @@ export namespace ConversationRecompileParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * The temperature of the model.
@@ -2361,7 +2627,7 @@ export declare namespace Conversations {
     type ConversationListParams as ConversationListParams,
     type ConversationCancelParams as ConversationCancelParams,
     type ConversationForkParams as ConversationForkParams,
-    type ConversationRecompileParams as ConversationRecompileParams
+    type ConversationRecompileParams as ConversationRecompileParams,
   };
 
   export {
@@ -2372,6 +2638,6 @@ export declare namespace Conversations {
     type MessageCreateParams as MessageCreateParams,
     type MessageListParams as MessageListParams,
     type MessageCompactParams as MessageCompactParams,
-    type MessageStreamParams as MessageStreamParams
+    type MessageStreamParams as MessageStreamParams,
   };
 }
