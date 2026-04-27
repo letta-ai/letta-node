@@ -10,8 +10,15 @@ export class Files extends APIResource {
   /**
    * Get the files attached to an agent with their open/closed status.
    */
-  list(agentID: string, query: FileListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FileListResponsesNextFilesPage, FileListResponse> {
-    return this._client.getAPIList(path`/v1/agents/${agentID}/files`, NextFilesPage<FileListResponse>, { query, ...options });
+  list(
+    agentID: string,
+    query: FileListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FileListResponsesNextFilesPage, FileListResponse> {
+    return this._client.getAPIList(path`/v1/agents/${agentID}/files`, NextFilesPage<FileListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -21,7 +28,7 @@ export class Files extends APIResource {
    * file will be removed from the agent's working memory view.
    */
   close(fileID: string, params: FileCloseParams, options?: RequestOptions): APIPromise<unknown> {
-    const { agent_id } = params
+    const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/files/${fileID}/close`, options);
   }
 
@@ -43,12 +50,12 @@ export class Files extends APIResource {
    * names that were closed due to LRU eviction.
    */
   open(fileID: string, params: FileOpenParams, options?: RequestOptions): APIPromise<FileOpenResponse> {
-    const { agent_id } = params
+    const { agent_id } = params;
     return this._client.patch(path`/v1/agents/${agent_id}/files/${fileID}/open`, options);
   }
 }
 
-export type FileListResponsesNextFilesPage = NextFilesPage<FileListResponse>
+export type FileListResponsesNextFilesPage = NextFilesPage<FileListResponse>;
 
 /**
  * Response model for agent file attachments showing file status in agent context
@@ -105,11 +112,11 @@ export interface FileListResponse {
   visible_content?: string | null;
 }
 
-export type FileCloseResponse = unknown
+export type FileCloseResponse = unknown;
 
-export type FileCloseAllResponse = Array<string>
+export type FileCloseAllResponse = Array<string>;
 
-export type FileOpenResponse = Array<string>
+export type FileOpenResponse = Array<string>;
 
 export interface FileListParams extends NextFilesPageParams {
   /**
@@ -147,6 +154,6 @@ export declare namespace Files {
     type FileListResponsesNextFilesPage as FileListResponsesNextFilesPage,
     type FileListParams as FileListParams,
     type FileCloseParams as FileCloseParams,
-    type FileOpenParams as FileOpenParams
+    type FileOpenParams as FileOpenParams,
   };
 }

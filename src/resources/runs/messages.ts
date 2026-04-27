@@ -13,22 +13,36 @@ export class Messages extends APIResource {
   /**
    * Get response messages associated with a run.
    */
-  list(runID: string, query: MessageListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagesArrayPage, MessagesAPI.Message> {
-    return this._client.getAPIList(path`/v1/runs/${runID}/messages`, ArrayPage<MessagesAPI.Message>, { query, ...options });
+  list(
+    runID: string,
+    query: MessageListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessagesArrayPage, MessagesAPI.Message> {
+    return this._client.getAPIList(path`/v1/runs/${runID}/messages`, ArrayPage<MessagesAPI.Message>, {
+      query,
+      ...options,
+    });
   }
 
   /**
    * Retrieve Stream For Run
    */
-  stream(runID: string, body: MessageStreamParams | undefined = {}, options?: RequestOptions): APIPromise<Stream<MessagesAPI.LettaStreamingResponse>> {
-    return this._client.post(path`/v1/runs/${runID}/stream`, { body, ...options, stream: true }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
+  stream(
+    runID: string,
+    body: MessageStreamParams | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Stream<MessagesAPI.LettaStreamingResponse>> {
+    return this._client.post(path`/v1/runs/${runID}/stream`, {
+      body,
+      ...options,
+      stream: true,
+    }) as APIPromise<Stream<MessagesAPI.LettaStreamingResponse>>;
   }
 }
 
-export type MessageStreamResponse = unknown
+export type MessageStreamResponse = unknown;
 
-export interface MessageListParams extends ArrayPageParams {
-}
+export interface MessageListParams extends ArrayPageParams {}
 
 export interface MessageStreamParams {
   /**
@@ -76,8 +90,8 @@ export declare namespace Messages {
   export {
     type MessageStreamResponse as MessageStreamResponse,
     type MessageListParams as MessageListParams,
-    type MessageStreamParams as MessageStreamParams
+    type MessageStreamParams as MessageStreamParams,
   };
 }
 
-export { type MessagesArrayPage }
+export { type MessagesArrayPage };

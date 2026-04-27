@@ -4,7 +4,17 @@ import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
 import { AgentListParams, AgentListResponse, Agents } from './agents';
 import * as FilesAPI from './files';
-import { FileDeleteParams, FileListParams, FileListResponse, FileListResponsesArrayPage, FileRetrieveParams, FileRetrieveResponse, FileUploadParams, FileUploadResponse, Files } from './files';
+import {
+  FileDeleteParams,
+  FileListParams,
+  FileListResponse,
+  FileListResponsesArrayPage,
+  FileRetrieveParams,
+  FileRetrieveResponse,
+  FileUploadParams,
+  FileUploadResponse,
+  Files,
+} from './files';
 import * as ModelsAPI from '../models/models';
 import { APIPromise } from '../../core/api-promise';
 import { ArrayPage, type ArrayPageParams, PagePromise } from '../../core/pagination';
@@ -39,7 +49,10 @@ export class Folders extends APIResource {
   /**
    * List all data folders created by a user.
    */
-  list(query: FolderListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FoldersArrayPage, Folder> {
+  list(
+    query: FolderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FoldersArrayPage, Folder> {
     return this._client.getAPIList('/v1/folders/', ArrayPage<Folder>, { query, ...options });
   }
 
@@ -51,7 +64,7 @@ export class Folders extends APIResource {
   }
 }
 
-export type FoldersArrayPage = ArrayPage<Folder>
+export type FoldersArrayPage = ArrayPage<Folder>;
 
 /**
  * Representation of a folder, which is a collection of files and passages.
@@ -108,7 +121,7 @@ export interface Folder {
   updated_at?: string | null;
 }
 
-export type FolderDeleteResponse = unknown
+export type FolderDeleteResponse = unknown;
 
 export interface FolderCreateParams {
   /**
@@ -191,7 +204,7 @@ export declare namespace Folders {
     type FoldersArrayPage as FoldersArrayPage,
     type FolderCreateParams as FolderCreateParams,
     type FolderUpdateParams as FolderUpdateParams,
-    type FolderListParams as FolderListParams
+    type FolderListParams as FolderListParams,
   };
 
   export {
@@ -203,12 +216,12 @@ export declare namespace Folders {
     type FileRetrieveParams as FileRetrieveParams,
     type FileListParams as FileListParams,
     type FileDeleteParams as FileDeleteParams,
-    type FileUploadParams as FileUploadParams
+    type FileUploadParams as FileUploadParams,
   };
 
   export {
     Agents as Agents,
     type AgentListResponse as AgentListResponse,
-    type AgentListParams as AgentListParams
+    type AgentListParams as AgentListParams,
   };
 }

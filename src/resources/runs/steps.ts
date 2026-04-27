@@ -11,18 +11,22 @@ export class Steps extends APIResource {
   /**
    * Get steps associated with a run with filtering options.
    */
-  list(runID: string, query: StepListParams | null | undefined = {}, options?: RequestOptions): PagePromise<StepsArrayPage, ResourcesStepsAPI.Step> {
-    return this._client.getAPIList(path`/v1/runs/${runID}/steps`, ArrayPage<ResourcesStepsAPI.Step>, { query, ...options });
+  list(
+    runID: string,
+    query: StepListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<StepsArrayPage, ResourcesStepsAPI.Step> {
+    return this._client.getAPIList(path`/v1/runs/${runID}/steps`, ArrayPage<ResourcesStepsAPI.Step>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export interface StepListParams extends ArrayPageParams {
-}
+export interface StepListParams extends ArrayPageParams {}
 
 export declare namespace Steps {
-  export {
-    type StepListParams as StepListParams
-  };
+  export { type StepListParams as StepListParams };
 }
 
-export { type StepsArrayPage }
+export { type StepsArrayPage };

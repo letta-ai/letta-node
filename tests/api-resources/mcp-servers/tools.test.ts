@@ -2,7 +2,10 @@
 
 import Letta from '@letta-ai/letta-client';
 
-const client = new Letta({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Letta({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource tools', () => {
   // Mock server tests are disabled
@@ -49,8 +52,8 @@ describe('resource tools', () => {
   // Mock server tests are disabled
   test.skip('run: required and optional params', async () => {
     const response = await client.mcpServers.tools.run('tool_id', {
-    mcp_server_id: 'mcp_server_id',
-    args: { foo: 'bar' },
-  });
+      mcp_server_id: 'mcp_server_id',
+      args: { foo: 'bar' },
+    });
   });
 });

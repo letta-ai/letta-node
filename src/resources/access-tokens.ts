@@ -17,15 +17,22 @@ export class AccessTokens extends APIResource {
    * List all client side access tokens for the current account. This is only
    * available for cloud users.
    */
-  list(query: AccessTokenListParams | null | undefined = {}, options?: RequestOptions): APIPromise<AccessTokenListResponse> {
+  list(
+    query: AccessTokenListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<AccessTokenListResponse> {
     return this._client.get('/v1/client-side-access-tokens', { query, ...options });
   }
 
   /**
    * Delete a client side access token.
    */
-  delete(token: string, params: AccessTokenDeleteParams | null | undefined = undefined, options?: RequestOptions): APIPromise<unknown> {
-    const { body } = params ?? {}
+  delete(
+    token: string,
+    params: AccessTokenDeleteParams | null | undefined = undefined,
+    options?: RequestOptions,
+  ): APIPromise<unknown> {
+    const { body } = params ?? {};
     return this._client.delete(path`/v1/client-side-access-tokens/${token}`, { body: body, ...options });
   }
 }
@@ -94,7 +101,7 @@ export namespace AccessTokenListResponse {
   }
 }
 
-export type AccessTokenDeleteResponse = unknown
+export type AccessTokenDeleteResponse = unknown;
 
 export interface AccessTokenCreateParams {
   /**
@@ -151,6 +158,6 @@ export declare namespace AccessTokens {
     type AccessTokenDeleteResponse as AccessTokenDeleteResponse,
     type AccessTokenCreateParams as AccessTokenCreateParams,
     type AccessTokenListParams as AccessTokenListParams,
-    type AccessTokenDeleteParams as AccessTokenDeleteParams
+    type AccessTokenDeleteParams as AccessTokenDeleteParams,
   };
 }

@@ -87,7 +87,8 @@ export class PagePromise<
     super(
       client,
       request,
-      async (client, props) => new Page(client, props.response, await defaultParseResponse(client, props), props.options)
+      async (client, props) =>
+        new Page(client, props.response, await defaultParseResponse(client, props), props.options),
     );
   }
 
@@ -123,7 +124,12 @@ export interface ArrayPageParams {
 export class ArrayPage<Item extends { id: string }> extends AbstractPage<Item> {
   items: Array<Item>;
 
-  constructor(client: Letta, response: Response, body: ArrayPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Letta,
+    response: Response,
+    body: ArrayPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.items = body || [];
@@ -152,7 +158,7 @@ export class ArrayPage<Item extends { id: string }> extends AbstractPage<Item> {
       };
     }
 
-    const id = items[0]?.id
+    const id = items[0]?.id;
     if (!id) {
       return null;
     }
@@ -183,10 +189,18 @@ export interface ObjectPageParams {
   order_by?: string | null;
 }
 
-export class ObjectPage<Item extends { id: string }> extends AbstractPage<Item> implements ObjectPageResponse<Item> {
+export class ObjectPage<Item extends { id: string }>
+  extends AbstractPage<Item>
+  implements ObjectPageResponse<Item>
+{
   messages: Array<Item>;
 
-  constructor(client: Letta, response: Response, body: ObjectPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Letta,
+    response: Response,
+    body: ObjectPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.messages = body.messages || [];
@@ -215,7 +229,7 @@ export class ObjectPage<Item extends { id: string }> extends AbstractPage<Item> 
       };
     }
 
-    const id = messages[0]?.id
+    const id = messages[0]?.id;
     if (!id) {
       return null;
     }
@@ -250,14 +264,22 @@ export interface NextFilesPageParams {
   order_by?: string | null;
 }
 
-export class NextFilesPage<Item extends { id: string }> extends AbstractPage<Item> implements NextFilesPageResponse<Item> {
+export class NextFilesPage<Item extends { id: string }>
+  extends AbstractPage<Item>
+  implements NextFilesPageResponse<Item>
+{
   files: Array<Item>;
 
   next_cursor: string | null;
 
   has_more: boolean;
 
-  constructor(client: Letta, response: Response, body: NextFilesPageResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Letta,
+    response: Response,
+    body: NextFilesPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.files = body.files || [];
@@ -296,7 +318,7 @@ export class NextFilesPage<Item extends { id: string }> extends AbstractPage<Ite
       };
     }
 
-    const id = files[0]?.id
+    const id = files[0]?.id;
     if (!id) {
       return null;
     }

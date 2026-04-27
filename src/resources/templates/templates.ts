@@ -20,14 +20,22 @@ export class Templates extends APIResource {
   /**
    * Updates the current working version of a template from an agent file
    */
-  update(templateName: string, body: TemplateUpdateParams, options?: RequestOptions): APIPromise<TemplateUpdateResponse> {
+  update(
+    templateName: string,
+    body: TemplateUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<TemplateUpdateResponse> {
     return this._client.patch(path`/v1/templates/${templateName}`, { body, ...options });
   }
 
   /**
    * Deletes all versions of a template with the specified name
    */
-  delete(templateName: string, body?: TemplateDeleteParams | null | undefined, options?: RequestOptions): APIPromise<TemplateDeleteResponse> {
+  delete(
+    templateName: string,
+    body?: TemplateDeleteParams | null | undefined,
+    options?: RequestOptions,
+  ): APIPromise<TemplateDeleteResponse> {
     return this._client.delete(path`/v1/templates/${templateName}`, { body, ...options });
   }
 
@@ -36,14 +44,22 @@ export class Templates extends APIResource {
    * If the current version has unsaved changes, they will be automatically saved as
    * a new version before rollback.
    */
-  rollback(templateName: string, body: TemplateRollbackParams, options?: RequestOptions): APIPromise<TemplateRollbackResponse> {
+  rollback(
+    templateName: string,
+    body: TemplateRollbackParams,
+    options?: RequestOptions,
+  ): APIPromise<TemplateRollbackResponse> {
     return this._client.post(path`/v1/templates/${templateName}/rollback`, { body, ...options });
   }
 
   /**
    * Saves the current version of the template as a new version
    */
-  save(templateName: string, body: TemplateSaveParams | null | undefined = {}, options?: RequestOptions): APIPromise<TemplateSaveResponse> {
+  save(
+    templateName: string,
+    body: TemplateSaveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TemplateSaveResponse> {
     return this._client.post(path`/v1/templates/${templateName}/save`, { body, ...options });
   }
 }
@@ -124,7 +140,7 @@ export interface TemplateSaveResponse {
   description?: string;
 }
 
-export type TemplateCreateParams = TemplateCreateParams.Variant0 | TemplateCreateParams.Variant1
+export type TemplateCreateParams = TemplateCreateParams.Variant0 | TemplateCreateParams.Variant1;
 
 export declare namespace TemplateCreateParams {
   export interface Variant0 {
@@ -184,8 +200,7 @@ export interface TemplateUpdateParams {
   update_existing_tools?: boolean;
 }
 
-export interface TemplateDeleteParams {
-}
+export interface TemplateDeleteParams {}
 
 export interface TemplateRollbackParams {
   /**
@@ -247,12 +262,12 @@ export declare namespace Templates {
     type TemplateUpdateParams as TemplateUpdateParams,
     type TemplateDeleteParams as TemplateDeleteParams,
     type TemplateRollbackParams as TemplateRollbackParams,
-    type TemplateSaveParams as TemplateSaveParams
+    type TemplateSaveParams as TemplateSaveParams,
   };
 
   export {
     Agents as Agents,
     type AgentCreateResponse as AgentCreateResponse,
-    type AgentCreateParams as AgentCreateParams
+    type AgentCreateParams as AgentCreateParams,
   };
 }

@@ -9,7 +9,11 @@ export class Agents extends APIResource {
   /**
    * Creates an Agent or multiple Agents from a template
    */
-  create(templateVersion: string, body: AgentCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<AgentCreateResponse> {
+  create(
+    templateVersion: string,
+    body: AgentCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<AgentCreateResponse> {
     return this._client.post(path`/v1/templates/${templateVersion}/agents`, { body, ...options });
   }
 }
@@ -87,8 +91,5 @@ export namespace AgentCreateParams {
 }
 
 export declare namespace Agents {
-  export {
-    type AgentCreateResponse as AgentCreateResponse,
-    type AgentCreateParams as AgentCreateParams
-  };
+  export { type AgentCreateResponse as AgentCreateResponse, type AgentCreateParams as AgentCreateParams };
 }

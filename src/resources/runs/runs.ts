@@ -32,7 +32,10 @@ export class Runs extends APIResource {
   /**
    * List all runs.
    */
-  list(query: RunListParams | null | undefined = {}, options?: RequestOptions): PagePromise<RunsArrayPage, MessagesAPI.Run> {
+  list(
+    query: RunListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RunsArrayPage, MessagesAPI.Run> {
     return this._client.getAPIList('/v1/runs/', ArrayPage<MessagesAPI.Run>, { query, ...options });
   }
 }
@@ -133,7 +136,20 @@ export interface Job {
   updated_at?: string | null;
 }
 
-export type StopReasonType = 'end_turn' | 'error' | 'llm_api_error' | 'invalid_llm_response' | 'invalid_tool_call' | 'max_steps' | 'max_tokens_exceeded' | 'no_tool_call' | 'tool_rule' | 'cancelled' | 'insufficient_credits' | 'requires_approval' | 'context_window_overflow_in_system_prompt'
+export type StopReasonType =
+  | 'end_turn'
+  | 'error'
+  | 'llm_api_error'
+  | 'invalid_llm_response'
+  | 'invalid_tool_call'
+  | 'max_steps'
+  | 'max_tokens_exceeded'
+  | 'no_tool_call'
+  | 'tool_rule'
+  | 'cancelled'
+  | 'insufficient_credits'
+  | 'requires_approval'
+  | 'context_window_overflow_in_system_prompt';
 
 export interface RunListParams extends ArrayPageParams {
   /**
@@ -185,34 +201,24 @@ Runs.Steps = Steps;
 Runs.Trace = Trace;
 
 export declare namespace Runs {
-  export {
-    type Job as Job,
-    type StopReasonType as StopReasonType,
-    type RunListParams as RunListParams
-  };
+  export { type Job as Job, type StopReasonType as StopReasonType, type RunListParams as RunListParams };
 
   export {
     Messages as Messages,
     type MessageStreamResponse as MessageStreamResponse,
     type MessageListParams as MessageListParams,
-    type MessageStreamParams as MessageStreamParams
+    type MessageStreamParams as MessageStreamParams,
   };
 
-  export {
-    Usage as Usage,
-    type UsageRetrieveResponse as UsageRetrieveResponse
-  };
+  export { Usage as Usage, type UsageRetrieveResponse as UsageRetrieveResponse };
 
-  export {
-    Steps as Steps,
-    type StepListParams as StepListParams
-  };
+  export { Steps as Steps, type StepListParams as StepListParams };
 
   export {
     Trace as Trace,
     type TraceRetrieveResponse as TraceRetrieveResponse,
-    type TraceRetrieveParams as TraceRetrieveParams
+    type TraceRetrieveParams as TraceRetrieveParams,
   };
 }
 
-export { type RunsArrayPage }
+export { type RunsArrayPage };
