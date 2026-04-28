@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.11.0 (2026-04-28)
+
+Full Changelog: [v1.10.3...v1.11.0](https://github.com/letta-ai/letta-node/compare/v1.10.3...v1.11.0)
+
+### Features
+
+* **core:** add moonshot and kimi code BYOK providers ([c8db416](https://github.com/letta-ai/letta-node/commit/c8db4169f617a3492a18915ca2316d58bf76fdb6))
+* support setting headers via env ([e533ee0](https://github.com/letta-ai/letta-node/commit/e533ee0180bff9710b5a50b069849c847abe53b6))
+
+
+### Performance Improvements
+
+* **core:** reduce conversation send hot-path reads ([f408365](https://github.com/letta-ai/letta-node/commit/f4083655aec3e33ab574595f0e01830412a5e0c0))
+
+
+### Chores
+
+* **formatter:** run prettier and eslint separately ([be19d57](https://github.com/letta-ai/letta-node/commit/be19d571a122b8911f918ffb137923e98dfe8864))
+* **internal:** codegen related update ([2aa87bb](https://github.com/letta-ai/letta-node/commit/2aa87bbf4f4da40a910966a1835d1c37a05771a8))
+* **internal:** more robust bootstrap script ([72ada60](https://github.com/letta-ai/letta-node/commit/72ada606f3a420f2adcc1f9ef164b4b6cbf4428b))
+
+
+### Refactors
+
+* hard-deprecate isolated conversation blocks ([8987bc5](https://github.com/letta-ai/letta-node/commit/8987bc5ab31c45073d272785f3d9e81ff96ed6bc))
+* stop creating new isolated conversation blocks ([2f14f94](https://github.com/letta-ai/letta-node/commit/2f14f94d36131e2853a89f4b80c787069341cce8))
+
 ## 1.10.3 (2026-04-17)
 
 Full Changelog: [v1.10.2...v1.10.3](https://github.com/letta-ai/letta-node/compare/v1.10.2...v1.10.3)
