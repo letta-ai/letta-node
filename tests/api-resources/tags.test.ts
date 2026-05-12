@@ -28,7 +28,7 @@ describe('resource tags', () => {
         {
           after: 'after',
           before: 'before',
-          limit: 0,
+          limit: 200,
           name: 'name',
           order: 'asc',
           order_by: 'name',

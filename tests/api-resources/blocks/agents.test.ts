@@ -31,7 +31,7 @@ describe('resource agents', () => {
           before: 'agent-123e4567-e89b-42d3-8456-426614174000',
           include: ['agent.blocks', 'agent.identities'],
           include_relationships: ['string', 'string'],
-          limit: 0,
+          limit: 200,
           order: 'asc',
           order_by: 'created_at',
         },

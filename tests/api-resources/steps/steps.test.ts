@@ -44,7 +44,7 @@ describe('resource steps', () => {
           end_date: 'end_date',
           feedback: 'positive',
           has_feedback: true,
-          limit: 0,
+          limit: 200,
           model: 'model',
           order: 'asc',
           order_by: 'created_at',
