@@ -86,7 +86,7 @@ describe('resource archives', () => {
           after: 'archive-123e4567-e89b-42d3-8456-426614174000',
           agent_id: 'agent_id',
           before: 'archive-123e4567-e89b-42d3-8456-426614174000',
-          limit: 0,
+          limit: 200,
           name: 'name',
           order: 'asc',
           order_by: 'created_at',

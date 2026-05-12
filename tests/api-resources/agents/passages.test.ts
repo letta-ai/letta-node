@@ -53,7 +53,7 @@ describe('resource passages', () => {
           after: 'after',
           ascending: true,
           before: 'before',
-          limit: 0,
+          limit: 200,
           search: 'search',
         },
         { path: '/_stainless_unknown_path' },

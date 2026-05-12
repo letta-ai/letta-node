@@ -94,7 +94,7 @@ describe('resource blocks', () => {
           identity_id: 'identity-123e4567-e89b-42d3-8456-426614174000',
           label: 'human',
           label_search: 'human',
-          limit: 0,
+          limit: 200,
           match_all_tags: true,
           name: 'My Agent',
           order: 'asc',
