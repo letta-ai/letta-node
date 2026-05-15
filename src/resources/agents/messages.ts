@@ -2704,7 +2704,9 @@ export namespace MessageCompactParams {
       | AgentsAPI.GoogleVertexModelSettings
       | AgentsAPI.AzureModelSettings
       | AgentsAPI.XaiModelSettings
+      | CompactionSettings.MoonshotModelSettings
       | CompactionSettings.ZaiModelSettings
+      | CompactionSettings.MoonshotCodingModelSettings
       | AgentsAPI.GroqModelSettings
       | AgentsAPI.DeepseekModelSettings
       | AgentsAPI.TogetherModelSettings
@@ -2797,6 +2799,46 @@ export namespace MessageCompactParams {
     }
 
     /**
+     * Moonshot/Kimi model configuration (OpenAI-compatible).
+     */
+    export interface MoonshotModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'moonshot';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+    }
+
+    /**
      * Z.ai (ZhipuAI) model configuration (OpenAI-compatible).
      */
     export interface ZaiModelSettings {
@@ -2847,6 +2889,80 @@ export namespace MessageCompactParams {
 
         /**
          * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
+    }
+
+    /**
+     * Kimi Code model configuration (Anthropic-compatible).
+     */
+    export interface MoonshotCodingModelSettings {
+      /**
+       * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+       * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+       * to 'high'.
+       */
+      effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'moonshot_coding';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for the model.
+       */
+      thinking?: MoonshotCodingModelSettings.Thinking;
+
+      /**
+       * Soft control for how verbose model output should be, used for GPT-5 models.
+       */
+      verbosity?: 'low' | 'medium' | 'high' | null;
+    }
+
+    export namespace MoonshotCodingModelSettings {
+      /**
+       * The thinking configuration for the model.
+       */
+      export interface Thinking {
+        /**
+         * The maximum number of tokens the model can use for extended thinking.
+         */
+        budget_tokens?: number;
+
+        /**
+         * The type of thinking to use.
          */
         type?: 'enabled' | 'disabled';
       }

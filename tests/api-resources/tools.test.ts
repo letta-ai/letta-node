@@ -82,7 +82,7 @@ describe('resource tools', () => {
           after: 'tool-123e4567-e89b-42d3-8456-426614174000',
           before: 'tool-123e4567-e89b-42d3-8456-426614174000',
           exclude_tool_types: ['string', 'string'],
-          limit: 0,
+          limit: 200,
           name: 'name',
           names: ['string', 'string'],
           order: 'asc',

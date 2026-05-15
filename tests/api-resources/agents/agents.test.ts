@@ -84,7 +84,7 @@ describe('resource agents', () => {
           include: ['agent.blocks', 'agent.identities'],
           include_relationships: ['string', 'string'],
           last_stop_reason: 'end_turn',
-          limit: 0,
+          limit: 200,
           match_all_tags: true,
           name: 'name',
           order: 'asc',
