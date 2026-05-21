@@ -4,8 +4,8 @@
 
 Letta is the platform for building stateful agents: open AI with advanced memory that can learn and self-improve over time.
 
-* [Letta Code](https://docs.letta.com/letta-code): run agents locally in your terminal
-* [Letta API](https://docs.letta.com/quickstart/): build agents into your applications
+- [Letta Code](https://docs.letta.com/letta-code): run agents locally in your terminal
+- [Letta API](https://docs.letta.com/quickstart/): build agents into your applications
 
 ## Get started
 
@@ -21,41 +21,41 @@ Below is a quick example of creating a stateful agent and sending it a message (
 See the full [quickstart guide](https://docs.letta.com/quickstart) for complete documentation.
 
 ```typescript
-import { Letta } from "@letta-ai/letta-client";
+import { Letta } from '@letta-ai/letta-client';
 
 const client = new Letta({ apiKey: process.env.LETTA_API_KEY });
 
 const agentState = await client.agents.create({
-    model: "openai/gpt-4.1",
-    embedding: "openai/text-embedding-3-small",
-    memory_blocks: [
-        {
-          label: "human",
-          value: "The human's name is Chad. They like vibe coding."
-        },
-        {
-          label: "persona",
-          value: "My name is Sam, a helpful assistant."
-        }
-    ],
-    tools: ["web_search", "run_code"]
+  model: 'openai/gpt-4.1',
+  embedding: 'openai/text-embedding-3-small',
+  memory_blocks: [
+    {
+      label: 'human',
+      value: "The human's name is Chad. They like vibe coding.",
+    },
+    {
+      label: 'persona',
+      value: 'My name is Sam, a helpful assistant.',
+    },
+  ],
+  tools: ['web_search', 'run_code'],
 });
 
-console.log("Agent created with ID:", agentState.id);
+console.log('Agent created with ID:', agentState.id);
 
 const response = await client.agents.messages.create(agentState.id, {
-    input: "Hey, nice to meet you, my name is Brad."
+  input: 'Hey, nice to meet you, my name is Brad.',
 });
 
 // the agent will think, then edit its memory using a tool
 for (const message of response.messages) {
-    console.log(message);
+  console.log(message);
 }
 
 // The content of this memory block will be something like
 // "The human's name is Brad. They like vibe coding."
 // Fetch this block's content with:
-const human_block = await client.agents.blocks.retrieve("human", { agent_id: agentState.id });
+const human_block = await client.agents.blocks.retrieve('human', { agent_id: agentState.id });
 console.log(human_block.value);
 ```
 
@@ -78,19 +78,19 @@ Memory blocks are persistent, editable sections of an agent's context window:
 // Create agent with memory blocks
 const agent = await client.agents.create({
   memory_blocks: [
-    { label: "persona", value: "I'm a helpful assistant." },
-    { label: "human", value: "User preferences and info." }
-  ]
+    { label: 'persona', value: "I'm a helpful assistant." },
+    { label: 'human', value: 'User preferences and info.' },
+  ],
 });
 
 // Update blocks manually
-await client.agents.blocks.update("human", {
+await client.agents.blocks.update('human', {
   agent_id: agent.id,
-  value: "Updated user information"
+  value: 'Updated user information',
 });
 
 // Retrieve a block
-const block = await client.agents.blocks.retrieve("human", { agent_id: agent.id });
+const block = await client.agents.blocks.retrieve('human', { agent_id: agent.id });
 ```
 
 ### Multi-agent Shared Memory ([full guide](https://docs.letta.com/guides/agents/multi-agent-shared-memory))
@@ -102,19 +102,19 @@ Here is how to attach a single memory block to multiple agents:
 ```typescript
 // Create shared block
 const sharedBlock = await client.blocks.create({
-  label: "organization",
-  value: "Shared team context"
+  label: 'organization',
+  value: 'Shared team context',
 });
 
 // Attach to multiple agents
 const agent1 = await client.agents.create({
-  memory_blocks: [{ label: "persona", value: "I am a supervisor" }],
-  block_ids: [sharedBlock.id]
+  memory_blocks: [{ label: 'persona', value: 'I am a supervisor' }],
+  block_ids: [sharedBlock.id],
 });
 
 const agent2 = await client.agents.create({
-  memory_blocks: [{ label: "persona", value: "I am a worker" }],
-  block_ids: [sharedBlock.id]
+  memory_blocks: [{ label: 'persona', value: 'I am a worker' }],
+  block_ids: [sharedBlock.id],
 });
 ```
 
@@ -124,8 +124,8 @@ Background agents that share memory with your primary agent:
 
 ```typescript
 const agent = await client.agents.create({
-  model: "openai/gpt-4.1",
-  enable_sleeptime: true  // creates a sleep-time agent
+  model: 'openai/gpt-4.1',
+  enable_sleeptime: true, // creates a sleep-time agent
 });
 ```
 
@@ -151,10 +151,10 @@ Connect to Model Context Protocol servers:
 ```typescript
 // First, create an MCP server (example: weather server)
 const weatherServer = await client.mcpServers.create({
-  server_name: "weather-server",
+  server_name: 'weather-server',
   config: {
-    mcp_server_type: "streamable_http",
-    server_url: "https://weather-mcp.example.com/mcp",
+    mcp_server_type: 'streamable_http',
+    server_url: 'https://weather-mcp.example.com/mcp',
   },
 });
 
@@ -163,8 +163,8 @@ const tools = await client.mcpServers.tools.list(weatherServer.id);
 
 // Create agent with MCP tool
 const agent = await client.agents.create({
-  model: "openai/gpt-4.1",
-  tool_ids: [tool.id]
+  model: 'openai/gpt-4.1',
+  tool_ids: [tool.id],
 });
 ```
 
@@ -177,10 +177,10 @@ import { createReadStream } from 'fs';
 
 // Create folder and upload file
 const folder = await client.folders.create({
-  name: "my_folder",
+  name: 'my_folder',
 });
 
-await client.folders.files.upload(createReadStream("file.txt"), folder.id);
+await client.folders.files.upload(createReadStream('file.txt'), folder.id);
 
 // Attach to agent
 await client.agents.folders.attach(agent.id, folder.id);
@@ -192,10 +192,8 @@ Background execution with resumable streaming:
 
 ```typescript
 const stream = await client.agents.messages.create(agent.id, {
-  messages: [
-    { role: "user", content: "Analyze this dataset" }
-  ],
-  background: true
+  messages: [{ role: 'user', content: 'Analyze this dataset' }],
+  background: true,
 });
 
 let run_id, last_seq_id;
@@ -216,9 +214,7 @@ Stream responses in real-time:
 
 ```typescript
 const stream = await client.agents.messages.stream(agent.id, {
-  messages: [
-    { role: "user", content: "Hello!" }
-  ]
+  messages: [{ role: 'user', content: 'Hello!' }],
 });
 
 for await (const chunk of stream) {
@@ -235,20 +231,20 @@ const messagesPage = await client.agents.messages.list(agent.id);
 
 for await (const message of messagesPage) {
   switch (message.message_type) {
-    case "user_message":
-      console.log("User:", message.content);
+    case 'user_message':
+      console.log('User:', message.content);
       break;
-    case "assistant_message":
-      console.log("Agent:", message.content);
+    case 'assistant_message':
+      console.log('Agent:', message.content);
       break;
-    case "reasoning_message":
-      console.log("Reasoning:", message.reasoning);
+    case 'reasoning_message':
+      console.log('Reasoning:', message.reasoning);
       break;
-    case "tool_call_message":
-      console.log("Tool:", message.tool_call.name);
+    case 'tool_call_message':
+      console.log('Tool:', message.tool_call.name);
       break;
-    case "tool_return_message":
-      console.log("Result:", message.tool_return);
+    case 'tool_return_message':
+      console.log('Result:', message.tool_return);
       break;
   }
 }
@@ -315,9 +311,9 @@ const response = await client.agents.create({...}, {
 
 Letta is an open source project built by over a hundred contributors. There are many ways to get involved in the Letta OSS project!
 
-* [**Join the Discord**](https://discord.gg/letta): Chat with the Letta devs and other AI developers.
-* [**Chat on our forum**](https://forum.letta.com/): If you're not into Discord, check out our developer forum.
-* **Follow our socials**: [Twitter/X](https://twitter.com/Letta_AI), [LinkedIn](https://www.linkedin.com/company/letta-ai/), [YouTube](https://www.youtube.com/@letta-ai)
+- [**Join the Discord**](https://discord.gg/letta): Chat with the Letta devs and other AI developers.
+- [**Chat on our forum**](https://forum.letta.com/): If you're not into Discord, check out our developer forum.
+- **Follow our socials**: [Twitter/X](https://twitter.com/Letta_AI), [LinkedIn](https://www.linkedin.com/company/letta-ai/), [YouTube](https://www.youtube.com/@letta-ai)
 
 This SDK is generated programmatically. For SDK changes, please [open an issue](https://github.com/letta-ai/letta-node/issues).
 
@@ -335,4 +331,4 @@ MIT
 
 ---
 
-***Legal notices**: By using Letta and related Letta services (such as the Letta endpoint or hosted service), you are agreeing to our [privacy policy](https://www.letta.com/privacy-policy) and [terms of service](https://www.letta.com/terms-of-service).*
+**\*Legal notices**: By using Letta and related Letta services (such as the Letta endpoint or hosted service), you are agreeing to our [privacy policy](https://www.letta.com/privacy-policy) and [terms of service](https://www.letta.com/terms-of-service).\*

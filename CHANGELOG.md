@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.11.1 (2026-05-20)
+
+Full Changelog: [v1.11.0...v1.11.1](https://github.com/letta-ai/letta-node/compare/v1.11.0...v1.11.1)
+
+### Bug Fixes
+
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([83cc8fb](https://github.com/letta-ai/letta-node/commit/83cc8fb78f3a01471754ea8eda5b24bf0e709c9b))
+
+
+### Chores
+
+* **tests:** remove redundant File import ([f5a9d85](https://github.com/letta-ai/letta-node/commit/f5a9d85430056fb45985cdf6bafc111e5da60928))
+
 ## 1.11.0 (2026-05-14)
 
 Full Changelog: [v1.10.3...v1.11.0](https://github.com/letta-ai/letta-node/compare/v1.10.3...v1.11.0)
