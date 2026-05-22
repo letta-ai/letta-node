@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as FeedbackAPI from './feedback';
 import * as StepsAPI from './steps';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -28,5 +29,7 @@ export interface FeedbackCreateParams {
 }
 
 export declare namespace Feedback {
-  export { type FeedbackCreateParams as FeedbackCreateParams };
+  export {
+    type FeedbackCreateParams as FeedbackCreateParams
+  };
 }

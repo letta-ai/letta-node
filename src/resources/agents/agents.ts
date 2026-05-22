@@ -4,142 +4,23 @@ import { APIResource } from '../../core/resource';
 import * as AgentsAPI from './agents';
 import * as ToolsAPI from '../tools';
 import * as ArchivesAPI from './archives';
-import {
-  ArchiveAttachParams,
-  ArchiveAttachResponse,
-  ArchiveDetachParams,
-  ArchiveDetachResponse,
-  Archives,
-} from './archives';
+import { ArchiveAttachParams, ArchiveAttachResponse, ArchiveDetachParams, ArchiveDetachResponse, Archives } from './archives';
 import * as BlocksAPI from './blocks';
-import {
-  Block,
-  BlockAttachParams,
-  BlockDetachParams,
-  BlockListParams,
-  BlockRetrieveParams,
-  BlockUpdate,
-  BlockUpdateParams,
-  Blocks,
-} from './blocks';
+import { Block, BlockAttachParams, BlockDetachParams, BlockListParams, BlockRetrieveParams, BlockUpdate, BlockUpdateParams, Blocks } from './blocks';
 import * as FilesAPI from './files';
-import {
-  FileCloseAllResponse,
-  FileCloseParams,
-  FileCloseResponse,
-  FileListParams,
-  FileListResponse,
-  FileListResponsesNextFilesPage,
-  FileOpenParams,
-  FileOpenResponse,
-  Files,
-} from './files';
+import { FileCloseAllResponse, FileCloseParams, FileCloseResponse, FileListParams, FileListResponse, FileListResponsesNextFilesPage, FileOpenParams, FileOpenResponse, Files } from './files';
 import * as FoldersAPI from './folders';
-import {
-  FolderAttachParams,
-  FolderDetachParams,
-  FolderListParams,
-  FolderListResponse,
-  FolderListResponsesArrayPage,
-  Folders,
-} from './folders';
+import { FolderAttachParams, FolderDetachParams, FolderListParams, FolderListResponse, FolderListResponsesArrayPage, Folders } from './folders';
 import * as IdentitiesAPI from './identities';
-import {
-  Identities,
-  IdentityAttachParams,
-  IdentityAttachResponse,
-  IdentityDetachParams,
-  IdentityDetachResponse,
-} from './identities';
+import { Identities, IdentityAttachParams, IdentityAttachResponse, IdentityDetachParams, IdentityDetachResponse } from './identities';
 import * as MessagesAPI from './messages';
-import {
-  ApprovalCreate,
-  ApprovalRequestMessage,
-  ApprovalResponseMessage,
-  ApprovalReturn,
-  AssistantMessage,
-  EventMessage,
-  HiddenReasoningMessage,
-  ImageContent,
-  InternalMessage,
-  JobStatus,
-  JobType,
-  LettaAssistantMessageContentUnion,
-  LettaRequest,
-  LettaResponse,
-  LettaStreamingRequest,
-  LettaStreamingResponse,
-  LettaUserMessageContentUnion,
-  Message,
-  MessageCancelParams,
-  MessageCancelResponse,
-  MessageCompactParams,
-  MessageCreateAsyncParams,
-  MessageCreateParams,
-  MessageCreateParamsNonStreaming,
-  MessageCreateParamsStreaming,
-  MessageListParams,
-  MessageResetParams,
-  MessageRole,
-  MessageStreamParams,
-  MessageType,
-  Messages,
-  MessagesArrayPage,
-  OmittedReasoningContent,
-  ReasoningContent,
-  ReasoningMessage,
-  RedactedReasoningContent,
-  Run,
-  SummaryMessage,
-  SystemMessage,
-  TextContent,
-  ToolCall,
-  ToolCallContent,
-  ToolCallDelta,
-  ToolCallMessage,
-  ToolReturn,
-  ToolReturnContent,
-  UpdateAssistantMessage,
-  UpdateReasoningMessage,
-  UpdateSystemMessage,
-  UpdateUserMessage,
-  UserMessage,
-} from './messages';
+import { ApprovalCreate, ApprovalRequestMessage, ApprovalResponseMessage, ApprovalReturn, AssistantMessage, EventMessage, HiddenReasoningMessage, ImageContent, InternalMessage, JobStatus, JobType, LettaAssistantMessageContentUnion, LettaRequest, LettaResponse, LettaStreamingRequest, LettaStreamingResponse, LettaUserMessageContentUnion, Message, MessageCancelParams, MessageCancelResponse, MessageCompactParams, MessageCreateAsyncParams, MessageCreateParams, MessageCreateParamsNonStreaming, MessageCreateParamsStreaming, MessageListParams, MessageResetParams, MessageRole, MessageStreamParams, MessageType, Messages, MessagesArrayPage, OmittedReasoningContent, ReasoningContent, ReasoningMessage, RedactedReasoningContent, Run, SummaryMessage, SystemMessage, TextContent, ToolCall, ToolCallContent, ToolCallDelta, ToolCallMessage, ToolReturn, ToolReturnContent, UpdateAssistantMessage, UpdateReasoningMessage, UpdateSystemMessage, UpdateUserMessage, UserMessage } from './messages';
 import * as PassagesAPI from './passages';
-import {
-  PassageCreateParams,
-  PassageCreateResponse,
-  PassageDeleteParams,
-  PassageDeleteResponse,
-  PassageListParams,
-  PassageListResponse,
-  PassageSearchParams,
-  PassageSearchResponse,
-  Passages,
-} from './passages';
+import { PassageCreateParams, PassageCreateResponse, PassageDeleteParams, PassageDeleteResponse, PassageListParams, PassageListResponse, PassageSearchParams, PassageSearchResponse, Passages } from './passages';
 import * as ScheduleAPI from './schedule';
-import {
-  Schedule,
-  ScheduleCreateParams,
-  ScheduleCreateResponse,
-  ScheduleDeleteParams,
-  ScheduleDeleteResponse,
-  ScheduleListParams,
-  ScheduleListResponse,
-  ScheduleRetrieveParams,
-  ScheduleRetrieveResponse,
-} from './schedule';
+import { Schedule, ScheduleCreateParams, ScheduleCreateResponse, ScheduleDeleteParams, ScheduleDeleteResponse, ScheduleListParams, ScheduleListResponse, ScheduleRetrieveParams, ScheduleRetrieveResponse } from './schedule';
 import * as AgentsToolsAPI from './tools';
-import {
-  ToolAttachParams,
-  ToolDetachParams,
-  ToolExecuteRequest,
-  ToolExecutionResult,
-  ToolListParams,
-  ToolRunParams,
-  ToolUpdateApprovalParams,
-  Tools,
-} from './tools';
+import { ToolAttachParams, ToolDetachParams, ToolExecuteRequest, ToolExecutionResult, ToolListParams, ToolRunParams, ToolUpdateApprovalParams, Tools } from './tools';
 import * as ResourcesArchivesAPI from '../archives/archives';
 import * as ResourcesBlocksAPI from '../blocks/blocks';
 import * as ModelsAPI from '../models/models';
@@ -173,11 +54,7 @@ export class Agents extends APIResource {
   /**
    * Get the state of the agent.
    */
-  retrieve(
-    agentID: string,
-    query: AgentRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AgentState> {
+  retrieve(agentID: string, query: AgentRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<AgentState> {
     return this._client.get(path`/v1/agents/${agentID}`, { query, ...options });
   }
 
@@ -191,10 +68,7 @@ export class Agents extends APIResource {
   /**
    * Get a list of all agents.
    */
-  list(
-    query: AgentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AgentStatesArrayPage, AgentState> {
+  list(query: AgentListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AgentStatesArrayPage, AgentState> {
     return this._client.getAPIList('/v1/agents/', ArrayPage<AgentState>, { query, ...options });
   }
 
@@ -209,11 +83,7 @@ export class Agents extends APIResource {
    * Export the serialized JSON representation of an agent, formatted with
    * indentation.
    */
-  exportFile(
-    agentID: string,
-    query: AgentExportFileParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<string> {
+  exportFile(agentID: string, query: AgentExportFileParams | null | undefined = {}, options?: RequestOptions): APIPromise<string> {
     return this._client.get(path`/v1/agents/${agentID}/export`, { query, ...options });
   }
 
@@ -222,44 +92,20 @@ export class Agents extends APIResource {
    * the IDs of all imported agents.
    */
   importFile(params: AgentImportFileParams, options?: RequestOptions): APIPromise<AgentImportFileResponse> {
-    const { 'x-override-embedding-model': xOverrideEmbeddingModel, ...body } = params;
-    return this._client.post(
-      '/v1/agents/import',
-      multipartFormRequestOptions(
-        {
-          body,
-          ...options,
-          headers: buildHeaders([
-            {
-              ...(xOverrideEmbeddingModel != null ?
-                { 'x-override-embedding-model': xOverrideEmbeddingModel }
-              : undefined),
-            },
-            options?.headers,
-          ]),
-        },
-        this._client,
-      ),
-    );
+    const { 'x-override-embedding-model': xOverrideEmbeddingModel, ...body } = params
+    return this._client.post('/v1/agents/import', multipartFormRequestOptions({ body, ...options, headers: buildHeaders([{...(xOverrideEmbeddingModel != null ? { 'x-override-embedding-model': xOverrideEmbeddingModel } : undefined)}, options?.headers]) }, this._client));
   }
 
   /**
    * Manually trigger system prompt recompilation for an agent.
    */
-  recompile(
-    agentID: string,
-    params: AgentRecompileParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<string> {
-    const { dry_run, update_timestamp } = params ?? {};
-    return this._client.post(path`/v1/agents/${agentID}/recompile`, {
-      query: { dry_run, update_timestamp },
-      ...options,
-    });
+  recompile(agentID: string, params: AgentRecompileParams | null | undefined = {}, options?: RequestOptions): APIPromise<string> {
+    const { dry_run, update_timestamp } = params ?? {}
+    return this._client.post(path`/v1/agents/${agentID}/recompile`, { query: { dry_run, update_timestamp }, ...options });
   }
 }
 
-export type AgentStatesArrayPage = ArrayPage<AgentState>;
+export type AgentStatesArrayPage = ArrayPage<AgentState>
 
 export interface AgentEnvironmentVariable {
   /**
@@ -498,25 +344,7 @@ export interface AgentState {
   /**
    * The model settings used by the agent.
    */
-  model_settings?:
-    | OpenAIModelSettings
-    | AgentState.SgLangModelSettings
-    | AnthropicModelSettings
-    | GoogleAIModelSettings
-    | GoogleVertexModelSettings
-    | AzureModelSettings
-    | XaiModelSettings
-    | AgentState.MoonshotModelSettings
-    | AgentState.ZaiModelSettings
-    | AgentState.MoonshotCodingModelSettings
-    | GroqModelSettings
-    | DeepseekModelSettings
-    | TogetherModelSettings
-    | BedrockModelSettings
-    | AgentState.BasetenModelSettings
-    | AgentState.OpenRouterModelSettings
-    | AgentState.ChatGptoAuthModelSettings
-    | null;
+  model_settings?: OpenAIModelSettings | AgentState.SgLangModelSettings | AnthropicModelSettings | GoogleAIModelSettings | GoogleVertexModelSettings | AzureModelSettings | XaiModelSettings | AgentState.MoonshotModelSettings | AgentState.ZaiModelSettings | AgentState.MoonshotCodingModelSettings | GroqModelSettings | DeepseekModelSettings | TogetherModelSettings | BedrockModelSettings | AgentState.BasetenModelSettings | AgentState.OpenRouterModelSettings | AgentState.ChatGptoAuthModelSettings | null;
 
   /**
    * @deprecated Deprecated: Use `managed_group` field instead. The multi-agent group
@@ -573,17 +401,7 @@ export interface AgentState {
   /**
    * The list of tool rules.
    */
-  tool_rules?: Array<
-    | ChildToolRule
-    | InitToolRule
-    | TerminalToolRule
-    | ConditionalToolRule
-    | ContinueToolRule
-    | RequiredBeforeExitToolRule
-    | MaxCountPerStepToolRule
-    | ParentToolRule
-    | RequiresApprovalToolRule
-  > | null;
+  tool_rules?: Array<ChildToolRule | InitToolRule | TerminalToolRule | ConditionalToolRule | ContinueToolRule | RequiredBeforeExitToolRule | MaxCountPerStepToolRule | ParentToolRule | RequiresApprovalToolRule> | null;
 
   /**
    * The timestamp when the object was last updated.
@@ -832,25 +650,7 @@ export namespace AgentState {
     /**
      * Optional model settings used to override defaults for the summarizer model.
      */
-    model_settings?:
-      | AgentsAPI.OpenAIModelSettings
-      | CompactionSettings.SgLangModelSettings
-      | AgentsAPI.AnthropicModelSettings
-      | AgentsAPI.GoogleAIModelSettings
-      | AgentsAPI.GoogleVertexModelSettings
-      | AgentsAPI.AzureModelSettings
-      | AgentsAPI.XaiModelSettings
-      | CompactionSettings.MoonshotModelSettings
-      | CompactionSettings.ZaiModelSettings
-      | CompactionSettings.MoonshotCodingModelSettings
-      | AgentsAPI.GroqModelSettings
-      | AgentsAPI.DeepseekModelSettings
-      | AgentsAPI.TogetherModelSettings
-      | AgentsAPI.BedrockModelSettings
-      | CompactionSettings.BasetenModelSettings
-      | CompactionSettings.OpenRouterModelSettings
-      | CompactionSettings.ChatGptoAuthModelSettings
-      | null;
+    model_settings?: AgentsAPI.OpenAIModelSettings | CompactionSettings.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CompactionSettings.MoonshotModelSettings | CompactionSettings.ZaiModelSettings | CompactionSettings.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CompactionSettings.BasetenModelSettings | CompactionSettings.OpenRouterModelSettings | CompactionSettings.ChatGptoAuthModelSettings | null;
 
     /**
      * The prompt to use for summarization. If None, uses mode-specific default.
@@ -899,11 +699,7 @@ export namespace AgentState {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -956,11 +752,7 @@ export namespace AgentState {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -996,11 +788,7 @@ export namespace AgentState {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -1059,11 +847,7 @@ export namespace AgentState {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1151,11 +935,7 @@ export namespace AgentState {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -1369,11 +1149,7 @@ export namespace AgentState {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1426,11 +1202,7 @@ export namespace AgentState {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1466,11 +1238,7 @@ export namespace AgentState {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * The temperature of the model.
@@ -1529,11 +1297,7 @@ export namespace AgentState {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -1621,11 +1385,7 @@ export namespace AgentState {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * The temperature of the model.
@@ -1751,16 +1511,7 @@ export namespace AgentState {
 /**
  * Enum to represent the type of agent.
  */
-export type AgentType =
-  | 'memgpt_agent'
-  | 'memgpt_v2_agent'
-  | 'letta_v1_agent'
-  | 'react_agent'
-  | 'workflow_agent'
-  | 'split_thread_agent'
-  | 'sleeptime_agent'
-  | 'voice_convo_agent'
-  | 'voice_sleeptime_agent';
+export type AgentType = 'memgpt_agent' | 'memgpt_v2_agent' | 'letta_v1_agent' | 'react_agent' | 'workflow_agent' | 'split_thread_agent' | 'sleeptime_agent' | 'voice_convo_agent' | 'voice_sleeptime_agent'
 
 export interface AnthropicModelSettings {
   /**
@@ -2202,14 +1953,7 @@ export interface JsonSchemaResponseFormat {
 /**
  * Sent via the Anthropic Messages API
  */
-export type LettaMessageContentUnion =
-  | MessagesAPI.TextContent
-  | MessagesAPI.ImageContent
-  | MessagesAPI.ToolCallContent
-  | MessagesAPI.ToolReturnContent
-  | MessagesAPI.ReasoningContent
-  | MessagesAPI.RedactedReasoningContent
-  | MessagesAPI.OmittedReasoningContent;
+export type LettaMessageContentUnion = MessagesAPI.TextContent | MessagesAPI.ImageContent | MessagesAPI.ToolCallContent | MessagesAPI.ToolReturnContent | MessagesAPI.ReasoningContent | MessagesAPI.RedactedReasoningContent | MessagesAPI.OmittedReasoningContent
 
 /**
  * Represents a tool rule configuration which constrains the total number of times
@@ -2480,9 +2224,9 @@ export interface XaiModelSettings {
   temperature?: number;
 }
 
-export type AgentDeleteResponse = unknown;
+export type AgentDeleteResponse = unknown
 
-export type AgentExportFileResponse = string;
+export type AgentExportFileResponse = string
 
 /**
  * Response model for imported agents
@@ -2494,7 +2238,7 @@ export interface AgentImportFileResponse {
   agent_ids: Array<string>;
 }
 
-export type AgentRecompileResponse = string;
+export type AgentRecompileResponse = string
 
 export interface AgentCreateParams {
   /**
@@ -2660,25 +2404,7 @@ export interface AgentCreateParams {
   /**
    * The model settings for the agent.
    */
-  model_settings?:
-    | OpenAIModelSettings
-    | AgentCreateParams.SgLangModelSettings
-    | AnthropicModelSettings
-    | GoogleAIModelSettings
-    | GoogleVertexModelSettings
-    | AzureModelSettings
-    | XaiModelSettings
-    | AgentCreateParams.MoonshotModelSettings
-    | AgentCreateParams.ZaiModelSettings
-    | AgentCreateParams.MoonshotCodingModelSettings
-    | GroqModelSettings
-    | DeepseekModelSettings
-    | TogetherModelSettings
-    | BedrockModelSettings
-    | AgentCreateParams.BasetenModelSettings
-    | AgentCreateParams.OpenRouterModelSettings
-    | AgentCreateParams.ChatGptoAuthModelSettings
-    | null;
+  model_settings?: OpenAIModelSettings | AgentCreateParams.SgLangModelSettings | AnthropicModelSettings | GoogleAIModelSettings | GoogleVertexModelSettings | AzureModelSettings | XaiModelSettings | AgentCreateParams.MoonshotModelSettings | AgentCreateParams.ZaiModelSettings | AgentCreateParams.MoonshotCodingModelSettings | GroqModelSettings | DeepseekModelSettings | TogetherModelSettings | BedrockModelSettings | AgentCreateParams.BasetenModelSettings | AgentCreateParams.OpenRouterModelSettings | AgentCreateParams.ChatGptoAuthModelSettings | null;
 
   /**
    * The name of the agent.
@@ -2773,17 +2499,7 @@ export interface AgentCreateParams {
   /**
    * The tool rules governing the agent.
    */
-  tool_rules?: Array<
-    | ChildToolRule
-    | InitToolRule
-    | TerminalToolRule
-    | ConditionalToolRule
-    | ContinueToolRule
-    | RequiredBeforeExitToolRule
-    | MaxCountPerStepToolRule
-    | ParentToolRule
-    | RequiresApprovalToolRule
-  > | null;
+  tool_rules?: Array<ChildToolRule | InitToolRule | TerminalToolRule | ConditionalToolRule | ContinueToolRule | RequiredBeforeExitToolRule | MaxCountPerStepToolRule | ParentToolRule | RequiresApprovalToolRule> | null;
 
   /**
    * The tools used by the agent.
@@ -2819,25 +2535,7 @@ export namespace AgentCreateParams {
     /**
      * Optional model settings used to override defaults for the summarizer model.
      */
-    model_settings?:
-      | AgentsAPI.OpenAIModelSettings
-      | CompactionSettings.SgLangModelSettings
-      | AgentsAPI.AnthropicModelSettings
-      | AgentsAPI.GoogleAIModelSettings
-      | AgentsAPI.GoogleVertexModelSettings
-      | AgentsAPI.AzureModelSettings
-      | AgentsAPI.XaiModelSettings
-      | CompactionSettings.MoonshotModelSettings
-      | CompactionSettings.ZaiModelSettings
-      | CompactionSettings.MoonshotCodingModelSettings
-      | AgentsAPI.GroqModelSettings
-      | AgentsAPI.DeepseekModelSettings
-      | AgentsAPI.TogetherModelSettings
-      | AgentsAPI.BedrockModelSettings
-      | CompactionSettings.BasetenModelSettings
-      | CompactionSettings.OpenRouterModelSettings
-      | CompactionSettings.ChatGptoAuthModelSettings
-      | null;
+    model_settings?: AgentsAPI.OpenAIModelSettings | CompactionSettings.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CompactionSettings.MoonshotModelSettings | CompactionSettings.ZaiModelSettings | CompactionSettings.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CompactionSettings.BasetenModelSettings | CompactionSettings.OpenRouterModelSettings | CompactionSettings.ChatGptoAuthModelSettings | null;
 
     /**
      * The prompt to use for summarization. If None, uses mode-specific default.
@@ -2886,11 +2584,7 @@ export namespace AgentCreateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -2943,11 +2637,7 @@ export namespace AgentCreateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -2983,11 +2673,7 @@ export namespace AgentCreateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -3046,11 +2732,7 @@ export namespace AgentCreateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -3138,11 +2820,7 @@ export namespace AgentCreateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -3221,11 +2899,7 @@ export namespace AgentCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -3278,11 +2952,7 @@ export namespace AgentCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -3318,11 +2988,7 @@ export namespace AgentCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * The temperature of the model.
@@ -3381,11 +3047,7 @@ export namespace AgentCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -3473,11 +3135,7 @@ export namespace AgentCreateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * The temperature of the model.
@@ -3533,16 +3191,7 @@ export interface AgentRetrieveParams {
    * Specify which relational fields to include in the response. No relationships are
    * included by default.
    */
-  include?: Array<
-    | 'agent.blocks'
-    | 'agent.identities'
-    | 'agent.managed_group'
-    | 'agent.pending_approval'
-    | 'agent.secrets'
-    | 'agent.sources'
-    | 'agent.tags'
-    | 'agent.tools'
-  > | null;
+  include?: Array<'agent.blocks' | 'agent.identities' | 'agent.managed_group' | 'agent.pending_approval' | 'agent.secrets' | 'agent.sources' | 'agent.tags' | 'agent.tools'> | null;
 
   /**
    * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
@@ -3674,25 +3323,7 @@ export interface AgentUpdateParams {
   /**
    * The model settings for the agent.
    */
-  model_settings?:
-    | OpenAIModelSettings
-    | AgentUpdateParams.SgLangModelSettings
-    | AnthropicModelSettings
-    | GoogleAIModelSettings
-    | GoogleVertexModelSettings
-    | AzureModelSettings
-    | XaiModelSettings
-    | AgentUpdateParams.MoonshotModelSettings
-    | AgentUpdateParams.ZaiModelSettings
-    | AgentUpdateParams.MoonshotCodingModelSettings
-    | GroqModelSettings
-    | DeepseekModelSettings
-    | TogetherModelSettings
-    | BedrockModelSettings
-    | AgentUpdateParams.BasetenModelSettings
-    | AgentUpdateParams.OpenRouterModelSettings
-    | AgentUpdateParams.ChatGptoAuthModelSettings
-    | null;
+  model_settings?: OpenAIModelSettings | AgentUpdateParams.SgLangModelSettings | AnthropicModelSettings | GoogleAIModelSettings | GoogleVertexModelSettings | AzureModelSettings | XaiModelSettings | AgentUpdateParams.MoonshotModelSettings | AgentUpdateParams.ZaiModelSettings | AgentUpdateParams.MoonshotCodingModelSettings | GroqModelSettings | DeepseekModelSettings | TogetherModelSettings | BedrockModelSettings | AgentUpdateParams.BasetenModelSettings | AgentUpdateParams.OpenRouterModelSettings | AgentUpdateParams.ChatGptoAuthModelSettings | null;
 
   /**
    * The name of the agent.
@@ -3772,17 +3403,7 @@ export interface AgentUpdateParams {
   /**
    * The tool rules governing the agent.
    */
-  tool_rules?: Array<
-    | ChildToolRule
-    | InitToolRule
-    | TerminalToolRule
-    | ConditionalToolRule
-    | ContinueToolRule
-    | RequiredBeforeExitToolRule
-    | MaxCountPerStepToolRule
-    | ParentToolRule
-    | RequiresApprovalToolRule
-  > | null;
+  tool_rules?: Array<ChildToolRule | InitToolRule | TerminalToolRule | ConditionalToolRule | ContinueToolRule | RequiredBeforeExitToolRule | MaxCountPerStepToolRule | ParentToolRule | RequiresApprovalToolRule> | null;
 }
 
 export namespace AgentUpdateParams {
@@ -3813,25 +3434,7 @@ export namespace AgentUpdateParams {
     /**
      * Optional model settings used to override defaults for the summarizer model.
      */
-    model_settings?:
-      | AgentsAPI.OpenAIModelSettings
-      | CompactionSettings.SgLangModelSettings
-      | AgentsAPI.AnthropicModelSettings
-      | AgentsAPI.GoogleAIModelSettings
-      | AgentsAPI.GoogleVertexModelSettings
-      | AgentsAPI.AzureModelSettings
-      | AgentsAPI.XaiModelSettings
-      | CompactionSettings.MoonshotModelSettings
-      | CompactionSettings.ZaiModelSettings
-      | CompactionSettings.MoonshotCodingModelSettings
-      | AgentsAPI.GroqModelSettings
-      | AgentsAPI.DeepseekModelSettings
-      | AgentsAPI.TogetherModelSettings
-      | AgentsAPI.BedrockModelSettings
-      | CompactionSettings.BasetenModelSettings
-      | CompactionSettings.OpenRouterModelSettings
-      | CompactionSettings.ChatGptoAuthModelSettings
-      | null;
+    model_settings?: AgentsAPI.OpenAIModelSettings | CompactionSettings.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CompactionSettings.MoonshotModelSettings | CompactionSettings.ZaiModelSettings | CompactionSettings.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CompactionSettings.BasetenModelSettings | CompactionSettings.OpenRouterModelSettings | CompactionSettings.ChatGptoAuthModelSettings | null;
 
     /**
      * The prompt to use for summarization. If None, uses mode-specific default.
@@ -3880,11 +3483,7 @@ export namespace AgentUpdateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -3937,11 +3536,7 @@ export namespace AgentUpdateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -3977,11 +3572,7 @@ export namespace AgentUpdateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -4040,11 +3631,7 @@ export namespace AgentUpdateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -4132,11 +3719,7 @@ export namespace AgentUpdateParams {
       /**
        * The response format for the model.
        */
-      response_format?:
-        | AgentsAPI.TextResponseFormat
-        | AgentsAPI.JsonSchemaResponseFormat
-        | AgentsAPI.JsonObjectResponseFormat
-        | null;
+      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
       /**
        * The temperature of the model.
@@ -4215,11 +3798,7 @@ export namespace AgentUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -4272,11 +3851,7 @@ export namespace AgentUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -4312,11 +3887,7 @@ export namespace AgentUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * The temperature of the model.
@@ -4375,11 +3946,7 @@ export namespace AgentUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -4467,11 +4034,7 @@ export namespace AgentUpdateParams {
     /**
      * The response format for the model.
      */
-    response_format?:
-      | AgentsAPI.TextResponseFormat
-      | AgentsAPI.JsonSchemaResponseFormat
-      | AgentsAPI.JsonObjectResponseFormat
-      | null;
+    response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
 
     /**
      * The temperature of the model.
@@ -4553,16 +4116,7 @@ export interface AgentListParams extends ArrayPageParams {
    * Specify which relational fields to include in the response. No relationships are
    * included by default.
    */
-  include?: Array<
-    | 'agent.blocks'
-    | 'agent.identities'
-    | 'agent.managed_group'
-    | 'agent.pending_approval'
-    | 'agent.secrets'
-    | 'agent.sources'
-    | 'agent.tags'
-    | 'agent.tools'
-  > | null;
+  include?: Array<'agent.blocks' | 'agent.identities' | 'agent.managed_group' | 'agent.pending_approval' | 'agent.secrets' | 'agent.sources' | 'agent.tags' | 'agent.tools'> | null;
 
   /**
    * @deprecated Specify which relational fields (e.g., 'tools', 'sources', 'memory')
@@ -4786,7 +4340,7 @@ export declare namespace Agents {
     type AgentListParams as AgentListParams,
     type AgentExportFileParams as AgentExportFileParams,
     type AgentImportFileParams as AgentImportFileParams,
-    type AgentRecompileParams as AgentRecompileParams,
+    type AgentRecompileParams as AgentRecompileParams
   };
 
   export {
@@ -4840,7 +4394,7 @@ export declare namespace Agents {
     type MessageCompactParams as MessageCompactParams,
     type MessageCreateAsyncParams as MessageCreateAsyncParams,
     type MessageResetParams as MessageResetParams,
-    type MessageStreamParams as MessageStreamParams,
+    type MessageStreamParams as MessageStreamParams
   };
 
   export {
@@ -4852,7 +4406,7 @@ export declare namespace Agents {
     type ScheduleCreateParams as ScheduleCreateParams,
     type ScheduleRetrieveParams as ScheduleRetrieveParams,
     type ScheduleListParams as ScheduleListParams,
-    type ScheduleDeleteParams as ScheduleDeleteParams,
+    type ScheduleDeleteParams as ScheduleDeleteParams
   };
 
   export {
@@ -4863,7 +4417,7 @@ export declare namespace Agents {
     type BlockUpdateParams as BlockUpdateParams,
     type BlockListParams as BlockListParams,
     type BlockAttachParams as BlockAttachParams,
-    type BlockDetachParams as BlockDetachParams,
+    type BlockDetachParams as BlockDetachParams
   };
 
   export {
@@ -4874,7 +4428,7 @@ export declare namespace Agents {
     type ToolAttachParams as ToolAttachParams,
     type ToolDetachParams as ToolDetachParams,
     type ToolRunParams as ToolRunParams,
-    type ToolUpdateApprovalParams as ToolUpdateApprovalParams,
+    type ToolUpdateApprovalParams as ToolUpdateApprovalParams
   };
 
   export {
@@ -4883,7 +4437,7 @@ export declare namespace Agents {
     type FolderListResponsesArrayPage as FolderListResponsesArrayPage,
     type FolderListParams as FolderListParams,
     type FolderAttachParams as FolderAttachParams,
-    type FolderDetachParams as FolderDetachParams,
+    type FolderDetachParams as FolderDetachParams
   };
 
   export {
@@ -4895,7 +4449,7 @@ export declare namespace Agents {
     type FileListResponsesNextFilesPage as FileListResponsesNextFilesPage,
     type FileListParams as FileListParams,
     type FileCloseParams as FileCloseParams,
-    type FileOpenParams as FileOpenParams,
+    type FileOpenParams as FileOpenParams
   };
 
   export {
@@ -4903,7 +4457,7 @@ export declare namespace Agents {
     type ArchiveAttachResponse as ArchiveAttachResponse,
     type ArchiveDetachResponse as ArchiveDetachResponse,
     type ArchiveAttachParams as ArchiveAttachParams,
-    type ArchiveDetachParams as ArchiveDetachParams,
+    type ArchiveDetachParams as ArchiveDetachParams
   };
 
   export {
@@ -4915,7 +4469,7 @@ export declare namespace Agents {
     type PassageCreateParams as PassageCreateParams,
     type PassageListParams as PassageListParams,
     type PassageDeleteParams as PassageDeleteParams,
-    type PassageSearchParams as PassageSearchParams,
+    type PassageSearchParams as PassageSearchParams
   };
 
   export {
@@ -4923,6 +4477,6 @@ export declare namespace Agents {
     type IdentityAttachResponse as IdentityAttachResponse,
     type IdentityDetachResponse as IdentityDetachResponse,
     type IdentityAttachParams as IdentityAttachParams,
-    type IdentityDetachParams as IdentityDetachParams,
+    type IdentityDetachParams as IdentityDetachParams
   };
 }

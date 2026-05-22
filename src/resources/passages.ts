@@ -106,7 +106,7 @@ export interface Passage {
   updated_at?: string | null;
 }
 
-export type PassageSearchResponse = Array<PassageSearchResponse.PassageSearchResponseItem>;
+export type PassageSearchResponse = Array<PassageSearchResponse.PassageSearchResponseItem>
 
 export namespace PassageSearchResponse {
   /**
@@ -177,6 +177,6 @@ export declare namespace Passages {
   export {
     type Passage as Passage,
     type PassageSearchResponse as PassageSearchResponse,
-    type PassageSearchParams as PassageSearchParams,
+    type PassageSearchParams as PassageSearchParams
   };
 }

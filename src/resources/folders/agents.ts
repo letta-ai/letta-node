@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AgentsAPI from './agents';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -9,16 +10,12 @@ export class Agents extends APIResource {
   /**
    * Get all agent IDs that have the specified folder attached.
    */
-  list(
-    folderID: string,
-    query: AgentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AgentListResponse> {
+  list(folderID: string, query: AgentListParams | null | undefined = {}, options?: RequestOptions): APIPromise<AgentListResponse> {
     return this._client.get(path`/v1/folders/${folderID}/agents`, { query, ...options });
   }
 }
 
-export type AgentListResponse = Array<string>;
+export type AgentListResponse = Array<string>
 
 export interface AgentListParams {
   /**
@@ -51,5 +48,8 @@ export interface AgentListParams {
 }
 
 export declare namespace Agents {
-  export { type AgentListResponse as AgentListResponse, type AgentListParams as AgentListParams };
+  export {
+    type AgentListResponse as AgentListResponse,
+    type AgentListParams as AgentListParams
+  };
 }

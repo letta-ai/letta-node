@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as TraceAPI from './trace';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -18,16 +19,12 @@ export class Trace extends APIResource {
    *
    * Requires ClickHouse to be configured for trace storage.
    */
-  retrieve(
-    runID: string,
-    query: TraceRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<TraceRetrieveResponse> {
+  retrieve(runID: string, query: TraceRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<TraceRetrieveResponse> {
     return this._client.get(path`/v1/runs/${runID}/trace`, { query, ...options });
   }
 }
 
-export type TraceRetrieveResponse = Array<{ [key: string]: unknown }>;
+export type TraceRetrieveResponse = Array<{ [key: string]: unknown }>
 
 export interface TraceRetrieveParams {
   /**
@@ -39,6 +36,6 @@ export interface TraceRetrieveParams {
 export declare namespace Trace {
   export {
     type TraceRetrieveResponse as TraceRetrieveResponse,
-    type TraceRetrieveParams as TraceRetrieveParams,
+    type TraceRetrieveParams as TraceRetrieveParams
   };
 }

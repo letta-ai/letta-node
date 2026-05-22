@@ -6,7 +6,7 @@
     "rootDir": "./dist/src",
     "paths": {
       "@letta-ai/letta-client/*": ["./dist/src/*"],
-      "@letta-ai/letta-client": ["./dist/src/index.ts"]
+      "@letta-ai/letta-client": ["./dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,

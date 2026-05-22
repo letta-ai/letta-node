@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AgentsPassagesAPI from './passages';
 import * as PassagesAPI from '../passages';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -10,22 +11,14 @@ export class Passages extends APIResource {
   /**
    * Insert a memory into an agent's archival memory store.
    */
-  create(
-    agentID: string,
-    body: PassageCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<PassageCreateResponse> {
+  create(agentID: string, body: PassageCreateParams, options?: RequestOptions): APIPromise<PassageCreateResponse> {
     return this._client.post(path`/v1/agents/${agentID}/archival-memory`, { body, ...options });
   }
 
   /**
    * Retrieve the memories in an agent's archival memory store (paginated query).
    */
-  list(
-    agentID: string,
-    query: PassageListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<PassageListResponse> {
+  list(agentID: string, query: PassageListParams | null | undefined = {}, options?: RequestOptions): APIPromise<PassageListResponse> {
     return this._client.get(path`/v1/agents/${agentID}/archival-memory`, { query, ...options });
   }
 
@@ -33,7 +26,7 @@ export class Passages extends APIResource {
    * Delete a memory from an agent's archival memory store.
    */
   delete(memoryID: string, params: PassageDeleteParams, options?: RequestOptions): APIPromise<unknown> {
-    const { agent_id } = params;
+    const { agent_id } = params
     return this._client.delete(path`/v1/agents/${agent_id}/archival-memory/${memoryID}`, options);
   }
 
@@ -46,20 +39,16 @@ export class Passages extends APIResource {
    * uses the same functionality as the agent's archival_memory_search tool but is
    * accessible for external API usage.
    */
-  search(
-    agentID: string,
-    query: PassageSearchParams,
-    options?: RequestOptions,
-  ): APIPromise<PassageSearchResponse> {
+  search(agentID: string, query: PassageSearchParams, options?: RequestOptions): APIPromise<PassageSearchResponse> {
     return this._client.get(path`/v1/agents/${agentID}/archival-memory/search`, { query, ...options });
   }
 }
 
-export type PassageCreateResponse = Array<PassagesAPI.Passage>;
+export type PassageCreateResponse = Array<PassagesAPI.Passage>
 
-export type PassageListResponse = Array<PassagesAPI.Passage>;
+export type PassageListResponse = Array<PassagesAPI.Passage>
 
-export type PassageDeleteResponse = unknown;
+export type PassageDeleteResponse = unknown
 
 export interface PassageSearchResponse {
   /**
@@ -191,6 +180,6 @@ export declare namespace Passages {
     type PassageCreateParams as PassageCreateParams,
     type PassageListParams as PassageListParams,
     type PassageDeleteParams as PassageDeleteParams,
-    type PassageSearchParams as PassageSearchParams,
+    type PassageSearchParams as PassageSearchParams
   };
 }

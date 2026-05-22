@@ -11,5 +11,7 @@
       "shareHelpers": "internal/tslib.mjs"
     }
   ],
-  "projects": ["tsconfig.build.json"]
+  "projects": [
+    "tsconfig.build.json"
+  ]
 }
