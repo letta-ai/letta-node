@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as MetricsAPI from './metrics';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -78,7 +77,5 @@ export interface MetricRetrieveResponse {
 }
 
 export declare namespace Metrics {
-  export {
-    type MetricRetrieveResponse as MetricRetrieveResponse
-  };
+  export { type MetricRetrieveResponse as MetricRetrieveResponse };
 }

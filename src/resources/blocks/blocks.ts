@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as BlocksAPI from './blocks';
 import * as AgentsAPI from './agents';
 import { AgentListParams, Agents } from './agents';
 import { APIPromise } from '../../core/api-promise';
@@ -36,7 +35,10 @@ export class Blocks extends APIResource {
   /**
    * List Blocks
    */
-  list(query: BlockListParams | null | undefined = {}, options?: RequestOptions): PagePromise<BlockResponsesArrayPage, BlockResponse> {
+  list(
+    query: BlockListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<BlockResponsesArrayPage, BlockResponse> {
     return this._client.getAPIList('/v1/blocks/', ArrayPage<BlockResponse>, { query, ...options });
   }
 
@@ -48,7 +50,7 @@ export class Blocks extends APIResource {
   }
 }
 
-export type BlockResponsesArrayPage = ArrayPage<BlockResponse>
+export type BlockResponsesArrayPage = ArrayPage<BlockResponse>;
 
 export interface BlockResponse {
   /**
@@ -229,7 +231,7 @@ export interface CreateBlock {
   template_name?: string | null;
 }
 
-export type BlockDeleteResponse = unknown
+export type BlockDeleteResponse = unknown;
 
 export interface BlockCreateParams {
   /**
@@ -481,11 +483,8 @@ export declare namespace Blocks {
     type BlockResponsesArrayPage as BlockResponsesArrayPage,
     type BlockCreateParams as BlockCreateParams,
     type BlockUpdateParams as BlockUpdateParams,
-    type BlockListParams as BlockListParams
+    type BlockListParams as BlockListParams,
   };
 
-  export {
-    Agents as Agents,
-    type AgentListParams as AgentListParams
-  };
+  export { Agents as Agents, type AgentListParams as AgentListParams };
 }

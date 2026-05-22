@@ -3,5 +3,5 @@
 import * as qs from '../qs/stringify';
 
 export function stringifyQuery(query: object | Record<string, unknown>) {
-  return qs.stringify(query, { allowDots: true, arrayFormat: 'repeat' })
+  return qs.stringify(query, { allowDots: true, arrayFormat: 'repeat' });
 }

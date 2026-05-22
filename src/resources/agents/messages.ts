@@ -35,18 +35,45 @@ export class Messages extends APIResource {
    * - `include_pings`: Include keepalive pings to prevent connection timeouts
    * - `background`: Process the request in the background
    */
-  create(agentID: string, body: MessageCreateParamsNonStreaming, options?: RequestOptions): APIPromise<LettaResponse>
-  create(agentID: string, body: MessageCreateParamsStreaming, options?: RequestOptions): APIPromise<Stream<LettaStreamingResponse>>
-  create(agentID: string, body: MessageCreateParamsBase, options?: RequestOptions): APIPromise<Stream<LettaStreamingResponse> | LettaResponse>
-  create(agentID: string, body: MessageCreateParams, options?: RequestOptions): APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>> {
-    return this._client.post(path`/v1/agents/${agentID}/messages`, { body, ...options, stream: body.streaming ?? false }) as APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>>;
+  create(
+    agentID: string,
+    body: MessageCreateParamsNonStreaming,
+    options?: RequestOptions,
+  ): APIPromise<LettaResponse>;
+  create(
+    agentID: string,
+    body: MessageCreateParamsStreaming,
+    options?: RequestOptions,
+  ): APIPromise<Stream<LettaStreamingResponse>>;
+  create(
+    agentID: string,
+    body: MessageCreateParamsBase,
+    options?: RequestOptions,
+  ): APIPromise<Stream<LettaStreamingResponse> | LettaResponse>;
+  create(
+    agentID: string,
+    body: MessageCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>> {
+    return this._client.post(path`/v1/agents/${agentID}/messages`, {
+      body,
+      ...options,
+      stream: body.streaming ?? false,
+    }) as APIPromise<LettaResponse> | APIPromise<Stream<LettaStreamingResponse>>;
   }
 
   /**
    * Retrieve message history for an agent.
    */
-  list(agentID: string, query: MessageListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagesArrayPage, Message> {
-    return this._client.getAPIList(path`/v1/agents/${agentID}/messages`, ArrayPage<Message>, { query, ...options });
+  list(
+    agentID: string,
+    query: MessageListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessagesArrayPage, Message> {
+    return this._client.getAPIList(path`/v1/agents/${agentID}/messages`, ArrayPage<Message>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -55,14 +82,22 @@ export class Messages extends APIResource {
    *
    * Note to cancel active runs associated with an agent, redis is required.
    */
-  cancel(agentID: string, body: MessageCancelParams | null | undefined = {}, options?: RequestOptions): APIPromise<MessageCancelResponse> {
+  cancel(
+    agentID: string,
+    body: MessageCancelParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<MessageCancelResponse> {
     return this._client.post(path`/v1/agents/${agentID}/messages/cancel`, { body, ...options });
   }
 
   /**
    * Summarize an agent's conversation history.
    */
-  compact(agentID: string, body: MessageCompactParams | null | undefined = {}, options?: RequestOptions): APIPromise<ConversationsMessagesAPI.CompactionResponse> {
+  compact(
+    agentID: string,
+    body: MessageCompactParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConversationsMessagesAPI.CompactionResponse> {
     return this._client.post(path`/v1/agents/${agentID}/summarize`, { body, ...options });
   }
 
@@ -87,7 +122,11 @@ export class Messages extends APIResource {
   /**
    * Resets the messages for an agent
    */
-  reset(agentID: string, body: MessageResetParams, options?: RequestOptions): APIPromise<AgentsAPI.AgentState | null> {
+  reset(
+    agentID: string,
+    body: MessageResetParams,
+    options?: RequestOptions,
+  ): APIPromise<AgentsAPI.AgentState | null> {
     return this._client.patch(path`/v1/agents/${agentID}/reset-messages`, { body, ...options });
   }
 
@@ -109,14 +148,22 @@ export class Messages extends APIResource {
    *
    * @deprecated
    */
-  stream(agentID: string, body: MessageStreamParams, options?: RequestOptions): APIPromise<Stream<LettaStreamingResponse>> {
-    return this._client.post(path`/v1/agents/${agentID}/messages/stream`, { body, ...options, stream: true }) as APIPromise<Stream<LettaStreamingResponse>>;
+  stream(
+    agentID: string,
+    body: MessageStreamParams,
+    options?: RequestOptions,
+  ): APIPromise<Stream<LettaStreamingResponse>> {
+    return this._client.post(path`/v1/agents/${agentID}/messages/stream`, {
+      body,
+      ...options,
+      stream: true,
+    }) as APIPromise<Stream<LettaStreamingResponse>>;
   }
 }
 
-export type MessagesArrayPage = ArrayPage<Message>
+export type MessagesArrayPage = ArrayPage<Message>;
 
-export type RunsArrayPage = ArrayPage<Run>
+export type RunsArrayPage = ArrayPage<Run>;
 
 /**
  * Input to approve or deny a tool call request
@@ -554,7 +601,16 @@ export interface InternalMessage {
   /**
    * The content of the message.
    */
-  content?: Array<TextContent | ImageContent | ToolCallContent | ToolReturnContent | ReasoningContent | RedactedReasoningContent | OmittedReasoningContent | InternalMessage.SummarizedReasoningContent> | null;
+  content?: Array<
+    | TextContent
+    | ImageContent
+    | ToolCallContent
+    | ToolReturnContent
+    | ReasoningContent
+    | RedactedReasoningContent
+    | OmittedReasoningContent
+    | InternalMessage.SummarizedReasoningContent
+  > | null;
 
   /**
    * The conversation this message belongs to
@@ -723,7 +779,7 @@ export namespace InternalMessage {
 
     type: 'function';
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export namespace ToolCall {
@@ -735,7 +791,7 @@ export namespace InternalMessage {
 
       name: string;
 
-    [k: string]: unknown
+      [k: string]: unknown;
     }
   }
 
@@ -770,9 +826,9 @@ export namespace InternalMessage {
 /**
  * Status of the job.
  */
-export type JobStatus = 'created' | 'running' | 'completed' | 'failed' | 'pending' | 'cancelled' | 'expired'
+export type JobStatus = 'created' | 'running' | 'completed' | 'failed' | 'pending' | 'cancelled' | 'expired';
 
-export type JobType = 'job' | 'run' | 'batch'
+export type JobType = 'job' | 'run' | 'batch';
 
 export interface LettaAssistantMessageContentUnion {
   /**
@@ -841,7 +897,19 @@ export interface LettaRequest {
    * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
    * 'user', 'content': input}].
    */
-  input?: string | Array<TextContent | ImageContent | ToolCallContent | ToolReturnContent | ReasoningContent | RedactedReasoningContent | OmittedReasoningContent | LettaRequest.SummarizedReasoningContent> | null;
+  input?:
+    | string
+    | Array<
+        | TextContent
+        | ImageContent
+        | ToolCallContent
+        | ToolReturnContent
+        | ReasoningContent
+        | RedactedReasoningContent
+        | OmittedReasoningContent
+        | LettaRequest.SummarizedReasoningContent
+      >
+    | null;
 
   /**
    * Maximum number of steps the agent should take to process the request.
@@ -1276,7 +1344,19 @@ export interface LettaStreamingRequest {
    * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
    * 'user', 'content': input}].
    */
-  input?: string | Array<TextContent | ImageContent | ToolCallContent | ToolReturnContent | ReasoningContent | RedactedReasoningContent | OmittedReasoningContent | LettaStreamingRequest.SummarizedReasoningContent> | null;
+  input?:
+    | string
+    | Array<
+        | TextContent
+        | ImageContent
+        | ToolCallContent
+        | ToolReturnContent
+        | ReasoningContent
+        | RedactedReasoningContent
+        | OmittedReasoningContent
+        | LettaStreamingRequest.SummarizedReasoningContent
+      >
+    | null;
 
   /**
    * Maximum number of steps the agent should take to process the request.
@@ -1467,7 +1547,20 @@ export namespace LettaStreamingRequest {
  * Streaming response type for Server-Sent Events (SSE) endpoints. Each event in
  * the stream will be one of these types.
  */
-export type LettaStreamingResponse = SystemMessage | UserMessage | ReasoningMessage | HiddenReasoningMessage | ToolCallMessage | ToolsAPI.ToolReturnMessage | AssistantMessage | ApprovalRequestMessage | ApprovalResponseMessage | LettaStreamingResponse.LettaPing | LettaStreamingResponse.LettaErrorMessage | LettaStreamingResponse.LettaStopReason | LettaStreamingResponse.LettaUsageStatistics
+export type LettaStreamingResponse =
+  | SystemMessage
+  | UserMessage
+  | ReasoningMessage
+  | HiddenReasoningMessage
+  | ToolCallMessage
+  | ToolsAPI.ToolReturnMessage
+  | AssistantMessage
+  | ApprovalRequestMessage
+  | ApprovalResponseMessage
+  | LettaStreamingResponse.LettaPing
+  | LettaStreamingResponse.LettaErrorMessage
+  | LettaStreamingResponse.LettaStopReason
+  | LettaStreamingResponse.LettaUsageStatistics;
 
 export namespace LettaStreamingResponse {
   /**
@@ -1623,7 +1716,7 @@ export namespace LettaStreamingResponse {
   }
 }
 
-export type LettaUserMessageContentUnion = TextContent | ImageContent
+export type LettaUserMessageContentUnion = TextContent | ImageContent;
 
 /**
  * A message generated by the system. Never streamed back on a response, only used
@@ -1633,11 +1726,33 @@ export type LettaUserMessageContentUnion = TextContent | ImageContent
  * created in ISO format name (Optional[str]): The name of the sender of the
  * message content (str): The message content sent by the system
  */
-export type Message = SystemMessage | UserMessage | ReasoningMessage | HiddenReasoningMessage | ToolCallMessage | ToolsAPI.ToolReturnMessage | AssistantMessage | ApprovalRequestMessage | ApprovalResponseMessage | SummaryMessage | EventMessage
+export type Message =
+  | SystemMessage
+  | UserMessage
+  | ReasoningMessage
+  | HiddenReasoningMessage
+  | ToolCallMessage
+  | ToolsAPI.ToolReturnMessage
+  | AssistantMessage
+  | ApprovalRequestMessage
+  | ApprovalResponseMessage
+  | SummaryMessage
+  | EventMessage;
 
-export type MessageRole = 'assistant' | 'user' | 'tool' | 'function' | 'system' | 'approval' | 'summary'
+export type MessageRole = 'assistant' | 'user' | 'tool' | 'function' | 'system' | 'approval' | 'summary';
 
-export type MessageType = 'system_message' | 'user_message' | 'assistant_message' | 'reasoning_message' | 'hidden_reasoning_message' | 'tool_call_message' | 'tool_return_message' | 'approval_request_message' | 'approval_response_message' | 'summary_message' | 'event_message'
+export type MessageType =
+  | 'system_message'
+  | 'user_message'
+  | 'assistant_message'
+  | 'reasoning_message'
+  | 'hidden_reasoning_message'
+  | 'tool_call_message'
+  | 'tool_return_message'
+  | 'approval_request_message'
+  | 'approval_response_message'
+  | 'summary_message'
+  | 'event_message';
 
 /**
  * A placeholder for reasoning content we know is present, but isn't returned by
@@ -2214,9 +2329,9 @@ export interface UserMessage {
   step_id?: string | null;
 }
 
-export type MessageCancelResponse = { [key: string]: unknown }
+export type MessageCancelResponse = { [key: string]: unknown };
 
-export type MessageCreateParams = MessageCreateParamsNonStreaming | MessageCreateParamsStreaming
+export type MessageCreateParams = MessageCreateParamsNonStreaming | MessageCreateParamsStreaming;
 
 export interface MessageCreateParamsBase {
   /**
@@ -2280,7 +2395,19 @@ export interface MessageCreateParamsBase {
    * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
    * 'user', 'content': input}].
    */
-  input?: string | Array<TextContent | ImageContent | ToolCallContent | ToolReturnContent | ReasoningContent | RedactedReasoningContent | OmittedReasoningContent | MessageCreateParams.SummarizedReasoningContent> | null;
+  input?:
+    | string
+    | Array<
+        | TextContent
+        | ImageContent
+        | ToolCallContent
+        | ToolReturnContent
+        | ReasoningContent
+        | RedactedReasoningContent
+        | OmittedReasoningContent
+        | MessageCreateParams.SummarizedReasoningContent
+      >
+    | null;
 
   /**
    * Maximum number of steps the agent should take to process the request.
@@ -2466,8 +2593,8 @@ export namespace MessageCreateParams {
     type?: 'tool_return';
   }
 
-  export type MessageCreateParamsNonStreaming = MessagesAPI.MessageCreateParamsNonStreaming
-  export type MessageCreateParamsStreaming = MessagesAPI.MessageCreateParamsStreaming
+  export type MessageCreateParamsNonStreaming = MessagesAPI.MessageCreateParamsNonStreaming;
+  export type MessageCreateParamsStreaming = MessagesAPI.MessageCreateParamsStreaming;
 }
 
 export interface MessageCreateParamsNonStreaming extends MessageCreateParamsBase {
@@ -2569,7 +2696,25 @@ export namespace MessageCompactParams {
     /**
      * Optional model settings used to override defaults for the summarizer model.
      */
-    model_settings?: AgentsAPI.OpenAIModelSettings | CompactionSettings.SgLangModelSettings | AgentsAPI.AnthropicModelSettings | AgentsAPI.GoogleAIModelSettings | AgentsAPI.GoogleVertexModelSettings | AgentsAPI.AzureModelSettings | AgentsAPI.XaiModelSettings | CompactionSettings.MoonshotModelSettings | CompactionSettings.ZaiModelSettings | CompactionSettings.MoonshotCodingModelSettings | AgentsAPI.GroqModelSettings | AgentsAPI.DeepseekModelSettings | AgentsAPI.TogetherModelSettings | AgentsAPI.BedrockModelSettings | CompactionSettings.BasetenModelSettings | CompactionSettings.OpenRouterModelSettings | CompactionSettings.ChatGptoAuthModelSettings | null;
+    model_settings?:
+      | AgentsAPI.OpenAIModelSettings
+      | CompactionSettings.SgLangModelSettings
+      | AgentsAPI.AnthropicModelSettings
+      | AgentsAPI.GoogleAIModelSettings
+      | AgentsAPI.GoogleVertexModelSettings
+      | AgentsAPI.AzureModelSettings
+      | AgentsAPI.XaiModelSettings
+      | CompactionSettings.MoonshotModelSettings
+      | CompactionSettings.ZaiModelSettings
+      | CompactionSettings.MoonshotCodingModelSettings
+      | AgentsAPI.GroqModelSettings
+      | AgentsAPI.DeepseekModelSettings
+      | AgentsAPI.TogetherModelSettings
+      | AgentsAPI.BedrockModelSettings
+      | CompactionSettings.BasetenModelSettings
+      | CompactionSettings.OpenRouterModelSettings
+      | CompactionSettings.ChatGptoAuthModelSettings
+      | null;
 
     /**
      * The prompt to use for summarization. If None, uses mode-specific default.
@@ -2618,7 +2763,11 @@ export namespace MessageCompactParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -2671,7 +2820,11 @@ export namespace MessageCompactParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -2707,7 +2860,11 @@ export namespace MessageCompactParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * The temperature of the model.
@@ -2766,7 +2923,11 @@ export namespace MessageCompactParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
@@ -2854,7 +3015,11 @@ export namespace MessageCompactParams {
       /**
        * The response format for the model.
        */
-      response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
 
       /**
        * The temperature of the model.
@@ -2961,7 +3126,19 @@ export interface MessageCreateAsyncParams {
    * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
    * 'user', 'content': input}].
    */
-  input?: string | Array<TextContent | ImageContent | ToolCallContent | ToolReturnContent | ReasoningContent | RedactedReasoningContent | OmittedReasoningContent | MessageCreateAsyncParams.SummarizedReasoningContent> | null;
+  input?:
+    | string
+    | Array<
+        | TextContent
+        | ImageContent
+        | ToolCallContent
+        | ToolReturnContent
+        | ReasoningContent
+        | RedactedReasoningContent
+        | OmittedReasoningContent
+        | MessageCreateAsyncParams.SummarizedReasoningContent
+      >
+    | null;
 
   /**
    * Maximum number of steps the agent should take to process the request.
@@ -2971,7 +3148,9 @@ export interface MessageCreateAsyncParams {
   /**
    * The messages to be sent to the agent.
    */
-  messages?: Array<AgentsAPI.MessageCreate | ApprovalCreate | MessageCreateAsyncParams.ToolReturnCreate> | null;
+  messages?: Array<
+    AgentsAPI.MessageCreate | ApprovalCreate | MessageCreateAsyncParams.ToolReturnCreate
+  > | null;
 
   /**
    * Model handle to use for this request instead of the agent's default model. This
@@ -3205,7 +3384,19 @@ export interface MessageStreamParams {
    * Syntactic sugar for a single user message. Equivalent to messages=[{'role':
    * 'user', 'content': input}].
    */
-  input?: string | Array<TextContent | ImageContent | ToolCallContent | ToolReturnContent | ReasoningContent | RedactedReasoningContent | OmittedReasoningContent | MessageStreamParams.SummarizedReasoningContent> | null;
+  input?:
+    | string
+    | Array<
+        | TextContent
+        | ImageContent
+        | ToolCallContent
+        | ToolReturnContent
+        | ReasoningContent
+        | RedactedReasoningContent
+        | OmittedReasoningContent
+        | MessageStreamParams.SummarizedReasoningContent
+      >
+    | null;
 
   /**
    * Maximum number of steps the agent should take to process the request.
@@ -3443,6 +3634,6 @@ export declare namespace Messages {
     type MessageCompactParams as MessageCompactParams,
     type MessageCreateAsyncParams as MessageCreateAsyncParams,
     type MessageResetParams as MessageResetParams,
-    type MessageStreamParams as MessageStreamParams
+    type MessageStreamParams as MessageStreamParams,
   };
 }

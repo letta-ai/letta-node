@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AgentsAPI from './agents';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -10,7 +9,11 @@ export class Agents extends APIResource {
   /**
    * Creates an Agent or multiple Agents from a template
    */
-  create(templateVersion: string, body: AgentCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<AgentCreateResponse> {
+  create(
+    templateVersion: string,
+    body: AgentCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<AgentCreateResponse> {
     return this._client.post(path`/v1/templates/${templateVersion}/agents`, { body, ...options });
   }
 }
@@ -88,8 +91,5 @@ export namespace AgentCreateParams {
 }
 
 export declare namespace Agents {
-  export {
-    type AgentCreateResponse as AgentCreateResponse,
-    type AgentCreateParams as AgentCreateParams
-  };
+  export { type AgentCreateResponse as AgentCreateResponse, type AgentCreateParams as AgentCreateParams };
 }

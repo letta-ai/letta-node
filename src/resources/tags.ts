@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as TagsAPI from './tags';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -14,7 +13,7 @@ export class Tags extends APIResource {
   }
 }
 
-export type TagListResponse = Array<string>
+export type TagListResponse = Array<string>;
 
 export interface TagListParams {
   /**
@@ -58,8 +57,5 @@ export interface TagListParams {
 }
 
 export declare namespace Tags {
-  export {
-    type TagListResponse as TagListResponse,
-    type TagListParams as TagListParams
-  };
+  export { type TagListResponse as TagListResponse, type TagListParams as TagListParams };
 }

@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ModelsAPI from './models';
 import * as AgentsAPI from '../agents/agents';
 import * as EmbeddingsAPI from './embeddings';
 import { EmbeddingListResponse, Embeddings } from './embeddings';
@@ -19,7 +18,10 @@ export class Models extends APIResource {
    * Legacy LLMConfig fields are marked as deprecated but still available for
    * backward compatibility.
    */
-  list(query: ModelListParams | null | undefined = {}, options?: RequestOptions): APIPromise<ModelListResponse> {
+  list(
+    query: ModelListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ModelListResponse> {
     return this._client.get('/v1/models/', { query, ...options });
   }
 }
@@ -36,7 +38,26 @@ export interface EmbeddingConfig {
   /**
    * The endpoint type for the model.
    */
-  embedding_endpoint_type: 'openai' | 'anthropic' | 'bedrock' | 'google_ai' | 'google_vertex' | 'azure' | 'groq' | 'ollama' | 'webui' | 'webui-legacy' | 'lmstudio' | 'lmstudio-legacy' | 'llamacpp' | 'koboldcpp' | 'vllm' | 'hugging-face' | 'mistral' | 'together' | 'pinecone';
+  embedding_endpoint_type:
+    | 'openai'
+    | 'anthropic'
+    | 'bedrock'
+    | 'google_ai'
+    | 'google_vertex'
+    | 'azure'
+    | 'groq'
+    | 'ollama'
+    | 'webui'
+    | 'webui-legacy'
+    | 'lmstudio'
+    | 'lmstudio-legacy'
+    | 'llamacpp'
+    | 'koboldcpp'
+    | 'vllm'
+    | 'hugging-face'
+    | 'mistral'
+    | 'together'
+    | 'pinecone';
 
   /**
    * The model for the embedding.
@@ -94,7 +115,26 @@ export interface EmbeddingModel {
    * @deprecated Deprecated: Use 'provider_type' field instead. The endpoint type for
    * the embedding model.
    */
-  embedding_endpoint_type: 'openai' | 'anthropic' | 'bedrock' | 'google_ai' | 'google_vertex' | 'azure' | 'groq' | 'ollama' | 'webui' | 'webui-legacy' | 'lmstudio' | 'lmstudio-legacy' | 'llamacpp' | 'koboldcpp' | 'vllm' | 'hugging-face' | 'mistral' | 'together' | 'pinecone';
+  embedding_endpoint_type:
+    | 'openai'
+    | 'anthropic'
+    | 'bedrock'
+    | 'google_ai'
+    | 'google_vertex'
+    | 'azure'
+    | 'groq'
+    | 'ollama'
+    | 'webui'
+    | 'webui-legacy'
+    | 'lmstudio'
+    | 'lmstudio-legacy'
+    | 'llamacpp'
+    | 'koboldcpp'
+    | 'vllm'
+    | 'hugging-face'
+    | 'mistral'
+    | 'together'
+    | 'pinecone';
 
   /**
    * @deprecated Deprecated: Use 'name' field instead. Embedding model name.
@@ -179,7 +219,37 @@ export interface LlmConfig {
   /**
    * The endpoint type for the model.
    */
-  model_endpoint_type: 'openai' | 'anthropic' | 'google_ai' | 'google_vertex' | 'azure' | 'groq' | 'ollama' | 'webui' | 'webui-legacy' | 'lmstudio' | 'lmstudio-legacy' | 'lmstudio-chatcompletions' | 'llamacpp' | 'koboldcpp' | 'vllm' | 'hugging-face' | 'minimax' | 'moonshot' | 'moonshot_coding' | 'mistral' | 'together' | 'bedrock' | 'deepseek' | 'xai' | 'zai' | 'zai_coding' | 'baseten' | 'fireworks' | 'openrouter' | 'chatgpt_oauth';
+  model_endpoint_type:
+    | 'openai'
+    | 'anthropic'
+    | 'google_ai'
+    | 'google_vertex'
+    | 'azure'
+    | 'groq'
+    | 'ollama'
+    | 'webui'
+    | 'webui-legacy'
+    | 'lmstudio'
+    | 'lmstudio-legacy'
+    | 'lmstudio-chatcompletions'
+    | 'llamacpp'
+    | 'koboldcpp'
+    | 'vllm'
+    | 'hugging-face'
+    | 'minimax'
+    | 'moonshot'
+    | 'moonshot_coding'
+    | 'mistral'
+    | 'together'
+    | 'bedrock'
+    | 'deepseek'
+    | 'xai'
+    | 'zai'
+    | 'zai_coding'
+    | 'baseten'
+    | 'fireworks'
+    | 'openrouter'
+    | 'chatgpt_oauth';
 
   /**
    * The framework compatibility type for the model.
@@ -271,7 +341,11 @@ export interface LlmConfig {
    * The response format for the model's output. Supports text, json_object, and
    * json_schema (structured outputs). Can be set via model_settings.
    */
-  response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+  response_format?:
+    | AgentsAPI.TextResponseFormat
+    | AgentsAPI.JsonSchemaResponseFormat
+    | AgentsAPI.JsonObjectResponseFormat
+    | null;
 
   /**
    * Whether to return log probabilities of the output tokens. Useful for RL
@@ -343,7 +417,36 @@ export interface Model {
    * @deprecated Deprecated: Use 'provider_type' field instead. The endpoint type for
    * the model.
    */
-  model_endpoint_type: 'openai' | 'anthropic' | 'google_ai' | 'google_vertex' | 'azure' | 'groq' | 'ollama' | 'webui' | 'webui-legacy' | 'lmstudio' | 'lmstudio-legacy' | 'lmstudio-chatcompletions' | 'llamacpp' | 'koboldcpp' | 'vllm' | 'hugging-face' | 'baseten' | 'minimax' | 'moonshot' | 'moonshot_coding' | 'mistral' | 'together' | 'bedrock' | 'deepseek' | 'xai' | 'zai' | 'zai_coding' | 'openrouter' | 'chatgpt_oauth';
+  model_endpoint_type:
+    | 'openai'
+    | 'anthropic'
+    | 'google_ai'
+    | 'google_vertex'
+    | 'azure'
+    | 'groq'
+    | 'ollama'
+    | 'webui'
+    | 'webui-legacy'
+    | 'lmstudio'
+    | 'lmstudio-legacy'
+    | 'lmstudio-chatcompletions'
+    | 'llamacpp'
+    | 'koboldcpp'
+    | 'vllm'
+    | 'hugging-face'
+    | 'baseten'
+    | 'minimax'
+    | 'moonshot'
+    | 'moonshot_coding'
+    | 'mistral'
+    | 'together'
+    | 'bedrock'
+    | 'deepseek'
+    | 'xai'
+    | 'zai'
+    | 'zai_coding'
+    | 'openrouter'
+    | 'chatgpt_oauth';
 
   /**
    * The actual model name used by the provider
@@ -444,7 +547,11 @@ export interface Model {
    * The response format for the model's output. Supports text, json_object, and
    * json_schema (structured outputs). Can be set via model_settings.
    */
-  response_format?: AgentsAPI.TextResponseFormat | AgentsAPI.JsonSchemaResponseFormat | AgentsAPI.JsonObjectResponseFormat | null;
+  response_format?:
+    | AgentsAPI.TextResponseFormat
+    | AgentsAPI.JsonSchemaResponseFormat
+    | AgentsAPI.JsonObjectResponseFormat
+    | null;
 
   /**
    * Whether to return log probabilities of the output tokens. Useful for RL
@@ -495,11 +602,38 @@ export interface Model {
   verbosity?: 'low' | 'medium' | 'high' | null;
 }
 
-export type ProviderCategory = 'base' | 'byok'
+export type ProviderCategory = 'base' | 'byok';
 
-export type ProviderType = 'anthropic' | 'azure' | 'baseten' | 'bedrock' | 'cerebras' | 'chatgpt_oauth' | 'deepseek' | 'fireworks' | 'google_ai' | 'google_vertex' | 'groq' | 'hugging-face' | 'letta' | 'lmstudio_openai' | 'minimax' | 'moonshot' | 'moonshot_coding' | 'mistral' | 'ollama' | 'openai' | 'together' | 'vllm' | 'sglang' | 'openrouter' | 'xai' | 'zai' | 'zai_coding'
+export type ProviderType =
+  | 'anthropic'
+  | 'azure'
+  | 'baseten'
+  | 'bedrock'
+  | 'cerebras'
+  | 'chatgpt_oauth'
+  | 'deepseek'
+  | 'fireworks'
+  | 'google_ai'
+  | 'google_vertex'
+  | 'groq'
+  | 'hugging-face'
+  | 'letta'
+  | 'lmstudio_openai'
+  | 'minimax'
+  | 'moonshot'
+  | 'moonshot_coding'
+  | 'mistral'
+  | 'ollama'
+  | 'openai'
+  | 'together'
+  | 'vllm'
+  | 'sglang'
+  | 'openrouter'
+  | 'xai'
+  | 'zai'
+  | 'zai_coding';
 
-export type ModelListResponse = Array<Model>
+export type ModelListResponse = Array<Model>;
 
 export interface ModelListParams {
   provider_category?: Array<ProviderCategory> | null;
@@ -520,11 +654,8 @@ export declare namespace Models {
     type ProviderCategory as ProviderCategory,
     type ProviderType as ProviderType,
     type ModelListResponse as ModelListResponse,
-    type ModelListParams as ModelListParams
+    type ModelListParams as ModelListParams,
   };
 
-  export {
-    Embeddings as Embeddings,
-    type EmbeddingListResponse as EmbeddingListResponse
-  };
+  export { Embeddings as Embeddings, type EmbeddingListResponse as EmbeddingListResponse };
 }
