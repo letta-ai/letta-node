@@ -97,6 +97,9 @@ export class Conversations extends APIResource {
    * latest memory block values. The forked conversation belongs to the same agent as
    * the source.
    *
+   * If message_id is provided, only source in-context messages up to and including
+   * that message are included in the fork.
+   *
    * **Agent-direct mode**: Pass conversation_id="default" with agent_id query
    * parameter to fork the agent's default (agent-direct) message history into a new
    * conversation.
@@ -109,9 +112,9 @@ export class Conversations extends APIResource {
     params: ConversationForkParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<Conversation> {
-    const { agent_id, hidden } = params ?? {};
+    const { agent_id, hidden, message_id } = params ?? {};
     return this._client.post(path`/v1/conversations/${conversationID}/fork`, {
-      query: { agent_id, hidden },
+      query: { agent_id, hidden, message_id },
       ...options,
     });
   }
@@ -2184,6 +2187,11 @@ export interface ConversationForkParams {
    * Whether the forked conversation should be hidden from listings
    */
   hidden?: boolean;
+
+  /**
+   * The ID of the message in the format 'message-<uuid4>'
+   */
+  message_id?: string | null;
 }
 
 export interface ConversationRecompileParams {
