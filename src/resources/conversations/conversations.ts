@@ -177,6 +177,12 @@ export interface Conversation {
   created_by_id?: string | null;
 
   /**
+   * A generated description of the conversation used for search and bootstrap
+   * context.
+   */
+  description?: string | null;
+
+  /**
    * The IDs of in-context messages for the conversation. Null means this field was
    * not retrieved/hydrated for this response.
    */
@@ -579,6 +585,12 @@ export interface CreateConversation {
   context_window_limit?: number | null;
 
   /**
+   * A generated description of the conversation used for search and bootstrap
+   * context.
+   */
+  description?: string | null;
+
+  /**
    * Whether the new conversation should be hidden from listings.
    */
   hidden?: boolean;
@@ -968,6 +980,12 @@ export interface UpdateConversation {
    * window).
    */
   context_window_limit?: number | null;
+
+  /**
+   * A generated description of the conversation used for search and bootstrap
+   * context.
+   */
+  description?: string | null;
 
   /**
    * Timestamp of the most recent message request sent to this conversation.
@@ -1366,6 +1384,12 @@ export interface ConversationCreateParams {
   context_window_limit?: number | null;
 
   /**
+   * Body param: A generated description of the conversation used for search and
+   * bootstrap context.
+   */
+  description?: string | null;
+
+  /**
    * Body param: Whether the new conversation should be hidden from listings.
    */
   hidden?: boolean;
@@ -1753,6 +1777,12 @@ export interface ConversationUpdateParams {
    * window).
    */
   context_window_limit?: number | null;
+
+  /**
+   * A generated description of the conversation used for search and bootstrap
+   * context.
+   */
+  description?: string | null;
 
   /**
    * Timestamp of the most recent message request sent to this conversation.
