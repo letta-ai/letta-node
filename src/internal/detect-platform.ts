@@ -56,7 +56,6 @@ type PlatformProperties = {
   'X-Stainless-Arch': Arch;
   'X-Stainless-Runtime': 'node' | 'deno' | 'edge' | `browser:${Browser}` | 'unknown';
   'X-Stainless-Runtime-Version': string;
-  'X-Letta-Source': 'letta-sdk-node';
 };
 const getPlatformProperties = (): PlatformProperties => {
   const detectedPlatform = getDetectedPlatform();
@@ -69,7 +68,6 @@ const getPlatformProperties = (): PlatformProperties => {
       'X-Stainless-Runtime': 'deno',
       'X-Stainless-Runtime-Version':
         typeof Deno.version === 'string' ? Deno.version : Deno.version?.deno ?? 'unknown',
-      'X-Letta-Source': 'letta-sdk-node',
     };
   }
   if (typeof EdgeRuntime !== 'undefined') {
@@ -80,7 +78,6 @@ const getPlatformProperties = (): PlatformProperties => {
       'X-Stainless-Arch': `other:${EdgeRuntime}`,
       'X-Stainless-Runtime': 'edge',
       'X-Stainless-Runtime-Version': (globalThis as any).process.version,
-      'X-Letta-Source': 'letta-sdk-node',
     };
   }
   // Check if Node.js
@@ -92,7 +89,6 @@ const getPlatformProperties = (): PlatformProperties => {
       'X-Stainless-Arch': normalizeArch((globalThis as any).process.arch ?? 'unknown'),
       'X-Stainless-Runtime': 'node',
       'X-Stainless-Runtime-Version': (globalThis as any).process.version ?? 'unknown',
-      'X-Letta-Source': 'letta-sdk-node',
     };
   }
 
@@ -105,7 +101,6 @@ const getPlatformProperties = (): PlatformProperties => {
       'X-Stainless-Arch': 'unknown',
       'X-Stainless-Runtime': `browser:${browserInfo.browser}`,
       'X-Stainless-Runtime-Version': browserInfo.version,
-      'X-Letta-Source': 'letta-sdk-node',
     };
   }
 
@@ -117,7 +112,6 @@ const getPlatformProperties = (): PlatformProperties => {
     'X-Stainless-Arch': 'unknown',
     'X-Stainless-Runtime': 'unknown',
     'X-Stainless-Runtime-Version': 'unknown',
-    'X-Letta-Source': 'letta-sdk-node',
   };
 };
 
