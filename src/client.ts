@@ -39,6 +39,14 @@ import {
   AccessTokens,
 } from './resources/access-tokens';
 import {
+  EnvironmentListParams,
+  EnvironmentListResponse,
+  EnvironmentRetrieveResponse,
+  EnvironmentSendMessageParams,
+  EnvironmentSendMessageResponse,
+  Environments,
+} from './resources/environments';
+import {
   MessageListParams,
   MessageListResponse,
   MessageRetrieveResponse,
@@ -997,6 +1005,7 @@ export class Letta {
   messages: API.Messages = new API.Messages(this);
   passages: API.Passages = new API.Passages(this);
   conversations: API.Conversations = new API.Conversations(this);
+  environments: API.Environments = new API.Environments(this);
   accessTokens: API.AccessTokens = new API.AccessTokens(this);
 }
 
@@ -1014,6 +1023,7 @@ Letta.Tags = Tags;
 Letta.Messages = Messages;
 Letta.Passages = Passages;
 Letta.Conversations = Conversations;
+Letta.Environments = Environments;
 Letta.AccessTokens = AccessTokens;
 
 export declare namespace Letta {
@@ -1224,6 +1234,15 @@ export declare namespace Letta {
     type ConversationCancelParams as ConversationCancelParams,
     type ConversationForkParams as ConversationForkParams,
     type ConversationRecompileParams as ConversationRecompileParams,
+  };
+
+  export {
+    Environments as Environments,
+    type EnvironmentRetrieveResponse as EnvironmentRetrieveResponse,
+    type EnvironmentListResponse as EnvironmentListResponse,
+    type EnvironmentSendMessageResponse as EnvironmentSendMessageResponse,
+    type EnvironmentListParams as EnvironmentListParams,
+    type EnvironmentSendMessageParams as EnvironmentSendMessageParams,
   };
 
   export {
