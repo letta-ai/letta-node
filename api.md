@@ -600,6 +600,20 @@ Methods:
 - <code title="post /v1/conversations/{conversation_id}/compact">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">compact</a>(conversationID, { ...params }) -> CompactionResponse</code>
 - <code title="post /v1/conversations/{conversation_id}/stream">client.conversations.messages.<a href="./src/resources/conversations/messages.ts">stream</a>(conversationID, { ...params }) -> unknown</code>
 
+# Environments
+
+Types:
+
+- <code><a href="./src/resources/environments.ts">EnvironmentRetrieveResponse</a></code>
+- <code><a href="./src/resources/environments.ts">EnvironmentListResponse</a></code>
+- <code><a href="./src/resources/environments.ts">EnvironmentSendMessageResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/environments/{deviceId}">client.environments.<a href="./src/resources/environments.ts">retrieve</a>(deviceID) -> EnvironmentRetrieveResponse</code>
+- <code title="get /v1/environments">client.environments.<a href="./src/resources/environments.ts">list</a>({ ...params }) -> EnvironmentListResponse</code>
+- <code title="post /v1/environments/{connectionId}/messages">client.environments.<a href="./src/resources/environments.ts">sendMessage</a>(connectionID, { ...params }) -> EnvironmentSendMessageResponse</code>
+
 # AccessTokens
 
 Types:

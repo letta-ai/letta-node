@@ -87,6 +87,14 @@ export {
   type ConversationRecompileParams,
 } from './conversations/conversations';
 export {
+  Environments,
+  type EnvironmentRetrieveResponse,
+  type EnvironmentListResponse,
+  type EnvironmentSendMessageResponse,
+  type EnvironmentListParams,
+  type EnvironmentSendMessageParams,
+} from './environments';
+export {
   Folders,
   type Folder,
   type FolderDeleteResponse,
