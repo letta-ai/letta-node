@@ -75,9 +75,27 @@ export namespace EnvironmentRetrieveResponse {
 
     os?: string;
 
+    self_update?: Metadata.SelfUpdate;
+
+    supported_commands?: Array<string>;
+
     workingDirectory?: string;
 
     [k: string]: unknown;
+  }
+
+  export namespace Metadata {
+    export interface SelfUpdate {
+      supported: boolean;
+
+      writable: boolean;
+
+      install_path?: string;
+
+      manual_command?: string;
+
+      reason?: string;
+    }
   }
 }
 
@@ -128,9 +146,27 @@ export namespace EnvironmentListResponse {
 
       os?: string;
 
+      self_update?: Metadata.SelfUpdate;
+
+      supported_commands?: Array<string>;
+
       workingDirectory?: string;
 
       [k: string]: unknown;
+    }
+
+    export namespace Metadata {
+      export interface SelfUpdate {
+        supported: boolean;
+
+        writable: boolean;
+
+        install_path?: string;
+
+        manual_command?: string;
+
+        reason?: string;
+      }
     }
   }
 }
