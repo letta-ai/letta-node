@@ -406,6 +406,11 @@ export interface AgentState {
   description?: string | null;
 
   /**
+   * If set to True, disables git-backed memory which requires sandboxing
+   */
+  disable_memfs?: boolean;
+
+  /**
    * The embedding model handle used by the agent (format: provider/model-name).
    */
   embedding?: string | null;
@@ -2681,6 +2686,11 @@ export interface AgentCreateParams {
   description?: string | null;
 
   /**
+   * If set to True, disables git-backed memory which requires sandboxing
+   */
+  disable_memfs?: boolean;
+
+  /**
    * The embedding model handle used by the agent (format: provider/model-name).
    */
   embedding?: string | null;
@@ -3881,6 +3891,11 @@ export interface AgentUpdateParams {
    * The description of the agent.
    */
   description?: string | null;
+
+  /**
+   * If set to True, disables git-backed memory which requires sandboxing
+   */
+  disable_memfs?: boolean | null;
 
   /**
    * The embedding model handle used by the agent (format: provider/model-name).
