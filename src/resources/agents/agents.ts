@@ -509,6 +509,7 @@ export interface AgentState {
     | XaiModelSettings
     | AgentState.MoonshotModelSettings
     | AgentState.ZaiModelSettings
+    | AgentState.ZaiCodingModelSettings
     | AgentState.MoonshotCodingModelSettings
     | GroqModelSettings
     | DeepseekModelSettings
@@ -844,6 +845,7 @@ export namespace AgentState {
       | AgentsAPI.XaiModelSettings
       | CompactionSettings.MoonshotModelSettings
       | CompactionSettings.ZaiModelSettings
+      | CompactionSettings.ZaiCodingModelSettings
       | CompactionSettings.MoonshotCodingModelSettings
       | AgentsAPI.GroqModelSettings
       | AgentsAPI.DeepseekModelSettings
@@ -1090,6 +1092,62 @@ export namespace AgentState {
     }
 
     export namespace ZaiModelSettings {
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      export interface Thinking {
+        /**
+         * If False, preserved thinking is used (recommended for agents).
+         */
+        clear_thinking?: boolean;
+
+        /**
+         * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
+    }
+
+    /**
+     * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+     */
+    export interface ZaiCodingModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai_coding';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      thinking?: ZaiCodingModelSettings.Thinking;
+    }
+
+    export namespace ZaiCodingModelSettings {
       /**
        * The thinking configuration for GLM-4.5+ models.
        */
@@ -1634,6 +1692,62 @@ export namespace AgentState {
   }
 
   export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+   */
+  export interface ZaiCodingModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai_coding';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiCodingModelSettings.Thinking;
+  }
+
+  export namespace ZaiCodingModelSettings {
     /**
      * The thinking configuration for GLM-4.5+ models.
      */
@@ -2821,6 +2935,7 @@ export interface AgentCreateParams {
     | XaiModelSettings
     | AgentCreateParams.MoonshotModelSettings
     | AgentCreateParams.ZaiModelSettings
+    | AgentCreateParams.ZaiCodingModelSettings
     | AgentCreateParams.MoonshotCodingModelSettings
     | GroqModelSettings
     | DeepseekModelSettings
@@ -2981,6 +3096,7 @@ export namespace AgentCreateParams {
       | AgentsAPI.XaiModelSettings
       | CompactionSettings.MoonshotModelSettings
       | CompactionSettings.ZaiModelSettings
+      | CompactionSettings.ZaiCodingModelSettings
       | CompactionSettings.MoonshotCodingModelSettings
       | AgentsAPI.GroqModelSettings
       | AgentsAPI.DeepseekModelSettings
@@ -3227,6 +3343,62 @@ export namespace AgentCreateParams {
     }
 
     export namespace ZaiModelSettings {
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      export interface Thinking {
+        /**
+         * If False, preserved thinking is used (recommended for agents).
+         */
+        clear_thinking?: boolean;
+
+        /**
+         * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
+    }
+
+    /**
+     * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+     */
+    export interface ZaiCodingModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai_coding';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      thinking?: ZaiCodingModelSettings.Thinking;
+    }
+
+    export namespace ZaiCodingModelSettings {
       /**
        * The thinking configuration for GLM-4.5+ models.
        */
@@ -3653,6 +3825,62 @@ export namespace AgentCreateParams {
   }
 
   /**
+   * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+   */
+  export interface ZaiCodingModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai_coding';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiCodingModelSettings.Thinking;
+  }
+
+  export namespace ZaiCodingModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
    * Kimi Code model configuration (Anthropic-compatible).
    */
   export interface MoonshotCodingModelSettings {
@@ -3985,6 +4213,7 @@ export interface AgentUpdateParams {
     | XaiModelSettings
     | AgentUpdateParams.MoonshotModelSettings
     | AgentUpdateParams.ZaiModelSettings
+    | AgentUpdateParams.ZaiCodingModelSettings
     | AgentUpdateParams.MoonshotCodingModelSettings
     | GroqModelSettings
     | DeepseekModelSettings
@@ -4125,6 +4354,7 @@ export namespace AgentUpdateParams {
       | AgentsAPI.XaiModelSettings
       | CompactionSettings.MoonshotModelSettings
       | CompactionSettings.ZaiModelSettings
+      | CompactionSettings.ZaiCodingModelSettings
       | CompactionSettings.MoonshotCodingModelSettings
       | AgentsAPI.GroqModelSettings
       | AgentsAPI.DeepseekModelSettings
@@ -4371,6 +4601,62 @@ export namespace AgentUpdateParams {
     }
 
     export namespace ZaiModelSettings {
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      export interface Thinking {
+        /**
+         * If False, preserved thinking is used (recommended for agents).
+         */
+        clear_thinking?: boolean;
+
+        /**
+         * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
+    }
+
+    /**
+     * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+     */
+    export interface ZaiCodingModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai_coding';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      thinking?: ZaiCodingModelSettings.Thinking;
+    }
+
+    export namespace ZaiCodingModelSettings {
       /**
        * The thinking configuration for GLM-4.5+ models.
        */
@@ -4780,6 +5066,62 @@ export namespace AgentUpdateParams {
   }
 
   export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+   */
+  export interface ZaiCodingModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai_coding';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiCodingModelSettings.Thinking;
+  }
+
+  export namespace ZaiCodingModelSettings {
     /**
      * The thinking configuration for GLM-4.5+ models.
      */
