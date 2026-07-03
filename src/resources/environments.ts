@@ -60,6 +60,8 @@ export interface EnvironmentRetrieveResponse {
 
   currentMode?: 'default' | 'standard' | 'acceptEdits' | 'bypassPermissions' | 'unrestricted';
 
+  listenerInstanceId?: string;
+
   metadata?: EnvironmentRetrieveResponse.Metadata;
 
   userId?: string;
@@ -130,6 +132,8 @@ export namespace EnvironmentListResponse {
     apiKeyOwner?: string;
 
     currentMode?: 'default' | 'standard' | 'acceptEdits' | 'bypassPermissions' | 'unrestricted';
+
+    listenerInstanceId?: string;
 
     metadata?: Connection.Metadata;
 
