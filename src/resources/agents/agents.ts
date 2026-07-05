@@ -5327,7 +5327,8 @@ export interface AgentListParams extends ArrayPageParams {
   base_template_id?: string | null;
 
   /**
-   * Filter agents by the user who created them.
+   * Filter agents by the user who created them. Use "@me" to filter to agents
+   * created by the requesting user.
    */
   created_by_id?: string | null;
 

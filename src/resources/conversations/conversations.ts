@@ -2840,6 +2840,12 @@ export interface ConversationListParams {
   archive_status?: 'unarchived' | 'archived' | 'all';
 
   /**
+   * Filter conversations by the user who created them. Use "@me" to filter to
+   * conversations created by the requesting user.
+   */
+  created_by_id?: string | null;
+
+  /**
    * Maximum number of conversations to return
    */
   limit?: number;
