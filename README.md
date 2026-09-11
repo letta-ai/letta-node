@@ -1,5 +1,8 @@
 # Letta TypeScript API Library
 
+> [!WARNING]
+> **This package is deprecated.** New development should use the [Letta Agent SDK](https://github.com/letta-ai/letta-agent-sdk) ([documentation](https://docs.letta.com/agent-sdk)) instead. The Agent SDK provides high-level primitives for stateful agents — sessions, streaming, permissions, and skills — and is the supported path for the current Letta platform. This package is unmaintained and receives no new features.
+
 [![NPM version](<https://img.shields.io/npm/v/@letta-ai/letta-client.svg?label=npm%20(stable)>)](https://npmjs.org/package/@letta-ai/letta-client) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@letta-ai/letta-client)
 
 This library provides convenient access to the Letta REST API from server-side TypeScript or JavaScript.
