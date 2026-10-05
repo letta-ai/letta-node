@@ -497,34 +497,6 @@ Methods:
 
 - <code title="get /v1/steps/{step_id}/messages">client.steps.messages.<a href="./src/resources/steps/messages.ts">list</a>(stepID, { ...params }) -> MessageListResponsesArrayPage</code>
 
-# Templates
-
-Types:
-
-- <code><a href="./src/resources/templates/templates.ts">TemplateCreateResponse</a></code>
-- <code><a href="./src/resources/templates/templates.ts">TemplateUpdateResponse</a></code>
-- <code><a href="./src/resources/templates/templates.ts">TemplateDeleteResponse</a></code>
-- <code><a href="./src/resources/templates/templates.ts">TemplateRollbackResponse</a></code>
-- <code><a href="./src/resources/templates/templates.ts">TemplateSaveResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/templates">client.templates.<a href="./src/resources/templates/templates.ts">create</a>({ ...params }) -> TemplateCreateResponse</code>
-- <code title="patch /v1/templates/{template_name}">client.templates.<a href="./src/resources/templates/templates.ts">update</a>(templateName, { ...params }) -> TemplateUpdateResponse</code>
-- <code title="delete /v1/templates/{template_name}">client.templates.<a href="./src/resources/templates/templates.ts">delete</a>(templateName) -> TemplateDeleteResponse</code>
-- <code title="post /v1/templates/{template_name}/rollback">client.templates.<a href="./src/resources/templates/templates.ts">rollback</a>(templateName, { ...params }) -> TemplateRollbackResponse</code>
-- <code title="post /v1/templates/{template_name}/save">client.templates.<a href="./src/resources/templates/templates.ts">save</a>(templateName, { ...params }) -> TemplateSaveResponse</code>
-
-## Agents
-
-Types:
-
-- <code><a href="./src/resources/templates/agents.ts">AgentCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/templates/{template_version}/agents">client.templates.agents.<a href="./src/resources/templates/agents.ts">create</a>(templateVersion, { ...params }) -> AgentCreateResponse</code>
-
 # Tags
 
 Types:
@@ -573,17 +545,19 @@ Types:
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationDeleteResponse</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationCancelResponse</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationRecompileResponse</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">ConversationSearchResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">create</a>({ ...params }) -> Conversation</code>
-- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(conversationID) -> Conversation</code>
+- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="patch /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">update</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
 - <code title="delete /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">delete</a>(conversationID) -> unknown</code>
 - <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/resources/conversations/conversations.ts">cancel</a>(conversationID, { ...params }) -> ConversationCancelResponse</code>
 - <code title="post /v1/conversations/{conversation_id}/fork">client.conversations.<a href="./src/resources/conversations/conversations.ts">fork</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="post /v1/conversations/{conversation_id}/recompile">client.conversations.<a href="./src/resources/conversations/conversations.ts">recompile</a>(conversationID, { ...params }) -> string</code>
+- <code title="post /v1/conversations/search">client.conversations.<a href="./src/resources/conversations/conversations.ts">search</a>({ ...params }) -> ConversationSearchResponse</code>
 
 ## Messages
 
