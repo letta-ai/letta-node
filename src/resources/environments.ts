@@ -77,6 +77,8 @@ export namespace EnvironmentRetrieveResponse {
 
     lettaCodeVersion?: string;
 
+    machine?: Metadata.Machine;
+
     nodeVersion?: string;
 
     os?: string;
@@ -93,6 +95,22 @@ export namespace EnvironmentRetrieveResponse {
   }
 
   export namespace Metadata {
+    export interface Machine {
+      architecture?: string;
+
+      cpu?: string;
+
+      gpus?: Array<string>;
+
+      memoryBytes?: number;
+
+      model?: string;
+
+      osName?: string;
+
+      osVersion?: string;
+    }
+
     export interface SelfUpdate {
       supported: boolean;
 
@@ -156,6 +174,8 @@ export namespace EnvironmentListResponse {
 
       lettaCodeVersion?: string;
 
+      machine?: Metadata.Machine;
+
       nodeVersion?: string;
 
       os?: string;
@@ -172,6 +192,22 @@ export namespace EnvironmentListResponse {
     }
 
     export namespace Metadata {
+      export interface Machine {
+        architecture?: string;
+
+        cpu?: string;
+
+        gpus?: Array<string>;
+
+        memoryBytes?: number;
+
+        model?: string;
+
+        osName?: string;
+
+        osVersion?: string;
+      }
+
       export interface SelfUpdate {
         supported: boolean;
 
