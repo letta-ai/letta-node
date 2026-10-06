@@ -27,6 +27,7 @@ describe('resource conversations', () => {
       context_window_limit: 0,
       description: 'description',
       hidden: true,
+      is_subagent: true,
       model: 'model',
       model_settings: {
         max_output_tokens: 0,
@@ -37,7 +38,9 @@ describe('resource conversations', () => {
         strict: true,
         temperature: 0,
       },
+      name: 'name',
       summary: 'summary',
+      tags: ['string'],
     });
   });
 
@@ -51,6 +54,18 @@ describe('resource conversations', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.conversations.retrieve(
+        'conv-123e4567-e89b-42d3-8456-426614174000',
+        { include_context_message_ids: true },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Letta.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -86,10 +101,14 @@ describe('resource conversations', () => {
           after: 'conv-123e4567-e89b-42d3-8456-426614174000',
           agent_id: 'agent_id',
           archive_status: 'unarchived',
+          created_by_id: 'created_by_id',
+          is_pinned: true,
           limit: 200,
+          match_all_tags: true,
           order: 'asc',
           order_by: 'created_at',
           summary_search: 'summary_search',
+          tags: ['string', 'string'],
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -150,6 +169,9 @@ describe('resource conversations', () => {
           agent_id: 'agent_id',
           hidden: true,
           message_id: 'message-123e4567-e89b-42d3-8456-426614174000',
+          ephemeral: true,
+          is_subagent: true,
+          name: 'name',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -198,5 +220,29 @@ describe('resource conversations', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('search: only required params', async () => {
+    const responsePromise = client.conversations.search({ query: 'query' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('search: required and optional params', async () => {
+    const response = await client.conversations.search({
+      query: 'query',
+      agent_id: 'agent_id',
+      archive_status: 'unarchived',
+      limit: 1,
+      search_mode: 'vector',
+      search_target: 'summary',
+    });
   });
 });

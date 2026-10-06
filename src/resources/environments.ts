@@ -48,6 +48,8 @@ export interface EnvironmentRetrieveResponse {
 
   firstSeenAt: number;
 
+  isOwner: boolean;
+
   lastHeartbeat: number | null;
 
   lastSeenAt: number;
@@ -56,9 +58,13 @@ export interface EnvironmentRetrieveResponse {
 
   podId: string | null;
 
+  visibility: 'private' | 'organization';
+
   apiKeyOwner?: string;
 
   currentMode?: 'default' | 'standard' | 'acceptEdits' | 'bypassPermissions' | 'unrestricted';
+
+  listenerInstanceId?: string;
 
   metadata?: EnvironmentRetrieveResponse.Metadata;
 
@@ -71,13 +77,51 @@ export namespace EnvironmentRetrieveResponse {
 
     lettaCodeVersion?: string;
 
+    machine?: Metadata.Machine;
+
     nodeVersion?: string;
 
     os?: string;
 
+    sandboxSize?: 'regular' | 'large' | 'xlarge';
+
+    self_update?: Metadata.SelfUpdate;
+
+    supported_commands?: Array<string>;
+
     workingDirectory?: string;
 
     [k: string]: unknown;
+  }
+
+  export namespace Metadata {
+    export interface Machine {
+      architecture?: string;
+
+      cpu?: string;
+
+      gpus?: Array<string>;
+
+      memoryBytes?: number;
+
+      model?: string;
+
+      osName?: string;
+
+      osVersion?: string;
+    }
+
+    export interface SelfUpdate {
+      supported: boolean;
+
+      writable: boolean;
+
+      install_path?: string;
+
+      manual_command?: string;
+
+      reason?: string;
+    }
   }
 }
 
@@ -101,6 +145,8 @@ export namespace EnvironmentListResponse {
 
     firstSeenAt: number;
 
+    isOwner: boolean;
+
     lastHeartbeat: number | null;
 
     lastSeenAt: number;
@@ -109,9 +155,13 @@ export namespace EnvironmentListResponse {
 
     podId: string | null;
 
+    visibility: 'private' | 'organization';
+
     apiKeyOwner?: string;
 
     currentMode?: 'default' | 'standard' | 'acceptEdits' | 'bypassPermissions' | 'unrestricted';
+
+    listenerInstanceId?: string;
 
     metadata?: Connection.Metadata;
 
@@ -124,13 +174,51 @@ export namespace EnvironmentListResponse {
 
       lettaCodeVersion?: string;
 
+      machine?: Metadata.Machine;
+
       nodeVersion?: string;
 
       os?: string;
 
+      sandboxSize?: 'regular' | 'large' | 'xlarge';
+
+      self_update?: Metadata.SelfUpdate;
+
+      supported_commands?: Array<string>;
+
       workingDirectory?: string;
 
       [k: string]: unknown;
+    }
+
+    export namespace Metadata {
+      export interface Machine {
+        architecture?: string;
+
+        cpu?: string;
+
+        gpus?: Array<string>;
+
+        memoryBytes?: number;
+
+        model?: string;
+
+        osName?: string;
+
+        osVersion?: string;
+      }
+
+      export interface SelfUpdate {
+        supported: boolean;
+
+        writable: boolean;
+
+        install_path?: string;
+
+        manual_command?: string;
+
+        reason?: string;
+      }
     }
   }
 }
@@ -148,17 +236,32 @@ export interface EnvironmentListParams {
 
   onlineOnly?: string;
 
+  /**
+   * Filter by computer name (case-insensitive substring).
+   */
+  search?: string;
+
   source?: 'local' | 'remote';
 
   userId?: string;
 }
 
 export interface EnvironmentSendMessageParams {
+  agentId: string;
+
   messages: Array<EnvironmentSendMessageParams.UnionMember0 | EnvironmentSendMessageParams.UnionMember1>;
 
-  agentId?: string;
+  client_tool_allowlist?: Array<string>;
+
+  client_toolset?: EnvironmentSendMessageParams.ClientToolset;
 
   conversationId?: string | null;
+
+  exclude_interactive_tools?: boolean;
+
+  external_tool_scope_ids?: Array<string>;
+
+  image_failure_mode?: 'strict' | 'drop';
 }
 
 export namespace EnvironmentSendMessageParams {
@@ -220,6 +323,12 @@ export namespace EnvironmentSendMessageParams {
 
       updated_input?: { [key: string]: unknown } | null;
     }
+  }
+
+  export interface ClientToolset {
+    base?: string;
+
+    include?: Array<string>;
   }
 }
 
