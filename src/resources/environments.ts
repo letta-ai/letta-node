@@ -236,6 +236,8 @@ export interface EnvironmentListParams {
 
   onlineOnly?: string;
 
+  paginationOrder?: 'id';
+
   /**
    * Filter by computer name (case-insensitive substring).
    */

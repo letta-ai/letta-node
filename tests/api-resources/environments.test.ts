@@ -41,6 +41,7 @@ describe('resource environments', () => {
           after: 'after',
           limit: 'limit',
           onlineOnly: 'onlineOnly',
+          paginationOrder: 'id',
           search: 'search',
           source: 'local',
           userId: 'userId',
