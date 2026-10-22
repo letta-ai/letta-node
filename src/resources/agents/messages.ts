@@ -17,11 +17,9 @@ export class Messages extends APIResource {
    * Process a user message and return the agent's response. This endpoint accepts a
    * message from a user and processes it through the agent.
    *
-   * **Note:** Sending multiple concurrent requests to the same agent can lead to
-   * undefined behavior. Each agent processes messages sequentially, and concurrent
-   * requests may interleave in unexpected ways. Wait for each request to complete
-   * before sending the next one. Use separate agents or conversations for parallel
-   * processing.
+   * Requests execute under the same agent-scoped lock as
+   * `POST /v1/conversations/default/messages`. Concurrent requests for the same
+   * agent are rejected with HTTP 409 while the active run owns the lock.
    *
    * The response format is controlled by the `streaming` field in the request body:
    *
@@ -136,11 +134,8 @@ export class Messages extends APIResource {
    * Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
    * in the request body instead.
    *
-   * **Note:** Sending multiple concurrent requests to the same agent can lead to
-   * undefined behavior. Each agent processes messages sequentially, and concurrent
-   * requests may interleave in unexpected ways. Wait for each request to complete
-   * before sending the next one. Use separate agents or conversations for parallel
-   * processing.
+   * Requests execute under the same agent-scoped lock as
+   * `POST /v1/conversations/default/messages`.
    *
    * This endpoint accepts a message from a user and processes it through the agent.
    * It will stream the steps of the response always, and stream the tokens if
@@ -2289,9 +2284,10 @@ export interface UpdateUserMessage {
  *
  * Args: id (str): The ID of the message date (datetime): The date the message was
  * created in ISO format name (Optional[str]): The name of the sender of the
- * message content (Union[str, List[LettaUserMessageContentUnion]]): The message
- * content sent by the user (can be a string or an array of multi-modal content
- * parts)
+ * message created_by_id (Optional[str]): The authenticated user id that created
+ * the message content (Union[str, List[LettaUserMessageContentUnion]]): The
+ * message content sent by the user (can be a string or an array of multi-modal
+ * content parts)
  */
 export interface UserMessage {
   id: string;
@@ -2303,6 +2299,8 @@ export interface UserMessage {
   content: Array<LettaUserMessageContentUnion> | string;
 
   date: string;
+
+  created_by_id?: string | null;
 
   is_err?: boolean | null;
 
@@ -2700,12 +2698,14 @@ export namespace MessageCompactParams {
       | AgentsAPI.OpenAIModelSettings
       | CompactionSettings.SgLangModelSettings
       | AgentsAPI.AnthropicModelSettings
+      | CompactionSettings.MiniMaxModelSettings
       | AgentsAPI.GoogleAIModelSettings
       | AgentsAPI.GoogleVertexModelSettings
       | AgentsAPI.AzureModelSettings
       | AgentsAPI.XaiModelSettings
       | CompactionSettings.MoonshotModelSettings
       | CompactionSettings.ZaiModelSettings
+      | CompactionSettings.ZaiCodingModelSettings
       | CompactionSettings.MoonshotCodingModelSettings
       | AgentsAPI.GroqModelSettings
       | AgentsAPI.DeepseekModelSettings
@@ -2792,9 +2792,84 @@ export namespace MessageCompactParams {
        */
       export interface Reasoning {
         /**
-         * The reasoning effort to use when generating text reasoning models
+         * The reasoning effort to use when generating text reasoning models. Supported
+         * values depend on the model and provider.
          */
-        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+      }
+    }
+
+    /**
+     * MiniMax model configuration (Anthropic-compatible).
+     */
+    export interface MiniMaxModelSettings {
+      /**
+       * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+       * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+       * to 'high'.
+       */
+      effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'minimax';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for the model.
+       */
+      thinking?: MiniMaxModelSettings.Thinking;
+
+      /**
+       * Soft control for how verbose model output should be, used for GPT-5 models.
+       */
+      verbosity?: 'low' | 'medium' | 'high' | null;
+    }
+
+    export namespace MiniMaxModelSettings {
+      /**
+       * The thinking configuration for the model.
+       */
+      export interface Thinking {
+        /**
+         * The maximum number of tokens the model can use for extended thinking.
+         */
+        budget_tokens?: number;
+
+        /**
+         * The type of thinking to use.
+         */
+        type?: 'enabled' | 'disabled';
       }
     }
 
@@ -2858,6 +2933,11 @@ export namespace MessageCompactParams {
       provider_type?: 'zai';
 
       /**
+       * The reasoning effort for Z.ai models that support explicit effort control.
+       */
+      reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+      /**
        * The response format for the model.
        */
       response_format?:
@@ -2878,6 +2958,67 @@ export namespace MessageCompactParams {
     }
 
     export namespace ZaiModelSettings {
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      export interface Thinking {
+        /**
+         * If False, preserved thinking is used (recommended for agents).
+         */
+        clear_thinking?: boolean;
+
+        /**
+         * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
+    }
+
+    /**
+     * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+     */
+    export interface ZaiCodingModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai_coding';
+
+      /**
+       * The reasoning effort for Z.ai models that support explicit effort control.
+       */
+      reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      thinking?: ZaiCodingModelSettings.Thinking;
+    }
+
+    export namespace ZaiCodingModelSettings {
       /**
        * The thinking configuration for GLM-4.5+ models.
        */
@@ -3013,6 +3154,11 @@ export namespace MessageCompactParams {
       provider_type?: 'openrouter';
 
       /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: OpenRouterModelSettings.Reasoning | null;
+
+      /**
        * The response format for the model.
        */
       response_format?:
@@ -3025,6 +3171,19 @@ export namespace MessageCompactParams {
        * The temperature of the model.
        */
       temperature?: number;
+    }
+
+    export namespace OpenRouterModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort to use when generating text reasoning models. Supported
+         * values depend on the model and provider.
+         */
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+      }
     }
 
     /**
@@ -3055,6 +3214,11 @@ export namespace MessageCompactParams {
        * The temperature of the model.
        */
       temperature?: number;
+
+      /**
+       * Soft control for how verbose model output should be, used for GPT-5 models.
+       */
+      verbosity?: 'low' | 'medium' | 'high' | null;
     }
 
     export namespace ChatGptoAuthModelSettings {
@@ -3063,9 +3227,10 @@ export namespace MessageCompactParams {
        */
       export interface Reasoning {
         /**
-         * The reasoning effort level for GPT-5.x and o-series models.
+         * The reasoning effort level for GPT-5.x and o-series models. 'max' is supported
+         * only by GPT-5.6 models.
          */
-        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
       }
     }
   }

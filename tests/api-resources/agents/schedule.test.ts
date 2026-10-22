@@ -44,8 +44,16 @@ describe('resource schedule', () => {
       ],
       schedule: { scheduled_at: 0, type: 'one-time' },
       callback_url: 'https://example.com',
+      context_window_limit: 0,
+      conversation_id: 'conversation_id',
+      description: 'description',
       include_return_message_types: ['system_message'],
       max_steps: 0,
+      model: 'model',
+      model_settings: {},
+      name: 'name',
+      target_device_id: 'target_device_id',
+      use_sandbox: true,
     });
   });
 
@@ -84,7 +92,13 @@ describe('resource schedule', () => {
     await expect(
       client.agents.schedule.list(
         'agent_id',
-        { after: 'after', limit: 'limit' },
+        {
+          after: 'after',
+          include_completed: 'true',
+          limit: 'limit',
+          schedule_type: 'one-time',
+          status: 'active',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Letta.NotFoundError);

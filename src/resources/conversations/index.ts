@@ -9,12 +9,15 @@ export {
   type ConversationDeleteResponse,
   type ConversationCancelResponse,
   type ConversationRecompileResponse,
+  type ConversationSearchResponse,
   type ConversationCreateParams,
+  type ConversationRetrieveParams,
   type ConversationUpdateParams,
   type ConversationListParams,
   type ConversationCancelParams,
   type ConversationForkParams,
   type ConversationRecompileParams,
+  type ConversationSearchParams,
 } from './conversations';
 export {
   Messages,

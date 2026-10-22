@@ -60,7 +60,21 @@ export class Schedule extends APIResource {
 export interface ScheduleCreateResponse {
   id: string;
 
-  next_scheduled_at?: string;
+  next_scheduled_at: string | null;
+
+  status: 'active' | 'paused' | 'completed';
+
+  use_sandbox: boolean;
+
+  callback_url?: string | null;
+
+  context_window_limit?: number | null;
+
+  model?: string | null;
+
+  model_settings?: unknown;
+
+  target_device_id?: string | null;
 }
 
 export interface ScheduleRetrieveResponse {
@@ -73,6 +87,28 @@ export interface ScheduleRetrieveResponse {
   next_scheduled_time: string | null;
 
   schedule: ScheduleRetrieveResponse.UnionMember0 | ScheduleRetrieveResponse.UnionMember1;
+
+  status: 'active' | 'paused' | 'completed';
+
+  use_sandbox: boolean;
+
+  callback_url?: string | null;
+
+  context_window_limit?: number | null;
+
+  conversation_id?: string | null;
+
+  created_at?: string;
+
+  description?: string | null;
+
+  model?: string | null;
+
+  model_settings?: unknown;
+
+  name?: string | null;
+
+  target_device_id?: string | null;
 }
 
 export namespace ScheduleRetrieveResponse {
@@ -170,6 +206,28 @@ export namespace ScheduleListResponse {
     next_scheduled_time: string | null;
 
     schedule: ScheduledMessage.UnionMember0 | ScheduledMessage.UnionMember1;
+
+    status: 'active' | 'paused' | 'completed';
+
+    use_sandbox: boolean;
+
+    callback_url?: string | null;
+
+    context_window_limit?: number | null;
+
+    conversation_id?: string | null;
+
+    created_at?: string;
+
+    description?: string | null;
+
+    model?: string | null;
+
+    model_settings?: unknown;
+
+    name?: string | null;
+
+    target_device_id?: string | null;
   }
 
   export namespace ScheduledMessage {
@@ -262,6 +320,12 @@ export interface ScheduleCreateParams {
 
   callback_url?: string;
 
+  context_window_limit?: number | null;
+
+  conversation_id?: string;
+
+  description?: string;
+
   include_return_message_types?: Array<
     | 'system_message'
     | 'user_message'
@@ -275,6 +339,16 @@ export interface ScheduleCreateParams {
   >;
 
   max_steps?: number;
+
+  model?: string | null;
+
+  model_settings?: unknown;
+
+  name?: string;
+
+  target_device_id?: string;
+
+  use_sandbox?: boolean;
 }
 
 export namespace ScheduleCreateParams {
@@ -340,7 +414,24 @@ export interface ScheduleRetrieveParams {
 export interface ScheduleListParams {
   after?: string;
 
+  /**
+   * When 'true', include schedules that already completed (one-time schedules that
+   * already fired). Defaults to active and paused schedules.
+   */
+  include_completed?: 'true' | 'false';
+
   limit?: string;
+
+  /**
+   * Filter by schedule kind. one-time schedules have a fixed scheduled_at; recurring
+   * schedules have a cron_expression.
+   */
+  schedule_type?: 'one-time' | 'recurring';
+
+  /**
+   * Return only schedules with this status.
+   */
+  status?: 'active' | 'paused' | 'completed';
 }
 
 export interface ScheduleDeleteParams {

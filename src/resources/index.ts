@@ -79,12 +79,15 @@ export {
   type ConversationDeleteResponse,
   type ConversationCancelResponse,
   type ConversationRecompileResponse,
+  type ConversationSearchResponse,
   type ConversationCreateParams,
+  type ConversationRetrieveParams,
   type ConversationUpdateParams,
   type ConversationListParams,
   type ConversationCancelParams,
   type ConversationForkParams,
   type ConversationRecompileParams,
+  type ConversationSearchParams,
 } from './conversations/conversations';
 export {
   Environments,
@@ -154,19 +157,6 @@ export {
   type StepsArrayPage,
 } from './steps/steps';
 export { Tags, type TagListResponse, type TagListParams } from './tags';
-export {
-  Templates,
-  type TemplateCreateResponse,
-  type TemplateUpdateResponse,
-  type TemplateDeleteResponse,
-  type TemplateRollbackResponse,
-  type TemplateSaveResponse,
-  type TemplateCreateParams,
-  type TemplateUpdateParams,
-  type TemplateDeleteParams,
-  type TemplateRollbackParams,
-  type TemplateSaveParams,
-} from './templates/templates';
 export {
   Tools,
   type NpmRequirement,
