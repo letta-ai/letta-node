@@ -232,6 +232,16 @@ export interface EnvironmentSendMessageResponse {
 export interface EnvironmentListParams {
   after?: string;
 
+  /**
+   * Filter by the stable device identifier.
+   */
+  deviceId?: string;
+
+  /**
+   * Filter by the stable listener instance identifier.
+   */
+  instanceId?: string;
+
   limit?: string;
 
   onlineOnly?: string;

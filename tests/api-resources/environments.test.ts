@@ -39,6 +39,8 @@ describe('resource environments', () => {
       client.environments.list(
         {
           after: 'after',
+          deviceId: 'deviceId',
+          instanceId: 'instanceId',
           limit: 'limit',
           onlineOnly: 'onlineOnly',
           paginationOrder: 'id',
