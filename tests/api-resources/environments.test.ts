@@ -39,8 +39,13 @@ describe('resource environments', () => {
       client.environments.list(
         {
           after: 'after',
+          connectionName: 'x',
+          deviceId: 'deviceId',
+          instanceId: 'instanceId',
           limit: 'limit',
           onlineOnly: 'onlineOnly',
+          paginationOrder: 'id',
+          search: 'search',
           source: 'local',
           userId: 'userId',
         },
@@ -52,6 +57,7 @@ describe('resource environments', () => {
   // Mock server tests are disabled
   test.skip('sendMessage: only required params', async () => {
     const responsePromise = client.environments.sendMessage('connectionId', {
+      agentId: 'agentId',
       messages: [
         {
           client_message_id: 'client_message_id',
@@ -72,6 +78,7 @@ describe('resource environments', () => {
   // Mock server tests are disabled
   test.skip('sendMessage: required and optional params', async () => {
     const response = await client.environments.sendMessage('connectionId', {
+      agentId: 'agentId',
       messages: [
         {
           client_message_id: 'client_message_id',
@@ -80,8 +87,12 @@ describe('resource environments', () => {
           otid: 'otid',
         },
       ],
-      agentId: 'agentId',
+      client_tool_allowlist: ['string'],
+      client_toolset: { base: 'base', include: ['string'] },
       conversationId: 'conversationId',
+      exclude_interactive_tools: true,
+      external_tool_scope_ids: ['string'],
+      image_failure_mode: 'strict',
     });
   });
 });

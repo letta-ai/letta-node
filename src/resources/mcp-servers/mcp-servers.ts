@@ -363,6 +363,8 @@ export interface McpServerCreateParams {
    * The name of the MCP server
    */
   server_name: string;
+
+  access?: 'current-user';
 }
 
 export interface McpServerUpdateParams {

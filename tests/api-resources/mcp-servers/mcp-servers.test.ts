@@ -37,6 +37,7 @@ describe('resource mcpServers', () => {
         mcp_server_type: 'stdio',
       },
       server_name: 'server_name',
+      access: 'current-user',
     });
   });
 
