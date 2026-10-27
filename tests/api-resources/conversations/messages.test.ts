@@ -46,6 +46,7 @@ describe('resource messages', () => {
           include_err: true,
           include_return_message_types: ['system_message', 'user_message'],
           limit: 200,
+          message_type: 'user_message',
           order: 'asc',
           order_by: 'created_at',
         },

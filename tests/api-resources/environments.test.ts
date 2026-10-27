@@ -39,6 +39,7 @@ describe('resource environments', () => {
       client.environments.list(
         {
           after: 'after',
+          connectionName: 'x',
           deviceId: 'deviceId',
           instanceId: 'instanceId',
           limit: 'limit',

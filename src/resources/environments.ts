@@ -233,6 +233,11 @@ export interface EnvironmentListParams {
   after?: string;
 
   /**
+   * Filter by exact computer name.
+   */
+  connectionName?: string;
+
+  /**
    * Filter by the stable device identifier.
    */
   deviceId?: string;

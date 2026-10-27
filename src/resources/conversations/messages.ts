@@ -997,6 +997,11 @@ export interface MessageListParams extends ArrayPageParams {
    * Message types to include in response. When null, all message types are returned.
    */
   include_return_message_types?: Array<MessagesAPI.MessageType> | null;
+
+  /**
+   * Filter persisted messages to user messages before pagination.
+   */
+  message_type?: 'user_message';
 }
 
 export interface MessageCompactParams {
