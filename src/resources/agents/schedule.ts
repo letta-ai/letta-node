@@ -415,12 +415,22 @@ export interface ScheduleListParams {
   after?: string;
 
   /**
+   * Return only schedules bound to this exact conversation ID.
+   */
+  conversation_id?: string;
+
+  /**
    * When 'true', include schedules that already completed (one-time schedules that
    * already fired). Defaults to active and paused schedules.
    */
   include_completed?: 'true' | 'false';
 
   limit?: string;
+
+  /**
+   * Return only schedules with this exact name.
+   */
+  name?: string;
 
   /**
    * Filter by schedule kind. one-time schedules have a fixed scheduled_at; recurring

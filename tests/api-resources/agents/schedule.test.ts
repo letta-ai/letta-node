@@ -94,8 +94,10 @@ describe('resource schedule', () => {
         'agent_id',
         {
           after: 'after',
+          conversation_id: 'conversation_id',
           include_completed: 'true',
           limit: 'limit',
+          name: 'name',
           schedule_type: 'one-time',
           status: 'active',
         },
