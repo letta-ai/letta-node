@@ -249,7 +249,8 @@ export interface LlmConfig {
     | 'baseten'
     | 'fireworks'
     | 'openrouter'
-    | 'chatgpt_oauth';
+    | 'chatgpt_oauth'
+    | 'anthropic-cortex';
 
   /**
    * The framework compatibility type for the model.
@@ -485,7 +486,8 @@ export interface Model {
     | 'zai'
     | 'zai_coding'
     | 'openrouter'
-    | 'chatgpt_oauth';
+    | 'chatgpt_oauth'
+    | 'anthropic-cortex';
 
   /**
    * The actual model name used by the provider
@@ -715,7 +717,8 @@ export type ProviderType =
   | 'zai'
   | 'zai_coding'
   | 'opencode'
-  | 'opencode_go';
+  | 'opencode_go'
+  | 'anthropic-cortex';
 
 export type ModelListResponse = Array<Model>;
 
