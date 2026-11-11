@@ -41,6 +41,7 @@ describe('resource environments', () => {
           after: 'after',
           connectionName: 'x',
           deviceId: 'deviceId',
+          includeMemberPrivate: 'includeMemberPrivate',
           instanceId: 'instanceId',
           limit: 'limit',
           onlineOnly: 'onlineOnly',

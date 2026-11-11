@@ -243,6 +243,12 @@ export interface EnvironmentListParams {
   deviceId?: string;
 
   /**
+   * Include members’ private computers when the caller has VIEW_ALL_COMPUTERS. List
+   * visibility only.
+   */
+  includeMemberPrivate?: string;
+
+  /**
    * Filter by the stable listener instance identifier.
    */
   instanceId?: string;
