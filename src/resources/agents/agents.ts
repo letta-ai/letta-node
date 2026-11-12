@@ -171,13 +171,16 @@ export class Agents extends APIResource {
   }
 
   /**
-   * Get the state of the agent.
+   * Get an agent by its ID. Pass include=agent.variables to include visible
+   * non-secret variables. Secret fields are never included, including when requested
+   * via include or include_relationships. Use the agent vault to manage keys or the
+   * dedicated secrets endpoint to retrieve values.
    */
   retrieve(
     agentID: string,
     params: AgentRetrieveParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AgentState> {
+  ): APIPromise<AgentRetrieveResponse> {
     const { 'if-none-match': ifNoneMatch, ...query } = params ?? {};
     return this._client.get(path`/v1/agents/${agentID}`, {
       query,
@@ -2840,6 +2843,35 @@ export interface XaiModelSettings {
   temperature?: number;
 }
 
+/**
+ * Representation of an agent's state. This is the state of the agent at a given
+ * time, and is persisted in the DB backend. The state has all the information
+ * needed to recreate a persisted agent.
+ */
+export interface AgentRetrieveResponse extends AgentState {
+  variables?: Array<AgentRetrieveResponse.Variable>;
+}
+
+export namespace AgentRetrieveResponse {
+  export interface Variable {
+    key: string;
+
+    value: string;
+
+    created_by?: Variable.CreatedBy | null;
+
+    is_private?: boolean;
+  }
+
+  export namespace Variable {
+    export interface CreatedBy {
+      id: string;
+
+      name: string | null;
+    }
+  }
+}
+
 export type AgentDeleteResponse = unknown;
 
 export type AgentExportFileResponse = string;
@@ -4237,6 +4269,7 @@ export interface AgentRetrieveParams {
     | 'agent.sources'
     | 'agent.tags'
     | 'agent.tools'
+    | 'agent.variables'
   > | null;
 
   /**
@@ -5813,6 +5846,7 @@ export declare namespace Agents {
     type TextResponseFormat as TextResponseFormat,
     type TogetherModelSettings as TogetherModelSettings,
     type XaiModelSettings as XaiModelSettings,
+    type AgentRetrieveResponse as AgentRetrieveResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,

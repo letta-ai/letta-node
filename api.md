@@ -39,6 +39,7 @@ Types:
 - <code><a href="./src/resources/agents/agents.ts">TextResponseFormat</a></code>
 - <code><a href="./src/resources/agents/agents.ts">TogetherModelSettings</a></code>
 - <code><a href="./src/resources/agents/agents.ts">XaiModelSettings</a></code>
+- <code><a href="./src/resources/agents/agents.ts">AgentRetrieveResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentDeleteResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentExportFileResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentImportFileResponse</a></code>
@@ -47,7 +48,7 @@ Types:
 Methods:
 
 - <code title="post /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">create</a>({ ...params }) -> AgentState</code>
-- <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">retrieve</a>(agentID, { ...params }) -> AgentState</code>
+- <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">retrieve</a>(agentID, { ...params }) -> AgentRetrieveResponse</code>
 - <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">update</a>(agentID, { ...params }) -> AgentState</code>
 - <code title="get /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">list</a>({ ...params }) -> AgentStatesArrayPage</code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentID) -> unknown</code>
