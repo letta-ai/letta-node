@@ -47,6 +47,14 @@ import {
   Environments,
 } from './resources/environments';
 import {
+  Goal,
+  GoalCreateParams,
+  GoalListParams,
+  GoalListResponse,
+  GoalUpdateParams,
+  Goals,
+} from './resources/goals';
+import {
   MessageListParams,
   MessageListResponse,
   MessageRetrieveResponse,
@@ -56,6 +64,14 @@ import {
   MessageSearchResult,
   Messages,
 } from './resources/messages';
+import {
+  Monitor,
+  MonitorCreateParams,
+  MonitorListParams,
+  MonitorListResponse,
+  MonitorUpdateParams,
+  Monitors,
+} from './resources/monitors';
 import { Passage, PassageSearchParams, PassageSearchResponse, Passages } from './resources/passages';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
 import {
@@ -1002,6 +1018,8 @@ export class Letta {
   tags: API.Tags = new API.Tags(this);
   messages: API.Messages = new API.Messages(this);
   passages: API.Passages = new API.Passages(this);
+  goals: API.Goals = new API.Goals(this);
+  monitors: API.Monitors = new API.Monitors(this);
   conversations: API.Conversations = new API.Conversations(this);
   environments: API.Environments = new API.Environments(this);
   accessTokens: API.AccessTokens = new API.AccessTokens(this);
@@ -1019,6 +1037,8 @@ Letta.Steps = Steps;
 Letta.Tags = Tags;
 Letta.Messages = Messages;
 Letta.Passages = Passages;
+Letta.Goals = Goals;
+Letta.Monitors = Monitors;
 Letta.Conversations = Conversations;
 Letta.Environments = Environments;
 Letta.AccessTokens = AccessTokens;
@@ -1201,6 +1221,24 @@ export declare namespace Letta {
     type Passage as Passage,
     type PassageSearchResponse as PassageSearchResponse,
     type PassageSearchParams as PassageSearchParams,
+  };
+
+  export {
+    Goals as Goals,
+    type Goal as Goal,
+    type GoalListResponse as GoalListResponse,
+    type GoalCreateParams as GoalCreateParams,
+    type GoalUpdateParams as GoalUpdateParams,
+    type GoalListParams as GoalListParams,
+  };
+
+  export {
+    Monitors as Monitors,
+    type Monitor as Monitor,
+    type MonitorListResponse as MonitorListResponse,
+    type MonitorCreateParams as MonitorCreateParams,
+    type MonitorUpdateParams as MonitorUpdateParams,
+    type MonitorListParams as MonitorListParams,
   };
 
   export {

@@ -535,6 +535,36 @@ Methods:
 
 - <code title="post /v1/passages/search">client.passages.<a href="./src/resources/passages.ts">search</a>({ ...params }) -> PassageSearchResponse</code>
 
+# Goals
+
+Types:
+
+- <code><a href="./src/resources/goals.ts">Goal</a></code>
+- <code><a href="./src/resources/goals.ts">GoalListResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/goals">client.goals.<a href="./src/resources/goals.ts">create</a>({ ...params }) -> Goal</code>
+- <code title="get /v1/goals/{goal_id}">client.goals.<a href="./src/resources/goals.ts">retrieve</a>(goalID) -> Goal</code>
+- <code title="patch /v1/goals/{goal_id}">client.goals.<a href="./src/resources/goals.ts">update</a>(goalID, { ...params }) -> Goal</code>
+- <code title="get /v1/goals">client.goals.<a href="./src/resources/goals.ts">list</a>({ ...params }) -> GoalListResponse</code>
+- <code title="delete /v1/goals/{goal_id}">client.goals.<a href="./src/resources/goals.ts">delete</a>(goalID) -> void</code>
+
+# Monitors
+
+Types:
+
+- <code><a href="./src/resources/monitors.ts">Monitor</a></code>
+- <code><a href="./src/resources/monitors.ts">MonitorListResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/monitors">client.monitors.<a href="./src/resources/monitors.ts">create</a>({ ...params }) -> Monitor</code>
+- <code title="get /v1/monitors/{monitor_id}">client.monitors.<a href="./src/resources/monitors.ts">retrieve</a>(monitorID) -> Monitor</code>
+- <code title="patch /v1/monitors/{monitor_id}">client.monitors.<a href="./src/resources/monitors.ts">update</a>(monitorID, { ...params }) -> Monitor</code>
+- <code title="get /v1/monitors">client.monitors.<a href="./src/resources/monitors.ts">list</a>({ ...params }) -> MonitorListResponse</code>
+- <code title="delete /v1/monitors/{monitor_id}">client.monitors.<a href="./src/resources/monitors.ts">delete</a>(monitorID) -> void</code>
+
 # Conversations
 
 Types:

@@ -108,6 +108,14 @@ export {
   type FoldersArrayPage,
 } from './folders/folders';
 export {
+  Goals,
+  type Goal,
+  type GoalListResponse,
+  type GoalCreateParams,
+  type GoalUpdateParams,
+  type GoalListParams,
+} from './goals';
+export {
   McpServers,
   type CreateSseMcpServer,
   type CreateStdioMcpServer,
@@ -148,6 +156,14 @@ export {
   type ModelListResponse,
   type ModelListParams,
 } from './models/models';
+export {
+  Monitors,
+  type Monitor,
+  type MonitorListResponse,
+  type MonitorCreateParams,
+  type MonitorUpdateParams,
+  type MonitorListParams,
+} from './monitors';
 export { Passages, type Passage, type PassageSearchResponse, type PassageSearchParams } from './passages';
 export { Runs, type Job, type StopReasonType, type RunListParams } from './runs/runs';
 export {
