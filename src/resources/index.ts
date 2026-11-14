@@ -38,6 +38,7 @@ export {
   type TextResponseFormat,
   type TogetherModelSettings,
   type XaiModelSettings,
+  type AgentRetrieveResponse,
   type AgentDeleteResponse,
   type AgentExportFileResponse,
   type AgentImportFileResponse,
@@ -79,12 +80,15 @@ export {
   type ConversationDeleteResponse,
   type ConversationCancelResponse,
   type ConversationRecompileResponse,
+  type ConversationSearchResponse,
   type ConversationCreateParams,
+  type ConversationRetrieveParams,
   type ConversationUpdateParams,
   type ConversationListParams,
   type ConversationCancelParams,
   type ConversationForkParams,
   type ConversationRecompileParams,
+  type ConversationSearchParams,
 } from './conversations/conversations';
 export {
   Environments,
@@ -103,6 +107,14 @@ export {
   type FolderListParams,
   type FoldersArrayPage,
 } from './folders/folders';
+export {
+  Goals,
+  type Goal,
+  type GoalListResponse,
+  type GoalCreateParams,
+  type GoalUpdateParams,
+  type GoalListParams,
+} from './goals';
 export {
   McpServers,
   type CreateSseMcpServer,
@@ -144,6 +156,14 @@ export {
   type ModelListResponse,
   type ModelListParams,
 } from './models/models';
+export {
+  Monitors,
+  type Monitor,
+  type MonitorListResponse,
+  type MonitorCreateParams,
+  type MonitorUpdateParams,
+  type MonitorListParams,
+} from './monitors';
 export { Passages, type Passage, type PassageSearchResponse, type PassageSearchParams } from './passages';
 export { Runs, type Job, type StopReasonType, type RunListParams } from './runs/runs';
 export {
@@ -154,19 +174,6 @@ export {
   type StepsArrayPage,
 } from './steps/steps';
 export { Tags, type TagListResponse, type TagListParams } from './tags';
-export {
-  Templates,
-  type TemplateCreateResponse,
-  type TemplateUpdateResponse,
-  type TemplateDeleteResponse,
-  type TemplateRollbackResponse,
-  type TemplateSaveResponse,
-  type TemplateCreateParams,
-  type TemplateUpdateParams,
-  type TemplateDeleteParams,
-  type TemplateRollbackParams,
-  type TemplateSaveParams,
-} from './templates/templates';
 export {
   Tools,
   type NpmRequirement,

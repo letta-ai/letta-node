@@ -249,7 +249,8 @@ export interface LlmConfig {
     | 'baseten'
     | 'fireworks'
     | 'openrouter'
-    | 'chatgpt_oauth';
+    | 'chatgpt_oauth'
+    | 'anthropic-cortex';
 
   /**
    * The framework compatibility type for the model.
@@ -333,9 +334,15 @@ export interface LlmConfig {
   put_inner_thoughts_in_kwargs?: boolean | null;
 
   /**
-   * The reasoning effort to use when generating text reasoning models
+   * Provider-reported reasoning capabilities for a model.
    */
-  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | null;
+  reasoning_capabilities?: LlmConfig.ReasoningCapabilities | null;
+
+  /**
+   * The reasoning effort to use when generating text reasoning models. Supported
+   * values depend on the model and provider.
+   */
+  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
 
   /**
    * The response format for the model's output. Supports text, json_object, and
@@ -396,6 +403,39 @@ export interface LlmConfig {
   verbosity?: 'low' | 'medium' | 'high' | null;
 }
 
+export namespace LlmConfig {
+  /**
+   * Provider-reported reasoning capabilities for a model.
+   */
+  export interface ReasoningCapabilities {
+    /**
+     * Whether reasoning is mandatory for this model.
+     */
+    mandatory: boolean;
+
+    /**
+     * The provider's default effort when reasoning is enabled.
+     */
+    default_effort?: string | null;
+
+    /**
+     * Whether the provider enables reasoning by default.
+     */
+    default_enabled?: boolean | null;
+
+    /**
+     * Reasoning effort levels accepted by the provider for this model. Null means all
+     * gateway-supported effort levels are accepted.
+     */
+    supported_efforts?: Array<string> | null;
+
+    /**
+     * Whether the provider accepts an explicit reasoning token budget for this model.
+     */
+    supports_max_tokens?: boolean | null;
+  }
+}
+
 export interface Model {
   /**
    * @deprecated Deprecated: Use 'max_context_window' field instead. The context
@@ -446,7 +486,8 @@ export interface Model {
     | 'zai'
     | 'zai_coding'
     | 'openrouter'
-    | 'chatgpt_oauth';
+    | 'chatgpt_oauth'
+    | 'anthropic-cortex';
 
   /**
    * The actual model name used by the provider
@@ -538,10 +579,15 @@ export interface Model {
   put_inner_thoughts_in_kwargs?: boolean | null;
 
   /**
-   * @deprecated Deprecated: The reasoning effort to use when generating text
-   * reasoning models.
+   * Provider-reported reasoning capabilities for a model.
    */
-  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | null;
+  reasoning_capabilities?: Model.ReasoningCapabilities | null;
+
+  /**
+   * @deprecated Deprecated: The reasoning effort to use when generating text
+   * reasoning models. 'max' is supported only by GPT-5.6 models.
+   */
+  reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
 
   /**
    * The response format for the model's output. Supports text, json_object, and
@@ -574,6 +620,11 @@ export interface Model {
   strict?: boolean;
 
   /**
+   * Whether this model supports request-scoped structured outputs.
+   */
+  supports_structured_outputs?: boolean;
+
+  /**
    * @deprecated Deprecated: The temperature to use when generating text with the
    * model.
    */
@@ -600,6 +651,39 @@ export interface Model {
    * @deprecated Deprecated: Soft control for how verbose model output should be.
    */
   verbosity?: 'low' | 'medium' | 'high' | null;
+}
+
+export namespace Model {
+  /**
+   * Provider-reported reasoning capabilities for a model.
+   */
+  export interface ReasoningCapabilities {
+    /**
+     * Whether reasoning is mandatory for this model.
+     */
+    mandatory: boolean;
+
+    /**
+     * The provider's default effort when reasoning is enabled.
+     */
+    default_effort?: string | null;
+
+    /**
+     * Whether the provider enables reasoning by default.
+     */
+    default_enabled?: boolean | null;
+
+    /**
+     * Reasoning effort levels accepted by the provider for this model. Null means all
+     * gateway-supported effort levels are accepted.
+     */
+    supported_efforts?: Array<string> | null;
+
+    /**
+     * Whether the provider accepts an explicit reasoning token budget for this model.
+     */
+    supports_max_tokens?: boolean | null;
+  }
 }
 
 export type ProviderCategory = 'base' | 'byok';
@@ -631,7 +715,10 @@ export type ProviderType =
   | 'openrouter'
   | 'xai'
   | 'zai'
-  | 'zai_coding';
+  | 'zai_coding'
+  | 'opencode'
+  | 'opencode_go'
+  | 'anthropic-cortex';
 
 export type ModelListResponse = Array<Model>;
 
