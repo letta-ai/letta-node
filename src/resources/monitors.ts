@@ -100,11 +100,15 @@ export interface MonitorCreateParams {
 
   agent_id?: string | null;
 
+  args?: { [key: string]: unknown };
+
   conversation_id?: string | null;
 
   device_id?: string | null;
 
   exit_code?: number | null;
+
+  expires_at?: string | null;
 
   output_file?: string | null;
 
@@ -112,10 +116,12 @@ export interface MonitorCreateParams {
 
   started_at?: string | null;
 
-  status?: 'running' | 'completed' | 'failed';
+  status?: 'running' | 'paused' | 'completed' | 'failed' | 'expired' | 'stopped';
 }
 
 export interface MonitorUpdateParams {
+  args?: { [key: string]: unknown };
+
   command?: string;
 
   description?: string;
@@ -123,6 +129,8 @@ export interface MonitorUpdateParams {
   device_id?: string | null;
 
   exit_code?: number | null;
+
+  expires_at?: string | null;
 
   kind?: 'command' | 'websocket' | 'script' | 'github_pull_request';
 
@@ -132,7 +140,7 @@ export interface MonitorUpdateParams {
 
   started_at?: string | null;
 
-  status?: 'running' | 'completed' | 'failed';
+  status?: 'running' | 'paused' | 'completed' | 'failed' | 'expired' | 'stopped';
 }
 
 export interface MonitorListParams {
@@ -144,7 +152,7 @@ export interface MonitorListParams {
 
   limit?: number;
 
-  status?: 'running' | 'completed' | 'failed';
+  status?: 'running' | 'paused' | 'completed' | 'failed' | 'expired' | 'stopped';
 }
 
 export declare namespace Monitors {
