@@ -185,6 +185,12 @@ export interface RunListParams extends ArrayPageParams {
   conversation_id?: string | null;
 
   /**
+   * Include request_config in each run. Defaults to true; set false for a slim
+   * response.
+   */
+  include_request_config?: boolean;
+
+  /**
    * Filter runs by status. Can specify multiple statuses.
    */
   statuses?: Array<string> | null;

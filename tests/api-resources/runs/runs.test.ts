@@ -46,6 +46,7 @@ describe('resource runs', () => {
           background: true,
           before: 'run-123e4567-e89b-42d3-8456-426614174000',
           conversation_id: 'conversation_id',
+          include_request_config: true,
           limit: 1,
           order: 'asc',
           order_by: 'created_at',
