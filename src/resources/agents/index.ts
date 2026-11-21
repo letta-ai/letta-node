@@ -29,6 +29,7 @@ export {
   type TextResponseFormat,
   type TogetherModelSettings,
   type XaiModelSettings,
+  type AgentRetrieveResponse,
   type AgentDeleteResponse,
   type AgentExportFileResponse,
   type AgentImportFileResponse,

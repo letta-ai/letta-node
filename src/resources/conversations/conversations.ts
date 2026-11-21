@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as ConversationsAPI from './conversations';
 import * as AgentsAPI from '../agents/agents';
 import * as MessagesAPI from './messages';
 import {
@@ -31,8 +32,12 @@ export class Conversations extends APIResource {
   /**
    * Retrieve a specific conversation.
    */
-  retrieve(conversationID: string, options?: RequestOptions): APIPromise<Conversation> {
-    return this._client.get(path`/v1/conversations/${conversationID}`, options);
+  retrieve(
+    conversationID: string,
+    query: ConversationRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Conversation> {
+    return this._client.get(path`/v1/conversations/${conversationID}`, { query, ...options });
   }
 
   /**
@@ -112,9 +117,10 @@ export class Conversations extends APIResource {
     params: ConversationForkParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<Conversation> {
-    const { agent_id, hidden, message_id } = params ?? {};
+    const { agent_id, hidden, message_id, ...body } = params ?? {};
     return this._client.post(path`/v1/conversations/${conversationID}/fork`, {
       query: { agent_id, hidden, message_id },
+      body,
       ...options,
     });
   }
@@ -134,6 +140,13 @@ export class Conversations extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * Search conversations by summary/title or generated description.
+   */
+  search(body: ConversationSearchParams, options?: RequestOptions): APIPromise<ConversationSearchResponse> {
+    return this._client.post('/v1/conversations/search', { body, ...options });
+  }
 }
 
 /**
@@ -145,10 +158,7 @@ export interface Conversation {
    */
   id: string;
 
-  /**
-   * The ID of the agent this conversation belongs to.
-   */
-  agent_id: string;
+  agent_id: string | null;
 
   /**
    * Whether the conversation is archived.
@@ -188,6 +198,10 @@ export interface Conversation {
    */
   in_context_message_ids?: Array<string> | null;
 
+  is_pinned?: boolean;
+
+  is_subagent?: boolean;
+
   /**
    * Timestamp of the most recent message request sent to this conversation.
    */
@@ -211,12 +225,14 @@ export interface Conversation {
     | AgentsAPI.OpenAIModelSettings
     | Conversation.SgLangModelSettings
     | AgentsAPI.AnthropicModelSettings
+    | Conversation.MiniMaxModelSettings
     | AgentsAPI.GoogleAIModelSettings
     | AgentsAPI.GoogleVertexModelSettings
     | AgentsAPI.AzureModelSettings
     | AgentsAPI.XaiModelSettings
     | Conversation.MoonshotModelSettings
     | Conversation.ZaiModelSettings
+    | Conversation.ZaiCodingModelSettings
     | Conversation.MoonshotCodingModelSettings
     | AgentsAPI.GroqModelSettings
     | AgentsAPI.DeepseekModelSettings
@@ -227,10 +243,24 @@ export interface Conversation {
     | Conversation.ChatGptoAuthModelSettings
     | null;
 
+  name?: string | null;
+
+  /**
+   * The parent agent supplying permissions and runtime resources for an ephemeral
+   * conversation; it does not own the conversation history.
+   */
+  parent_agent_id?: string | null;
+
   /**
    * A summary of the conversation.
    */
   summary?: string | null;
+
+  /**
+   * The tags associated with the conversation (e.g. provenance tags like origin:tui
+   * or channel:slack).
+   */
+  tags?: Array<string>;
 
   /**
    * The timestamp when the object was last updated.
@@ -296,9 +326,84 @@ export namespace Conversation {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort to use when generating text reasoning models
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
        */
-      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
+  }
+
+  /**
+   * MiniMax model configuration (Anthropic-compatible).
+   */
+  export interface MiniMaxModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'minimax';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MiniMaxModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MiniMaxModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
+       */
+      type?: 'enabled' | 'disabled';
     }
   }
 
@@ -362,6 +467,11 @@ export namespace Conversation {
     provider_type?: 'zai';
 
     /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -382,6 +492,67 @@ export namespace Conversation {
   }
 
   export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+   */
+  export interface ZaiCodingModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai_coding';
+
+    /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiCodingModelSettings.Thinking;
+  }
+
+  export namespace ZaiCodingModelSettings {
     /**
      * The thinking configuration for GLM-4.5+ models.
      */
@@ -517,6 +688,11 @@ export namespace Conversation {
     provider_type?: 'openrouter';
 
     /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: OpenRouterModelSettings.Reasoning | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -529,6 +705,19 @@ export namespace Conversation {
      * The temperature of the model.
      */
     temperature?: number;
+  }
+
+  export namespace OpenRouterModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
+       */
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
   }
 
   /**
@@ -559,6 +748,11 @@ export namespace Conversation {
      * The temperature of the model.
      */
     temperature?: number;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
   }
 
   export namespace ChatGptoAuthModelSettings {
@@ -567,9 +761,10 @@ export namespace Conversation {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort level for GPT-5.x and o-series models.
+       * The reasoning effort level for GPT-5.x and o-series models. 'max' is supported
+       * only by GPT-5.6 models.
        */
-      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
     }
   }
 }
@@ -595,6 +790,8 @@ export interface CreateConversation {
    */
   hidden?: boolean;
 
+  is_subagent?: boolean;
+
   /**
    * The model handle for this conversation (overrides agent's model). Format:
    * provider/model-name.
@@ -608,12 +805,14 @@ export interface CreateConversation {
     | AgentsAPI.OpenAIModelSettings
     | CreateConversation.SgLangModelSettings
     | AgentsAPI.AnthropicModelSettings
+    | CreateConversation.MiniMaxModelSettings
     | AgentsAPI.GoogleAIModelSettings
     | AgentsAPI.GoogleVertexModelSettings
     | AgentsAPI.AzureModelSettings
     | AgentsAPI.XaiModelSettings
     | CreateConversation.MoonshotModelSettings
     | CreateConversation.ZaiModelSettings
+    | CreateConversation.ZaiCodingModelSettings
     | CreateConversation.MoonshotCodingModelSettings
     | AgentsAPI.GroqModelSettings
     | AgentsAPI.DeepseekModelSettings
@@ -624,10 +823,18 @@ export interface CreateConversation {
     | CreateConversation.ChatGptoAuthModelSettings
     | null;
 
+  name?: string | null;
+
   /**
    * A summary of the conversation.
    */
   summary?: string | null;
+
+  /**
+   * The tags to associate with the conversation (e.g. provenance tags like
+   * origin:tui or channel:slack).
+   */
+  tags?: Array<string> | null;
 }
 
 export namespace CreateConversation {
@@ -688,9 +895,84 @@ export namespace CreateConversation {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort to use when generating text reasoning models
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
        */
-      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
+  }
+
+  /**
+   * MiniMax model configuration (Anthropic-compatible).
+   */
+  export interface MiniMaxModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'minimax';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MiniMaxModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MiniMaxModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
+       */
+      type?: 'enabled' | 'disabled';
     }
   }
 
@@ -754,6 +1036,11 @@ export namespace CreateConversation {
     provider_type?: 'zai';
 
     /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -774,6 +1061,67 @@ export namespace CreateConversation {
   }
 
   export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+   */
+  export interface ZaiCodingModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai_coding';
+
+    /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiCodingModelSettings.Thinking;
+  }
+
+  export namespace ZaiCodingModelSettings {
     /**
      * The thinking configuration for GLM-4.5+ models.
      */
@@ -909,6 +1257,11 @@ export namespace CreateConversation {
     provider_type?: 'openrouter';
 
     /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: OpenRouterModelSettings.Reasoning | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -921,6 +1274,19 @@ export namespace CreateConversation {
      * The temperature of the model.
      */
     temperature?: number;
+  }
+
+  export namespace OpenRouterModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
+       */
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
   }
 
   /**
@@ -951,6 +1317,11 @@ export namespace CreateConversation {
      * The temperature of the model.
      */
     temperature?: number;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
   }
 
   export namespace ChatGptoAuthModelSettings {
@@ -959,9 +1330,10 @@ export namespace CreateConversation {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort level for GPT-5.x and o-series models.
+       * The reasoning effort level for GPT-5.x and o-series models. 'max' is supported
+       * only by GPT-5.6 models.
        */
-      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
     }
   }
 }
@@ -987,6 +1359,10 @@ export interface UpdateConversation {
    */
   description?: string | null;
 
+  is_pinned?: boolean;
+
+  is_subagent?: boolean;
+
   /**
    * Timestamp of the most recent message request sent to this conversation.
    */
@@ -1005,12 +1381,14 @@ export interface UpdateConversation {
     | AgentsAPI.OpenAIModelSettings
     | UpdateConversation.SgLangModelSettings
     | AgentsAPI.AnthropicModelSettings
+    | UpdateConversation.MiniMaxModelSettings
     | AgentsAPI.GoogleAIModelSettings
     | AgentsAPI.GoogleVertexModelSettings
     | AgentsAPI.AzureModelSettings
     | AgentsAPI.XaiModelSettings
     | UpdateConversation.MoonshotModelSettings
     | UpdateConversation.ZaiModelSettings
+    | UpdateConversation.ZaiCodingModelSettings
     | UpdateConversation.MoonshotCodingModelSettings
     | AgentsAPI.GroqModelSettings
     | AgentsAPI.DeepseekModelSettings
@@ -1021,10 +1399,18 @@ export interface UpdateConversation {
     | UpdateConversation.ChatGptoAuthModelSettings
     | null;
 
+  name?: string | null;
+
   /**
    * A summary of the conversation.
    */
   summary?: string | null;
+
+  /**
+   * The full set of tags to associate with the conversation (replaces the existing
+   * set).
+   */
+  tags?: Array<string> | null;
 }
 
 export namespace UpdateConversation {
@@ -1085,9 +1471,84 @@ export namespace UpdateConversation {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort to use when generating text reasoning models
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
        */
-      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
+  }
+
+  /**
+   * MiniMax model configuration (Anthropic-compatible).
+   */
+  export interface MiniMaxModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'minimax';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MiniMaxModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MiniMaxModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
+       */
+      type?: 'enabled' | 'disabled';
     }
   }
 
@@ -1151,6 +1612,11 @@ export namespace UpdateConversation {
     provider_type?: 'zai';
 
     /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -1171,6 +1637,67 @@ export namespace UpdateConversation {
   }
 
   export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+   */
+  export interface ZaiCodingModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai_coding';
+
+    /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiCodingModelSettings.Thinking;
+  }
+
+  export namespace ZaiCodingModelSettings {
     /**
      * The thinking configuration for GLM-4.5+ models.
      */
@@ -1306,6 +1833,11 @@ export namespace UpdateConversation {
     provider_type?: 'openrouter';
 
     /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: OpenRouterModelSettings.Reasoning | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -1318,6 +1850,19 @@ export namespace UpdateConversation {
      * The temperature of the model.
      */
     temperature?: number;
+  }
+
+  export namespace OpenRouterModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
+       */
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
   }
 
   /**
@@ -1348,6 +1893,11 @@ export namespace UpdateConversation {
      * The temperature of the model.
      */
     temperature?: number;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
   }
 
   export namespace ChatGptoAuthModelSettings {
@@ -1356,9 +1906,10 @@ export namespace UpdateConversation {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort level for GPT-5.x and o-series models.
+       * The reasoning effort level for GPT-5.x and o-series models. 'max' is supported
+       * only by GPT-5.6 models.
        */
-      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
     }
   }
 }
@@ -1370,6 +1921,40 @@ export type ConversationDeleteResponse = unknown;
 export type ConversationCancelResponse = { [key: string]: unknown };
 
 export type ConversationRecompileResponse = string;
+
+export type ConversationSearchResponse = Array<ConversationSearchResponse.ConversationSearchResponseItem>;
+
+export namespace ConversationSearchResponse {
+  /**
+   * Result from a conversation search operation with scoring details.
+   */
+  export interface ConversationSearchResponseItem {
+    /**
+     * The matched conversation.
+     */
+    conversation: ConversationsAPI.Conversation;
+
+    /**
+     * The embedded text content used for matching.
+     */
+    embedded_text: string;
+
+    /**
+     * Reciprocal Rank Fusion combined score.
+     */
+    rrf_score: number;
+
+    /**
+     * Full-text search rank position if FTS was used.
+     */
+    fts_rank?: number | null;
+
+    /**
+     * Vector search rank position if vector search was used.
+     */
+    vector_rank?: number | null;
+  }
+}
 
 export interface ConversationCreateParams {
   /**
@@ -1395,6 +1980,11 @@ export interface ConversationCreateParams {
   hidden?: boolean;
 
   /**
+   * Body param
+   */
+  is_subagent?: boolean;
+
+  /**
    * Body param: The model handle for this conversation (overrides agent's model).
    * Format: provider/model-name.
    */
@@ -1408,12 +1998,14 @@ export interface ConversationCreateParams {
     | AgentsAPI.OpenAIModelSettings
     | ConversationCreateParams.SgLangModelSettings
     | AgentsAPI.AnthropicModelSettings
+    | ConversationCreateParams.MiniMaxModelSettings
     | AgentsAPI.GoogleAIModelSettings
     | AgentsAPI.GoogleVertexModelSettings
     | AgentsAPI.AzureModelSettings
     | AgentsAPI.XaiModelSettings
     | ConversationCreateParams.MoonshotModelSettings
     | ConversationCreateParams.ZaiModelSettings
+    | ConversationCreateParams.ZaiCodingModelSettings
     | ConversationCreateParams.MoonshotCodingModelSettings
     | AgentsAPI.GroqModelSettings
     | AgentsAPI.DeepseekModelSettings
@@ -1425,9 +2017,20 @@ export interface ConversationCreateParams {
     | null;
 
   /**
+   * Body param
+   */
+  name?: string | null;
+
+  /**
    * Body param: A summary of the conversation.
    */
   summary?: string | null;
+
+  /**
+   * Body param: The tags to associate with the conversation (e.g. provenance tags
+   * like origin:tui or channel:slack).
+   */
+  tags?: Array<string> | null;
 }
 
 export namespace ConversationCreateParams {
@@ -1488,9 +2091,84 @@ export namespace ConversationCreateParams {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort to use when generating text reasoning models
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
        */
-      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
+  }
+
+  /**
+   * MiniMax model configuration (Anthropic-compatible).
+   */
+  export interface MiniMaxModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'minimax';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MiniMaxModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MiniMaxModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
+       */
+      type?: 'enabled' | 'disabled';
     }
   }
 
@@ -1554,6 +2232,11 @@ export namespace ConversationCreateParams {
     provider_type?: 'zai';
 
     /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -1574,6 +2257,67 @@ export namespace ConversationCreateParams {
   }
 
   export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+   */
+  export interface ZaiCodingModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai_coding';
+
+    /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiCodingModelSettings.Thinking;
+  }
+
+  export namespace ZaiCodingModelSettings {
     /**
      * The thinking configuration for GLM-4.5+ models.
      */
@@ -1709,6 +2453,11 @@ export namespace ConversationCreateParams {
     provider_type?: 'openrouter';
 
     /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: OpenRouterModelSettings.Reasoning | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -1721,6 +2470,19 @@ export namespace ConversationCreateParams {
      * The temperature of the model.
      */
     temperature?: number;
+  }
+
+  export namespace OpenRouterModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
+       */
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
   }
 
   /**
@@ -1751,6 +2513,11 @@ export namespace ConversationCreateParams {
      * The temperature of the model.
      */
     temperature?: number;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
   }
 
   export namespace ChatGptoAuthModelSettings {
@@ -1759,11 +2526,20 @@ export namespace ConversationCreateParams {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort level for GPT-5.x and o-series models.
+       * The reasoning effort level for GPT-5.x and o-series models. 'max' is supported
+       * only by GPT-5.6 models.
        */
-      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
     }
   }
+}
+
+export interface ConversationRetrieveParams {
+  /**
+   * Include the ordered IDs of messages still in the active context (defaults to
+   * true). Set false to skip loading them.
+   */
+  include_context_message_ids?: boolean;
 }
 
 export interface ConversationUpdateParams {
@@ -1784,6 +2560,10 @@ export interface ConversationUpdateParams {
    */
   description?: string | null;
 
+  is_pinned?: boolean;
+
+  is_subagent?: boolean;
+
   /**
    * Timestamp of the most recent message request sent to this conversation.
    */
@@ -1802,12 +2582,14 @@ export interface ConversationUpdateParams {
     | AgentsAPI.OpenAIModelSettings
     | ConversationUpdateParams.SgLangModelSettings
     | AgentsAPI.AnthropicModelSettings
+    | ConversationUpdateParams.MiniMaxModelSettings
     | AgentsAPI.GoogleAIModelSettings
     | AgentsAPI.GoogleVertexModelSettings
     | AgentsAPI.AzureModelSettings
     | AgentsAPI.XaiModelSettings
     | ConversationUpdateParams.MoonshotModelSettings
     | ConversationUpdateParams.ZaiModelSettings
+    | ConversationUpdateParams.ZaiCodingModelSettings
     | ConversationUpdateParams.MoonshotCodingModelSettings
     | AgentsAPI.GroqModelSettings
     | AgentsAPI.DeepseekModelSettings
@@ -1818,10 +2600,18 @@ export interface ConversationUpdateParams {
     | ConversationUpdateParams.ChatGptoAuthModelSettings
     | null;
 
+  name?: string | null;
+
   /**
    * A summary of the conversation.
    */
   summary?: string | null;
+
+  /**
+   * The full set of tags to associate with the conversation (replaces the existing
+   * set).
+   */
+  tags?: Array<string> | null;
 }
 
 export namespace ConversationUpdateParams {
@@ -1882,9 +2672,84 @@ export namespace ConversationUpdateParams {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort to use when generating text reasoning models
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
        */
-      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
+  }
+
+  /**
+   * MiniMax model configuration (Anthropic-compatible).
+   */
+  export interface MiniMaxModelSettings {
+    /**
+     * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+     * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+     * to 'high'.
+     */
+    effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'minimax';
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+     * match JSON schemas.
+     */
+    strict?: boolean;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for the model.
+     */
+    thinking?: MiniMaxModelSettings.Thinking;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
+  }
+
+  export namespace MiniMaxModelSettings {
+    /**
+     * The thinking configuration for the model.
+     */
+    export interface Thinking {
+      /**
+       * The maximum number of tokens the model can use for extended thinking.
+       */
+      budget_tokens?: number;
+
+      /**
+       * The type of thinking to use.
+       */
+      type?: 'enabled' | 'disabled';
     }
   }
 
@@ -1948,6 +2813,11 @@ export namespace ConversationUpdateParams {
     provider_type?: 'zai';
 
     /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -1968,6 +2838,67 @@ export namespace ConversationUpdateParams {
   }
 
   export namespace ZaiModelSettings {
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    export interface Thinking {
+      /**
+       * If False, preserved thinking is used (recommended for agents).
+       */
+      clear_thinking?: boolean;
+
+      /**
+       * Whether thinking is enabled or disabled.
+       */
+      type?: 'enabled' | 'disabled';
+    }
+  }
+
+  /**
+   * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+   */
+  export interface ZaiCodingModelSettings {
+    /**
+     * The maximum number of tokens the model can generate.
+     */
+    max_output_tokens?: number;
+
+    /**
+     * Whether to enable parallel tool calling.
+     */
+    parallel_tool_calls?: boolean;
+
+    /**
+     * The type of the provider.
+     */
+    provider_type?: 'zai_coding';
+
+    /**
+     * The reasoning effort for Z.ai models that support explicit effort control.
+     */
+    reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+    /**
+     * The response format for the model.
+     */
+    response_format?:
+      | AgentsAPI.TextResponseFormat
+      | AgentsAPI.JsonSchemaResponseFormat
+      | AgentsAPI.JsonObjectResponseFormat
+      | null;
+
+    /**
+     * The temperature of the model.
+     */
+    temperature?: number;
+
+    /**
+     * The thinking configuration for GLM-4.5+ models.
+     */
+    thinking?: ZaiCodingModelSettings.Thinking;
+  }
+
+  export namespace ZaiCodingModelSettings {
     /**
      * The thinking configuration for GLM-4.5+ models.
      */
@@ -2103,6 +3034,11 @@ export namespace ConversationUpdateParams {
     provider_type?: 'openrouter';
 
     /**
+     * The reasoning configuration for the model.
+     */
+    reasoning?: OpenRouterModelSettings.Reasoning | null;
+
+    /**
      * The response format for the model.
      */
     response_format?:
@@ -2115,6 +3051,19 @@ export namespace ConversationUpdateParams {
      * The temperature of the model.
      */
     temperature?: number;
+  }
+
+  export namespace OpenRouterModelSettings {
+    /**
+     * The reasoning configuration for the model.
+     */
+    export interface Reasoning {
+      /**
+       * The reasoning effort to use when generating text reasoning models. Supported
+       * values depend on the model and provider.
+       */
+      reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+    }
   }
 
   /**
@@ -2145,6 +3094,11 @@ export namespace ConversationUpdateParams {
      * The temperature of the model.
      */
     temperature?: number;
+
+    /**
+     * Soft control for how verbose model output should be, used for GPT-5 models.
+     */
+    verbosity?: 'low' | 'medium' | 'high' | null;
   }
 
   export namespace ChatGptoAuthModelSettings {
@@ -2153,9 +3107,10 @@ export namespace ConversationUpdateParams {
      */
     export interface Reasoning {
       /**
-       * The reasoning effort level for GPT-5.x and o-series models.
+       * The reasoning effort level for GPT-5.x and o-series models. 'max' is supported
+       * only by GPT-5.6 models.
        */
-      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+      reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
     }
   }
 }
@@ -2180,9 +3135,26 @@ export interface ConversationListParams {
   archive_status?: 'unarchived' | 'archived' | 'all';
 
   /**
+   * Filter conversations by the user who created them. Use "@me" to filter to
+   * conversations created by the requesting user.
+   */
+  created_by_id?: string | null;
+
+  /**
+   * Filter conversations by pinned state.
+   */
+  is_pinned?: boolean;
+
+  /**
    * Maximum number of conversations to return
    */
   limit?: number;
+
+  /**
+   * If True, only returns conversations that match ALL given tags. Otherwise,
+   * returns conversations that have ANY of the passed-in tags.
+   */
+  match_all_tags?: boolean;
 
   /**
    * Sort order for conversations. 'asc' for oldest first, 'desc' for newest first
@@ -2198,6 +3170,11 @@ export interface ConversationListParams {
    * Search for text within conversation summaries
    */
   summary_search?: string | null;
+
+  /**
+   * List of tags to filter conversations by
+   */
+  tags?: Array<string> | null;
 }
 
 export interface ConversationCancelParams {
@@ -2209,19 +3186,36 @@ export interface ConversationCancelParams {
 
 export interface ConversationForkParams {
   /**
-   * Agent ID for agent-direct mode with 'default' conversation
+   * Query param: Agent ID for agent-direct mode with 'default' conversation
    */
   agent_id?: string | null;
 
   /**
-   * Whether the forked conversation should be hidden from listings
+   * Query param: Whether the forked conversation should be hidden from listings
    */
   hidden?: boolean;
 
   /**
-   * The ID of the message in the format 'message-<uuid4>'
+   * Query param: The ID of the message in the format 'message-<uuid4>'
    */
   message_id?: string | null;
+
+  /**
+   * Body param
+   */
+  ephemeral?: boolean;
+
+  /**
+   * Body param
+   */
+  is_subagent?: boolean;
+
+  /**
+   * Body param
+   */
+  name?: string | null;
+
+  [k: string]: unknown;
 }
 
 export interface ConversationRecompileParams {
@@ -2278,12 +3272,14 @@ export namespace ConversationRecompileParams {
       | AgentsAPI.OpenAIModelSettings
       | CompactionSettings.SgLangModelSettings
       | AgentsAPI.AnthropicModelSettings
+      | CompactionSettings.MiniMaxModelSettings
       | AgentsAPI.GoogleAIModelSettings
       | AgentsAPI.GoogleVertexModelSettings
       | AgentsAPI.AzureModelSettings
       | AgentsAPI.XaiModelSettings
       | CompactionSettings.MoonshotModelSettings
       | CompactionSettings.ZaiModelSettings
+      | CompactionSettings.ZaiCodingModelSettings
       | CompactionSettings.MoonshotCodingModelSettings
       | AgentsAPI.GroqModelSettings
       | AgentsAPI.DeepseekModelSettings
@@ -2370,9 +3366,84 @@ export namespace ConversationRecompileParams {
        */
       export interface Reasoning {
         /**
-         * The reasoning effort to use when generating text reasoning models
+         * The reasoning effort to use when generating text reasoning models. Supported
+         * values depend on the model and provider.
          */
-        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh';
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+      }
+    }
+
+    /**
+     * MiniMax model configuration (Anthropic-compatible).
+     */
+    export interface MiniMaxModelSettings {
+      /**
+       * Effort level for supported Anthropic models (controls token spending). 'xhigh'
+       * and 'max' are available on Opus 4.6+. Not setting this gives similar performance
+       * to 'high'.
+       */
+      effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max' | null;
+
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'minimax';
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * Enable strict mode for tool calling. When true, tool outputs are guaranteed to
+       * match JSON schemas.
+       */
+      strict?: boolean;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for the model.
+       */
+      thinking?: MiniMaxModelSettings.Thinking;
+
+      /**
+       * Soft control for how verbose model output should be, used for GPT-5 models.
+       */
+      verbosity?: 'low' | 'medium' | 'high' | null;
+    }
+
+    export namespace MiniMaxModelSettings {
+      /**
+       * The thinking configuration for the model.
+       */
+      export interface Thinking {
+        /**
+         * The maximum number of tokens the model can use for extended thinking.
+         */
+        budget_tokens?: number;
+
+        /**
+         * The type of thinking to use.
+         */
+        type?: 'enabled' | 'disabled';
       }
     }
 
@@ -2436,6 +3507,11 @@ export namespace ConversationRecompileParams {
       provider_type?: 'zai';
 
       /**
+       * The reasoning effort for Z.ai models that support explicit effort control.
+       */
+      reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+      /**
        * The response format for the model.
        */
       response_format?:
@@ -2456,6 +3532,67 @@ export namespace ConversationRecompileParams {
     }
 
     export namespace ZaiModelSettings {
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      export interface Thinking {
+        /**
+         * If False, preserved thinking is used (recommended for agents).
+         */
+        clear_thinking?: boolean;
+
+        /**
+         * Whether thinking is enabled or disabled.
+         */
+        type?: 'enabled' | 'disabled';
+      }
+    }
+
+    /**
+     * Z.ai coding model configuration (OpenAI-compatible, zai_coding provider).
+     */
+    export interface ZaiCodingModelSettings {
+      /**
+       * The maximum number of tokens the model can generate.
+       */
+      max_output_tokens?: number;
+
+      /**
+       * Whether to enable parallel tool calling.
+       */
+      parallel_tool_calls?: boolean;
+
+      /**
+       * The type of the provider.
+       */
+      provider_type?: 'zai_coding';
+
+      /**
+       * The reasoning effort for Z.ai models that support explicit effort control.
+       */
+      reasoning_effort?: 'low' | 'high' | 'max' | null;
+
+      /**
+       * The response format for the model.
+       */
+      response_format?:
+        | AgentsAPI.TextResponseFormat
+        | AgentsAPI.JsonSchemaResponseFormat
+        | AgentsAPI.JsonObjectResponseFormat
+        | null;
+
+      /**
+       * The temperature of the model.
+       */
+      temperature?: number;
+
+      /**
+       * The thinking configuration for GLM-4.5+ models.
+       */
+      thinking?: ZaiCodingModelSettings.Thinking;
+    }
+
+    export namespace ZaiCodingModelSettings {
       /**
        * The thinking configuration for GLM-4.5+ models.
        */
@@ -2591,6 +3728,11 @@ export namespace ConversationRecompileParams {
       provider_type?: 'openrouter';
 
       /**
+       * The reasoning configuration for the model.
+       */
+      reasoning?: OpenRouterModelSettings.Reasoning | null;
+
+      /**
        * The response format for the model.
        */
       response_format?:
@@ -2603,6 +3745,19 @@ export namespace ConversationRecompileParams {
        * The temperature of the model.
        */
       temperature?: number;
+    }
+
+    export namespace OpenRouterModelSettings {
+      /**
+       * The reasoning configuration for the model.
+       */
+      export interface Reasoning {
+        /**
+         * The reasoning effort to use when generating text reasoning models. Supported
+         * values depend on the model and provider.
+         */
+        reasoning_effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+      }
     }
 
     /**
@@ -2633,6 +3788,11 @@ export namespace ConversationRecompileParams {
        * The temperature of the model.
        */
       temperature?: number;
+
+      /**
+       * Soft control for how verbose model output should be, used for GPT-5 models.
+       */
+      verbosity?: 'low' | 'medium' | 'high' | null;
     }
 
     export namespace ChatGptoAuthModelSettings {
@@ -2641,12 +3801,47 @@ export namespace ConversationRecompileParams {
        */
       export interface Reasoning {
         /**
-         * The reasoning effort level for GPT-5.x and o-series models.
+         * The reasoning effort level for GPT-5.x and o-series models. 'max' is supported
+         * only by GPT-5.6 models.
          */
-        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh';
+        reasoning_effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
       }
     }
   }
+}
+
+export interface ConversationSearchParams {
+  /**
+   * Text query for searching conversation summaries or generated descriptions.
+   */
+  query: string;
+
+  /**
+   * Filter conversations by agent ID.
+   */
+  agent_id?: string | null;
+
+  /**
+   * Whether to search unarchived conversations only, archived conversations only, or
+   * all conversations.
+   */
+  archive_status?: 'unarchived' | 'archived' | 'all';
+
+  /**
+   * Maximum number of results to return.
+   */
+  limit?: number;
+
+  /**
+   * Search mode to use.
+   */
+  search_mode?: 'vector' | 'fts' | 'hybrid';
+
+  /**
+   * Which conversation text field to search: the user-facing summary/title or the
+   * generated conversation description.
+   */
+  search_target?: 'summary' | 'description';
 }
 
 Conversations.Messages = Messages;
@@ -2660,12 +3855,15 @@ export declare namespace Conversations {
     type ConversationDeleteResponse as ConversationDeleteResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationRecompileResponse as ConversationRecompileResponse,
+    type ConversationSearchResponse as ConversationSearchResponse,
     type ConversationCreateParams as ConversationCreateParams,
+    type ConversationRetrieveParams as ConversationRetrieveParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
     type ConversationCancelParams as ConversationCancelParams,
     type ConversationForkParams as ConversationForkParams,
     type ConversationRecompileParams as ConversationRecompileParams,
+    type ConversationSearchParams as ConversationSearchParams,
   };
 
   export {

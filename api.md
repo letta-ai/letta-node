@@ -39,6 +39,7 @@ Types:
 - <code><a href="./src/resources/agents/agents.ts">TextResponseFormat</a></code>
 - <code><a href="./src/resources/agents/agents.ts">TogetherModelSettings</a></code>
 - <code><a href="./src/resources/agents/agents.ts">XaiModelSettings</a></code>
+- <code><a href="./src/resources/agents/agents.ts">AgentRetrieveResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentDeleteResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentExportFileResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentImportFileResponse</a></code>
@@ -47,7 +48,7 @@ Types:
 Methods:
 
 - <code title="post /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">create</a>({ ...params }) -> AgentState</code>
-- <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">retrieve</a>(agentID, { ...params }) -> AgentState</code>
+- <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">retrieve</a>(agentID, { ...params }) -> AgentRetrieveResponse</code>
 - <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">update</a>(agentID, { ...params }) -> AgentState</code>
 - <code title="get /v1/agents/">client.agents.<a href="./src/resources/agents/agents.ts">list</a>({ ...params }) -> AgentStatesArrayPage</code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentID) -> unknown</code>
@@ -497,34 +498,6 @@ Methods:
 
 - <code title="get /v1/steps/{step_id}/messages">client.steps.messages.<a href="./src/resources/steps/messages.ts">list</a>(stepID, { ...params }) -> MessageListResponsesArrayPage</code>
 
-# Templates
-
-Types:
-
-- <code><a href="./src/resources/templates/templates.ts">TemplateCreateResponse</a></code>
-- <code><a href="./src/resources/templates/templates.ts">TemplateUpdateResponse</a></code>
-- <code><a href="./src/resources/templates/templates.ts">TemplateDeleteResponse</a></code>
-- <code><a href="./src/resources/templates/templates.ts">TemplateRollbackResponse</a></code>
-- <code><a href="./src/resources/templates/templates.ts">TemplateSaveResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/templates">client.templates.<a href="./src/resources/templates/templates.ts">create</a>({ ...params }) -> TemplateCreateResponse</code>
-- <code title="patch /v1/templates/{template_name}">client.templates.<a href="./src/resources/templates/templates.ts">update</a>(templateName, { ...params }) -> TemplateUpdateResponse</code>
-- <code title="delete /v1/templates/{template_name}">client.templates.<a href="./src/resources/templates/templates.ts">delete</a>(templateName) -> TemplateDeleteResponse</code>
-- <code title="post /v1/templates/{template_name}/rollback">client.templates.<a href="./src/resources/templates/templates.ts">rollback</a>(templateName, { ...params }) -> TemplateRollbackResponse</code>
-- <code title="post /v1/templates/{template_name}/save">client.templates.<a href="./src/resources/templates/templates.ts">save</a>(templateName, { ...params }) -> TemplateSaveResponse</code>
-
-## Agents
-
-Types:
-
-- <code><a href="./src/resources/templates/agents.ts">AgentCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/templates/{template_version}/agents">client.templates.agents.<a href="./src/resources/templates/agents.ts">create</a>(templateVersion, { ...params }) -> AgentCreateResponse</code>
-
 # Tags
 
 Types:
@@ -562,6 +535,36 @@ Methods:
 
 - <code title="post /v1/passages/search">client.passages.<a href="./src/resources/passages.ts">search</a>({ ...params }) -> PassageSearchResponse</code>
 
+# Goals
+
+Types:
+
+- <code><a href="./src/resources/goals.ts">Goal</a></code>
+- <code><a href="./src/resources/goals.ts">GoalListResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/goals">client.goals.<a href="./src/resources/goals.ts">create</a>({ ...params }) -> Goal</code>
+- <code title="get /v1/goals/{goal_id}">client.goals.<a href="./src/resources/goals.ts">retrieve</a>(goalID) -> Goal</code>
+- <code title="patch /v1/goals/{goal_id}">client.goals.<a href="./src/resources/goals.ts">update</a>(goalID, { ...params }) -> Goal</code>
+- <code title="get /v1/goals">client.goals.<a href="./src/resources/goals.ts">list</a>({ ...params }) -> GoalListResponse</code>
+- <code title="delete /v1/goals/{goal_id}">client.goals.<a href="./src/resources/goals.ts">delete</a>(goalID) -> void</code>
+
+# Monitors
+
+Types:
+
+- <code><a href="./src/resources/monitors.ts">Monitor</a></code>
+- <code><a href="./src/resources/monitors.ts">MonitorListResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/monitors">client.monitors.<a href="./src/resources/monitors.ts">create</a>({ ...params }) -> Monitor</code>
+- <code title="get /v1/monitors/{monitor_id}">client.monitors.<a href="./src/resources/monitors.ts">retrieve</a>(monitorID) -> Monitor</code>
+- <code title="patch /v1/monitors/{monitor_id}">client.monitors.<a href="./src/resources/monitors.ts">update</a>(monitorID, { ...params }) -> Monitor</code>
+- <code title="get /v1/monitors">client.monitors.<a href="./src/resources/monitors.ts">list</a>({ ...params }) -> MonitorListResponse</code>
+- <code title="delete /v1/monitors/{monitor_id}">client.monitors.<a href="./src/resources/monitors.ts">delete</a>(monitorID) -> void</code>
+
 # Conversations
 
 Types:
@@ -573,17 +576,19 @@ Types:
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationDeleteResponse</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationCancelResponse</a></code>
 - <code><a href="./src/resources/conversations/conversations.ts">ConversationRecompileResponse</a></code>
+- <code><a href="./src/resources/conversations/conversations.ts">ConversationSearchResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">create</a>({ ...params }) -> Conversation</code>
-- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(conversationID) -> Conversation</code>
+- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">retrieve</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="patch /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">update</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/resources/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
 - <code title="delete /v1/conversations/{conversation_id}">client.conversations.<a href="./src/resources/conversations/conversations.ts">delete</a>(conversationID) -> unknown</code>
 - <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/resources/conversations/conversations.ts">cancel</a>(conversationID, { ...params }) -> ConversationCancelResponse</code>
 - <code title="post /v1/conversations/{conversation_id}/fork">client.conversations.<a href="./src/resources/conversations/conversations.ts">fork</a>(conversationID, { ...params }) -> Conversation</code>
 - <code title="post /v1/conversations/{conversation_id}/recompile">client.conversations.<a href="./src/resources/conversations/conversations.ts">recompile</a>(conversationID, { ...params }) -> string</code>
+- <code title="post /v1/conversations/search">client.conversations.<a href="./src/resources/conversations/conversations.ts">search</a>({ ...params }) -> ConversationSearchResponse</code>
 
 ## Messages
 
