@@ -3215,6 +3215,11 @@ export interface ConversationForkParams {
    */
   name?: string | null;
 
+  /**
+   * Body param
+   */
+  summary?: string | null;
+
   [k: string]: unknown;
 }
 

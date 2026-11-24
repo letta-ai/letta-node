@@ -172,6 +172,7 @@ describe('resource conversations', () => {
           ephemeral: true,
           is_subagent: true,
           name: 'name',
+          summary: 'summary',
         },
         { path: '/_stainless_unknown_path' },
       ),
