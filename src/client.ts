@@ -73,6 +73,14 @@ import {
   Monitors,
 } from './resources/monitors';
 import { Passage, PassageSearchParams, PassageSearchResponse, Passages } from './resources/passages';
+import {
+  Subagent,
+  SubagentCreateParams,
+  SubagentListParams,
+  SubagentListResponse,
+  SubagentUpdateParams,
+  Subagents,
+} from './resources/subagents';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
 import {
   NpmRequirement,
@@ -1019,6 +1027,7 @@ export class Letta {
   messages: API.Messages = new API.Messages(this);
   passages: API.Passages = new API.Passages(this);
   goals: API.Goals = new API.Goals(this);
+  subagents: API.Subagents = new API.Subagents(this);
   monitors: API.Monitors = new API.Monitors(this);
   conversations: API.Conversations = new API.Conversations(this);
   environments: API.Environments = new API.Environments(this);
@@ -1038,6 +1047,7 @@ Letta.Tags = Tags;
 Letta.Messages = Messages;
 Letta.Passages = Passages;
 Letta.Goals = Goals;
+Letta.Subagents = Subagents;
 Letta.Monitors = Monitors;
 Letta.Conversations = Conversations;
 Letta.Environments = Environments;
@@ -1230,6 +1240,15 @@ export declare namespace Letta {
     type GoalCreateParams as GoalCreateParams,
     type GoalUpdateParams as GoalUpdateParams,
     type GoalListParams as GoalListParams,
+  };
+
+  export {
+    Subagents as Subagents,
+    type Subagent as Subagent,
+    type SubagentListResponse as SubagentListResponse,
+    type SubagentCreateParams as SubagentCreateParams,
+    type SubagentUpdateParams as SubagentUpdateParams,
+    type SubagentListParams as SubagentListParams,
   };
 
   export {

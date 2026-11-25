@@ -550,6 +550,19 @@ Methods:
 - <code title="get /v1/goals">client.goals.<a href="./src/resources/goals.ts">list</a>({ ...params }) -> GoalListResponse</code>
 - <code title="delete /v1/goals/{goal_id}">client.goals.<a href="./src/resources/goals.ts">delete</a>(goalID) -> void</code>
 
+# Subagents
+
+Types:
+
+- <code><a href="./src/resources/subagents.ts">Subagent</a></code>
+- <code><a href="./src/resources/subagents.ts">SubagentListResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/subagents">client.subagents.<a href="./src/resources/subagents.ts">create</a>({ ...params }) -> Subagent</code>
+- <code title="patch /v1/subagents/{subagent_id}">client.subagents.<a href="./src/resources/subagents.ts">update</a>(subagentID, { ...params }) -> Subagent</code>
+- <code title="get /v1/subagents">client.subagents.<a href="./src/resources/subagents.ts">list</a>({ ...params }) -> SubagentListResponse</code>
+
 # Monitors
 
 Types:

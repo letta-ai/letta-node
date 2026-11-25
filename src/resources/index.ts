@@ -173,6 +173,14 @@ export {
   type StepListParams,
   type StepsArrayPage,
 } from './steps/steps';
+export {
+  Subagents,
+  type Subagent,
+  type SubagentListResponse,
+  type SubagentCreateParams,
+  type SubagentUpdateParams,
+  type SubagentListParams,
+} from './subagents';
 export { Tags, type TagListResponse, type TagListParams } from './tags';
 export {
   Tools,
