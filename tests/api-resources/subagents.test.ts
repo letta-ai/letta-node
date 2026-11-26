@@ -100,6 +100,7 @@ describe('resource subagents', () => {
           limit: 1,
           parent_agent_id: 'x',
           parent_conversation_id: 'x',
+          status: 'running',
         },
         { path: '/_stainless_unknown_path' },
       ),

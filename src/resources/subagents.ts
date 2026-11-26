@@ -25,7 +25,8 @@ export class Subagents extends APIResource {
   }
 
   /**
-   * List subagents
+   * Returns subagents ordered by most recently updated, with descending subagent ID
+   * breaking ties.
    */
   list(
     query: SubagentListParams | null | undefined = {},
@@ -137,6 +138,8 @@ export interface SubagentListParams {
   parent_agent_id?: string;
 
   parent_conversation_id?: string;
+
+  status?: 'running' | 'idle' | 'completed' | 'failed' | 'stopped';
 }
 
 export declare namespace Subagents {
