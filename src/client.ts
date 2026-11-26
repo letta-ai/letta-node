@@ -47,6 +47,14 @@ import {
   Environments,
 } from './resources/environments';
 import {
+  Goal,
+  GoalCreateParams,
+  GoalListParams,
+  GoalListResponse,
+  GoalUpdateParams,
+  Goals,
+} from './resources/goals';
+import {
   MessageListParams,
   MessageListResponse,
   MessageRetrieveResponse,
@@ -56,7 +64,23 @@ import {
   MessageSearchResult,
   Messages,
 } from './resources/messages';
+import {
+  Monitor,
+  MonitorCreateParams,
+  MonitorListParams,
+  MonitorListResponse,
+  MonitorUpdateParams,
+  Monitors,
+} from './resources/monitors';
 import { Passage, PassageSearchParams, PassageSearchResponse, Passages } from './resources/passages';
+import {
+  Subagent,
+  SubagentCreateParams,
+  SubagentListParams,
+  SubagentListResponse,
+  SubagentUpdateParams,
+  Subagents,
+} from './resources/subagents';
 import { TagListParams, TagListResponse, Tags } from './resources/tags';
 import {
   NpmRequirement,
@@ -89,6 +113,7 @@ import {
   AgentRecompileParams,
   AgentRecompileResponse,
   AgentRetrieveParams,
+  AgentRetrieveResponse,
   AgentState,
   AgentStatesArrayPage,
   AgentType,
@@ -149,6 +174,9 @@ import {
   ConversationListResponse,
   ConversationRecompileParams,
   ConversationRecompileResponse,
+  ConversationRetrieveParams,
+  ConversationSearchParams,
+  ConversationSearchResponse,
   ConversationUpdateParams,
   Conversations,
   CreateConversation,
@@ -196,19 +224,6 @@ import {
 } from './resources/models/models';
 import { Job, RunListParams, Runs, StopReasonType } from './resources/runs/runs';
 import { ProviderTrace, Step, StepListParams, Steps, StepsArrayPage } from './resources/steps/steps';
-import {
-  TemplateCreateParams,
-  TemplateCreateResponse,
-  TemplateDeleteParams,
-  TemplateDeleteResponse,
-  TemplateRollbackParams,
-  TemplateRollbackResponse,
-  TemplateSaveParams,
-  TemplateSaveResponse,
-  TemplateUpdateParams,
-  TemplateUpdateResponse,
-  Templates,
-} from './resources/templates/templates';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -927,11 +942,19 @@ export class Letta {
     return () => controller.abort();
   }
 
-  private buildBody({ options: { body, headers: rawHeaders } }: { options: FinalRequestOptions }): {
+  private buildBody({ options }: { options: FinalRequestOptions }): {
     bodyHeaders: HeadersLike;
     body: BodyInit | undefined;
   } {
+    const { body, headers: rawHeaders } = options;
     if (!body) {
+      // A resource method always passes a `body` key when its operation defines a
+      // request body, even if the caller omitted an optional body param. Keep the
+      // content-type for those, and only elide it for operations with no body at
+      // all (e.g. GET/DELETE).
+      if (body == null && 'body' in options) {
+        return this.#encoder({ body, headers: buildHeaders([rawHeaders]) });
+      }
       return { bodyHeaders: undefined, body: undefined };
     }
     const headers = buildHeaders([rawHeaders]);
@@ -1000,10 +1023,12 @@ export class Letta {
   mcpServers: API.McpServers = new API.McpServers(this);
   runs: API.Runs = new API.Runs(this);
   steps: API.Steps = new API.Steps(this);
-  templates: API.Templates = new API.Templates(this);
   tags: API.Tags = new API.Tags(this);
   messages: API.Messages = new API.Messages(this);
   passages: API.Passages = new API.Passages(this);
+  goals: API.Goals = new API.Goals(this);
+  subagents: API.Subagents = new API.Subagents(this);
+  monitors: API.Monitors = new API.Monitors(this);
   conversations: API.Conversations = new API.Conversations(this);
   environments: API.Environments = new API.Environments(this);
   accessTokens: API.AccessTokens = new API.AccessTokens(this);
@@ -1018,10 +1043,12 @@ Letta.Models = Models;
 Letta.McpServers = McpServers;
 Letta.Runs = Runs;
 Letta.Steps = Steps;
-Letta.Templates = Templates;
 Letta.Tags = Tags;
 Letta.Messages = Messages;
 Letta.Passages = Passages;
+Letta.Goals = Goals;
+Letta.Subagents = Subagents;
+Letta.Monitors = Monitors;
 Letta.Conversations = Conversations;
 Letta.Environments = Environments;
 Letta.AccessTokens = AccessTokens;
@@ -1072,6 +1099,7 @@ export declare namespace Letta {
     type TextResponseFormat as TextResponseFormat,
     type TogetherModelSettings as TogetherModelSettings,
     type XaiModelSettings as XaiModelSettings,
+    type AgentRetrieveResponse as AgentRetrieveResponse,
     type AgentDeleteResponse as AgentDeleteResponse,
     type AgentExportFileResponse as AgentExportFileResponse,
     type AgentImportFileResponse as AgentImportFileResponse,
@@ -1185,20 +1213,6 @@ export declare namespace Letta {
     type StepListParams as StepListParams,
   };
 
-  export {
-    Templates as Templates,
-    type TemplateCreateResponse as TemplateCreateResponse,
-    type TemplateUpdateResponse as TemplateUpdateResponse,
-    type TemplateDeleteResponse as TemplateDeleteResponse,
-    type TemplateRollbackResponse as TemplateRollbackResponse,
-    type TemplateSaveResponse as TemplateSaveResponse,
-    type TemplateCreateParams as TemplateCreateParams,
-    type TemplateUpdateParams as TemplateUpdateParams,
-    type TemplateDeleteParams as TemplateDeleteParams,
-    type TemplateRollbackParams as TemplateRollbackParams,
-    type TemplateSaveParams as TemplateSaveParams,
-  };
-
   export { Tags as Tags, type TagListResponse as TagListResponse, type TagListParams as TagListParams };
 
   export {
@@ -1220,6 +1234,33 @@ export declare namespace Letta {
   };
 
   export {
+    Goals as Goals,
+    type Goal as Goal,
+    type GoalListResponse as GoalListResponse,
+    type GoalCreateParams as GoalCreateParams,
+    type GoalUpdateParams as GoalUpdateParams,
+    type GoalListParams as GoalListParams,
+  };
+
+  export {
+    Subagents as Subagents,
+    type Subagent as Subagent,
+    type SubagentListResponse as SubagentListResponse,
+    type SubagentCreateParams as SubagentCreateParams,
+    type SubagentUpdateParams as SubagentUpdateParams,
+    type SubagentListParams as SubagentListParams,
+  };
+
+  export {
+    Monitors as Monitors,
+    type Monitor as Monitor,
+    type MonitorListResponse as MonitorListResponse,
+    type MonitorCreateParams as MonitorCreateParams,
+    type MonitorUpdateParams as MonitorUpdateParams,
+    type MonitorListParams as MonitorListParams,
+  };
+
+  export {
     Conversations as Conversations,
     type Conversation as Conversation,
     type CreateConversation as CreateConversation,
@@ -1228,12 +1269,15 @@ export declare namespace Letta {
     type ConversationDeleteResponse as ConversationDeleteResponse,
     type ConversationCancelResponse as ConversationCancelResponse,
     type ConversationRecompileResponse as ConversationRecompileResponse,
+    type ConversationSearchResponse as ConversationSearchResponse,
     type ConversationCreateParams as ConversationCreateParams,
+    type ConversationRetrieveParams as ConversationRetrieveParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
     type ConversationCancelParams as ConversationCancelParams,
     type ConversationForkParams as ConversationForkParams,
     type ConversationRecompileParams as ConversationRecompileParams,
+    type ConversationSearchParams as ConversationSearchParams,
   };
 
   export {

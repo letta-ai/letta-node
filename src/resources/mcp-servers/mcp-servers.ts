@@ -101,6 +101,10 @@ export interface CreateSseMcpServer {
   custom_headers?: { [key: string]: string } | null;
 
   mcp_server_type?: 'sse';
+
+  oauth_client_id?: string | null;
+
+  oauth_client_secret?: string | null;
 }
 
 /**
@@ -150,6 +154,10 @@ export interface CreateStreamableHTTPMcpServer {
   custom_headers?: { [key: string]: string } | null;
 
   mcp_server_type?: 'streamable_http';
+
+  oauth_client_id?: string | null;
+
+  oauth_client_secret?: string | null;
 }
 
 /**
@@ -186,7 +194,11 @@ export interface SseMcpServer {
    */
   custom_headers?: { [key: string]: string } | null;
 
+  has_oauth_client_secret?: boolean;
+
   mcp_server_type?: 'sse';
+
+  oauth_client_id?: string | null;
 }
 
 /**
@@ -255,7 +267,11 @@ export interface StreamableHTTPMcpServer {
    */
   custom_headers?: { [key: string]: string } | null;
 
+  has_oauth_client_secret?: boolean;
+
   mcp_server_type?: 'streamable_http';
+
+  oauth_client_id?: string | null;
 }
 
 /**
@@ -283,6 +299,10 @@ export interface UpdateSseMcpServer {
   custom_headers?: { [key: string]: string } | null;
 
   mcp_server_type?: 'sse';
+
+  oauth_client_id?: string | null;
+
+  oauth_client_secret?: string | null;
 }
 
 /**
@@ -332,6 +352,10 @@ export interface UpdateStreamableHTTPMcpServer {
   custom_headers?: { [key: string]: string } | null;
 
   mcp_server_type?: 'streamable_http';
+
+  oauth_client_id?: string | null;
+
+  oauth_client_secret?: string | null;
 }
 
 /**
@@ -363,6 +387,8 @@ export interface McpServerCreateParams {
    * The name of the MCP server
    */
   server_name: string;
+
+  access?: 'current-user';
 }
 
 export interface McpServerUpdateParams {
